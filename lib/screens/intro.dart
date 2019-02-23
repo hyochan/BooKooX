@@ -17,11 +17,11 @@ class IntroState extends State<Intro> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            'dooboolab'
+          'dooboolab'
         ),
       ),
       body: Center(
-        child: Text(localization.trans('INTRO')),
+//        child: Text(localization.trans('INTRO')),
       ),
     );
   }

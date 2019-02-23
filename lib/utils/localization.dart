@@ -15,15 +15,14 @@ class Localization {
 
   Map<String, dynamic> _sentences;
 
-  Future<bool> load() async {
+  Future<Localization> load() async {
     print('languageCode: ${this.locale.languageCode}');
 
     String data = await rootBundle
         .loadString('res/langs/${this.locale.languageCode}.json');
-    print('$data');
 
     this._sentences = json.decode(data);
-    return true;
+    return Localization(this.locale);
   }
 
   String trans(String key) {
@@ -47,9 +46,6 @@ class LocalizationDelegate extends LocalizationsDelegate<Localization> {
   Future<Localization> load(Locale locale) async {
     Localization localizations = new Localization(locale);
     await localizations.load();
-
-    print("Load ${locale.languageCode}");
-
     return localizations;
   }
 

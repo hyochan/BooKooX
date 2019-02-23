@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
-      title: 'dooboolab',
+      title: 'BooKoo',
       home: Splash(), // production
     );
   }
