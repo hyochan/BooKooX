@@ -51,7 +51,10 @@ class SplashState extends State<Splash> {
             width: double.infinity,
             color: Theme.Colors.dodgerBlue,
           ),
-          Text('Loading'),
+          Text(
+            'Loading',
+            key: Key('LOADING'),
+          ),
           AnimatedOpacity(
             opacity: !_visible ? 0.0 : 1.0,
             duration: Duration(milliseconds: 2000),
