@@ -1,5 +1,6 @@
 # BooKoo2
 [![Build Status](https://travis-ci.com/hyochan/bookoo2.svg?token=LrhznigBQyTepcFfeNdp&branch=master)](https://travis-ci.com/hyochan/bookoo2)
+[![Coverage Status](https://coveralls.io/repos/github/hyochan/bookoo2/badge.svg)](https://coveralls.io/github/hyochan/bookoo2)
 
 BooKoo2 is the renewal app of BooKoo which is the global SNS ledger app.
 
