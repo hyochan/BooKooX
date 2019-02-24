@@ -46,6 +46,7 @@ flutter:
   assets:
   - res/langs/en.json
   - res/langs/ko.json
+  - res/icons/
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
