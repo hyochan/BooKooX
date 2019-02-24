@@ -16,11 +16,12 @@ class Splash extends StatefulWidget {
 
 class SplashState extends State<Splash> {
   bool _visible = false;
+  Timer _timer;
 
   Future<void> navigateRoute() async{
     String initialRoute = '/intro';
 
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(milliseconds: 1500), () {
       SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
       General.instance.navigateScreenNamed(context, initialRoute, reset: true);
     });
@@ -30,13 +31,22 @@ class SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    Timer(Duration(milliseconds: 100), () {
+    _timer = Timer(Duration(milliseconds: 100), () {
       setState(() {
         this._visible = true;
       });
     });
     SystemChrome.setEnabledSystemUIOverlays([]);
     this.navigateRoute();
+  }
+
+
+  @override
+  void dispose() {
+    if (_timer != null) {
+      _timer.cancel();
+    }
+    super.dispose();
   }
 
   @override
@@ -49,15 +59,11 @@ class SplashState extends State<Splash> {
           Container(
             height: double.infinity,
             width: double.infinity,
-            color: Theme.Colors.dodgerBlue,
-          ),
-          Text(
-            'Loading',
-            key: Key('LOADING'),
+            color: Theme.Colors.dusk,
           ),
           AnimatedOpacity(
             opacity: !_visible ? 0.0 : 1.0,
-            duration: Duration(milliseconds: 2000),
+            duration: Duration(milliseconds: 1000),
             child: Container(
               child: Center(
                 child: Text(

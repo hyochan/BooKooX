@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Theme.Colors.dodgerBlue,
-        accentColor: Theme.Colors.dodgerBlue,
+        primaryColor: Theme.Colors.dusk,
+        accentColor: Theme.Colors.dusk,
         hintColor: Theme.Colors.paleGray,
         disabledColor: Theme.Colors.disabled,
       ),
@@ -31,9 +31,7 @@ class MyApp extends StatelessWidget {
         const Locale('ko', 'KR'),
       ],
       localizationsDelegates: [
-        const LocalizationDelegate(
-          supportedLocales: supportedLocales,
-        ),
+        const LocalizationDelegate(supportedLocales: ['en', 'ko']),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
@@ -49,7 +47,7 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
-      title: 'BooKoo',
+      title: 'BooKoo2',
       home: Splash(), // production
     );
   }

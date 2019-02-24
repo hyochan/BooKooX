@@ -5,27 +5,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Localization {
-  Localization(this.locale);
-
-  final Locale locale;
+  Localization(this._locale, {
+    this.isTest = false,
+  });
+  final Locale _locale;
+  bool isTest;
+  Map<String, String> _sentences;
 
   static Localization of(BuildContext context) {
     return Localizations.of<Localization>(context, Localization);
   }
 
-  Map<String, dynamic> _sentences;
-
-  Future<Localization> load() async {
-    print('languageCode: ${this.locale.languageCode}');
-
-    String data = await rootBundle
-        .loadString('res/langs/${this.locale.languageCode}.json');
-
-    this._sentences = json.decode(data);
-    return Localization(this.locale);
+  Future<Localization> loadTest(Locale locale) async {
+    return Localization(locale);
   }
 
+  Future<Localization> load() async {
+    String data = await rootBundle
+        .loadString('res/langs/${_locale.languageCode}.json');
+
+    Map<String, dynamic> _result = json.decode(data);
+    _sentences = new Map();
+    _result.forEach((String key, dynamic value) {
+      _sentences[key] = value.toString();
+    });
+    return Localization(_locale);
+  }
+
+
   String trans(String key) {
+    if (isTest) return key;
+
     if (key == null) {
       return '...';
     }
@@ -35,17 +45,24 @@ class Localization {
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {
   const LocalizationDelegate({
-    this.supportedLocales = const ['en', 'ko'],
+    this.supportedLocales = const ['en'],
+    this.isTest = false,
   });
-  final supportedLocales;
+  final List<String> supportedLocales;
+  final bool isTest;
 
   @override
-  bool isSupported(Locale locale) => this.supportedLocales.contains(locale.languageCode);
+  bool isSupported(Locale locale) => supportedLocales.contains(locale.languageCode);
 
   @override
   Future<Localization> load(Locale locale) async {
-    Localization localizations = new Localization(locale);
-    await localizations.load();
+    Localization localizations = new Localization(locale, isTest: isTest);
+    if (isTest) {
+      await localizations.loadTest(locale);
+    } else {
+      await localizations.load();
+    }
+
     return localizations;
   }
 

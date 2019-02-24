@@ -19,9 +19,9 @@ class DialogSpinner extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CircularProgressIndicator(
-              backgroundColor: Theme.Colors.dodgerBlue,
+              backgroundColor: Theme.Colors.dusk,
               strokeWidth: 5.0,
-              valueColor: AlwaysStoppedAnimation<Color>(Theme.Colors.dodgerBlue),
+              valueColor: AlwaysStoppedAnimation<Color>(Theme.Colors.dusk),
             ),
             Container(
               margin: EdgeInsets.only(left: 30.0),
