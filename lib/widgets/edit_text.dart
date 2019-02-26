@@ -13,7 +13,6 @@ class EditText extends StatelessWidget {
       fontSize: 16.0,
       height: 0.7,
     ),
-    this.text = '',
     this.textStyle = const TextStyle(
       fontSize: 16.0,
       color: Theme.Colors.dusk,
@@ -40,7 +39,6 @@ class EditText extends StatelessWidget {
   final EdgeInsets padding;
   final String textLabel;
   final TextStyle labelStyle;
-  final String text;
   final TextStyle textStyle;
   final String textHint;
   final TextStyle hintStyle;

@@ -6,16 +6,16 @@ import '../utils/general.dart' show General;
 import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 import '../utils/validator.dart' show Validator;
+import '../blocs/text_field_bloc.dart' show TextFieldBloc;
 
-//class Login extends StatefulWidget {
-//  Login({Key key}) : super(key: key);
-//
-//  @override
-//  LoginState createState() => new LoginState();
-//}
+class Login extends StatefulWidget {
+  Login({Key key}) : super(key: key);
 
-//class LoginState extends State<Login> {
-class Login extends StatelessWidget {
+  @override
+  LoginState createState() => new LoginState();
+}
+
+class LoginState extends State<Login> {
   BuildContext _context;
   Localization _localization;
   ScrollController _scrollController;
@@ -24,30 +24,12 @@ class Login extends StatelessWidget {
   FocusNode _emailFocus;
   FocusNode _pwFocus;
 
-  void _onLogin(String email, String password) {
-    bool isEmail = Validator.instance.validateEmail(email);
-    bool isPassword = Validator.instance.validatePassword(password);
+  TextFieldBloc bloc = TextFieldBloc();
 
-    if (!isEmail) {
-      General.instance.showDialogYes(_context,
-          title: _localization.trans('ERROR'),
-        content: _localization.trans('NO_VALID_EMAIL'),
-      );
-      return;
-    }
-
-    if (!isPassword) {
-      General.instance.showDialogYes(_context,
-        title: _localization.trans('ERROR'),
-        content: _localization.trans('NO_VALID_PASSWORD'),
-      );
-      return;
-    }
-    print('onLogin');
-  }
-
-  void _onFindPw() {
-    print('onFindPw');
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -79,7 +61,6 @@ class Login extends StatelessWidget {
           color: Theme.Colors.dusk,
         ),
       ),
-      resizeToAvoidBottomPadding: true,
       body: CustomScrollView(
         controller: _scrollController,
         slivers: <Widget>[
@@ -95,33 +76,41 @@ class Login extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  EditText(
-                    focusNode: _emailFocus,
-                    margin: EdgeInsets.only(top: 68.0),
-                    textInputAction: TextInputAction.next,
-                    textLabel: _localization.trans('EMAIL'),
-                    textHint: _localization.trans('EMAIL_HINT'),
-                    textEditingController: _emailController,
-                    onSubmitted: (String str) {
-                      if (_pwController.text == '') {
-                        FocusScope.of(context).requestFocus(_pwFocus);
-                      }
-                      _emailController.text = str;
-                    },
+                  StreamBuilder(
+                    builder: (BuildContext context, AsyncSnapshot<String> snap) => EditText(
+                      focusNode: _emailFocus,
+                      margin: EdgeInsets.only(top: 68.0),
+                      textInputAction: TextInputAction.next,
+                      textLabel: _localization.trans('EMAIL'),
+                      textHint: _localization.trans('EMAIL_HINT'),
+                      onChanged: bloc.changeEmail,
+                      onSubmitted: (String str) {
+//                        if (_pwController.text == '') {
+//                          FocusScope.of(context).requestFocus(_pwFocus);
+//                        }
+                      },
+                    ),
+                    initialData: '',
+                    stream: bloc.email,
                   ),
-                  EditText(
-                    obscureText: true,
-                    focusNode: _pwFocus,
-                    margin: EdgeInsets.only(top: 24.0),
-                    textInputAction: TextInputAction.next,
-                    textLabel: _localization.trans('PASSWORD'),
-                    textHint: _localization.trans('PASSWORD_HINT'),
-                    textEditingController: _pwController,
-                    isSecret: true,
-                    onSubmitted: (String str) {
-                      _pwController.text = str;
-                      _onLogin(_emailController.text, _pwController.text);
-                    },
+                  StreamBuilder(
+                    builder: (BuildContext context, AsyncSnapshot<String> snap) => EditText(
+                      obscureText: true,
+                      focusNode: _pwFocus,
+                      margin: EdgeInsets.only(top: 24.0),
+                      textInputAction: TextInputAction.next,
+                      textLabel: _localization.trans('PASSWORD'),
+                      textHint: _localization.trans('PASSWORD_HINT'),
+                      textEditingController: _pwController,
+                      isSecret: true,
+                      onChanged: bloc.changePassword,
+                      onSubmitted: (String str) {
+                        _pwController.text = str;
+                        _onLogin(_emailController.text, _pwController.text);
+                      },
+                    ),
+                    initialData: '',
+                    stream: bloc.password,
                   ),
                   Button(
                     onPress: () => _onLogin(_emailController.text, _pwController.text),
@@ -166,5 +155,31 @@ class Login extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onLogin(String email, String password) {
+    bool isEmail = Validator.instance.validateEmail(email);
+    bool isPassword = Validator.instance.validatePassword(password);
+
+    if (!isEmail) {
+      General.instance.showDialogYes(_context,
+        title: _localization.trans('ERROR'),
+        content: _localization.trans('NO_VALID_EMAIL'),
+      );
+      return;
+    }
+
+    if (!isPassword) {
+      General.instance.showDialogYes(_context,
+        title: _localization.trans('ERROR'),
+        content: _localization.trans('NO_VALID_PASSWORD'),
+      );
+      return;
+    }
+    print('onLogin');
+  }
+
+  void _onFindPw() {
+    print('onFindPw');
   }
 }
