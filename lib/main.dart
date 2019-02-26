@@ -3,6 +3,8 @@ import 'package:flutter\_localizations/flutter\_localizations.dart';
 
 import './screens/splash.dart' show Splash;
 import './screens/intro.dart' show Intro;
+import './screens/login.dart' show Login;
+
 import './utils/localization.dart';
 import './utils/theme.dart' as Theme;
 
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (BuildContext context) => Splash(),
         '/intro': (BuildContext context) => Intro(),
+        '/login': (BuildContext context) => Login(),
       },
       supportedLocales: [
         const Locale('en', 'US'),

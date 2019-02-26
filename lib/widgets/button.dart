@@ -7,9 +7,15 @@ class Button extends StatelessWidget {
     this.width,
     this.height = 52.0,
     this.onPress,
-    this.color = Colors.white,
-    this.fontSize = 14.0,
+    this.backgroundColor = Colors.white,
     this.margin = const EdgeInsets.only(left: 28.0, right: 28.0),
+    this.borderWidth = 1.0,
+    this.borderRadius = 0.0,
+    this.borderColor = Colors.black54,
+    this.textStyle = const TextStyle(
+      color: Colors.white,
+      backgroundColor: Colors.black12,
+    ),
   });
 
   final String text;
@@ -17,9 +23,12 @@ class Button extends StatelessWidget {
   final double width;
   final double height;
   final VoidCallback onPress;
-  final color;
-  final double fontSize;
-  final margin;
+  final Color backgroundColor;
+  final EdgeInsets margin;
+  final double borderWidth;
+  final double borderRadius;
+  final Color borderColor;
+  final TextStyle textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -29,34 +38,30 @@ class Button extends StatelessWidget {
           alignment: Alignment.center,
           children: <Widget>[
             Positioned(
-              child: Container(child: this.image),
-              left: 2.0,
+              child: Container(child: image),
+              left: 0.0,
             ),
             Container(
               child: Center(
                 child: Text(
-                  this.text,
-                  style: TextStyle(
-                    color: this.color,
-                    fontSize: this.fontSize,
-                  ),
+                  text,
+                  style: textStyle,
                 ),
               ),
             ),
           ],
         ),
-        onPressed: () {
-          this.onPress();
-        },
+        onPressed: onPress,
       ),
       decoration: BoxDecoration(
-        border: Border.all(width: 1.5, color: this.color),
-        borderRadius: BorderRadius.all(Radius.circular(3.0)),
+        border: Border.all(width: borderWidth, color: borderColor),
+        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+        color: backgroundColor,
       ),
-      margin: this.margin,
-      height: this.height,
+      margin: margin,
+      height: height,
       width:
-          this.width != null ? this.width : MediaQuery.of(context).size.width,
+          width != null ? width : MediaQuery.of(context).size.width,
     );
   }
 }

@@ -1,15 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 import 'package:bookoo2/utils/localization.dart' show LocalizationDelegate;
-
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class TestUtils {
   static Widget makeTestableWidget({ Widget child }) {
