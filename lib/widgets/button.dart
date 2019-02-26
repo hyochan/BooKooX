@@ -13,8 +13,7 @@ class Button extends StatelessWidget {
     this.borderRadius = 0.0,
     this.borderColor = Colors.black54,
     this.textStyle = const TextStyle(
-      color: Colors.white,
-      backgroundColor: Colors.black12,
+      color: Colors.black12,
     ),
   });
 
