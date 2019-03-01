@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   const Button({
+    this.key,
     this.text = '',
     this.image,
     this.width,
@@ -17,6 +18,7 @@ class Button extends StatelessWidget {
     ),
   });
 
+  final Key key;
   final String text;
   final Image image;
   final double width;
@@ -32,13 +34,15 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: this.key,
       child: FlatButton(
+        padding: EdgeInsets.all(0.0),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             Positioned(
               child: Container(child: image),
-              left: 0.0,
+              left: 8.0,
             ),
             Container(
               child: Center(
