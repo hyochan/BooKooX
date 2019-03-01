@@ -3,6 +3,7 @@ import '../utils/theme.dart' as Theme;
 
 class EditText extends StatelessWidget {
   const EditText({
+    this.key,
     this.focusNode,
     this.maxLines = 1,
     this.margin,
@@ -33,6 +34,7 @@ class EditText extends StatelessWidget {
     this.obscureText = false,
   });
 
+  final Key key;
   final FocusNode focusNode;
   final int maxLines;
   final EdgeInsets margin;
@@ -67,6 +69,7 @@ class EditText extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           TextField(
+            key: this.key,
             obscureText: obscureText,
             focusNode: focusNode,
             maxLines: maxLines,

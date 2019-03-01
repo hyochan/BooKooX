@@ -98,7 +98,7 @@ class Intro extends StatelessWidget {
                             ),
                             borderColor: Colors.white,
                             backgroundColor: Colors.transparent,
-                            text: '   Facebook',
+                            text: '  Facebook',
                             width: MediaQuery.of(context).size.width / 2 - 64,
                             height: 56.0,
                             image: Image(
@@ -110,7 +110,7 @@ class Intro extends StatelessWidget {
                             textStyle: _loginWithTextStyle,
                             borderColor: Colors.white,
                             backgroundColor: Colors.transparent,
-                            text: '   Google',
+                            text: '  Google',
                             width: MediaQuery.of(context).size.width / 2- 64,
                             height: 56.0,
                             image: Image(

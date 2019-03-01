@@ -10,8 +10,8 @@ void main() {
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
-    print(findByText.evaluate());
     expect(findByText.evaluate().isEmpty, false);
+
     expect(find.text('LOGIN'), findsNWidgets(1));
   });
 }
