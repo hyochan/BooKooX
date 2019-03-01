@@ -25,9 +25,7 @@ class Intro extends StatelessWidget {
                     <Widget>[
                       Image(image: Theme.Icons.icBooKoo, width: 200.0, height: 60.0),
                       Button(
-                        onPress: () {
-                          General.instance.navigateScreenNamed(context, '/login');
-                        },
+                        onPress: () => General.instance.navigateScreenNamed(context, '/login'),
                         margin: EdgeInsets.only(top: 198.0),
                         textStyle: TextStyle(
                           fontSize: 16.0,
