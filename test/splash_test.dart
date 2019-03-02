@@ -5,14 +5,17 @@ import 'package:bookoo2/screens/splash.dart';
 import './test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets('Widget', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      TestUtils.makeTestableWidget(child: Splash()),
-      Duration(seconds: 1),
-    );
+  Future future;
 
-    var finderByType = find.byType(Text);
-    print(finderByType.evaluate());
-    await tester.pumpWidget(Placeholder());
+  setUp(() {
+    future = new Future.value();
+  });
+
+  testWidgets('Widget', (WidgetTester tester) async {
+    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Splash()));
+    await tester.runAsync(() => future);
+
+//     var finderByType = find.byType(Image);
+//     expect(finderByType, findsOneWidget);
   });
 }

@@ -16,12 +16,13 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   bool _visible = false;
+  Timer _navigationTimer;
   Timer _timer;
 
   Future<void> navigateRoute() async{
     String initialRoute = '/intro';
 
-    Timer(Duration(milliseconds: 1500), () {
+    _navigationTimer = Timer(Duration(milliseconds: 1500), () {
       SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
       General.instance.navigateScreenNamed(context, initialRoute, reset: true);
     });
@@ -31,7 +32,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    _timer = Timer(Duration(milliseconds: 100), () {
+    _timer = Timer(Duration(milliseconds: 1000), () {
       setState(() {
         this._visible = true;
       });
@@ -40,43 +41,41 @@ class _SplashState extends State<Splash> {
     this.navigateRoute();
   }
 
-
   @override
   void dispose() {
     if (_timer != null) {
       _timer.cancel();
+    }
+    if (_navigationTimer != null) {
+      _navigationTimer.cancel();
     }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context);
     return Scaffold(
       primary: true,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Theme.Colors.dusk,
-          ),
-          AnimatedOpacity(
-            opacity: !_visible ? 0.0 : 1.0,
-            duration: Duration(milliseconds: 1000),
-            child: Container(
-              child: Center(
-                child: Text(
-                  localization.trans('LOADING'),
-                  style: TextStyle(
-                    fontSize: 36.0,
-                    color: Colors.white,
-                  ),
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              color: Theme.Colors.dusk,
+            ),
+            AnimatedOpacity(
+              opacity: !_visible ? 0.0 : 1.0,
+              duration: Duration(milliseconds: 1000),
+              child: Container(
+                margin: EdgeInsets.only(bottom: 60.0),
+                child: Center(
+                  child: Image(image: Theme.Icons.icBooKoo, width: 200.0, height: 60.0),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
