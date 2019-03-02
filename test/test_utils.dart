@@ -6,6 +6,9 @@ import 'package:mockito/mockito.dart';
 import 'package:bookoo2/screens/splash.dart' show Splash;
 import 'package:bookoo2/screens/intro.dart' show Intro;
 import 'package:bookoo2/screens/login.dart' show Login;
+import 'package:bookoo2/screens/sign_up.dart' show SignUp;
+import 'package:bookoo2/screens/find_pw.dart' show FindPw;
+import 'package:bookoo2/screens/home.dart' show Home;
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -28,6 +31,9 @@ class TestUtils {
           '/splash': (BuildContext context) => Splash(),
           '/intro': (BuildContext context) => Intro(),
           '/login': (BuildContext context) => Login(),
+          '/sign_up': (BuildContext context) => SignUp(),
+          '/find_pw': (BuildContext context) => FindPw(),
+          '/home': (BuildContext context) => Home(),
         },
       ),
     );

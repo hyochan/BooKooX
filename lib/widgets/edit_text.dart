@@ -23,6 +23,11 @@ class EditText extends StatelessWidget {
       fontSize: 16.0,
       color: Theme.Colors.cloudyBlue,
     ),
+    this.errorText,
+    this.errorStyle = const TextStyle(
+      fontSize: 12.0,
+      color: Colors.red,
+    ),
     this.isSecret = false,
     this.hasChecked = false,
     this.showUnderline = true,
@@ -44,6 +49,8 @@ class EditText extends StatelessWidget {
   final TextStyle textStyle;
   final String textHint;
   final TextStyle hintStyle;
+  final String errorText;
+  final TextStyle errorStyle;
   final bool isSecret;
   final bool hasChecked;
   final bool showUnderline;
@@ -90,6 +97,8 @@ class EditText extends StatelessWidget {
                   : InputBorder.none,
               hintText: textHint,
               hintStyle: hintStyle,
+              errorText: errorText,
+              errorStyle: errorStyle,
             ),
             textInputAction: textInputAction,
             autocorrect: false,
