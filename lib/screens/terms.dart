@@ -7,14 +7,14 @@ import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 import '../utils/validator.dart' show Validator;
 
-class Agreement extends StatefulWidget {
-  Agreement({Key key}) : super(key: key);
+class Terms extends StatefulWidget {
+  Terms({Key key}) : super(key: key);
 
   @override
-  _AgreementState createState() => new _AgreementState();
+  _TermsState createState() => new _TermsState();
 }
 
-class _AgreementState extends State<Agreement> {
+class _TermsState extends State<Terms> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,11 @@ class _AgreementState extends State<Agreement> {
         iconTheme: IconThemeData(
           color: Theme.Colors.dusk,
         ),
-        title: Text('TERMS & AGREEMENT'),
+        title: Text('TERMS & Terms',
+          style: TextStyle(
+            color: Theme.Colors.dusk,
+          ),
+        ),
       ),
       body: CustomScrollView(
         slivers: <Widget>[

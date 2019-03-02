@@ -7,7 +7,7 @@ import './screens/login.dart' show Login;
 import './screens/sign_up.dart' show SignUp;
 import './screens/find_pw.dart' show FindPw;
 import './screens/home.dart' show Home;
-import './screens/agreement.dart' show Agreement;
+import './screens/terms.dart' show Terms;
 
 import './utils/localization.dart';
 import './utils/theme.dart' as Theme;
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/sign_up': (BuildContext context) => SignUp(),
         '/find_pw': (BuildContext context) => FindPw(),
         '/home': (BuildContext context) => Home(),
-        '/agreement': (BuildContext context) => Agreement(),
+        '/terms': (BuildContext context) => Terms(),
       },
       supportedLocales: [
         const Locale('en', 'US'),
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKoo2',
-      home: Splash(), // production
+      home: Home(), // production
     );
   }
 }
