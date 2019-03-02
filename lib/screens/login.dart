@@ -11,10 +11,10 @@ class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
 
   @override
-  LoginState createState() => new LoginState();
+  _LoginState createState() => new _LoginState();
 }
 
-class LoginState extends State<Login> {
+class _LoginState extends State<Login> {
   BuildContext _context;
   Localization _localization;
   ScrollController _scrollController = ScrollController();
@@ -23,7 +23,6 @@ class LoginState extends State<Login> {
   String _email;
   String _password;
   bool _isEmail;
-
 
   @override
   void dispose() {
@@ -118,7 +117,7 @@ class LoginState extends State<Login> {
     Widget findPwButton() {
       return FlatButton(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
-        onPressed: _onFindPw,
+        onPressed: () => General.instance.navigateScreenNamed(context, '/find_pw'),
         child: RichText(
           text: TextSpan(
             text: '${_localization.trans('DID_YOU_FORGOT_PASSWORD')}?',
@@ -196,9 +195,5 @@ class LoginState extends State<Login> {
       return;
     }
     print('onLogin');
-  }
-
-  void _onFindPw() {
-    print('onFindPw');
   }
 }

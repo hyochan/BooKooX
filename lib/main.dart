@@ -4,6 +4,10 @@ import 'package:flutter\_localizations/flutter\_localizations.dart';
 import './screens/splash.dart' show Splash;
 import './screens/intro.dart' show Intro;
 import './screens/login.dart' show Login;
+import './screens/sign_up.dart' show SignUp;
+import './screens/find_pw.dart' show FindPw;
+import './screens/home.dart' show Home;
+import './screens/agreement.dart' show Agreement;
 
 import './utils/localization.dart';
 import './utils/theme.dart' as Theme;
@@ -28,6 +32,10 @@ class MyApp extends StatelessWidget {
         '/splash': (BuildContext context) => Splash(),
         '/intro': (BuildContext context) => Intro(),
         '/login': (BuildContext context) => Login(),
+        '/sign_up': (BuildContext context) => SignUp(),
+        '/find_pw': (BuildContext context) => FindPw(),
+        '/home': (BuildContext context) => Home(),
+        '/agreement': (BuildContext context) => Agreement(),
       },
       supportedLocales: [
         const Locale('en', 'US'),
