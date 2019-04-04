@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeDrawer extends StatelessWidget {
-  HomeDrawer({
+class MyDrawer extends StatelessWidget {
+  MyDrawer({
     this.onClose, this.onSetting,
   });
   final Function onClose;
