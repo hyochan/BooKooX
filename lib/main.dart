@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
+import './navigations/home_tab.dart' show HomeTab;
 import './screens/splash.dart' show Splash;
 import './screens/intro.dart' show Intro;
 import './screens/login.dart' show Login;
 import './screens/sign_up.dart' show SignUp;
 import './screens/find_pw.dart' show FindPw;
-import './screens/home.dart' show Home;
 import './screens/terms.dart' show Terms;
 
 import './utils/localization.dart';
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         '/login': (BuildContext context) => Login(),
         '/sign_up': (BuildContext context) => SignUp(),
         '/find_pw': (BuildContext context) => FindPw(),
-        '/home': (BuildContext context) => Home(),
+        '/home': (BuildContext context) => HomeTab(),
         '/terms': (BuildContext context) => Terms(),
       },
       supportedLocales: [
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKoo2',
-      home: Home(), // production
+      home: HomeTab(),
     );
   }
 }
