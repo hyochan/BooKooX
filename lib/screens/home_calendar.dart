@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../screens/my_drawer.dart' show MyDrawer;
 import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
+
 import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 
-class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
+class HomeCalendar extends StatefulWidget {
+  HomeCalendar({Key key}) : super(key: key);
 
   @override
-  _HomeState createState() => new _HomeState();
+  _HomeCalendarState createState() => new _HomeCalendarState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeCalendarState extends State<HomeCalendar> {
   ScrollController _scrollController;
   EdgeInsets _titlePadding = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
 
@@ -23,15 +23,15 @@ class _HomeState extends State<Home> {
     super.initState();
     _scrollController = ScrollController()
       ..addListener(() {
-        if (_scrollController.offset > 52.0) {
-          setState(() {
-            _titlePadding = null;
-          });
-        } else {
-          setState(() {
-            _titlePadding = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
-          });
-        }
+//        if (_scrollController.offset > 52.0) {
+//          setState(() {
+//            _titlePadding = null;
+//          });
+//        } else {
+//          setState(() {
+//            _titlePadding = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
+//          });
+//        }
       });
   }
 
@@ -39,12 +39,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: MyDrawer(
-          onClose: () => Navigator.of(context).pop(),
-          onSetting: () => Navigator.of(context).pop(),
-        ),
-      ),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[

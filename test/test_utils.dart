@@ -8,7 +8,7 @@ import 'package:bookoo2/screens/intro.dart' show Intro;
 import 'package:bookoo2/screens/login.dart' show Login;
 import 'package:bookoo2/screens/sign_up.dart' show SignUp;
 import 'package:bookoo2/screens/find_pw.dart' show FindPw;
-import 'package:bookoo2/screens/home.dart' show Home;
+import 'package:bookoo2/screens/home_calendar.dart' show HomeCalendar;
 import 'package:bookoo2/screens/terms.dart' show Terms;
 
 
@@ -35,7 +35,7 @@ class TestUtils {
           '/login': (BuildContext context) => Login(),
           '/sign_up': (BuildContext context) => SignUp(),
           '/find_pw': (BuildContext context) => FindPw(),
-          '/home': (BuildContext context) => Home(),
+          '/home': (BuildContext context) => HomeCalendar(),
           '/terms': (BuildContext context) => Terms(),
         },
       ),

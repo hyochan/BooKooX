@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../screens/my_drawer.dart' show MyDrawer;
 import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
 import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 
-class List extends StatefulWidget {
-  List({Key key}) : super(key: key);
+class HomeList extends StatefulWidget {
+  HomeList({Key key}) : super(key: key);
 
   @override
-  _ListState createState() => new _ListState();
+  _HomeListState createState() => new _HomeListState();
 }
 
-class _ListState extends State<List> {
+class _HomeListState extends State<HomeList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +22,6 @@ class _ListState extends State<List> {
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
           color: Theme.Colors.dusk,
-        ),
-      ),
-      drawer: Drawer(
-        child: MyDrawer(
-          onClose: () => Navigator.of(context).pop(),
-          onSetting: () => Navigator.of(context).pop(),
         ),
       ),
       body: SafeArea(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../screens/my_drawer.dart' show MyDrawer;
+import '../screens/home_calendar.dart' show HomeCalendar;
+import '../screens/home_list.dart' show HomeList;
+import '../screens/home_statistic.dart' show HomeStatistic;
+
+import '../utils/theme.dart' as Theme;
 import '../utils/localization.dart' show Localization;
 
 class HomeTab extends StatefulWidget {
@@ -19,66 +23,30 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     _localization = Localization.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: MyDrawer(
-          onClose: () => Navigator.of(context).pop(),
-          onSetting: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 136.0,
-              floating: false,
-              pinned: true,
-              actions: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Icon(Icons.add),
-                ),
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: false,
-                title: Text("Dream Worker",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                  ),
-                ),
-                background: Container(
-                  color: Colors.blue,
-                ),
-              ),
+      body: Stack(
+        children: <Widget>[
+          Offstage(
+            offstage: _index != 0,
+            child: TickerMode(
+              enabled: _index == 0,
+              child: HomeCalendar(),
             ),
-          ];
-        },
-        body: Stack(
-          children: <Widget>[
-            Offstage(
-              offstage: _index != 0,
-              child: TickerMode(
-                enabled: _index == 0,
-                child: Icon(Icons.directions_car),
-              ),
+          ),
+          Offstage(
+            offstage: _index != 1,
+            child: TickerMode(
+              enabled: _index == 1,
+              child: HomeStatistic(),
             ),
-            Offstage(
-              offstage: _index != 1,
-              child: TickerMode(
-                enabled: _index == 1,
-                child: Icon(Icons.ac_unit),
-              ),
+          ),
+          Offstage(
+            offstage: _index != 2,
+            child: TickerMode(
+              enabled: _index == 2,
+              child: HomeList(),
             ),
-            Offstage(
-              offstage: _index != 2,
-              child: TickerMode(
-                enabled: _index == 2,
-                child: Icon(Icons.accessible),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
@@ -86,24 +54,22 @@ class _HomeTabState extends State<HomeTab> {
         onTap: (int index) { setState((){ this._index = index; }); },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            backgroundColor: Theme.Colors.mediumGray,
             icon: Icon(Icons.message),
-            title: Container(child:
-            Text('Message'),
-              margin: EdgeInsets.only(top: 4.0),
+            title: Container(
+              child: Text('Message'),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            title: Container(child:
-            Text('Favorite'),
-              margin: EdgeInsets.only(top: 4.0),
+            title: Container(
+              child: Text('Favorite'),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            title: Container(child:
-            Text('Setting'),
-              margin: EdgeInsets.only(top: 4.0),
+            title: Container(
+              child: Text('Setting'),
             ),
           ),
         ],

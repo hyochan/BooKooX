@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../screens/my_drawer.dart' show MyDrawer;
 import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
 import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 
-class Statistic extends StatefulWidget {
-  Statistic({Key key}) : super(key: key);
+class HomeStatistic extends StatefulWidget {
+  HomeStatistic({Key key}) : super(key: key);
 
   @override
-  _StatisticState createState() => new _StatisticState();
+  _HomeStatisticState createState() => new _HomeStatisticState();
 }
 
-class _StatisticState extends State<Statistic> {
+class _HomeStatisticState extends State<HomeStatistic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +22,6 @@ class _StatisticState extends State<Statistic> {
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
           color: Theme.Colors.dusk,
-        ),
-      ),
-      drawer: Drawer(
-        child: MyDrawer(
-          onClose: () => Navigator.of(context).pop(),
-          onSetting: () => Navigator.of(context).pop(),
         ),
       ),
       body: SafeArea(
