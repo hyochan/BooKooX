@@ -49,6 +49,10 @@ class _HomeCalendarState extends State<HomeCalendar> {
               actions: <Widget>[
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Icon(Icons.book),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.0),
                   child: Icon(Icons.add),
                 ),
               ],
