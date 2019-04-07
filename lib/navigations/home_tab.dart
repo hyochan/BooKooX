@@ -55,19 +55,28 @@ class _HomeTabState extends State<HomeTab> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: Theme.Colors.mediumGray,
-            icon: Icon(Icons.message),
+            icon: Icon(
+              Icons.person,
+              size: 32.0,
+            ),
             title: Container(
               child: Text('Message'),
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: Icon(
+              Icons.person,
+              size: 32.0,
+            ),
             title: Container(
               child: Text('Favorite'),
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(
+              Icons.person,
+              size: 32.0,
+            ),
             title: Container(
               child: Text('Setting'),
             ),
