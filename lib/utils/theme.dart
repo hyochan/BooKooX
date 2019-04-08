@@ -37,5 +37,9 @@ class Icons {
   static AssetImage icBooKoo = AssetImage('res/icons/BooKoo.png');
   static AssetImage icFacebookW = AssetImage('res/icons/icFacebookW.png');
   static AssetImage icGoogleW = AssetImage('res/icons/icGoogleW.png');
+  static AssetImage icTab1 = AssetImage('res/icons/icTab1.png');
+  static AssetImage icTab2 = AssetImage('res/icons/icTab2.png');
+  static AssetImage icTab3 = AssetImage('res/icons/icTab3.png');
+  static AssetImage icTab4 = AssetImage('res/icons/icTab4.png');
 }
 

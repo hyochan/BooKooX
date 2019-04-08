@@ -36,13 +36,20 @@ class _HomeTabState extends State<HomeTab> {
             offstage: _index != 1,
             child: TickerMode(
               enabled: _index == 1,
-              child: HomeStatistic(),
+              child: HomeList(),
             ),
           ),
           Offstage(
             offstage: _index != 2,
             child: TickerMode(
               enabled: _index == 2,
+              child: HomeStatistic(),
+            ),
+          ),
+          Offstage(
+            offstage: _index != 3,
+            child: TickerMode(
+              enabled: _index == 3,
               child: HomeList(),
             ),
           ),
@@ -54,31 +61,72 @@ class _HomeTabState extends State<HomeTab> {
         onTap: (int index) { setState((){ this._index = index; }); },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor: Theme.Colors.mediumGray,
+            backgroundColor: Theme.Colors.whiteGray,
             icon: Icon(
-              Icons.person,
-              size: 32.0,
+              Icons.calendar_today,
+              size: 20.0,
+              color: Theme.Colors.dusk,
             ),
             title: Container(
-              child: Text('Message'),
+              margin: EdgeInsets.only(top: 2.0),
+              child: Text(
+                'Montly',
+                style: TextStyle(
+                  color: Theme.Colors.dusk,
+                  fontSize: 12.0,
+                ),
+              ),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.person,
-              size: 32.0,
+              Icons.list,
+              size: 20.0,
+              color: Theme.Colors.dusk,
             ),
             title: Container(
-              child: Text('Favorite'),
+              margin: EdgeInsets.only(top: 2.0),
+              child: Text(
+                'List',
+                style: TextStyle(
+                  color: Theme.Colors.dusk,
+                  fontSize: 12.0,
+                ),
+              ),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.person,
-              size: 32.0,
+              Icons.graphic_eq,
+              size: 20.0,
+              color: Theme.Colors.dusk,
             ),
             title: Container(
-              child: Text('Setting'),
+              margin: EdgeInsets.only(top: 2.0),
+              child: Text(
+                'Statistic',
+                style: TextStyle(
+                  color: Theme.Colors.dusk,
+                  fontSize: 12.0,
+                ),
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
+              size: 20.0,
+              color: Theme.Colors.dusk,
+            ),
+            title: Container(
+              margin: EdgeInsets.only(top: 2.0),
+              child: Text(
+                'Setting',
+                style: TextStyle(
+                  color: Theme.Colors.dusk,
+                  fontSize: 12.0,
+                ),
+              ),
             ),
           ),
         ],
