@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/home_header_search.dart' show HomeHeaderSearch;
-import '../widgets/text_input.dart' show TextInput;
+import '../widgets/home_header.dart' show renderHomeAppBar;
 import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
 import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 
-class HomeList extends StatefulWidget {
-  HomeList({Key key}) : super(key: key);
+class HomeSetting extends StatefulWidget {
+  HomeSetting({Key key}) : super(key: key);
 
   @override
-  _HomeListState createState() => new _HomeListState();
+  _HomeSettingState createState() => new _HomeSettingState();
 }
 
-class _HomeListState extends State<HomeList> {
+class _HomeSettingState extends State<HomeSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: renderHomeAppBar(title: 'Dream Worker'),
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: HomeHeaderSearch(),
-      ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[

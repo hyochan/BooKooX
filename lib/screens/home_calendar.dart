@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+import '../widgets/home_header.dart' show HomeHeaderExpanded;
 import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
 
@@ -42,34 +44,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            SliverAppBar(
-              expandedHeight: 136.0,
-              floating: false,
-              pinned: true,
-              actions: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Icon(Icons.book),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Icon(Icons.add),
-                ),
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: false,
-                  titlePadding: _titlePadding,
-                  title: Text("Dream Worker",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  background: Container(
-                    color: Theme.Colors.dusk,
-                  ),
-              ),
-            ),
+            HomeHeaderExpanded(title: 'Dream Worker'),
           ];
         },
         controller: _scrollController,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/home_header.dart' show renderHomeAppBar;
 import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
 import '../utils/localization.dart' show Localization;
@@ -16,14 +17,8 @@ class _HomeStatisticState extends State<HomeStatistic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: renderHomeAppBar(title: 'Dream Worker'),
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Theme.Colors.dusk,
-        ),
-      ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[

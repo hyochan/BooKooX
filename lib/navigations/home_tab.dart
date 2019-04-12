@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../screens/home_calendar.dart' show HomeCalendar;
 import '../screens/home_list.dart' show HomeList;
 import '../screens/home_statistic.dart' show HomeStatistic;
+import '../screens/home_setting.dart' show HomeSetting;
 
 import '../utils/theme.dart' as Theme;
 import '../utils/localization.dart' show Localization;
@@ -50,7 +51,7 @@ class _HomeTabState extends State<HomeTab> {
             offstage: _index != 3,
             child: TickerMode(
               enabled: _index == 3,
-              child: HomeList(),
+              child: HomeSetting(),
             ),
           ),
         ],
