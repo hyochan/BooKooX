@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 
 
 import '../widgets/home_header.dart' show HomeHeaderExpanded;
@@ -44,7 +45,35 @@ class _HomeCalendarState extends State<HomeCalendar> {
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            HomeHeaderExpanded(title: 'Dream Worker'),
+            HomeHeaderExpanded(
+              title: 'Dream Worker',
+              actions: [
+                Container(
+                  width: 56.0,
+                  child: RawMaterialButton(
+                    padding: EdgeInsets.all(0.0),
+                    shape: CircleBorder(),
+                    onPressed: () { },
+                    child: Icon(
+                      Icons.book,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 56.0,
+                  child: RawMaterialButton(
+                    padding: EdgeInsets.all(0.0),
+                    shape: CircleBorder(),
+                    onPressed: () { },
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ]
+            ),
           ];
         },
         controller: _scrollController,

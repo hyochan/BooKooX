@@ -8,8 +8,10 @@ class HomeHeaderExpanded extends StatelessWidget {
   HomeHeaderExpanded({
     Key key,
     this.title = '',
+    this.actions,
   }) : super(key: key);
   final String title;
+  final List<Widget> actions;
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +20,7 @@ class HomeHeaderExpanded extends StatelessWidget {
       floating: false,
       pinned: true,
       elevation: 1.0,
-      actions: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Icon(Icons.book),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Icon(Icons.add),
-        ),
-      ],
+      actions: this.actions,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
         titlePadding: _titlePadding,
@@ -48,15 +41,11 @@ class HomeHeaderExpanded extends StatelessWidget {
 AppBar renderHomeAppBar({
   Key key,
   String title = '',
+  List<Widget> actions,
 }) {
   return AppBar(
     elevation: 1.0,
-    actions: <Widget>[
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Icon(Icons.add),
-      ),
-    ],
+    actions: actions,
     flexibleSpace: FlexibleSpaceBar(
       centerTitle: false,
       titlePadding: _titlePadding,

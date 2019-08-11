@@ -17,7 +17,23 @@ class _HomeStatisticState extends State<HomeStatistic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: renderHomeAppBar(title: 'Dream Worker'),
+      appBar: renderHomeAppBar(
+        title: 'Dream Worker',
+        actions: [
+          Container(
+            width: 56.0,
+            child: RawMaterialButton(
+              padding: EdgeInsets.all(0.0),
+              shape: CircleBorder(),
+              onPressed: () { },
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(

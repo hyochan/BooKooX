@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 
 import '../widgets/home_header_search.dart' show HomeHeaderSearch;
-import '../widgets/text_input.dart' show TextInput;
-import '../widgets/edit_text.dart' show EditText;
-import '../widgets/button.dart' show Button;
-import '../utils/localization.dart' show Localization;
-import '../utils/theme.dart' as Theme;
 
 class HomeList extends StatefulWidget {
   HomeList({Key key}) : super(key: key);
@@ -15,12 +11,32 @@ class HomeList extends StatefulWidget {
 }
 
 class _HomeListState extends State<HomeList> {
+  TextEditingController textEditingController = new prefix0.TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: HomeHeaderSearch(),
+        automaticallyImplyLeading: false,
+        titleSpacing: 0.0,
+        title: HomeHeaderSearch(
+          margin: EdgeInsets.only(left: 20.0),
+          textEditingController: textEditingController,
+          actions: <Widget>[
+            Container(
+              width: 56.0,
+              child: RawMaterialButton(
+                padding: EdgeInsets.all(0.0),
+                shape: CircleBorder(),
+                onPressed: () { },
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: CustomScrollView(

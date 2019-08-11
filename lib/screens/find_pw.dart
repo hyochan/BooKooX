@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
-import '../utils/general.dart' show General;
 import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 import '../utils/validator.dart' show Validator;
@@ -15,7 +14,6 @@ class FindPw extends StatefulWidget {
 }
 
 class _FindPwState extends State<FindPw> {
-  BuildContext _context;
   Localization _localization;
   String _email = '';
   String _emailError;
@@ -23,7 +21,6 @@ class _FindPwState extends State<FindPw> {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
     _localization = Localization.of(context);
 
     Widget findPwText() {
