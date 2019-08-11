@@ -7,7 +7,11 @@ import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 
 class HomeStatistic extends StatefulWidget {
-  HomeStatistic({Key key}) : super(key: key);
+  HomeStatistic({
+    Key key,
+    this.title = '',
+  }) : super(key: key);
+  final String title;
 
   @override
   _HomeStatisticState createState() => new _HomeStatisticState();
@@ -18,7 +22,7 @@ class _HomeStatisticState extends State<HomeStatistic> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: renderHomeAppBar(
-        title: 'Dream Worker',
+        title: widget.title,
         actions: [
           Container(
             width: 56.0,

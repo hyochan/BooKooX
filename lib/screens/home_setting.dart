@@ -7,7 +7,11 @@ import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 
 class HomeSetting extends StatefulWidget {
-  HomeSetting({Key key}) : super(key: key);
+  HomeSetting({
+    Key key,
+    this.title = '',
+  }) : super(key: key);
+  final String title;
 
   @override
   _HomeSettingState createState() => new _HomeSettingState();
@@ -17,7 +21,7 @@ class _HomeSettingState extends State<HomeSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: renderHomeAppBar(title: 'Dream Worker'),
+      appBar: renderHomeAppBar(title: widget.title),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(

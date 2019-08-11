@@ -16,13 +16,11 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  TabController _tabController;
   int _index = 0;
-  var _localization;
+  String _title = 'Dream Worker';
 
   @override
   Widget build(BuildContext context) {
-    _localization = Localization.of(context);
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -30,7 +28,9 @@ class _HomeTabState extends State<HomeTab> {
             offstage: _index != 0,
             child: TickerMode(
               enabled: _index == 0,
-              child: HomeCalendar(),
+              child: HomeCalendar(
+                title: _title,
+              ),
             ),
           ),
           Offstage(
@@ -44,14 +44,18 @@ class _HomeTabState extends State<HomeTab> {
             offstage: _index != 2,
             child: TickerMode(
               enabled: _index == 2,
-              child: HomeStatistic(),
+              child: HomeStatistic(
+                title: _title,
+              ),
             ),
           ),
           Offstage(
             offstage: _index != 3,
             child: TickerMode(
               enabled: _index == 3,
-              child: HomeSetting(),
+              child: HomeSetting(
+                title: _title,
+              ),
             ),
           ),
         ],

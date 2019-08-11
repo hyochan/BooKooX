@@ -4,7 +4,9 @@ import 'package:flutter/material.dart' as prefix0;
 import '../widgets/home_header_search.dart' show HomeHeaderSearch;
 
 class HomeList extends StatefulWidget {
-  HomeList({Key key}) : super(key: key);
+  HomeList({
+    Key key,
+  }) : super(key: key);
 
   @override
   _HomeListState createState() => new _HomeListState();
@@ -14,6 +16,9 @@ class _HomeListState extends State<HomeList> {
   TextEditingController textEditingController = new prefix0.TextEditingController();
   @override
   Widget build(BuildContext context) {
+    Function onAddLedgerList = () {
+
+    };
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -28,7 +33,7 @@ class _HomeListState extends State<HomeList> {
               child: RawMaterialButton(
                 padding: EdgeInsets.all(0.0),
                 shape: CircleBorder(),
-                onPressed: () { },
+                onPressed: onAddLedgerList,
                 child: Icon(
                   Icons.add,
                   color: Colors.white,

@@ -10,7 +10,11 @@ import '../utils/localization.dart' show Localization;
 import '../utils/theme.dart' as Theme;
 
 class HomeCalendar extends StatefulWidget {
-  HomeCalendar({Key key}) : super(key: key);
+  HomeCalendar({
+    Key key,
+    this.title = '',
+  }) : super(key: key);
+  final String title;
 
   @override
   _HomeCalendarState createState() => new _HomeCalendarState();
@@ -46,7 +50,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             HomeHeaderExpanded(
-              title: 'Dream Worker',
+              title: widget.title,
               actions: [
                 Container(
                   width: 56.0,
