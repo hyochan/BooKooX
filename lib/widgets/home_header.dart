@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../utils/theme.dart' as Theme;
-
 final EdgeInsets _titlePadding = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
 
 class HomeHeaderExpanded extends StatelessWidget {
@@ -26,12 +24,12 @@ class HomeHeaderExpanded extends StatelessWidget {
         titlePadding: _titlePadding,
         title: Text(this.title,
           style: TextStyle(
-            color: Colors.white,
+            color: Theme.of(context).primaryTextTheme.title.color,
             fontSize: 16.0,
           ),
         ),
         background: Container(
-          color: Theme.Colors.dusk,
+          color: Theme.of(context).primaryColor,
         ),
       ),
     );
@@ -40,6 +38,7 @@ class HomeHeaderExpanded extends StatelessWidget {
 
 AppBar renderHomeAppBar({
   Key key,
+  @required BuildContext context,
   String title = '',
   List<Widget> actions,
 }) {
@@ -51,12 +50,12 @@ AppBar renderHomeAppBar({
       titlePadding: _titlePadding,
       title: Text(title,
         style: TextStyle(
-          color: Colors.white,
+          color: Theme.of(context).primaryTextTheme.title.color,
           fontSize: 16.0,
         ),
       ),
       background: Container(
-        color: Theme.Colors.dusk,
+        color: Theme.of(context).primaryColor,
       ),
     ),
   );

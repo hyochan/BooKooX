@@ -8,9 +8,8 @@ import './screens/login.dart' show Login;
 import './screens/sign_up.dart' show SignUp;
 import './screens/find_pw.dart' show FindPw;
 import './screens/terms.dart' show Terms;
-
+import './screens/my_ledgers.dart' show MyLedgers;
 import './utils/localization.dart';
-import './utils/theme.dart' as Theme;
 
 void main() => runApp(new MyApp());
 
@@ -23,10 +22,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Theme.Colors.dusk,
-        accentColor: Theme.Colors.dusk,
-        hintColor: Theme.Colors.paleGray,
-        disabledColor: Theme.Colors.disabled,
+        primaryColor: const Color(0xff414d6b),
+        primaryColorLight: const Color(0xff6d7999),
+        primaryColorDark: const Color(0xff172540),
+        accentColor: const Color(0xffe6677e),
+        hintColor: const Color(0xffafc2db),
+        disabledColor: const Color(0xffdde2ec),
+        backgroundColor: const Color(0xfff9fbfd),
+        primaryTextTheme: TextTheme(
+          title: TextStyle(color: Colors.white),
+        ),
+      ),
+      darkTheme: ThemeData(
+        // brightness: Brightness.dark,
+         backgroundColor: const Color(0xff303030),
       ),
       routes: {
         '/splash': (BuildContext context) => Splash(),
@@ -35,6 +44,7 @@ class MyApp extends StatelessWidget {
         '/sign_up': (BuildContext context) => SignUp(),
         '/find_pw': (BuildContext context) => FindPw(),
         '/home': (BuildContext context) => HomeTab(),
+        '/my_ledgers': (BuildContext context) => MyLedgers(),
         '/terms': (BuildContext context) => Terms(),
       },
       supportedLocales: [

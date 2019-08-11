@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../utils/theme.dart' as Theme;
 
 class EditText extends StatelessWidget {
   const EditText({
@@ -10,18 +9,15 @@ class EditText extends StatelessWidget {
     this.padding,
     this.textLabel,
     this.labelStyle = const TextStyle(
-      color: Theme.Colors.dusk,
       fontSize: 16.0,
       height: 0.7,
     ),
     this.textStyle = const TextStyle(
       fontSize: 16.0,
-      color: Theme.Colors.dusk,
     ),
     this.textHint,
     this.hintStyle = const TextStyle(
       fontSize: 16.0,
-      color: Theme.Colors.cloudyBlue,
     ),
     this.errorText,
     this.errorStyle = const TextStyle(
@@ -65,7 +61,7 @@ class EditText extends StatelessWidget {
   Widget build(BuildContext context) {
     InputBorder _underlineBorder = UnderlineInputBorder(
       borderSide: BorderSide(
-        color: Theme.Colors.paleGray,
+        color: Theme.of(context).disabledColor,
         width: 1.0,
       ),
     );
@@ -108,7 +104,6 @@ class EditText extends StatelessWidget {
             top: 16.0,
             child: Icon(
               Icons.check,
-              color: Theme.Colors.dusk,
             ),
           ) : Container(),
         ],

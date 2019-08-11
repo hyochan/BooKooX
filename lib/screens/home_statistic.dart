@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/home_header.dart' show renderHomeAppBar;
-import '../widgets/edit_text.dart' show EditText;
-import '../widgets/button.dart' show Button;
-import '../utils/localization.dart' show Localization;
-import '../utils/theme.dart' as Theme;
 
 class HomeStatistic extends StatefulWidget {
   HomeStatistic({
@@ -22,6 +18,7 @@ class _HomeStatisticState extends State<HomeStatistic> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: renderHomeAppBar(
+        context: context,
         title: widget.title,
         actions: [
           Container(

@@ -4,7 +4,6 @@ import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
 import '../utils/general.dart' show General;
 import '../utils/localization.dart' show Localization;
-import '../utils/theme.dart' as Theme;
 import '../utils/validator.dart' show Validator;
 
 class Login extends StatefulWidget {
@@ -54,7 +53,7 @@ class _LoginState extends State<Login> {
       return Text(_localization.trans('LOGIN'),
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.Colors.dusk,
+          color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -107,7 +106,7 @@ class _LoginState extends State<Login> {
           fontSize: 16.0,
         ),
         borderColor: Colors.white,
-        backgroundColor: Theme.Colors.dusk,
+        backgroundColor: Theme.of(context).primaryColor,
         text: _localization.trans('LOGIN'),
         width: MediaQuery.of(context).size.width / 2- 64,
         height: 56.0,
@@ -123,13 +122,13 @@ class _LoginState extends State<Login> {
             text: '${_localization.trans('DID_YOU_FORGOT_PASSWORD')}?',
             style: TextStyle(
               fontSize: 12.0,
-              color: Theme.Colors.mediumGray,
+              color: const Color(0xff869ab7),
             ),
             children: <TextSpan>[
               TextSpan(
                 text: '  ' + _localization.trans('FIND_PASSWORD'),
                 style: TextStyle(
-                    color: Theme.Colors.green,
+                    color: const Color(0xff1dd3a8),
                     fontWeight: FontWeight.bold
                 ),
               ),
@@ -146,7 +145,7 @@ class _LoginState extends State<Login> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Theme.Colors.dusk,
+          color: Theme.of(context).primaryColor,
         ),
       ),
       body: CustomScrollView(

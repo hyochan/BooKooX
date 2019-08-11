@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../utils/asset.dart' as Asset;
 import '../utils/general.dart' show General;
-import '../utils/theme.dart' as Theme;
 import '../utils/localization.dart' show Localization;
 import '../widgets/button.dart' show Button;
 
@@ -19,7 +19,7 @@ class Intro extends StatelessWidget {
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
-          color: Theme.Colors.dusk,
+          color: Theme.of(context).primaryColor,
         ),
         backgroundColor: Colors.white,
         text: _localization.trans('LOGIN'),
@@ -39,7 +39,7 @@ class Intro extends StatelessWidget {
               TextSpan(
                 text: '  ' + _localization.trans('SIGN_UP'),
                 style: TextStyle(
-                    color: Theme.Colors.green,
+                    color: Asset.Colors.green,
                     fontWeight: FontWeight.bold
                 ),
               ),
@@ -99,7 +99,7 @@ class Intro extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
-              image: Theme.Icons.icFacebookW,
+              image: Asset.Icons.icFacebookW,
             ),
           ),
           Button(
@@ -111,7 +111,7 @@ class Intro extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 2- 64,
             height: 56.0,
             image: Image(
-              image: Theme.Icons.icGoogleW,
+              image: Asset.Icons.icGoogleW,
             ),
           ),
         ],
@@ -147,7 +147,7 @@ class Intro extends StatelessWidget {
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     <Widget>[
-                      Image(image: Theme.Icons.icBooKoo, width: 200.0, height: 60.0),
+                      Image(image: Asset.Icons.icBooKoo, width: 200.0, height: 60.0),
                       loginButton(),
                       doNotHaveAccount(),
                       orLoginWith(),
@@ -165,7 +165,7 @@ class Intro extends StatelessWidget {
           width: double.infinity,
         ),
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Theme.Colors.dusk, Theme.Colors.darkGray],
+          gradient: LinearGradient(colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColorDark],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 1.0),
             stops: [0.0, 1.0],

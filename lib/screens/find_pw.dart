@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
 import '../utils/localization.dart' show Localization;
-import '../utils/theme.dart' as Theme;
 import '../utils/validator.dart' show Validator;
 
 class FindPw extends StatefulWidget {
@@ -27,7 +26,7 @@ class _FindPwState extends State<FindPw> {
       return Text(_localization.trans('FIND_PASSWORD'),
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.Colors.dusk,
+          color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -63,11 +62,11 @@ class _FindPwState extends State<FindPw> {
         onPress: () => _onFindPw(),
         margin: EdgeInsets.only(top: 28.0, bottom: 8.0),
         textStyle: TextStyle(
-          color: Colors.white,
+          color: Theme.of(context).primaryTextTheme.title.color,
           fontSize: 16.0,
         ),
-        borderColor: Colors.white,
-        backgroundColor: Theme.Colors.dusk,
+        borderColor: Theme.of(context).primaryIconTheme.color,
+        backgroundColor: Theme.of(context).primaryColor,
         text: _localization.trans('SEND_EMAIL'),
         width: MediaQuery.of(context).size.width / 2- 64,
         height: 56.0,
@@ -79,9 +78,9 @@ class _FindPwState extends State<FindPw> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(
-          color: Theme.Colors.dusk,
+          color: Theme.of(context).primaryColor,
         ),
       ),
       body: CustomScrollView(

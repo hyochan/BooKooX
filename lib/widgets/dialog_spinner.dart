@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../utils/theme.dart' as Theme;
 
 class DialogSpinner extends StatelessWidget {
   const DialogSpinner({
@@ -19,9 +18,9 @@ class DialogSpinner extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CircularProgressIndicator(
-              backgroundColor: Theme.Colors.dusk,
+              backgroundColor: Theme.of(context).primaryColor,
               strokeWidth: 5.0,
-              valueColor: AlwaysStoppedAnimation<Color>(Theme.Colors.dusk),
+              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
             ),
             Container(
               margin: EdgeInsets.only(left: 30.0),

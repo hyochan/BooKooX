@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
-
-
+import '../utils/general.dart';
 import '../widgets/home_header.dart' show HomeHeaderExpanded;
-import '../widgets/edit_text.dart' show EditText;
-import '../widgets/button.dart' show Button;
-
-import '../utils/localization.dart' show Localization;
-import '../utils/theme.dart' as Theme;
 
 class HomeCalendar extends StatefulWidget {
   HomeCalendar({
@@ -22,8 +15,6 @@ class HomeCalendar extends StatefulWidget {
 
 class _HomeCalendarState extends State<HomeCalendar> {
   ScrollController _scrollController;
-  EdgeInsets _titlePadding = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
-
 
   @override
   void initState() {
@@ -45,7 +36,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -57,10 +48,10 @@ class _HomeCalendarState extends State<HomeCalendar> {
                   child: RawMaterialButton(
                     padding: EdgeInsets.all(0.0),
                     shape: CircleBorder(),
-                    onPressed: () { },
+                    onPressed: () => General.instance.navigateScreenNamed(context, '/my_ledgers'),
                     child: Icon(
                       Icons.book,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryTextTheme.title.color,
                     ),
                   ),
                 ),
@@ -72,7 +63,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                     onPressed: () { },
                     child: Icon(
                       Icons.add,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryTextTheme.title.color,
                     ),
                   ),
                 ),

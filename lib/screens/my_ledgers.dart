@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class Terms extends StatefulWidget {
-  Terms({Key key}) : super(key: key);
+import '../widgets/header.dart' show renderHeaderClose;
+
+class MyLedgers extends StatefulWidget {
+  MyLedgers({Key key}) : super(key: key);
 
   @override
-  _TermsState createState() => new _TermsState();
+  _MyLedgersState createState() => new _MyLedgersState();
 }
 
-class _TermsState extends State<Terms> {
+class _MyLedgersState extends State<MyLedgers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).primaryColor,
+      appBar: renderHeaderClose(
+        context: context,
+        brightness: Brightness.light,
+        title: Container(
+          color: Colors.white,
         ),
-        title: Text('TERMS & Terms',
-          style: TextStyle(
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
+        actions: [
+          
+        ],
       ),
       body: CustomScrollView(
         slivers: <Widget>[

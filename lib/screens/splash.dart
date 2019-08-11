@@ -1,11 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../utils/localization.dart' show Localization;
 import '../utils/general.dart';
-import '../utils/theme.dart' as Theme;
-
-import 'dart:async';
+import '../utils/asset.dart' as Asset;
 
 class Splash extends StatefulWidget {
   Splash({Key key}) : super(key: key);
@@ -62,7 +60,7 @@ class _SplashState extends State<Splash> {
             Container(
               height: double.infinity,
               width: double.infinity,
-              color: Theme.Colors.dusk,
+              color: Theme.of(context).primaryColor,
             ),
             AnimatedOpacity(
               opacity: !_visible ? 0.0 : 1.0,
@@ -70,7 +68,7 @@ class _SplashState extends State<Splash> {
               child: Container(
                 margin: EdgeInsets.only(bottom: 60.0),
                 child: Center(
-                  child: Image(image: Theme.Icons.icBooKoo, width: 200.0, height: 60.0),
+                  child: Image(image: Asset.Icons.icBooKoo, width: 200.0, height: 60.0),
                 ),
               ),
             ),

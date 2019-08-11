@@ -5,7 +5,6 @@ import '../screens/home_list.dart' show HomeList;
 import '../screens/home_statistic.dart' show HomeStatistic;
 import '../screens/home_setting.dart' show HomeSetting;
 
-import '../utils/theme.dart' as Theme;
 import '../utils/localization.dart' show Localization;
 
 class HomeTab extends StatefulWidget {
@@ -66,18 +65,18 @@ class _HomeTabState extends State<HomeTab> {
         onTap: (int index) { setState((){ this._index = index; }); },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor: Theme.Colors.whiteGray,
+            backgroundColor: Theme.of(context).backgroundColor,
             icon: Icon(
               Icons.calendar_today,
               size: 20.0,
-              color: Theme.Colors.dusk,
+              color: Theme.of(context).primaryColor,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'Montly',
                 style: TextStyle(
-                  color: Theme.Colors.dusk,
+                  color: Theme.of(context).primaryColor,
                   fontSize: 12.0,
                 ),
               ),
@@ -87,14 +86,14 @@ class _HomeTabState extends State<HomeTab> {
             icon: Icon(
               Icons.list,
               size: 20.0,
-              color: Theme.Colors.dusk,
+              color: Theme.of(context).primaryColor,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'List',
                 style: TextStyle(
-                  color: Theme.Colors.dusk,
+                  color: Theme.of(context).primaryColor,
                   fontSize: 12.0,
                 ),
               ),
@@ -104,14 +103,14 @@ class _HomeTabState extends State<HomeTab> {
             icon: Icon(
               Icons.graphic_eq,
               size: 20.0,
-              color: Theme.Colors.dusk,
+              color: Theme.of(context).primaryColor,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'Statistic',
                 style: TextStyle(
-                  color: Theme.Colors.dusk,
+                  color: Theme.of(context).primaryColor,
                   fontSize: 12.0,
                 ),
               ),
@@ -121,14 +120,14 @@ class _HomeTabState extends State<HomeTab> {
             icon: Icon(
               Icons.settings,
               size: 20.0,
-              color: Theme.Colors.dusk,
+              color: Theme.of(context).primaryColor,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'Setting',
                 style: TextStyle(
-                  color: Theme.Colors.dusk,
+                  color: Theme.of(context).primaryColor,
                   fontSize: 12.0,
                 ),
               ),
