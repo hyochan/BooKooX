@@ -25,7 +25,6 @@ class LedgerListItem extends StatelessWidget {
     var _localization = Localization.of(context);
     return Container(
       height: 100.0,
-      padding: EdgeInsets.only(left: 24.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,7 +32,7 @@ class LedgerListItem extends StatelessWidget {
           Expanded(
             child: Container(
               child: MaterialButton(
-                padding: EdgeInsets.all(0.0),
+                padding: EdgeInsets.only(left: 24.0),
                 onPressed: () {},
                 child: Row(
                   children: <Widget>[
