@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Icons {
   Icons._();
+  static AssetImage icMask = AssetImage('res/icons/icMask.png');
   static AssetImage icBooKoo = AssetImage('res/icons/BooKoo.png');
   static AssetImage icFacebookW = AssetImage('res/icons/icFacebookW.png');
   static AssetImage icGoogleW = AssetImage('res/icons/icGoogleW.png');
@@ -9,6 +10,10 @@ class Icons {
   static AssetImage icTab2 = AssetImage('res/icons/icTab2.png');
   static AssetImage icTab3 = AssetImage('res/icons/icTab3.png');
   static AssetImage icTab4 = AssetImage('res/icons/icTab4.png');
+}
+
+class Images {
+  Images._();
 }
 
 class Colors {

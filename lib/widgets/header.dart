@@ -9,15 +9,19 @@ AppBar renderHeaderClose({
   Brightness brightness,
 }) {
   return AppBar(
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.transparent,
     brightness: brightness,
     leading: IconButton(
-      icon: Icon(Icons.close),
+      color: Theme.of(context).primaryColor,
+      icon: Icon(
+        Icons.close,
+        semanticLabel: 'close',
+      ),
       onPressed: () => Navigator.of(context).pop(),
     ),
-    elevation: 1.0,
+    elevation: 0.0,
     actions: actions,
     titleSpacing: 0.0,
-    title: title,
+    // title: title,
   );
 }

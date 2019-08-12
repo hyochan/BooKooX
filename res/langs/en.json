@@ -18,5 +18,8 @@
   "NO_VALID_PASSWORD": "Password should be alphanumeric with more than 5 letters",
   "OK": "Ok",
   "Cancel": "Cancel",
-  "INTRO": "Create App!"
+  "INTRO": "Create App!",
+  "PERSON": "Person",
+  "PEOPLE": "People",
+  "MORE": "more"
 }
