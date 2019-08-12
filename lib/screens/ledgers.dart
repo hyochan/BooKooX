@@ -9,14 +9,14 @@ import '../widgets/header.dart' show renderHeaderClose;
 import '../widgets/profile_list_item.dart' show ProfileListItem;
 import '../widgets/ledger_list_item.dart' show LedgerListItem;
 
-class MyLedgers extends StatefulWidget {
-  MyLedgers({Key key}) : super(key: key);
+class Ledgers extends StatefulWidget {
+  Ledgers({Key key}) : super(key: key);
 
   @override
-  _MyLedgersState createState() => new _MyLedgersState();
+  _LedgersState createState() => new _LedgersState();
 }
 
-class _MyLedgersState extends State<MyLedgers> {
+class _LedgersState extends State<Ledgers> {
   final List<ListItem> _items = [
     HeadingItem(
       'display', 'email', 'image'
@@ -54,13 +54,9 @@ class _MyLedgersState extends State<MyLedgers> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: renderHeaderClose(
         context: context,
         brightness: Brightness.light,
-        title: Container(
-          color: Colors.white,
-        ),
         actions: [
           IconButton(
             icon: Icon(

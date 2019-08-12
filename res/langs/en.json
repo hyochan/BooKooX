@@ -22,5 +22,12 @@
   "PERSON": "Person",
   "PEOPLE": "People",
   "MORE": "more",
-  "ADD_LEDGER": "Add Ledger"
+  "ADD_LEDGER": "Add Ledger",
+  "SETTING": "Setting",
+  "BACK": "Back",
+  "LEDGER_NAME_HINT": "Please write name of ledger.",
+  "LEDGER_DESCRIPTION_HINT": "Please write description of ledger.",
+  "COLOR": "Color",
+  "CURRENCY": "Currency",
+  "DONE": "Done"
 }

@@ -22,5 +22,12 @@
   "PERSON": "명",
   "PEOPLE": "명",
   "MORE": "더보기",
-  "ADD_LEDGER": "가계부 추가"
+  "ADD_LEDGER": "가계부 추가",
+  "SETTING": "설정",
+  "BACK": "뒤로가기",
+  "LEDGER_NAME_HINT": "가계부명을 입력하세요.",
+  "LEDGER_DESCRIPTION_HINT": "가계부에 대한 설명을 입력해주세요.",
+  "COLOR": "색상",
+  "CURRENCY": "통화",
+  "DONE": "완료"
 }

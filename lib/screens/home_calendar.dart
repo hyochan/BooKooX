@@ -48,7 +48,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                   child: RawMaterialButton(
                     padding: EdgeInsets.all(0.0),
                     shape: CircleBorder(),
-                    onPressed: () => General.instance.navigateScreenNamed(context, '/my_ledgers'),
+                    onPressed: () => General.instance.navigateScreenNamed(context, '/ledgers'),
                     child: Icon(
                       Icons.book,
                       color: Theme.of(context).primaryTextTheme.title.color,

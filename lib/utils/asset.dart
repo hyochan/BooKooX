@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../types/color.dart';
 
 class Icons {
   Icons._();
@@ -27,9 +28,23 @@ class Colors {
   static const paleGray = Color(0xffdde2ec);
   static const mediumGray = Color(0xff869ab7);
   static const cloudyBlue = Color(0xffafc2db);
+  static const red = Color.fromARGB(255, 255, 114, 141);
   static const orange = Color.fromARGB(255, 245, 166, 35);
   static const yellow = Color.fromARGB(255, 238, 208, 0);
   static const green = Color.fromARGB(255, 29, 211, 168);
-  static const blue = Color.fromARGB(255, 175, 194, 219);
+  static const blue = Color.fromARGB(255, 103, 157, 255);
   static const purple = Color.fromARGB(255, 182, 105, 249);
+  static Color getColor(ColorType color) {
+    return color == ColorType.RED
+      ? Colors.red
+      : color == ColorType.ORANGE
+      ? Colors.orange
+      : color == ColorType.YELLOW
+      ? Colors.yellow
+      : color == ColorType.GREEN
+      ? Colors.green
+      : color == ColorType.BLUE
+      ? Colors.blue
+      : Colors.purple;
+  }
 }

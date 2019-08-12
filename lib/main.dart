@@ -8,7 +8,8 @@ import './screens/login.dart' show Login;
 import './screens/sign_up.dart' show SignUp;
 import './screens/find_pw.dart' show FindPw;
 import './screens/terms.dart' show Terms;
-import './screens/my_ledgers.dart' show MyLedgers;
+import './screens/ledgers.dart' show Ledgers;
+import './screens/ledger_add.dart' show LedgerAdd;
 import './utils/localization.dart';
 
 void main() => runApp(new MyApp());
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         hintColor: const Color(0xffafc2db),
         disabledColor: const Color(0xffdde2ec),
         backgroundColor: const Color(0xfff9fbfd),
+        dialogBackgroundColor: Colors.white,
         primaryTextTheme: TextTheme(
           title: TextStyle(color: Colors.white),
         ),
@@ -44,7 +46,8 @@ class MyApp extends StatelessWidget {
         '/sign_up': (BuildContext context) => SignUp(),
         '/find_pw': (BuildContext context) => FindPw(),
         '/home': (BuildContext context) => HomeTab(),
-        '/my_ledgers': (BuildContext context) => MyLedgers(),
+        '/ledgers': (BuildContext context) => Ledgers(),
+        '/ledger_add': (BuildContext context) => LedgerAdd(),
         '/terms': (BuildContext context) => Terms(),
       },
       supportedLocales: [
