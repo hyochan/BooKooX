@@ -51,9 +51,11 @@ class _LedgerAddState extends State<LedgerAdd> {
             Container(
               margin: EdgeInsets.only(top: 40, left: 40, right: 40),
               child: TextField(
+                maxLines: 2,
                 decoration: InputDecoration(
+                  hintMaxLines: 2,
                   border: InputBorder.none,
-                  hintText: 'Enter a search term',
+                  hintText: _localization.trans('LEDGER_NAME_HINT'),
                   hintStyle: TextStyle(
                     fontSize: 28.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -69,10 +71,11 @@ class _LedgerAddState extends State<LedgerAdd> {
               margin: EdgeInsets.only(top: 24, left: 40, right: 40, bottom: 20),
               height: 160,
               child: TextField(
+                maxLines: 8,
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'Enter a search term',
+                  hintText: _localization.trans('LEDGER_DESCRIPTION_HINT'),
                   hintStyle: TextStyle(
                     fontSize: 16.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
