@@ -44,7 +44,20 @@ class LedgerListItem extends StatelessWidget {
                         children: <Widget>[
                           ClipOval(
                             child: Image(
-                              image: Asset.Icons.icMask,
+                              image: color == ColorType.RED
+                                ? Asset.Icons.icRed
+                                : color == ColorType.ORANGE
+                                ? Asset.Icons.icOrange
+                                : color == ColorType.YELLOW
+                                ? Asset.Icons.icYellow
+                                : color == ColorType.GREEN
+                                ? Asset.Icons.icGreen
+                                : color == ColorType.BLUE
+                                ? Asset.Icons.icBlue
+                                : color == ColorType.PURPLE
+                                ? Asset.Icons.icPurple
+                                : Asset.Icons.icGreen
+                              ,
                               fit: BoxFit.cover,
                               width: 40.0,
                               height: 40.0,
@@ -71,7 +84,9 @@ class LedgerListItem extends StatelessWidget {
                           ),
                         Container(
                             child: Text(
-                              '$people',
+                              people > 1
+                              ? '$people ${_localization.trans("PEOPLE")}'
+                              : '$people ${_localization.trans("PERSON")}',
                               style: TextStyle(
                                 color: Theme.of(context).hintColor,
                                 fontSize: 14.0,

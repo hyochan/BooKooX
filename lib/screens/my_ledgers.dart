@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../utils/localization.dart';
 import '../utils/asset.dart' as Asset;
 import '../utils/general.dart';
 import '../types/color.dart';
@@ -21,24 +22,25 @@ class _MyLedgersState extends State<MyLedgers> {
       'display', 'email', 'image'
     ),
     LedgerItem(
-      'title', ColorType.BLUE, 4, false,
+      'title', ColorType.ORANGE, 4, false,
     ),
     LedgerItem(
       'title2', ColorType.BLUE, 4, true,
     ),
     LedgerItem(
-      'title3', ColorType.BLUE, 1, false,
+      'title3', ColorType.RED, 1, false,
     ),
     LedgerItem(
-      'title4', ColorType.BLUE, 4, false,
+      'title4', ColorType.YELLOW, 4, false,
     ),
     LedgerItem(
-      'titl5e', ColorType.BLUE, 8, false,
+      'titl5e', ColorType.GREEN, 8, false,
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
+    var _localization = Localization.of(context);
     void onSettingPressed () {
 
     }
@@ -88,8 +90,8 @@ class _MyLedgersState extends State<MyLedgers> {
                     );
                   } else if (item is LedgerItem) {
                     return LedgerListItem(
-                      color: ColorType.BLUE,
                       title: item.title,
+                      color: item.color,
                       people: item.people,
                       isOwner: item.isOwner,
                       onMorePressed: () => onLedgerMorePressed(item),
@@ -119,7 +121,7 @@ class _MyLedgersState extends State<MyLedgers> {
                     Container(
                       margin: EdgeInsets.only(left: 20.0),
                       child: Text(
-                        'Add Ledger',
+                        _localization.trans('ADD_LEDGER'),
                         style: TextStyle(
                           color: Asset.Colors.mediumGray,
                           fontSize: 20.0,

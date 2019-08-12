@@ -10,6 +10,12 @@ class Icons {
   static AssetImage icTab2 = AssetImage('res/icons/icTab2.png');
   static AssetImage icTab3 = AssetImage('res/icons/icTab3.png');
   static AssetImage icTab4 = AssetImage('res/icons/icTab4.png');
+  static AssetImage icRed = AssetImage('res/icons/icRed.png');
+  static AssetImage icOrange = AssetImage('res/icons/icOrange.png');
+  static AssetImage icYellow = AssetImage('res/icons/icYellow.png');
+  static AssetImage icGreen = AssetImage('res/icons/icGreen.png');
+  static AssetImage icBlue = AssetImage('res/icons/icBlue.png');
+  static AssetImage icPurple = AssetImage('res/icons/icPurple.png');
 }
 
 class Images {
