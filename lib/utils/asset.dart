@@ -16,6 +16,7 @@ class Icons {
   static AssetImage icYellow = AssetImage('res/icons/icYellow.png');
   static AssetImage icGreen = AssetImage('res/icons/icGreen.png');
   static AssetImage icBlue = AssetImage('res/icons/icBlue.png');
+  static AssetImage icDusk = AssetImage('res/icons/icDusk.png');
   static AssetImage icPurple = AssetImage('res/icons/icPurple.png');
 }
 
@@ -33,6 +34,7 @@ class Colors {
   static const yellow = Color.fromARGB(255, 238, 208, 0);
   static const green = Color.fromARGB(255, 29, 211, 168);
   static const blue = Color.fromARGB(255, 103, 157, 255);
+  static const dusk = Color.fromARGB(255, 65, 77, 107);
   static const purple = Color.fromARGB(255, 182, 105, 249);
   static Color getColor(ColorType color) {
     return color == ColorType.RED
@@ -45,6 +47,8 @@ class Colors {
       ? Colors.green
       : color == ColorType.BLUE
       ? Colors.blue
-      : Colors.purple;
+      : color == ColorType.PURPLE
+      ? Colors.purple
+      : Colors.dusk;
   }
 }

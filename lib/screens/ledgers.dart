@@ -31,7 +31,7 @@ class _LedgersState extends State<Ledgers> {
       'title3', ColorType.RED, 1, false,
     ),
     LedgerItem(
-      'title4', ColorType.YELLOW, 4, false,
+      'title4', ColorType.DUSK, 4, false,
     ),
     LedgerItem(
       'titl5e', ColorType.GREEN, 8, false,

@@ -4,5 +4,6 @@ enum ColorType {
   YELLOW,
   GREEN,
   BLUE,
+  DUSK,
   PURPLE
 }

@@ -16,13 +16,14 @@ class LedgerAdd extends StatefulWidget {
 class _LedgerAddState extends State<LedgerAdd> {
   final List<ColorType> _items = [
     ColorType.PURPLE,
+    ColorType.DUSK,
     ColorType.BLUE,
     ColorType.GREEN,
     ColorType.YELLOW,
     ColorType.ORANGE,
     ColorType.RED,
   ];
-  ColorType selectedColor = ColorType.GREEN;
+  ColorType selectedColor = ColorType.DUSK;
 
   void onPressCurrency() {
 

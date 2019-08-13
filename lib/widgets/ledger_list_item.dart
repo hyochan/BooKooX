@@ -55,7 +55,7 @@ class LedgerListItem extends StatelessWidget {
                                 ? Asset.Icons.icBlue
                                 : color == ColorType.PURPLE
                                 ? Asset.Icons.icPurple
-                                : Asset.Icons.icGreen
+                                : Asset.Icons.icDusk
                               ,
                               fit: BoxFit.cover,
                               width: 40.0,
