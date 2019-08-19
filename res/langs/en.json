@@ -29,5 +29,9 @@
   "LEDGER_DESCRIPTION_HINT": "Please write description of ledger.",
   "COLOR": "Color",
   "CURRENCY": "Currency",
-  "DONE": "Done"
+  "DONE": "Done",
+  "NICKNAME": "Nickname",
+  "PHONE": "Phone number",
+  "STATUS_MESSAGE": "Status message",
+  "STATUS_MESSAGE_HINT": "Please write your status message."
 }

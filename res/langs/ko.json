@@ -29,5 +29,9 @@
   "LEDGER_DESCRIPTION_HINT": "가계부에 대한 설명을 입력해주세요.",
   "COLOR": "색상",
   "CURRENCY": "통화",
-  "DONE": "완료"
+  "DONE": "완료",
+  "NICKNAME": "닉네임",
+  "PHONE": "전화번호",
+  "STATUS_MESSAGE": "상태 메시지",
+  "STATUS_MESSAGE_HINT": "상태 메시지를 입력해주세요."
 }

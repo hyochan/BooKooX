@@ -7,12 +7,14 @@ class ProfileListItem extends StatelessWidget {
     this.imageString,
     this.displayName,
     this.email,
+    this.onTap,
   });
 
   final Key key;
   final String imageString;
   final String displayName;
   final String email;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +36,7 @@ class ProfileListItem extends StatelessWidget {
                 width: 80.0,
                 height: 80.0,
                 child: InkWell(
-                  onTap: () {
-
-                  },
+                  onTap: this.onTap,
                 ),
               ),
             ),

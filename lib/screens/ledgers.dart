@@ -45,6 +45,10 @@ class _LedgersState extends State<Ledgers> {
 
     }
 
+    void onProfilePressed () {
+      General.instance.navigateScreenNamed(context, '/profile_my');
+    }
+
     void onLedgerMorePressed (LedgerItem item) {
 
     }
@@ -83,6 +87,7 @@ class _LedgersState extends State<Ledgers> {
                       email: item.email,
                       displayName: item.displayName,
                       imageString: item.imageString,
+                      onTap: onProfilePressed,
                     );
                   } else if (item is LedgerItem) {
                     return LedgerListItem(
