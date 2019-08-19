@@ -9,9 +9,11 @@ AppBar renderHeaderClose({
   List<Widget> actions,
   BuildContext context,
   Brightness brightness,
+  bool centerTitle,
 }) {
   var _localization = Localization.of(context);
   return AppBar(
+    centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
     brightness: brightness,
     leading: IconButton(
@@ -36,9 +38,11 @@ AppBar renderHeaderBack({
   BuildContext context,
   Brightness brightness,
   Color iconColor,
+  bool centerTitle,
 }) {
   var _localization = Localization.of(context);
   return AppBar(
+    centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
     brightness: brightness,
     leading: IconButton(
@@ -53,6 +57,6 @@ AppBar renderHeaderBack({
     elevation: 0.0,
     actions: actions,
     titleSpacing: 0.0,
-    // title: title,
+    title: title,
   );
 }

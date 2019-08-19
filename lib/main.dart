@@ -12,6 +12,8 @@ import './screens/ledgers.dart' show Ledgers;
 import './screens/ledger_add.dart' show LedgerAdd;
 import './screens/profile_my.dart' show ProfileMy;
 import './screens/setting.dart' show Setting;
+import './screens/setting_announcement.dart' show SettingAnnouncement;
+import './screens/setting_faq.dart' show SettingFAQ;
 import './utils/localization.dart';
 
 void main() => runApp(new MyApp());
@@ -53,6 +55,8 @@ class MyApp extends StatelessWidget {
         '/terms': (BuildContext context) => Terms(),
         '/profile_my': (BuildContext context) => ProfileMy(),
         '/setting': (BuildContext context) => Setting(),
+        '/setting_announcement': (BuildContext context) => SettingAnnouncement(),
+        '/setting_faq': (BuildContext context) => SettingFAQ(),
       },
       supportedLocales: [
         const Locale('en', 'US'),

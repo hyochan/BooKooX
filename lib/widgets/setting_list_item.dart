@@ -7,18 +7,23 @@ class SettingItem implements ListItem {
   final Icon icon;
   final String title;
   final Widget optionalWidget;
+  final Function onPressed;
 
   SettingItem(
     this.icon, this.title,
     {
       this.optionalWidget,
+      this.onPressed,
     }
   );
 }
 
 class LogoutItem implements ListItem {
   final String title;
-  LogoutItem(this.title);
+  final Function onPressed;
+  LogoutItem(this.title, {
+    this.onPressed,
+  });
 }
 
 class SettingListItem extends StatelessWidget {
@@ -28,7 +33,7 @@ class SettingListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: () {},
+      onPressed: item.onPressed,
       padding: EdgeInsets.symmetric(horizontal: 40),
       child: Container(
         height: 72,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/general.dart' show General;
 import '../utils/asset.dart' as Asset;
 import '../utils/localization.dart' show Localization;
 import '../widgets/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
@@ -18,6 +19,7 @@ class Setting extends StatelessWidget {
           size: 24,
         ),
         _localization.trans('ANNOUNCEMENT'),
+        onPressed: () => General.instance.navigateScreenNamed(context, '/setting_announcement'),
       ),
       SettingItem(
         Icon(
@@ -34,6 +36,7 @@ class Setting extends StatelessWidget {
           size: 24,
         ),
         _localization.trans('FAQ'),
+        onPressed: () => General.instance.navigateScreenNamed(context, '/setting_faq'),
       ),
       SettingItem(
         Icon(
@@ -53,6 +56,9 @@ class Setting extends StatelessWidget {
       ),
       LogoutItem(
         _localization.trans('LOGOUT'),
+        onPressed: () {
+          print('logout');
+        }
       ),
     ];
 
