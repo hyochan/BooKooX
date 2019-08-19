@@ -3,6 +3,25 @@ import '../utils/asset.dart' as Asset;
 import '../utils/localization.dart' show Localization;
 import '../types/color.dart' show ColorType;
 
+abstract class ListItem {}
+
+class HeadingItem implements ListItem {
+  final String displayName;
+  final String email;
+  final String imageString;
+
+  HeadingItem(this.displayName, this.email, this.imageString);
+}
+
+class LedgerItem implements ListItem {
+  final String title;
+  final ColorType color;
+  final int people;
+  final bool isOwner;
+
+  LedgerItem(this.title, this.color, this.people, this.isOwner);
+}
+
 class LedgerListItem extends StatelessWidget {
   const LedgerListItem({
     this.key,

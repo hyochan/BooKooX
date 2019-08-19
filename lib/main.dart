@@ -11,6 +11,7 @@ import './screens/terms.dart' show Terms;
 import './screens/ledgers.dart' show Ledgers;
 import './screens/ledger_add.dart' show LedgerAdd;
 import './screens/profile_my.dart' show ProfileMy;
+import './screens/setting.dart' show Setting;
 import './utils/localization.dart';
 
 void main() => runApp(new MyApp());
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         '/ledger_add': (BuildContext context) => LedgerAdd(),
         '/terms': (BuildContext context) => Terms(),
         '/profile_my': (BuildContext context) => ProfileMy(),
+        '/setting': (BuildContext context) => Setting(),
       },
       supportedLocales: [
         const Locale('en', 'US'),

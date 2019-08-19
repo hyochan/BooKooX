@@ -25,7 +25,7 @@ class ProfileImageCam extends StatelessWidget {
                 width: 88.0,
                 height: 88.0,
                 child: ClipOval(
-                  child: this.imgStr != null && this.imgStr != ''
+                  child: this.imgStr == null || this.imgStr == ''
                     ? Material(
                       clipBehavior: Clip.hardEdge,
                       color: Colors.transparent,

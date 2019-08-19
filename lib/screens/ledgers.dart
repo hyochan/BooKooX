@@ -7,7 +7,7 @@ import '../utils/general.dart';
 import '../types/color.dart';
 import '../widgets/header.dart' show renderHeaderClose;
 import '../widgets/profile_list_item.dart' show ProfileListItem;
-import '../widgets/ledger_list_item.dart' show LedgerListItem;
+import '../widgets/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
 
 class Ledgers extends StatefulWidget {
   Ledgers({Key key}) : super(key: key);
@@ -42,7 +42,7 @@ class _LedgersState extends State<Ledgers> {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
     void onSettingPressed () {
-
+      General.instance.navigateScreenNamed(context, '/setting');
     }
 
     void onProfilePressed () {
@@ -138,23 +138,4 @@ class _LedgersState extends State<Ledgers> {
       ),
     );
   }
-}
-
-abstract class ListItem {}
-
-class HeadingItem implements ListItem {
-  final String displayName;
-  final String email;
-  final String imageString;
-
-  HeadingItem(this.displayName, this.email, this.imageString);
-}
-
-class LedgerItem implements ListItem {
-  final String title;
-  final ColorType color;
-  final int people;
-  final bool isOwner;
-
-  LedgerItem(this.title, this.color, this.people, this.isOwner);
 }

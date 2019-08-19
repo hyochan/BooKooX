@@ -33,5 +33,12 @@
   "NICKNAME": "닉네임",
   "PHONE": "전화번호",
   "STATUS_MESSAGE": "상태 메시지",
-  "STATUS_MESSAGE_HINT": "상태 메시지를 입력해주세요."
+  "STATUS_MESSAGE_HINT": "상태 메시지를 입력해주세요.",
+  "ANNOUNCEMENT": "공지사항",
+  "OPINION": "의견 보내기",
+  "FAQ": "FAQ",
+  "NOTIFICATION": "알림",
+  "LOCK": "잠금",
+  "LOGOUT": "로그아웃",
+  "VERSION": "버전"
 }

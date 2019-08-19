@@ -36,6 +36,7 @@ class Colors {
   static const blue = Color.fromARGB(255, 103, 157, 255);
   static const dusk = Color.fromARGB(255, 65, 77, 107);
   static const purple = Color.fromARGB(255, 182, 105, 249);
+  static const carnation = Color.fromARGB(255, 255, 114, 141);
   static Color getColor(ColorType color) {
     return color == ColorType.RED
       ? Colors.red

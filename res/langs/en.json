@@ -33,5 +33,12 @@
   "NICKNAME": "Nickname",
   "PHONE": "Phone number",
   "STATUS_MESSAGE": "Status message",
-  "STATUS_MESSAGE_HINT": "Please write your status message."
+  "STATUS_MESSAGE_HINT": "Please write your status message.",
+  "ANNOUNCEMENT": "Announcement",
+  "OPINION": "Opinion",
+  "FAQ": "FAQ",
+  "NOTIFICATION": "Notification",
+  "LOCK": "Lock",
+  "LOGOUT": "Log out",
+  "VERSION": "Version"
 }
