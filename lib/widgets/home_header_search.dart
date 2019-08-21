@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets//text_input.dart' show TextInput;
+import '../widgets/edit_text_search.dart' show EditTextSearch;
 
 class HomeHeaderSearch extends StatefulWidget {
   HomeHeaderSearch({
@@ -27,7 +27,7 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
 
   @override
   Widget build(BuildContext context) {
-    var textInput = TextInput(
+    var textInput = EditTextSearch(
       controller: widget.textEditingController,
       textInputAction: TextInputAction.search,
       onChanged: (text) {

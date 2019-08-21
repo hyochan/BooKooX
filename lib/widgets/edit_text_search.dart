@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextInput extends StatelessWidget {
-  const TextInput({
+class EditTextSearch extends StatelessWidget {
+  const EditTextSearch({
     this.controller,
     this.txtLabel,
     this.txtHint,

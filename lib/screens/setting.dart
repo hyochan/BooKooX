@@ -27,7 +27,8 @@ class Setting extends StatelessWidget {
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('OPINION'),
+        _localization.trans('SHARE_OPINION'),
+        onPressed: () => General.instance.navigateScreenNamed(context, '/setting_opinion'),
       ),
       SettingItem(
         Icon(

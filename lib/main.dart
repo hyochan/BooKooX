@@ -13,6 +13,7 @@ import './screens/ledger_add.dart' show LedgerAdd;
 import './screens/profile_my.dart' show ProfileMy;
 import './screens/setting.dart' show Setting;
 import './screens/setting_announcement.dart' show SettingAnnouncement;
+import './screens/setting_opinion.dart' show SettingOpinion;
 import './screens/setting_faq.dart' show SettingFAQ;
 import './utils/localization.dart';
 
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
         '/profile_my': (BuildContext context) => ProfileMy(),
         '/setting': (BuildContext context) => Setting(),
         '/setting_announcement': (BuildContext context) => SettingAnnouncement(),
+        '/setting_opinion': (BuildContext context) => SettingOpinion(),
         '/setting_faq': (BuildContext context) => SettingFAQ(),
       },
       supportedLocales: [

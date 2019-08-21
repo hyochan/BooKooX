@@ -35,14 +35,15 @@
   "STATUS_MESSAGE": "Status message",
   "STATUS_MESSAGE_HINT": "Please write your status message.",
   "ANNOUNCEMENT": "Announcement",
-  "OPINION": "Opinion",
+  "SHARE_OPINION": "Share opinion",
+  "SHARE_OPINION_HINT": "Please send us your comments about BooKoo.",
   "FAQ": "FAQ",
   "NOTIFICATION": "Notification",
   "LOCK": "Lock",
   "LOGOUT": "Log out",
   "VERSION": "Version",
   "ANNOUNCEMENT_1": "BooKoo Promises",
-  "ANNOUNCEMENT_TXT_1": "We will update our app every month to support better experience to users. We will listen to you as much as we can.\n",
+  "ANNOUNCEMENT_TXT_1": "We will always update our app to support better experience to users. We will listen to you as much as we can.\n",
   "ANNOUNCEMENT_2": "Release note",
   "ANNOUNCEMENT_TXT_2": "BooKoo is released on apple app store and android playstore. Thank you for all your supports.\n",
   "FAQ_1": "How do I withdraw from BooKoo?",
@@ -66,5 +67,6 @@
   "FAQ_10": "How is BooKoo different from other ledger app?",
   "FAQ_TXT_10": "Basically, BooKoo is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with BooKoo but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n",
   "FAQ_11": "Why did you think you need to make Bookoo?",
-  "FAQ_TXT_11": "Firstly, we found out that there are many troubles when someone manage other people\"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, BooKoo is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n"
+  "FAQ_TXT_11": "Firstly, we found out that there are many troubles when someone manage other people\"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, BooKoo is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n",
+  "SEND": "Send"
 }
