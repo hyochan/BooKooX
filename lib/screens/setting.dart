@@ -13,7 +13,7 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   bool _lockSwitch = false;
-  void onLockChanged(bool value) {
+  void _onChangeLock(bool value) {
     setState(() => _lockSwitch = value);
     print('value: $value');
   }
@@ -56,6 +56,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('NOTIFICATION'),
+        onPressed: () => General.instance.navigateScreenNamed(context, '/setting_notification'),
       ),
       SettingItem(
         Icon(
@@ -66,7 +67,7 @@ class _SettingState extends State<Setting> {
         _localization.trans('LOCK'),
         optionalWidget: Switch(
           value: _lockSwitch,
-          onChanged: onLockChanged,
+          onChanged: _onChangeLock,
           activeTrackColor: Theme.of(context).primaryColor, 
           activeColor: Theme.of(context).accentColor,
         ),

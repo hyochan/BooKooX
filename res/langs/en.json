@@ -68,5 +68,7 @@
   "FAQ_TXT_10": "Basically, BooKoo is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with BooKoo but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n",
   "FAQ_11": "Why did you think you need to make Bookoo?",
   "FAQ_TXT_11": "Firstly, we found out that there are many troubles when someone manage other people\"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, BooKoo is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n",
-  "SEND": "Send"
+  "SEND": "Send",
+  "ADDING_LEDGER_ITEM": "Adding ledger item",
+  "UPDATING_LEDGER_ITEM": "Updating ledger item"
 }

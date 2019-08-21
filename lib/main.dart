@@ -15,6 +15,7 @@ import './screens/setting.dart' show Setting;
 import './screens/setting_announcement.dart' show SettingAnnouncement;
 import './screens/setting_opinion.dart' show SettingOpinion;
 import './screens/setting_faq.dart' show SettingFAQ;
+import './screens/setting_notification.dart' show SettingNotification;
 import './utils/localization.dart';
 
 void main() => runApp(new MyApp());
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         '/setting_announcement': (BuildContext context) => SettingAnnouncement(),
         '/setting_opinion': (BuildContext context) => SettingOpinion(),
         '/setting_faq': (BuildContext context) => SettingFAQ(),
+        '/setting_notification': (BuildContext context) => SettingNotification(),
       },
       supportedLocales: [
         const Locale('en', 'US'),
