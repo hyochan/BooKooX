@@ -46,14 +46,20 @@ class SettingListItem extends StatelessWidget {
               child: item.icon,
             ),
             Expanded(
-              child: Container(
-                child: Text(
-                  item.title,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Theme.of(context).primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      item.title,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    )
                   ),
-                )
+                  item.optionalWidget ?? Container(),
+                ],
               ),
             ),
           ],

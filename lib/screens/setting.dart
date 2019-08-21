@@ -6,8 +6,18 @@ import '../utils/localization.dart' show Localization;
 import '../widgets/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
 import '../widgets/header.dart' show renderHeaderBack;
 
+class Setting extends StatefulWidget {
+  @override
+  _SettingState createState() => _SettingState();
+}
 
-class Setting extends StatelessWidget {
+class _SettingState extends State<Setting> {
+  bool _lockSwitch = false;
+  void onLockChanged(bool value) {
+    setState(() => _lockSwitch = value);
+    print('value: $value');
+  }
+
   @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
@@ -54,6 +64,12 @@ class Setting extends StatelessWidget {
           size: 24,
         ),
         _localization.trans('LOCK'),
+        optionalWidget: Switch(
+          value: _lockSwitch,
+          onChanged: onLockChanged,
+          activeTrackColor: Theme.of(context).primaryColor, 
+          activeColor: Theme.of(context).accentColor,
+        ),
       ),
       LogoutItem(
         _localization.trans('LOGOUT'),
