@@ -1,21 +1,24 @@
 import './Category.dart' show Category;
+import './User.dart' show User;
 
 class LedgerItem {
   double cost;
   Category category;
   String memo;
-  String writerId;
+  User writer;
   DateTime selectedDate;
   DateTime createdAt;
   DateTime updatedAt;
+  DateTime deletedAt;
 
   LedgerItem({
     this.cost,
     this.category,
     this.memo,
-    this.writerId,
+    this.writer,
     this.selectedDate,
     this.createdAt,
     this.updatedAt,
+    this.deletedAt,
   });
 }

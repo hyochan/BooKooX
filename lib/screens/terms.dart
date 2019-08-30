@@ -15,10 +15,11 @@ class _TermsState extends State<Terms> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
+        brightness: Brightness.light,
         iconTheme: IconThemeData(
           color: Theme.of(context).primaryColor,
         ),
-        title: Text('TERMS & Terms',
+        title: Text('Terms',
           style: TextStyle(
             color: Theme.of(context).primaryColor,
           ),

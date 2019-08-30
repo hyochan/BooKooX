@@ -29,23 +29,28 @@ class Intro extends StatelessWidget {
     }
 
     Widget doNotHaveAccount() {
-      return FlatButton(
-        padding: EdgeInsets.all(20.0),
-        onPressed: () => General.instance.navigateScreenNamed(context, '/sign_up'),
-        child: RichText(
-          text: TextSpan(
-            text: _localization.trans('DO_NOT_HAVE_ACCOUNT'),
-            children: <TextSpan>[
-              TextSpan(
-                text: '  ' + _localization.trans('SIGN_UP'),
-                style: TextStyle(
-                    color: Asset.Colors.green,
-                    fontWeight: FontWeight.bold
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: 2.0),
+        child: FlatButton(
+          padding: EdgeInsets.all(0.0),
+          onPressed: () => General.instance.navigateScreenNamed(context, '/sign_up'),
+          child: RichText(
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: _localization.trans('DO_NOT_HAVE_ACCOUNT'),
                 ),
-              ),
-            ],
+                TextSpan(
+                  text: '  ' + _localization.trans('SIGN_UP'),
+                  style: TextStyle(
+                      color: Asset.Colors.green,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
       );
     }
@@ -123,7 +128,7 @@ class Intro extends StatelessWidget {
         margin: EdgeInsets.only(top: 16.0, bottom: 40.0),
         child: FlatButton(
           padding: EdgeInsets.all(0.0),
-          onPressed: () => General.instance.navigateScreenNamed(context, '/agreement'),
+          onPressed: () => General.instance.navigateScreenNamed(context, '/terms'),
           child: RichText(
             text: TextSpan(
               text: _localization.trans('TERMS_PRIVACY_AGREEMENT'),

@@ -10,6 +10,7 @@ class User {
   List<String> ledgers;
   DateTime createdAt;
   DateTime updatedAt;
+  DateTime deletedAt;
 
   User({
     this.uid,
@@ -23,5 +24,6 @@ class User {
     this.ledgers,
     this.createdAt,
     this.updatedAt,
+    this.deletedAt,
   });
 }
