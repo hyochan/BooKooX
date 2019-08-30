@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/edit_text.dart' show EditText;
 import '../widgets/button.dart' show Button;
-import '../utils/general.dart' show General;
 import '../utils/localization.dart' show Localization;
-import '../utils/theme.dart' as Theme;
 import '../utils/validator.dart' show Validator;
 
 class SignUp extends StatefulWidget {
@@ -16,7 +14,6 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   Localization _localization;
-  BuildContext _context;
   String _email;
   String _emailError;
   String _password;
@@ -29,13 +26,12 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     _localization = Localization.of(context);
-    _context = context;
 
     Widget signUpText() {
       return Text(_localization.trans('SIGN_UP'),
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.Colors.dusk,
+          color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -122,7 +118,7 @@ class _SignUpState extends State<SignUp> {
           fontSize: 16.0,
         ),
         borderColor: Colors.white,
-        backgroundColor: Theme.Colors.dusk,
+        backgroundColor: Theme.of(context).primaryColor,
         text: _localization.trans('SIGN_UP'),
         width: MediaQuery.of(context).size.width / 2- 64,
         height: 56.0,
@@ -135,7 +131,7 @@ class _SignUpState extends State<SignUp> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Theme.Colors.dusk,
+          color: Theme.of(context).primaryColor,
         ),
       ),
       body: CustomScrollView(

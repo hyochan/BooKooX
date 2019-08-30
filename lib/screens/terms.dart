@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/edit_text.dart' show EditText;
-import '../widgets/button.dart' show Button;
-import '../utils/general.dart' show General;
-import '../utils/localization.dart' show Localization;
-import '../utils/theme.dart' as Theme;
-import '../utils/validator.dart' show Validator;
-
 class Terms extends StatefulWidget {
   Terms({Key key}) : super(key: key);
 
@@ -23,11 +16,11 @@ class _TermsState extends State<Terms> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Theme.Colors.dusk,
+          color: Theme.of(context).primaryColor,
         ),
         title: Text('TERMS & Terms',
           style: TextStyle(
-            color: Theme.Colors.dusk,
+            color: Theme.of(context).primaryColor,
           ),
         ),
       ),
