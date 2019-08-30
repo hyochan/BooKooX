@@ -1,4 +1,3 @@
-import './User.dart' show User;
 import './LedgerItem.dart' show LedgerItem;
 
 class Ledger {
@@ -6,23 +5,23 @@ class Ledger {
   int color;
   String description;
   int people;
-  String owner;
-  bool visible;
+  String ownerId;
+  List<LedgerItem> items;
+  // List<User> members;
   DateTime createdAt;
   DateTime updatedAt;
-  List<LedgerItem> items;
-  List<User> members;
+  DateTime deletedAt;
 
   Ledger({
     this.title,
     this.color,
     this.description,
     this.people,
-    this.owner,
-    this.visible,
+    this.ownerId,
     this.createdAt,
     this.updatedAt,
     this.items,
-    this.members,
+    // this.members,
+    this.deletedAt,
   });
 }
