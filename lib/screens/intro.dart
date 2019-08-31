@@ -101,7 +101,9 @@ class Intro extends StatelessWidget {
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: '  Facebook',
-            width: MediaQuery.of(context).size.width / 2 - 64,
+            width: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
+              ? MediaQuery.of(context).size.width / 2 - 112
+              : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
               image: Asset.Icons.icFacebookW,
@@ -113,7 +115,9 @@ class Intro extends StatelessWidget {
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: '  Google',
-            width: MediaQuery.of(context).size.width / 2- 64,
+            width: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
+              ? MediaQuery.of(context).size.width / 2 - 112
+              : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
               image: Asset.Icons.icGoogleW,
