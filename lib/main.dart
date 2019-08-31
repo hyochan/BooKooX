@@ -1,3 +1,4 @@
+import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/splash': (BuildContext context) => Splash(),
+        '/tutorial': (BuildContext context) => Tutorial(),
         '/intro': (BuildContext context) => Intro(),
         '/login': (BuildContext context) => Login(),
         '/sign_up': (BuildContext context) => SignUp(),
@@ -84,7 +86,7 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKoo2',
-      home: Intro(),
+      home: Tutorial(),
     );
   }
 }

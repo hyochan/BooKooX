@@ -70,5 +70,12 @@
   "FAQ_TXT_11": "Firstly, we found out that there are many troubles when someone manage other people\"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, BooKoo is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n",
   "SEND": "Send",
   "ADDING_LEDGER_ITEM": "Adding ledger item",
-  "UPDATING_LEDGER_ITEM": "Updating ledger item"
+  "UPDATING_LEDGER_ITEM": "Updating ledger item",
+  "RECORD_IT": "Record it",
+  "TUTORIAL_1_DETAIL": "Record income and\nexpenses conveniently.",
+  "SHARE_IT": "Share it",
+  "TUTORIAL_2_DETAIL": "Able to manage and\nshare ledger with friends",
+  "TAKE_CARE": "Take care",
+  "TUTORIAL_3_DETAIL": "Analyze graph at a glance.\nYou can manage your income and expenses.",
+  "NEXT": "Next"
 }
