@@ -126,10 +126,11 @@ class _SignUpState extends State<SignUp> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+        brightness: Theme.of(context).brightness,
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(
           color: Theme.of(context).primaryColor,
         ),

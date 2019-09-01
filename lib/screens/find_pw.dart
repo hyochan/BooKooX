@@ -75,8 +75,9 @@ class _FindPwState extends State<FindPw> {
 
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+        brightness: Theme.of(context).brightness,
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(
