@@ -24,7 +24,7 @@ class HomeHeaderExpanded extends StatelessWidget {
         titlePadding: _titlePadding,
         title: Text(this.title,
           style: TextStyle(
-            color: Theme.of(context).primaryTextTheme.title.color,
+            color: Theme.of(context).textTheme.title.color,
             fontSize: 16.0,
           ),
         ),
@@ -50,7 +50,7 @@ AppBar renderHomeAppBar({
       titlePadding: _titlePadding,
       title: Text(title,
         style: TextStyle(
-          color: Theme.of(context).primaryTextTheme.title.color,
+          color: Theme.of(context).textTheme.title.color,
           fontSize: 16.0,
         ),
       ),

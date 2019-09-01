@@ -4,6 +4,7 @@ import '../shared/edit_text.dart' show EditText;
 import '../shared/button.dart' show Button;
 import '../utils/localization.dart' show Localization;
 import '../utils/validator.dart' show Validator;
+import '../utils/asset.dart' as Asset;
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);
@@ -31,7 +32,7 @@ class _SignUpState extends State<SignUp> {
       return Text(_localization.trans('SIGN_UP'),
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).textTheme.title.color,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -118,7 +119,7 @@ class _SignUpState extends State<SignUp> {
           fontSize: 16.0,
         ),
         borderColor: Colors.white,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Asset.Colors.dusk,
         text: _localization.trans('SIGN_UP'),
         width: MediaQuery.of(context).size.width / 2- 64,
         height: 56.0,

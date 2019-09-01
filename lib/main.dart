@@ -32,27 +32,29 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         accentColor: Asset.Colors.red,
-        hintColor: Asset.Colors.green,
-        primaryColor: const Color(0xff414d6b),
+        hintColor: Asset.Colors.paleGray,
+        primaryColor: Asset.Colors.dusk,
         primaryColorLight: const Color(0xff6d7999),
         primaryColorDark: const Color(0xff172540),
         disabledColor: const Color(0xffdde2ec),
         backgroundColor: const Color(0xfff9fbfd),
         dialogBackgroundColor: Colors.white,
-        primaryTextTheme: TextTheme(
-          title: TextStyle(color: Colors.white),
+        textTheme: TextTheme(
+          title: TextStyle(color: Asset.Colors.dusk),
+          subhead: TextStyle(color: Colors.black),
         ),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         accentColor: Asset.Colors.red,
-        hintColor: Asset.Colors.green,
+        hintColor: Asset.Colors.paleGray,
         disabledColor: const Color(0xffdde2ec),
         backgroundColor: const Color(0xff303030),
         dialogBackgroundColor: Colors.white,
-         primaryTextTheme: TextTheme(
-           title: TextStyle(color: Colors.white),
-         ),
+        textTheme: TextTheme(
+          title: TextStyle(color: Colors.white),
+          subhead: TextStyle(color: Colors.white),
+        ),
       ),
       routes: {
         '/splash': (BuildContext context) => Splash(),
