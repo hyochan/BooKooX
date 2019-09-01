@@ -51,7 +51,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                     onPressed: () => General.instance.navigateScreenNamed(context, '/ledgers'),
                     child: Icon(
                       Icons.book,
-                      color: Theme.of(context).primaryTextTheme.title.color,
+                      color: Theme.of(context).textTheme.title.color,
                     ),
                   ),
                 ),
@@ -63,7 +63,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                     onPressed: () { },
                     child: Icon(
                       Icons.add,
-                      color: Theme.of(context).primaryTextTheme.title.color,
+                      color: Theme.of(context).textTheme.title.color,
                     ),
                   ),
                 ),

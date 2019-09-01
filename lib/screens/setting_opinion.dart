@@ -54,7 +54,7 @@ class SettingOpinion extends StatelessWidget {
                 margin: EdgeInsets.all(0),
                 height: 56,
                 textStyle: TextStyle(
-                  color: Theme.of(context).primaryTextTheme.title.color,
+                  color: Theme.of(context).textTheme.title.color,
                   fontSize: 16,
                 ),
                 backgroundColor: Theme.of(context).primaryColor,

@@ -59,10 +59,17 @@ class EditText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    InputBorder _underlineBorder = UnderlineInputBorder(
+    InputBorder _underlineBorderFocused = UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Theme.of(context).textTheme.title.color,
+        width: 1.0,
+      ),
+    );
+
+    InputBorder _underlineBorderUnfocused = UnderlineInputBorder(
       borderSide: BorderSide(
         color: Theme.of(context).disabledColor,
-        width: 1.0,
+        width: 0.7,
       ),
     );
 
@@ -84,12 +91,12 @@ class EditText extends StatelessWidget {
             onEditingComplete: onEditingComplete,
             decoration: InputDecoration(
               focusedBorder: showUnderline
-                  ? _underlineBorder
+                  ? _underlineBorderFocused
                   : InputBorder.none,
               labelText: textLabel,
               labelStyle: labelStyle,
-              border: showUnderline
-                  ? _underlineBorder
+              enabledBorder: showUnderline
+                  ? _underlineBorderUnfocused
                   : InputBorder.none,
               hintText: textHint,
               hintStyle: hintStyle,
