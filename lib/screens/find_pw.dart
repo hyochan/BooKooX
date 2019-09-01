@@ -62,7 +62,7 @@ class _FindPwState extends State<FindPw> {
         onPress: () => _onFindPw(),
         margin: EdgeInsets.only(top: 28.0, bottom: 8.0),
         textStyle: TextStyle(
-          color: Theme.of(context).textTheme.title.color,
+          color: Colors.white,
           fontSize: 16.0,
         ),
         borderColor: Theme.of(context).primaryIconTheme.color,
