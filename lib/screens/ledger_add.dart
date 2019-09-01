@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../utils/localization.dart';
 import '../utils/asset.dart' as Asset;
 import '../types/color.dart';
-import '../widgets/header.dart' show renderHeaderBack;
+import '../shared/header.dart' show renderHeaderBack;
 
 class LedgerAdd extends StatefulWidget {
   LedgerAdd({Key key}) : super(key: key);

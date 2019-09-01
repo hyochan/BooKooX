@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 
 import 'package:bookoo2/screens/intro.dart' show Intro;
 import 'package:bookoo2/screens/login.dart' show Login;
-import './test_utils.dart' show TestUtils;
+import '../test_utils.dart' show TestUtils;
 
 void main() {
   testWidgets("Widget", (WidgetTester tester) async{

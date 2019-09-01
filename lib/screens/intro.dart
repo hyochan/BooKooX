@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/asset.dart' as Asset;
 import '../utils/general.dart' show General;
 import '../utils/localization.dart' show Localization;
-import '../widgets/button.dart' show Button;
+import '../shared/button.dart' show Button;
 
 class Intro extends StatelessWidget {
   @override
@@ -101,7 +101,9 @@ class Intro extends StatelessWidget {
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: '  Facebook',
-            width: MediaQuery.of(context).size.width / 2 - 64,
+            width: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
+              ? MediaQuery.of(context).size.width / 2 - 112
+              : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
               image: Asset.Icons.icFacebookW,
@@ -113,7 +115,9 @@ class Intro extends StatelessWidget {
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: '  Google',
-            width: MediaQuery.of(context).size.width / 2- 64,
+            width: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
+              ? MediaQuery.of(context).size.width / 2 - 112
+              : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
               image: Asset.Icons.icGoogleW,

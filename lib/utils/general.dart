@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import '../widgets/dialog_spinner.dart';
+import '../shared/dialog_spinner.dart';
 import '../utils/localization.dart';
 
 class General {

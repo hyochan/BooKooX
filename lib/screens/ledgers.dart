@@ -5,9 +5,9 @@ import '../utils/localization.dart';
 import '../utils/asset.dart' as Asset;
 import '../utils/general.dart';
 import '../types/color.dart';
-import '../widgets/header.dart' show renderHeaderClose;
-import '../widgets/profile_list_item.dart' show ProfileListItem;
-import '../widgets/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
+import '../shared/header.dart' show renderHeaderClose;
+import '../shared/profile_list_item.dart' show ProfileListItem;
+import '../shared/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
 
 class Ledgers extends StatefulWidget {
   Ledgers({Key key}) : super(key: key);

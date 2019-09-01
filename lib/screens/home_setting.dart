@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/home_header.dart' show renderHomeAppBar;
+import '../shared/home_header.dart' show renderHomeAppBar;
 
 class HomeSetting extends StatefulWidget {
   HomeSetting({

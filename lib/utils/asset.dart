@@ -18,6 +18,9 @@ class Icons {
   static AssetImage icBlue = AssetImage('res/icons/icBlue.png');
   static AssetImage icDusk = AssetImage('res/icons/icDusk.png');
   static AssetImage icPurple = AssetImage('res/icons/icPurple.png');
+  static AssetImage tutorial1 = AssetImage('res/icons/tutorial1.png');
+  static AssetImage tutorial2 = AssetImage('res/icons/tutorial2.png');
+  static AssetImage tutorial3 = AssetImage('res/icons/tutorial3.png');
 }
 
 class Images {

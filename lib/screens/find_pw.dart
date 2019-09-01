@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/edit_text.dart' show EditText;
-import '../widgets/button.dart' show Button;
+import '../shared/edit_text.dart' show EditText;
+import '../shared/button.dart' show Button;
 import '../utils/localization.dart' show Localization;
 import '../utils/validator.dart' show Validator;
 
@@ -75,8 +75,9 @@ class _FindPwState extends State<FindPw> {
 
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+        brightness: Theme.of(context).brightness,
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(

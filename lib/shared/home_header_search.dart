@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/edit_text_search.dart' show EditTextSearch;
+import '../shared/edit_text_search.dart' show EditTextSearch;
 
 class HomeHeaderSearch extends StatefulWidget {
   HomeHeaderSearch({

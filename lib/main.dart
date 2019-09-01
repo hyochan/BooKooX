@@ -1,3 +1,4 @@
+import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
@@ -16,6 +17,7 @@ import './screens/setting_announcement.dart' show SettingAnnouncement;
 import './screens/setting_opinion.dart' show SettingOpinion;
 import './screens/setting_faq.dart' show SettingFAQ;
 import './screens/setting_notification.dart' show SettingNotification;
+import './utils/asset.dart' as Asset;
 import './utils/localization.dart';
 
 void main() => runApp(new MyApp());
@@ -29,11 +31,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
+        accentColor: Asset.Colors.red,
+        hintColor: Asset.Colors.green,
         primaryColor: const Color(0xff414d6b),
         primaryColorLight: const Color(0xff6d7999),
         primaryColorDark: const Color(0xff172540),
-        accentColor: const Color(0xffe6677e),
-        hintColor: const Color(0xffafc2db),
         disabledColor: const Color(0xffdde2ec),
         backgroundColor: const Color(0xfff9fbfd),
         dialogBackgroundColor: Colors.white,
@@ -42,11 +44,19 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData(
-        // brightness: Brightness.dark,
-         backgroundColor: const Color(0xff303030),
+        brightness: Brightness.dark,
+        accentColor: Asset.Colors.red,
+        hintColor: Asset.Colors.green,
+        disabledColor: const Color(0xffdde2ec),
+        backgroundColor: const Color(0xff303030),
+        dialogBackgroundColor: Colors.white,
+         primaryTextTheme: TextTheme(
+           title: TextStyle(color: Colors.white),
+         ),
       ),
       routes: {
         '/splash': (BuildContext context) => Splash(),
+        '/tutorial': (BuildContext context) => Tutorial(),
         '/intro': (BuildContext context) => Intro(),
         '/login': (BuildContext context) => Login(),
         '/sign_up': (BuildContext context) => SignUp(),
@@ -84,7 +94,7 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKoo2',
-      home: Intro(),
+      home: Tutorial(),
     );
   }
 }
