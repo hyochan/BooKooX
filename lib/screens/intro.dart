@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/asset.dart' as Asset;
 import '../utils/general.dart' show General;
 import '../utils/localization.dart' show Localization;
-import '../widgets/button.dart' show Button;
+import '../shared/button.dart' show Button;
 
 class Intro extends StatelessWidget {
   @override

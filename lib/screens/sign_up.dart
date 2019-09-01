@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/edit_text.dart' show EditText;
-import '../widgets/button.dart' show Button;
+import '../shared/edit_text.dart' show EditText;
+import '../shared/button.dart' show Button;
 import '../utils/localization.dart' show Localization;
 import '../utils/validator.dart' show Validator;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../utils/localization.dart' show Localization;
-import '../widgets/header.dart' show renderHeaderBack;
+import '../shared/header.dart' show renderHeaderBack;
 
 // One entry in the multilevel list displayed by this app.
 class Entry {

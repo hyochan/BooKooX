@@ -5,10 +5,10 @@ import 'package:image_picker/image_picker.dart';
 
 import '../utils/asset.dart' as Asset;
 import '../utils/general.dart';
-import '../widgets/profile_image_cam.dart';
+import '../shared/profile_image_cam.dart';
 import '../utils/localization.dart' show Localization;
-import '../widgets/header.dart' show renderHeaderClose;
-import '../widgets/edit_text_box.dart' show EditTextBox;
+import '../shared/header.dart' show renderHeaderClose;
+import '../shared/edit_text_box.dart' show EditTextBox;
 import '../utils/validator.dart' show Validator;
 
 class ProfileMy extends StatefulWidget {

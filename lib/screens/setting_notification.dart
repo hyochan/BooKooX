@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bookoo2/widgets/header.dart';
-import 'package:bookoo2/utils/localization.dart';
+import '../shared/header.dart';
+import '../utils/localization.dart';
 
 class SettingNotification extends StatefulWidget {
   @override

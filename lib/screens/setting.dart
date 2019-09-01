@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../utils/general.dart' show General;
 import '../utils/asset.dart' as Asset;
 import '../utils/localization.dart' show Localization;
-import '../widgets/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
-import '../widgets/header.dart' show renderHeaderBack;
+import '../shared/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
+import '../shared/header.dart' show renderHeaderBack;
 
 class Setting extends StatefulWidget {
   @override

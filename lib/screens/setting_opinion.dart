@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../utils/localization.dart' show Localization;
-import '../widgets/header.dart' show renderHeaderBack;
-import '../widgets/button.dart' show Button;
+import '../shared/header.dart' show renderHeaderBack;
+import '../shared/button.dart' show Button;
 
 class SettingOpinion extends StatelessWidget {
 
