@@ -102,5 +102,6 @@
   "MAINTENANCE": "Maintenance",
   "MEMBERSHIP": "Membership",
   "STUFFS": "Stuffs",
-  "TAX": "Tax"
+  "TAX": "Tax",
+  "NO_LEDGER_DESCRIPTION": "You do not have an account book.\nPlease add your household account book."
 }

@@ -21,6 +21,7 @@ class Icons {
   static AssetImage tutorial1 = AssetImage('res/icons/tutorial1.png');
   static AssetImage tutorial2 = AssetImage('res/icons/tutorial2.png');
   static AssetImage tutorial3 = AssetImage('res/icons/tutorial3.png');
+  static AssetImage noLedger = AssetImage('res/icons/noLedger.png');
 }
 
 class Images {

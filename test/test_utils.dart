@@ -1,3 +1,14 @@
+import 'package:bookoo2/navigations/home_tab.dart';
+import 'package:bookoo2/screens/ledger_add.dart';
+import 'package:bookoo2/screens/ledgers.dart';
+import 'package:bookoo2/screens/main_empty.dart';
+import 'package:bookoo2/screens/profile_my.dart';
+import 'package:bookoo2/screens/setting.dart';
+import 'package:bookoo2/screens/setting_announcement.dart';
+import 'package:bookoo2/screens/setting_faq.dart';
+import 'package:bookoo2/screens/setting_notification.dart';
+import 'package:bookoo2/screens/setting_opinion.dart';
+import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 import 'package:bookoo2/utils/localization.dart' show LocalizationDelegate;
@@ -31,12 +42,22 @@ class TestUtils {
         navigatorObservers: <NavigatorObserver>[observer],
         routes: {
           '/splash': (BuildContext context) => Splash(),
+          '/tutorial': (BuildContext context) => Tutorial(),
           '/intro': (BuildContext context) => Intro(),
           '/login': (BuildContext context) => Login(),
           '/sign_up': (BuildContext context) => SignUp(),
           '/find_pw': (BuildContext context) => FindPw(),
-          '/home': (BuildContext context) => HomeCalendar(),
+          '/main_empty': (BuildContext context) => MainEmpty(),
+          '/home': (BuildContext context) => HomeTab(),
+          '/ledgers': (BuildContext context) => Ledgers(),
+          '/ledger_add': (BuildContext context) => LedgerAdd(),
           '/terms': (BuildContext context) => Terms(),
+          '/profile_my': (BuildContext context) => ProfileMy(),
+          '/setting': (BuildContext context) => Setting(),
+          '/setting_announcement': (BuildContext context) => SettingAnnouncement(),
+          '/setting_opinion': (BuildContext context) => SettingOpinion(),
+          '/setting_faq': (BuildContext context) => SettingFAQ(),
+          '/setting_notification': (BuildContext context) => SettingNotification(),
         },
       ),
     );

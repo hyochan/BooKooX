@@ -8,6 +8,7 @@ import './screens/intro.dart' show Intro;
 import './screens/login.dart' show Login;
 import './screens/sign_up.dart' show SignUp;
 import './screens/find_pw.dart' show FindPw;
+import './screens/main_empty.dart' show MainEmpty;
 import './screens/terms.dart' show Terms;
 import './screens/ledgers.dart' show Ledgers;
 import './screens/ledger_add.dart' show LedgerAdd;
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           title: TextStyle(color: Asset.Colors.dusk),
           subhead: TextStyle(color: Colors.black),
+          display1: TextStyle(color: Asset.Colors.paleGray),
         ),
       ),
       darkTheme: ThemeData(
@@ -54,6 +56,7 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           title: TextStyle(color: Colors.white),
           subhead: TextStyle(color: Colors.white),
+          display1: TextStyle(color: Asset.Colors.paleGray),
         ),
       ),
       routes: {
@@ -63,6 +66,7 @@ class MyApp extends StatelessWidget {
         '/login': (BuildContext context) => Login(),
         '/sign_up': (BuildContext context) => SignUp(),
         '/find_pw': (BuildContext context) => FindPw(),
+        '/main_empty': (BuildContext context) => MainEmpty(),
         '/home': (BuildContext context) => HomeTab(),
         '/ledgers': (BuildContext context) => Ledgers(),
         '/ledger_add': (BuildContext context) => LedgerAdd(),
