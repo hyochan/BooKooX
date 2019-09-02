@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/localization.dart' show Localization;
 import '../shared/header.dart' show renderHeaderBack;
 import '../shared/button.dart' show Button;
+import '../utils/asset.dart' as Asset;
 
 class SettingOpinion extends StatelessWidget {
 
@@ -54,10 +55,10 @@ class SettingOpinion extends StatelessWidget {
                 margin: EdgeInsets.all(0),
                 height: 56,
                 textStyle: TextStyle(
-                  color: Theme.of(context).textTheme.title.color,
+                  color: Colors.white,
                   fontSize: 16,
                 ),
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Asset.Colors.dusk,
               ),
             )
           ],

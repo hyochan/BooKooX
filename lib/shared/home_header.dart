@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/asset.dart' as Asset;
 
 final EdgeInsets _titlePadding = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
 
@@ -24,12 +25,12 @@ class HomeHeaderExpanded extends StatelessWidget {
         titlePadding: _titlePadding,
         title: Text(this.title,
           style: TextStyle(
-            color: Theme.of(context).textTheme.title.color,
+            color: Colors.white,
             fontSize: 16.0,
           ),
         ),
         background: Container(
-          color: Theme.of(context).primaryColor,
+          color: Asset.Colors.dusk,
         ),
       ),
     );
