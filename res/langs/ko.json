@@ -102,5 +102,6 @@
   "MAINTENANCE": "관리비",
   "MEMBERSHIP": "멤버쉽",
   "STUFFS": "잡화",
-  "TAX": "세금"
+  "TAX": "세금",
+  "NO_LEDGER_DESCRIPTION": "가계부가 없습니다.\n가계부를 추가해주세요."
 }

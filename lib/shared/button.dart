@@ -10,12 +10,13 @@ class Button extends StatelessWidget {
     this.onPress,
     this.backgroundColor = Colors.white,
     this.margin = const EdgeInsets.only(left: 28.0, right: 28.0),
-    this.borderWidth = 1.0,
+    this.borderWidth = 0.0,
     this.borderRadius = 0.0,
-    this.borderColor = Colors.black54,
+    this.borderColor = Colors.transparent,
     this.textStyle = const TextStyle(
       color: Colors.black12,
     ),
+    this.shapeBorder,
   });
 
   final Key key;
@@ -30,12 +31,14 @@ class Button extends StatelessWidget {
   final double borderRadius;
   final Color borderColor;
   final TextStyle textStyle;
+  final ShapeBorder shapeBorder;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       key: this.key,
       child: FlatButton(
+        shape: shapeBorder,
         padding: EdgeInsets.all(0.0),
         child: Stack(
           alignment: Alignment.center,

@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
   Timer _timer;
 
   Future<void> navigateRoute() async{
-    String initialRoute = '/intro';
+    String initialRoute = '/tutorial';
 
     _navigationTimer = Timer(Duration(milliseconds: 1500), () {
       SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
