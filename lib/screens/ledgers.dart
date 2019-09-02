@@ -104,14 +104,13 @@ class _LedgersState extends State<Ledgers> {
             ),
             Divider(
               color: Color.fromARGB(255, 220, 226, 235),
+              height: 1,
             ),
             Container(
-              height: 60.0,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.0,
-              ),
+              height: 68.0,
               child: FlatButton(
                 onPressed: onAddLedgerPressed,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Row(
                   children: <Widget>[
                     Icon(
@@ -120,7 +119,7 @@ class _LedgersState extends State<Ledgers> {
                       size: 24.0,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 20.0),
+                      padding: EdgeInsets.only(left: 20.0),
                       child: Text(
                         _localization.trans('ADD_LEDGER'),
                         style: TextStyle(
