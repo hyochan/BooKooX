@@ -1,7 +1,7 @@
 # BooKoo2
 [![Build Status](https://travis-ci.com/hyochan/bookoo2.svg?token=LrhznigBQyTepcFfeNdp&branch=master)](https://travis-ci.com/hyochan/bookoo2)
 [![Coverage Status](https://coveralls.io/repos/github/hyochan/bookoo2/badge.svg?branch=master)](https://coveralls.io/github/hyochan/bookoo2?branch=master)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
 BooKoo2 is the renewal app of [BooKoo](https://apps.apple.com/us/app/bookoo/id1276062364?l=ko&ls=1) which is the global SNS ledger app.
@@ -35,7 +35,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore -->
 <table>
   <tr>
-    <td align="center"><a href="http://dooboolab.com"><img src="https://avatars0.githubusercontent.com/u/27461460?v=4" width="60px;" alt="Hyo Chan Jang"/><br /><sub><b>Hyo Chan Jang</b></sub></a><br /><a href="https://github.com/whatssub/whatssub-mobile/commits?author=hyochan" title="Code">💻</a> <a href="https://github.com/whatssub/whatssub-mobile/commits?author=hyochan" title="Tests">⚠️</a> <a href="https://github.com/whatssub/whatssub-mobile/commits?author=hyochan" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://dooboolab.com"><img src="https://avatars0.githubusercontent.com/u/27461460?v=4" width="60px;" alt="Hyo Chan Jang"/><br /><sub><b>Hyo Chan Jang</b></sub></a><br /><a href="https://github.com/hyochan/BooKoo2/commits?author=hyochan" title="Code">💻</a> <a href="https://github.com/hyochan/BooKoo2/commits?author=hyochan" title="Tests">⚠️</a> <a href="https://github.com/hyochan/BooKoo2/commits?author=hyochan" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/joonmyung"><img src="https://avatars0.githubusercontent.com/u/17468301?v=4" width="60px;" alt="정준명"/><br /><sub><b>정준명</b></sub></a><br /><a href="https://github.com/hyochan/BooKoo2/commits?author=joonmyung" title="Code">💻</a></td>
   </tr>
 </table>
 
