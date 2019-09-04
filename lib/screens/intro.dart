@@ -106,7 +106,9 @@ class Intro extends StatelessWidget {
               : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
-              image: Asset.Icons.icFacebookW,
+              image: Asset.Icons.icFacebookB,
+              width: 22.0,
+              height: 22.0,
             ),
           ),
           Button(
@@ -120,7 +122,9 @@ class Intro extends StatelessWidget {
               : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
-              image: Asset.Icons.icGoogleW,
+              image: Asset.Icons.icGoogleB,
+              width: 24.0,
+              height: 24.0,
             ),
           ),
         ],

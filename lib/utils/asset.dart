@@ -5,8 +5,8 @@ class Icons {
   Icons._();
   static AssetImage icMask = AssetImage('res/icons/icMask.png');
   static AssetImage icBooKoo = AssetImage('res/icons/BooKoo.png');
-  static AssetImage icFacebookW = AssetImage('res/icons/icFacebookW.png');
-  static AssetImage icGoogleW = AssetImage('res/icons/icGoogleW.png');
+  static AssetImage icFacebookB = AssetImage('res/icons/icFacebookB.png');
+  static AssetImage icGoogleB = AssetImage('res/icons/icGoogleB.png');
   static AssetImage icTab1 = AssetImage('res/icons/icTab1.png');
   static AssetImage icTab2 = AssetImage('res/icons/icTab2.png');
   static AssetImage icTab3 = AssetImage('res/icons/icTab3.png');
