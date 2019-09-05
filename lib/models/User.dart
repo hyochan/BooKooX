@@ -1,6 +1,7 @@
 class User {
   String uid;
   String email;
+  String displayName;
   bool showEmailAddress;
   String thumbURL;
   String photoURL;
@@ -15,6 +16,7 @@ class User {
   User({
     this.uid,
     this.email,
+    this.displayName,
     this.showEmailAddress,
     this.thumbURL,
     this.photoURL,
