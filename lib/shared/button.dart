@@ -6,6 +6,7 @@ class Button extends StatelessWidget {
     this.text = '',
     this.image,
     this.width,
+    this.imageMarginLeft = 12.0,
     this.height = 52.0,
     this.onPress,
     this.backgroundColor = Colors.white,
@@ -23,6 +24,7 @@ class Button extends StatelessWidget {
   final String text;
   final Image image;
   final double width;
+  final double imageMarginLeft;
   final double height;
   final VoidCallback onPress;
   final Color backgroundColor;
@@ -45,9 +47,12 @@ class Button extends StatelessWidget {
           children: <Widget>[
             Positioned(
               child: Container(child: image),
-              left: 8.0,
+              left: this.imageMarginLeft,
             ),
             Container(
+              margin: this.image == null
+                ? null
+                : EdgeInsets.only(left: 24),
               child: Center(
                 child: Text(
                   text,

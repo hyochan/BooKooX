@@ -100,29 +100,30 @@ class Intro extends StatelessWidget {
             ),
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
-            text: '  Facebook',
+            text: 'Facebook',
             width: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
               ? MediaQuery.of(context).size.width / 2 - 112
               : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
-              image: Asset.Icons.icFacebookB,
-              width: 22.0,
-              height: 22.0,
+              image: Asset.Icons.icFacebook,
+              width: 20.0,
+              height: 20.0,
             ),
           ),
           Button(
             margin: EdgeInsets.only(top: 20.0),
+            imageMarginLeft: 8,
             textStyle: _loginWithTextStyle,
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
-            text: '  Google',
+            text: 'Google',
             width: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
               ? MediaQuery.of(context).size.width / 2 - 112
               : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
-              image: Asset.Icons.icGoogleB,
+              image: Asset.Icons.icGoogle,
               width: 24.0,
               height: 24.0,
             ),
