@@ -12,6 +12,7 @@ import './screens/main_empty.dart' show MainEmpty;
 import './screens/terms.dart' show Terms;
 import './screens/ledgers.dart' show Ledgers;
 import './screens/ledger_add.dart' show LedgerAdd;
+import './screens/ledger_item_add.dart' show LedgerItemAdd;
 import './screens/profile_my.dart' show ProfileMy;
 import './screens/setting.dart' show Setting;
 import './screens/setting_announcement.dart' show SettingAnnouncement;
@@ -77,6 +78,7 @@ class MyApp extends StatelessWidget {
         '/setting_opinion': (BuildContext context) => SettingOpinion(),
         '/setting_faq': (BuildContext context) => SettingFAQ(),
         '/setting_notification': (BuildContext context) => SettingNotification(),
+        '/ledger_item_add': (BuildContext context) => LedgerItemAdd(),
       },
       supportedLocales: [
         const Locale('en', 'US'),
@@ -100,7 +102,7 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKoo2',
-      home: Tutorial(),
+      home: HomeTab(),
     );
   }
 }

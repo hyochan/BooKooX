@@ -103,5 +103,12 @@
   "MEMBERSHIP": "멤버쉽",
   "STUFFS": "잡화",
   "TAX": "세금",
-  "NO_LEDGER_DESCRIPTION": "가계부가 없습니다.\n가계부를 추가해주세요."
+  "NO_LEDGER_DESCRIPTION": "가계부가 없습니다.\n가계부를 추가해주세요.",
+  "PRICE": "금액",
+  "DATE": "날짜",
+  "CATEGORY": "카테고리",
+  "LOCATION": "위치",
+  "PICTURE": "사진",
+  "CONSUME": "지출",
+  "INCOME": "수입"
 }

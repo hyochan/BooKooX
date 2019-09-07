@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
+import '../utils/general.dart';
 
 import '../shared/home_header_search.dart' show HomeHeaderSearch;
 
@@ -16,9 +16,7 @@ class _HomeListState extends State<HomeList> {
   TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Function onAddLedgerList = () {
-
-    };
+    Function onAddLedgerList = () => General.instance.navigateScreenNamed(context, '/ledger_item_add');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
