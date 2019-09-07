@@ -18,6 +18,17 @@ class _FindPwState extends State<FindPw> {
   String _emailError;
   bool _isEmail;
 
+  void _onFindPw() {
+    bool isEmail = Validator.instance.validateEmail(_email);
+
+    if (!isEmail) {
+      setState(() => _emailError = _localization.trans('NO_VALID_EMAIL'));
+      return;
+    }
+
+    print('onFindPw');
+  }
+
   @override
   Widget build(BuildContext context) {
     _localization = Localization.of(context);
@@ -84,33 +95,25 @@ class _FindPwState extends State<FindPw> {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                <Widget>[
-                  findPwText(),
-                  emailField(),
-                  sendButton(),
-                ],
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  <Widget>[
+                    findPwText(),
+                    emailField(),
+                    sendButton(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-  }
-
-  void _onFindPw() {
-    bool isEmail = Validator.instance.validateEmail(_email);
-
-    if (!isEmail) {
-      setState(() => _emailError = _localization.trans('NO_VALID_EMAIL'));
-      return;
-    }
-
-    print('onFindPw');
   }
 }
