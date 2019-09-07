@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../shared/home_header.dart' show renderHomeAppBar;
+import '../utils/general.dart' show General;
 
 class HomeSetting extends StatefulWidget {
   HomeSetting({
@@ -20,8 +21,24 @@ class _HomeSettingState extends State<HomeSetting> {
       appBar: renderHomeAppBar(
         context: context,
         title: widget.title,
+        actions: <Widget>[
+          Container(
+            width: 56.0,
+            child: RawMaterialButton(
+              padding: EdgeInsets.all(0.0),
+              shape: CircleBorder(),
+              onPressed: () => General.instance.navigateScreenNamed(
+                context, '/ledger_item_add',
+              ),
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[

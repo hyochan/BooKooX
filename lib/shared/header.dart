@@ -7,26 +7,33 @@ AppBar renderHeaderClose({
   Key key,
   Widget title,
   List<Widget> actions,
-  BuildContext context,
+  @required BuildContext context,
   Brightness brightness,
   bool centerTitle,
+  Widget bottom,
 }) {
   var _localization = Localization.of(context);
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
     brightness: brightness,
-    leading: IconButton(
-      color: Theme.of(context).primaryColor,
-      icon: Icon(
-        Icons.close,
-        semanticLabel: _localization.trans('CLOSE'),
+    leading: Container(
+      width: 56.0,
+      child: RawMaterialButton(
+        padding: EdgeInsets.all(0.0),
+        shape: CircleBorder(),
+        onPressed: () => Navigator.of(context).pop(),
+        child: Icon(
+          Icons.close,
+          color: Theme.of(context).textTheme.title.color,
+          semanticLabel: _localization.trans('CLOSE'),
+        ),
       ),
-      onPressed: () => Navigator.of(context).pop(),
     ),
     elevation: 0.0,
     actions: actions,
     titleSpacing: 0.0,
+    bottom: bottom,
     // title: title,
   );
 }
@@ -45,14 +52,15 @@ AppBar renderHeaderBack({
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
     brightness: brightness,
-    leading: IconButton(
-      color: Theme.of(context).primaryColor,
-      icon: Icon(
+    leading: RawMaterialButton(
+      padding: EdgeInsets.all(0.0),
+      shape: CircleBorder(),
+      onPressed: () => Navigator.of(context).pop(),
+      child: Icon(
         Icons.arrow_back,
-        color: iconColor,
+        color: Theme.of(context).textTheme.title.color,
         semanticLabel: _localization.trans('BACK'),
       ),
-      onPressed: () => Navigator.of(context).pop(),
     ),
     elevation: 0.0,
     actions: actions,
