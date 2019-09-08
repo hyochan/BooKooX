@@ -35,15 +35,19 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
   LedgerItem _ledgerItemConsume = LedgerItem();
   TabController _tabController;
 
-  void onCategoryPressed () {
+  void onCategoryPressed() {
     print('onCategoryPressed');
   }
 
-  void onDatePressed () {
+  void onDatePressed() {
 
   }
 
-  void onLocationPressed () {
+  void onLocationPressed() {
+
+  }
+
+  void onLedgerItemAddPressed() {
 
   }
 
@@ -319,7 +323,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () {},
+              onPressed: onLedgerItemAddPressed,
               child: Icon(
                 Icons.add_box,
                 color: Theme.of(context).textTheme.title.color,

@@ -58,7 +58,7 @@ AppBar renderHeaderBack({
       onPressed: () => Navigator.of(context).pop(),
       child: Icon(
         Icons.arrow_back,
-        color: Theme.of(context).textTheme.title.color,
+        color: iconColor,
         semanticLabel: _localization.trans('BACK'),
       ),
     ),

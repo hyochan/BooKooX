@@ -225,6 +225,10 @@ class ColorItem extends StatelessWidget {
             child: InkWell(
               onTap: onTap,
               child: Container(
+                decoration: new BoxDecoration(
+                  border: new Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(12),
+                ), 
                 width: 24,
                 height: 24,
               ),
