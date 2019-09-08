@@ -134,7 +134,8 @@ class _GalleryState extends State<Gallery> {
                   ],
                 ),
               ),
-              FlatButton(
+              onPressShowAll != null
+              ? FlatButton(
                 onPressed: onPressShowAll,
                 child: Text(
                   _localization.trans('SHOW_ALL'),
@@ -144,14 +145,14 @@ class _GalleryState extends State<Gallery> {
                     decoration: TextDecoration.underline,
                   ),
                 ),
-              ),
+              ) : Container(),
             ],
           ),
           Container(
             width: double.infinity,
             margin: EdgeInsets.only(bottom: 32),
             child: Wrap(
-              children: this.picture.map((Photo photo,) {
+              children: this.picture.map((Photo photo) {
                 if (photo.isAddBtn == true) {
                   return Container(
                     padding: EdgeInsets.only(right: 4, bottom: 6),
@@ -233,6 +234,7 @@ class _GalleryState extends State<Gallery> {
                     ),
                   );
                 }
+                return Container();
               }).toList(),
             ),
           ),

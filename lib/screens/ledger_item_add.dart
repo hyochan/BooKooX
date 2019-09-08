@@ -170,25 +170,39 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
               ),
               /// PRICE INPUT
               Container(
-                child: TextField(
-                  textInputAction: TextInputAction.done,
-                  onChanged: (String value) => _ledgerItemConsume.price = double.parse(value),
-                  onTap: () {
-                    priceTextEditingController1.text = '${_ledgerItemConsume.price ?? 0.0}';
-                  },
-                  onEditingComplete: () {
-                    priceTextEditingController1.text = '${formatCurrency.format(_ledgerItemConsume.price ?? 0.0)}';
-                  },
-                  controller: priceTextEditingController1,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: '0',
-                  ),
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Asset.Colors.mediumGray,
-                  ),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text('- ', style: TextStyle(
+                        fontSize: 28,
+                        color: Asset.Colors.carnation,
+                      )),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: TextField(
+                          textInputAction: TextInputAction.done,
+                          onChanged: (String value) => _ledgerItemConsume.price = double.parse(value),
+                          onTap: () {
+                            priceTextEditingController1.text = '${_ledgerItemConsume.price ?? 0.0}';
+                          },
+                          onEditingComplete: () {
+                            priceTextEditingController1.text = '${formatCurrency.format(_ledgerItemConsume.price ?? 0.0)}';
+                          },
+                          controller: priceTextEditingController1,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '0',
+                          ),
+                          style: TextStyle(
+                            fontSize: 28,
+                            color: Asset.Colors.carnation,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               /// CATEGORY
@@ -261,25 +275,39 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
               ),
               /// PRICE INPUT
               Container(
-                child: TextField(
-                  textInputAction: TextInputAction.done,
-                  onChanged: (String value) => _ledgerItemIncome.price = double.parse(value),
-                  onTap: () {
-                    priceTextEditingController2.text = '${_ledgerItemIncome.price ?? 0.0}';
-                  },
-                  onEditingComplete: () {
-                    priceTextEditingController2.text = '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
-                  },
-                  controller: priceTextEditingController2,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: '0',
-                  ),
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Asset.Colors.mediumGray,
-                  ),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text('+ ', style: TextStyle(
+                        fontSize: 28,
+                        color: Asset.Colors.mediumGray,
+                      )),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: TextField(
+                          textInputAction: TextInputAction.done,
+                          onChanged: (String value) => _ledgerItemIncome.price = double.parse(value),
+                          onTap: () {
+                            priceTextEditingController2.text = '${_ledgerItemIncome.price ?? 0.0}';
+                          },
+                          onEditingComplete: () {
+                            priceTextEditingController2.text = '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
+                          },
+                          controller: priceTextEditingController2,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '0',
+                          ),
+                          style: TextStyle(
+                            fontSize: 28,
+                            color: Asset.Colors.mediumGray,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               /// CATEGORY
@@ -306,7 +334,11 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 showDropdown: false,
                 onPressed: onLocationPressed,
               ),
-              Gallery(picture: []),
+              Gallery(
+                margin: EdgeInsets.only(top: 26),
+                showAddBtn: true,
+                picture: [Photo(isAddBtn: true)],
+              ),
             ],
           ),
         ),
