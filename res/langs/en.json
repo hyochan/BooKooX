@@ -110,5 +110,8 @@
   "LOCATION": "Location",
   "PICTURE": "Picture",
   "CONSUME": "Consume",
-  "INCOME": "Income"
+  "INCOME": "Income",
+  "SHOW_ALL": "Show All",
+  "CAMERA": "Camera",
+  "GALLERY": "Gallery"
 }

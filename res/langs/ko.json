@@ -110,5 +110,8 @@
   "LOCATION": "위치",
   "PICTURE": "사진",
   "CONSUME": "지출",
-  "INCOME": "수입"
+  "INCOME": "수입",
+  "SHOW_ALL": "전체보기",
+  "CAMERA": "카메라",
+  "GALLERY": "갤러리"
 }

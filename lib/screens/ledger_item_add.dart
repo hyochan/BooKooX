@@ -3,9 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
 import '../shared/header.dart';
-import '../utils/asset.dart' as Asset;
+import '../models/Photo.dart' show Photo;
 import '../models/LedgerItem.dart' show LedgerItem;
 import '../shared/header.dart' show renderHeaderClose;
+import '../shared/gallery.dart' show Gallery;
+import '../utils/asset.dart' as Asset;
 import '../utils/localization.dart' show Localization;
 
 class LedgerItemAdd extends StatefulWidget {
@@ -129,116 +131,6 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
       );
     }
 
-    Widget renderIncomeView() {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0),
-        child: GestureDetector(
-          onTap: () {
-            priceTextEditingController2.text = '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: ListView(
-            children: <Widget>[
-              /// PRICE
-              Container(
-                margin: EdgeInsets.only(top: 44),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(right: 8),
-                      child: Image(
-                        image: Asset.Icons.icCoins,
-                        width: 20,
-                        height: 20,
-                      ),
-                    ),
-                    Text(
-                      _localization.trans('PRICE'),
-                      style: TextStyle(
-                        color: Asset.Colors.cloudyBlue,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              /// PRICE INPUT
-              Container(
-                child: TextField(
-                  textInputAction: TextInputAction.done,
-                  onChanged: (String value) => _ledgerItemIncome.price = double.parse(value),
-                  onTap: () {
-                    priceTextEditingController2.text = '${_ledgerItemIncome.price ?? 0.0}';
-                  },
-                  onEditingComplete: () {
-                    priceTextEditingController2.text = '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
-                  },
-                  controller: priceTextEditingController2,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: '0',
-                  ),
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Asset.Colors.mediumGray,
-                  ),
-                ),
-              ),
-              /// CATEGORY
-              renderBox(
-                margin: EdgeInsets.only(top: 52),
-                icon: Icons.category,
-                text: _localization.trans('CATEGORY'),
-                showDropdown: true,
-                onPressed: onCategoryPressed,
-              ),
-              /// SELECTED DATE
-              renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.date_range,
-                text: _localization.trans('DATE'),
-                showDropdown: true,
-                onPressed: onDatePressed,
-              ),
-              /// LOCATION
-              renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.location_on,
-                text: _localization.trans('LOCATION'),
-                showDropdown: false,
-                onPressed: onLocationPressed,
-              ),
-              /// PICTURE
-              Container(
-                margin: EdgeInsets.only(top: 26),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(right: 18),
-                      width: 20.0,
-                      child: Icon(
-                        Icons.photo,
-                        color: Asset.Colors.cloudyBlue,
-                      ),
-                    ),
-                    Text(
-                      _localization.trans('PICTURE'),
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.title.color,
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              /// PICTURE LIST
-            ],
-          ),
-        ),
-      );
-    }
-
     Widget renderConsumeView() {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -319,36 +211,103 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 showDropdown: false,
                 onPressed: onLocationPressed,
               ),
-              /// PICTURE
-              Container(
+              Gallery(
                 margin: EdgeInsets.only(top: 26),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(right: 18),
-                      width: 20.0,
-                      child: Icon(
-                        Icons.photo,
-                        color: Asset.Colors.cloudyBlue,
-                      ),
-                    ),
-                    Text(
-                      _localization.trans('PICTURE'),
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.title.color,
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
-                ),
+                showAddBtn: true,
+                picture: [Photo(isAddBtn: true)],
               ),
-              /// PICTURE LIST
             ],
           ),
         ),
       );
     }
 
+    Widget renderIncomeView() {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+        child: GestureDetector(
+          onTap: () {
+            priceTextEditingController2.text = '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: ListView(
+            children: <Widget>[
+              /// PRICE
+              Container(
+                margin: EdgeInsets.only(top: 44),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(right: 8),
+                      child: Image(
+                        image: Asset.Icons.icCoins,
+                        width: 20,
+                        height: 20,
+                      ),
+                    ),
+                    Text(
+                      _localization.trans('PRICE'),
+                      style: TextStyle(
+                        color: Asset.Colors.cloudyBlue,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              /// PRICE INPUT
+              Container(
+                child: TextField(
+                  textInputAction: TextInputAction.done,
+                  onChanged: (String value) => _ledgerItemIncome.price = double.parse(value),
+                  onTap: () {
+                    priceTextEditingController2.text = '${_ledgerItemIncome.price ?? 0.0}';
+                  },
+                  onEditingComplete: () {
+                    priceTextEditingController2.text = '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
+                  },
+                  controller: priceTextEditingController2,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: '0',
+                  ),
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: Asset.Colors.mediumGray,
+                  ),
+                ),
+              ),
+              /// CATEGORY
+              renderBox(
+                margin: EdgeInsets.only(top: 52),
+                icon: Icons.category,
+                text: _localization.trans('CATEGORY'),
+                showDropdown: true,
+                onPressed: onCategoryPressed,
+              ),
+              /// SELECTED DATE
+              renderBox(
+                margin: EdgeInsets.only(top: 8),
+                icon: Icons.date_range,
+                text: _localization.trans('DATE'),
+                showDropdown: true,
+                onPressed: onDatePressed,
+              ),
+              /// LOCATION
+              renderBox(
+                margin: EdgeInsets.only(top: 8),
+                icon: Icons.location_on,
+                text: _localization.trans('LOCATION'),
+                showDropdown: false,
+                onPressed: onLocationPressed,
+              ),
+              Gallery(picture: []),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: renderHeaderClose(
