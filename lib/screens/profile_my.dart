@@ -17,24 +17,6 @@ class ProfileMy extends StatefulWidget {
 }
 
 class _ProfileMyState extends State<ProfileMy> {
-  void _chooseImage(String type) async {
-    General.instance.showDialogSpinner(context, text: Localization.of(context).trans('LOADING'));
-
-    try {
-      File imgFile = type == 'camera'
-          ? await ImagePicker.pickImage(source: ImageSource.camera)
-          : await ImagePicker.pickImage(source: ImageSource.gallery);
-
-      if (imgFile != null) {
-
-      }
-    } catch (err) {
-      print('err: $err');
-    } finally {
-      Navigator.pop(context);
-    }
-  }
-
   void _onUpdateProfile() {
     print('onUpdateProfile');
   }
@@ -68,8 +50,8 @@ class _ProfileMyState extends State<ProfileMy> {
               child: Row(
                 children: <Widget>[
                   ProfileImageCam(
-                    selectCamera: () => this._chooseImage('camera'),
-                    selectGallery: () => this._chooseImage('gallery'),
+                    selectCamera: () => General.instance.chooseImage(context: context, type: 'camera'),
+                    selectGallery: () => General.instance.chooseImage(context: context, type: 'gallery'),
                   ),
                 ],
               ),
