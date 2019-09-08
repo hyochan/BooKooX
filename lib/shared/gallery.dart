@@ -80,11 +80,13 @@ class Gallery extends StatefulWidget {
   Gallery({
     this.margin,
     this.showAddBtn,
+    this.showAll = false,
     @required this.picture,
   });
 
   final EdgeInsets margin;
   final bool showAddBtn;
+  final bool showAll;
   final List<Photo> picture;
 
   @override
@@ -114,6 +116,7 @@ class _GalleryState extends State<Gallery> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
+                margin: EdgeInsets.only(bottom: 8),
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -134,7 +137,7 @@ class _GalleryState extends State<Gallery> {
                   ],
                 ),
               ),
-              onPressShowAll != null
+              widget.showAll
               ? FlatButton(
                 onPressed: onPressShowAll,
                 child: Text(
