@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/general.dart' show General;
 import '../shared/home_header.dart' show renderHomeAppBar;
 
 class HomeStatistic extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomeStatisticState extends State<HomeStatistic> {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () { },
+              onPressed: () => General.instance.navigateScreenNamed(context, '/ledger_item_add'),
               child: Icon(
                 Icons.add,
                 color: Colors.white,

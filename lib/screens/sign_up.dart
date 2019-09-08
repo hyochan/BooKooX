@@ -24,6 +24,32 @@ class _SignUpState extends State<SignUp> {
   bool _isEmail = false;
   bool _isPassword = false;
 
+  void _onSignUp() {
+    if (_email == null || _password == null) {
+      print('_email or _password is null.');
+      return;
+    }
+
+    bool isEmail = Validator.instance.validateEmail(_email);
+    bool isPassword = Validator.instance.validatePassword(_password);
+
+    if (!isEmail) {
+      setState(() => _emailError = _localization.trans('NO_VALID_EMAIL'));
+      return;
+    }
+
+    if (!isPassword) {
+      setState(() => _passwordError = _localization.trans('PASSWORD_HINT'));
+      return;
+    }
+
+    if (_passwordConfirm != _password) {
+      setState(() => _passwordConfirmError = _localization.trans('PASSWORD_CONFIRM_HINT'));
+      return;
+    }
+    print('onSignUp');
+  }
+
   @override
   Widget build(BuildContext context) {
     _localization = Localization.of(context);
@@ -136,50 +162,27 @@ class _SignUpState extends State<SignUp> {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                <Widget>[
-                  signUpText(),
-                  emailField(),
-                  passwordField(),
-                  passwordConfirmField(),
-                  signUpButton(),
-                ],
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  <Widget>[
+                    signUpText(),
+                    emailField(),
+                    passwordField(),
+                    passwordConfirmField(),
+                    signUpButton(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-  }
-
-  void _onSignUp() {
-    if (_email == null || _password == null) {
-      print('_email or _password is null.');
-      return;
-    }
-
-    bool isEmail = Validator.instance.validateEmail(_email);
-    bool isPassword = Validator.instance.validatePassword(_password);
-
-    if (!isEmail) {
-      setState(() => _emailError = _localization.trans('NO_VALID_EMAIL'));
-      return;
-    }
-
-    if (!isPassword) {
-      setState(() => _passwordError = _localization.trans('PASSWORD_HINT'));
-      return;
-    }
-
-    if (_passwordConfirm != _password) {
-      setState(() => _passwordConfirmError = _localization.trans('PASSWORD_CONFIRM_HINT'));
-      return;
-    }
-    print('onSignUp');
   }
 }

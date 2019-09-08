@@ -103,5 +103,15 @@
   "MEMBERSHIP": "Membership",
   "STUFFS": "Stuffs",
   "TAX": "Tax",
-  "NO_LEDGER_DESCRIPTION": "You do not have an account book.\nPlease add your household account book."
+  "NO_LEDGER_DESCRIPTION": "You do not have an account book.\nPlease add your household account book.",
+  "PRICE": "Price",
+  "CATEGORY": "Category",
+  "DATE": "Date",
+  "LOCATION": "Location",
+  "PICTURE": "Picture",
+  "CONSUME": "Consume",
+  "INCOME": "Income",
+  "SHOW_ALL": "Show All",
+  "CAMERA": "Camera",
+  "GALLERY": "Gallery"
 }

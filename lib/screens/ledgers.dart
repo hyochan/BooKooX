@@ -62,14 +62,18 @@ class _LedgersState extends State<Ledgers> {
         context: context,
         brightness: Brightness.light,
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.settings,
-              semanticLabel: 'setting',
+          Container(
+            width: 56.0,
+            child: RawMaterialButton(
+              padding: EdgeInsets.all(0.0),
+              shape: CircleBorder(),
+              onPressed: onSettingPressed,
+              child: Icon(
+                Icons.settings,
+                color: Theme.of(context).textTheme.title.color,
+                semanticLabel: _localization.trans('SETTING'),
+              ),
             ),
-            color: Theme.of(context).primaryColor,
-            padding: EdgeInsets.all(0.0),
-            onPressed: onSettingPressed,
           ),
         ],
       ),

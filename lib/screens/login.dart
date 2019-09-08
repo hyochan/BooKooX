@@ -23,6 +23,31 @@ class _LoginState extends State<Login> {
   String _password;
   bool _isEmail;
 
+ void _onLogin() {
+    if (_email == null || _password == null) {
+      print('_email or _password is null.');
+      return;
+    }
+
+    bool isEmail = Validator.instance.validateEmail(_email);
+
+    if (!isEmail) {
+      General.instance.showDialogYes(_context,
+        title: _localization.trans('ERROR'),
+        content: _localization.trans('NO_VALID_EMAIL'),
+      );
+      return;
+    }
+
+    if (_password == null || _password.length == 0) {
+      General.instance.showDialogYes(_context,
+        title: _localization.trans('ERROR'),
+        content: _localization.trans('PASSWORD_HINT'),
+      );
+      return;
+    }
+  }
+
   @override
   void dispose() {
     _scrollController.dispose();
@@ -149,50 +174,28 @@ class _LoginState extends State<Login> {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: <Widget>[
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                <Widget>[
-                  loginText(),
-                  emailField(),
-                  passwordField(),
-                  loginButton(),
-                  findPwButton(),
-                ],
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: <Widget>[
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  <Widget>[
+                    loginText(),
+                    emailField(),
+                    passwordField(),
+                    loginButton(),
+                    findPwButton(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-  }
-
-  void _onLogin() {
-    if (_email == null || _password == null) {
-      print('_email or _password is null.');
-      return;
-    }
-
-    bool isEmail = Validator.instance.validateEmail(_email);
-
-    if (!isEmail) {
-      General.instance.showDialogYes(_context,
-        title: _localization.trans('ERROR'),
-        content: _localization.trans('NO_VALID_EMAIL'),
-      );
-      return;
-    }
-
-    if (_password == null || _password.length == 0) {
-      General.instance.showDialogYes(_context,
-        title: _localization.trans('ERROR'),
-        content: _localization.trans('PASSWORD_HINT'),
-      );
-      return;
-    }
   }
 }

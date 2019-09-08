@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image/image.dart' as Im;
 
 import '../shared/dialog_spinner.dart';
 import '../utils/localization.dart';
@@ -27,6 +30,13 @@ class General {
       );
     }
     return Navigator.of(context).pushNamed(routeName);
+  }
+
+  Future<dynamic> navigateScreen(BuildContext context, MaterialPageRoute pageRoute) {
+    return Navigator.push(
+      context,
+      pageRoute,
+    );
   }
 
   void showDialogSpinner(BuildContext context, {
@@ -113,7 +123,7 @@ class General {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
-  void _selectDate(BuildContext context, data, Function callback) {
+  void showDatePicker(BuildContext context, data, Function callback) {
 //    List<DateTime> data = [
 //      DateTime(2018, 8, 16),
 //      DateTime(2018, 8, 18),
@@ -166,5 +176,30 @@ class General {
           );
         }
     );
+  }
+
+  Future<File> chooseImage({
+    @required BuildContext context,
+    String type,
+  }) async {
+    General.instance.showDialogSpinner(context, text: Localization.of(context).trans('LOADING'));
+
+    try {
+      File imgFile = type == 'camera'
+        ? await ImagePicker.pickImage(source: ImageSource.camera)
+        : await ImagePicker.pickImage(source: ImageSource.gallery);
+      return imgFile;
+    } catch (err) {
+      print('chooseImage err $err');
+      return null;
+    } finally {
+      Navigator.pop(context);
+    }
+  }
+
+  File compressImage(File img, { int size = 500 }) {
+    Im.Image image = Im.decodeImage(img.readAsBytesSync());
+    Im.Image smallerImage = Im.copyResize(image, width: size, height: size);
+    return smallerImage as File;
   }
 }

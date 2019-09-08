@@ -2,7 +2,7 @@ import './Category.dart' show Category;
 import './User.dart' show User;
 
 class LedgerItem {
-  double cost;
+  double price;
   Category category;
   String memo;
   User writer;
@@ -12,7 +12,7 @@ class LedgerItem {
   DateTime deletedAt;
 
   LedgerItem({
-    this.cost,
+    this.price,
     this.category,
     this.memo,
     this.writer,

@@ -60,7 +60,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                   child: RawMaterialButton(
                     padding: EdgeInsets.all(0.0),
                     shape: CircleBorder(),
-                    onPressed: () { },
+                    onPressed: () => General.instance.navigateScreenNamed(context, '/ledger_item_add'),
                     child: Icon(
                       Icons.add,
                       color: Colors.white,
