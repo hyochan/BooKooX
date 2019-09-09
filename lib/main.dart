@@ -19,6 +19,8 @@ import './screens/setting_announcement.dart' show SettingAnnouncement;
 import './screens/setting_opinion.dart' show SettingOpinion;
 import './screens/setting_faq.dart' show SettingFAQ;
 import './screens/setting_notification.dart' show SettingNotification;
+import './screens/setting_currency.dart' show SettingCurrency;
+import './screens/setting_excel.dart' show SettingExcel;
 import './utils/asset.dart' as Asset;
 import './utils/localization.dart';
 
@@ -82,6 +84,8 @@ class MyApp extends StatelessWidget {
         '/setting_faq': (BuildContext context) => SettingFAQ(),
         '/setting_notification': (BuildContext context) => SettingNotification(),
         '/ledger_item_add': (BuildContext context) => LedgerItemAdd(),
+        '/setting_currency': (BuildContext context) => SettingCurrency(),
+        '/setting_excel': (BuildContext context) => SettingExcel(),
       },
       supportedLocales: [
         const Locale('en', 'US'),
