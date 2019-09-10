@@ -1,54 +1,94 @@
 import 'package:flutter/material.dart';
-import '../utils/localization.dart';
+import 'package:bookoo2/utils/localization.dart';
 
 enum CategoryType {
   CONSUME,
   INCOME,
 }
 
+final List<AssetImage> categoryIcons = [
+  AssetImage('res/icons/categoryCafe.png'),
+  AssetImage('res/icons/categoryDrink.png'),
+  AssetImage('res/icons/categorySnack.png'),
+  AssetImage('res/icons/categoryMeal.png'),
+  AssetImage('res/icons/categoryDate.png'),
+  AssetImage('res/icons/categoryMovie.png'),
+  AssetImage('res/icons/categoryPet.png'),
+  AssetImage('res/icons/categoryTransport.png'),
+  AssetImage('res/icons/categoryExercise.png'),
+  AssetImage('res/icons/categoryWear.png'),
+  AssetImage('res/icons/categorySleep.png'),
+  AssetImage('res/icons/categoryBaby.png'),
+  AssetImage('res/icons/categoryGift.png'),
+  AssetImage('res/icons/categoryElectronic.png'),
+  AssetImage('res/icons/categoryFurniture.png'),
+  AssetImage('res/icons/categoryTravel.png'),
+  AssetImage('res/icons/categoryMobileFee.png'),
+  AssetImage('res/icons/categoryHospital.png'),
+  AssetImage('res/icons/categoryWallet.png'),
+  AssetImage('res/icons/categorySalary.png'),
+  AssetImage('res/icons/categoryBonus.png'),
+  AssetImage('res/icons/categoryProduct.png'),
+  AssetImage('res/icons/categoryAward.png'),
+  AssetImage('res/icons/categoryPresent.png'),
+  AssetImage('res/icons/categoryExtra.png'),
+  AssetImage('res/icons/categoryCar.png'),
+  AssetImage('res/icons/categoryCulture.png'),
+  AssetImage('res/icons/categoryEducation.png'),
+  AssetImage('res/icons/categoryElectric.png'),
+  AssetImage('res/icons/categoryInsurance.png'),
+  AssetImage('res/icons/categoryMaintenance.png'),
+  AssetImage('res/icons/categoryMembership.png'),
+  AssetImage('res/icons/categoryStuffs.png'),
+  AssetImage('res/icons/categoryTax.png'),
+];
+
 final Map<int, dynamic> iconMaps = {
-  0: AssetImage('res/icons/categoryCafe.png'),
-  1: AssetImage('res/icons/categoryDrink.png'),
-  2: AssetImage('res/icons/categorySnack.png'),
-  3: AssetImage('res/icons/categoryMeal.png'),
-  4: AssetImage('res/icons/categoryDate.png'),
-  5: AssetImage('res/icons/categoryMovie.png'),
-  6: AssetImage('res/icons/categoryPet.png'),
-  7: AssetImage('res/icons/categoryTransport.png'),
-  8: AssetImage('res/icons/categoryExercise.png'),
-  9: AssetImage('res/icons/categoryWear.png'),
-  10: AssetImage('res/icons/categorySleep.png'),
-  11: AssetImage('res/icons/categoryBaby.png'),
-  12: AssetImage('res/icons/categoryGift.png'),
-  13: AssetImage('res/icons/categoryElectronic.png'),
-  14: AssetImage('res/icons/categoryFurniture.png'),
-  15: AssetImage('res/icons/categoryTravel.png'),
-  16: AssetImage('res/icons/categoryMobileFee.png'),
-  17: AssetImage('res/icons/categoryHospital.png'),
-  18: AssetImage('res/icons/categoryWallet.png'),
-  19: AssetImage('res/icons/categorySalary.png'),
-  20: AssetImage('res/icons/categoryBonus.png'),
-  21: AssetImage('res/icons/categoryProduct.png'),
-  22: AssetImage('res/icons/categoryAward.png'),
-  23: AssetImage('res/icons/categoryPresent.png'),
-  24: AssetImage('res/icons/categoryExra.png'),
-  25: AssetImage('res/icons/categoryCar.png'),
-  26: AssetImage('res/icons/categoryCulture.png'),
-  27: AssetImage('res/icons/categoryEducation.png'),
-  28: AssetImage('res/icons/categoryElectric.png'),
-  29: AssetImage('res/icons/categoryInsurance.png'),
-  30: AssetImage('res/icons/categoryMaintenance.png'),
-  31: AssetImage('res/icons/categoryMembership.png'),
-  32: AssetImage('res/icons/categoryStuffs.png'),
-  33: AssetImage('res/icons/categoryTax.png'),
+  0: categoryIcons[0],
+  1: categoryIcons[1],
+  2: categoryIcons[2],
+  3: categoryIcons[3],
+  4: categoryIcons[4],
+  5: categoryIcons[5],
+  6: categoryIcons[6],
+  7: categoryIcons[7],
+  8: categoryIcons[8],
+  9: categoryIcons[9],
+  10: categoryIcons[10],
+  11: categoryIcons[11],
+  12: categoryIcons[12],
+  13: categoryIcons[13],
+  14: categoryIcons[14],
+  15: categoryIcons[15],
+  16: categoryIcons[16],
+  17: categoryIcons[17],
+  18: categoryIcons[18],
+  19: categoryIcons[19],
+  20: categoryIcons[20],
+  21: categoryIcons[21],
+  22: categoryIcons[22],
+  23: categoryIcons[23],
+  24: categoryIcons[24],
+  25: categoryIcons[25],
+  26: categoryIcons[26],
+  27: categoryIcons[27],
+  28: categoryIcons[28],
+  29: categoryIcons[29],
+  30: categoryIcons[30],
+  31: categoryIcons[31],
+  32: categoryIcons[32],
+  33: categoryIcons[33],
 };
 
 class Category {
+  int id;
   int iconId;
   String label;
   CategoryType type;
+  bool showDelete = false;
 
   Category({
+    this.id,
     this.iconId,
     this.label,
     this.type,
@@ -59,7 +99,7 @@ class Category {
     return {
       'iconId': iconId,
       'label': Localization.of(context).trans(label),
-      'type': type,
+      'type': type.index,
     };
   }
 
@@ -74,5 +114,10 @@ class Category {
 
   AssetImage getIconImage(int iconId) {
     return iconMaps[iconId];
+  }
+
+  @override
+  String toString() {
+    return this.toMap().toString();
   }
 }

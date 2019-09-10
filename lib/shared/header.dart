@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../utils/localization.dart' show Localization;
+import 'package:bookoo2/utils/localization.dart' show Localization;
 
 AppBar renderHeaderClose({
   Key key,

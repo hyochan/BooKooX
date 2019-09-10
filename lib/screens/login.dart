@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../shared/edit_text.dart' show EditText;
-import '../shared/button.dart' show Button;
-import '../utils/general.dart' show General;
-import '../utils/localization.dart' show Localization;
-import '../utils/validator.dart' show Validator;
+import 'package:bookoo2/shared/edit_text.dart' show EditText;
+import 'package:bookoo2/shared/button.dart' show Button;
+import 'package:bookoo2/utils/general.dart' show General;
+import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoo2/utils/validator.dart' show Validator;
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
     bool isEmail = Validator.instance.validateEmail(_email);
 
     if (!isEmail) {
-      General.instance.showDialogYes(_context,
+      General.instance.showSingleDialog(_context,
         title: _localization.trans('ERROR'),
         content: _localization.trans('NO_VALID_EMAIL'),
       );
@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
     }
 
     if (_password == null || _password.length == 0) {
-      General.instance.showDialogYes(_context,
+      General.instance.showSingleDialog(_context,
         title: _localization.trans('ERROR'),
         content: _localization.trans('PASSWORD_HINT'),
       );

@@ -1,15 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../utils/asset.dart' as Asset;
-import '../utils/general.dart';
-import '../shared/profile_image_cam.dart';
-import '../utils/localization.dart' show Localization;
-import '../shared/header.dart' show renderHeaderClose;
-import '../shared/edit_text_box.dart' show EditTextBox;
-import '../utils/validator.dart' show Validator;
+import 'package:bookoo2/shared/header.dart' show renderHeaderClose;
+import 'package:bookoo2/shared/edit_text_box.dart' show EditTextBox;
+import 'package:bookoo2/shared/profile_image_cam.dart';
+import 'package:bookoo2/utils/general.dart';
+import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoo2/utils/validator.dart' show Validator;
 
 class ProfileMy extends StatefulWidget {
   @override

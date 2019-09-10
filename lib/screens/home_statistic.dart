@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../utils/general.dart' show General;
-import '../shared/home_header.dart' show renderHomeAppBar;
+import 'package:bookoo2/utils/general.dart' show General;
+import 'package:bookoo2/shared/home_header.dart' show renderHomeAppBar;
 
 class HomeStatistic extends StatefulWidget {
   HomeStatistic({

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Im;
 
-import '../shared/dialog_spinner.dart';
-import '../utils/localization.dart';
+import 'package:bookoo2/shared/dialog_spinner.dart';
+import 'package:bookoo2/utils/localization.dart';
 
 class General {
   static final General instance = new General();
@@ -55,11 +55,16 @@ class General {
     );
   }
 
-  void showDialogYes(BuildContext context, {
+  void showSingleDialog(BuildContext context, {
     bool barrierDismissible = false,
     String title = '',
     String content = '',
   }) {
+    TextStyle _btnTextStyle = TextStyle(
+      color: Theme.of(context).textTheme.title.color,
+      fontSize: 16,
+    );
+
     showDialog<Null>(
       context: context,
       barrierDismissible: barrierDismissible, // user must tap button!
@@ -69,7 +74,10 @@ class General {
           content: Text(content),
           actions: <Widget>[
             FlatButton(
-              child: Text(Localization.of(context).trans('OK')),
+              child: Text(
+                Localization.of(context).trans('OK'),
+                style: _btnTextStyle,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -80,13 +88,17 @@ class General {
     );
   }
 
-  void showDialogYesNo(BuildContext context, {
+  void showConfirmDialog(BuildContext context, {
     bool barrierDismissible = false,
     String title = '',
     String content = '',
     Function okPressed,
     Function cancelPressed,
   }) {
+    TextStyle _btnTextStyle = TextStyle(
+      color: Theme.of(context).textTheme.title.color,
+      fontSize: 16,
+    );
     showDialog<Null>(
       context: context,
       barrierDismissible: barrierDismissible, // user must tap button!
@@ -96,12 +108,18 @@ class General {
           content: Text(content),
           actions: <Widget>[
             FlatButton(
-              child: Text(Localization.of(context).trans('OK')),
+              child: Text(
+                Localization.of(context).trans('OK'),
+                style: _btnTextStyle,
+              ),
               onPressed: okPressed,
             ),
             FlatButton(
               onPressed: cancelPressed,
-              child: Text(Localization.of(context).trans('CANCEL')),
+              child: Text(
+                Localization.of(context).trans('CANCEL'),
+                style: _btnTextStyle,
+              ),
             )
           ],
         );
@@ -144,7 +162,6 @@ class General {
                 return Container(
                   child: FlatButton(
                     onPressed: () {
-                      print('select: ${data[index].toString()}');
                       // callback(datum);
                       Navigator.of(context).pop();
                     },

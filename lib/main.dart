@@ -1,8 +1,8 @@
-import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
 import './navigations/home_tab.dart' show HomeTab;
+import './screens/tutorial.dart' show Tutorial;
 import './screens/splash.dart' show Splash;
 import './screens/intro.dart' show Intro;
 import './screens/login.dart' show Login;
@@ -43,8 +43,11 @@ class MyApp extends StatelessWidget {
         dialogBackgroundColor: Colors.white,
         textTheme: TextTheme(
           title: TextStyle(color: Asset.Colors.dusk),
+          subtitle: TextStyle(color: Asset.Colors.cloudyBlue),
           subhead: TextStyle(color: Colors.black),
+          body1: TextStyle(color: Colors.black),
           display1: TextStyle(color: Asset.Colors.paleGray),
+          display2: TextStyle(color: Asset.Colors.mediumGray),
         ),
       ),
       darkTheme: ThemeData(

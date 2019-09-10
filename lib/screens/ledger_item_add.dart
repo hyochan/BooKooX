@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
-import '../shared/header.dart';
-import '../models/Photo.dart' show Photo;
-import '../models/LedgerItem.dart' show LedgerItem;
-import '../shared/header.dart' show renderHeaderClose;
-import '../shared/gallery.dart' show Gallery;
-import '../utils/asset.dart' as Asset;
-import '../utils/localization.dart' show Localization;
+import 'package:bookoo2/models/Category.dart';
+import 'package:bookoo2/utils/db_helper.dart';
+import 'package:bookoo2/screens/category_add.dart';
+import 'package:bookoo2/shared/category_list.dart';
+import 'package:bookoo2/shared/header.dart';
+import 'package:bookoo2/models/Photo.dart' show Photo;
+import 'package:bookoo2/models/LedgerItem.dart' show LedgerItem;
+import 'package:bookoo2/shared/header.dart' show renderHeaderClose;
+import 'package:bookoo2/shared/gallery.dart' show Gallery;
+import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoo2/utils/localization.dart' show Localization;
 
 class LedgerItemAdd extends StatefulWidget {
   LedgerItemAdd({
@@ -31,25 +35,11 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     text: '0',
   );
 
+  Category _selectedCategory;
   LedgerItem _ledgerItemIncome = LedgerItem();
   LedgerItem _ledgerItemConsume = LedgerItem();
   TabController _tabController;
-
-  void onCategoryPressed() {
-    print('onCategoryPressed');
-  }
-
-  void onDatePressed() {
-
-  }
-
-  void onLocationPressed() {
-
-  }
-
-  void onLedgerItemAddPressed() {
-
-  }
+  List<Category> categories = [];
 
   @override
   void initState() {
@@ -72,11 +62,110 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
 
+    void onDatePressed() {
+    }
+
+    void onLocationPressed() {
+
+    }
+
+    void onLedgerItemAddPressed() {
+
+    }
+
+    void showCategory(BuildContext context, {
+      CategoryType categoryType = CategoryType.CONSUME,
+    }) async {
+      var _localization = Localization.of(context);
+      categories = categoryType == CategoryType.CONSUME
+        ? await DbHelper.instance.getConsumeCategories(context)
+        : await DbHelper.instance.getIncomeCategories(context);
+
+      void onClosePressed() {
+        Navigator.of(context).pop();
+      }
+
+      void onAddPressed(CategoryType categoryType) async {
+        var result = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 50),
+              child: CategoryAdd(
+                categoryType: categoryType,
+                lastId: categories[categories.length - 1].id,
+              ),
+            );
+          },
+        );
+        if (result != null) {
+          setState(() => categories.add(result));
+        }
+      }
+
+      var _result = await showModalBottomSheet(
+        context: context,
+        builder: (context) => Container(
+          padding: EdgeInsets.only(top: 8),
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    FlatButton(
+                      padding: EdgeInsets.all(0),
+                      shape: CircleBorder(),
+                      onPressed: onClosePressed,
+                      child: Container(
+                        child: Icon(Icons.close),
+                        width: 40,
+                        height: 40,
+                      ),
+                    ),
+                    Text(
+                      '${_localization.trans('CATEGORY')}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).textTheme.title.color,
+                      ),
+                    ),
+                    FlatButton(
+                      padding: EdgeInsets.all(0),
+                      shape: CircleBorder(),
+                      onPressed: () => onAddPressed(categoryType),
+                      child: Container(
+                        child: Icon(Icons.add),
+                        width: 40,
+                        height: 40,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(height: 1, color: Theme.of(context).dividerColor),
+              Container(height: 8),
+              Expanded(
+                child: CategoryList(categories: categories),
+              ),
+            ],
+          ),
+        ),
+      );
+      
+      if (_result != null) {
+        setState(() => _selectedCategory = _result);
+      }
+    }
+
     Widget renderBox({
       EdgeInsets margin = const EdgeInsets.only(top: 8.0),
       IconData icon = Icons.category,
+      AssetImage image,
       String text = '',
       bool showDropdown = true,
+      bool active = false,
       Function onPressed,
     }) {
       return Container(
@@ -98,9 +187,15 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(right: 20),
-                  child: Icon(
+                  child: image == null ? Icon(
                     icon,
-                    color: Asset.Colors.cloudyBlue,
+                    color: active
+                      ? Theme.of(context).textTheme.title.color
+                      : Theme.of(context).textTheme.subtitle.color,
+                  ) : Image(
+                    image: image,
+                    width: 20,
+                    height: 20,
                   ),
                 ),
                 Expanded(
@@ -113,7 +208,9 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                           child: Text(
                             text,
                             style: TextStyle(
-                              color: Asset.Colors.cloudyBlue,
+                              color: active == true
+                                ? Theme.of(context).textTheme.title.color
+                                : Theme.of(context).textTheme.subtitle.color,
                               fontSize: 16,
                             ),
                           ),
@@ -136,6 +233,10 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     }
 
     Widget renderConsumeView() {
+      void onCategoryPressed() {
+        showCategory(context, categoryType: CategoryType.CONSUME);
+      }
+
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: GestureDetector(
@@ -206,12 +307,19 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 ),
               ),
               /// CATEGORY
-              renderBox(
+              _selectedCategory == null ? renderBox(
                 margin: EdgeInsets.only(top: 52),
                 icon: Icons.category,
                 text: _localization.trans('CATEGORY'),
                 showDropdown: true,
                 onPressed: onCategoryPressed,
+              ) : renderBox(
+                margin: EdgeInsets.only(top: 52),
+                image: iconMaps[_selectedCategory.iconId],
+                text: _selectedCategory.label,
+                showDropdown: true,
+                onPressed: onCategoryPressed,
+                active: true,
               ),
               /// SELECTED DATE
               renderBox(
@@ -241,6 +349,10 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     }
 
     Widget renderIncomeView() {
+      void onCategoryPressed() {
+        showCategory(context, categoryType: CategoryType.INCOME);
+      }
+
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: GestureDetector(

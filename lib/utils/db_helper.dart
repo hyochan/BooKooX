@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import '../models/Category.dart';
+import 'package:bookoo2/models/Category.dart';
 
 final List<Category> initalCategory = [
   Category(
@@ -179,43 +181,89 @@ final List<Category> initalCategory = [
 class DbHelper {
   static final DbHelper instance = new DbHelper();
   static const String CATEGORY_DB = 'category.db';
-  static Database database;
+  static Database _database;
 
-  void initCategoryDb(BuildContext context) async {
-    database = await openDatabase(
-      join(await getDatabasesPath(), 'category.db'),
+  Future<Database> initDb(BuildContext context) async {
+    String path = join(await getDatabasesPath(), 'category.db');
+    _database = await openDatabase(
+      path,
       onCreate: (db, version) async {
         await db.execute(
-          "CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, category INTEGER, iconId INTEGER, text TEXT)",
+          "CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, type INTEGER, iconId INTEGER, label TEXT)",
         );
         initalCategory.forEach((category) {
           db.insert('categories', category.toMapInitial(context), conflictAlgorithm: ConflictAlgorithm.abort);
         });
       },
-      version: 1,
+      version: 5,
     );
+    return _database;
   }
 
-  Future<int> insertCategory(Category category) async {
-    return database.insert(
-      'category',
-      category.toMap(),
+  Future<int> insertCategory(BuildContext context, Category category) async {
+    final db = await initDb(context);
+    return db.insert(
+      'categories',
+      {
+        'iconId': category.iconId,
+        'label': category.label,
+        'type': category.type.index,
+      },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<List<Category>> getCategories() async {
-    final List<Map<String, dynamic>> maps = await database.query('categories');
+  Future<List<Category>> getCategories(BuildContext context) async {
+    final db = await initDb(context);
+    final List<Map<String, dynamic>> maps = await db.query('categories');
     return List.generate(maps.length, (i) {
       return Category(
+        id: maps[i]['id'],
         iconId: maps[i]['iconId'],
         label: maps[i]['label'],
-        type: maps[i]['type'],
+        type: CategoryType.values[maps[i]['type']],
       );
     });
   }
 
-  Future<int> deleteCategory(int id) async {
-    return database.delete('categories', where: "id = ?", whereArgs: [id]);
+  Future<List<Category>> getIncomeCategories(BuildContext context) async {
+    final db = await initDb(context);
+    final List<Map<String, dynamic>> maps = await db.query(
+      'categories',
+      where: 'type = ?',
+      whereArgs: [1],
+    );
+    return List.generate(maps.length, (i) {
+      return Category(
+        id: maps[i]['id'],
+        iconId: maps[i]['iconId'],
+        label: maps[i]['label'],
+        type: CategoryType.values[maps[i]['type']],
+      );
+    });
+  }
+
+  Future<List<Category>> getConsumeCategories(BuildContext context) async {
+    final db = await initDb(context);
+    final List<Map<String, dynamic>> maps = await db.query(
+      'categories',
+      where: 'type = ?',
+      whereArgs: [0],
+    );
+    return List.generate(maps.length, (i) {
+      return Category(
+        id: maps[i]['id'],
+        iconId: maps[i]['iconId'],
+        label: maps[i]['label'],
+        type: CategoryType.values[maps[i]['type']],
+      );
+    });
+  }
+
+
+
+  Future<int> deleteCategory(BuildContext context, int iconId) async {
+    final db = await initDb(context);
+    return db.delete('categories', where: "iconId = ?", whereArgs: [iconId]);
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../utils/general.dart' show General;
-import '../utils/asset.dart' as Asset;
-import '../utils/localization.dart' show Localization;
-import '../shared/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
-import '../shared/header.dart' show renderHeaderBack;
+import 'package:bookoo2/shared/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
+import 'package:bookoo2/shared/header.dart' show renderHeaderBack;
+import 'package:bookoo2/utils/general.dart' show General;
+import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoo2/utils/localization.dart' show Localization;
 
 class Setting extends StatefulWidget {
   @override

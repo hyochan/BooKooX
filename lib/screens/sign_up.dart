@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../shared/edit_text.dart' show EditText;
-import '../shared/button.dart' show Button;
-import '../utils/localization.dart' show Localization;
-import '../utils/validator.dart' show Validator;
-import '../utils/asset.dart' as Asset;
+import 'package:bookoo2/shared/edit_text.dart' show EditText;
+import 'package:bookoo2/shared/button.dart' show Button;
+import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoo2/utils/validator.dart' show Validator;
+import 'package:bookoo2/utils/asset.dart' as Asset;
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);

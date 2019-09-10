@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../utils/general.dart';
-import '../shared/home_header.dart' show HomeHeaderExpanded;
+
+import 'package:bookoo2/utils/general.dart';
+import 'package:bookoo2/shared/home_header.dart' show HomeHeaderExpanded;
 
 class HomeCalendar extends StatefulWidget {
   HomeCalendar({

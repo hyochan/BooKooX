@@ -1,11 +1,12 @@
 import 'dart:io';
 
-import 'package:bookoo2/screens/photo_detail.dart';
 import 'package:flutter/material.dart';
-import '../models/Photo.dart';
-import '../utils/asset.dart' as Asset;
-import '../utils/localization.dart' show Localization;
-import '../utils/general.dart' show General;
+
+import 'package:bookoo2/screens/photo_detail.dart';
+import 'package:bookoo2/models/Photo.dart';
+import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoo2/utils/general.dart' show General;
 
 enum PhotoOption { Camera, Gallery }
 
