@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bookoo2/models/Category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -41,12 +42,15 @@ class _CategoryItemState extends State<CategoryItem> {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 8),
-                    child: Text(
+                    width: 80,
+                    child: AutoSizeText(
                       category.label ?? '',
                       style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).textTheme.title.color,
                       ),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
                     ),
                   )
                 ],
