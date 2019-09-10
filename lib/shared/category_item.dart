@@ -7,11 +7,13 @@ class CategoryItem extends StatefulWidget {
   CategoryItem({
     this.key,
     @required this.category,
+    this.onSelectPressed,
     this.onDeletePressed,
   });
   final Key key;
   final Category category;
   final Function onDeletePressed;
+  final Function onSelectPressed;
 
   @override
   _CategoryItemState createState() => _CategoryItemState(category);
@@ -27,7 +29,7 @@ class _CategoryItemState extends State<CategoryItem> {
       margin: EdgeInsets.only(top: 10, bottom: 10, left: 8),
       child: InkWell(
         onTap: () {
-          print('tap');
+          widget.onSelectPressed();
         },
         onLongPress: () => setState((){
           category.showDelete = !category.showDelete;

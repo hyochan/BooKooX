@@ -35,6 +35,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     text: '0',
   );
 
+  Category _selectedCategory;
   LedgerItem _ledgerItemIncome = LedgerItem();
   LedgerItem _ledgerItemConsume = LedgerItem();
   TabController _tabController;
@@ -98,13 +99,11 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
           },
         );
         if (result != null) {
-          setState(() {
-            categories.add(result);
-          });
+          setState(() => categories.add(result));
         }
       }
 
-      showModalBottomSheet(
+      var _result = await showModalBottomSheet(
         context: context,
         builder: (context) => Container(
           padding: EdgeInsets.only(top: 8),
@@ -154,13 +153,19 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
           ),
         ),
       );
+      
+      if (_result != null) {
+        setState(() => _selectedCategory = _result);
+      }
     }
 
     Widget renderBox({
       EdgeInsets margin = const EdgeInsets.only(top: 8.0),
       IconData icon = Icons.category,
+      AssetImage image,
       String text = '',
       bool showDropdown = true,
+      bool active = false,
       Function onPressed,
     }) {
       return Container(
@@ -182,9 +187,15 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(right: 20),
-                  child: Icon(
+                  child: image == null ? Icon(
                     icon,
-                    color: Asset.Colors.cloudyBlue,
+                    color: active
+                      ? Theme.of(context).textTheme.title.color
+                      : Theme.of(context).textTheme.subtitle.color,
+                  ) : Image(
+                    image: image,
+                    width: 20,
+                    height: 20,
                   ),
                 ),
                 Expanded(
@@ -197,7 +208,9 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                           child: Text(
                             text,
                             style: TextStyle(
-                              color: Asset.Colors.cloudyBlue,
+                              color: active == true
+                                ? Theme.of(context).textTheme.title.color
+                                : Theme.of(context).textTheme.subtitle.color,
                               fontSize: 16,
                             ),
                           ),
@@ -294,12 +307,19 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 ),
               ),
               /// CATEGORY
-              renderBox(
+              _selectedCategory == null ? renderBox(
                 margin: EdgeInsets.only(top: 52),
                 icon: Icons.category,
                 text: _localization.trans('CATEGORY'),
                 showDropdown: true,
                 onPressed: onCategoryPressed,
+              ) : renderBox(
+                margin: EdgeInsets.only(top: 52),
+                image: iconMaps[_selectedCategory.iconId],
+                text: _selectedCategory.label,
+                showDropdown: true,
+                onPressed: onCategoryPressed,
+                active: true,
               ),
               /// SELECTED DATE
               renderBox(

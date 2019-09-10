@@ -30,6 +30,9 @@ class _CategoryListState extends State<CategoryList> {
             return CategoryItem(
               key: Key(category.id.toString()),
               category: category,
+              onSelectPressed: () {
+                Navigator.pop(context, category);
+              },
               onDeletePressed: () {
                 General.instance.showConfirmDialog(
                   context,
