@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
     bool isEmail = Validator.instance.validateEmail(_email);
 
     if (!isEmail) {
-      General.instance.showDialogYes(_context,
+      General.instance.showSingleDialog(_context,
         title: _localization.trans('ERROR'),
         content: _localization.trans('NO_VALID_EMAIL'),
       );
@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
     }
 
     if (_password == null || _password.length == 0) {
-      General.instance.showDialogYes(_context,
+      General.instance.showSingleDialog(_context,
         title: _localization.trans('ERROR'),
         content: _localization.trans('PASSWORD_HINT'),
       );

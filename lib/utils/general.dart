@@ -55,7 +55,7 @@ class General {
     );
   }
 
-  void showDialogYes(BuildContext context, {
+  void showSingleDialog(BuildContext context, {
     bool barrierDismissible = false,
     String title = '',
     String content = '',
@@ -80,7 +80,7 @@ class General {
     );
   }
 
-  void showDialogYesNo(BuildContext context, {
+  void showConfirmDialog(BuildContext context, {
     bool barrierDismissible = false,
     String title = '',
     String content = '',
