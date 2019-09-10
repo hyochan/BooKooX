@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:bookoo2/models/Category.dart';
 import 'package:bookoo2/utils/db_helper.dart';
@@ -35,7 +36,6 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     text: '0',
   );
 
-  Category _selectedCategory;
   LedgerItem _ledgerItemIncome = LedgerItem();
   LedgerItem _ledgerItemConsume = LedgerItem();
   TabController _tabController;
@@ -62,7 +62,38 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
 
-    void onDatePressed() {
+    void onDatePressed({
+      CategoryType categoryType = CategoryType.CONSUME,
+    }) async {
+      int year = DateTime.now().year;
+      int prevDate = year - 100;
+      int lastDate = year + 10;
+      DateTime pickDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(prevDate),
+        lastDate: DateTime(lastDate),
+      );
+      TimeOfDay pickTime;
+      if (pickDate != null) {
+        pickTime = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay(hour: 0, minute: 0),
+        );
+      }
+      if (pickDate != null && pickTime != null) {
+        if (categoryType == CategoryType.CONSUME) {
+          setState(() => _ledgerItemConsume.selectedDate = DateTime(
+            pickDate.year, pickDate.month, pickDate.day,
+            pickTime.hour, pickTime.minute,
+          ));
+        } else if (categoryType == CategoryType.INCOME) {
+          setState(() => _ledgerItemIncome.selectedDate = DateTime(
+            pickDate.year, pickDate.month, pickDate.day,
+            pickTime.hour, pickTime.minute,
+          ));
+        }
+      }
     }
 
     void onLocationPressed() {
@@ -155,7 +186,11 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
       );
       
       if (_result != null) {
-        setState(() => _selectedCategory = _result);
+        if (categoryType == CategoryType.CONSUME) {
+          setState(() => _ledgerItemConsume.category = _result);
+        } else if (categoryType == CategoryType.INCOME) {
+          setState(() => _ledgerItemIncome.category = _result);
+        }
       }
     }
 
@@ -205,7 +240,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          child: Text(
+                          child: AutoSizeText(
                             text,
                             style: TextStyle(
                               color: active == true
@@ -307,7 +342,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 ),
               ),
               /// CATEGORY
-              _selectedCategory == null ? renderBox(
+              _ledgerItemConsume.category == null ? renderBox(
                 margin: EdgeInsets.only(top: 52),
                 icon: Icons.category,
                 text: _localization.trans('CATEGORY'),
@@ -315,19 +350,26 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 onPressed: onCategoryPressed,
               ) : renderBox(
                 margin: EdgeInsets.only(top: 52),
-                image: iconMaps[_selectedCategory.iconId],
-                text: _selectedCategory.label,
+                image: iconMaps[_ledgerItemConsume.category.iconId],
+                text: _ledgerItemConsume.category.label,
                 showDropdown: true,
                 onPressed: onCategoryPressed,
                 active: true,
               ),
               /// SELECTED DATE
-              renderBox(
+              _ledgerItemConsume.selectedDate == null ? renderBox(
                 margin: EdgeInsets.only(top: 8),
                 icon: Icons.date_range,
                 text: _localization.trans('DATE'),
                 showDropdown: true,
                 onPressed: onDatePressed,
+              ) : renderBox(
+                margin: EdgeInsets.only(top: 8),
+                icon: Icons.date_range,
+                text: DateFormat('yyyy-MM-dd hh:mm a').format(_ledgerItemConsume.selectedDate).toLowerCase(),
+                showDropdown: true,
+                onPressed: onDatePressed,
+                active: true,
               ),
               /// LOCATION
               renderBox(
@@ -423,20 +465,34 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 ),
               ),
               /// CATEGORY
-              renderBox(
+              _ledgerItemIncome.category == null ? renderBox(
                 margin: EdgeInsets.only(top: 52),
                 icon: Icons.category,
                 text: _localization.trans('CATEGORY'),
                 showDropdown: true,
                 onPressed: onCategoryPressed,
+              ) : renderBox(
+                margin: EdgeInsets.only(top: 52),
+                image: iconMaps[_ledgerItemIncome.category.iconId],
+                text: _ledgerItemIncome.category.label,
+                showDropdown: true,
+                onPressed: onCategoryPressed,
+                active: true,
               ),
               /// SELECTED DATE
-              renderBox(
+              _ledgerItemIncome.selectedDate == null ? renderBox(
                 margin: EdgeInsets.only(top: 8),
                 icon: Icons.date_range,
                 text: _localization.trans('DATE'),
                 showDropdown: true,
-                onPressed: onDatePressed,
+                onPressed: () => onDatePressed(categoryType: CategoryType.INCOME),
+              ) : renderBox(
+                margin: EdgeInsets.only(top: 8),
+                icon: Icons.date_range,
+                text: DateFormat('yyyy-MM-dd hh:mm a').format(_ledgerItemIncome.selectedDate).toLowerCase(),
+                showDropdown: true,
+                onPressed: () => onDatePressed(categoryType: CategoryType.INCOME),
+                active: true,
               ),
               /// LOCATION
               renderBox(
