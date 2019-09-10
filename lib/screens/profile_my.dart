@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../utils/asset.dart' as Asset;
 import '../utils/general.dart';
 import '../shared/profile_image_cam.dart';
 import '../utils/localization.dart' show Localization;

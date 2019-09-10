@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
           title: TextStyle(color: Asset.Colors.dusk),
           subhead: TextStyle(color: Colors.black),
           display1: TextStyle(color: Asset.Colors.paleGray),
+          display2: TextStyle(color: Asset.Colors.mediumGray),
         ),
       ),
       darkTheme: ThemeData(
