@@ -23,7 +23,7 @@ class _CategoryListState extends State<CategoryList> {
   @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
-    return Container(
+    return SafeArea(
       child: SingleChildScrollView(
         child: Wrap(
           children: categories.map((Category category) {
