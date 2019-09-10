@@ -1,5 +1,5 @@
-import 'package:bookoo2/shared/button.dart' show Button;
 import 'package:flutter/material.dart';
+import '../shared/button.dart' show Button;
 import '../utils/asset.dart' as Asset;
 import '../utils/general.dart';
 import '../utils/localization.dart' show Localization;

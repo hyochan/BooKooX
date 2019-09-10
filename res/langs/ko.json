@@ -94,6 +94,8 @@
   "ELECTRONIC": "전자제품",
   "FURNITURE": "가전제품",
   "TRAVEL": "여행",
+  "HOSPITAL": "병원",
+  "MOBILE_FEE": "통신비",
   "CAR": "자동차",
   "CULTURE": "문화",
   "EDUCATION": "교육",
@@ -113,5 +115,12 @@
   "INCOME": "수입",
   "SHOW_ALL": "전체보기",
   "CAMERA": "카메라",
-  "GALLERY": "갤러리"
+  "GALLERY": "갤러리",
+  "WALLET_MONEY": "용돈",
+  "SALARY": "월급",
+  "BONUS": "보너스",
+  "SELL_PRODUCT": "물품판매",
+  "AWARD": "상금",
+  "PRESENT": "경조사비",
+  "EXTRA": "기타"
 }

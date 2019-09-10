@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Im;
 
-import '../shared/dialog_spinner.dart';
-import '../utils/localization.dart';
+import 'package:bookoo2/shared/dialog_spinner.dart';
+import 'package:bookoo2/utils/localization.dart';
 
 class General {
   static final General instance = new General();
@@ -144,7 +144,6 @@ class General {
                 return Container(
                   child: FlatButton(
                     onPressed: () {
-                      print('select: ${data[index].toString()}');
                       // callback(datum);
                       Navigator.of(context).pop();
                     },

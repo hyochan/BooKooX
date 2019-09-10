@@ -94,6 +94,8 @@
   "ELECTRONIC": "Electronic",
   "FURNITURE": "Furniture",
   "TRAVEL": "Travel",
+  "HOSPITAL": "Hospital",
+  "MOBILE_FEE": "Mobile",
   "CAR": "Car",
   "CULTURE": "Culture",
   "EDUCATION": "Education",
@@ -113,5 +115,12 @@
   "INCOME": "Income",
   "SHOW_ALL": "Show All",
   "CAMERA": "Camera",
-  "GALLERY": "Gallery"
+  "GALLERY": "Gallery",
+  "WALLET_MONEY": "Wallet",
+  "SALARY": "Salary",
+  "BONUS": "Bonus",
+  "SELL_PRODUCT": "Sale of goods",
+  "AWARD": "Award",
+  "PRESENT": "Present",
+  "EXTRA": "Extra"
 }

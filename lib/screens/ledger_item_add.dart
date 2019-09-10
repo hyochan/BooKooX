@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
+import 'package:bookoo2/models/Category.dart';
+import 'package:bookoo2/shared/category_item.dart';
+import 'package:bookoo2/utils/db_helper.dart';
 import '../shared/header.dart';
 import '../models/Photo.dart' show Photo;
 import '../models/LedgerItem.dart' show LedgerItem;
@@ -35,22 +38,6 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
   LedgerItem _ledgerItemConsume = LedgerItem();
   TabController _tabController;
 
-  void onCategoryPressed() {
-    print('onCategoryPressed');
-  }
-
-  void onDatePressed() {
-
-  }
-
-  void onLocationPressed() {
-
-  }
-
-  void onLedgerItemAddPressed() {
-
-  }
-
   @override
   void initState() {
     super.initState();
@@ -71,6 +58,100 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
+
+    void onDatePressed() {
+
+    }
+
+    void onLocationPressed() {
+
+    }
+
+    void onLedgerItemAddPressed() {
+
+    }
+
+    void showCategory(BuildContext context, {
+      CategoryType categoryType = CategoryType.CONSUME,
+    }) async {
+      var _localization = Localization.of(context);
+      List<Category> categories = categoryType == CategoryType.CONSUME
+        ? await DbHelper.instance.getConsumeCategories(context)
+        : await DbHelper.instance.getIncomeCategories(context);
+
+      void onClosePressed() {
+        Navigator.of(context).pop();
+      }
+
+      void onAddPressed() {
+
+      }
+
+      Widget renderCategory(Category category) {
+        return CategoryItem(category: category);
+      }
+
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc){
+          return Container(
+            padding: EdgeInsets.only(top: 8),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      FlatButton(
+                        padding: EdgeInsets.all(0),
+                        shape: CircleBorder(),
+                        onPressed: onClosePressed,
+                        child: Container(
+                          child: Icon(Icons.close),
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                      Text(
+                        _localization.trans('CATEGORY'),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).textTheme.title.color,
+                        ),
+                      ),
+                      FlatButton(
+                        padding: EdgeInsets.all(0),
+                        shape: CircleBorder(),
+                        onPressed: onAddPressed,
+                        child: Container(
+                          child: Icon(Icons.add),
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(height: 1, color: Theme.of(context).dividerColor),
+                Container(height: 8),
+                Expanded(
+                  child: Container(
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        children: categories.map((Category category) {
+                          return renderCategory(category);
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      );
+    }
 
     Widget renderBox({
       EdgeInsets margin = const EdgeInsets.only(top: 8.0),
@@ -136,6 +217,11 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     }
 
     Widget renderConsumeView() {
+      void onCategoryPressed() {
+        print('onCategoryPressed');
+        showCategory(context, categoryType: CategoryType.CONSUME);
+      }
+
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: GestureDetector(
@@ -241,6 +327,10 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     }
 
     Widget renderIncomeView() {
+      void onCategoryPressed() {
+        showCategory(context, categoryType: CategoryType.INCOME);
+      }
+
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: GestureDetector(

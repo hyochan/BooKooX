@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:bookoo2/screens/photo_detail.dart';
 import 'package:flutter/material.dart';
+import '../screens/photo_detail.dart';
 import '../models/Photo.dart';
 import '../utils/asset.dart' as Asset;
 import '../utils/localization.dart' show Localization;
