@@ -97,9 +97,11 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
             );
           },
         );
-        setState(() {
-          categories.add(result);
-        });
+        if (result != null) {
+          setState(() {
+            categories.add(result);
+          });
+        }
       }
 
       showModalBottomSheet(
