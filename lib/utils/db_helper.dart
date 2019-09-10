@@ -203,8 +203,12 @@ class DbHelper {
   Future<int> insertCategory(BuildContext context, Category category) async {
     final db = await initDb(context);
     return db.insert(
-      'category',
-      category.toMap(),
+      'categories',
+      {
+        'iconId': category.iconId,
+        'label': category.label,
+        'type': category.type.index,
+      },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -214,6 +218,7 @@ class DbHelper {
     final List<Map<String, dynamic>> maps = await db.query('categories');
     return List.generate(maps.length, (i) {
       return Category(
+        id: maps[i]['id'],
         iconId: maps[i]['iconId'],
         label: maps[i]['label'],
         type: CategoryType.values[maps[i]['type']],
@@ -230,6 +235,7 @@ class DbHelper {
     );
     return List.generate(maps.length, (i) {
       return Category(
+        id: maps[i]['id'],
         iconId: maps[i]['iconId'],
         label: maps[i]['label'],
         type: CategoryType.values[maps[i]['type']],
@@ -246,6 +252,7 @@ class DbHelper {
     );
     return List.generate(maps.length, (i) {
       return Category(
+        id: maps[i]['id'],
         iconId: maps[i]['iconId'],
         label: maps[i]['label'],
         type: CategoryType.values[maps[i]['type']],

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:bookoo2/models/Category.dart';
 import 'package:bookoo2/utils/db_helper.dart';
+import 'package:bookoo2/screens/category_add.dart';
 import 'package:bookoo2/shared/category_list.dart';
 import '../shared/header.dart';
 import '../models/Photo.dart' show Photo;
@@ -61,7 +62,6 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     var _localization = Localization.of(context);
 
     void onDatePressed() {
-
     }
 
     void onLocationPressed() {
@@ -84,8 +84,22 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
         Navigator.of(context).pop();
       }
 
-      void onAddPressed() {
-
+      void onAddPressed(CategoryType categoryType) async {
+        var result = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 50),
+              child: CategoryAdd(
+                categoryType: categoryType,
+                lastId: categories[categories.length - 1].id,
+              ),
+            );
+          },
+        );
+        setState(() {
+          categories.add(result);
+        });
       }
 
       showModalBottomSheet(
@@ -119,7 +133,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                     FlatButton(
                       padding: EdgeInsets.all(0),
                       shape: CircleBorder(),
-                      onPressed: onAddPressed,
+                      onPressed: () => onAddPressed(categoryType),
                       child: Container(
                         child: Icon(Icons.add),
                         width: 40,
@@ -205,7 +219,6 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
 
     Widget renderConsumeView() {
       void onCategoryPressed() {
-        print('onCategoryPressed');
         showCategory(context, categoryType: CategoryType.CONSUME);
       }
 

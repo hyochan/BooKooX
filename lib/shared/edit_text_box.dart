@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bookoo2/utils/asset.dart' as Asset;
 
 class EditTextBox extends StatefulWidget {
   const EditTextBox({
@@ -20,9 +21,13 @@ class EditTextBox extends StatefulWidget {
     this.hintText,
     this.hintStyle,
     this.errorText,
-    this.errorStyle,
+    this.errorStyle = const TextStyle(
+      color: Asset.Colors.carnation,
+    ),
+    this.controller,
   });
   final Key key;
+  final TextEditingController controller;
   final Color focusedColor;
   final Color enabledColor;
   final Color disabledColor;
@@ -69,6 +74,7 @@ class _EditTextBoxState extends State<EditTextBox> {
         ): Container(),
         Container(
           child: TextField(
+            controller: widget.controller,
             style: widget.textStyle,
             cursorColor: widget.focusedColor,
             onChanged: widget.onChangeText,
@@ -107,6 +113,20 @@ class _EditTextBoxState extends State<EditTextBox> {
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.disabledColor,
+                  width: 0.7,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.zero),
+                borderSide: BorderSide(
+                  color: widget.errorStyle.color,
+                  width: 0.7,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.zero),
+                borderSide: BorderSide(
+                  color: widget.errorStyle.color,
                   width: 0.7,
                 ),
               ),

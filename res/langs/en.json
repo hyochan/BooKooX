@@ -126,8 +126,12 @@
   "CATEGORY_ADD": "Add category",
   "CATEGORY_ADD_HINT": "Please write category name.",
   "ICON_SELECT": "Select icon",
-  "CATEGORY_DELETED": "Successfully deleted category",
+  "CATEGORY_ADDED": "Successfully added category.",
+  "CATEGORY_ADD_ERROR": "There was an error while adding category. Please try again.",
+  "CATEGORY_DELETED": "Successfully deleted category.",
   "CATEGORY_DELETE_ERROR": "There was an error while deleting category. Please try again.",
   "DELETE": "Delete",
-  "DELETE_ASK": "Are you sure you want to delete?"
+  "DELETE_ASK": "Are you sure you want to delete?",
+  "ERROR_CATEGORY_NAME": "Please write category name.",
+  "ERROR_CATEGORY_ICON": "Please select icon."
 }

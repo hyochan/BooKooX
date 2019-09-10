@@ -81,12 +81,14 @@ final Map<int, dynamic> iconMaps = {
 };
 
 class Category {
+  int id;
   int iconId;
   String label;
   CategoryType type;
   bool showDelete = false;
 
   Category({
+    this.id,
     this.iconId,
     this.label,
     this.type,

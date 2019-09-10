@@ -60,6 +60,11 @@ class General {
     String title = '',
     String content = '',
   }) {
+    TextStyle _btnTextStyle = TextStyle(
+      color: Theme.of(context).textTheme.title.color,
+      fontSize: 16,
+    );
+
     showDialog<Null>(
       context: context,
       barrierDismissible: barrierDismissible, // user must tap button!
@@ -69,7 +74,10 @@ class General {
           content: Text(content),
           actions: <Widget>[
             FlatButton(
-              child: Text(Localization.of(context).trans('OK')),
+              child: Text(
+                Localization.of(context).trans('OK'),
+                style: _btnTextStyle,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -87,6 +95,10 @@ class General {
     Function okPressed,
     Function cancelPressed,
   }) {
+    TextStyle _btnTextStyle = TextStyle(
+      color: Theme.of(context).textTheme.title.color,
+      fontSize: 16,
+    );
     showDialog<Null>(
       context: context,
       barrierDismissible: barrierDismissible, // user must tap button!
@@ -96,12 +108,18 @@ class General {
           content: Text(content),
           actions: <Widget>[
             FlatButton(
-              child: Text(Localization.of(context).trans('OK')),
+              child: Text(
+                Localization.of(context).trans('OK'),
+                style: _btnTextStyle,
+              ),
               onPressed: okPressed,
             ),
             FlatButton(
               onPressed: cancelPressed,
-              child: Text(Localization.of(context).trans('CANCEL')),
+              child: Text(
+                Localization.of(context).trans('CANCEL'),
+                style: _btnTextStyle,
+              ),
             )
           ],
         );

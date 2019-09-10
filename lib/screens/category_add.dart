@@ -1,20 +1,74 @@
 import 'package:bookoo2/models/Category.dart' show iconMaps, categoryIcons;
+import 'package:bookoo2/models/Category.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:bookoo2/shared/edit_text_box.dart';
+import 'package:bookoo2/utils/db_helper.dart';
+import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/utils/localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CategoryAdd extends StatefulWidget {
+  final CategoryType categoryType;
+  final int lastId;
+  CategoryAdd({
+    this.categoryType = CategoryType.CONSUME,
+    @required this.lastId,
+  });
+
   @override
   _CategoryAddState createState() => _CategoryAddState();
 }
 
 class _CategoryAddState extends State<CategoryAdd> {
-  int selectedIconIndex;
+  int _selectedIconIndex;
+  TextEditingController _textController = new TextEditingController();
+  String _errorText;
   
   @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
+
+    void onDonePressed() async{
+      if (_textController.text == '') {
+        setState(() {
+          _errorText = _localization.trans('ERROR_CATEGORY_NAME');
+        });
+        return;
+      }
+      if (_selectedIconIndex == null) {
+        General.instance.showSingleDialog(
+          context,
+          title: _localization.trans('ERROR'),
+          content: _localization.trans('ERROR_CATEGORY_ICON'),
+        );
+        return;
+      }
+      Category category = Category(
+        id: widget.lastId + 1,
+        iconId: _selectedIconIndex,
+        label: _textController.text,
+        type: widget.categoryType,
+      );
+
+      try {
+        await DbHelper.instance.insertCategory(context, category);
+      } catch (err) {
+        Fluttertoast.showToast(
+          msg: _localization.trans('CATEGORY_ADD_ERROR'),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          fontSize: 16.0,
+        );
+      } finally {
+        Navigator.pop(context, category);
+      }
+    }
+
+    void onCancelPressed() {
+      Navigator.of(context).pop();
+    }
 
     Widget renderIcons() {
       return Container(
@@ -27,11 +81,11 @@ class _CategoryAddState extends State<CategoryAdd> {
                 child: InkWell(
                   onTap: () {
                     setState(() {
-                      selectedIconIndex = i;
+                      _selectedIconIndex = i;
                     });
                   },
                   child: Opacity(
-                    opacity: i == selectedIconIndex ? 1.0 : 0.4,
+                    opacity: i == _selectedIconIndex ? 1.0 : 0.4,
                     child: Image(
                       image: icon,
                       width: 72,
@@ -67,8 +121,10 @@ class _CategoryAddState extends State<CategoryAdd> {
                       ),
                     ),
                     EditTextBox(
+                      controller: _textController,
                       margin: EdgeInsets.only(bottom: 16, left: 24, right: 24),
                       hintText: _localization.trans('CATEGORY_ADD_HINT'),
+                      errorText: _errorText,
                     ),
                     Container(
                       child: Row(
@@ -101,7 +157,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                   Container(
                     margin: EdgeInsets.only(left: 40),
                     child: FlatButton(
-                      onPressed: () {},
+                      onPressed: onCancelPressed,
                       child: Text(
                         _localization.trans('CANCEL'),
                         style: TextStyle(
@@ -114,7 +170,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                   Container(
                     margin: EdgeInsets.only(left: 20),
                     child: FlatButton(
-                      onPressed: () {},
+                      onPressed: onDonePressed,
                       child: Text(
                         _localization.trans('DONE'),
                         style: TextStyle(

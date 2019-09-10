@@ -28,7 +28,7 @@ class _CategoryListState extends State<CategoryList> {
         child: Wrap(
           children: categories.map((Category category) {
             return CategoryItem(
-              key: Key(category.iconId.toString()),
+              key: Key(category.id.toString()),
               category: category,
               onDeletePressed: () {
                 General.instance.showConfirmDialog(
