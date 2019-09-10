@@ -31,7 +31,7 @@ final Map<int, dynamic> iconMaps = {
   21: AssetImage('res/icons/categoryProduct.png'),
   22: AssetImage('res/icons/categoryAward.png'),
   23: AssetImage('res/icons/categoryPresent.png'),
-  24: AssetImage('res/icons/categoryExra.png'),
+  24: AssetImage('res/icons/categoryExtra.png'),
   25: AssetImage('res/icons/categoryCar.png'),
   26: AssetImage('res/icons/categoryCulture.png'),
   27: AssetImage('res/icons/categoryEducation.png'),
@@ -47,6 +47,7 @@ class Category {
   int iconId;
   String label;
   CategoryType type;
+  bool showDelete = false;
 
   Category({
     this.iconId,
@@ -59,7 +60,7 @@ class Category {
     return {
       'iconId': iconId,
       'label': Localization.of(context).trans(label),
-      'type': type,
+      'type': type.index,
     };
   }
 
@@ -74,5 +75,10 @@ class Category {
 
   AssetImage getIconImage(int iconId) {
     return iconMaps[iconId];
+  }
+
+  @override
+  String toString() {
+    return this.toMap().toString();
   }
 }
