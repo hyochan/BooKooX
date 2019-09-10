@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../utils/localization.dart';
-import '../utils/asset.dart' as Asset;
-import '../utils/general.dart';
-import '../types/color.dart';
-import '../shared/header.dart' show renderHeaderClose;
-import '../shared/profile_list_item.dart' show ProfileListItem;
-import '../shared/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
+import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoo2/utils/general.dart';
+import 'package:bookoo2/types/color.dart';
+import 'package:bookoo2/shared/header.dart' show renderHeaderClose;
+import 'package:bookoo2/shared/profile_list_item.dart' show ProfileListItem;
+import 'package:bookoo2/shared/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
 
 class Ledgers extends StatefulWidget {
   Ledgers({Key key}) : super(key: key);

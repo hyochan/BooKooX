@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/asset.dart' as Asset;
+import 'package:bookoo2/utils/asset.dart' as Asset;
 
 final EdgeInsets _titlePadding = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
 

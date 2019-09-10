@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../utils/general.dart';
 
-import '../shared/home_header_search.dart' show HomeHeaderSearch;
+import 'package:bookoo2/shared/home_header_search.dart' show HomeHeaderSearch;
+import 'package:bookoo2/utils/general.dart';
 
 class HomeList extends StatefulWidget {
   HomeList({

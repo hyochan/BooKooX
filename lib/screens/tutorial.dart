@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../utils/localization.dart' show Localization;
-import '../utils/asset.dart' as Asset;
-import '../utils/general.dart' show General;
+
+import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoo2/utils/general.dart' show General;
 
 class Tutorial extends StatefulWidget {
   @override

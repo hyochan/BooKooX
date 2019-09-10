@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../utils/localization.dart';
-import '../utils/asset.dart' as Asset;
-import '../types/color.dart';
-import '../shared/header.dart' show renderHeaderBack;
+import 'package:bookoo2/shared/header.dart' show renderHeaderBack;
+import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoo2/types/color.dart';
 
 class LedgerAdd extends StatefulWidget {
   LedgerAdd({Key key}) : super(key: key);

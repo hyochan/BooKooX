@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../utils/asset.dart' as Asset;
-import '../utils/localization.dart' show Localization;
-import '../types/color.dart' show ColorType;
+
+import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoo2/types/color.dart' show ColorType;
 
 abstract class ListItem {}
 

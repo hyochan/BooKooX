@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../shared/edit_text.dart' show EditText;
-import '../shared/button.dart' show Button;
-import '../utils/general.dart' show General;
-import '../utils/localization.dart' show Localization;
-import '../utils/validator.dart' show Validator;
+import 'package:bookoo2/shared/edit_text.dart' show EditText;
+import 'package:bookoo2/shared/button.dart' show Button;
+import 'package:bookoo2/utils/general.dart' show General;
+import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoo2/utils/validator.dart' show Validator;
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);

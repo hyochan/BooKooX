@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/Photo.dart' show Photo;
+
+import 'package:bookoo2/models/Photo.dart' show Photo;
 
 class Carousel extends StatefulWidget {
   final currentPage;

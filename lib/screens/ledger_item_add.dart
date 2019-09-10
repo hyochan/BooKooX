@@ -6,13 +6,13 @@ import 'package:bookoo2/models/Category.dart';
 import 'package:bookoo2/utils/db_helper.dart';
 import 'package:bookoo2/screens/category_add.dart';
 import 'package:bookoo2/shared/category_list.dart';
-import '../shared/header.dart';
-import '../models/Photo.dart' show Photo;
-import '../models/LedgerItem.dart' show LedgerItem;
-import '../shared/header.dart' show renderHeaderClose;
-import '../shared/gallery.dart' show Gallery;
-import '../utils/asset.dart' as Asset;
-import '../utils/localization.dart' show Localization;
+import 'package:bookoo2/shared/header.dart';
+import 'package:bookoo2/models/Photo.dart' show Photo;
+import 'package:bookoo2/models/LedgerItem.dart' show LedgerItem;
+import 'package:bookoo2/shared/header.dart' show renderHeaderClose;
+import 'package:bookoo2/shared/gallery.dart' show Gallery;
+import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoo2/utils/localization.dart' show Localization;
 
 class LedgerItemAdd extends StatefulWidget {
   LedgerItemAdd({
