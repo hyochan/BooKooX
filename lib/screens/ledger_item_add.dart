@@ -101,7 +101,8 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     }
 
     void onLedgerItemAddPressed() {
-
+      print('onLedgerItemAddPressed');
+      print('${_ledgerItemConsume.toString()}');
     }
 
     void showCategory(BuildContext context, {
@@ -383,6 +384,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 margin: EdgeInsets.only(top: 26),
                 showAddBtn: true,
                 picture: [Photo(isAddBtn: true)],
+                ledgerItem: _ledgerItemConsume,
               ),
             ],
           ),
@@ -506,6 +508,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 margin: EdgeInsets.only(top: 26),
                 showAddBtn: true,
                 picture: [Photo(isAddBtn: true)],
+                ledgerItem: _ledgerItemIncome,
               ),
             ],
           ),
