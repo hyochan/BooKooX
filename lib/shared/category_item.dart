@@ -64,9 +64,17 @@ class _CategoryItemState extends State<CategoryItem> {
                     onTap: () {
                       print('tap del icon');
                     },
-                    child: Icon(
-                      Icons.delete_outline,
-                      size: 24,
+                    child: ClipOval(
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        color: Theme.of(context).textTheme.title.color,
+                        child: Icon(
+                          Icons.close,
+                          color: Theme.of(context).backgroundColor,
+                          size: 18,
+                        ),
+                      ),
                     ),
                   ),
                 ) : Container(),
