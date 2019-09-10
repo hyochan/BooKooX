@@ -1,8 +1,8 @@
-import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
 import './navigations/home_tab.dart' show HomeTab;
+import './screens/tutorial.dart' show Tutorial;
 import './screens/splash.dart' show Splash;
 import './screens/intro.dart' show Intro;
 import './screens/login.dart' show Login;
