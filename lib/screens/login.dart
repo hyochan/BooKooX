@@ -17,8 +17,6 @@ class _LoginState extends State<Login> {
   BuildContext _context;
   Localization _localization;
   ScrollController _scrollController = ScrollController();
-  FocusNode _emailFocus = FocusNode();
-  FocusNode _pwFocus = FocusNode();
   String _email;
   String _password;
   bool _isEmail;
@@ -51,8 +49,6 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     _scrollController.dispose();
-    _emailFocus.dispose();
-    _pwFocus.dispose();
     super.dispose();
   }
 
@@ -63,8 +59,6 @@ class _LoginState extends State<Login> {
     _scrollController = ScrollController(
       initialScrollOffset: 0.0,
     );
-    _emailFocus = FocusNode();
-    _pwFocus = FocusNode();
 
 //    double bottomInset = MediaQuery.of(context).viewInsets.bottom;
 //    if (bottomInset != 0.0) {
@@ -87,7 +81,6 @@ class _LoginState extends State<Login> {
     Widget emailField() {
       return EditText(
         key: Key('email'),
-        focusNode: _emailFocus,
         margin: EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
         textLabel: _localization.trans('EMAIL'),
@@ -109,7 +102,6 @@ class _LoginState extends State<Login> {
       return EditText(
         key: Key('password'),
         obscureText: true,
-        focusNode: _pwFocus,
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
         textLabel: _localization.trans('PASSWORD'),
