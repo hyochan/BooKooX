@@ -1,3 +1,5 @@
+import 'package:bookoo2/screens/map_view.dart';
+import 'package:bookoo2/utils/general.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
@@ -97,7 +99,10 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
     }
 
     void onLocationPressed() {
-
+      General.instance.navigateScreen(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) => MapView()),
+      );
     }
 
     void onLedgerItemAddPressed() {
