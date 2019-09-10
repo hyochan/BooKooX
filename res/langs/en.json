@@ -17,7 +17,7 @@
   "NO_VALID_EMAIL": "Not a valid email address",
   "NO_VALID_PASSWORD": "Password should be alphanumeric with more than 5 letters",
   "OK": "Ok",
-  "Cancel": "Cancel",
+  "CANCEL": "Cancel",
   "INTRO": "Create App!",
   "PERSON": "Person",
   "PEOPLE": "People",
@@ -122,5 +122,9 @@
   "SELL_PRODUCT": "Sale of goods",
   "AWARD": "Award",
   "PRESENT": "Present",
-  "EXTRA": "Extra"
+  "EXTRA": "Extra",
+  "CATEGORY_DELETED": "Successfully deleted category",
+  "CATEGORY_DELETE_ERROR": "There was an error while deleting category. Please try again.",
+  "DELETE": "Delete",
+  "DELETE_ASK": "Are you sure you want to delete?"
 }

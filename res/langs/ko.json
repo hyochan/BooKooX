@@ -17,7 +17,7 @@
   "NO_VALID_EMAIL": "올바른 이메일 주소가 아닙니다",
   "NO_VALID_PW": "비밀번호는 6자 이상의 알파벳 숫자 조합이어야 합니다",
   "OK": "확인",
-  "Cancel": "취소",
+  "CANCEL": "취소",
   "INTRO": "앱을 만들어봐요!",
   "PERSON": "명",
   "PEOPLE": "명",
@@ -122,5 +122,9 @@
   "SELL_PRODUCT": "물품판매",
   "AWARD": "상금",
   "PRESENT": "경조사비",
-  "EXTRA": "기타"
+  "EXTRA": "기타",
+  "CATEGORY_DELETED": "카테고리를 지웠습니다.",
+  "CATEGORY_DELETE_ERROR": "카테고리를 지우는 도중 오류가 발생했습니다. 다시 시도해주세요.",
+  "DELETE": "삭제",
+  "DELETE_ASK": "정말로 삭제하시겠습니까?"
 }

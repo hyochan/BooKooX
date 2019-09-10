@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
 import 'package:bookoo2/models/Category.dart';
-import 'package:bookoo2/shared/category_item.dart';
 import 'package:bookoo2/utils/db_helper.dart';
+import 'package:bookoo2/shared/category_list.dart';
 import '../shared/header.dart';
 import '../models/Photo.dart' show Photo;
 import '../models/LedgerItem.dart' show LedgerItem;
@@ -37,6 +37,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
   LedgerItem _ledgerItemIncome = LedgerItem();
   LedgerItem _ledgerItemConsume = LedgerItem();
   TabController _tabController;
+  List<Category> categories = [];
 
   @override
   void initState() {
@@ -75,7 +76,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
       var _localization = Localization.of(context);
-      List<Category> categories = categoryType == CategoryType.CONSUME
+      categories = categoryType == CategoryType.CONSUME
         ? await DbHelper.instance.getConsumeCategories(context)
         : await DbHelper.instance.getIncomeCategories(context);
 
@@ -87,69 +88,55 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
 
       }
 
-      Widget renderCategory(Category category) {
-        return CategoryItem(category: category);
-      }
-
       showModalBottomSheet(
         context: context,
-        builder: (BuildContext bc){
-          return Container(
-            padding: EdgeInsets.only(top: 8),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      FlatButton(
-                        padding: EdgeInsets.all(0),
-                        shape: CircleBorder(),
-                        onPressed: onClosePressed,
-                        child: Container(
-                          child: Icon(Icons.close),
-                          width: 40,
-                          height: 40,
-                        ),
-                      ),
-                      Text(
-                        _localization.trans('CATEGORY'),
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Theme.of(context).textTheme.title.color,
-                        ),
-                      ),
-                      FlatButton(
-                        padding: EdgeInsets.all(0),
-                        shape: CircleBorder(),
-                        onPressed: onAddPressed,
-                        child: Container(
-                          child: Icon(Icons.add),
-                          width: 40,
-                          height: 40,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Divider(height: 1, color: Theme.of(context).dividerColor),
-                Container(height: 8),
-                Expanded(
-                  child: Container(
-                    child: SingleChildScrollView(
-                      child: Wrap(
-                        children: categories.map((Category category) {
-                          return renderCategory(category);
-                        }).toList(),
+        builder: (context) => Container(
+          padding: EdgeInsets.only(top: 8),
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    FlatButton(
+                      padding: EdgeInsets.all(0),
+                      shape: CircleBorder(),
+                      onPressed: onClosePressed,
+                      child: Container(
+                        child: Icon(Icons.close),
+                        width: 40,
+                        height: 40,
                       ),
                     ),
-                  ),
+                    Text(
+                      '${_localization.trans('CATEGORY')}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).textTheme.title.color,
+                      ),
+                    ),
+                    FlatButton(
+                      padding: EdgeInsets.all(0),
+                      shape: CircleBorder(),
+                      onPressed: onAddPressed,
+                      child: Container(
+                        child: Icon(Icons.add),
+                        width: 40,
+                        height: 40,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        }
+              ),
+              Divider(height: 1, color: Theme.of(context).dividerColor),
+              Container(height: 8),
+              Expanded(
+                child: CategoryList(categories: categories),
+              ),
+            ],
+          ),
+        ),
       );
     }
 

@@ -255,8 +255,8 @@ class DbHelper {
 
 
 
-  Future<int> deleteCategory(BuildContext context, int id) async {
+  Future<int> deleteCategory(BuildContext context, int iconId) async {
     final db = await initDb(context);
-    return db.delete('categories', where: "id = ?", whereArgs: [id]);
+    return db.delete('categories', where: "iconId = ?", whereArgs: [iconId]);
   }
 }
