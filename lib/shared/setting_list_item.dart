@@ -93,11 +93,13 @@ class SettingTileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: item.leading,
-      title: Text(item.title),
-      trailing: item.trailing,
-      onTap: item.onTap,        
+    return InkWell(
+      onTap: item.onTap,
+      child: ListTile(
+        leading: item.leading,
+        title: Text(item.title),
+        trailing: item.trailing,
+      ),
     );
   }  
 }
