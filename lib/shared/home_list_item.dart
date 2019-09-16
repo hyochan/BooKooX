@@ -2,32 +2,27 @@ import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:flutter/material.dart';
 
 class HomeListItem extends StatelessWidget {
-  HomeListItem(LedgerItem ledgerItem) {
-    // this.ledgerItem = ledgerItem;
-    this._image = ledgerItem.category.getIconImage();
-    this._label = ledgerItem.category.label;
-    this._isPlus = ledgerItem.cost > 0;
-    this._cost = (_isPlus ? '+ ' : '- ') + ledgerItem.cost.toString().replaceAll('-', '') + ' 원';
-  }
+  final LedgerItem ledgerItem;
 
-  LedgerItem ledgerItem;
-  AssetImage _image;
-  String _label;
-  String _cost;
-  bool _isPlus;
+  HomeListItem({Key key, this.ledgerItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AssetImage _image = ledgerItem.category.getIconImage();
+    String _label = ledgerItem.category.label;
+    bool _isPlus = ledgerItem.cost > 0;
+    String _cost = (_isPlus ? '+ ' : '- ') +
+        ledgerItem.cost.toString().replaceAll('-', '') +
+        ' 원';
+
     return Container(
       height: 60,
-      // color: Colors.amber[700],
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Image(
-              // image: Asset.Icons.icRed,
               image: _image,
               fit: BoxFit.contain,
               width: 30.0,
@@ -36,12 +31,10 @@ class HomeListItem extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10),
-            // child: Text('운동'),
             child: Text(_label),
           ),
           Expanded(
             child: Container(
-              // color: Colors.blueAccent,
               child: Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Text(

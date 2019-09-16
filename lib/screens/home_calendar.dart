@@ -93,8 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
   EventList<Event> _markedDateMap = new EventList<Event>();
 
   CalendarCarousel _calendarCarouselNoHeader;
+
   /// ledgerList from parents
   List<LedgerItem> _ledgerList = new List<LedgerItem>();
+
   /// for bottom list UI
   List<LedgerItem> _ledgerListOfSelectedDate = new List<LedgerItem>();
 
@@ -251,50 +253,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   itemCount: _ledgerListOfSelectedDate.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return HomeListItem(_ledgerListOfSelectedDate[index]);
-                    // return Container(
-                    //   height: 50,
-                    //   color: Colors.amber[600],
-                    //   child: const Center(child: Text('Entry A')),
-                    // );
+                    return HomeListItem(ledgerItem: _ledgerListOfSelectedDate[index]);
                   },
                 ),
               )
-              // ListView.builder(
-              //   shrinkWrap: true,
-              //   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-              //   itemCount: _ledgerListOfSelectedDate.length,
-              //   itemBuilder: (BuildContext context, int index){
-              //     return HomeListItem(_ledgerListOfSelectedDate[index]);
-              //     // return Container(
-              //     //   height: 50,
-              //     //   color: Colors.amber[600],
-              //     //   child: const Center(child: Text('Entry A')),
-              //     // );
-              //   },
-              // )
-              // ListView(
-              //   shrinkWrap: true,
-              //   padding: const EdgeInsets.all(8),
-              //   children: <Widget>[
-              //     HomeListItem(_ledgerList[0]),
-              //     Container(
-              //       height: 50,
-              //       color: Colors.amber[600],
-              //       child: const Center(child: Text('Entry A')),
-              //     ),
-              //     Container(
-              //       height: 50,
-              //       color: Colors.amber[500],
-              //       child: const Center(child: Text('Entry B')),
-              //     ),
-              //     Container(
-              //       height: 50,
-              //       color: Colors.amber[100],
-              //       child: const Center(child: Text('Entry C')),
-              //     ),
-              //   ],
-              // )
             ],
           ),
         ));
