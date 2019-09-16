@@ -10,9 +10,9 @@ class HomeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     AssetImage _image = ledgerItem.category.getIconImage();
     String _label = ledgerItem.category.label;
-    bool _isPlus = ledgerItem.cost > 0;
-    String _cost = (_isPlus ? '+ ' : '- ') +
-        ledgerItem.cost.toString().replaceAll('-', '') +
+    bool _isPlus = ledgerItem.price > 0;
+    String _price = (_isPlus ? '+ ' : '- ') +
+        ledgerItem.price.toString().replaceAll('-', '') +
         ' 원';
 
     return Container(
@@ -38,7 +38,7 @@ class HomeListItem extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Text(
-                  _cost,
+                  _price,
                   textAlign: TextAlign.end,
                   style: TextStyle(
                       color: _isPlus

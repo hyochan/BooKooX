@@ -52,16 +52,17 @@ class _HomeCalendarState extends State<HomeCalendar> {
                     color: Colors.white,
                   ),
                 ),
-                Container(
-                  width: 56.0,
-                  child: RawMaterialButton(
-                    padding: EdgeInsets.all(0.0),
-                    shape: CircleBorder(),
-                    onPressed: () => General.instance.navigateScreenNamed(context, '/ledger_item_add'),
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
+              ),
+              Container(
+                width: 56.0,
+                child: RawMaterialButton(
+                  padding: EdgeInsets.all(0.0),
+                  shape: CircleBorder(),
+                  onPressed: () => General.instance
+                      .navigateScreenNamed(context, '/ledger_item_add'),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -253,7 +254,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   itemCount: _ledgerListOfSelectedDate.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return HomeListItem(ledgerItem: _ledgerListOfSelectedDate[index]);
+                    return HomeListItem(
+                        ledgerItem: _ledgerListOfSelectedDate[index]);
                   },
                 ),
               )

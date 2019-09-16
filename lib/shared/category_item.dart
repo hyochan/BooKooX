@@ -40,7 +40,7 @@ class _CategoryItemState extends State<CategoryItem> {
             Column(
               children: <Widget>[
                 Image(
-                  image: category.getIconImage(category.iconId),
+                  image: category.getIconImage(),
                   width: 72,
                   height: 72,
                 ),
