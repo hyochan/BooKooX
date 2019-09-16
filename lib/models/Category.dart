@@ -112,7 +112,7 @@ class Category {
     };
   }
 
-  AssetImage getIconImage(int iconId) {
+  AssetImage getIconImage() {
     return iconMaps[iconId];
   }
 

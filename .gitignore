@@ -17,6 +17,7 @@
 
 # Visual Studio Code related
 .vscode/
+.favorites.json
 
 # Flutter/Dart/Pub related
 **/doc/api/

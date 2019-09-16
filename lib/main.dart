@@ -1,3 +1,5 @@
+import 'package:bookoo2/screens/home_calendar.dart';
+import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
@@ -109,7 +111,8 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKoo2',
-      home: HomeTab(),
+      // home: Tutorial(),
+      home: HomeCalendar(),
     );
   }
 }
