@@ -60,6 +60,7 @@ class _HomeSettingState extends State<HomeSetting> {
               child: ListView.separated(
                 separatorBuilder: (context, index) => Divider(
                   color: Colors.grey,
+                  height: 1.0,
                 ),
                 itemCount : _items.length,
                 itemBuilder: (context, index) {

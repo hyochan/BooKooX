@@ -54,7 +54,6 @@ class _SettingCurrencyState extends State<SettingCurrency> {
         trailing: Icon(Icons.check),
         onTap: () => onSettingCurrency('KRW'),
       ),
-
     ];
 
     return Scaffold(
@@ -79,11 +78,12 @@ class _SettingCurrencyState extends State<SettingCurrency> {
                 padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
                 separatorBuilder: (context, index) => Divider(
                   color: Colors.grey,
+                  height: 1,
                 ),
                 itemCount : _items.length,
                 itemBuilder: (context, index) {
                   final item = _items[index];
-                  return SettingTileItem(item);                                
+                  return SettingTileItem(item);
                 }
               ),
             ),
