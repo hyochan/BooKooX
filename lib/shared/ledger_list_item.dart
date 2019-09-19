@@ -120,13 +120,17 @@ class LedgerListItem extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: FlatButton(
-              onPressed: onMorePressed,
-              child: Text(
-                _localization.trans('MORE'),
-                style: TextStyle(
-                  color: Asset.Colors.green,
+          FlatButton(
+            onPressed: onMorePressed,
+            padding: EdgeInsets.all(0),
+            child: Container(
+              height: double.infinity,
+              child: Center(
+                child: Text(
+                  _localization.trans('MORE'),
+                  style: TextStyle(
+                    color: Asset.Colors.green,
+                  ),
                 ),
               ),
             ),
