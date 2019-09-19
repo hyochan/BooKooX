@@ -68,3 +68,38 @@ class SettingListItem extends StatelessWidget {
     );
   }
 }
+
+class TileItem implements ListItem {
+  final Widget leading;
+  final String title;
+  final Widget trailing;
+  final Widget optionalWidget;
+  final Function onTap;  
+
+  TileItem(
+    {
+      this.title, 
+      this.trailing,
+      this.leading,
+      this.optionalWidget,
+      this.onTap,      
+    }
+  );
+}
+
+class SettingTileItem extends StatelessWidget {
+  SettingTileItem(this.item);
+  final TileItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: item.onTap,
+      child: ListTile(
+        leading: item.leading,
+        title: Text(item.title),
+        trailing: item.trailing,
+      ),
+    );
+  }  
+}

@@ -133,5 +133,6 @@
   "DELETE": "Delete",
   "DELETE_ASK": "Are you sure you want to delete?",
   "ERROR_CATEGORY_NAME": "Please write category name.",
-  "ERROR_CATEGORY_ICON": "Please select icon."
+  "ERROR_CATEGORY_ICON": "Please select icon.",
+  "EXPORT_EXCEL": "EXPORT"
 }
