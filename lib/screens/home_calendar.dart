@@ -40,37 +40,37 @@ class _HomeCalendarState extends State<HomeCalendar> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             HomeHeaderExpanded(title: widget.title, actions: [
-              // Container(
-              //   width: 56.0,
-              //   child: RawMaterialButton(
-              //     padding: EdgeInsets.all(0.0),
-              //     shape: CircleBorder(),
-              //     onPressed: () =>
-              //         General.instance.navigateScreenNamed(context, '/ledgers'),
-              //     child: Icon(
-              //       Icons.book,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   width: 56.0,
-              //   child: RawMaterialButton(
-              //     padding: EdgeInsets.all(0.0),
-              //     shape: CircleBorder(),
-              //     onPressed: () => General.instance
-              //         .navigateScreenNamed(context, '/ledger_item_add'),
-              //     child: Icon(
-              //       Icons.add,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
+              Container(
+                width: 56.0,
+                child: RawMaterialButton(
+                  padding: EdgeInsets.all(0.0),
+                  shape: CircleBorder(),
+                  onPressed: () =>
+                      General.instance.navigateScreenNamed(context, '/ledgers'),
+                  child: Icon(
+                    Icons.book,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Container(
+                width: 56.0,
+                child: RawMaterialButton(
+                  padding: EdgeInsets.all(0.0),
+                  shape: CircleBorder(),
+                  onPressed: () => General.instance
+                      .navigateScreenNamed(context, '/ledger_item_add'),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ]),
           ];
         },
         controller: _scrollController,
-        body: Center(
+        body: Container(
           child: new MyHomePage(),
         ),
       ),
@@ -169,12 +169,9 @@ class _MyHomePageState extends State<MyHomePage> {
       markedDatesMap: _markedDateMap,
       markedDateShowIcon: true,
       markedDateIconMaxShown: 1,
-      // markedDateMoreShowTotal:
-      //     false, // null for not showing hidden events indicator
       markedDateIconBuilder: (event) {
         return markedIcon(color: Theme.of(context).primaryColor);
       },
-      // selectedDayBorderColor: Theme.of(context).primaryColor,
       selectedDayButtonColor: Theme.of(context).primaryColor,
       todayBorderColor: Colors.green,
       onDayPressed: (DateTime date, List<Event> events) {
@@ -187,6 +184,8 @@ class _MyHomePageState extends State<MyHomePage> {
       weekFormat: false,
       height: 300.0,
       selectedDateTime: _currentDate2,
+
+      /// make calendar to be scrollable together with its screen
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       showHeader: false,
       todayTextStyle: TextStyle(
@@ -203,58 +202,54 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return new Scaffold(
         body: SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(
-              top: 30.0,
-              bottom: 16.0,
-              left: 16.0,
-              right: 16.0,
-            ),
-            child: new Row(
-              children: <Widget>[
-                Text(
-                  _currentMonth,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24.0,
-                  ),
+            child: Container(
+                child: ListView(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(
+            // top: 30.0,
+            bottom: 16.0,
+            left: 16.0,
+            right: 16.0,
+          ),
+          child: new Row(
+            children: <Widget>[
+              Text(
+                _currentMonth,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24.0,
                 ),
-                IconButton(
-                  icon: Icon(Icons.arrow_drop_down),
-                  color: Colors.grey,
-                  onPressed: () {},
-                ),
-              ],
-            ),
+              ),
+              IconButton(
+                icon: Icon(Icons.arrow_drop_down),
+                color: Colors.grey,
+                onPressed: () {},
+              ),
+            ],
           ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.0),
-            child: _calendarCarouselNoHeader,
-          ),
-          Divider(
-            color: Colors.grey,
-            // thickness: 10,
-            indent: 10,
-            endIndent: 10,
-          ),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-              itemCount: _ledgerListOfSelectedDate.length,
-              itemBuilder: (BuildContext context, int index) {
-                return HomeListItem(
-                    ledgerItem: _ledgerListOfSelectedDate[index]);
-              },
-            ),
-          )
-        ],
-      ),
-    ));
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 16.0),
+          child: _calendarCarouselNoHeader,
+        ),
+        Divider(
+          color: Colors.grey,
+          // thickness: 10,
+          indent: 10,
+          endIndent: 10,
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          itemCount: _ledgerListOfSelectedDate.length,
+          itemBuilder: (BuildContext context, int index) {
+            return HomeListItem(ledgerItem: _ledgerListOfSelectedDate[index]);
+          },
+        )
+      ],
+    ))));
   }
 }
 
