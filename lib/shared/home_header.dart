@@ -30,7 +30,7 @@ class HomeHeaderExpanded extends StatelessWidget {
           ),
         ),
         background: Container(
-          color: Asset.Colors.dusk,
+          color: Theme.of(context).primaryColor,
         ),
       ),
     );
