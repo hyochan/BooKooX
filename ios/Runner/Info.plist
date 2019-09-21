@@ -13,6 +13,8 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+	<string>google_maps_in_flutter</string>
+	<key>CFBundlePackageType</key>
 	<string>BooKoo2</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>

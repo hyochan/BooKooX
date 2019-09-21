@@ -12,7 +12,7 @@
         android:label="BooKoo2"
         android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="[KEY_GOOGLE_MAP_API]"/>
+            android:value="[GEO_API_KEY]"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

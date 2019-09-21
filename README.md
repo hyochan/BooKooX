@@ -27,6 +27,13 @@ samples, guidance on mobile development, and a full API reference.
   - dooboolab's [code of conduct](https://github.com/dooboolab/dooboolab.com/blob/master/code-of-conduct.md)
 * [Contributing](CONTRIBUTING.md)
 
+## Credentials keys
+  | Name   | Description               | required?    |
+  |--------|---------------------------|--------------|
+  | GEO_API_KEY      | Google map api key       | yes      |
+   - Google API KEY
+    * [Android](https://developers.google.com/maps/documentation/android-sdk/get-api-key)
+    * [iOS](https://developers.google.com/maps/documentation/ios-sdk/get-api-key)
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
