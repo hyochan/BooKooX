@@ -185,6 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
       height: 300.0,
       selectedDateTime: _currentDate2,
 
+      isScrollable: false,
       /// make calendar to be scrollable together with its screen
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       showHeader: false,
