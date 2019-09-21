@@ -10,8 +10,13 @@ void main() {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: HomeCalendar()));
     await tester.pumpAndSettle();
 
-     var findByText = find.byType(Text);
+    var findByText = find.byType(Text);
     expect(findByText.evaluate().isEmpty, false);
+
+    expect(find.text('운동'), findsNothing);
+    expect(find.text('용돈'), findsNothing);
+    expect(find.text('데이트'), findsNothing);
+    expect(find.text('커피'), findsNothing);
 
     expect(find.text('10'), findsNWidgets(1));
 
