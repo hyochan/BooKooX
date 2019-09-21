@@ -1,6 +1,7 @@
 import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:flutter/material.dart';
-
+import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:intl/intl.dart';
 class HomeListItem extends StatelessWidget {
   final LedgerItem ledgerItem;
 
@@ -8,12 +9,14 @@ class HomeListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formatCurrency = NumberFormat.simpleCurrency();
+    
     AssetImage _image = ledgerItem.category.getIconImage();
     String _label = ledgerItem.category.label;
     bool _isPlus = ledgerItem.price > 0;
-    String _price = (_isPlus ? '+ ' : '- ') +
-        ledgerItem.price.toString().replaceAll('-', '') +
-        ' 원';
+    String _priceFormatted = formatCurrency.format(ledgerItem.price ?? 0.0);
+    String _priceToShow = (_isPlus ? '+ ' : '- ') +
+        _priceFormatted.toString().replaceAll('-', '');
 
     return Container(
       height: 60,
@@ -38,12 +41,12 @@ class HomeListItem extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Text(
-                  _price,
+                  _priceToShow,
                   textAlign: TextAlign.end,
                   style: TextStyle(
                       color: _isPlus
                           ? Theme.of(context).primaryColor
-                          : Colors.grey[600]),
+                          : Asset.Colors.carnation),
                 ),
               ),
             ),

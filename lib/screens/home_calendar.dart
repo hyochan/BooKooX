@@ -52,7 +52,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                     color: Colors.white,
                   ),
                 ),
-              ),
+              ),  
               Container(
                 width: 56.0,
                 child: RawMaterialButton(
