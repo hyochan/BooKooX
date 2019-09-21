@@ -37,6 +37,8 @@ pubspec.lock
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+**/android/.project
+**/android/app/.project
 
 # iOS/XCode related
 **/ios/Flutter/flutter_export_environment.sh
