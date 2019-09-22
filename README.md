@@ -28,12 +28,16 @@ samples, guidance on mobile development, and a full API reference.
 * [Contributing](CONTRIBUTING.md)
 
 ## Credentials keys
+> You should replace `[*_KEY]` to your apis in order to make your application works. See below details to complete your installation.
   | Name   | Description               | required?    |
   |--------|---------------------------|--------------|
   | GEO_API_KEY      | Google map api key       | yes      |
    - Google API KEY
-    * [Android](https://developers.google.com/maps/documentation/android-sdk/get-api-key)
-    * [iOS](https://developers.google.com/maps/documentation/ios-sdk/get-api-key)
+     * [Installation](https://developers.google.com/maps/documentation/geocoding/get-api-key)
+     * [Android](https://developers.google.com/maps/documentation/android-sdk/get-api-key)
+     * [iOS](https://developers.google.com/maps/documentation/ios-sdk/get-api-key)
+   - PLACE_API_KEY
+     > Same as `GEO_API_KEY` but recommend to create another `API_KEY` to track usage seperately. You can use this one without platform specific.
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

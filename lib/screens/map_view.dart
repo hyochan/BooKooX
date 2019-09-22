@@ -1,7 +1,9 @@
 import 'package:bookoo2/shared/header.dart';
+import 'package:bookoo2/utils/general.dart';
+import 'package:bookoo2/utils/localization.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class MapView extends StatefulWidget {
   @override
@@ -18,6 +20,22 @@ class _MapViewState extends State<MapView> {
   void initState() {
     super.initState();
     getCurrentLocation();
+  }
+
+  /// [Not used] Open up google place search screen.
+  /// 
+  /// This isn't used currently but willing to provide in next releases.
+  /// Since we need to convert address to `lat` and `lng`,
+  /// but it does not seem to have the current feature.
+  /// 
+  void getPlace() async {
+    var location =
+        await GooglePlaceService.instance.showGooglePlaceSearch(
+      context,
+      locale: Localization.of(context).locale.languageCode,
+    );
+
+    print('location: $location');
   }
 
   void getCurrentLocation() async {
@@ -74,16 +92,34 @@ class _MapViewState extends State<MapView> {
       appBar: renderHeaderClose(
         context: context,
         title: Text('Map'),
+        brightness: Brightness.light,
+        /// Currently unused but willing to provide in the future.
+        // actions: [
+        //   Container(
+        //     width: 56.0,
+        //     child: RawMaterialButton(
+        //       padding: EdgeInsets.all(0.0),
+        //       shape: CircleBorder(),
+        //       onPressed: () => getPlace(),
+        //       child: Icon(
+        //         Icons.search,
+        //         color: Theme.of(context).textTheme.title.color,
+        //       ),
+        //     ),
+        //   ),
+        // ],
       ),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.0,
+      body: _center == null
+        ? Container()
+        : GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _center,
+            zoom: 11.0,
+          ),
+          markers: markerSet ?? null,
+          onCameraMove: _onCameraMoved,
         ),
-        markers: markerSet ?? null,
-        onCameraMove: _onCameraMoved,
-      ),
     );
   }
 }

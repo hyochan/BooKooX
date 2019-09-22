@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Localization {
-  Localization(this._locale, {
+  Localization(this.locale, {
     this.isTest = false,
   });
-  final Locale _locale;
+  final Locale locale;
   bool isTest;
   Map<String, String> _sentences;
 
@@ -22,14 +22,14 @@ class Localization {
 
   Future<Localization> load() async {
     String data = await rootBundle
-        .loadString('res/langs/${_locale.languageCode}.json');
+        .loadString('res/langs/${locale.languageCode}.json');
 
     Map<String, dynamic> _result = json.decode(data);
     _sentences = new Map();
     _result.forEach((String key, dynamic value) {
       _sentences[key] = value.toString();
     });
-    return Localization(_locale);
+    return Localization(locale);
   }
 
 
