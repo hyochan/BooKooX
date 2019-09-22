@@ -26,7 +26,7 @@ class GooglePlaceService {
   static GooglePlaceService _instance = GooglePlaceService();
   static GooglePlaceService get instance => _instance;
 
-  String kGoogleApiKey = '[KEY_GOOGLE_PLACE_API]';
+  String kGoogleApiKey = '[PLACE_API_KEY]';
 
   Future<Map<String, dynamic>> showGooglePlaceSearch(BuildContext context, {
     String country = 'us',
