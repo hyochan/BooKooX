@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
-class MapView extends StatefulWidget {
+class LocationView extends StatefulWidget {
   @override
-  _MapViewState createState() => _MapViewState();
+  _LocationViewState createState() => _LocationViewState();
 }
 
-class _MapViewState extends State<MapView> {
+class _LocationViewState extends State<LocationView> {
   GoogleMapController mapController;
   LatLng _center;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
