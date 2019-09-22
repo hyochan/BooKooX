@@ -29,6 +29,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Credentials keys
 > You should replace `[*_KEY]` to your apis in order to make your application works. See below details to complete your installation.
+
   | Name   | Description               | required?    |
   |--------|---------------------------|--------------|
   | GEO_API_KEY      | Google map api key       | yes      |
