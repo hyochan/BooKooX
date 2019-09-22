@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bookoo2/screens/photo_detail.dart';
@@ -83,12 +84,14 @@ class Gallery extends StatefulWidget {
     this.showAddBtn,
     this.showAll = false,
     @required this.picture,
+    @required this.ledgerItem,
   });
 
   final EdgeInsets margin;
   final bool showAddBtn;
   final bool showAll;
   final List<Photo> picture;
+  final LedgerItem ledgerItem;
 
   @override
   _GalleryState createState() => _GalleryState(picture);
@@ -176,6 +179,7 @@ class _GalleryState extends State<Gallery> {
                         if (imgFile != null) {
                           Photo photo = new Photo(file: imgFile);
                           this.picture.add(photo);
+                          widget.ledgerItem.picture = this.picture;
                         }
                       },
                       padding: EdgeInsets.all(0),
@@ -226,6 +230,7 @@ class _GalleryState extends State<Gallery> {
                                     onPressDelete: () {
                                       int index = this.picture.indexWhere((Photo compare) => compare.file == photo.file);
                                       this.picture.removeAt(index);
+                                      widget.ledgerItem.picture = this.picture;
                                       Navigator.of(context).pop();
                                     },
                                   ),

@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dooboolab.bookoo2">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -10,6 +11,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="BooKoo2"
         android:icon="@mipmap/launcher_icon">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="[GEO_API_KEY]"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

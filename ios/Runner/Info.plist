@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -11,6 +13,8 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+	<string>google_maps_in_flutter</string>
+	<key>CFBundlePackageType</key>
 	<string>BooKoo2</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
@@ -49,5 +53,9 @@
 	<string>App would like to save photo to your local storage. Please give permission to procceed.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App would like to access your photo gallery for your profile photo upload. Your photos wont be shared without your permission.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App would like to access your location to pin your location. This will let you save additional information for your ledger.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App would like to access your location to pin your location. This will let you save additional information for your ledger.</string>
 </dict>
 </plist>
