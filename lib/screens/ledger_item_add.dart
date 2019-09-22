@@ -106,6 +106,8 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
         MaterialPageRoute(builder: (BuildContext context) => LocationView()),
       );
 
+      if (result == null) return;
+
       if (categoryType == CategoryType.CONSUME) {
         setState(() {
           _ledgerItemConsume.address = result['address'];
