@@ -6,8 +6,6 @@ import 'package:image/image.dart' as Im;
 
 import 'package:bookoo2/shared/dialog_spinner.dart';
 import 'package:bookoo2/utils/localization.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_webservice/places.dart';
 
 class General {
   static final General instance = new General();
@@ -220,56 +218,5 @@ class General {
     Im.Image image = Im.decodeImage(img.readAsBytesSync());
     Im.Image smallerImage = Im.copyResize(image, width: size, height: size);
     return smallerImage as File;
-  }
-}
-
-class GooglePlaceService {
-  static GooglePlaceService _instance = GooglePlaceService();
-  static GooglePlaceService get instance => _instance;
-
-  String kGoogleApiKey = '[PLACE_API_KEY]';
-
-  Future<Map<String, dynamic>> showGooglePlaceSearch(BuildContext context, {
-    String locale = 'en',
-    String country = 'us',
-  }) async {
-    Map<String, dynamic> location = Map();
-
-    final homeScaffoldKey = new GlobalKey<ScaffoldState>();
-
-    Prediction p = await PlacesAutocomplete.show(
-      context: context,
-      apiKey: kGoogleApiKey,
-      language: "kr",
-      mode: Mode.fullscreen,
-      components: [Component(Component.country, "kr")],
-    );
-    await _displayPrediction(p, homeScaffoldKey.currentState, (lat, lng) {
-      location['lat'] = lat;
-      location['lng'] = lng;
-      print('list: $lat, $lng');
-    });
-    /// Get city from p string
-    if (p != null) {
-      List<String> list = p.description.split(', ');
-      if (list.length > 1) {
-        location['country'] = list[list.length - 1]; /// country
-        location['city'] = list[list.length - 2]; /// city
-      }
-    }
-    return location;
-  }
-
-  Future<Null> _displayPrediction(Prediction p, ScaffoldState scaffold, Function(double, double) callback) async {
-    GoogleMapsPlaces _places = new GoogleMapsPlaces();
-
-    if (p != null) {
-      // get detail (lat/lng)
-      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
-      print('detail: ${detail.result}');
-      if (detail.result != null) {
-        callback(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
-      }
-    }
   }
 }

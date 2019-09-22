@@ -1,6 +1,5 @@
 import 'package:bookoo2/shared/header.dart';
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoo2/utils/service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -16,6 +15,7 @@ class _LocationViewState extends State<LocationView> {
   LatLng _center;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   Set markerSet;
+  String _countryCode;
 
   @override
   void initState() {
@@ -23,22 +23,37 @@ class _LocationViewState extends State<LocationView> {
     getCurrentLocation();
   }
 
-  /// [Not used] Open up google place search screen.
+  /// Open up google place search screen. The `_countryCode` is used to query google places.
   /// 
-  /// This isn't used currently but willing to provide in next releases.
-  /// Since we need to convert address to `lat` and `lng`,
-  /// but it does not seem to have the current feature.
+  /// Get `lat` and `lng` from the places search.
+  /// Move camera and set markers when there is a result.
   /// 
   void getPlace() async {
     var location =
         await GooglePlaceService.instance.showGooglePlaceSearch(
       context,
-      locale: Localization.of(context).locale.languageCode,
+      country: _countryCode,
     );
 
-    print('location: $location');
+    if (location != null && location['lat'] != null && location['lng'] != null) {
+      var latLng = LatLng(location['lat'], location['lng']);
+      _setMarker(latLng);
+
+      setState(() => _center = latLng);
+
+      CameraUpdate cameraUpdate = CameraUpdate.newLatLng(latLng);
+      mapController.moveCamera(cameraUpdate);
+    }
   }
 
+  /// Get current location with `location` plugin.
+  /// 
+  /// This will request permission in android when it's not granted.
+  /// When permission is granted, it will get current location by calling `getLocation`,
+  /// and set markers when result is achieved.
+  /// 
+  /// It also fetches current `countryCode` to be used when searching google places.
+  /// 
   void getCurrentLocation() async {
     var currentLocation;
     var error;
@@ -57,6 +72,12 @@ class _LocationViewState extends State<LocationView> {
     if (error == null) {
       var latLng = LatLng(currentLocation.latitude, currentLocation.longitude);
       _setMarker(latLng);
+
+      var addresses = await Geocoder.local.findAddressesFromCoordinates(
+                  Coordinates(currentLocation.latitude, currentLocation.longitude));
+      Map<String, dynamic> result = Map();
+      result['address'] = addresses.first;
+      _countryCode = addresses.first.countryCode;
 
       setState(() => _center = latLng);
       return;
@@ -95,6 +116,22 @@ class _LocationViewState extends State<LocationView> {
         title: Text('Map'),
         brightness: Theme.of(context).brightness,
         actions: [
+          /// The button that calls `getPlace` method when pressed.
+          Container(
+            width: 56.0,
+            child: RawMaterialButton(
+              padding: EdgeInsets.all(0.0),
+              shape: CircleBorder(),
+              onPressed: () => getPlace(),
+              child: Icon(
+                Icons.search,
+                color: Theme.of(context).textTheme.title.color,
+              ),
+            ),
+          ),
+          /// The button that `findAddressesFromCoordinates` when pressed.
+          /// 
+          /// returns `address` and `latlng` and pop current [Screen].
           Container(
             width: 56.0,
             child: RawMaterialButton(
@@ -114,19 +151,6 @@ class _LocationViewState extends State<LocationView> {
               ),
             ),
           ),
-          /// Currently unused but willing to provide in the future.
-          // Container(
-          //   width: 56.0,
-          //   child: RawMaterialButton(
-          //     padding: EdgeInsets.all(0.0),
-          //     shape: CircleBorder(),
-          //     onPressed: () => getPlace(),
-          //     child: Icon(
-          //       Icons.search,
-          //       color: Theme.of(context).textTheme.title.color,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
       body: _center == null
