@@ -2,6 +2,8 @@
 import 'package:bookoo2/models/Category.dart' show Category;
 import 'package:bookoo2/models/Photo.dart';
 import 'package:bookoo2/models/User.dart' show User;
+import 'package:geocoder/geocoder.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LedgerItem {
   double price;
@@ -10,6 +12,8 @@ class LedgerItem {
   User writer;
   DateTime selectedDate;
   List<Photo> picture;
+  LatLng latlng;
+  Address address;
   DateTime createdAt;
   DateTime updatedAt;
   DateTime deletedAt;
@@ -21,6 +25,8 @@ class LedgerItem {
     this.writer,
     this.selectedDate,
     this.picture,
+    this.latlng,
+    this.address,
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
@@ -34,6 +40,8 @@ class LedgerItem {
       'writer': writer,
       'selectedDate': selectedDate,
       'picture': picture,
+      'latlng': latlng,
+      'address': address,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
       'deletedAt': deletedAt,

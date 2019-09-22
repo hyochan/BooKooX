@@ -4,6 +4,7 @@ import 'package:bookoo2/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:geocoder/geocoder.dart';
 
 class LocationView extends StatefulWidget {
   @override
@@ -92,22 +93,41 @@ class _LocationViewState extends State<LocationView> {
       appBar: renderHeaderClose(
         context: context,
         title: Text('Map'),
-        brightness: Brightness.light,
-        /// Currently unused but willing to provide in the future.
-        // actions: [
-        //   Container(
-        //     width: 56.0,
-        //     child: RawMaterialButton(
-        //       padding: EdgeInsets.all(0.0),
-        //       shape: CircleBorder(),
-        //       onPressed: () => getPlace(),
-        //       child: Icon(
-        //         Icons.search,
-        //         color: Theme.of(context).textTheme.title.color,
-        //       ),
-        //     ),
-        //   ),
-        // ],
+        brightness: Theme.of(context).brightness,
+        actions: [
+          Container(
+            width: 56.0,
+            child: RawMaterialButton(
+              padding: EdgeInsets.all(0.0),
+              shape: CircleBorder(),
+              onPressed: () async {
+                var addresses = await Geocoder.local.findAddressesFromCoordinates(
+                  Coordinates(_center.latitude, _center.longitude));
+                Map<String, dynamic> result = Map();
+                result['address'] = addresses.first;
+                result['latlng'] = _center;
+                Navigator.pop(context, result);
+              },
+              child: Icon(
+                Icons.check,
+                color: Theme.of(context).textTheme.title.color,
+              ),
+            ),
+          ),
+          /// Currently unused but willing to provide in the future.
+          // Container(
+          //   width: 56.0,
+          //   child: RawMaterialButton(
+          //     padding: EdgeInsets.all(0.0),
+          //     shape: CircleBorder(),
+          //     onPressed: () => getPlace(),
+          //     child: Icon(
+          //       Icons.search,
+          //       color: Theme.of(context).textTheme.title.color,
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
       body: _center == null
         ? Container()

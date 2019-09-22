@@ -98,11 +98,25 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
       }
     }
 
-    void onLocationPressed() {
-      General.instance.navigateScreen(
+    void onLocationPressed({
+      CategoryType categoryType = CategoryType.CONSUME,
+    }) async {
+      Map<String, dynamic> result = await General.instance.navigateScreen(
         context,
         MaterialPageRoute(builder: (BuildContext context) => LocationView()),
       );
+
+      if (categoryType == CategoryType.CONSUME) {
+        setState(() {
+          _ledgerItemConsume.address = result['address'];
+          _ledgerItemConsume.latlng = result['latlng'];
+        });
+      } else if (categoryType == CategoryType.INCOME) {
+        setState(() {
+          _ledgerItemIncome.address = result['address'];
+          _ledgerItemIncome.latlng = result['latlng'];
+        });
+      }
     }
 
     void onLedgerItemAddPressed() {
@@ -245,7 +259,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Container(
+                        Expanded(
                           child: AutoSizeText(
                             text,
                             style: TextStyle(
@@ -378,12 +392,19 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 active: true,
               ),
               /// LOCATION
-              renderBox(
+              _ledgerItemConsume.address == null ? renderBox(
+                margin: EdgeInsets.only(top: 8),
+                icon: Icons.date_range,
+                text: _localization.trans('LOCATION'),
+                showDropdown: true,
+                onPressed: onLocationPressed,
+              ) : renderBox(
                 margin: EdgeInsets.only(top: 8),
                 icon: Icons.location_on,
-                text: _localization.trans('LOCATION'),
+                text: '${_ledgerItemConsume.address.subAdminArea}, ${_ledgerItemConsume.address.thoroughfare}, ${_ledgerItemConsume.address.subThoroughfare}',
                 showDropdown: false,
                 onPressed: onLocationPressed,
+                active: true,
               ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),
@@ -502,12 +523,19 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 active: true,
               ),
               /// LOCATION
-              renderBox(
+              _ledgerItemIncome.address == null ? renderBox(
+                margin: EdgeInsets.only(top: 8),
+                icon: Icons.date_range,
+                text: _localization.trans('LOCATION'),
+                showDropdown: true,
+                onPressed: () => onLocationPressed(categoryType: CategoryType.INCOME),
+              ) : renderBox(
                 margin: EdgeInsets.only(top: 8),
                 icon: Icons.location_on,
-                text: _localization.trans('LOCATION'),
+                text: '${_ledgerItemIncome.address.subAdminArea}, ${_ledgerItemIncome.address.thoroughfare}, ${_ledgerItemIncome.address.subLocality}',
                 showDropdown: false,
-                onPressed: onLocationPressed,
+                onPressed: () => onLocationPressed(categoryType: CategoryType.INCOME),
+                active: true,
               ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),

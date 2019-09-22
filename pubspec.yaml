@@ -35,6 +35,7 @@ dependencies:
   google_maps_flutter: ^0.5.21
   flutter_google_places: ^0.2.3
   location: ^2.3.5
+  geocoder: ^0.2.1
 
 dev_dependencies:
   flutter_test:
