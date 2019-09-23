@@ -2,6 +2,7 @@ import 'package:bookoo2/models/Category.dart';
 import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:bookoo2/models/User.dart';
 import 'package:bookoo2/shared/home_list_item.dart';
+import 'package:bookoo2/utils/localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bookoo2/utils/general.dart';
@@ -52,7 +53,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                     color: Colors.white,
                   ),
                 ),
-              ),  
+              ),
               Container(
                 width: 56.0,
                 child: RawMaterialButton(
@@ -118,47 +119,74 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _ledgerList.add(new LedgerItem(
-        price: -12000,
-        category: Category(iconId: 8, label: '운동', type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, 2, 10)));
-    _ledgerList.add(new LedgerItem(
-        price: 300000,
-        category: Category(iconId: 18, label: '용돈', type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, 2, 10)));
-    _ledgerList.add(new LedgerItem(
-        price: -32000,
-        category: Category(iconId: 4, label: '데이트', type: CategoryType.CONSUME),
-        memo: 'who1 gave me',
-        writer: new User(uid: 'who1@gmail.com'),
-        selectedDate: new DateTime(2019, 2, 10)));
-    _ledgerList.add(new LedgerItem(
-        price: -3100,
-        category: Category(iconId: 0, label: '커피', type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, 2, 10)));
-    _ledgerList.add(new LedgerItem(
-        price: -3100,
-        category: Category(iconId: 0, label: '커피', type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, 2, 10)));
-    _ledgerList.add(new LedgerItem(
-        price: -3100,
-        category: Category(iconId: 0, label: '커피', type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, 2, 10)));
-    _ledgerList.add(new LedgerItem(
-        price: -3100,
-        category: Category(iconId: 0, label: '커피', type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, 2, 10)));
-    _ledgerList.add(new LedgerItem(
-        price: -12000,
-        category: Category(iconId: 12, label: '선물', type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, 2, 15)));
-
-    _ledgerList.forEach((ledger) {
-      _markedDateMap.add(ledger.selectedDate,
-          new Event(date: ledger.selectedDate, title: ledger.category.label));
-    });
-
     super.initState();
+    new Future.delayed(Duration.zero, () {
+      var _localization = Localization.of(context);
+
+      _ledgerList.add(new LedgerItem(
+          price: -12000,
+          category: Category(
+              iconId: 8,
+              label: _localization.trans('EXERCISE'),
+              type: CategoryType.CONSUME),
+          selectedDate: new DateTime(2019, 2, 10)));
+      _ledgerList.add(new LedgerItem(
+          price: 300000,
+          category: Category(
+              iconId: 18,
+              label: _localization.trans('WALLET_MONEY'),
+              type: CategoryType.CONSUME),
+          selectedDate: new DateTime(2019, 2, 10)));
+      _ledgerList.add(new LedgerItem(
+          price: -32000,
+          category: Category(
+              iconId: 4,
+              label: _localization.trans('DATING'),
+              type: CategoryType.CONSUME),
+          memo: 'who1 gave me',
+          writer: new User(uid: 'who1@gmail.com'),
+          selectedDate: new DateTime(2019, 2, 10)));
+      _ledgerList.add(new LedgerItem(
+          price: -3100,
+          category: Category(
+              iconId: 0,
+              label: _localization.trans('CAFE'),
+              type: CategoryType.CONSUME),
+          selectedDate: new DateTime(2019, 2, 10)));
+      _ledgerList.add(new LedgerItem(
+          price: -3100,
+          category: Category(
+              iconId: 0,
+              label: _localization.trans('CAFE'),
+              type: CategoryType.CONSUME),
+          selectedDate: new DateTime(2019, 2, 10)));
+      _ledgerList.add(new LedgerItem(
+          price: -3100,
+          category: Category(
+              iconId: 0,
+              label: _localization.trans('CAFE'),
+              type: CategoryType.CONSUME),
+          selectedDate: new DateTime(2019, 2, 10)));
+      _ledgerList.add(new LedgerItem(
+          price: -3100,
+          category: Category(
+              iconId: 0,
+              label: _localization.trans('CAFE'),
+              type: CategoryType.CONSUME),
+          selectedDate: new DateTime(2019, 2, 10)));
+      _ledgerList.add(new LedgerItem(
+          price: -12000,
+          category: Category(
+              iconId: 12,
+              label: _localization.trans('PRESENT'),
+              type: CategoryType.CONSUME),
+          selectedDate: new DateTime(2019, 2, 15)));
+
+      _ledgerList.forEach((ledger) {
+        _markedDateMap.add(ledger.selectedDate,
+            new Event(date: ledger.selectedDate, title: ledger.category.label));
+      });
+    });
   }
 
   @override
@@ -186,6 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedDateTime: _currentDate2,
 
       isScrollable: false,
+
       /// make calendar to be scrollable together with its screen
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       showHeader: false,
