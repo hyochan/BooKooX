@@ -23,6 +23,7 @@ class Icons {
   static AssetImage tutorial3 = AssetImage('res/icons/tutorial3.png');
   static AssetImage noLedger = AssetImage('res/icons/noLedger.png');
   static AssetImage icCoins = AssetImage('res/icons/icCoins.png');
+  static AssetImage icOwner = AssetImage('res/icons/picOwner.png');
 }
 
 class Images {

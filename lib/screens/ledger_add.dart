@@ -19,15 +19,6 @@ class LedgerAdd extends StatefulWidget {
 }
 
 class _LedgerAddState extends State<LedgerAdd> {
-  final List<ColorType> _items = [
-    ColorType.PURPLE,
-    ColorType.DUSK,
-    ColorType.BLUE,
-    ColorType.GREEN,
-    ColorType.YELLOW,
-    ColorType.ORANGE,
-    ColorType.RED,
-  ];
   Ledger _ledger = Ledger(
     currency: Currency(code: '\￦', currency: 'KRW'),
     color: ColorType.DUSK,
@@ -176,10 +167,10 @@ class _LedgerAddState extends State<LedgerAdd> {
                       child: ListView.builder(
                         reverse: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: _items.length,
+                        itemCount: colorItems.length,
                         itemExtent: 32,
                         itemBuilder: (context, index) {
-                          final item = _items[index];
+                          final item = colorItems[index];
                           bool selected = item == _ledger.color;
                           return ColorItem(
                             color: item,
