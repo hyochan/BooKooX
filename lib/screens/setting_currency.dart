@@ -1,3 +1,4 @@
+import 'package:bookoo2/models/Currency.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/general.dart' show General;
@@ -24,9 +25,9 @@ class SettingCurrency extends StatefulWidget {
 }
 
 class _SettingCurrencyState extends State<SettingCurrency> {
-  void onSettingCurrency(String selectedCurrency) {
-    print('on setting currency $selectedCurrency');
-    Navigator.of(context).pop();
+  void onSettingCurrency(Currency selectedCurrency) {
+    print('on setting currency ${selectedCurrency.toString()}');
+    Navigator.pop(context, selectedCurrency);
   }
 
   @override
@@ -37,22 +38,34 @@ class _SettingCurrencyState extends State<SettingCurrency> {
       TileItem(
         title: 'ARS | \$ ',
         trailing: Text(''),
-        onTap: () => onSettingCurrency('ARS'),
+        onTap: () => onSettingCurrency(Currency(
+          currency: 'ARS',
+          code: '\$',
+        )),
       ),
       TileItem(
         title: 'AUD | \$ ',
         trailing: Text(''),
-        onTap: () => onSettingCurrency('AUD'),
+        onTap: () => onSettingCurrency(Currency(
+          currency: 'AUD',
+          code: '\$',
+        )),
       ),
       TileItem(
         title: 'CNY | \¥ ',
         trailing: Text(''),
-        onTap: () => onSettingCurrency('CNY'),
+        onTap: () => onSettingCurrency(Currency(
+          currency: 'CNY',
+          code: '\¥',
+        )),
       ),
       TileItem(
         title: 'KRW | \￦ ',
         trailing: Icon(Icons.check),
-        onTap: () => onSettingCurrency('KRW'),
+        onTap: () => onSettingCurrency(Currency(
+          currency: 'KRW',
+          code: '\￦',
+        )),
       ),
     ];
 

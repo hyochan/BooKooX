@@ -1,6 +1,11 @@
+import 'package:bookoo2/models/Currency.dart';
+import 'package:bookoo2/models/Ledger.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:bookoo2/screens/setting_currency.dart';
+import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/shared/header.dart' show renderHeaderBack;
 import 'package:bookoo2/utils/localization.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
@@ -23,16 +28,30 @@ class _LedgerAddState extends State<LedgerAdd> {
     ColorType.ORANGE,
     ColorType.RED,
   ];
-  ColorType selectedColor = ColorType.DUSK;
+  Ledger _ledger = Ledger(
+    currency: Currency(code: '\￦', currency: 'KRW'),
+    color: ColorType.DUSK,
+  );
 
-  void onPressCurrency() {
+  void _onPressCurrency() async {
+    var _result = await General.instance.navigateScreen(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => SettingCurrency()
+      ),
+    );
 
+    if (_result == null) return;
+
+    setState(() => _ledger.currency = _result);
   }
 
-  void onSelectColor(ColorType item) {
-    setState(() {
-      selectedColor = item;
-    });
+  void _onSelectColor(ColorType item) {
+    setState(() => _ledger.color = item);
+  }
+
+  void _onDonePressed() {
+    print('done\n ${_ledger.toString()}');
   }
 
   @override
@@ -40,7 +59,7 @@ class _LedgerAddState extends State<LedgerAdd> {
     var _localization = Localization.of(context);
 
     return Scaffold(
-      backgroundColor: Asset.Colors.getColor(selectedColor),
+      backgroundColor: Asset.Colors.getColor(_ledger.color),
       appBar: renderHeaderBack(
         context: context,
         iconColor: Colors.white,
@@ -53,6 +72,9 @@ class _LedgerAddState extends State<LedgerAdd> {
               margin: EdgeInsets.only(top: 40, left: 40, right: 40),
               child: TextField(
                 maxLines: 2,
+                onChanged: (String txt) {
+                  _ledger.title = txt;
+                },
                 decoration: InputDecoration(
                   hintMaxLines: 2,
                   border: InputBorder.none,
@@ -73,6 +95,9 @@ class _LedgerAddState extends State<LedgerAdd> {
               height: 160,
               child: TextField(
                 maxLines: 8,
+                onChanged: (String txt) {
+                  _ledger.description = txt;
+                },
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -90,7 +115,7 @@ class _LedgerAddState extends State<LedgerAdd> {
             ),
             MaterialButton(
               padding: EdgeInsets.all(0.0),
-              onPressed: onPressCurrency,
+              onPressed: _onPressCurrency,
               child: Container(
                 height: 80.0,
                 width: double.infinity,
@@ -108,7 +133,7 @@ class _LedgerAddState extends State<LedgerAdd> {
                     Row(
                       children: <Widget>[
                         Text(
-                          'BRN | \$',
+                          '${_ledger.currency.currency} | ${_ledger.currency.code}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -155,10 +180,10 @@ class _LedgerAddState extends State<LedgerAdd> {
                         itemExtent: 32,
                         itemBuilder: (context, index) {
                           final item = _items[index];
-                          bool selected = item == selectedColor;
+                          bool selected = item == _ledger.color;
                           return ColorItem(
                             color: item,
-                            onTap: () => onSelectColor(item),
+                            onTap: () => _onSelectColor(item),
                             selected: selected,
                           );
                         },
@@ -180,11 +205,11 @@ class _LedgerAddState extends State<LedgerAdd> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(26.0),
                       ),
-                      onPressed: () { },
+                      onPressed: _onDonePressed,
                       child: Text(
                         _localization.trans('DONE'),
                         style: TextStyle(
-                          color: Asset.Colors.getColor(selectedColor),
+                          color: Asset.Colors.getColor(_ledger.color),
                           fontSize: 16.0,
                         ),
                       ),

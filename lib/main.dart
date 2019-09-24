@@ -112,7 +112,7 @@ class MyApp extends StatelessWidget {
       },
       title: 'BooKoo2',
       // home: Tutorial(),
-      home: HomeCalendar(),
+      home: HomeTab(),
     );
   }
 }
