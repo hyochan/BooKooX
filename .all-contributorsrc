@@ -29,6 +29,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "godon019",
+      "name": "Dong-Kyun Ko",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10363850?v=4",
+      "profile": "https://github.com/godon019",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
