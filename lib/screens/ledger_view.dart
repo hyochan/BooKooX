@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:bookoo2/screens/setting_currency.dart';
 import 'package:bookoo2/shared/member_horizontal_list.dart';
 import 'package:bookoo2/shared/header.dart' show renderHeaderBack;
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/utils/localization.dart';
-import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:bookoo2/models/Currency.dart';
 import 'package:bookoo2/models/Ledger.dart';
+import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:bookoo2/types/color.dart';
 
-class LedgerAdd extends StatefulWidget {
+class LedgerView extends StatefulWidget {
   final Ledger ledger;
-  LedgerAdd({Key key, this.ledger}) : super(key: key);
+  const LedgerView({
+    Key key,
+    this.ledger,
+  }) : super(key: key);
 
   @override
-  _LedgerAddState createState() => new _LedgerAddState(ledger);
+  _LedgerViewState createState() => new _LedgerViewState(ledger);
 }
 
-class _LedgerAddState extends State<LedgerAdd> {
+class _LedgerViewState extends State<LedgerView> {
   Ledger _ledger;
 
-  _LedgerAddState(Ledger ledger) {
+  _LedgerViewState(Ledger ledger) {
     if (ledger != null) {
       _ledger = ledger;
       return;
@@ -31,27 +32,6 @@ class _LedgerAddState extends State<LedgerAdd> {
       currency: Currency(code: '\￦', currency: 'KRW'),
       color: ColorType.DUSK,
     );
-  }
-
-  void _onPressCurrency() async {
-    var _result = await General.instance.navigateScreen(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => SettingCurrency()
-      ),
-    );
-
-    if (_result == null) return;
-
-    setState(() => _ledger.currency = _result);
-  }
-
-  void _onSelectColor(ColorType item) {
-    setState(() => _ledger.color = item);
-  }
-
-  void _onDonePressed() {
-    print('done\n ${_ledger.toString()}');
   }
 
   @override
@@ -71,6 +51,7 @@ class _LedgerAddState extends State<LedgerAdd> {
             Container(
               margin: EdgeInsets.only(top: 40, left: 40, right: 40),
               child: TextField(
+                enabled: false,
                 maxLines: 2,
                 onChanged: (String txt) {
                   _ledger.title = txt;
@@ -95,11 +76,12 @@ class _LedgerAddState extends State<LedgerAdd> {
               margin: EdgeInsets.only(top: 24, left: 40, right: 40, bottom: 20),
               height: 160,
               child: TextField(
+                enabled: false,
                 maxLines: 8,
+                controller: TextEditingController(text: _ledger.description),
                 onChanged: (String txt) {
                   _ledger.description = txt;
                 },
-                controller: TextEditingController(text: _ledger.description),
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -117,7 +99,7 @@ class _LedgerAddState extends State<LedgerAdd> {
             ),
             MaterialButton(
               padding: EdgeInsets.all(0.0),
-              onPressed: _onPressCurrency,
+              onPressed: null,
               child: Container(
                 height: 80.0,
                 width: double.infinity,
@@ -185,7 +167,6 @@ class _LedgerAddState extends State<LedgerAdd> {
                           bool selected = item == _ledger.color;
                           return ColorItem(
                             color: item,
-                            onTap: () => _onSelectColor(item),
                             selected: selected,
                           );
                         },
@@ -195,38 +176,8 @@ class _LedgerAddState extends State<LedgerAdd> {
                 ],
               ),
             ),
-            widget.ledger != null
-            ? MemberHorizontalList(showAddBtn: true)
-            : Container(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Container(
-                  margin: widget.ledger != null
-                    ? EdgeInsets.only(right: 20, top: 0, bottom: 20)
-                    : EdgeInsets.only(right: 20, top: 46, bottom: 20),
-                  child: SizedBox(
-                    child: FlatButton(
-                      padding: EdgeInsets.all(20),
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(26.0),
-                      ),
-                      onPressed: _onDonePressed,
-                      child: Text(
-                        widget.ledger == null
-                          ? _localization.trans('DONE')
-                          : _localization.trans('UPDATE'),
-                        style: TextStyle(
-                          color: Asset.Colors.getColor(_ledger.color),
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
+            Divider(color: Colors.white70),
+            MemberHorizontalList(),
           ],
         ),
       ),

@@ -410,7 +410,6 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
               ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),
-                showAddBtn: true,
                 picture: [Photo(isAddBtn: true)],
                 ledgerItem: _ledgerItemConsume,
               ),
@@ -541,7 +540,6 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
               ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),
-                showAddBtn: true,
                 picture: [Photo(isAddBtn: true)],
                 ledgerItem: _ledgerItemIncome,
               ),

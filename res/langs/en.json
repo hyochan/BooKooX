@@ -30,6 +30,7 @@
   "COLOR": "Color",
   "CURRENCY": "Currency",
   "DONE": "Done",
+  "UPDATE": "Update",
   "NICKNAME": "Nickname",
   "PHONE": "Phone number",
   "STATUS_MESSAGE": "Status message",
@@ -134,5 +135,7 @@
   "DELETE_ASK": "Are you sure you want to delete?",
   "ERROR_CATEGORY_NAME": "Please write category name.",
   "ERROR_CATEGORY_ICON": "Please select icon.",
-  "EXPORT_EXCEL": "EXPORT"
+  "EXPORT_EXCEL": "Export",
+  "MEMBER": "Member",
+  "SEE_ALL": "See all"
 }

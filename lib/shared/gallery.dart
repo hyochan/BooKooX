@@ -81,14 +81,12 @@ Future<PhotoOption> _asyncPhotoSelect(BuildContext context) async {
 class Gallery extends StatefulWidget {
   Gallery({
     this.margin,
-    this.showAddBtn,
     this.showAll = false,
     @required this.picture,
     @required this.ledgerItem,
   });
 
   final EdgeInsets margin;
-  final bool showAddBtn;
   final bool showAll;
   final List<Photo> picture;
   final LedgerItem ledgerItem;

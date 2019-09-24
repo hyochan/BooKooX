@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:bookoo2/models/Ledger.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:bookoo2/utils/localization.dart' show Localization;
 import 'package:bookoo2/types/color.dart' show ColorType;
@@ -15,12 +16,10 @@ class HeadingItem implements ListItem {
 }
 
 class LedgerItem implements ListItem {
-  final String title;
-  final ColorType color;
-  final int people;
+  final Ledger ledger;
   final bool isOwner;
 
-  LedgerItem(this.title, this.color, this.people, this.isOwner);
+  LedgerItem(this.ledger, this.isOwner);
 }
 
 class LedgerListItem extends StatelessWidget {
@@ -82,6 +81,17 @@ class LedgerListItem extends StatelessWidget {
                               height: 40.0,
                             ),
                           ),
+                          isOwner
+                          ? Positioned(
+                            right: 4,
+                            bottom: 4,
+                            child: Image(
+                              image: Asset.Icons.icOwner,
+                              width: 20,
+                              height: 20,
+                            ),
+                          )
+                          : Container(),
                         ],
                       ),
                     ),
