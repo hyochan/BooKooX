@@ -1,10 +1,10 @@
-import 'package:bookoo2/screens/location_view.dart';
-import 'package:bookoo2/utils/general.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'package:bookoo2/screens/location_view.dart';
+import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/models/Category.dart';
 import 'package:bookoo2/utils/db_helper.dart';
 import 'package:bookoo2/screens/category_add.dart';
