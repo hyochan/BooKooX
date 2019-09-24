@@ -1,13 +1,17 @@
+import 'package:bookoo2/models/Currency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:bookoo2/shared/header.dart' show renderHeaderClose;
+import 'package:bookoo2/screens/ledger_add.dart';
+import 'package:bookoo2/screens/ledger_view.dart';
+import 'package:bookoo2/shared/profile_list_item.dart' show ProfileListItem;
+import 'package:bookoo2/shared/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
+import 'package:bookoo2/models/Ledger.dart';
 import 'package:bookoo2/utils/localization.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/types/color.dart';
-import 'package:bookoo2/shared/header.dart' show renderHeaderClose;
-import 'package:bookoo2/shared/profile_list_item.dart' show ProfileListItem;
-import 'package:bookoo2/shared/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
 
 class Ledgers extends StatefulWidget {
   Ledgers({Key key}) : super(key: key);
@@ -22,19 +26,64 @@ class _LedgersState extends State<Ledgers> {
       'display', 'email', 'image'
     ),
     LedgerItem(
-      'title', ColorType.ORANGE, 4, false,
+      Ledger(
+        title: 'title',
+        color: ColorType.ORANGE,
+        people: 4,
+        currency: Currency(
+          code: '\$',
+          currency: 'USD',
+        ),
+      ),
+      true,
     ),
     LedgerItem(
-      'title2', ColorType.BLUE, 4, true,
+      Ledger(
+        title: 'title2',
+        color: ColorType.BLUE,
+        people: 4,
+        currency: Currency(
+          code: '\$',
+          currency: 'USD',
+        ),
+      ),
+      false,
     ),
     LedgerItem(
-      'title3', ColorType.RED, 1, false,
+      Ledger(
+        title: 'title3',
+        color: ColorType.RED,
+        people: 1,
+        currency: Currency(
+          code: '\$',
+          currency: 'USD',
+        ),
+      ),
+      false,
     ),
     LedgerItem(
-      'title4', ColorType.DUSK, 4, false,
+      Ledger(
+        title: 'title4',
+        color: ColorType.DUSK,
+        people: 4,
+        currency: Currency(
+          code: '\$',
+          currency: 'USD',
+        ),
+      ),
+      false,
     ),
     LedgerItem(
-      'titl5e', ColorType.GREEN, 8, false,
+      Ledger(
+        title: 'title5',
+        color: ColorType.GREEN,
+        people: 8,
+        currency: Currency(
+          code: '\$',
+          currency: 'USD',
+        ),
+      ),
+      false,
     ),
   ];
 
@@ -50,7 +99,14 @@ class _LedgersState extends State<Ledgers> {
     }
 
     void onLedgerMorePressed (LedgerItem item) {
-
+      General.instance.navigateScreen(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => !item.isOwner
+            ? LedgerView(ledger: item.ledger)
+            : LedgerAdd(ledger: item.ledger),
+        ),
+      );
     }
 
     void onAddLedgerPressed () {
@@ -85,7 +141,6 @@ class _LedgersState extends State<Ledgers> {
                 itemCount: _items.length,
                 itemBuilder: (context, index) {
                   final item = _items[index];
-
                   if (item is HeadingItem) {
                     return ProfileListItem(
                       email: item.email,
@@ -95,9 +150,9 @@ class _LedgersState extends State<Ledgers> {
                     );
                   } else if (item is LedgerItem) {
                     return LedgerListItem(
-                      title: item.title,
-                      color: item.color,
-                      people: item.people,
+                      title: item.ledger.title,
+                      color: item.ledger.color,
+                      people: item.ledger.people,
                       isOwner: item.isOwner,
                       onMorePressed: () => onLedgerMorePressed(item),
                     );

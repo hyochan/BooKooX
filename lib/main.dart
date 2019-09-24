@@ -1,4 +1,3 @@
-import 'package:bookoo2/screens/home_calendar.dart';
 import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
@@ -14,6 +13,7 @@ import './screens/main_empty.dart' show MainEmpty;
 import './screens/terms.dart' show Terms;
 import './screens/ledgers.dart' show Ledgers;
 import './screens/ledger_add.dart' show LedgerAdd;
+import './screens/ledger_view.dart' show LedgerView;
 import './screens/ledger_item_add.dart' show LedgerItemAdd;
 import './screens/profile_my.dart' show ProfileMy;
 import './screens/setting.dart' show Setting;
@@ -78,6 +78,7 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => HomeTab(),
         '/ledgers': (BuildContext context) => Ledgers(),
         '/ledger_add': (BuildContext context) => LedgerAdd(),
+        '/ledger_view': (BuildContext context) => LedgerView(),
         '/terms': (BuildContext context) => Terms(),
         '/profile_my': (BuildContext context) => ProfileMy(),
         '/setting': (BuildContext context) => Setting(),

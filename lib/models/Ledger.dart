@@ -1,5 +1,6 @@
 import 'package:bookoo2/models/Currency.dart';
 import 'package:bookoo2/types/color.dart';
+import 'package:flutter/material.dart';
 
 import './LedgerItem.dart' show LedgerItem;
 
@@ -34,7 +35,7 @@ class Ledger {
     this.createdAt,
     this.updatedAt,
     this.items,
-    this.currency,
+    @required this.currency,
     // this.members,
     this.deletedAt,
   });
