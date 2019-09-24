@@ -1,14 +1,14 @@
-import 'package:bookoo2/models/Currency.dart';
-import 'package:bookoo2/models/Ledger.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:bookoo2/screens/setting_currency.dart';
-import 'package:bookoo2/utils/general.dart';
+import 'package:bookoo2/shared/member_horizontal_list.dart';
 import 'package:bookoo2/shared/header.dart' show renderHeaderBack;
+import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/utils/localization.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoo2/models/Currency.dart';
+import 'package:bookoo2/models/Ledger.dart';
 import 'package:bookoo2/types/color.dart';
 
 class LedgerAdd extends StatefulWidget {
@@ -195,11 +195,16 @@ class _LedgerAddState extends State<LedgerAdd> {
                 ],
               ),
             ),
+            widget.ledger != null
+            ? MemberHorizontalList(showAddBtn: true)
+            : Container(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(right: 20, top: 46, bottom: 20),
+                  margin: widget.ledger != null
+                    ? EdgeInsets.only(right: 20, top: 0, bottom: 20)
+                    : EdgeInsets.only(right: 20, top: 46, bottom: 20),
                   child: SizedBox(
                     child: FlatButton(
                       padding: EdgeInsets.all(20),

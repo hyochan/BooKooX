@@ -1,12 +1,10 @@
-import 'package:bookoo2/models/Currency.dart';
-import 'package:bookoo2/models/Ledger.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:bookoo2/screens/setting_currency.dart';
-import 'package:bookoo2/utils/general.dart';
+import 'package:bookoo2/shared/member_horizontal_list.dart';
 import 'package:bookoo2/shared/header.dart' show renderHeaderBack;
+import 'package:bookoo2/models/Currency.dart';
+import 'package:bookoo2/models/Ledger.dart';
 import 'package:bookoo2/utils/localization.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:bookoo2/types/color.dart';
@@ -178,7 +176,9 @@ class _LedgerViewState extends State<LedgerView> {
                 ],
               ),
             ),
-          ]
+            Divider(color: Colors.white70),
+            MemberHorizontalList(),
+          ],
         ),
       ),
     );

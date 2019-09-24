@@ -135,5 +135,7 @@
   "DELETE_ASK": "정말로 삭제하시겠습니까?",
   "ERROR_CATEGORY_NAME": "카테고리명을 입력해주세요.",
   "ERROR_CATEGORY_ICON": "아이콘을 선택해주세요.",
-  "EXPORT_EXCEL": "내보내기"
+  "EXPORT_EXCEL": "내보내기",
+  "MEMBER": "멤버",
+  "SEE_ALL": "전체보기"
 }
