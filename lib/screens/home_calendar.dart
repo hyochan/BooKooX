@@ -87,7 +87,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate2 = DateTime(2019, 2, 3);
+  DateTime _currentDate = DateTime.now();
   String _currentMonth = '';
 
   EventList<Event> _markedDateMap = new EventList<Event>();
@@ -102,10 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void selectDate(
     DateTime date,
-    List<Event> events,
   ) {
     setState(() {
-      _currentDate2 = date;
+      _currentDate = date;
       _ledgerListOfSelectedDate.clear();
       _ledgerList.forEach((item) {
         if (item.selectedDate == date) {
@@ -113,8 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       });
     });
-    events.forEach((event) => print(event.title));
     print(_ledgerListOfSelectedDate.length);
+    _currentMonth = DateFormat.yMMM().format(date);
+
   }
 
   @override
@@ -129,14 +129,14 @@ class _MyHomePageState extends State<MyHomePage> {
               iconId: 8,
               label: _localization.trans('EXERCISE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 2, 10)));
+          selectedDate: new DateTime(2019, 9, 10)));
       _ledgerList.add(new LedgerItem(
           price: 300000,
           category: Category(
               iconId: 18,
               label: _localization.trans('WALLET_MONEY'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 2, 10)));
+          selectedDate: new DateTime(2019, 9, 10)));
       _ledgerList.add(new LedgerItem(
           price: -32000,
           category: Category(
@@ -145,42 +145,42 @@ class _MyHomePageState extends State<MyHomePage> {
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
           writer: new User(uid: 'who1@gmail.com'),
-          selectedDate: new DateTime(2019, 2, 10)));
+          selectedDate: new DateTime(2019, 9, 10)));
       _ledgerList.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 2, 10)));
+          selectedDate: new DateTime(2019, 9, 10)));
       _ledgerList.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 2, 10)));
+          selectedDate: new DateTime(2019, 9, 10)));
       _ledgerList.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 2, 10)));
+          selectedDate: new DateTime(2019, 9, 10)));
       _ledgerList.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 2, 10)));
+          selectedDate: new DateTime(2019, 9, 10)));
       _ledgerList.add(new LedgerItem(
           price: -12000,
           category: Category(
               iconId: 12,
               label: _localization.trans('PRESENT'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 2, 15)));
+          selectedDate: new DateTime(2019, 9, 15)));
 
       _ledgerList.forEach((ledger) {
         _markedDateMap.add(ledger.selectedDate,
@@ -191,6 +191,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    void onDatePressed() async {
+      int year = this._currentDate.year;
+      int prevDate = year - 100;
+      int lastDate = year + 10;
+      DateTime pickDate = await showDatePicker(
+        context: context,
+        initialDate: this._currentDate,
+        firstDate: DateTime(prevDate),
+        lastDate: DateTime(lastDate),
+      );
+      if (pickDate != null) {
+        this.selectDate(pickDate);
+      }
+    }
+
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
       weekdayTextStyle: TextStyle(color: Colors.grey),
       showOnlyCurrentMonthDate: true,
@@ -203,7 +218,8 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedDayButtonColor: Theme.of(context).primaryColor,
       todayBorderColor: Colors.green,
       onDayPressed: (DateTime date, List<Event> events) {
-        this.selectDate(date, events);
+        this.selectDate(date);
+        events.forEach((event) => print(event.title));
       },
       weekendTextStyle: TextStyle(
         color: Colors.black,
@@ -211,7 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
       thisMonthDayBorderColor: Colors.grey,
       weekFormat: false,
       height: 300.0,
-      selectedDateTime: _currentDate2,
+      selectedDateTime: _currentDate,
 
       isScrollable: false,
 
@@ -219,11 +235,11 @@ class _MyHomePageState extends State<MyHomePage> {
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       showHeader: false,
       todayTextStyle: TextStyle(
-        color: Colors.blue,
+        color: Theme.of(context).primaryColor,
       ),
-      todayButtonColor: Colors.yellow,
+      todayButtonColor: Theme.of(context).hintColor,
       selectedDayTextStyle: TextStyle(
-        color: Colors.yellow,
+        color: Colors.white,
       ),
       onCalendarChanged: (DateTime date) {
         this.setState(() => _currentMonth = DateFormat.yMMM().format(date));
@@ -252,7 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
               IconButton(
                 icon: Icon(Icons.arrow_drop_down),
                 color: Colors.grey,
-                onPressed: () {},
+                onPressed: onDatePressed,
               ),
             ],
           ),
