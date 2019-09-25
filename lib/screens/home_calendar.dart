@@ -72,6 +72,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
         },
         controller: _scrollController,
         body: Container(
+          height: 900,
           child: new MyHomePage(),
         ),
       ),
@@ -114,7 +115,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     print(_ledgerListOfSelectedDate.length);
     _currentMonth = DateFormat.yMMM().format(date);
-
   }
 
   @override
@@ -207,104 +207,121 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
-      weekdayTextStyle: TextStyle(color: Colors.grey),
-      showOnlyCurrentMonthDate: true,
-      markedDatesMap: _markedDateMap,
-      markedDateShowIcon: true,
-      markedDateIconMaxShown: 1,
-      markedDateIconBuilder: (event) {
-        return markedIcon(color: Theme.of(context).primaryColor);
+      onCalendarChanged: (DateTime date) {
+        this.setState(() => _currentMonth = DateFormat.yMMM().format(date));
       },
-      selectedDayButtonColor: Theme.of(context).primaryColor,
-      todayBorderColor: Colors.green,
       onDayPressed: (DateTime date, List<Event> events) {
         this.selectDate(date);
         events.forEach((event) => print(event.title));
       },
-      weekendTextStyle: TextStyle(
-        color: Colors.black,
-      ),
-      thisMonthDayBorderColor: Colors.grey,
-      weekFormat: false,
-      height: 300.0,
-      selectedDateTime: _currentDate,
-
       isScrollable: false,
 
       /// make calendar to be scrollable together with its screen
       customGridViewPhysics: NeverScrollableScrollPhysics(),
+
+      /// marked Date
+      markedDatesMap: _markedDateMap,
+      markedDateShowIcon: true,
+      markedDateIconMaxShown: 1,
+      markedDateIconBuilder: (event) {
+        return markedIcon(
+            color: Theme.of(context).primaryColor, context: context);
+      },
+
+      /// selected date
+      selectedDayButtonColor: Theme.of(context).primaryColor,
+      selectedDateTime: _currentDate,
+      selectedDayTextStyle: TextStyle(
+        color: Colors.white,
+      ),
+
+      /// styles
+      showOnlyCurrentMonthDate: true,
+      weekFormat: false,
       showHeader: false,
+      height: MediaQuery.of(context).orientation == Orientation.portrait
+          ? 350
+          : 400,
+      thisMonthDayBorderColor: Colors.grey,
+      childAspectRatio:
+          MediaQuery.of(context).orientation == Orientation.portrait
+              ? 1.0
+              : 1.5,
+
+      /// weekday
+      weekdayTextStyle: TextStyle(color: Theme.of(context).primaryColorLight),
+      weekendTextStyle: TextStyle(
+        color: Colors.black,
+      ),
+      todayBorderColor: Colors.green,
       todayTextStyle: TextStyle(
         color: Theme.of(context).primaryColor,
       ),
       todayButtonColor: Theme.of(context).hintColor,
-      selectedDayTextStyle: TextStyle(
-        color: Colors.white,
-      ),
-      onCalendarChanged: (DateTime date) {
-        this.setState(() => _currentMonth = DateFormat.yMMM().format(date));
-      },
     );
 
-    return ListView(
-      padding: const EdgeInsets.all(0),
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(
-            top: 5.0,
-            bottom: 16.0,
-            left: 16.0,
-            right: 16.0,
-          ),
-          child: new Row(
-            children: <Widget>[
-              Text(
-                _currentMonth,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
-                ),
+    return SafeArea(
+        top: false,
+        child: ListView(
+          padding: const EdgeInsets.only(top: 0),
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                top: 5.0,
+                bottom: 16.0,
+                left: 16.0,
+                right: 16.0,
               ),
-              IconButton(
-                icon: Icon(Icons.arrow_drop_down),
-                color: Colors.grey,
-                onPressed: onDatePressed,
+              child: new Row(
+                children: <Widget>[
+                  Text(
+                    _currentMonth,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.arrow_drop_down),
+                    color: Colors.grey,
+                    onPressed: onDatePressed,
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 16.0),
-          child: _calendarCarouselNoHeader,
-        ),
-        Divider(
-          color: Colors.grey,
-          // thickness: 10,
-          indent: 10,
-          endIndent: 10,
-        ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          itemCount: _ledgerListOfSelectedDate.length,
-          itemBuilder: (BuildContext context, int index) {
-            return HomeListItem(ledgerItem: _ledgerListOfSelectedDate[index]);
-          },
-        )
-      ],
-    );
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 16.0),
+              child: _calendarCarouselNoHeader,
+            ),
+            Divider(
+              color: Colors.grey,
+              indent: 10,
+              endIndent: 10,
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              itemCount: _ledgerListOfSelectedDate.length,
+              itemBuilder: (BuildContext context, int index) {
+                return HomeListItem(
+                    ledgerItem: _ledgerListOfSelectedDate[index]);
+              },
+            )
+          ],
+        ));
   }
 }
 
-Widget markedIcon({Color color}) {
+Widget markedIcon({Color color, BuildContext context}) {
   return new Container(
       child: Stack(
     children: <Widget>[
       Positioned(
         child: CustomPaint(painter: DrawCircle(color: color)),
         top: 7,
-        right: 0,
+        right:
+            MediaQuery.of(context).orientation == Orientation.portrait ? 0 : 15,
         height: 5,
         width: 5,
       )
