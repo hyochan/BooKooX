@@ -230,14 +230,12 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
 
-    return new Scaffold(
-        body: SafeArea(
-            child: Container(
-                child: ListView(
+    return ListView(
+      padding: const EdgeInsets.all(0),
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(
-            // top: 30.0,
+            top: 5.0,
             bottom: 16.0,
             left: 16.0,
             right: 16.0,
@@ -279,7 +277,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         )
       ],
-    ))));
+    );
   }
 }
 
