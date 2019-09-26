@@ -72,7 +72,6 @@ class _HomeCalendarState extends State<HomeCalendar> {
         },
         controller: _scrollController,
         body: Container(
-          height: 900,
           child: new MyHomePage(),
         ),
       ),
@@ -261,72 +260,74 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return SafeArea(
-        top: false,
-        child: ListView(
-          padding: const EdgeInsets.only(top: 0),
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(
-                top: 5.0,
-                bottom: 16.0,
-                left: 16.0,
-                right: 16.0,
-              ),
-              child: new Row(
-                children: <Widget>[
-                  Text(
-                    _currentMonth,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.0,
-                    ),
+      top: false,
+      child: ListView(
+        padding: const EdgeInsets.only(top: 0),
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(
+              top: 5.0,
+              bottom: 16.0,
+              left: 16.0,
+              right: 16.0,
+            ),
+            child: new Row(
+              children: <Widget>[
+                Text(
+                  _currentMonth,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24.0,
                   ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_drop_down),
-                    color: Colors.grey,
-                    onPressed: onDatePressed,
-                  ),
-                ],
-              ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.arrow_drop_down),
+                  color: Colors.grey,
+                  onPressed: onDatePressed,
+                ),
+              ],
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 16.0),
-              child: _calendarCarouselNoHeader,
-            ),
-            Divider(
-              color: Colors.grey,
-              indent: 10,
-              endIndent: 10,
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-              itemCount: _ledgerListOfSelectedDate.length,
-              itemBuilder: (BuildContext context, int index) {
-                return HomeListItem(
-                    ledgerItem: _ledgerListOfSelectedDate[index]);
-              },
-            )
-          ],
-        ));
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 16.0),
+            child: _calendarCarouselNoHeader,
+          ),
+          Divider(
+            color: Colors.grey,
+            indent: 10,
+            endIndent: 10,
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            itemCount: _ledgerListOfSelectedDate.length,
+            itemBuilder: (BuildContext context, int index) {
+              return HomeListItem(ledgerItem: _ledgerListOfSelectedDate[index]);
+            },
+          )
+        ],
+      ),
+    );
   }
 }
 
 Widget markedIcon({Color color, BuildContext context}) {
   return new Container(
-      child: Stack(
-    children: <Widget>[
-      Positioned(
-        child: CustomPaint(painter: DrawCircle(color: color)),
-        top: 7,
-        right:
-            MediaQuery.of(context).orientation == Orientation.portrait ? 0 : 15,
-        height: 5,
-        width: 5,
-      )
-    ],
-  ));
+    child: Stack(
+      children: <Widget>[
+        Positioned(
+          child: CustomPaint(painter: DrawCircle(color: color)),
+          top: 7,
+          right: MediaQuery.of(context).orientation == Orientation.portrait
+              ? 0
+              : 15,
+          height: 5,
+          width: 5,
+        )
+      ],
+    ),
+  );
 }
 
 class DrawCircle extends CustomPainter {

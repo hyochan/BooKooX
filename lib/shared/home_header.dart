@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
 
-final EdgeInsets _titlePadding = EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
+final EdgeInsets _titlePadding =
+    EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
 
 class HomeHeaderExpanded extends StatelessWidget {
   HomeHeaderExpanded({
@@ -23,10 +24,14 @@ class HomeHeaderExpanded extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
         titlePadding: _titlePadding,
-        title: Text(this.title,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16.0,
+        title: SafeArea(
+          left: false,
+          child: Text(
+            this.title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
           ),
         ),
         background: Container(
@@ -49,7 +54,8 @@ AppBar renderHomeAppBar({
     flexibleSpace: FlexibleSpaceBar(
       centerTitle: false,
       titlePadding: _titlePadding,
-      title: Text(title,
+      title: Text(
+        title,
         style: TextStyle(
           color: Theme.of(context).textTheme.title.color,
           fontSize: 16.0,
