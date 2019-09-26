@@ -39,6 +39,7 @@ pubspec.lock
 **/android/**/GeneratedPluginRegistrant.java
 **/android/.project
 **/android/app/.project
+android/app/bin/.project
 
 # iOS/XCode related
 **/ios/Flutter/flutter_export_environment.sh

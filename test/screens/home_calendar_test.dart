@@ -1,13 +1,25 @@
-
 import 'package:bookoo2/screens/home_calendar.dart' show HomeCalendar;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_utils.dart' show TestUtils;
 
+const double PORTRAIT_WIDTH = 400.0;
+const double PORTRAIT_HEIGHT = 800.0;
+const double LANDSCAPE_WIDTH = PORTRAIT_HEIGHT;
+const double LANDSCAPE_HEIGHT = PORTRAIT_WIDTH;
+
 void main() {
-  testWidgets('Show [Ledgers] on the date when the corresponding date has been clicked', (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: HomeCalendar()));
+  final TestWidgetsFlutterBinding binding =
+      TestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets(
+      'Show [Ledgers] on the date when the corresponding date has been clicked',
+      (WidgetTester tester) async {
+    await binding.setSurfaceSize(Size(PORTRAIT_WIDTH, PORTRAIT_HEIGHT));
+
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: HomeCalendar()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
