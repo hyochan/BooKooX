@@ -57,7 +57,7 @@ class _HomeListState extends State<HomeList> {
               label: _localization.trans('DATING'),
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
-          writer: new User(uid: 'who1@gmail.com'),
+          writer: new User(uid: 'who1@gmail.com', displayName: 'engela lee'),
           selectedDate: new DateTime(2019, 9, 8)));
       items2.add(new LedgerItem(
           price: -3100,
@@ -111,7 +111,7 @@ class _HomeListState extends State<HomeList> {
               label: _localization.trans('DATING'),
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
-          writer: new User(uid: 'who1@gmail.com'),
+          writer: new User(uid: 'who1@gmail.com', displayName: '이범주'),
           selectedDate: new DateTime(2019, 9, 8)));
       items3.add(new LedgerItem(
           price: -3100,
@@ -144,7 +144,7 @@ class _HomeListState extends State<HomeList> {
               label: _localization.trans('DATING'),
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
-          writer: new User(uid: 'who1@gmail.com'),
+          writer: new User(uid: 'who1@gmail.com', displayName: 'mizcom'),
           selectedDate: new DateTime(2019, 9, 8)));
       items4.add(new LedgerItem(
           price: -3100,

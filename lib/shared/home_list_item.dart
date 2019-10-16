@@ -2,17 +2,49 @@ import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:flutter/material.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:intl/intl.dart';
+import 'package:bookoo2/models/User.dart';
+
 class HomeListItem extends StatelessWidget {
   final LedgerItem ledgerItem;
 
   HomeListItem({Key key, this.ledgerItem}) : super(key: key);
 
+  List<Widget> buildLabelArea(String _label, User _writer) {
+    List<Widget> labelArea = [];
+    labelArea.add(
+      Container(
+        // margin: EdgeInsets.only(bottom: 8.0),
+        child:  Text(
+          _label,
+          style: TextStyle(
+            color: Asset.Colors.dusk,
+            fontSize: 16.0,
+          )
+        ),
+      )
+    );
+    if(_writer != null) {
+      labelArea.add(
+        Container(
+          child: Text(
+            _writer.displayName,
+            style: TextStyle(
+              color: Asset.Colors.cloudyBlue,
+              fontSize: 12.0,
+            ),
+          ),
+        )
+      );
+    }
+    return labelArea;
+  }
   @override
   Widget build(BuildContext context) {
     final formatCurrency = NumberFormat.simpleCurrency();
     
     AssetImage _image = ledgerItem.category.getIconImage();
     String _label = ledgerItem.category.label;
+    User _writer = ledgerItem.writer;
     bool _isPlus = ledgerItem.price > 0;
     String _priceFormatted = formatCurrency.format(ledgerItem.price ?? 0.0);
     String _priceToShow = (_isPlus ? '+ ' : '- ') +
@@ -34,7 +66,11 @@ class HomeListItem extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: Text(_label),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: buildLabelArea(_label, _writer)
+            ),
           ),
           Expanded(
             child: Container(
