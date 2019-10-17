@@ -9,13 +9,13 @@ class HomeListItem extends StatelessWidget {
 
   HomeListItem({Key key, this.ledgerItem}) : super(key: key);
 
-  List<Widget> buildLabelArea(String _label, User _writer) {
+  List<Widget> buildLabelArea(String label, { User writer }) {
     List<Widget> labelArea = [];
     labelArea.add(
       Container(
         // margin: EdgeInsets.only(bottom: 8.0),
         child:  Text(
-          _label,
+          label,
           style: TextStyle(
             color: Asset.Colors.dusk,
             fontSize: 16.0,
@@ -23,11 +23,11 @@ class HomeListItem extends StatelessWidget {
         ),
       )
     );
-    if(_writer != null) {
+    if(writer != null) {
       labelArea.add(
         Container(
           child: Text(
-            _writer.displayName,
+            writer.displayName,
             style: TextStyle(
               color: Asset.Colors.cloudyBlue,
               fontSize: 12.0,
@@ -69,7 +69,7 @@ class HomeListItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: buildLabelArea(_label, _writer)
+              children: buildLabelArea(_label, writer: _writer)
             ),
           ),
           Expanded(

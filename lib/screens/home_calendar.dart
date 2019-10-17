@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
               label: _localization.trans('DATING'),
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
-          writer: new User(uid: 'who1@gmail.com'),
+          writer: new User(uid: 'who1@gmail.com', displayName: 'hello'),
           selectedDate: new DateTime(2019, _currentDate.month, 10)));
       _ledgerList.add(new LedgerItem(
           price: -3100,

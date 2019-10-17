@@ -1,7 +1,9 @@
+import 'package:flutter/widgets.dart';
+
 class User {
-  String uid;
+  @required String uid;
   String email;
-  String displayName;
+  @required String displayName;
   bool showEmailAddress;
   String thumbURL;
   String photoURL;
