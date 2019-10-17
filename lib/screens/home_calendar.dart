@@ -213,6 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
         this.selectDate(date);
         events.forEach((event) => print(event.title));
       },
+      isScrollable: true,
 
       /// make calendar to be scrollable together with its screen
       customGridViewPhysics: NeverScrollableScrollPhysics(),
@@ -233,6 +234,8 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.white,
       ),
 
+      /// styles
+      showOnlyCurrentMonthDate: false,
       weekFormat: false,
       showHeader: false,
       height: MediaQuery.of(context).orientation == Orientation.portrait
