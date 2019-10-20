@@ -52,7 +52,7 @@ class _HomeSettingState extends State<HomeSetting> {
         context: context,
         title: widget.title,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Column(
           children: <Widget>[

@@ -67,14 +67,14 @@ class _HomeTabState extends State<HomeTab> {
             icon: Icon(
               Icons.calendar_today,
               size: 20.0,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).textTheme.title.color,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'Montly',
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).textTheme.title.color,
                   fontSize: 12.0,
                 ),
               ),
@@ -84,14 +84,14 @@ class _HomeTabState extends State<HomeTab> {
             icon: Icon(
               Icons.list,
               size: 20.0,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).textTheme.title.color,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'List',
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                 color: Theme.of(context).textTheme.title.color,
                   fontSize: 12.0,
                 ),
               ),
@@ -101,14 +101,14 @@ class _HomeTabState extends State<HomeTab> {
             icon: Icon(
               Icons.graphic_eq,
               size: 20.0,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).textTheme.title.color,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'Statistic',
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).textTheme.title.color,
                   fontSize: 12.0,
                 ),
               ),
@@ -118,14 +118,14 @@ class _HomeTabState extends State<HomeTab> {
             icon: Icon(
               Icons.settings,
               size: 20.0,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).textTheme.title.color,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'Setting',
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).textTheme.title.color,
                   fontSize: 12.0,
                 ),
               ),

@@ -18,7 +18,7 @@ class _HomeListState extends State<HomeList> {
   Widget build(BuildContext context) {
     Function onAddLedgerList = () => General.instance.navigateScreenNamed(context, '/ledger_item_add');
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         titleSpacing: 0.0,

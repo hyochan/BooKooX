@@ -45,7 +45,7 @@ class HomeListItem extends StatelessWidget {
                   textAlign: TextAlign.end,
                   style: TextStyle(
                       color: _isPlus
-                          ? Theme.of(context).primaryColor
+                          ? Theme.of(context).textTheme.title.color
                           : Asset.Colors.carnation),
                 ),
               ),

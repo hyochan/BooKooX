@@ -63,8 +63,9 @@ class MyApp extends StatelessWidget {
         dialogBackgroundColor: Colors.white,
         textTheme: TextTheme(
           title: TextStyle(color: Colors.white),
+          subtitle: TextStyle(color: Asset.Colors.mediumGray),
           subhead: TextStyle(color: Colors.white),
-          display1: TextStyle(color: Asset.Colors.paleGray),
+          display1: TextStyle(color: Asset.Colors.cloudyBlue),
         ),
       ),
       routes: {
