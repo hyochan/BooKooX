@@ -30,13 +30,13 @@ class _HomeStatisticState extends State<HomeStatistic> {
               onPressed: () => General.instance.navigateScreenNamed(context, '/ledger_item_add'),
               child: Icon(
                 Icons.add,
-                color: Colors.white,
+                color: Theme.of(context).textTheme.title.color,
               ),
             ),
           ),
         ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[

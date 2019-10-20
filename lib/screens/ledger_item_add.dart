@@ -463,7 +463,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                     Container(
                       child: Text('+ ', style: TextStyle(
                         fontSize: 28,
-                        color: Asset.Colors.mediumGray,
+                        color: Theme.of(context).textTheme.display1.color,
                       )),
                     ),
                     Expanded(
@@ -581,12 +581,12 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 isScrollable: true,
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(color: Asset.Colors.dusk, width: 4.0),
+                  borderSide: BorderSide(color: Theme.of(context).textTheme.title.color, width: 4.0),
                   insets: EdgeInsets.symmetric(horizontal: 8),
                   // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
                 ),
                 indicatorColor: Theme.of(context).backgroundColor,
-                labelColor: Asset.Colors.dusk,
+                labelColor: Theme.of(context).textTheme.title.color,
                 labelStyle: TextStyle(
                   fontSize: 20,
                 ),
