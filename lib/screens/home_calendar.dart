@@ -247,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
       /// weekday
       weekdayTextStyle: TextStyle(color: Theme.of(context).primaryColorLight),
       weekendTextStyle: TextStyle(
-        color: Theme.of(context).textTheme.display1.color,
+        color: Theme.of(context).primaryColorLight,
       ),
       daysTextStyle: TextStyle(color: Theme.of(context).textTheme.title.color),
       todayBorderColor: Colors.green,
