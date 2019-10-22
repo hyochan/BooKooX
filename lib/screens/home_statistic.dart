@@ -3,6 +3,7 @@ import 'package:bookoo2/models/Category.dart';
 import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:bookoo2/models/User.dart';
 import 'package:bookoo2/shared/home_list_item.dart';
+import 'package:bookoo2/utils/asset.dart' as Assets;
 import 'package:bookoo2/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:bookoo2/mocks/home_statistic.mock.dart';
@@ -77,11 +78,21 @@ class _ContentState extends State<Content> {
   Map<String, double> _dataMapExpense = new Map();
   int _chartType;
 
+  // List<Color> colorList = [
+  //   Colors.red,
+  //   Colors.green,
+  //   Colors.blue,
+  //   Colors.yellow,
+  // ];
+
   List<Color> colorList = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-    Colors.yellow,
+    Assets.Colors.blue,
+    Assets.Colors.orange,
+    Assets.Colors.green,
+    Assets.Colors.yellow,
+    Assets.Colors.purple,
+    Assets.Colors.dusk,
+    Assets.Colors.red,
   ];
 
   @override
@@ -185,6 +196,9 @@ class _ContentState extends State<Content> {
             ),
           );
 
+    /// label color
+    var selectedColor = Theme.of(context).primaryColorLight;
+    var selectedColorText = Colors.white;
     var buttonGroupWidget = Material(
       // elevation: 2.0,
       borderRadius: BorderRadius.all(Radius.circular(6.0)),
@@ -194,33 +208,45 @@ class _ContentState extends State<Content> {
           ButtonTheme(
             minWidth: 120.0,
             child: RaisedButton(
-              color: this._chartType == 1 ? Colors.amber : Colors.white,
+              color: this._chartType == 1 ? selectedColor : Colors.white,
               onPressed: () {
                 this.setState(() {
                   this._chartType = 1;
                 });
               },
-              child: Text("수입"),
+              child: Text(
+                "수입",
+                style: TextStyle(
+                  color:
+                      this._chartType == 1 ? selectedColorText : Colors.black,
+                ),
+              ),
             ),
           ),
           ButtonTheme(
             minWidth: 120.0,
             child: RaisedButton(
-              color: this._chartType == 2 ? Colors.amber : Colors.white,
+              color: this._chartType == 2 ? selectedColor : Colors.white,
               onPressed: () {
                 this.setState(() {
                   this._chartType = 2;
                 });
               },
-              child: Text("지출"),
+              child: Text(
+                "지출",
+                style: TextStyle(
+                  color:
+                      this._chartType == 2 ? selectedColorText : Colors.black,
+                ),
+              ),
             ),
           ),
         ],
       ),
     );
 
-
-    var bottomList = this._chartType == 1? this._dataMapIncome: this._dataMapExpense;
+    var bottomList =
+        this._chartType == 1 ? this._dataMapIncome : this._dataMapExpense;
     var bottomListWidget = ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -230,7 +256,6 @@ class _ContentState extends State<Content> {
         return HomeListItem(ledgerItem: _condensedLedgerList[index]);
       },
     );
-
 
     return SafeArea(
       top: false,
