@@ -284,11 +284,6 @@ class _ContentState extends State<Content> {
             currentMonthWidget,
             buttonGroupWidget,
             chartWidget,
-            Divider(
-              color: Colors.grey,
-              indent: 10,
-              endIndent: 10,
-            ),
             bottomListWidget,
           ],
         ),
