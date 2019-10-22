@@ -1,3 +1,4 @@
+import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/utils/localization.dart';
 import 'package:flutter/material.dart';
 
@@ -6,8 +7,10 @@ import 'package:bookoo2/utils/asset.dart' as Asset;
 
 class MemberHorizontalList extends StatelessWidget {
   final bool showAddBtn;
+  final Function onSeeAllPressed;
   MemberHorizontalList({
     this.showAddBtn,
+    this.onSeeAllPressed,
   });
 
   @override
@@ -37,7 +40,7 @@ class MemberHorizontalList extends StatelessWidget {
                 ),
                 Container(
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: this.onSeeAllPressed,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     child: Text(
                       _localization.trans('SEE_ALL'),

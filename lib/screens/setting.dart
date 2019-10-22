@@ -83,7 +83,7 @@ class _SettingState extends State<Setting> {
     return Scaffold(
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Theme.of(context).primaryColor,
+        iconColor: Theme.of(context).textTheme.title.color,
         brightness: Brightness.light,
       ),
       body: SafeArea(

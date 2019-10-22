@@ -18,13 +18,13 @@ class SettingExcel extends StatelessWidget {
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).primaryColor,
+        iconColor: Theme.of(context).textTheme.title.color,
         brightness: Brightness.light,
         title: Text(
           _localization.trans('EXPORT_EXCEL'),
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).textTheme.title.color,
           ),
         ),
       ),

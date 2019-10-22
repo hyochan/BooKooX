@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:bookoo2/screens/setting_currency.dart';
+import 'package:bookoo2/screens/members.dart';
 import 'package:bookoo2/shared/member_horizontal_list.dart';
 import 'package:bookoo2/shared/header.dart' show renderHeaderBack;
 import 'package:bookoo2/utils/general.dart';
@@ -196,7 +197,15 @@ class _LedgerAddState extends State<LedgerAdd> {
               ),
             ),
             widget.ledger != null
-            ? MemberHorizontalList(showAddBtn: true)
+            ? MemberHorizontalList(
+              showAddBtn: true,
+              onSeeAllPressed: () => General.instance.navigateScreen(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => Members(ledger: widget.ledger)
+                ),
+              ),
+            )
             : Container(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

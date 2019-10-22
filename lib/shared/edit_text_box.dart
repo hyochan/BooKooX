@@ -66,7 +66,7 @@ class _EditTextBoxState extends State<EditTextBox> {
           child:  Container(
             child: Icon(
               widget.iconData,
-              color: _focus.hasFocus ? widget.focusedColor : widget.enabledColor,
+              color: widget.enabledColor,
               semanticLabel: widget.semanticLabel,
               size: widget.iconSize,
             ),
@@ -87,7 +87,7 @@ class _EditTextBoxState extends State<EditTextBox> {
               labelStyle: widget.labelStyle,
               focusColor: widget.focusedColor,
               hintText: widget.hintText,
-              hintStyle: widget.hintStyle,
+              hintStyle: widget.hintStyle ?? TextStyle(color: Theme.of(context).textTheme.display2.color),
               errorText: widget.errorText,
               errorStyle: widget.errorStyle,
               contentPadding: EdgeInsets.only(
@@ -99,6 +99,7 @@ class _EditTextBoxState extends State<EditTextBox> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
+                  color: widget.focusedColor,
                   width: 0.7,
                 ),
               ),

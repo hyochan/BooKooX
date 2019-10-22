@@ -213,7 +213,6 @@ class _MyHomePageState extends State<MyHomePage> {
         this.selectDate(date);
         events.forEach((event) => print(event.title));
       },
-      isScrollable: false,
 
       /// make calendar to be scrollable together with its screen
       customGridViewPhysics: NeverScrollableScrollPhysics(),
@@ -224,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
       markedDateIconMaxShown: 1,
       markedDateIconBuilder: (event) {
         return markedIcon(
-            color: Theme.of(context).primaryColor, context: context);
+            color: Theme.of(context).accentColor, context: context);
       },
 
       /// selected date
@@ -234,8 +233,6 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.white,
       ),
 
-      /// styles
-      showOnlyCurrentMonthDate: true,
       weekFormat: false,
       showHeader: false,
       height: MediaQuery.of(context).orientation == Orientation.portrait
@@ -250,8 +247,9 @@ class _MyHomePageState extends State<MyHomePage> {
       /// weekday
       weekdayTextStyle: TextStyle(color: Theme.of(context).primaryColorLight),
       weekendTextStyle: TextStyle(
-        color: Colors.black,
+        color: Theme.of(context).primaryColorLight,
       ),
+      daysTextStyle: TextStyle(color: Theme.of(context).textTheme.title.color),
       todayBorderColor: Colors.green,
       todayTextStyle: TextStyle(
         color: Theme.of(context).primaryColor,
@@ -262,13 +260,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       top: false,
       child: ListView(
-        padding: const EdgeInsets.only(top: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(
-              top: 5.0,
+              top: 16.0,
               bottom: 16.0,
-              left: 16.0,
+              left: 12.0,
               right: 16.0,
             ),
             child: new Row(
@@ -289,7 +287,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.0),
             child: _calendarCarouselNoHeader,
           ),
           Divider(
@@ -305,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (BuildContext context, int index) {
               return HomeListItem(ledgerItem: _ledgerListOfSelectedDate[index]);
             },
-          )
+          ),
         ],
       ),
     );
