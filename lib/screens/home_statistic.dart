@@ -151,13 +151,17 @@ class _ContentState extends State<Content> {
         left: 16.0,
         right: 16.0,
       ),
-      child: new Row(
+      child: Row(
         children: <Widget>[
-          Text(
-            DateFormat.yMMM().format(_date),
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24.0,
+          /// todo: make a better clickable effect
+          InkWell(
+            onTap: onDatePressed,
+            child: Text(
+              DateFormat.yMMM().format(_date),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24.0,
+              ),
             ),
           ),
           IconButton(
@@ -208,7 +212,8 @@ class _ContentState extends State<Content> {
         alignment: WrapAlignment.center,
         children: <Widget>[
           ButtonTheme(
-            minWidth: width/2,
+            /// todo: set up better width. find if there 'strech' of flex kind of thingy
+            minWidth: width / 2,
             height: buttonHeight,
             child: RaisedButton(
               color: this._chartType == 1 ? selectedColor : Colors.white,
@@ -232,7 +237,7 @@ class _ContentState extends State<Content> {
             ),
           ),
           ButtonTheme(
-            minWidth: width/2,
+            minWidth: width / 2,
             height: buttonHeight,
             child: RaisedButton(
               color: this._chartType == 2 ? selectedColor : Colors.white,
