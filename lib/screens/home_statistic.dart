@@ -197,16 +197,19 @@ class _ContentState extends State<Content> {
           );
 
     /// label color
-    var selectedColor = Theme.of(context).primaryColorLight;
-    var selectedColorText = Colors.white;
-    var buttonGroupWidget = Material(
-      // elevation: 2.0,
-      borderRadius: BorderRadius.all(Radius.circular(6.0)),
+    var selectedColor = Theme.of(context).primaryColor;
+    const selectedColorText = Colors.white;
+    const borderRadius = Radius.circular(5.0);
+    const buttonHeight = 30.0;
+    const width = 300.0;
+    var buttonGroupWidget = Container(
       child: Wrap(
         direction: Axis.horizontal,
+        alignment: WrapAlignment.center,
         children: <Widget>[
           ButtonTheme(
-            minWidth: 120.0,
+            minWidth: width/2,
+            height: buttonHeight,
             child: RaisedButton(
               color: this._chartType == 1 ? selectedColor : Colors.white,
               onPressed: () {
@@ -221,10 +224,16 @@ class _ContentState extends State<Content> {
                       this._chartType == 1 ? selectedColorText : Colors.black,
                 ),
               ),
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.only(
+                    topLeft: borderRadius, bottomLeft: borderRadius),
+                side: BorderSide(color: Theme.of(context).primaryColor),
+              ),
             ),
           ),
           ButtonTheme(
-            minWidth: 120.0,
+            minWidth: width/2,
+            height: buttonHeight,
             child: RaisedButton(
               color: this._chartType == 2 ? selectedColor : Colors.white,
               onPressed: () {
@@ -239,14 +248,17 @@ class _ContentState extends State<Content> {
                       this._chartType == 2 ? selectedColorText : Colors.black,
                 ),
               ),
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.only(
+                    topRight: borderRadius, bottomRight: borderRadius),
+                side: BorderSide(color: Theme.of(context).primaryColor),
+              ),
             ),
           ),
         ],
       ),
     );
 
-    var bottomList =
-        this._chartType == 1 ? this._dataMapIncome : this._dataMapExpense;
     var bottomListWidget = ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
