@@ -463,7 +463,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                     Container(
                       child: Text('+ ', style: TextStyle(
                         fontSize: 28,
-                        color: Theme.of(context).textTheme.display1.color,
+                        color: Theme.of(context).textTheme.display2.color,
                       )),
                     ),
                     Expanded(
