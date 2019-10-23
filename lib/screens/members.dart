@@ -98,11 +98,14 @@ class _MembersState extends State<Members> {
           final item = _fakeMembers[index];
           if (item is HeadingItem) {
             return Container(
+              height: 80,
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              alignment: Alignment(-1, 0),
               child: Text(
-                _localization.trans('MEMBER'),
+                '${_localization.trans('MEMBER')} ${item.numOfPeople}',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
+                  color: Theme.of(context).textTheme.title.color,
+                  fontSize: 28,
                 ),
               ),
             );
