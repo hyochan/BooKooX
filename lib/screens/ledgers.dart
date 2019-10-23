@@ -21,7 +21,7 @@ class Ledgers extends StatefulWidget {
 }
 
 class _LedgersState extends State<Ledgers> {
-  final List<ListItem> _items = [
+  final List<ListItem> _fakeLedgers = [
     HeadingItem(
       'display', 'email', 'image'
     ),
@@ -138,9 +138,9 @@ class _LedgersState extends State<Ledgers> {
           children: <Widget>[
             Expanded(
               child: ListView.builder(
-                itemCount: _items.length,
+                itemCount: _fakeLedgers.length,
                 itemBuilder: (context, index) {
-                  final item = _items[index];
+                  final item = _fakeLedgers[index];
                   if (item is HeadingItem) {
                     return ProfileListItem(
                       email: item.email,

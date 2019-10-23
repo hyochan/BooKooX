@@ -1,4 +1,9 @@
 import 'package:flutter/widgets.dart';
+enum Membership {
+  Owner,
+  Writer,
+  Guest,
+}
 
 class User {
   @required String uid;
