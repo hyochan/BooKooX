@@ -8,8 +8,7 @@ import 'package:bookoo2/shared/home_list_item.dart';
 
 import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/utils/localization.dart';
-import 'package:sticky_headers/sticky_headers.dart';
-
+import 'package:intl/intl.dart';
 class HomeList extends StatefulWidget {
   HomeList({
     Key key,
@@ -22,7 +21,8 @@ class HomeList extends StatefulWidget {
 class _HomeListState extends State<HomeList> {
   TextEditingController textEditingController = TextEditingController();
   
-  var _rows = {};
+  var _data = [];
+  var _listData = [];
 
   // List<List<LedgerItem>> _ledgerItems = [[]];
   @override
@@ -31,26 +31,22 @@ class _HomeListState extends State<HomeList> {
     new Future.delayed(Duration.zero, () {
       var _localization = Localization.of(context);
 
-      List items = [];
-      items.add(new LedgerItem(
+      _data.add(new LedgerItem(
         price: -12000,
         category: Category(
             iconId: 8,
             label: _localization.trans('EXERCISE'),
             type: CategoryType.CONSUME),
         selectedDate: new DateTime(2019, 9, 10)));
-      items.add(new LedgerItem(
+      _data.add(new LedgerItem(
         price: 300000,
         category: Category(
             iconId: 18,
             label: _localization.trans('WALLET_MONEY'),
             type: CategoryType.CONSUME),
         selectedDate: new DateTime(2019, 9, 10)));
-      _rows['6월 31일 (금)'] = items;
 
-      List items2 = [];
-
-      items2.add(new LedgerItem(
+      _data.add(new LedgerItem(
           price: -32000,
           category: Category(
               iconId: 4,
@@ -59,52 +55,50 @@ class _HomeListState extends State<HomeList> {
           memo: 'who1 gave me',
           writer: new User(uid: 'who1@gmail.com', displayName: 'engela lee'),
           selectedDate: new DateTime(2019, 9, 8)));
-      items2.add(new LedgerItem(
+      _data.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
           selectedDate: new DateTime(2019, 9, 8)));
-      items2.add(new LedgerItem(
+      _data.add(new LedgerItem(
         price: 300000,
         category: Category(
             iconId: 18,
             label: _localization.trans('WALLET_MONEY'),
             type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, 9, 10)));
-      items2.add(new LedgerItem(
+        selectedDate: new DateTime(2019, 9, 8)));
+      _data.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
           selectedDate: new DateTime(2019, 9, 8)));
-      items2.add(new LedgerItem(
+      _data.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
           selectedDate: new DateTime(2019, 9, 8)));
-      items2.add(new LedgerItem(
+      _data.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
           selectedDate: new DateTime(2019, 9, 8)));
-      items2.add(new LedgerItem(
+      _data.add(new LedgerItem(
           price: -12000,
           category: Category(
               iconId: 12,
               label: _localization.trans('PRESENT'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 8)));
-      _rows['6월 25일(수)'] = items2;
+          selectedDate: new DateTime(2019, 9, 6)));
 
-      List items3 = [];
-      items3.add(new LedgerItem(
+      _data.add(new LedgerItem(
           price: -32000,
           category: Category(
               iconId: 4,
@@ -112,32 +106,30 @@ class _HomeListState extends State<HomeList> {
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
           writer: new User(uid: 'who1@gmail.com', displayName: '이범주'),
-          selectedDate: new DateTime(2019, 9, 8)));
-      items3.add(new LedgerItem(
+          selectedDate: new DateTime(2019, 9, 6)));
+      _data.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 8)));
-      items3.add(new LedgerItem(
+          selectedDate: new DateTime(2019, 9, 6)));
+      _data.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 8)));
-      items3.add(new LedgerItem(
+          selectedDate: new DateTime(2019, 9, 6)));
+      _data.add(new LedgerItem(
           price: -12000,
           category: Category(
               iconId: 12,
               label: _localization.trans('PRESENT'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 8)));
-      _rows['6월 24일(화)'] = items3;
+          selectedDate: new DateTime(2019, 9, 6)));
 
-      List items4 = [];
-      items4.add(new LedgerItem(
+      _data.add(new LedgerItem(
           price: -32000,
           category: Category(
               iconId: 4,
@@ -145,61 +137,66 @@ class _HomeListState extends State<HomeList> {
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
           writer: new User(uid: 'who1@gmail.com', displayName: 'mizcom'),
-          selectedDate: new DateTime(2019, 9, 8)));
-      items4.add(new LedgerItem(
+          selectedDate: new DateTime(2019, 9, 6)));
+      _data.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 8)));
-      items4.add(new LedgerItem(
-          price: -3100,
+          selectedDate: new DateTime(2019, 9, 4)));
+      _data.add(new LedgerItem(
+          price: -2100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 8)));
-      items4.add(new LedgerItem(
+          selectedDate: new DateTime(2019, 9, 4)));
+      _data.add(new LedgerItem(
           price: -12000,
           category: Category(
               iconId: 12,
               label: _localization.trans('PRESENT'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 8)));
-      _rows['6월 21일(일)'] = items4;
+          selectedDate: new DateTime(2019, 9, 4)));
 
+      // sort data
+      _data.sort((a, b) {
+        return a.selectedDate.compareTo(b.selectedDate);
+      });
+
+      // insert Date row as Header
+      DateTime prevDate;
+      for(var i=0; i<_data.length; i++) {
+        print(_data[i].selectedDate);
+        if(prevDate != _data[i].selectedDate) {
+          _listData.add({
+            'date': _data[i].selectedDate
+          });
+          prevDate = _data[i].selectedDate;
+        }
+        _listData.add(_data[i]);
+      }
     });
   }
 
   Widget _buildLedgerItem(BuildContext context, int index) {
-    var keyList = _rows.keys.toList();
-    var key = keyList[index];
-    var children = <Widget>[];
-    _rows[key].forEach((item){
-      children.add(new HomeListItem(ledgerItem: item));
-    });
-
-    return new Material(
-      color: Colors.white,
-      child: new StickyHeader(
-        header: new Container(
-          height: 40.0,
-          color: Colors.white,
-          padding: new EdgeInsets.symmetric(horizontal: 16.0),
-          alignment: Alignment.centerLeft,
-          child: new Text(key,
-            style: const TextStyle( fontSize: 16, color: Colors.grey),
-          ),
+    // print(index + _data[index]['selectedDate']);
+    if(_listData[index] is LedgerItem) {
+      return HomeListItem(ledgerItem: _listData[index]);
+    } else {
+      String headerString = DateFormat('yyyy-MM-dd (E)').format(_listData[index]['date']);
+      return Container(
+        height: 60.0,
+        color: Colors.white,
+        padding: new EdgeInsets.only(top: 16.0, left: 10.0),
+        // padding: new EdgeInsets.symmetric(horizontal: 16.0),
+        alignment: Alignment.centerLeft,
+        child: new Text(headerString,
+          style: const TextStyle( fontSize: 16, color: Colors.grey),
         ),
-        content: new Container(
-          child: Column(
-            children: children,
-          ),
-                
-        ),
-      ),
-    );
+      );
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -233,7 +230,7 @@ class _HomeListState extends State<HomeList> {
           padding: const EdgeInsets.only(top: 15.0, left: 14.0, right: 14.0),
           child: ListView.builder(
             itemBuilder: _buildLedgerItem,
-            itemCount: _rows.length,
+            itemCount: _listData.length,
           )
         )
       ),
