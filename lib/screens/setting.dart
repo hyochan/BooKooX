@@ -6,16 +6,69 @@ import 'package:bookoo2/utils/general.dart' show General;
 import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:bookoo2/utils/localization.dart' show Localization;
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class Setting extends StatefulWidget {
   @override
   _SettingState createState() => _SettingState();
 }
 
 class _SettingState extends State<Setting> {
+
   bool _lockSwitch = false;
-  void _onChangeLock(bool value) {
-    setState(() => _lockSwitch = value);
-    print('value: $value');
+  String _pin = '';
+
+  readLockPinFromSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.containsKey('LOCK_PIN')) {
+      _pin = prefs.getString('LOCK_PIN');
+      setState(() {
+        _lockSwitch = true;        
+      });
+
+      print(_pin);
+    }
+  }
+
+   resetLockPinToSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('LOCK_PIN');
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    readLockPinFromSF();
+  }
+
+  void _onChangeLock(bool value)  {
+    if (_lockSwitch == false && value) {
+      _awaitLockRegister(context);      
+    } else {               
+      _awaitLockAuth(context);
+    }
+  }
+
+  void _awaitLockRegister(BuildContext context) async {
+    await General.instance.navigateScreenNamed(context, '/lock_register');
+
+    setState(() {
+     readLockPinFromSF();
+    });
+
+  }
+  void _awaitLockAuth(BuildContext context) async {
+
+    final result = await General.instance.navigateScreenNamed(context, '/lock_auth');
+
+    setState(() {
+      if (_lockSwitch == true && result == false) {
+        _lockSwitch = false;
+        resetLockPinToSF();
+      }
+    });
   }
 
   @override

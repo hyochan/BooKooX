@@ -24,6 +24,9 @@ import './screens/setting_faq.dart' show SettingFAQ;
 import './screens/setting_notification.dart' show SettingNotification;
 import './screens/setting_currency.dart' show SettingCurrency;
 import './screens/setting_excel.dart' show SettingExcel;
+import './screens/lock_register.dart' show LockRegister;
+import './screens/lock_auth.dart' show LockAuth;
+
 import './utils/asset.dart' as Asset;
 import './utils/localization.dart';
 
@@ -91,6 +94,8 @@ class MyApp extends StatelessWidget {
         '/ledger_item_add': (BuildContext context) => LedgerItemAdd(),
         '/setting_currency': (BuildContext context) => SettingCurrency(),
         '/setting_excel': (BuildContext context) => SettingExcel(),
+        '/lock_register': (BuildContext context) => LockRegister(),
+        '/lock_auth': (BuildContext context) => LockAuth(),
       },
       supportedLocales: [
         const Locale('en', 'US'),
