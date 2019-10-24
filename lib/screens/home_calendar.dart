@@ -128,14 +128,14 @@ class _MyHomePageState extends State<MyHomePage> {
               iconId: 8,
               label: _localization.trans('EXERCISE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 10)));
+          selectedDate: new DateTime(2019, _currentDate.month, 10)));
       _ledgerList.add(new LedgerItem(
           price: 300000,
           category: Category(
               iconId: 18,
               label: _localization.trans('WALLET_MONEY'),
-              type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 10)));
+              type: CategoryType.INCOME),
+          selectedDate: new DateTime(2019, _currentDate.month, 10)));
       _ledgerList.add(new LedgerItem(
           price: -32000,
           category: Category(
@@ -144,42 +144,42 @@ class _MyHomePageState extends State<MyHomePage> {
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
           writer: new User(uid: 'who1@gmail.com'),
-          selectedDate: new DateTime(2019, 9, 10)));
+          selectedDate: new DateTime(2019, _currentDate.month, 10)));
       _ledgerList.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 10)));
+          selectedDate: new DateTime(2019, _currentDate.month, 10)));
       _ledgerList.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 10)));
+          selectedDate: new DateTime(2019, _currentDate.month, 10)));
       _ledgerList.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 10)));
+          selectedDate: new DateTime(2019, _currentDate.month, 10)));
       _ledgerList.add(new LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 10)));
+          selectedDate: new DateTime(2019, _currentDate.month, 10)));
       _ledgerList.add(new LedgerItem(
           price: -12000,
           category: Category(
               iconId: 12,
               label: _localization.trans('PRESENT'),
               type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, 9, 15)));
+          selectedDate: new DateTime(2019, _currentDate.month, 15)));
 
       _ledgerList.forEach((ledger) {
         _markedDateMap.add(ledger.selectedDate,
@@ -247,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
       /// weekday
       weekdayTextStyle: TextStyle(color: Theme.of(context).primaryColorLight),
       weekendTextStyle: TextStyle(
-        color: Theme.of(context).textTheme.display1.color,
+        color: Theme.of(context).primaryColorLight,
       ),
       daysTextStyle: TextStyle(color: Theme.of(context).textTheme.title.color),
       todayBorderColor: Colors.green,

@@ -1,3 +1,4 @@
+import 'package:bookoo2/screens/home_statistic.dart';
 import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
@@ -113,8 +114,9 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKoo2',
-      // home: Tutorial(),
+      // home: Tutorial(), 
       home: HomeTab(),
+      // home: HomeStatistic(),
     );
   }
 }

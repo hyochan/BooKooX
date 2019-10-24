@@ -36,6 +36,8 @@ dependencies:
   flutter_google_places: ^0.2.3
   location: ^2.3.5
   geocoder: ^0.2.1
+  pie_chart: ^1.2.0
+  month_picker_dialog: ^0.3.0
 
 dev_dependencies:
   flutter_test:
