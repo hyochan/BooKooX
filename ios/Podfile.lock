@@ -17,7 +17,16 @@ PODS:
     - GoogleMaps/Base
   - image_picker (0.0.1):
     - Flutter
+<<<<<<< master
+<<<<<<< master
   - location (0.0.1):
+=======
+  - local_auth (0.0.1):
+    - Flutter
+=======
+>>>>>>> Fix LOCK_SCREEN orientation
+  - shared_preferences (0.0.1):
+>>>>>>> Implement [LockRegister] and [LockAuth]
     - Flutter
   - sqflite (0.0.1):
     - Flutter
@@ -29,7 +38,15 @@ DEPENDENCIES:
   - geocoder (from `.symlinks/plugins/geocoder/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
+<<<<<<< master
+<<<<<<< master
   - location (from `.symlinks/plugins/location/ios`)
+=======
+  - local_auth (from `.symlinks/plugins/local_auth/ios`)
+=======
+>>>>>>> Fix LOCK_SCREEN orientation
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+>>>>>>> Implement [LockRegister] and [LockAuth]
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
 
 SPEC REPOS:
@@ -48,8 +65,18 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
+<<<<<<< master
+<<<<<<< master
   location:
     :path: ".symlinks/plugins/location/ios"
+=======
+  local_auth:
+    :path: ".symlinks/plugins/local_auth/ios"
+=======
+>>>>>>> Fix LOCK_SCREEN orientation
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+>>>>>>> Implement [LockRegister] and [LockAuth]
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
 
@@ -61,9 +88,21 @@ SPEC CHECKSUMS:
   google_maps_flutter: 78a52114c898b42ea647919679a4c58b70abe876
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
+<<<<<<< master
+<<<<<<< master
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
+=======
+  local_auth: 17f985934bb4ab2637431e5b3fe1b2d6698d2051
+=======
+>>>>>>> Fix LOCK_SCREEN orientation
+  shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
+>>>>>>> Implement [LockRegister] and [LockAuth]
   sqflite: ff1d9da63c06588cc8d1faf7256d741f16989d5a
 
 PODFILE CHECKSUM: 10ae9c18d12c9ffc2275c9a159a3b1e281990db0
 
+<<<<<<< master
 COCOAPODS: 1.7.5
+=======
+COCOAPODS: 1.6.0.beta.2
+>>>>>>> Implement [LockRegister] and [LockAuth]
