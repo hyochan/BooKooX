@@ -5,6 +5,7 @@ import 'package:bookoo2/utils/localization.dart';
 
 List<LedgerItem> createHomeStatisticMock(Localization localization) {
   List<LedgerItem> ledgerList = new List<LedgerItem>();
+  var currentMonth = DateTime.now().month;
 
   ledgerList.addAll([
     new LedgerItem(
@@ -13,14 +14,14 @@ List<LedgerItem> createHomeStatisticMock(Localization localization) {
             iconId: 8,
             label: localization.trans('EXERCISE'),
             type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, 9, 10)),
+        selectedDate: new DateTime(2019, currentMonth, 10)),
     new LedgerItem(
         price: 300000,
         category: Category(
             iconId: 18,
             label: localization.trans('WALLET_MONEY'),
             type: CategoryType.INCOME),
-        selectedDate: new DateTime(2019, 9, 10)),
+        selectedDate: new DateTime(2019, currentMonth, 10)),
     new LedgerItem(
         price: -32000,
         category: Category(
@@ -29,13 +30,13 @@ List<LedgerItem> createHomeStatisticMock(Localization localization) {
             type: CategoryType.CONSUME),
         memo: 'who1 gave me',
         writer: new User(uid: 'who1@gmail.com'),
-        selectedDate: new DateTime(2019, 9, 10))
+        selectedDate: new DateTime(2019, currentMonth, 10))
   ]);
 
   /// test for stacking same ledgers
-  ledgerList.addAll(normalExpenseList(localization, 10));
-  ledgerList.addAll(normalExpenseList(localization, 10));
-  ledgerList.addAll(normalIncomeList(localization, 10));
+  ledgerList.addAll(normalExpenseList(localization, currentMonth));
+  ledgerList.addAll(normalExpenseList(localization, currentMonth));
+  ledgerList.addAll(normalIncomeList(localization, currentMonth));
 
 
   return ledgerList;
