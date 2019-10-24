@@ -64,6 +64,38 @@ class _MembersState extends State<Members> {
       ),
       Membership.Guest,
     ),
+    MemberItem(
+      User(
+        displayName: 'displayName',
+        email: 'email@email.com',
+        thumbURL: 'url',
+      ),
+      Membership.Guest,
+    ),
+    MemberItem(
+      User(
+        displayName: 'displayName',
+        email: 'email@email.com',
+        thumbURL: 'url',
+      ),
+      Membership.Guest,
+    ),
+    MemberItem(
+      User(
+        displayName: 'displayName',
+        email: 'email@email.com',
+        thumbURL: 'url',
+      ),
+      Membership.Guest,
+    ),
+    MemberItem(
+      User(
+        displayName: 'displayName',
+        email: 'email@email.com',
+        thumbURL: 'url',
+      ),
+      Membership.Guest,
+    ),
   ];
 
 

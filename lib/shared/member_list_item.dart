@@ -45,6 +45,7 @@ class MemberListItem extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Stack(
+                    alignment: AlignmentDirectional.center,
                     children: <Widget>[
                       Container(
                         width: 52,
