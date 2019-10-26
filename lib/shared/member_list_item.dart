@@ -1,6 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:bookoo2/models/User.dart';
+import 'package:bookoo2/utils/localization.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+
+import 'package:bookoo2/models/User.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
 
 abstract class ListItem {}
@@ -15,28 +17,27 @@ class HeadingItem implements ListItem {
 
 class MemberItem implements ListItem {
   final User user;
-  final Membership membership;
 
-  MemberItem(this.user, this.membership);
+  MemberItem(this.user);
 }
 
 class MemberListItem extends StatelessWidget {
   final Key key;
   final User user;
-  final Membership membership;
   final Function onPressMember;
   final Function onPressAuth;
 
   const MemberListItem({
     this.key,
     @required this.user,
-    @required this.membership,
     this.onPressMember,
     this.onPressAuth,
   });
 
   @override
   Widget build(BuildContext context) {
+    var _localization = Localization.of(context);
+
     return Container(
       height: 80,
       alignment: Alignment(-1, 0),
@@ -60,12 +61,12 @@ class MemberListItem extends StatelessWidget {
                           height: 40,
                         ),
                       ),
-                      membership == Membership.Owner
+                      user.membership == Membership.Owner
                       ? Positioned(
                         bottom: 0,
                         right: 0,
                         child: Image(
-                          image: membership == Membership.Owner
+                          image: user.membership == Membership.Owner
                             ? Asset.Icons.icOwner
                             : Asset.Icons.icOwner,
                           width: 20,
@@ -115,11 +116,11 @@ class MemberListItem extends StatelessWidget {
               padding: EdgeInsets.all(0),
               onPressed: this.onPressAuth,
               child: Text(
-                membership == Membership.Owner
-                ? 'Owner'
-                : membership == Membership.Writer
-                ? 'Writer'
-                : 'Guest',
+                user.membership == Membership.Owner
+                ? _localization.trans('MEMBER_OWNER')
+                : user.membership == Membership.Admin
+                ? _localization.trans('MEMBER_ADMIN')
+                : _localization.trans('MEMBER_GUEST'),
                 style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(context).textTheme.display2.color,

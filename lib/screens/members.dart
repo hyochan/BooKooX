@@ -32,75 +32,74 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
+        membership: Membership.Owner,
       ),
-      Membership.Owner,
     ),
     MemberItem(
       User(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
+        membership: Membership.Admin,
       ),
-      Membership.Writer,
     ),
     MemberItem(
       User(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
+        membership: Membership.Admin,
       ),
-      Membership.Writer,
     ),
     MemberItem(
       User(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
+        membership: Membership.Guest,
       ),
-      Membership.Guest,
     ),
     MemberItem(
       User(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
+        membership: Membership.Guest,
       ),
-      Membership.Guest,
     ),
     MemberItem(
       User(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
+        membership: Membership.Guest,
       ),
-      Membership.Guest,
     ),
     MemberItem(
       User(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
+        membership: Membership.Guest,
       ),
-      Membership.Guest,
     ),
     MemberItem(
       User(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
+        membership: Membership.Guest,
       ),
-      Membership.Guest,
     ),
     MemberItem(
       User(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
+        membership: Membership.Guest,
       ),
-      Membership.Guest,
     ),
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -147,13 +146,19 @@ class _MembersState extends State<Members> {
           } else if (item is MemberItem) {
             return MemberListItem(
               user: item.user,
-              membership: item.membership,
-              onPressAuth: () { },
+              onPressAuth: () {
+                General.instance.showMembershipDialog(context, (int val) {
+                  setState(() {
+                    item.user.changeMemberShip(val);
+                  });
+                  Navigator.of(context).pop();
+                }, item.user.membership.index);
+              },
               onPressMember: () {
                 General.instance.navigateScreen(context, MaterialPageRoute(
                   builder: (BuildContext context) => ProfilePeer(
                     user: item.user,
-                  )
+                  ),
                 ));
               },
             );
