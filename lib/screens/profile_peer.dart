@@ -1,15 +1,11 @@
 import 'package:bookoo2/models/User.dart';
 import 'package:bookoo2/screens/photo_detail.dart';
-import 'package:bookoo2/utils/general.dart' as prefix0;
 import 'package:flutter/material.dart';
 
 import 'package:bookoo2/shared/header.dart' show renderHeaderClose;
 import 'package:bookoo2/shared/edit_text_box.dart' show EditTextBox;
-import 'package:bookoo2/shared/profile_image_cam.dart';
 import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/utils/localization.dart' show Localization;
-import 'package:bookoo2/utils/asset.dart' as Asset;
-import 'package:bookoo2/utils/validator.dart' show Validator;
 
 class ProfilePeer extends StatefulWidget {
   final User user;
@@ -75,28 +71,32 @@ class _ProfilePeerState extends State<ProfilePeer> {
               ),
             ),
             EditTextBox(
+              controller: TextEditingController(text: 'hello'),
               iconData: Icons.person_outline,
               margin: EdgeInsets.only(top: 24.0),
-              hintText: _localization.trans('NICKNAME'),
               focusedColor: Theme.of(context).textTheme.title.color,
               enabledColor: Theme.of(context).textTheme.subtitle.color,
               enabled: false,
+              borderStyle: BorderStyle.none,
+              borderWidth: 0,
             ),
             EditTextBox(
               iconData: Icons.email,
               margin: EdgeInsets.only(top: 8.0),
-              hintText: _localization.trans('EMAIL'),
               focusedColor: Theme.of(context).textTheme.title.color,
               enabledColor: Theme.of(context).textTheme.subtitle.color,
               enabled: false,
+              borderStyle: BorderStyle.none,
+              borderWidth: 0,
             ),
             EditTextBox(
               iconData: Icons.phone,
               margin: EdgeInsets.only(top: 8.0),
-              hintText: _localization.trans('PHONE'),
               focusedColor: Theme.of(context).textTheme.title.color,
               enabledColor: Theme.of(context).textTheme.subtitle.color,
               enabled: false,
+              borderStyle: BorderStyle.none,
+              borderWidth: 0,
             ),
             Container(
               margin: EdgeInsets.only(top: 32.0, bottom: 12.0),
@@ -105,10 +105,10 @@ class _ProfilePeerState extends State<ProfilePeer> {
               ),
             ),
             EditTextBox(
-              labelText: _localization.trans('STATUS_MESSAGE'),
-              hintText: _localization.trans('STATUS_MESSAGE_HINT'),
               maxLines: 5,
               enabled: false,
+              borderWidth: 0,
+              borderStyle: BorderStyle.none,
             ),
           ],
         ),
