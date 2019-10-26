@@ -83,7 +83,7 @@ class MemberListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           AutoSizeText(
-                            user.email,
+                            user.displayName,
                             maxLines: 1,
                             style: TextStyle(
                               fontSize: 18,

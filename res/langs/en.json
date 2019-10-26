@@ -145,5 +145,6 @@
   "MEMBERSHIP_CHANGE": "Change membership",
   "MEMBER_OWNER": "Owner",
   "MEMBER_ADMIN": "Admin",
-  "MEMBER_GUEST": "Guest"
+  "MEMBER_GUEST": "Guest",
+  "SEARCH_USER_HINT": "Search user..."
 }
