@@ -24,11 +24,15 @@ class MemberListItem extends StatelessWidget {
   final Key key;
   final User user;
   final Membership membership;
+  final Function onPressMember;
+  final Function onPressAuth;
 
   const MemberListItem({
     this.key,
     @required this.user,
     @required this.membership,
+    this.onPressMember,
+    this.onPressAuth,
   });
 
   @override
@@ -40,7 +44,7 @@ class MemberListItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: FlatButton(
-              onPressed: () {},
+              onPressed: this.onPressMember,
               padding: EdgeInsets.symmetric(horizontal: 40),
               child: Row(
                 children: <Widget>[
@@ -109,7 +113,7 @@ class MemberListItem extends StatelessWidget {
             height: double.infinity,
             child: FlatButton(
               padding: EdgeInsets.all(0),
-              onPressed: () {},
+              onPressed: this.onPressAuth,
               child: Text(
                 membership == Membership.Owner
                 ? 'Owner'

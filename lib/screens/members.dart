@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:bookoo2/models/User.dart' show User;
-import 'package:bookoo2/models/User.dart';
+
+import 'package:bookoo2/screens/profile_peer.dart';
+import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/shared/member_list_item.dart';
-import 'package:bookoo2/utils/localization.dart';
-import 'package:bookoo2/models/Ledger.dart';
 import 'package:bookoo2/shared/header.dart';
 import 'package:bookoo2/shared/member_list_item.dart' show MemberItem, HeadingItem, ListItem;
+import 'package:bookoo2/models/User.dart' show User;
+import 'package:bookoo2/models/User.dart';
+import 'package:bookoo2/models/Ledger.dart';
+import 'package:bookoo2/utils/localization.dart';
 
 class Members extends StatefulWidget {
   final Ledger ledger;
@@ -145,6 +148,14 @@ class _MembersState extends State<Members> {
             return MemberListItem(
               user: item.user,
               membership: item.membership,
+              onPressAuth: () { },
+              onPressMember: () {
+                General.instance.navigateScreen(context, MaterialPageRoute(
+                  builder: (BuildContext context) => ProfilePeer(
+                    user: item.user,
+                  )
+                ));
+              },
             );
           }
           return null;

@@ -4,6 +4,7 @@ import 'package:bookoo2/utils/asset.dart' as Asset;
 class EditTextBox extends StatefulWidget {
   const EditTextBox({
     this.key,
+    this.enabled = true,
     this.focusedColor = const Color.fromARGB(255, 66, 77, 107),
     this.enabledColor = const Color.fromARGB(255, 220, 226, 235),
     this.disabledColor = const Color.fromARGB(255, 211, 211, 211),
@@ -27,6 +28,7 @@ class EditTextBox extends StatefulWidget {
     this.controller,
   });
   final Key key;
+  final bool enabled;
   final TextEditingController controller;
   final Color focusedColor;
   final Color enabledColor;
@@ -74,6 +76,7 @@ class _EditTextBoxState extends State<EditTextBox> {
         ): Container(),
         Container(
           child: TextField(
+            enabled: widget.enabled,
             controller: widget.controller,
             style: widget.textStyle,
             cursorColor: widget.focusedColor,

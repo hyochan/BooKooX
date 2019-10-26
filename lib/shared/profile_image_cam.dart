@@ -26,34 +26,33 @@ class ProfileImageCam extends StatelessWidget {
                 height: 88.0,
                 child: ClipOval(
                   child: this.imgStr == null || this.imgStr == ''
-                    ? Material(
-                      clipBehavior: Clip.hardEdge,
-                      color: Colors.transparent,
-                      child: Ink.image(
-                        image: Asset.Icons.icMask,
-                        fit: BoxFit.cover,
-                        width: 80.0,
-                        height: 80.0,
-                        child: InkWell(
-                          onTap: this.selectGallery,
-                        ),
-                      )
-                    )
-                    : Material(
-                      clipBehavior: Clip.hardEdge,
-                      color: Colors.transparent,
-                      child: FlatButton(
-                        onPressed: this.selectGallery,
-                        padding: EdgeInsets.all(0.0),
-                        child: ClipOval(
-                          child: FadeInImage.assetNetwork(
+                      ? Material(
+                          clipBehavior: Clip.hardEdge,
+                          color: Colors.transparent,
+                          child: Ink.image(
+                            image: Asset.Icons.icMask,
                             fit: BoxFit.cover,
-                            placeholder: 'res/icons/icMask.png',
-                            image: 'https://picsum.photos/250?image=9',
+                            width: 80.0,
+                            height: 80.0,
+                            child: InkWell(
+                              onTap: this.selectGallery,
+                            ),
+                          ))
+                      : Material(
+                          clipBehavior: Clip.hardEdge,
+                          color: Colors.transparent,
+                          child: FlatButton(
+                            onPressed: this.selectGallery,
+                            padding: EdgeInsets.all(0.0),
+                            child: ClipOval(
+                              child: FadeInImage.assetNetwork(
+                                fit: BoxFit.cover,
+                                placeholder: 'res/icons/icMask.png',
+                                image: 'https://picsum.photos/250?image=9',
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    )
                 ),
               ),
               Positioned(
