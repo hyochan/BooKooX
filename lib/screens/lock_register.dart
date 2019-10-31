@@ -87,13 +87,15 @@ class _LockRegisterState extends State<LockRegister> {
     return Scaffold(
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Theme.of(context).primaryColor,
+        iconColor: Theme.of(context).textTheme.title.color,
         brightness: Brightness.light,
         actions: <Widget> [
           FlatButton(
             child: Text( 
                 _localization.trans('DONE'),
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.title.color,
+                ),
               ),
             onPressed: addLockPinToSF,
             shape: CircleBorder(),
@@ -108,7 +110,7 @@ class _LockRegisterState extends State<LockRegister> {
               Text(_localization.trans('LOCK_HINT'),
               style: TextStyle(
                 fontSize: 24,
-                color: Asset.Colors.dusk),
+                color: Theme.of(context).textTheme.title.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -121,14 +123,14 @@ class _LockRegisterState extends State<LockRegister> {
                   _pinTextField(_fourthDigit),
                 ],),              
             ),
-            OutlineButton(
-              child: 
-              Text(_localization.trans('FINGERPRINT_SET')),
-              onPressed: () {} ,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
+            // OutlineButton(
+            //   child: 
+            //   Text(_localization.trans('FINGERPRINT_SET')),
+            //   onPressed: () {} ,
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(30),
+            //   ),
+            // ),
             SizedBox(height: 50 ,),
             PinKeyboard(
               keyboardHeight: _screenSize.height / 3.0  ,
@@ -187,13 +189,13 @@ class _LockRegisterState extends State<LockRegister> {
         digit != null ? digit.toString() : "",
         style: TextStyle(
           fontSize: 30,
-          color: Colors.black,
+          color: Theme.of(context).textTheme.title.color,
         ),
       ),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Asset.Colors.dusk,
+            color: Theme.of(context).textTheme.title.color,
             width: 2,
             ),
           ),
