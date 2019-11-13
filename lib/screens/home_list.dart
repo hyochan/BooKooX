@@ -9,6 +9,9 @@ import 'package:bookoo2/shared/home_list_item.dart';
 import 'package:bookoo2/utils/general.dart';
 import 'package:bookoo2/utils/localization.dart';
 import 'package:intl/intl.dart';
+
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+
 class HomeList extends StatefulWidget {
   HomeList({
     Key key,
@@ -167,37 +170,61 @@ class _HomeListState extends State<HomeList> {
 
       // insert Date row as Header
       DateTime prevDate;
+      var temp = [];
       for(var i=0; i<_data.length; i++) {
-        print(_data[i].selectedDate);
-        if(prevDate != _data[i].selectedDate) {
-          _listData.add({
-            'date': _data[i].selectedDate
-          });
+        if(prevDate != _data[i].selectedDate) { // 다르면 모은 데이터를 저장하고, 모음 리셋
+          if(temp.length > 0) {
+            _listData.add({
+              'date': prevDate,
+              'ledgerItems': temp
+            });
+          }
           prevDate = _data[i].selectedDate;
+          temp = [];
         }
-        _listData.add(_data[i]);
+        temp.add(_data[i]); // 데이터 임시 모음
+        // _listData.add(_data[i]);
+      }
+      if(temp.length > 0) {
+        _listData.add({
+          'date': prevDate,
+          'ledgerItems': temp
+        });
       }
     });
   }
 
-  Widget _buildLedgerItem(BuildContext context, int index) {
-    // print(index + _data[index]['selectedDate']);
-    if(_listData[index] is LedgerItem) {
-      return HomeListItem(ledgerItem: _listData[index]);
-    } else {
-      String headerString = DateFormat('yyyy-MM-dd (E)').format(_listData[index]['date']);
-      return Container(
-        height: 60.0,
-        color: Colors.white,
-        padding: new EdgeInsets.only(top: 16.0, left: 10.0),
-        // padding: new EdgeInsets.symmetric(horizontal: 16.0),
-        alignment: Alignment.centerLeft,
-        child: new Text(headerString,
-          style: const TextStyle( fontSize: 16, color: Colors.grey),
+  Widget _buildHeader(DateTime date) {
+    String headerString = DateFormat('yyyy-MM-dd (E)').format(date);
+    return Container(
+      height: 60.0,
+      color: Colors.white,
+      padding: new EdgeInsets.only(top: 16.0, left: 10.0),
+      // padding: new EdgeInsets.symmetric(horizontal: 16.0),
+      alignment: Alignment.centerLeft,
+      child: new Text(headerString,
+        style: const TextStyle( fontSize: 16, color: Colors.grey),
+      ),
+    );
+  }
+
+  List<Widget> _buildLists(BuildContext context) {
+    return List.generate(_listData.length, (index) {
+      var section = _listData[index];
+      var headerDate = section['date'];
+      var ledgerItems = section['ledgerItems'];
+      return new SliverStickyHeader(
+        header: _buildHeader(headerDate),
+        sliver: new SliverList(
+          delegate: new SliverChildBuilderDelegate(
+            (context, i) => new HomeListItem(ledgerItem: ledgerItems[i]),
+            childCount: ledgerItems.length,
+          ),
         ),
       );
-    }
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     Function onAddLedgerList = () => General.instance.navigateScreenNamed(context, '/ledger_item_add');
@@ -228,10 +255,11 @@ class _HomeListState extends State<HomeList> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 15.0, left: 14.0, right: 14.0),
-          child: ListView.builder(
-            itemBuilder: _buildLedgerItem,
-            itemCount: _listData.length,
-          )
+          child: new Builder(builder: (BuildContext context) {
+            return new CustomScrollView(
+              slivers: _buildLists(context),
+            );
+          }),
         )
       ),
     );
