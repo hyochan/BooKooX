@@ -50,44 +50,50 @@ class HomeListItem extends StatelessWidget {
     String _priceToShow = (_isPlus ? '+ ' : '- ') +
         _priceFormatted.toString().replaceAll('-', '');
 
-    return Container(
-      height: 60,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Image(
-              image: _image,
-              fit: BoxFit.contain,
-              width: 30.0,
-              height: 30.0,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: buildLabelArea(_label, writer: _writer)
-            ),
-          ),
-          Expanded(
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Text(
-                  _priceToShow,
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                      color: _isPlus
-                          ? Theme.of(context).textTheme.title.color
-                          : Asset.Colors.carnation),
-                ),
+    return FlatButton(
+      padding: EdgeInsets.all(0),
+      onPressed: () {
+        print('onPress');
+      },
+      child: Container(
+        height: 60,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Image(
+                image: _image,
+                fit: BoxFit.contain,
+                width: 30.0,
+                height: 30.0,
               ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: buildLabelArea(_label, writer: _writer)
+              ),
+            ),
+            Expanded(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Text(
+                    _priceToShow,
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                        color: _isPlus
+                            ? Theme.of(context).textTheme.title.color
+                            : Asset.Colors.carnation),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

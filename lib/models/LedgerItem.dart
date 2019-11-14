@@ -56,14 +56,14 @@ class LedgerItem {
   /// make a new 'rough' copy of this
   /// this copy those properties that is being used. other properties not specified here is not being used
   LedgerItem createRoughCopy() {
-    return new LedgerItem(
+    return LedgerItem(
       price: this.price,
-      category: new Category(
+      category: Category(
         iconId: this.category.iconId,
         label: this.category.label,
         type: this.category.type,
       ),
-      selectedDate: new DateTime(this.selectedDate.year,
+      selectedDate: DateTime(this.selectedDate.year,
           this.selectedDate.month, this.selectedDate.day),
     );
   }
