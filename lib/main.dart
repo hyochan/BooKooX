@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         hintColor: Asset.Colors.paleGray,
         disabledColor: const Color(0xffdde2ec),
         backgroundColor: const Color(0xff303030),
-        dialogBackgroundColor: Colors.white,
+        dialogBackgroundColor: const Color(0xff272727),
         textTheme: TextTheme(
           title: TextStyle(color: Colors.white),
           subtitle: TextStyle(color: Asset.Colors.mediumGray),
