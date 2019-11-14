@@ -36,7 +36,7 @@ DEPENDENCIES:
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - FMDB
     - GoogleMaps
 
@@ -72,4 +72,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 10ae9c18d12c9ffc2275c9a159a3b1e281990db0
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.8.3
