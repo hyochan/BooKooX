@@ -107,6 +107,12 @@ class _MembersState extends State<Members> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _filteredMembers = _fakeMembers;
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
 
