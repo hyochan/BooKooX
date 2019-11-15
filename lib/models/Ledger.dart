@@ -19,6 +19,7 @@ class Ledger {
   String description;
   int people;
   String ownerId;
+  List<String> adminIds;
   List<LedgerItem> items;
   Currency currency;
   // List<User> members;
@@ -27,15 +28,16 @@ class Ledger {
   DateTime deletedAt;
 
   Ledger({
-    this.title,
-    this.color,
+    @required this.title,
+    @required this.color,
+    @required this.currency,
     this.description,
     this.people,
     this.ownerId,
+    this.adminIds,
     this.createdAt,
     this.updatedAt,
     this.items,
-    @required this.currency,
     // this.members,
     this.deletedAt,
   });
@@ -44,6 +46,7 @@ class Ledger {
   String toString() {
     return 'title: $title, color: ${color.toString()}, '
       + 'description: $description, people: $people, ownerId: $ownerId, '
+      + 'adminIds: $adminIds, '
       + 'items: ${items.toString()}, currency: ${currency.toString()}, '
       + 'createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt'
     ;

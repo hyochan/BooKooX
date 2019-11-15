@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 
 import 'package:bookoo2/models/Photo.dart';
 import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoo2/utils/asset.dart' as Asset;
 
 class PhotoDetail extends StatefulWidget {
   PhotoDetail({
     Key key,
-    @required this.photo,
+    this.photo,
+    this.photoUrl,
     this.canShare = false,
     this.onPressDelete,
     this.onPressShare,
     this.onPressDownload,
   }) : super(key: key);
   final Photo photo;
+  final String photoUrl;
   final bool canShare;
   final Function onPressDelete;
   final Function onPressShare;
@@ -33,11 +36,14 @@ class _State extends State<PhotoDetail> {
         child: Stack(
           children: <Widget>[
             PhotoView(
-              imageProvider: widget.photo.file != null
+              imageProvider:
+                widget.photoUrl != null
+                ? NetworkImage(widget.photoUrl)
+                : widget.photo != null && widget.photo.file != null
                 ? FileImage(widget.photo.file)
-                : widget.photo.url != null
-                ? Image.network(widget.photo.url)
-                : Container(),
+                : widget.photo != null && widget.photo.url != null
+                ? NetworkImage(widget.photo.url)
+                : AssetImage('res/icons/icMask.png'),
               minScale: PhotoViewComputedScale.contained * 0.8,
               maxScale: 4.0,
             ),
@@ -102,7 +108,8 @@ class _State extends State<PhotoDetail> {
                         ),
                       ),
                     ) : Container(),
-                    Container(
+                    widget.onPressDelete != null
+                    ? Container(
                       width: 60.0,
                       height: 60.0,
                       child: RawMaterialButton(
@@ -114,7 +121,7 @@ class _State extends State<PhotoDetail> {
                           color: Colors.white,
                         ),
                       ),
-                    ),
+                    ) : Container(),
                   ],
                 ),
               ),

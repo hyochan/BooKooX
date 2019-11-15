@@ -1,4 +1,9 @@
 import 'package:flutter/widgets.dart';
+enum Membership {
+  Owner,
+  Admin,
+  Guest,
+}
 
 class User {
   @required String uid;
@@ -11,6 +16,7 @@ class User {
   bool showPhoneNumber;
   String statusMsg;
   List<String> ledgers;
+  Membership membership;
   DateTime createdAt;
   DateTime updatedAt;
   DateTime deletedAt;
@@ -26,8 +32,19 @@ class User {
     this.showPhoneNumber,
     this.statusMsg,
     this.ledgers,
+    this.membership,
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
   });
+
+  void changeMemberShip(int val) {
+    if (Membership.Owner.index == val) {
+      membership = Membership.Owner;
+    } else if (Membership.Admin.index == val) {
+      membership = Membership.Admin;
+    } else {
+      membership = Membership.Guest;
+    }
+  }
 }

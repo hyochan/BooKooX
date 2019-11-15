@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:bookoo2/utils/asset.dart' as Asset;
 
-
 class MemberHorizontalList extends StatelessWidget {
   final bool showAddBtn;
   final Function onSeeAllPressed;

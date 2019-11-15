@@ -4,6 +4,7 @@ import 'package:bookoo2/utils/asset.dart' as Asset;
 class EditTextBox extends StatefulWidget {
   const EditTextBox({
     this.key,
+    this.enabled = true,
     this.focusedColor = const Color.fromARGB(255, 66, 77, 107),
     this.enabledColor = const Color.fromARGB(255, 220, 226, 235),
     this.disabledColor = const Color.fromARGB(255, 211, 211, 211),
@@ -25,8 +26,11 @@ class EditTextBox extends StatefulWidget {
       color: Asset.Colors.carnation,
     ),
     this.controller,
+    this.borderWidth = 0.7,
+    this.borderStyle = BorderStyle.solid,
   });
   final Key key;
+  final bool enabled;
   final TextEditingController controller;
   final Color focusedColor;
   final Color enabledColor;
@@ -46,6 +50,8 @@ class EditTextBox extends StatefulWidget {
   final TextStyle hintStyle;
   final String errorText;
   final TextStyle errorStyle;
+  final double borderWidth;
+  final BorderStyle borderStyle;
 
   @override
   _EditTextBoxState createState() => _EditTextBoxState();
@@ -74,8 +80,9 @@ class _EditTextBoxState extends State<EditTextBox> {
         ): Container(),
         Container(
           child: TextField(
+            enabled: widget.enabled,
             controller: widget.controller,
-            style: widget.textStyle,
+            style: widget.textStyle ?? TextStyle(color: Theme.of(context).textTheme.title.color),
             cursorColor: widget.focusedColor,
             onChanged: widget.onChangeText,
             maxLength: widget.maxLength,
@@ -100,35 +107,40 @@ class _EditTextBoxState extends State<EditTextBox> {
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.focusedColor,
-                  width: 0.7,
+                  width: widget.borderWidth,
+                  style: widget.borderStyle,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.enabledColor,
-                  width: 0.7,
+                  width: widget.borderWidth,
+                  style: widget.borderStyle,
                 ),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.disabledColor,
-                  width: 0.7,
+                  width: widget.borderWidth,
+                  style: widget.borderStyle,
                 ),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.errorStyle.color,
-                  width: 0.7,
+                  width: widget.borderWidth,
+                  style: widget.borderStyle,
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.errorStyle.color,
-                  width: 0.7,
+                  width: widget.borderWidth,
+                  style: widget.borderStyle,
                 ),
               ),
             ),

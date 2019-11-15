@@ -70,6 +70,7 @@ class MyApp extends StatelessWidget {
           subtitle: TextStyle(color: Asset.Colors.mediumGray),
           subhead: TextStyle(color: Colors.white),
           display1: TextStyle(color: Asset.Colors.cloudyBlue),
+          display2: TextStyle(color: Asset.Colors.cloudyBlue),
         ),
       ),
       routes: {

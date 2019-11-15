@@ -141,5 +141,10 @@
   "LOCK_HINT": "잠금암호 네자리를 입력해주세요.",
   "FINGERPRINT_LOGIN": "지문으로 해제",
   "FINGERPRINT_SET": "지문 설정",
-  "PIN_MISMATCH": "잠금 암호가 일치하지 않습니다."
+  "PIN_MISMATCH": "잠금 암호가 일치하지 않습니다.",
+  "MEMBERSHIP_CHANGE": "멤버쉽 변경",
+  "MEMBER_OWNER": "오너",
+  "MEMBER_ADMIN": "관리자",
+  "MEMBER_GUEST": "손님",
+  "SEARCH_USER_HINT": "Search user..."
 }

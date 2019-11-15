@@ -21,7 +21,8 @@ class General {
     return cursorPos;
   }
 
-  Future<Object> navigateScreenNamed(BuildContext context, String routeName, { bool reset = false }) {
+  Future<Object> navigateScreenNamed(BuildContext context, String routeName,
+      {bool reset = false}) {
     if (reset) {
       return Navigator.pushNamedAndRemoveUntil(
         context,
@@ -32,14 +33,16 @@ class General {
     return Navigator.of(context).pushNamed(routeName);
   }
 
-  Future<dynamic> navigateScreen(BuildContext context, MaterialPageRoute pageRoute) {
+  Future<dynamic> navigateScreen(
+      BuildContext context, MaterialPageRoute pageRoute) {
     return Navigator.push(
       context,
       pageRoute,
     );
   }
 
-  void showDialogSpinner(BuildContext context, {
+  void showDialogSpinner(
+    BuildContext context, {
     String text,
     TextStyle textStyle,
   }) {
@@ -49,13 +52,14 @@ class General {
         builder: (BuildContext context) {
           return DialogSpinner(
             textStyle: textStyle,
-            text: text != null ? text : Localization.of(context).trans('LOADING'),
+            text:
+                text != null ? text : Localization.of(context).trans('LOADING'),
           );
-        }
-    );
+        });
   }
 
-  void showSingleDialog(BuildContext context, {
+  void showSingleDialog(
+    BuildContext context, {
     bool barrierDismissible = false,
     String title = '',
     String content = '',
@@ -88,7 +92,8 @@ class General {
     );
   }
 
-  void showConfirmDialog(BuildContext context, {
+  void showConfirmDialog(
+    BuildContext context, {
     bool barrierDismissible = false,
     String title = '',
     String content = '',
@@ -127,6 +132,48 @@ class General {
     );
   }
 
+  void showMembershipDialog(
+      BuildContext context, Function onChange, int value) {
+    var _localization = Localization.of(context);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(_localization.trans('MEMBERSHIP_CHANGE')),
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Container(
+                height: 200,
+                child: Column(
+                  children: <Widget>[
+                    RadioListTile(
+                      title: Text(_localization.trans('MEMBER_OWNER')),
+                      groupValue: value,
+                      value: 0,
+                      onChanged: onChange,
+                    ),
+                    RadioListTile(
+                      title: Text(_localization.trans('MEMBER_ADMIN')),
+                      groupValue: value,
+                      value: 1,
+                      onChanged: onChange,
+                    ),
+                    RadioListTile(
+                      title: Text(_localization.trans('MEMBER_GUEST')),
+                      groupValue: value,
+                      value: 2,
+                      onChanged: onChange,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
   void showSnackBar(BuildContext context, String str, String btnStr) {
     var snackBar = SnackBar(
       content: Text(str),
@@ -153,12 +200,13 @@ class General {
 
     showModalBottomSheet(
         context: context,
-        builder: (builder){
+        builder: (builder) {
           return Container(
             color: Color.fromRGBO(240, 240, 240, 1.0),
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                var datum = '${data[index].year}/${data[index].month}/${data[index].day}';
+                var datum =
+                    '${data[index].year}/${data[index].month}/${data[index].day}';
                 return Container(
                   child: FlatButton(
                     onPressed: () {
@@ -174,10 +222,10 @@ class General {
                             child: Text(
                               datum,
                               style: TextStyle(
-                                color:  Colors.black,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w400,
                                 fontFamily: "AppleSDGothicNeo",
-                                fontStyle:  FontStyle.normal,
+                                fontStyle: FontStyle.normal,
                                 fontSize: 18.0,
                               ),
                             ),
@@ -191,20 +239,20 @@ class General {
               itemCount: data.length,
             ),
           );
-        }
-    );
+        });
   }
 
   Future<File> chooseImage({
     @required BuildContext context,
     String type,
   }) async {
-    General.instance.showDialogSpinner(context, text: Localization.of(context).trans('LOADING'));
+    General.instance.showDialogSpinner(context,
+        text: Localization.of(context).trans('LOADING'));
 
     try {
       File imgFile = type == 'camera'
-        ? await ImagePicker.pickImage(source: ImageSource.camera)
-        : await ImagePicker.pickImage(source: ImageSource.gallery);
+          ? await ImagePicker.pickImage(source: ImageSource.camera)
+          : await ImagePicker.pickImage(source: ImageSource.gallery);
       return imgFile;
     } catch (err) {
       print('chooseImage err $err');
@@ -214,7 +262,7 @@ class General {
     }
   }
 
-  File compressImage(File img, { int size = 500 }) {
+  File compressImage(File img, {int size = 500}) {
     Im.Image image = Im.decodeImage(img.readAsBytesSync());
     Im.Image smallerImage = Im.copyResize(image, width: size, height: size);
     return smallerImage as File;

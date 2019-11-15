@@ -141,5 +141,10 @@
   "LOCK_HINT": "Please Enter PIN code.",
   "FINGERPRINT_LOGIN": "Unlock with Fingerprint",
   "FINGERPRINT_SET": "FingerPrint Setup",
-  "PIN_MISMATCH": "PIN code mismatch"
+  "PIN_MISMATCH": "PIN code mismatch",
+  "MEMBERSHIP_CHANGE": "Change membership",
+  "MEMBER_OWNER": "Owner",
+  "MEMBER_ADMIN": "Admin",
+  "MEMBER_GUEST": "Guest",
+  "SEARCH_USER_HINT": "Search user..."
 }
