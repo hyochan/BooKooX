@@ -139,7 +139,7 @@
   "MEMBER": "멤버",
   "SEE_ALL": "전체보기",
   "LOCK_HINT": "잠금암호 네자리를 입력해주세요.",
-  "FINGERPRINT_LOGIN": "지문으로 로그인",
+  "FINGERPRINT_LOGIN": "지문으로 해제",
   "FINGERPRINT_SET": "지문 설정",
   "PIN_MISMATCH": "잠금 암호가 일치하지 않습니다."
 }

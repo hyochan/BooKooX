@@ -10,6 +10,7 @@ import 'package:bookoo2/utils/localization.dart' show Localization;
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:local_auth/local_auth.dart';
 
 class LockAuth extends StatefulWidget {
   @override
@@ -19,7 +20,6 @@ class LockAuth extends StatefulWidget {
 class _LockAuthState extends State<LockAuth> {
 
   Size _screenSize;
-
   int _currentDigit;
 
   int _firstDigit;
@@ -27,10 +27,67 @@ class _LockAuthState extends State<LockAuth> {
   int _thirdDigit;
   int _fourthDigit;
 
+  Localization _localization;
+
   String _pin = '';
   String _inputPin = '';
 
-  Localization _localization;
+  /// LocalAuthentication - Fingerprint
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
+  bool _hasFingerPrintSupport = false;
+  bool _isAuthorized = false;
+  List<BiometricType> _availableBiometricType = List<BiometricType>();
+  
+  Future<void> checkFingerprintSupport() async {
+    bool isBiometricSupport = false;
+    List<BiometricType> availableBiometricType = List<BiometricType>();
+
+    try {
+      isBiometricSupport = await _localAuthentication.canCheckBiometrics;
+      if (!isBiometricSupport) return;
+    } catch (e) {
+      print(e);
+    }
+    if (!mounted)  return;
+
+    try {
+      availableBiometricType =
+          await _localAuthentication.getAvailableBiometrics();
+    } catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+
+    setState(() {
+      if (availableBiometricType.contains(BiometricType.fingerprint)) {
+        _hasFingerPrintSupport = true;
+      } else {
+        _hasFingerPrintSupport = false;
+      }
+    });
+  }
+
+  Future<void> _authenticateMe() async {
+    // 8. this method opens a dialog for fingerprint authentication.
+    //    we do not need to create a dialog nut it popsup from device natively.
+    bool authenticated = false;
+    try {
+      authenticated = await _localAuthentication.authenticateWithBiometrics(
+        localizedReason: _localization.trans('FINGERPRINT_LOGIN'), // message for dialog
+        useErrorDialogs: true,// show error in dialog
+        stickyAuth: true,// native process
+      );
+    } catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+
+    if (authenticated) {
+      Navigator.pop(context, false);
+    } else {
+      return;
+    }
+  }
 
   readLockPinFromSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -43,6 +100,7 @@ class _LockAuthState extends State<LockAuth> {
 
   @override
   void initState() {
+
     super.initState();
 
     SystemChrome.setPreferredOrientations([
@@ -50,6 +108,7 @@ class _LockAuthState extends State<LockAuth> {
       DeviceOrientation.portraitDown,
     ]);
 
+    checkFingerprintSupport();    
     readLockPinFromSF();    
   }
 
@@ -86,7 +145,7 @@ class _LockAuthState extends State<LockAuth> {
               Text(_localization.trans('LOCK_HINT'),
               style: TextStyle(
                 fontSize: 24,
-                color: Asset.Colors.dusk),
+                color: Theme.of(context).textTheme.subhead.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -101,8 +160,10 @@ class _LockAuthState extends State<LockAuth> {
             ),
             OutlineButton(
               child: 
-              Text(_localization.trans('FINGERPRINT_LOGIN')),
-              onPressed: () {} ,
+              Text(_localization.trans('FINGERPRINT_LOGIN'),
+                style: TextStyle(color: Theme.of(context).textTheme.subhead.color),
+              ),
+              onPressed: _hasFingerPrintSupport ? _authenticateMe : null ,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
@@ -183,13 +244,13 @@ class _LockAuthState extends State<LockAuth> {
         digit != null ? digit.toString() : "",
         style: TextStyle(
           fontSize: 30,
-          color: Colors.black,
+          color: Theme.of(context).textTheme.title.color,
         ),
       ),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Asset.Colors.dusk,
+            color: Theme.of(context).textTheme.title.color,
             width: 2,
             ),
           ),

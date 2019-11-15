@@ -33,7 +33,7 @@ dependencies:
   auto_size_text: ^2.1.0
   fluttertoast: ^3.1.3
   shared_preferences: ^0.5.3+4
-  
+  local_auth: ^0.6.0+1
   google_maps_flutter: ^0.5.21
   flutter_google_places: ^0.2.3
   location: ^2.3.5

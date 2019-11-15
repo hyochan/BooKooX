@@ -12,7 +12,7 @@ class PinKeyboard extends StatelessWidget {
     this.onDeletePressed,
   });
 
-  Widget pinKeyboardInputButton({label, VoidCallback onPressed}) {
+  Widget pinKeyboardInputButton({BuildContext context, label, VoidCallback onPressed}) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -29,7 +29,7 @@ class PinKeyboard extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: 30.0,
-                color: Colors.black,
+                color: Theme.of(context).textTheme.subhead.color,
               ),
             ),
           ),
@@ -67,16 +67,19 @@ class PinKeyboard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 pinKeyboardInputButton(
+                    context: context,
                     label: "1",
                     onPressed: () {
                       onButtonPressed(1);
                     }),
                 pinKeyboardInputButton(
+                    context: context,                  
                     label: "2",
                     onPressed: () {
                       onButtonPressed(2);
                     }),
                 pinKeyboardInputButton(
+                    context: context,                  
                     label: "3",
                     onPressed: () {
                       onButtonPressed(3);
@@ -89,16 +92,19 @@ class PinKeyboard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 pinKeyboardInputButton(
+                    context: context,                  
                     label: "4",
                     onPressed: () {
                       onButtonPressed(4);
                     }),
                 pinKeyboardInputButton(
+                    context: context,                  
                     label: "5",
                     onPressed: () {
                       onButtonPressed(5);
                     }),
                 pinKeyboardInputButton(
+                    context: context,                  
                     label: "6",
                     onPressed: () {
                       onButtonPressed(6);
@@ -111,16 +117,19 @@ class PinKeyboard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 pinKeyboardInputButton(
+                    context: context,                  
                     label: "7",
                     onPressed: () {
                       onButtonPressed(7);
                     }),
                 pinKeyboardInputButton(
+                    context: context,                  
                     label: "8",
                     onPressed: () {
                       onButtonPressed(8);
                     }),
                 pinKeyboardInputButton(
+                    context: context,                  
                     label: "9",
                     onPressed: () {
                       onButtonPressed(9);
@@ -136,6 +145,7 @@ class PinKeyboard extends StatelessWidget {
                   width: 80.0,
                 ),
                 pinKeyboardInputButton(
+                    context: context,                  
                     label: "0",
                     onPressed: () {
                       onButtonPressed(0);
@@ -143,7 +153,7 @@ class PinKeyboard extends StatelessWidget {
                 pinKeyboardActionButton(
                     label: Icon(
                       Icons.backspace,
-                      color: Colors.black,
+                      color: Theme.of(context).textTheme.subhead.color,
                     ),
                     onPressed: () {
                       onDeletePressed();

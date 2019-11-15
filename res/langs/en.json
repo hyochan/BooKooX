@@ -139,7 +139,7 @@
   "MEMBER": "Member",
   "SEE_ALL": "See all",
   "LOCK_HINT": "Please Enter PIN code.",
-  "FINGERPRINT_LOGIN": "Login with Finger Print",
+  "FINGERPRINT_LOGIN": "Unlock with Fingerprint",
   "FINGERPRINT_SET": "FingerPrint Setup",
   "PIN_MISMATCH": "PIN code mismatch"
 }
