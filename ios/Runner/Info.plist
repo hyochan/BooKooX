@@ -59,5 +59,8 @@
 	<string>App would like to access your location to pin your location. This will let you save additional information for your ledger.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>App would like to authenticate with your face id. This will let you use additional feature to login to your ledger.</string>	
+	<key>UIStatusBarHidden</key>
+	<true/>
+
 </dict>
 </plist>
