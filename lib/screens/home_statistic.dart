@@ -180,7 +180,7 @@ class _ContentState extends State<Content> {
     var chartWidget = dataMap.length > 0
         ? PieChart(
             dataMap: dataMap,
-            legendFontColor: Colors.blueGrey[900],
+            legendFontColor: Theme.of(context).textTheme.title.color,
             legendFontSize: 14.0,
             legendFontWeight: FontWeight.w500,
             animationDuration: Duration(milliseconds: 800),
@@ -189,7 +189,7 @@ class _ContentState extends State<Content> {
             showChartValuesInPercentage: true,
             showChartValues: true,
             showChartValuesOutside: false,
-            chartValuesColor: Colors.blueGrey[900].withOpacity(0.9),
+            chartValuesColor: Theme.of(context).textTheme.display3.color.withOpacity(0.9),
             colorList: colorList,
             showLegends: true,
             decimalPlaces: 1,

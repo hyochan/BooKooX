@@ -24,12 +24,12 @@ class _CategoryAddState extends State<CategoryAdd> {
   int _selectedIconIndex;
   TextEditingController _textController = new TextEditingController();
   String _errorText;
-  
+
   @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
 
-    void onDonePressed() async{
+    void onDonePressed() async {
       if (_textController.text == '') {
         setState(() {
           _errorText = _localization.trans('ERROR_CATEGORY_NAME');
@@ -74,27 +74,35 @@ class _CategoryAddState extends State<CategoryAdd> {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
         child: SingleChildScrollView(
-          child: Wrap(
-            children: categoryIcons.asMap().map((int i, AssetImage icon) {
-              return MapEntry(i, Container(
-                padding: EdgeInsets.only(left: 8, bottom: 8),
-                child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      _selectedIconIndex = i;
-                    });
-                  },
-                  child: Opacity(
-                    opacity: i == _selectedIconIndex ? 1.0 : 0.4,
-                    child: Image(
-                      image: icon,
-                      width: 72,
-                      height: 72,
-                    ),
-                  ),
-                ),
-              ));
-            }).values.toList(),
+          child: Center(
+            child: Wrap(
+              children: categoryIcons
+                  .asMap()
+                  .map((int i, AssetImage icon) {
+                    return MapEntry(
+                        i,
+                        Container(
+                          padding: EdgeInsets.only(left: 8, bottom: 8),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                _selectedIconIndex = i;
+                              });
+                            },
+                            child: Opacity(
+                              opacity: i == _selectedIconIndex ? 1.0 : 0.4,
+                              child: Image(
+                                image: icon,
+                                width: 72,
+                                height: 72,
+                              ),
+                            ),
+                          ),
+                        ));
+                  })
+                  .values
+                  .toList(),
+            ),
           ),
         ),
       );
@@ -111,7 +119,8 @@ class _CategoryAddState extends State<CategoryAdd> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(left: 24, right: 24, top: 40, bottom: 24),
+                      margin: EdgeInsets.only(
+                          left: 24, right: 24, top: 40, bottom: 24),
                       child: Text(
                         _localization.trans('CATEGORY_ADD'),
                         style: TextStyle(
@@ -131,7 +140,8 @@ class _CategoryAddState extends State<CategoryAdd> {
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.only(left: 24, right: 8),
-                            child: Icon(Icons.star, size: 20, color: Asset.Colors.mediumGray),
+                            child: Icon(Icons.star,
+                                size: 20, color: Asset.Colors.mediumGray),
                           ),
                           Text(
                             _localization.trans('ICON_SELECT'),

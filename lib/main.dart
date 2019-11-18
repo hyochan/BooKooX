@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(color: Colors.black),
           display1: TextStyle(color: Asset.Colors.paleGray),
           display2: TextStyle(color: Asset.Colors.mediumGray),
+          display3: TextStyle(color: Colors.blueGrey[900]),
         ),
       ),
       darkTheme: ThemeData(
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
           subhead: TextStyle(color: Colors.white),
           display1: TextStyle(color: Asset.Colors.cloudyBlue),
           display2: TextStyle(color: Asset.Colors.cloudyBlue),
+          display3: TextStyle(color: Colors.blueGrey[900]),
         ),
       ),
       routes: {
