@@ -34,22 +34,29 @@ class _HomeListState extends State<HomeList> {
     Future.delayed(Duration.zero, () {
       var _localization = Localization.of(context);
 
-      _data.add(LedgerItem(
+      _data.add(
+        LedgerItem(
           price: -12000,
           category: Category(
               iconId: 8,
               label: _localization.trans('EXERCISE'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 10)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 10),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: 300000,
           category: Category(
               iconId: 18,
               label: _localization.trans('WALLET_MONEY'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 10)));
+          selectedDate: DateTime(2019, 9, 10),
+        ),
+      );
 
-      _data.add(LedgerItem(
+      _data.add(
+        LedgerItem(
           price: -32000,
           category: Category(
               iconId: 4,
@@ -57,51 +64,72 @@ class _HomeListState extends State<HomeList> {
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
           writer: User(uid: 'who1@gmail.com', displayName: 'engela lee'),
-          selectedDate: DateTime(2019, 9, 8)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 8),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 8),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: 300000,
           category: Category(
               iconId: 18,
               label: _localization.trans('WALLET_MONEY'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 8),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 8),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 8),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 8),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -12000,
           category: Category(
               iconId: 12,
               label: _localization.trans('PRESENT'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 6)));
+          selectedDate: DateTime(2019, 9, 6),
+        ),
+      );
 
-      _data.add(LedgerItem(
+      _data.add(
+        LedgerItem(
           price: -32000,
           category: Category(
               iconId: 4,
@@ -109,30 +137,42 @@ class _HomeListState extends State<HomeList> {
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
           writer: User(uid: 'who1@gmail.com', displayName: '이범주'),
-          selectedDate: DateTime(2019, 9, 6)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 6),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 6)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 6),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 6)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 6),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -12000,
           category: Category(
               iconId: 12,
               label: _localization.trans('PRESENT'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 6)));
+          selectedDate: DateTime(2019, 9, 6),
+        ),
+      );
 
-      _data.add(LedgerItem(
+      _data.add(
+        LedgerItem(
           price: -32000,
           category: Category(
               iconId: 4,
@@ -140,28 +180,39 @@ class _HomeListState extends State<HomeList> {
               type: CategoryType.CONSUME),
           memo: 'who1 gave me',
           writer: User(uid: 'who1@gmail.com', displayName: 'mizcom'),
-          selectedDate: DateTime(2019, 9, 6)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 6),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -3100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 4)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 4),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -2100,
           category: Category(
               iconId: 0,
               label: _localization.trans('CAFE'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 4)));
-      _data.add(LedgerItem(
+          selectedDate: DateTime(2019, 9, 4),
+        ),
+      );
+      _data.add(
+        LedgerItem(
           price: -12000,
           category: Category(
               iconId: 12,
               label: _localization.trans('PRESENT'),
               type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 4)));
+          selectedDate: DateTime(2019, 9, 4),
+        ),
+      );
 
       // sort data
       _data.sort((a, b) {
@@ -175,7 +226,10 @@ class _HomeListState extends State<HomeList> {
         if (prevDate != _data[i].selectedDate) {
           // 다르면 모은 데이터를 저장하고, 모음 리셋
           if (temp.length > 0) {
-            _listData.add({'date': prevDate, 'ledgerItems': temp});
+            _listData.add({
+              'date': prevDate,
+              'ledgerItems': temp,
+            });
           }
           prevDate = _data[i].selectedDate;
           temp = [];
@@ -184,7 +238,10 @@ class _HomeListState extends State<HomeList> {
         // _listData.add(_data[i]);
       }
       if (temp.length > 0) {
-        _listData.add({'date': prevDate, 'ledgerItems': temp});
+        _listData.add({
+          'date': prevDate,
+          'ledgerItems': temp,
+        });
       }
     });
   }
@@ -194,7 +251,10 @@ class _HomeListState extends State<HomeList> {
     return Container(
       height: 60.0,
       color: Theme.of(context).backgroundColor,
-      padding: EdgeInsets.only(top: 16.0, left: 10.0),
+      padding: EdgeInsets.only(
+        top: 16.0,
+        left: 10.0,
+      ),
       // padding: EdgeInsets.symmetric(horizontal: 16.0),
       alignment: Alignment.centerLeft,
       child: Text(

@@ -7,10 +7,16 @@ import 'package:bookoo2/models/User.dart';
 class HomeListItem extends StatelessWidget {
   final LedgerItem ledgerItem;
 
-  HomeListItem({Key key, this.ledgerItem}) : super(key: key);
+  HomeListItem({
+    Key key,
+    this.ledgerItem,
+  }) : super(key: key);
 
-  List<Widget> buildLabelArea(String label,
-      {User writer, BuildContext context}) {
+  List<Widget> buildLabelArea(
+    String label, {
+    User writer,
+    BuildContext context,
+  }) {
     List<Widget> labelArea = [];
     labelArea.add(
       Container(
