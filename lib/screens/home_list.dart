@@ -23,7 +23,7 @@ class HomeList extends StatefulWidget {
 
 class _HomeListState extends State<HomeList> {
   TextEditingController textEditingController = TextEditingController();
-  
+
   var _data = [];
   var _listData = [];
 
@@ -35,19 +35,19 @@ class _HomeListState extends State<HomeList> {
       var _localization = Localization.of(context);
 
       _data.add(LedgerItem(
-        price: -12000,
-        category: Category(
-            iconId: 8,
-            label: _localization.trans('EXERCISE'),
-            type: CategoryType.CONSUME),
-        selectedDate: DateTime(2019, 9, 10)));
+          price: -12000,
+          category: Category(
+              iconId: 8,
+              label: _localization.trans('EXERCISE'),
+              type: CategoryType.CONSUME),
+          selectedDate: DateTime(2019, 9, 10)));
       _data.add(LedgerItem(
-        price: 300000,
-        category: Category(
-            iconId: 18,
-            label: _localization.trans('WALLET_MONEY'),
-            type: CategoryType.CONSUME),
-        selectedDate: DateTime(2019, 9, 10)));
+          price: 300000,
+          category: Category(
+              iconId: 18,
+              label: _localization.trans('WALLET_MONEY'),
+              type: CategoryType.CONSUME),
+          selectedDate: DateTime(2019, 9, 10)));
 
       _data.add(LedgerItem(
           price: -32000,
@@ -66,12 +66,12 @@ class _HomeListState extends State<HomeList> {
               type: CategoryType.CONSUME),
           selectedDate: DateTime(2019, 9, 8)));
       _data.add(LedgerItem(
-        price: 300000,
-        category: Category(
-            iconId: 18,
-            label: _localization.trans('WALLET_MONEY'),
-            type: CategoryType.CONSUME),
-        selectedDate: DateTime(2019, 9, 8)));
+          price: 300000,
+          category: Category(
+              iconId: 18,
+              label: _localization.trans('WALLET_MONEY'),
+              type: CategoryType.CONSUME),
+          selectedDate: DateTime(2019, 9, 8)));
       _data.add(LedgerItem(
           price: -3100,
           category: Category(
@@ -171,13 +171,11 @@ class _HomeListState extends State<HomeList> {
       // insert Date row as Header
       DateTime prevDate;
       var temp = [];
-      for(var i=0; i<_data.length; i++) {
-        if(prevDate != _data[i].selectedDate) { // 다르면 모은 데이터를 저장하고, 모음 리셋
-          if(temp.length > 0) {
-            _listData.add({
-              'date': prevDate,
-              'ledgerItems': temp
-            });
+      for (var i = 0; i < _data.length; i++) {
+        if (prevDate != _data[i].selectedDate) {
+          // 다르면 모은 데이터를 저장하고, 모음 리셋
+          if (temp.length > 0) {
+            _listData.add({'date': prevDate, 'ledgerItems': temp});
           }
           prevDate = _data[i].selectedDate;
           temp = [];
@@ -185,11 +183,8 @@ class _HomeListState extends State<HomeList> {
         temp.add(_data[i]); // 데이터 임시 모음
         // _listData.add(_data[i]);
       }
-      if(temp.length > 0) {
-        _listData.add({
-          'date': prevDate,
-          'ledgerItems': temp
-        });
+      if (temp.length > 0) {
+        _listData.add({'date': prevDate, 'ledgerItems': temp});
       }
     });
   }
@@ -202,7 +197,8 @@ class _HomeListState extends State<HomeList> {
       padding: EdgeInsets.only(top: 16.0, left: 10.0),
       // padding: EdgeInsets.symmetric(horizontal: 16.0),
       alignment: Alignment.centerLeft,
-      child: Text(headerString,
+      child: Text(
+        headerString,
         style: TextStyle(
           fontSize: 16,
           color: Theme.of(context).textTheme.subtitle.color,
@@ -231,7 +227,8 @@ class _HomeListState extends State<HomeList> {
 
   @override
   Widget build(BuildContext context) {
-    Function onAddLedgerList = () => General.instance.navigateScreenNamed(context, '/ledger_item_add');
+    Function onAddLedgerList =
+        () => General.instance.navigateScreenNamed(context, '/ledger_item_add');
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(

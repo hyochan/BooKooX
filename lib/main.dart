@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
         dialogBackgroundColor: const Color(0xff272727),
         textTheme: TextTheme(
           title: TextStyle(color: Colors.white),
-          subtitle: TextStyle(color: Asset.Colors.mediumGray),
+          subtitle: TextStyle(color: Asset.Colors.cloudyBlue),
           subhead: TextStyle(color: Colors.white),
           display1: TextStyle(color: Asset.Colors.cloudyBlue),
           display2: TextStyle(color: Asset.Colors.cloudyBlue),
@@ -88,10 +88,12 @@ class MyApp extends StatelessWidget {
         '/terms': (BuildContext context) => Terms(),
         '/profile_my': (BuildContext context) => ProfileMy(),
         '/setting': (BuildContext context) => Setting(),
-        '/setting_announcement': (BuildContext context) => SettingAnnouncement(),
+        '/setting_announcement': (BuildContext context) =>
+            SettingAnnouncement(),
         '/setting_opinion': (BuildContext context) => SettingOpinion(),
         '/setting_faq': (BuildContext context) => SettingFAQ(),
-        '/setting_notification': (BuildContext context) => SettingNotification(),
+        '/setting_notification': (BuildContext context) =>
+            SettingNotification(),
         '/ledger_item_add': (BuildContext context) => LedgerItemAdd(),
         '/setting_currency': (BuildContext context) => SettingCurrency(),
         '/setting_excel': (BuildContext context) => SettingExcel(),
@@ -107,20 +109,22 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+      localeResolutionCallback:
+          (Locale locale, Iterable<Locale> supportedLocales) {
         if (locale == null) {
           debugPrint("*language locale is null!!!");
           return supportedLocales.first;
         }
         for (Locale supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {
+          if (supportedLocale.languageCode == locale.languageCode ||
+              supportedLocale.countryCode == locale.countryCode) {
             return supportedLocale;
           }
         }
         return supportedLocales.first;
       },
       title: 'BooKoo2',
-      // home: Tutorial(), 
+      // home: Tutorial(),
       home: HomeTab(),
       // home: HomeStatistic(),
     );
