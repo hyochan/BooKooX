@@ -38,7 +38,6 @@ List<LedgerItem> createHomeStatisticMock(Localization localization) {
   ledgerList.addAll(normalExpenseList(localization, currentMonth));
   ledgerList.addAll(normalIncomeList(localization, currentMonth));
 
-
   return ledgerList;
 }
 

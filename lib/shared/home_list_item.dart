@@ -7,41 +7,49 @@ import 'package:bookoo2/models/User.dart';
 class HomeListItem extends StatelessWidget {
   final LedgerItem ledgerItem;
 
-  HomeListItem({Key key, this.ledgerItem}) : super(key: key);
+  HomeListItem({
+    Key key,
+    this.ledgerItem,
+  }) : super(key: key);
 
-  List<Widget> buildLabelArea(String label, { User writer }) {
+  List<Widget> buildLabelArea(
+    String label, {
+    User writer,
+    BuildContext context,
+  }) {
     List<Widget> labelArea = [];
     labelArea.add(
       Container(
         // margin: EdgeInsets.only(bottom: 8.0),
-        child:  Text(
+        child: Text(
           label,
           style: TextStyle(
-            color: Asset.Colors.dusk,
+            color: Theme.of(context).textTheme.title.color,
             fontSize: 16.0,
-          )
+          ),
         ),
-      )
+      ),
     );
-    if(writer != null) {
+    if (writer != null) {
       labelArea.add(
         Container(
           child: Text(
             writer.displayName,
             style: TextStyle(
-              color: Asset.Colors.cloudyBlue,
+              color: Theme.of(context).textTheme.subtitle.color,
               fontSize: 12.0,
             ),
           ),
-        )
+        ),
       );
     }
     return labelArea;
   }
+
   @override
   Widget build(BuildContext context) {
     final formatCurrency = NumberFormat.simpleCurrency();
-    
+
     AssetImage _image = ledgerItem.category.getIconImage();
     String _label = ledgerItem.category.label;
     User _writer = ledgerItem.writer;
@@ -74,7 +82,11 @@ class HomeListItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: buildLabelArea(_label, writer: _writer)
+                children: buildLabelArea(
+                  _label,
+                  writer: _writer,
+                  context: context,
+                ),
               ),
             ),
             Expanded(

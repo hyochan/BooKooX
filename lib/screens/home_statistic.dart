@@ -23,7 +23,7 @@ class HomeStatistic extends StatefulWidget {
   final String title;
 
   @override
-  _HomeStatisticState createState() => new _HomeStatisticState();
+  _HomeStatisticState createState() => _HomeStatisticState();
 }
 
 class _HomeStatisticState extends State<HomeStatistic> {
@@ -52,7 +52,9 @@ class _HomeStatisticState extends State<HomeStatistic> {
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Container(
-          child: Center(child: Content()),
+          child: Center(
+            child: Content(),
+          ),
         ),
       ),
     );
@@ -63,7 +65,7 @@ class Content extends StatefulWidget {
   Content({Key key}) : super(key: key);
 
   @override
-  _ContentState createState() => new _ContentState();
+  _ContentState createState() => _ContentState();
 }
 
 class _ContentState extends State<Content> {
@@ -72,10 +74,10 @@ class _ContentState extends State<Content> {
 
   /// State
   DateTime _date = DateTime.now(); //todo: initialize with parent's
-  List<LedgerItem> _ledgerListOfSelectedMonth = new List<LedgerItem>();
-  List<LedgerItem> _condensedLedgerList = new List();
-  Map<String, double> _dataMapIncome = new Map();
-  Map<String, double> _dataMapExpense = new Map();
+  List<LedgerItem> _ledgerListOfSelectedMonth = List<LedgerItem>();
+  List<LedgerItem> _condensedLedgerList = List();
+  Map<String, double> _dataMapIncome = Map();
+  Map<String, double> _dataMapExpense = Map();
   int _chartType;
 
   // List<Color> colorList = [
@@ -180,7 +182,7 @@ class _ContentState extends State<Content> {
     var chartWidget = dataMap.length > 0
         ? PieChart(
             dataMap: dataMap,
-            legendFontColor: Colors.blueGrey[900],
+            legendFontColor: Theme.of(context).textTheme.title.color,
             legendFontSize: 14.0,
             legendFontWeight: FontWeight.w500,
             animationDuration: Duration(milliseconds: 800),
@@ -189,7 +191,8 @@ class _ContentState extends State<Content> {
             showChartValuesInPercentage: true,
             showChartValues: true,
             showChartValuesOutside: false,
-            chartValuesColor: Colors.blueGrey[900].withOpacity(0.9),
+            chartValuesColor:
+                Theme.of(context).textTheme.display3.color.withOpacity(0.9),
             colorList: colorList,
             showLegends: true,
             decimalPlaces: 1,
@@ -230,8 +233,10 @@ class _ContentState extends State<Content> {
                 ),
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.only(
-                    topLeft: borderRadius, bottomLeft: borderRadius),
+                borderRadius: BorderRadius.only(
+                  topLeft: borderRadius,
+                  bottomLeft: borderRadius,
+                ),
                 side: BorderSide(color: Theme.of(context).primaryColor),
               ),
             ),
@@ -254,9 +259,13 @@ class _ContentState extends State<Content> {
                 ),
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.only(
-                    topRight: borderRadius, bottomRight: borderRadius),
-                side: BorderSide(color: Theme.of(context).primaryColor),
+                borderRadius: BorderRadius.only(
+                  topRight: borderRadius,
+                  bottomRight: borderRadius,
+                ),
+                side: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ),
           ),
@@ -301,7 +310,7 @@ List<LedgerItem> ledgerListByMonth(
   String month,
   List<LedgerItem> ledgersIn,
 ) {
-  List<LedgerItem> ledgersOut = new List<LedgerItem>();
+  List<LedgerItem> ledgersOut = List<LedgerItem>();
   print('get ledgers by month of ' + month);
   ledgersIn.forEach((ledger) {
     print('item ' +
@@ -322,7 +331,7 @@ List<LedgerItem> ledgerListByMonth(
 ///h2
 List<LedgerItem> condense(List<LedgerItem> ledgerList) {
   print('ledgerList');
-  Map<String, LedgerItem> mappedLedgerList = new Map();
+  Map<String, LedgerItem> mappedLedgerList = Map();
   ledgerList.forEach((item) {
     print('item ' +
         item.category.toString() +
@@ -339,7 +348,7 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
     print('Map ' + mappedLedgerList.length.toString());
   });
 
-  List<LedgerItem> result = new List();
+  List<LedgerItem> result = List();
   print('mapped result length : ${mappedLedgerList.length}');
   mappedLedgerList.forEach((key, value) {
     result.add(value);
@@ -349,8 +358,8 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
 }
 
 Map<String, Map<String, double>> splitLedger(List<LedgerItem> ledgerList) {
-  Map<String, double> income = new Map();
-  Map<String, double> expense = new Map();
+  Map<String, double> income = Map();
+  Map<String, double> expense = Map();
 
   /// map ledgerList to dataMap
   ledgerList.forEach((ledger) {
