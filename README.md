@@ -1,7 +1,7 @@
 # BooKoo2
 [![Build Status](https://travis-ci.com/hyochan/bookoo2.svg?token=LrhznigBQyTepcFfeNdp&branch=master)](https://travis-ci.com/hyochan/bookoo2)
 [![Coverage Status](https://coveralls.io/repos/github/hyochan/bookoo2/badge.svg?branch=master)](https://coveralls.io/github/hyochan/bookoo2?branch=master)
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
 BooKoo2 is the renewal app of [BooKoo](https://apps.apple.com/us/app/bookoo/id1276062364?l=ko&ls=1) which is the global SNS ledger app.
@@ -51,6 +51,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/joonmyung"><img src="https://avatars0.githubusercontent.com/u/17468301?v=4" width="60px;" alt="정준명"/><br /><sub><b>정준명</b></sub></a><br /><a href="https://github.com/hyochan/BooKoo2/commits?author=joonmyung" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/godon019"><img src="https://avatars1.githubusercontent.com/u/10363850?v=4" width="60px;" alt="Dong-Kyun Ko"/><br /><sub><b>Dong-Kyun Ko</b></sub></a><br /><a href="https://github.com/hyochan/BooKoo2/commits?author=godon019" title="Code">💻</a> <a href="https://github.com/hyochan/BooKoo2/commits?author=godon019" title="Tests">⚠️</a> <a href="https://github.com/hyochan/BooKoo2/commits?author=godon019" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/bumjoo"><img src="https://avatars1.githubusercontent.com/u/43266906?v=4" width="60px;" alt="bumjoo.lee"/><br /><sub><b>bumjoo.lee</b></sub></a><br /><a href="https://github.com/hyochan/BooKoo2/commits?author=bumjoo" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Jay-flow"><img src="https://avatars0.githubusercontent.com/u/29420674?v=4" width="60px;" alt="J-flow"/><br /><sub><b>J-flow</b></sub></a><br /><a href="https://github.com/hyochan/BooKoo2/commits?author=Jay-flow" title="Code">💻</a></td>
   </tr>
 </table>
 
