@@ -1,4 +1,6 @@
-import 'package:bookoo2/screens/home_statistic.dart';
+import 'package:bookoo2/screens/home_statistic/home_statistic.dart';
+import 'package:bookoo2/screens/line_graph.dart';
+import 'package:bookoo2/shared/line_graph_chart.dart';
 import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';

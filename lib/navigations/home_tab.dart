@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:bookoo2/screens/home_calendar.dart' show HomeCalendar;
 import 'package:bookoo2/screens/home_list.dart' show HomeList;
-import 'package:bookoo2/screens/home_statistic.dart' show HomeStatistic;
+import 'package:bookoo2/screens/home_statistic/home_statistic.dart' show HomeStatistic;
 import 'package:bookoo2/screens/home_setting.dart' show HomeSetting;
 
 class HomeTab extends StatefulWidget {

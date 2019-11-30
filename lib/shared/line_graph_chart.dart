@@ -1,0 +1,230 @@
+import 'package:bookoo2/models/LedgerItem.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:intl/intl.dart' show NumberFormat;
+
+/// typing callback function
+typedef void SelectMonthToShow({@required int month, @required double sumOfPrice});
+/// to reduce performance issue, 
+/// if I don't scale down the price values from parent,
+/// chart will have performance issue
+const CHART_SCALE = 10000;
+class LineGraphChart extends StatefulWidget {
+  final List<LedgerItem> items;
+  final SelectMonthToShow onSelectMonth;
+  LineGraphChart({@required this.items, this.onSelectMonth});
+
+  @override
+  _LineGraphChartState createState() => _LineGraphChartState();
+}
+
+class _LineGraphChartState extends State<LineGraphChart> {
+  ChartValues chartValues;
+  double _minY, _maxY;
+  var _spots;
+
+  @override
+  void initState() {
+    super.initState();
+    /// make min, max values and spots(tuple values) for chart
+    chartValues = new ChartValues(mapValues(widget.items));
+    _minY = 0;
+    _maxY = chartValues.maxPrice/CHART_SCALE;
+    print('maxY = $_maxY / minY $_minY');
+
+    _spots = chartValues.tupleValues.map((Tuple tuple) {
+      print('month: ${tuple.month} / price ${tuple.price}');
+      return FlSpot(tuple.month.toDouble(), tuple.price/CHART_SCALE);
+    }).toList();
+  }
+
+  List<Color> gradientColors = [
+    // const Color(0xff23b6e6),
+    Colors.blue,
+    // Colors.red,
+    const Color(0xff02d39a),
+  ];
+
+  double _minX = 1;
+  double _maxX = 12;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Stack(
+        children: <Widget>[
+          AspectRatio(
+            aspectRatio: 1.70,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(18),
+                ),
+                // color: const Color(0xff232d37),
+                // color: Colors.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    right: 18.0, left: 12.0, top: 24, bottom: 12),
+                child: LineChart(
+                  mainData(),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  LineChartData mainData() {
+    return LineChartData(
+      minX: _minX,
+      maxX: _maxX,
+      minY: _minY,
+      maxY: _maxY,
+      gridData: FlGridData(
+        show: true,
+        drawVerticalGrid: true,
+        getDrawingHorizontalGridLine: (value) {
+          return const FlLine(
+            // color: Color(0xff37434d),
+            color: Color(0xd5d5d5ff),
+            strokeWidth: 1,
+          );
+        },
+        getDrawingVerticalGridLine: (value) {
+          return const FlLine(
+            // color: Color(0xff37434d),
+            color: Color(0xd5d5d5ff),
+
+            strokeWidth: 1,
+          );
+        },
+      ),
+      titlesData: FlTitlesData(
+        show: true,
+        bottomTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 22,
+          textStyle: TextStyle(
+              color: const Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 13),
+          getTitles: (value) {
+            if (value % 2 == 1) return '${value.toInt()}월';
+          },
+          margin: 8,
+        ),
+        leftTitles: SideTitles(
+          showTitles: true,
+          textStyle: TextStyle(
+            color: const Color(0xff67727d),
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
+          getTitles: (value) {
+            // return '${value.toInt()}';
+          },
+          reservedSize: 0,
+          margin: 12,
+        ),
+      ),
+      borderData: FlBorderData(
+        show: true,
+        border: Border.all(color: const Color(0xff37434d), width: 1),
+      ),
+      lineTouchData: LineTouchData(
+        touchTooltipData: LineTouchTooltipData(
+          tooltipBgColor: Colors.blueAccent,
+          getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+            return touchedBarSpots.map((barSpot) {
+              final flSpot = barSpot;
+
+              return LineTooltipItem(
+                '${NumberFormat.simpleCurrency().format((flSpot.y * CHART_SCALE) ?? 0.0)}',
+                const TextStyle(color: Colors.white),
+              );
+            }).toList();
+          },
+        ),
+        touchCallback: (LineTouchResponse res) {
+          res.lineBarSpots.forEach((spot){
+            print(spot.x);
+            print(spot.y);
+            widget.onSelectMonth(month: spot.x.toInt(), sumOfPrice: spot.y*CHART_SCALE);
+          });
+        },
+      ),
+      lineBarsData: [
+        LineChartBarData(
+          spots: _spots,
+          isCurved: false,
+          colors: gradientColors,
+          barWidth: 5,
+          isStrokeCapRound: true,
+          dotData: const FlDotData(
+            show: false,
+          ),
+          belowBarData: BarAreaData(
+            show: true,
+            colors:
+                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Tuple {
+  final double price;
+  final int month;
+  const Tuple({@required this.price, @required this.month});
+}
+
+class ChartValues {
+  var minPrice;
+  var maxPrice;
+  List<Tuple> tupleValues = new List();
+
+  ChartValues(Map<String, double> items) {
+    List<double> priceList = new List();
+    items.forEach((String month, double price) {
+      priceList.add(price);
+      this.tupleValues.add(Tuple(price: price, month: int.parse(month)));
+    });
+    this.minPrice = priceList.reduce(min);
+    this.maxPrice = priceList.reduce(max);
+  }
+}
+
+Map<String, double> mapValues(List<LedgerItem> items) {
+  /// shape of { 'month': price, 'month': price, ... }
+  Map<String, double> returnVal = {
+    '1': 0,
+    '2': 0,
+    '3': 0,
+    '4': 0,
+    '5': 0,
+    '6': 0,
+    '7': 0,
+    '8': 0,
+    '9': 0,
+    '10': 0,
+    '11': 0,
+    '12': 0,
+  };
+
+  items.forEach((LedgerItem item) {
+    print(
+        'month : ${item.selectedDate.month.toString()} / price: ${item.price.abs()} / value on map[month] : ${returnVal[item.selectedDate.month.toString()]}');
+    returnVal[item.selectedDate.month.toString()] =
+        item.price.abs() + returnVal[item.selectedDate.month.toString()];
+  });
+
+  print(returnVal);
+
+  return returnVal;
+}

@@ -36,7 +36,7 @@ List<LedgerItem> createHomeStatisticMock(Localization localization) {
   /// test for stacking same ledgers
   ledgerList.addAll(normalExpenseList(localization, currentMonth));
   ledgerList.addAll(normalExpenseList(localization, currentMonth));
-  ledgerList.addAll(normalIncomeList(localization, currentMonth));
+  ledgerList.addAll(normalIncomeList(localization, currentMonth));  
 
   return ledgerList;
 }
