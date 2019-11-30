@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:intl/intl.dart';
 import 'package:bookoo2/models/User.dart';
+import 'package:bookoo2/utils/general.dart' show General;
 
 class HomeListItem extends StatelessWidget {
   final LedgerItem ledgerItem;
@@ -60,9 +61,8 @@ class HomeListItem extends StatelessWidget {
 
     return FlatButton(
       padding: EdgeInsets.all(0),
-      onPressed: () {
-        print('onPress');
-      },
+      onPressed: () =>
+          General.instance.navigateScreenNamed(context, '/line_graph'),
       child: Container(
         height: 60,
         child: Row(

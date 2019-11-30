@@ -25,7 +25,7 @@ class HomeHeaderExpanded extends StatelessWidget {
         centerTitle: false,
         titlePadding: _titlePadding,
         title: SafeArea(
-          left: false,
+          right: false,
           child: Text(
             this.title,
             style: TextStyle(

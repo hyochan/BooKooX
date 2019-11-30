@@ -27,8 +27,6 @@ List<LedgerItem> createCalendarLedgerItemMock(Localization localization) {
           iconId: 4,
           label: localization.trans('DATING'),
           type: CategoryType.CONSUME),
-      memo: 'who1 gave me',
-      writer: new User(uid: 'who1@gmail.com'),
       selectedDate: new DateTime(2019, currentMonth, 10)));
   ledgerList.add(new LedgerItem(
       price: -3100,
@@ -57,7 +55,7 @@ List<LedgerItem> createCalendarLedgerItemMock(Localization localization) {
           iconId: 0,
           label: localization.trans('CAFE'),
           type: CategoryType.CONSUME),
-      selectedDate: new DateTime(2019, currentMonth, 10)));
+      selectedDate: new DateTime(2019, currentMonth, 15)));
   ledgerList.add(new LedgerItem(
       price: -12000,
       category: Category(

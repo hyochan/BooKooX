@@ -2,7 +2,7 @@ import 'package:bookoo2/mocks/home_calendar.mock.dart';
 import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:bookoo2/shared/date_selector.dart' show DateSelector;
 import 'package:bookoo2/shared/home_list_item.dart';
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoo2/utils/localization.dart' show Localization;
 import 'package:flutter/material.dart';
 
 import 'package:bookoo2/utils/general.dart';
@@ -37,10 +37,11 @@ class _HomeCalendarState extends State<HomeCalendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            HomeHeaderExpanded(title: widget.title, actions: [
+      body: CustomScrollView(
+        slivers: <Widget>[
+          HomeHeaderExpanded(
+            title: widget.title,
+            actions: [
               Container(
                 width: 56.0,
                 child: RawMaterialButton(
@@ -67,13 +68,14 @@ class _HomeCalendarState extends State<HomeCalendar> {
                   ),
                 ),
               ),
+            ],
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              MyHomePage(),
             ]),
-          ];
-        },
-        controller: _scrollController,
-        body: Container(
-          child: new MyHomePage(),
-        ),
+          )
+        ],
       ),
     );
   }
@@ -110,7 +112,6 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       });
     });
-    print(_ledgerListOfSelectedDate.length);
     _currentMonth = DateFormat.yMMM().format(date);
   }
 
@@ -148,27 +149,27 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return SafeArea(
       top: false,
-      child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+      // child: Container(color: Colors.red, height: 500, child: Text('hey'))
+      child: Column(
+        // mainAxisSize: MainAxisSize.min,
+        // shrinkWrap: true,
+        // padding: const EdgeInsets.symmetric(horizontal: 16),
         children: <Widget>[
           DateSelector(
             date: _currentMonth,
             onDatePressed: onDatePressed,
           ),
-          Container(
-            child: calendar(
-              context: context,
-              onCalendarChanged: (DateTime date) {
-                this.setState(
-                    () => _currentMonth = DateFormat.yMMM().format(date));
-              },
-              onDayPressed: (DateTime date, List<Event> events) {
-                this.selectDate(date);
-                events.forEach((event) => print(event.title));
-              },
-              markedDateMap: _markedDateMap,
-              currentDate: _currentDate,
-            ),
+          calendar(
+            context: context,
+            onCalendarChanged: (DateTime date) {
+              this.setState(
+                  () => _currentMonth = DateFormat.yMMM().format(date));
+            },
+            onDayPressed: (DateTime date, List<Event> events) {
+              this.selectDate(date);
+            },
+            markedDateMap: _markedDateMap,
+            currentDate: _currentDate,
           ),
           Divider(
             color: Colors.grey,
@@ -221,9 +222,9 @@ Widget calendar({
 
     weekFormat: false,
     showHeader: false,
-    height:
-        MediaQuery.of(context).orientation == Orientation.portrait ? 350 : 400,
     thisMonthDayBorderColor: Colors.grey,
+    height:
+        MediaQuery.of(context).orientation == Orientation.portrait ? 380 : 490,
     childAspectRatio:
         MediaQuery.of(context).orientation == Orientation.portrait ? 1.0 : 1.5,
 

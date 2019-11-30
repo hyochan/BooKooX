@@ -7,7 +7,6 @@ import '../utils/localization.dart' show Localization;
 import '../shared/header.dart' show renderHeaderBack;
 
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
-import '../utils/asset.dart' as Asset;
 
 /// utils
 bool notNull(Object o) => o != null;
@@ -48,7 +47,7 @@ class _LineGraphState extends State<LineGraph> {
 
       // this._items = createCafeList(_localization);
       this.setState(() {
-        this._items = createCafeList(_localization);
+        this._items = createMockCafeList(_localization);
         this._selectedItems = this._items;
         this._priceSum = getPriceSum(this._items);
       });
@@ -74,13 +73,11 @@ class _LineGraphState extends State<LineGraph> {
 
   @override
   Widget build(BuildContext context) {
-    /// Variables
     var _localization = Localization.of(context);
-
-    ///todo send all these values to the chart
 
     /// Render
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
@@ -88,7 +85,7 @@ class _LineGraphState extends State<LineGraph> {
         brightness: Brightness.light,
       ),
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             headerAlign(
               child: Text(
@@ -102,7 +99,7 @@ class _LineGraphState extends State<LineGraph> {
             this._items.length != 0
                 ? LineGraphChart(
                     items: this._items, onSelectMonth: this.handleClickGraph)
-                : null,
+                : Container(),
             this._selectedMonth != 0
                 ? BottomListTitle(
                     date: DateFormat('yMMM').format(
@@ -118,29 +115,27 @@ class _LineGraphState extends State<LineGraph> {
               indent: 40,
               endIndent: 40,
             ),
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
-                itemCount: this._selectedItems.length,
-                itemBuilder: (context, index) {
-                  final item = this._selectedItems[index];
-                  return bottomItemWidget(
-                    date: DateFormat('yyyy-MM-dd').format(item.selectedDate),
-                    price: item.price.abs(),
-                  );
-                },
-              ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
+              itemCount: this._selectedItems.length,
+              itemBuilder: (context, index) {
+                final item = this._selectedItems[index];
+                return bottomItemWidget(
+                  date: DateFormat('yyyy-MM-dd').format(item.selectedDate),
+                  price: item.price.abs(),
+                );
+              },
             ),
-
-            /// optionally including widgets in a list of children https://github.com/flutter/flutter/issues/3783#issuecomment-275884612
-          ].where(notNull).toList(),
+          ],
         ),
       ),
     );
   }
 }
 
-// Wigets
+/// Wigets
 Widget headerAlign({@required Widget child}) {
   return Align(
     alignment: Alignment.centerLeft,
@@ -165,7 +160,6 @@ class BottomListTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Asset.Colors.paleGray,
       padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
       child: ListTile(
         leading: Text(
@@ -185,7 +179,6 @@ class BottomListTitle extends StatelessWidget {
   }
 }
 
-// Wigets
 Widget bottomItemWidget({@required String date, @required double price}) {
   double fontSize = 15;
   return ListTile(

@@ -2,14 +2,12 @@ import 'package:bookoo2/models/Category.dart';
 import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:bookoo2/utils/localization.dart';
 
-List<LedgerItem> createCafeList(Localization localization) {
+List<LedgerItem> createMockCafeList(Localization localization) {
   List<LedgerItem> ledgerList = new List<LedgerItem>();
   var currentMonth = DateTime.now().month;
 
   /// should show
-  /// - sorted
   /// - summed(same date)
-  /// 
   ledgerList.addAll(cafe(localization, currentMonth, 1));
   ledgerList.addAll(cafe(localization, currentMonth, 3));
   ledgerList.addAll(cafe(localization, currentMonth, 3));
@@ -49,11 +47,12 @@ List<LedgerItem> createCafeList(Localization localization) {
 cafe(Localization localization, month, day) {
   return [
     new LedgerItem(
-        price: -12000,
-        category: Category(
-            iconId: 8,
-            label: localization.trans('CAFE'),
-            type: CategoryType.CONSUME),
-        selectedDate: new DateTime(2019, month, day)),
+      price: -12000,
+      category: Category(
+          iconId: 8,
+          label: localization.trans('CAFE'),
+          type: CategoryType.CONSUME),
+      selectedDate: new DateTime(2019, month, day),
+    ),
   ];
 }

@@ -10,24 +10,24 @@ class DateSelector extends StatelessWidget {
       margin: EdgeInsets.all(16.0),
       child: Row(
         children: <Widget>[
-          /// todo: make a better clickable effect
-          InkWell(
-            onTap: this.onDatePressed,
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                this.date,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
+          FlatButton(
+            onPressed: this.onDatePressed,
+            child: Row(
+              children: <Widget>[
+                Text(
+                  this.date,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24.0,
+                  ),
                 ),
-              ),
+                IconButton(
+                  icon: Icon(Icons.arrow_drop_down),
+                  color: Colors.grey,
+                  onPressed: onDatePressed,
+                ),
+              ],
             ),
-          ),
-          IconButton(
-            icon: Icon(Icons.arrow_drop_down),
-            color: Colors.grey,
-            onPressed: onDatePressed,
           ),
         ],
       ),

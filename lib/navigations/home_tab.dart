@@ -13,7 +13,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  int _index = 2;
+  int _index = 0;
   String _title = 'Dream Worker';
 
   @override

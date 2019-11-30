@@ -103,6 +103,7 @@ class MyApp extends StatelessWidget {
         '/setting_excel': (BuildContext context) => SettingExcel(),
         '/lock_register': (BuildContext context) => LockRegister(),
         '/lock_auth': (BuildContext context) => LockAuth(),
+        '/line_graph': (BuildContext context) => LineGraph(),
       },
       supportedLocales: [
         const Locale('en', 'US'),
@@ -130,6 +131,7 @@ class MyApp extends StatelessWidget {
       title: 'BooKoo2',
       // home: Tutorial(),
       home: HomeTab(),
+      // home: LineGraph(),
       // home: HomeStatistic(),
     );
   }

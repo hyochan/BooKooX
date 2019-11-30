@@ -5,32 +5,31 @@ List<LedgerItem> ledgerListByMonth(
   List<LedgerItem> ledgersIn,
 ) {
   List<LedgerItem> ledgersOut = new List<LedgerItem>();
-  print('get ledgers by month of ' + month);
+  // print('get ledgers by month of ' + month);
   ledgersIn.forEach((ledger) {
-    print('item ' +
-        ledger.category.toString() +
-        ' price: ' +
-        ledger.price.toString());
+    // print('item ' +
+    //     ledger.category.toString() +
+    //     ' price: ' +
+    //     ledger.price.toString());
 
     if (ledger.selectedDate.month.toString() == month) {
-      print('added');
+      // print('added');
       ledgersOut.add(ledger);
     }
   });
 
-  print('ledger quantity by Month: ' + ledgersOut.length.toString());
+  // print('ledger quantity by Month: ' + ledgersOut.length.toString());
   return ledgersOut;
 }
 
-///h2
 List<LedgerItem> condense(List<LedgerItem> ledgerList) {
-  print('ledgerList');
+  // print('ledgerList');
   Map<String, LedgerItem> mappedLedgerList = new Map();
   ledgerList.forEach((item) {
-    print('item ' +
-        item.category.toString() +
-        ' price: ' +
-        item.price.toString());
+    // print('item ' +
+    //     item.category.toString() +
+    //     ' price: ' +
+    //     item.price.toString());
     mappedLedgerList.update(
       item.category.label,
       (LedgerItem existingItem) {
@@ -39,15 +38,15 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
       },
       ifAbsent: () => item.createRoughCopy(),
     );
-    print('Map ' + mappedLedgerList.length.toString());
+    // print('Map ' + mappedLedgerList.length.toString());
   });
 
   List<LedgerItem> result = new List();
-  print('mapped result length : ${mappedLedgerList.length}');
+  // print('mapped result length : ${mappedLedgerList.length}');
   mappedLedgerList.forEach((key, value) {
     result.add(value);
   });
-  print('list length : ${result.length}');
+  // print('list length : ${result.length}');
   return result;
 }
 

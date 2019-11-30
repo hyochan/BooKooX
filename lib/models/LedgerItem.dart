@@ -55,6 +55,8 @@ class LedgerItem {
   /// specific function for condense() at homeStatistic
   /// make a new 'rough' copy of this
   /// this copy those properties that is being used. other properties not specified here is not being used
+  /// this is being used to reduce boilerplate when creating new Ledger with same property values
+  /// that means this is basically same with making new LedgerItem but less code
   LedgerItem createRoughCopy() {
     return LedgerItem(
       price: this.price,

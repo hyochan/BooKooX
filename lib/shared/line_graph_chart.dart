@@ -2,7 +2,7 @@ import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:intl/intl.dart' show NumberFormat;
+import 'package:intl/intl.dart' show NumberFormat, DateFormat;
 
 /// typing callback function
 typedef void SelectMonthToShow({@required int month, @required double sumOfPrice});
@@ -31,18 +31,14 @@ class _LineGraphChartState extends State<LineGraphChart> {
     chartValues = new ChartValues(mapValues(widget.items));
     _minY = 0;
     _maxY = chartValues.maxPrice/CHART_SCALE;
-    print('maxY = $_maxY / minY $_minY');
 
     _spots = chartValues.tupleValues.map((Tuple tuple) {
-      print('month: ${tuple.month} / price ${tuple.price}');
       return FlSpot(tuple.month.toDouble(), tuple.price/CHART_SCALE);
     }).toList();
   }
 
   List<Color> gradientColors = [
-    // const Color(0xff23b6e6),
     Colors.blue,
-    // Colors.red,
     const Color(0xff02d39a),
   ];
 
@@ -61,8 +57,6 @@ class _LineGraphChartState extends State<LineGraphChart> {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(18),
                 ),
-                // color: const Color(0xff232d37),
-                // color: Colors.white,
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -113,7 +107,7 @@ class _LineGraphChartState extends State<LineGraphChart> {
               fontWeight: FontWeight.bold,
               fontSize: 13),
           getTitles: (value) {
-            if (value % 2 == 1) return '${value.toInt()}월';
+            if (value % 2 == 1) return DateFormat('MMM').format(DateTime(0, value.toInt()));
           },
           margin: 8,
         ),
@@ -151,8 +145,6 @@ class _LineGraphChartState extends State<LineGraphChart> {
         ),
         touchCallback: (LineTouchResponse res) {
           res.lineBarSpots.forEach((spot){
-            print(spot.x);
-            print(spot.y);
             widget.onSelectMonth(month: spot.x.toInt(), sumOfPrice: spot.y*CHART_SCALE);
           });
         },
@@ -218,13 +210,9 @@ Map<String, double> mapValues(List<LedgerItem> items) {
   };
 
   items.forEach((LedgerItem item) {
-    print(
-        'month : ${item.selectedDate.month.toString()} / price: ${item.price.abs()} / value on map[month] : ${returnVal[item.selectedDate.month.toString()]}');
     returnVal[item.selectedDate.month.toString()] =
         item.price.abs() + returnVal[item.selectedDate.month.toString()];
   });
-
-  print(returnVal);
 
   return returnVal;
 }

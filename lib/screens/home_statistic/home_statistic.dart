@@ -7,13 +7,13 @@ import 'package:bookoo2/shared/home_list_item.dart';
 import 'package:bookoo2/utils/asset.dart' as Assets;
 import 'package:bookoo2/utils/localization.dart';
 import 'package:flutter/material.dart';
-import 'package:bookoo2/mocks/home_statistic.mock.dart';
 
 import 'package:bookoo2/utils/general.dart' show General;
 import 'package:bookoo2/shared/home_header.dart' show renderHomeAppBar;
-import 'package:pie_chart/pie_chart.dart';
+import 'package:pie_chart/pie_chart.dart' show PieChart;
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:bookoo2/utils/localization.dart' show Localization;
 
 class HomeStatistic extends StatelessWidget {
   HomeStatistic({
@@ -110,12 +110,11 @@ class _ContentState extends State<Content> {
       this._dataMapIncome = result['income'];
       this._dataMapExpense = result['expense'];
     });
-    print(
-        'dataMapIncome : ${this._dataMapIncome} / dataMapExpense: ${this._dataMapExpense}');
   }
 
   @override
   Widget build(BuildContext context) {
+    var localization = Localization.of(context);
     /// Month select Widget -> select month, set _date and calculate
     void onDatePressed() async {
       int year = this._date.year;
@@ -156,8 +155,19 @@ class _ContentState extends State<Content> {
             decimalPlaces: 1,
           )
         : Container(
-            child: Text(
-              'No data to show',
+            child: Flex(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(20),
+                ),
+                Text(
+                  localization.trans('NO_DATA'),
+                  style: TextStyle(),
+                ),
+              ],
+              direction: Axis.vertical,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
             ),
           );
 
@@ -228,10 +238,11 @@ class ButtonGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color selectedColor = Theme.of(context).primaryColor;
-
+    var localization = Localization.of(context);
     return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      height: 40,
       width: double.infinity,
-      height: 80,
       child: Row(
         children: <Widget>[
           Container(width: 30),
@@ -242,7 +253,7 @@ class ButtonGroup extends StatelessWidget {
                 color: this.selected == 1 ? selectedColor : Colors.white,
                 onPressed: this.onButtonOnePressed,
                 child: Text(
-                  "수입",
+                  localization.trans("INCOME"),
                   style: TextStyle(
                     color:
                         this.selected == 1 ? selectedColorText : Colors.black,
@@ -263,7 +274,7 @@ class ButtonGroup extends StatelessWidget {
                 color: this.selected == 2 ? selectedColor : Colors.white,
                 onPressed: this.onButtonTwoPressed,
                 child: Text(
-                  "지출",
+                  localization.trans("CONSUME"),
                   style: TextStyle(
                     color:
                         this.selected == 2 ? selectedColorText : Colors.black,
