@@ -21,7 +21,7 @@ class HomeCalendar extends StatefulWidget {
   final String title;
 
   @override
-  _HomeCalendarState createState() => new _HomeCalendarState();
+  _HomeCalendarState createState() => _HomeCalendarState();
 }
 
 class _HomeCalendarState extends State<HomeCalendar> {
@@ -85,20 +85,20 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate = DateTime.now();
   String _currentMonth = '';
 
-  EventList<Event> _markedDateMap = new EventList<Event>();
+  EventList<Event> _markedDateMap = EventList<Event>();
 
   /// ledgerList from parents
-  List<LedgerItem> _ledgerList = new List<LedgerItem>();
+  List<LedgerItem> _ledgerList = List<LedgerItem>();
 
   /// for bottom list UI
-  List<LedgerItem> _ledgerListOfSelectedDate = new List<LedgerItem>();
+  List<LedgerItem> _ledgerListOfSelectedDate = List<LedgerItem>();
 
   void selectDate(
     DateTime date,
@@ -118,14 +118,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    new Future.delayed(Duration.zero, () {
+    Future.delayed(Duration.zero, () {
       var _localization = Localization.of(context);
 
       _ledgerList = createCalendarLedgerItemMock(_localization);
 
       _ledgerList.forEach((ledger) {
         _markedDateMap.add(ledger.selectedDate,
-            new Event(date: ledger.selectedDate, title: ledger.category.label));
+            Event(date: ledger.selectedDate, title: ledger.category.label));
       });
     });
   }
@@ -198,7 +198,7 @@ Widget calendar({
   markedDateMap,
   currentDate,
 }) {
-  return new CalendarCarousel<Event>(
+  return CalendarCarousel<Event>(
     onCalendarChanged: onCalendarChanged,
     onDayPressed: onDayPressed,
 
@@ -220,6 +220,7 @@ Widget calendar({
       color: Colors.white,
     ),
 
+    pageSnapping: true,
     weekFormat: false,
     showHeader: false,
     thisMonthDayBorderColor: Colors.grey,
@@ -243,7 +244,7 @@ Widget calendar({
 }
 
 Widget markedIcon({Color color, BuildContext context}) {
-  return new Container(
+  return Container(
     child: Stack(
       children: <Widget>[
         Positioned(

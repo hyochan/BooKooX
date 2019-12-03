@@ -36,13 +36,13 @@ class LineGraph extends StatefulWidget {
 class _LineGraphState extends State<LineGraph> {
   int _selectedMonth = 0;
   double _priceSum = 0;
-  List<LedgerItem> _items = new List();
-  List<LedgerItem> _selectedItems = new List();
+  List<LedgerItem> _items = List();
+  List<LedgerItem> _selectedItems = List();
 
   @override
   void initState() {
     super.initState();
-    new Future.delayed(Duration.zero, () {
+    Future.delayed(Duration.zero, () {
       var _localization = Localization.of(context);
 
       // this._items = createCafeList(_localization);
@@ -57,7 +57,7 @@ class _LineGraphState extends State<LineGraph> {
   /// on click the month on graph
   /// set bottom list to show selected month, total expenditure and its list
   void handleClickGraph({@required int month, @required double sumOfPrice}) {
-    List<LedgerItem> itemsOfThisMonth = new List();
+    List<LedgerItem> itemsOfThisMonth = List();
     this._items.forEach((item) {
       if (item.selectedDate.month == month) {
         itemsOfThisMonth.add(item);

@@ -4,7 +4,7 @@ List<LedgerItem> ledgerListByMonth(
   String month,
   List<LedgerItem> ledgersIn,
 ) {
-  List<LedgerItem> ledgersOut = new List<LedgerItem>();
+  List<LedgerItem> ledgersOut = List<LedgerItem>();
   // print('get ledgers by month of ' + month);
   ledgersIn.forEach((ledger) {
     // print('item ' +
@@ -24,7 +24,7 @@ List<LedgerItem> ledgerListByMonth(
 
 List<LedgerItem> condense(List<LedgerItem> ledgerList) {
   // print('ledgerList');
-  Map<String, LedgerItem> mappedLedgerList = new Map();
+  Map<String, LedgerItem> mappedLedgerList = Map();
   ledgerList.forEach((item) {
     // print('item ' +
     //     item.category.toString() +
@@ -41,7 +41,7 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
     // print('Map ' + mappedLedgerList.length.toString());
   });
 
-  List<LedgerItem> result = new List();
+  List<LedgerItem> result = List();
   // print('mapped result length : ${mappedLedgerList.length}');
   mappedLedgerList.forEach((key, value) {
     result.add(value);
@@ -51,8 +51,8 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
 }
 
 Map<String, Map<String, double>> splitLedgers(List<LedgerItem> ledgerList) {
-  Map<String, double> income = new Map();
-  Map<String, double> expense = new Map();
+  Map<String, double> income = Map();
+  Map<String, double> expense = Map();
 
   /// map ledgerList to dataMap
   ledgerList.forEach((ledger) {

@@ -5,11 +5,14 @@ import 'dart:math';
 import 'package:intl/intl.dart' show NumberFormat, DateFormat;
 
 /// typing callback function
-typedef void SelectMonthToShow({@required int month, @required double sumOfPrice});
-/// to reduce performance issue, 
+typedef void SelectMonthToShow(
+    {@required int month, @required double sumOfPrice});
+
+/// to reduce performance issue,
 /// if I don't scale down the price values from parent,
 /// chart will have performance issue
 const CHART_SCALE = 10000;
+
 class LineGraphChart extends StatefulWidget {
   final List<LedgerItem> items;
   final SelectMonthToShow onSelectMonth;
@@ -27,13 +30,14 @@ class _LineGraphChartState extends State<LineGraphChart> {
   @override
   void initState() {
     super.initState();
+
     /// make min, max values and spots(tuple values) for chart
-    chartValues = new ChartValues(mapValues(widget.items));
+    chartValues = ChartValues(mapValues(widget.items));
     _minY = 0;
-    _maxY = chartValues.maxPrice/CHART_SCALE;
+    _maxY = chartValues.maxPrice / CHART_SCALE;
 
     _spots = chartValues.tupleValues.map((Tuple tuple) {
-      return FlSpot(tuple.month.toDouble(), tuple.price/CHART_SCALE);
+      return FlSpot(tuple.month.toDouble(), tuple.price / CHART_SCALE);
     }).toList();
   }
 
@@ -107,7 +111,8 @@ class _LineGraphChartState extends State<LineGraphChart> {
               fontWeight: FontWeight.bold,
               fontSize: 13),
           getTitles: (value) {
-            if (value % 2 == 1) return DateFormat('MMM').format(DateTime(0, value.toInt()));
+            if (value % 2 == 1)
+              return DateFormat('MMM').format(DateTime(0, value.toInt()));
           },
           margin: 8,
         ),
@@ -144,8 +149,9 @@ class _LineGraphChartState extends State<LineGraphChart> {
           },
         ),
         touchCallback: (LineTouchResponse res) {
-          res.lineBarSpots.forEach((spot){
-            widget.onSelectMonth(month: spot.x.toInt(), sumOfPrice: spot.y*CHART_SCALE);
+          res.lineBarSpots.forEach((spot) {
+            widget.onSelectMonth(
+                month: spot.x.toInt(), sumOfPrice: spot.y * CHART_SCALE);
           });
         },
       ),
@@ -179,10 +185,10 @@ class Tuple {
 class ChartValues {
   var minPrice;
   var maxPrice;
-  List<Tuple> tupleValues = new List();
+  List<Tuple> tupleValues = List();
 
   ChartValues(Map<String, double> items) {
-    List<double> priceList = new List();
+    List<double> priceList = List();
     items.forEach((String month, double price) {
       priceList.add(price);
       this.tupleValues.add(Tuple(price: price, month: int.parse(month)));

@@ -69,10 +69,10 @@ class _ContentState extends State<Content> {
 
   /// State
   DateTime _date = DateTime.now(); //todo: initialize with parent's
-  List<LedgerItem> _ledgerListOfSelectedMonth = new List<LedgerItem>();
-  List<LedgerItem> _condensedLedgerList = new List();
-  Map<String, double> _dataMapIncome = new Map();
-  Map<String, double> _dataMapExpense = new Map();
+  List<LedgerItem> _ledgerListOfSelectedMonth = List<LedgerItem>();
+  List<LedgerItem> _condensedLedgerList = List();
+  Map<String, double> _dataMapIncome = Map();
+  Map<String, double> _dataMapExpense = Map();
   int _selectedChart;
 
   List<Color> colorList = [
@@ -115,6 +115,7 @@ class _ContentState extends State<Content> {
   @override
   Widget build(BuildContext context) {
     var localization = Localization.of(context);
+
     /// Month select Widget -> select month, set _date and calculate
     void onDatePressed() async {
       int year = this._date.year;
@@ -260,7 +261,7 @@ class ButtonGroup extends StatelessWidget {
                   ),
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                       topLeft: borderRadius, bottomLeft: borderRadius),
                   side: BorderSide(color: Theme.of(context).primaryColor),
                 ),
@@ -281,7 +282,7 @@ class ButtonGroup extends StatelessWidget {
                   ),
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                       topRight: borderRadius, bottomRight: borderRadius),
                   side: BorderSide(color: Theme.of(context).primaryColor),
                 ),

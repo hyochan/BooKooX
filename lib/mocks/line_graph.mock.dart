@@ -3,7 +3,7 @@ import 'package:bookoo2/models/LedgerItem.dart';
 import 'package:bookoo2/utils/localization.dart';
 
 List<LedgerItem> createMockCafeList(Localization localization) {
-  List<LedgerItem> ledgerList = new List<LedgerItem>();
+  List<LedgerItem> ledgerList = List<LedgerItem>();
   var currentMonth = DateTime.now().month;
 
   /// should show
@@ -46,13 +46,13 @@ List<LedgerItem> createMockCafeList(Localization localization) {
 
 cafe(Localization localization, month, day) {
   return [
-    new LedgerItem(
+    LedgerItem(
       price: -12000,
       category: Category(
           iconId: 8,
           label: localization.trans('CAFE'),
           type: CategoryType.CONSUME),
-      selectedDate: new DateTime(2019, month, day),
+      selectedDate: DateTime(2019, month, day),
     ),
   ];
 }
