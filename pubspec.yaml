@@ -48,7 +48,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.7.2"
-  flutter_calendar_carousel: "1.3.28"
+  flutter_calendar_carousel: "1.4.2"
   flutter_native_splash: ^0.1.9
 
 flutter_icons:
