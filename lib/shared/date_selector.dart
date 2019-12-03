@@ -7,7 +7,7 @@ class DateSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16.0),
+      margin: EdgeInsets.only(left: 3, top: 32, bottom: 20),
       child: Row(
         children: <Widget>[
           FlatButton(
