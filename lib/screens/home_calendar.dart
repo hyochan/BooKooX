@@ -152,39 +152,43 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return SafeArea(
       top: false,
-      child: Column(
-        children: <Widget>[
-          DateSelector(
-            date: this._currentMonth,
-            onDatePressed: onDatePressed,
-          ),
-          calendar(
-            context: context,
-            onCalendarChanged: (DateTime date) {
-              this.setState(
-                  () => _currentMonth = DateFormat.yMMM().format(date));
-            },
-            onDayPressed: (DateTime date, List<Event> events) {
-              this.selectDate(date);
-            },
-            markedDateMap: _markedDateMap,
-            currentDate: _currentDate,
-          ),
-          Divider(
-            color: Colors.grey,
-            indent: 10,
-            endIndent: 10,
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-            itemCount: _ledgerListOfSelectedDate.length,
-            itemBuilder: (BuildContext context, int index) {
-              return HomeListItem(ledgerItem: _ledgerListOfSelectedDate[index]);
-            },
-          ),
-        ],
+      child: Container(
+        margin: EdgeInsets.only(left: 5, right: 5),
+        child: Column(
+          children: <Widget>[
+            DateSelector(
+              date: this._currentMonth,
+              onDatePressed: onDatePressed,
+            ),
+            calendar(
+              context: context,
+              onCalendarChanged: (DateTime date) {
+                this.setState(
+                    () => _currentMonth = DateFormat.yMMM().format(date));
+              },
+              onDayPressed: (DateTime date, List<Event> events) {
+                this.selectDate(date);
+              },
+              markedDateMap: _markedDateMap,
+              currentDate: _currentDate,
+            ),
+            Divider(
+              color: Colors.grey,
+              indent: 10,
+              endIndent: 10,
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              itemCount: _ledgerListOfSelectedDate.length,
+              itemBuilder: (BuildContext context, int index) {
+                return HomeListItem(
+                    ledgerItem: _ledgerListOfSelectedDate[index]);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
