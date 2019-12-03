@@ -89,7 +89,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate = DateTime.now();
+  DateTime _currentDate;
   String _currentMonth = '';
 
   EventList<Event> _markedDateMap = EventList<Event>();
@@ -118,6 +118,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    _currentDate = DateTime.now();
+    _currentMonth = DateFormat.yMMM().format(_currentDate);
+
     Future.delayed(Duration.zero, () {
       var _localization = Localization.of(context);
 
@@ -149,14 +152,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return SafeArea(
       top: false,
-      // child: Container(color: Colors.red, height: 500, child: Text('hey'))
       child: Column(
-        // mainAxisSize: MainAxisSize.min,
-        // shrinkWrap: true,
-        // padding: const EdgeInsets.symmetric(horizontal: 16),
         children: <Widget>[
           DateSelector(
-            date: _currentMonth,
+            date: this._currentMonth,
             onDatePressed: onDatePressed,
           ),
           calendar(
