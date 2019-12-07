@@ -124,11 +124,16 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.delayed(Duration.zero, () {
       var _localization = Localization.of(context);
 
-      _ledgerList = createCalendarLedgerItemMock(_localization);
-
-      _ledgerList.forEach((ledger) {
-        _markedDateMap.add(ledger.selectedDate,
+      List<LedgerItem> ledgerList = createCalendarLedgerItemMock(_localization);
+      EventList<Event> markedDateMap = new EventList<Event>();
+      ledgerList.forEach((ledger) {
+        markedDateMap.add(ledger.selectedDate,
             Event(date: ledger.selectedDate, title: ledger.category.label));
+      });
+      
+      this.setState(() {
+        this._ledgerList = ledgerList;
+        this._markedDateMap = markedDateMap;
       });
     });
   }
