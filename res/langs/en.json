@@ -146,5 +146,6 @@
   "MEMBER_OWNER": "Owner",
   "MEMBER_ADMIN": "Admin",
   "MEMBER_GUEST": "Guest",
-  "SEARCH_USER_HINT": "Search user..."
+  "SEARCH_USER_HINT": "Search user...",
+  "NO_DATA": "No data exists."
 }

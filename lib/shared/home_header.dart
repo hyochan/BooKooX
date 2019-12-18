@@ -25,12 +25,15 @@ class HomeHeaderExpanded extends StatelessWidget {
         centerTitle: false,
         titlePadding: _titlePadding,
         title: SafeArea(
-          left: false,
-          child: Text(
-            this.title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
+          right: false,
+          child: Container(
+            margin: EdgeInsets.only(left: 3),
+            child: Text(
+              this.title,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
             ),
           ),
         ),

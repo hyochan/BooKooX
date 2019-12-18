@@ -1,8 +1,8 @@
-import 'package:bookoo2/models/Category.dart';
+import 'package:bookoo2/mocks/home_calendar.mock.dart';
 import 'package:bookoo2/models/LedgerItem.dart';
-import 'package:bookoo2/models/User.dart';
+import 'package:bookoo2/shared/date_selector.dart' show DateSelector;
 import 'package:bookoo2/shared/home_list_item.dart';
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoo2/utils/localization.dart' show Localization;
 import 'package:flutter/material.dart';
 
 import 'package:bookoo2/utils/general.dart';
@@ -21,7 +21,7 @@ class HomeCalendar extends StatefulWidget {
   final String title;
 
   @override
-  _HomeCalendarState createState() => new _HomeCalendarState();
+  _HomeCalendarState createState() => _HomeCalendarState();
 }
 
 class _HomeCalendarState extends State<HomeCalendar> {
@@ -37,10 +37,11 @@ class _HomeCalendarState extends State<HomeCalendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            HomeHeaderExpanded(title: widget.title, actions: [
+      body: CustomScrollView(
+        slivers: <Widget>[
+          HomeHeaderExpanded(
+            title: widget.title,
+            actions: [
               Container(
                 width: 56.0,
                 child: RawMaterialButton(
@@ -67,13 +68,14 @@ class _HomeCalendarState extends State<HomeCalendar> {
                   ),
                 ),
               ),
+            ],
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              MyHomePage(),
             ]),
-          ];
-        },
-        controller: _scrollController,
-        body: Container(
-          child: new MyHomePage(),
-        ),
+          )
+        ],
       ),
     );
   }
@@ -83,22 +85,20 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate = DateTime.now();
+  DateTime _currentDate;
   String _currentMonth = '';
 
-  EventList<Event> _markedDateMap = new EventList<Event>();
-
-  CalendarCarousel _calendarCarouselNoHeader;
+  EventList<Event> _markedDateMap = EventList<Event>();
 
   /// ledgerList from parents
-  List<LedgerItem> _ledgerList = new List<LedgerItem>();
+  List<LedgerItem> _ledgerList = List<LedgerItem>();
 
   /// for bottom list UI
-  List<LedgerItem> _ledgerListOfSelectedDate = new List<LedgerItem>();
+  List<LedgerItem> _ledgerListOfSelectedDate = List<LedgerItem>();
 
   void selectDate(
     DateTime date,
@@ -112,78 +112,28 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       });
     });
-    print(_ledgerListOfSelectedDate.length);
     _currentMonth = DateFormat.yMMM().format(date);
   }
 
   @override
   void initState() {
     super.initState();
-    new Future.delayed(Duration.zero, () {
+    _currentDate = DateTime.now();
+    _currentMonth = DateFormat.yMMM().format(_currentDate);
+
+    Future.delayed(Duration.zero, () {
       var _localization = Localization.of(context);
 
-      _ledgerList.add(new LedgerItem(
-          price: -12000,
-          category: Category(
-              iconId: 8,
-              label: _localization.trans('EXERCISE'),
-              type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, _currentDate.month, 10)));
-      _ledgerList.add(new LedgerItem(
-          price: 300000,
-          category: Category(
-              iconId: 18,
-              label: _localization.trans('WALLET_MONEY'),
-              type: CategoryType.INCOME),
-          selectedDate: new DateTime(2019, _currentDate.month, 10)));
-      _ledgerList.add(new LedgerItem(
-          price: -32000,
-          category: Category(
-              iconId: 4,
-              label: _localization.trans('DATING'),
-              type: CategoryType.CONSUME),
-          memo: 'who1 gave me',
-          writer: new User(uid: 'who1@gmail.com', displayName: 'hello'),
-          selectedDate: new DateTime(2019, _currentDate.month, 10)));
-      _ledgerList.add(new LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, _currentDate.month, 10)));
-      _ledgerList.add(new LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, _currentDate.month, 10)));
-      _ledgerList.add(new LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, _currentDate.month, 10)));
-      _ledgerList.add(new LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, _currentDate.month, 10)));
-      _ledgerList.add(new LedgerItem(
-          price: -12000,
-          category: Category(
-              iconId: 12,
-              label: _localization.trans('PRESENT'),
-              type: CategoryType.CONSUME),
-          selectedDate: new DateTime(2019, _currentDate.month, 15)));
-
-      _ledgerList.forEach((ledger) {
-        _markedDateMap.add(ledger.selectedDate,
-            new Event(date: ledger.selectedDate, title: ledger.category.label));
+      List<LedgerItem> ledgerList = createCalendarLedgerItemMock(_localization);
+      EventList<Event> markedDateMap = new EventList<Event>();
+      ledgerList.forEach((ledger) {
+        markedDateMap.add(ledger.selectedDate,
+            Event(date: ledger.selectedDate, title: ledger.category.label));
+      });
+      
+      this.setState(() {
+        this._ledgerList = ledgerList;
+        this._markedDateMap = markedDateMap;
       });
     });
   }
@@ -205,115 +155,104 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
 
-    _calendarCarouselNoHeader = CalendarCarousel<Event>(
-      onCalendarChanged: (DateTime date) {
-        this.setState(() => _currentMonth = DateFormat.yMMM().format(date));
-      },
-      onDayPressed: (DateTime date, List<Event> events) {
-        this.selectDate(date);
-        events.forEach((event) => print(event.title));
-      },
-      isScrollable: true,
-
-      /// make calendar to be scrollable together with its screen
-      customGridViewPhysics: NeverScrollableScrollPhysics(),
-
-      /// marked Date
-      markedDatesMap: _markedDateMap,
-      markedDateShowIcon: true,
-      markedDateIconMaxShown: 1,
-      markedDateIconBuilder: (event) {
-        return markedIcon(
-            color: Theme.of(context).accentColor, context: context);
-      },
-
-      /// selected date
-      selectedDayButtonColor: Theme.of(context).primaryColor,
-      selectedDateTime: _currentDate,
-      selectedDayTextStyle: TextStyle(
-        color: Colors.white,
-      ),
-
-      /// styles
-      showOnlyCurrentMonthDate: false,
-      weekFormat: false,
-      showHeader: false,
-      height: MediaQuery.of(context).orientation == Orientation.portrait
-          ? 350
-          : 400,
-      thisMonthDayBorderColor: Colors.grey,
-      childAspectRatio:
-          MediaQuery.of(context).orientation == Orientation.portrait
-              ? 1.0
-              : 1.5,
-
-      /// weekday
-      weekdayTextStyle: TextStyle(color: Theme.of(context).primaryColorLight),
-      weekendTextStyle: TextStyle(
-        color: Theme.of(context).primaryColorLight,
-      ),
-      daysTextStyle: TextStyle(color: Theme.of(context).textTheme.title.color),
-      todayBorderColor: Colors.green,
-      todayTextStyle: TextStyle(
-        color: Theme.of(context).primaryColor,
-      ),
-      todayButtonColor: Theme.of(context).hintColor,
-    );
-
     return SafeArea(
       top: false,
-      child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(
-              top: 16.0,
-              bottom: 16.0,
-              left: 12.0,
-              right: 16.0,
+      child: Container(
+        margin: EdgeInsets.only(left: 5, right: 5),
+        child: Column(
+          children: <Widget>[
+            DateSelector(
+              date: this._currentMonth,
+              onDatePressed: onDatePressed,
             ),
-            child: new Row(
-              children: <Widget>[
-                Text(
-                  _currentMonth,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24.0,
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.arrow_drop_down),
-                  color: Colors.grey,
-                  onPressed: onDatePressed,
-                ),
-              ],
+            calendar(
+              context: context,
+              onCalendarChanged: (DateTime date) {
+                this.setState(
+                    () => _currentMonth = DateFormat.yMMM().format(date));
+              },
+              onDayPressed: (DateTime date, List<Event> events) {
+                this.selectDate(date);
+              },
+              markedDateMap: _markedDateMap,
+              currentDate: _currentDate,
             ),
-          ),
-          Container(
-            child: _calendarCarouselNoHeader,
-          ),
-          Divider(
-            color: Colors.grey,
-            indent: 10,
-            endIndent: 10,
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-            itemCount: _ledgerListOfSelectedDate.length,
-            itemBuilder: (BuildContext context, int index) {
-              return HomeListItem(ledgerItem: _ledgerListOfSelectedDate[index]);
-            },
-          ),
-        ],
+            Divider(
+              color: Colors.grey,
+              indent: 10,
+              endIndent: 10,
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              itemCount: _ledgerListOfSelectedDate.length,
+              itemBuilder: (BuildContext context, int index) {
+                return HomeListItem(
+                    ledgerItem: _ledgerListOfSelectedDate[index]);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
+Widget calendar({
+  context,
+  onCalendarChanged,
+  onDayPressed,
+  markedDateMap,
+  currentDate,
+}) {
+  return CalendarCarousel<Event>(
+    onCalendarChanged: onCalendarChanged,
+    onDayPressed: onDayPressed,
+
+    /// make calendar to be scrollable together with its screen
+    customGridViewPhysics: NeverScrollableScrollPhysics(),
+
+    /// marked Date
+    markedDatesMap: markedDateMap,
+    markedDateShowIcon: true,
+    markedDateIconMaxShown: 1,
+    markedDateIconBuilder: (event) {
+      return markedIcon(color: Theme.of(context).accentColor, context: context);
+    },
+
+    /// selected date
+    selectedDayButtonColor: Theme.of(context).primaryColor,
+    selectedDateTime: currentDate,
+    selectedDayTextStyle: TextStyle(
+      color: Colors.white,
+    ),
+
+    pageSnapping: true,
+    weekFormat: false,
+    showHeader: false,
+    thisMonthDayBorderColor: Colors.grey,
+    height:
+        MediaQuery.of(context).orientation == Orientation.portrait ? 380 : 490,
+    childAspectRatio:
+        MediaQuery.of(context).orientation == Orientation.portrait ? 1.0 : 1.5,
+
+    /// weekday
+    weekdayTextStyle: TextStyle(color: Theme.of(context).primaryColorLight),
+    weekendTextStyle: TextStyle(
+      color: Theme.of(context).primaryColorLight,
+    ),
+    daysTextStyle: TextStyle(color: Theme.of(context).textTheme.title.color),
+    todayBorderColor: Colors.green,
+    todayTextStyle: TextStyle(
+      color: Theme.of(context).primaryColor,
+    ),
+    todayButtonColor: Theme.of(context).hintColor,
+  );
+}
+
 Widget markedIcon({Color color, BuildContext context}) {
-  return new Container(
+  return Container(
     child: Stack(
       children: <Widget>[
         Positioned(

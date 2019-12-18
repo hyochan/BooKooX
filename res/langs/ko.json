@@ -146,5 +146,6 @@
   "MEMBER_OWNER": "오너",
   "MEMBER_ADMIN": "관리자",
   "MEMBER_GUEST": "손님",
-  "SEARCH_USER_HINT": "Search user..."
+  "SEARCH_USER_HINT": "Search user...",
+  "NO_DATA": "데이터가 없습니다."
 }

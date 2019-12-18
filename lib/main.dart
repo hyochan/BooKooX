@@ -1,4 +1,6 @@
-import 'package:bookoo2/screens/home_statistic.dart';
+import 'package:bookoo2/screens/home_statistic/home_statistic.dart';
+import 'package:bookoo2/screens/line_graph.dart';
+import 'package:bookoo2/shared/line_graph_chart.dart';
 import 'package:bookoo2/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
@@ -101,6 +103,7 @@ class MyApp extends StatelessWidget {
         '/setting_excel': (BuildContext context) => SettingExcel(),
         '/lock_register': (BuildContext context) => LockRegister(),
         '/lock_auth': (BuildContext context) => LockAuth(),
+        '/line_graph': (BuildContext context) => LineGraph(),
       },
       supportedLocales: [
         const Locale('en', 'US'),
@@ -128,6 +131,7 @@ class MyApp extends StatelessWidget {
       title: 'BooKoo2',
       // home: Tutorial(),
       home: HomeTab(),
+      // home: LineGraph(),
       // home: HomeStatistic(),
     );
   }

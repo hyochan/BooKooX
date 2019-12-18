@@ -25,19 +25,19 @@ void main() {
     var findByText = find.byType(Text);
     expect(findByText.evaluate().isEmpty, false);
 
-    // expect(find.text('EXERCISE'), findsNothing);
-    // expect(find.text('WALLET_MONEY'), findsNothing);
-    // expect(find.text('DATING'), findsNothing);
-    // expect(find.text('CAFE'), findsNothing);
+    expect(find.text('EXERCISE'), findsNothing);
+    expect(find.text('WALLET_MONEY'), findsNothing);
+    expect(find.text('DATING'), findsNothing);
+    expect(find.text('CAFE'), findsNothing);
 
     expect(find.text('10'), findsNWidgets(1));
 
     await tester.tap(find.text('10'));
     await tester.pumpAndSettle();
 
-    // expect(find.text('EXERCISE'), findsOneWidget);
-    // expect(find.text('WALLET_MONEY'), findsOneWidget);
-    // expect(find.text('DATING'), findsOneWidget);
-    // expect(find.text('CAFE'), findsNWidgets(4));
+    expect(find.text('EXERCISE'), findsOneWidget);
+    expect(find.text('WALLET_MONEY'), findsOneWidget);
+    expect(find.text('DATING'), findsOneWidget);
+    expect(find.text('CAFE'), findsNWidgets(3));
   });
 }

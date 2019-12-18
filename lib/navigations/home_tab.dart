@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:bookoo2/screens/home_calendar.dart' show HomeCalendar;
 import 'package:bookoo2/screens/home_list.dart' show HomeList;
-import 'package:bookoo2/screens/home_statistic.dart' show HomeStatistic;
+import 'package:bookoo2/screens/home_statistic/home_statistic.dart' show HomeStatistic;
 import 'package:bookoo2/screens/home_setting.dart' show HomeSetting;
 
 class HomeTab extends StatefulWidget {
@@ -13,7 +13,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  int _index = 2;
+  int _index = 0;
   String _title = 'Dream Worker';
 
   @override
