@@ -36,6 +36,7 @@ class _ProfilePeerState extends State<ProfilePeer> {
     var _localization = Localization.of(context);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,

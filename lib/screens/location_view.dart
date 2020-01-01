@@ -111,9 +111,9 @@ class _LocationViewState extends State<LocationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderClose(
         context: context,
-        title: Text('Map'),
         brightness: Theme.of(context).brightness,
         actions: [
           /// The button that calls `getPlace` method when pressed.

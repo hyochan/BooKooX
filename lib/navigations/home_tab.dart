@@ -61,73 +61,61 @@ class _HomeTabState extends State<HomeTab> {
         type: BottomNavigationBarType.shifting,
         currentIndex: _index,
         onTap: (int index) { setState((){ this._index = index; }); },
+        selectedItemColor: Theme.of(context).textTheme.headline.color,
+        unselectedItemColor: Theme.of(context).textTheme.overline.color,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).bottomAppBarColor,
             icon: Icon(
               Icons.calendar_today,
               size: 20.0,
-              color: Theme.of(context).textTheme.title.color,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'Montly',
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.title.color,
                   fontSize: 12.0,
                 ),
               ),
             ),
           ),
           BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).bottomAppBarColor,
             icon: Icon(
               Icons.list,
               size: 20.0,
-              color: Theme.of(context).textTheme.title.color,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'List',
-                style: TextStyle(
-                 color: Theme.of(context).textTheme.title.color,
-                  fontSize: 12.0,
-                ),
               ),
             ),
           ),
           BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).bottomAppBarColor,
             icon: Icon(
               Icons.graphic_eq,
               size: 20.0,
-              color: Theme.of(context).textTheme.title.color,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'Statistic',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.title.color,
-                  fontSize: 12.0,
-                ),
               ),
             ),
           ),
           BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).bottomAppBarColor,
             icon: Icon(
               Icons.settings,
               size: 20.0,
-              color: Theme.of(context).textTheme.title.color,
             ),
             title: Container(
               margin: EdgeInsets.only(top: 2.0),
               child: Text(
                 'Setting',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.title.color,
-                  fontSize: 12.0,
-                ),
               ),
             ),
           ),

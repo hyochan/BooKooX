@@ -114,9 +114,10 @@ class _LedgersState extends State<Ledgers> {
     }
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderClose(
         context: context,
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
         actions: [
           Container(
             width: 56.0,
@@ -126,7 +127,7 @@ class _LedgersState extends State<Ledgers> {
               onPressed: onSettingPressed,
               child: Icon(
                 Icons.settings,
-                color: Theme.of(context).textTheme.title.color,
+                color: Theme.of(context).iconTheme.color,
                 semanticLabel: _localization.trans('SETTING'),
               ),
             ),

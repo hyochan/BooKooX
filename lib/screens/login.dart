@@ -60,19 +60,11 @@ class _LoginState extends State<Login> {
       initialScrollOffset: 0.0,
     );
 
-//    double bottomInset = MediaQuery.of(context).viewInsets.bottom;
-//    if (bottomInset != 0.0) {
-//      print('jump scroll controller');
-//      _scrollController.jumpTo(100.0);
-//    } else {
-//      print('has clients');
-//    }
-
     Widget loginText() {
       return Text(_localization.trans('LOGIN'),
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).textTheme.title.color,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -86,6 +78,9 @@ class _LoginState extends State<Login> {
         textLabel: _localization.trans('EMAIL'),
         textHint: _localization.trans('EMAIL_HINT'),
         hasChecked: _isEmail ?? false,
+        hintStyle: TextStyle(
+          color: Theme.of(context).hintColor
+        ),
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
             this.setState(() => _isEmail = true);
@@ -132,7 +127,7 @@ class _LoginState extends State<Login> {
 
     Widget findPwButton() {
       return FlatButton(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.all(8),
         onPressed: () => General.instance.navigateScreenNamed(context, '/find_pw'),
         child: RichText(
           text: TextSpan(
@@ -159,11 +154,10 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        brightness: Theme.of(context).brightness,
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).textTheme.title.color,
         ),
       ),
       body: GestureDetector(
@@ -172,7 +166,7 @@ class _LoginState extends State<Login> {
           controller: _scrollController,
           slivers: <Widget>[
             SliverPadding(
-              padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
+              padding: const EdgeInsets.only(top: 44, left: 60, right: 60, bottom: 40),
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   <Widget>[

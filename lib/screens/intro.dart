@@ -1,13 +1,18 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bookoo2/shared/button.dart' show Button;
 import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:bookoo2/utils/general.dart' show General;
 import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Intro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarBrightness: Theme.of(context).brightness));
     var _localization = Localization.of(context);
     final TextStyle _loginWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -34,7 +39,8 @@ class Intro extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 2.0),
         child: FlatButton(
           padding: EdgeInsets.all(0.0),
-          onPressed: () => General.instance.navigateScreenNamed(context, '/sign_up'),
+          onPressed: () =>
+              General.instance.navigateScreenNamed(context, '/sign_up'),
           child: RichText(
             text: TextSpan(
               children: <TextSpan>[
@@ -44,9 +50,7 @@ class Intro extends StatelessWidget {
                 TextSpan(
                   text: '  ' + _localization.trans('SIGN_UP'),
                   style: TextStyle(
-                      color: Asset.Colors.green,
-                      fontWeight: FontWeight.bold
-                  ),
+                      color: Asset.Colors.green, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -102,9 +106,10 @@ class Intro extends StatelessWidget {
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: 'Facebook',
-            width: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
-              ? MediaQuery.of(context).size.width / 2 - 112
-              : MediaQuery.of(context).size.width / 2 - 64,
+            width: MediaQuery.of(context).size.width >
+                    MediaQuery.of(context).size.height
+                ? MediaQuery.of(context).size.width / 2 - 112
+                : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
               image: Asset.Icons.icFacebook,
@@ -119,9 +124,10 @@ class Intro extends StatelessWidget {
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: 'Google',
-            width: MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
-              ? MediaQuery.of(context).size.width / 2 - 112
-              : MediaQuery.of(context).size.width / 2 - 64,
+            width: MediaQuery.of(context).size.width >
+                    MediaQuery.of(context).size.height
+                ? MediaQuery.of(context).size.width / 2 - 112
+                : MediaQuery.of(context).size.width / 2 - 64,
             height: 56.0,
             image: Image(
               image: Asset.Icons.icGoogle,
@@ -134,20 +140,50 @@ class Intro extends StatelessWidget {
     }
 
     Widget termsAndAgreement() {
+      var clickableTextStyle = TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Theme.of(context).accentColor,
+        fontSize: 13,
+      );
+
       return Container(
         margin: EdgeInsets.only(top: 16.0, bottom: 40.0),
-        child: FlatButton(
-          padding: EdgeInsets.all(0.0),
-          onPressed: () => General.instance.navigateScreenNamed(context, '/terms'),
-          child: RichText(
-            text: TextSpan(
-              text: _localization.trans('TERMS_PRIVACY_AGREEMENT'),
-              style: _loginWithTextStyle.merge(
-                TextStyle(fontSize: 10.0),
-              ),
+        child: RichText(
+          text: TextSpan(
+            text: _localization.trans('TERMS_1'),
+            style: _loginWithTextStyle.merge(
+              TextStyle(fontSize: 12, height: 1.3),
             ),
-            textAlign: TextAlign.center,
+            children: [
+              TextSpan(
+                text: _localization.trans('TERMS_OF_USE'),
+                style: clickableTextStyle,
+                semanticsLabel: _localization.trans('TERMS_OF_USE'),
+                recognizer: new TapGestureRecognizer()
+                  ..onTap = () {
+                    launch('https://dooboolab.com/termsofservice');
+                  },
+              ),
+              TextSpan(
+                text: _localization.trans('TERMS_2'),
+                semanticsLabel: _localization.trans('TERMS_2'),
+              ),
+              TextSpan(
+                text: _localization.trans('PRIVACY_POLICY'),
+                style: clickableTextStyle,
+                semanticsLabel: _localization.trans('PRIVACY_POLICY'),
+                recognizer: new TapGestureRecognizer()
+                  ..onTap = () {
+                    launch('https://dooboolab.com/privacyandpolicy');
+                  },
+              ),
+              TextSpan(
+                text: _localization.trans('TERMS_3'),
+                semanticsLabel: _localization.trans('TERMS_3'),
+              ),
+            ],
           ),
+          textAlign: TextAlign.center,
         ),
       );
     }
@@ -158,11 +194,15 @@ class Intro extends StatelessWidget {
           child: CustomScrollView(
             slivers: <Widget>[
               SliverPadding(
-                padding: const EdgeInsets.only(top: 102.0, left: 60.0, right: 60.0),
+                padding:
+                    const EdgeInsets.only(top: 148.0, left: 60.0, right: 60.0),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     <Widget>[
-                      Image(image: Asset.Icons.icBooKoo, width: 200.0, height: 60.0),
+                      Image(
+                          image: Asset.Icons.icBooKoo,
+                          width: 200.0,
+                          height: 60.0),
                       loginButton(),
                       doNotHaveAccount(),
                       orLoginWith(),
@@ -180,7 +220,11 @@ class Intro extends StatelessWidget {
           width: double.infinity,
         ),
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColorDark],
+          gradient: LinearGradient(
+            colors: [
+              Theme.of(context).primaryColor,
+              Theme.of(context).primaryColorDark
+            ],
             begin: FractionalOffset(0.0, 0.0),
             end: FractionalOffset(1.0, 1.0),
             stops: [0.0, 1.0],

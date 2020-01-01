@@ -29,6 +29,7 @@ class _LedgerViewState extends State<LedgerView> {
       return;
     }
     _ledger  = Ledger(
+      title: 'ledger test',
       currency: Currency(code: '\￦', currency: 'KRW'),
       color: ColorType.DUSK,
     );
@@ -43,7 +44,7 @@ class _LedgerViewState extends State<LedgerView> {
       appBar: renderHeaderBack(
         context: context,
         iconColor: Colors.white,
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
       ),
       body: SafeArea(
         child: ListView(

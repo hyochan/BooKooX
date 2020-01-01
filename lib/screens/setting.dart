@@ -134,10 +134,11 @@ class _SettingState extends State<Setting> {
     ];
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Theme.of(context).textTheme.title.color,
-        brightness: Brightness.light,
+        iconColor: Theme.of(context).iconTheme.color,
+        brightness: Theme.of(context).brightness,
       ),
       body: SafeArea(
         child: Column(

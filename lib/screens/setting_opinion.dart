@@ -15,16 +15,17 @@ class SettingOpinion extends StatelessWidget {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).primaryColor,
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
+        iconColor: Theme.of(context).iconTheme.color,
         title: Text(
           _localization.trans('SHARE_OPINION'),
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).textTheme.title.color,
           ),
         ),
       ),
@@ -33,6 +34,7 @@ class SettingOpinion extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Container(
+                padding: EdgeInsets.only(top: 20),
                 child: TextField(
                   maxLines: 10,
                   style: TextStyle(

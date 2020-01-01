@@ -44,16 +44,17 @@ class SettingAnnouncement extends StatelessWidget {
       ),
     ];
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).primaryColor,
-        brightness: Brightness.light,
+        iconColor: Theme.of(context).iconTheme.color,
+        brightness: Theme.of(context).brightness,
         title: Text(
           _localization.trans('ANNOUNCEMENT'),
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).textTheme.title.color,
           ),
         ),
       ),

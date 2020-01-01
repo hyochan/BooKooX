@@ -85,10 +85,11 @@ class _LockRegisterState extends State<LockRegister> {
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         context: context,
         iconColor: Theme.of(context).textTheme.title.color,
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
         actions: <Widget> [
           FlatButton(
             child: Text( 

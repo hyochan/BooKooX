@@ -78,11 +78,12 @@ class _LineGraphState extends State<LineGraph> {
     /// Render
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
         iconColor: Theme.of(context).textTheme.title.color,
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
       ),
       body: SafeArea(
         child: ListView(

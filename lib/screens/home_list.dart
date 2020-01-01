@@ -246,7 +246,7 @@ class _HomeListState extends State<HomeList> {
     });
   }
 
-  Widget _buildHeader(DateTime date) {
+  Widget _renderListHeader(DateTime date) {
     String headerString = DateFormat('yyyy-MM-dd (E)').format(date);
     return Container(
       height: 60.0,
@@ -267,13 +267,13 @@ class _HomeListState extends State<HomeList> {
     );
   }
 
-  List<Widget> _buildLists(BuildContext context) {
+  List<Widget> _renderList(BuildContext context) {
     return List.generate(_listData.length, (index) {
       var section = _listData[index];
       var headerDate = section['date'];
       var ledgerItems = section['ledgerItems'];
       return SliverStickyHeader(
-        header: _buildHeader(headerDate),
+        header: _renderListHeader(headerDate),
         sliver: SliverList(
           key: Key(index.toString()),
           delegate: SliverChildBuilderDelegate(
@@ -317,7 +317,7 @@ class _HomeListState extends State<HomeList> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: CustomScrollView(
-            slivers: _buildLists(context),
+            slivers: _renderList(context),
           ),
         ),
       ),

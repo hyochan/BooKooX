@@ -37,7 +37,7 @@ class _FindPwState extends State<FindPw> {
       return Text(_localization.trans('FIND_PASSWORD'),
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).textTheme.title.color,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -92,7 +92,7 @@ class _FindPwState extends State<FindPw> {
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryIconTheme.color,
         ),
       ),
       body: GestureDetector(
