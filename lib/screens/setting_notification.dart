@@ -27,16 +27,17 @@ class _SettingNotificationState extends State<SettingNotification> {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).primaryColor,
-        brightness: Brightness.light,
+        iconColor: Theme.of(context).iconTheme.color,
+        brightness: Theme.of(context).brightness,
         title: Text(
           _localization.trans('NOTIFICATION'),
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).textTheme.title.color,
           ),
         ),
       ),

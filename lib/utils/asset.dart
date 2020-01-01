@@ -37,7 +37,7 @@ class Colors {
   static const cloudyBlue = Color(0xffafc2db);
   static const red = Color.fromARGB(255, 255, 114, 141);
   static const orange = Color.fromARGB(255, 245, 166, 35);
-  static const yellow = Color.fromARGB(255, 238, 208, 0);
+  static const yellow = Color.fromARGB(255, 240, 192, 0);
   static const green = Color.fromARGB(255, 29, 211, 168);
   static const blue = Color.fromARGB(255, 103, 157, 255);
   static const dusk = Color.fromARGB(255, 65, 77, 107);

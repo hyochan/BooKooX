@@ -8,6 +8,10 @@
   "TERMS_2": " and ",
   "PRIVACY_POLICY":"Privacy Policy",
   "TERMS_3": ".",
+  "HOME_MONTHY": "Monthly",
+  "HOME_LIST": "List",
+  "HOME_STATISTIC": "Statistic",
+  "HOME_SETTING": "Setting",
   "EMAIL": "Email",
   "EMAIL_HINT": "Please write email address",
   "PASSWORD": "Password",
@@ -151,5 +155,6 @@
   "MEMBER_ADMIN": "Admin",
   "MEMBER_GUEST": "Guest",
   "SEARCH_USER_HINT": "Search user...",
+  "PLZ_SEARCH": "Please search...",
   "NO_DATA": "No data exists."
 }

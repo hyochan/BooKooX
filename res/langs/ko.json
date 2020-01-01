@@ -8,6 +8,10 @@
   "TERMS_2": " 및 ",
   "PRIVACY_POLICY":"개인정보 취급방침",
   "TERMS_3": "에 동의하는 것으로 간주합니다.",
+  "HOME_MONTHY": "월별",
+  "HOME_LIST": "리스트",
+  "HOME_STATISTIC": "통계",
+  "HOME_SETTING": "설정",
   "EMAIL": "이메일",
   "EMAIL_HINT": "이메일을 입력해주세요",
   "PASSWORD": "비밀번호",
@@ -150,6 +154,7 @@
   "MEMBER_OWNER": "오너",
   "MEMBER_ADMIN": "관리자",
   "MEMBER_GUEST": "손님",
-  "SEARCH_USER_HINT": "Search user...",
+  "SEARCH_USER_HINT": "사용자 검색...",
+  "PLZ_SEARCH": "검색해주세요...",
   "NO_DATA": "데이터가 없습니다."
 }

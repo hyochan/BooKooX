@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
         accentColor: Asset.Colors.green,
         hintColor: Asset.Colors.paleGray,
         primaryColor: Asset.Colors.dusk,
@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
         primaryColorDark: const Color(0xff172540),
         disabledColor: const Color(0xffdde2ec),
         backgroundColor: const Color(0xfff9fbfd),
+        bottomAppBarColor: const Color(0xff22202f),
         dialogBackgroundColor: Colors.white,
         textTheme: TextTheme(
           title: TextStyle(color: Asset.Colors.dusk),
@@ -56,7 +57,9 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(color: Colors.black),
           display1: TextStyle(color: Asset.Colors.paleGray),
           display2: TextStyle(color: Asset.Colors.mediumGray),
-          display3: TextStyle(color: Colors.blueGrey[900]),
+          display3: TextStyle(color: Asset.Colors.paleGray),
+          headline: TextStyle(color: Colors.white),
+          overline: TextStyle(color: Asset.Colors.paleGray),
         ),
       ),
       darkTheme: ThemeData(
@@ -68,6 +71,7 @@ class MyApp extends StatelessWidget {
         primaryColorDark: const Color(0xff172540),
         disabledColor: const Color(0xffdde2ec),
         backgroundColor: const Color(0xff22202f),
+        bottomAppBarColor: Colors.white,
         dialogBackgroundColor: const Color(0xff272727),
         textTheme: TextTheme(
           title: TextStyle(color: Colors.white),
@@ -75,7 +79,9 @@ class MyApp extends StatelessWidget {
           subhead: TextStyle(color: Colors.white),
           display1: TextStyle(color: Asset.Colors.cloudyBlue),
           display2: TextStyle(color: Asset.Colors.cloudyBlue),
-          display3: TextStyle(color: Colors.blueGrey[900]),
+          display3: TextStyle(color: Asset.Colors.mediumGray),
+          headline: TextStyle(color: Asset.Colors.dusk),
+          overline: TextStyle(color: Asset.Colors.mediumGray),
         ),
       ),
       routes: {
@@ -130,8 +136,8 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKoo2',
-      home: Tutorial(),
-      // home: HomeTab(),
+      // home: Tutorial(),
+      home: HomeTab(),
     );
   }
 }

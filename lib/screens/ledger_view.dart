@@ -43,7 +43,7 @@ class _LedgerViewState extends State<LedgerView> {
       appBar: renderHeaderBack(
         context: context,
         iconColor: Colors.white,
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
       ),
       body: SafeArea(
         child: ListView(

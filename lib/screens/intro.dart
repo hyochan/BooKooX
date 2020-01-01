@@ -12,7 +12,7 @@ class Intro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarBrightness: Brightness.light));
+        SystemUiOverlayStyle(statusBarBrightness: Theme.of(context).brightness));
     var _localization = Localization.of(context);
     final TextStyle _loginWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),

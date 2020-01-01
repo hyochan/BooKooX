@@ -22,9 +22,10 @@ class _ProfileMyState extends State<ProfileMy> {
     var _localization = Localization.of(context);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderClose(
         context: context,
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
         actions: [
           IconButton(
             icon: Icon(

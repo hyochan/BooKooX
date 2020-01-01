@@ -120,7 +120,7 @@ class _MembersState extends State<Members> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderClose(
         context: context,
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
         actions: [
           Container(
             width: 56,

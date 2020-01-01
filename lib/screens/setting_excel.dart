@@ -15,11 +15,12 @@ class SettingExcel extends StatelessWidget {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).textTheme.title.color,
-        brightness: Brightness.light,
+        iconColor: Theme.of(context).iconTheme.color,
+        brightness: Theme.of(context).brightness,
         title: Text(
           _localization.trans('EXPORT_EXCEL'),
           style: TextStyle(
@@ -33,6 +34,7 @@ class SettingExcel extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Container(
+                margin: EdgeInsets.only(top: 20),
                 child: TextField(
                   maxLines: 10,
                   style: TextStyle(

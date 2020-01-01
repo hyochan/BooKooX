@@ -63,8 +63,7 @@ class _LedgerAddState extends State<LedgerAdd> {
       backgroundColor: Asset.Colors.getColor(_ledger.color),
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Colors.white,
-        brightness: Brightness.light,
+        brightness: Theme.of(context).brightness,
       ),
       body: SafeArea(
         child: ListView(
