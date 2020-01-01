@@ -29,6 +29,7 @@ class _LedgerViewState extends State<LedgerView> {
       return;
     }
     _ledger  = Ledger(
+      title: 'ledger test',
       currency: Currency(code: '\￦', currency: 'KRW'),
       color: ColorType.DUSK,
     );
