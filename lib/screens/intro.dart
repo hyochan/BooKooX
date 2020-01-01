@@ -4,10 +4,14 @@ import 'package:bookoo2/shared/button.dart' show Button;
 import 'package:bookoo2/utils/asset.dart' as Asset;
 import 'package:bookoo2/utils/general.dart' show General;
 import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:flutter/services.dart';
 
 class Intro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.light
+    ));
     var _localization = Localization.of(context);
     final TextStyle _loginWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -158,7 +162,7 @@ class Intro extends StatelessWidget {
           child: CustomScrollView(
             slivers: <Widget>[
               SliverPadding(
-                padding: const EdgeInsets.only(top: 102.0, left: 60.0, right: 60.0),
+                padding: const EdgeInsets.only(top: 148.0, left: 60.0, right: 60.0),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     <Widget>[

@@ -159,7 +159,7 @@ class _SignUpState extends State<SignUp> {
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryIconTheme.color,
         ),
       ),
       body: GestureDetector(
