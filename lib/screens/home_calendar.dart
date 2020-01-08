@@ -90,6 +90,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate;
+  DateTime _targetDate;
   String _currentMonth = '';
 
   EventList<Event> _markedDateMap = EventList<Event>();
@@ -103,22 +104,24 @@ class _MyHomePageState extends State<MyHomePage> {
   void selectDate(
     DateTime date,
   ) {
+    _ledgerListOfSelectedDate.clear();
+    _ledgerList.forEach((item) {
+      if (item.selectedDate == date) {
+        _ledgerListOfSelectedDate.add(item);
+      }
+    });
     setState(() {
       _currentDate = date;
-      _ledgerListOfSelectedDate.clear();
-      _ledgerList.forEach((item) {
-        if (item.selectedDate == date) {
-          _ledgerListOfSelectedDate.add(item);
-        }
-      });
+      _targetDate = DateTime(date.year, date.month);
+      _currentMonth = DateFormat.yMMM().format(date);
     });
-    _currentMonth = DateFormat.yMMM().format(date);
   }
 
   @override
   void initState() {
     super.initState();
     _currentDate = DateTime.now();
+    _targetDate = DateTime.now();
     _currentMonth = DateFormat.yMMM().format(_currentDate);
 
     Future.delayed(Duration.zero, () {
@@ -165,17 +168,20 @@ class _MyHomePageState extends State<MyHomePage> {
               date: this._currentMonth,
               onDatePressed: onDatePressed,
             ),
-            calendar(
+            renderCalendar(
               context: context,
               onCalendarChanged: (DateTime date) {
-                this.setState(
-                    () => _currentMonth = DateFormat.yMMM().format(date));
+                this.setState(() {
+                  _currentMonth = DateFormat.yMMM().format(date);
+                  _targetDate = date;
+                });
               },
               onDayPressed: (DateTime date, List<Event> events) {
                 this.selectDate(date);
               },
               markedDateMap: _markedDateMap,
               currentDate: _currentDate,
+              targetDate: _targetDate,
             ),
             Divider(
               color: Colors.grey,
@@ -199,12 +205,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Widget calendar({
-  context,
-  onCalendarChanged,
-  onDayPressed,
-  markedDateMap,
-  currentDate,
+Widget renderCalendar({
+  BuildContext context,
+  Function onCalendarChanged,
+  Function onDayPressed,
+  EventList<Event> markedDateMap,
+  DateTime currentDate,
+  DateTime targetDate,
 }) {
   return CalendarCarousel<Event>(
     onCalendarChanged: onCalendarChanged,
@@ -218,7 +225,7 @@ Widget calendar({
     markedDateShowIcon: true,
     markedDateIconMaxShown: 1,
     markedDateIconBuilder: (event) {
-      return markedIcon(color: Theme.of(context).accentColor, context: context);
+      return renderMarkedIcon(color: Theme.of(context).accentColor, context: context);
     },
 
     /// selected date
@@ -236,6 +243,7 @@ Widget calendar({
         MediaQuery.of(context).orientation == Orientation.portrait ? 380 : 490,
     childAspectRatio:
         MediaQuery.of(context).orientation == Orientation.portrait ? 1.0 : 1.5,
+    targetDateTime: targetDate,
 
     /// weekday
     weekdayTextStyle: TextStyle(color: Theme.of(context).primaryColorLight),
@@ -248,10 +256,12 @@ Widget calendar({
       color: Theme.of(context).primaryColor,
     ),
     todayButtonColor: Theme.of(context).hintColor,
+    minSelectedDate: DateTime(1970,1,1),
+    maxSelectedDate: DateTime.now().add(Duration(days: 3650)),
   );
 }
 
-Widget markedIcon({Color color, BuildContext context}) {
+Widget renderMarkedIcon({Color color, BuildContext context}) {
   return Container(
     child: Stack(
       children: <Widget>[
