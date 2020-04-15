@@ -1,4 +1,3 @@
-import 'package:bookoox/utils/general.dart';
 import 'package:bookoox/utils/localization.dart';
 import 'package:flutter/material.dart';
 

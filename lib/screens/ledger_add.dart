@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:bookoox/screens/setting_currency.dart';
 import 'package:bookoox/screens/members.dart';
 import 'package:bookoox/shared/member_horizontal_list.dart';
@@ -29,6 +27,7 @@ class _LedgerAddState extends State<LedgerAdd> {
       return;
     }
     _ledger  = Ledger(
+      title: 'hello',
       currency: Currency(code: '\￦', currency: 'KRW'),
       color: ColorType.DUSK,
     );

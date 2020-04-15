@@ -1,7 +1,5 @@
-import 'package:bookoox/models/Category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 
 import 'package:bookoox/screens/ledger_item_add.dart' show LedgerItemAdd;
 import '../test_utils.dart' show TestUtils;

@@ -68,8 +68,7 @@ class _ContentState extends State<Content> {
   List<LedgerItem> _ledgerList;
 
   /// State
-  DateTime _date = DateTime.now(); //todo: initialize with parent's
-  List<LedgerItem> _ledgerListOfSelectedMonth = List<LedgerItem>();
+  DateTime _date = DateTime.now();
   List<LedgerItem> _condensedLedgerList = List();
   Map<String, double> _dataMapIncome = Map();
   Map<String, double> _dataMapExpense = Map();
@@ -106,7 +105,6 @@ class _ContentState extends State<Content> {
 
     this.setState(() {
       this._condensedLedgerList = condensedLedgerList;
-      this._ledgerListOfSelectedMonth = ledgerListOfSelectedMonth;
       this._dataMapIncome = result['income'];
       this._dataMapExpense = result['expense'];
     });
@@ -140,17 +138,18 @@ class _ContentState extends State<Content> {
     var chartWidget = dataMap.length > 0
         ? PieChart(
             dataMap: dataMap,
-            legendFontColor: Theme.of(context).textTheme.headline1.color,
-            legendFontSize: 14.0,
-            legendFontWeight: FontWeight.w500,
+            legendStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: Theme.of(context).textTheme.headline1.color,
+            ),
             animationDuration: Duration(milliseconds: 800),
             chartLegendSpacing: 32.0,
             chartRadius: MediaQuery.of(context).size.width / 2.7,
             showChartValuesInPercentage: true,
             showChartValues: true,
             showChartValuesOutside: false,
-            chartValuesColor:
-                Theme.of(context).textTheme.headline1.color.withOpacity(0.9),
+            chartValueStyle: Theme.of(context).textTheme.headline1,
             colorList: colorList,
             showLegends: true,
             decimalPlaces: 1,
@@ -224,6 +223,7 @@ class ButtonGroup extends StatelessWidget {
   final selected;
   final Function onButtonOnePressed;
   final Function onButtonTwoPressed;
+
   ButtonGroup(
       {Key key,
       @required this.selected,
@@ -234,7 +234,7 @@ class ButtonGroup extends StatelessWidget {
   final width = 300;
   final double buttonHeight = 30;
   final selectedColorText = Colors.white;
-  Radius borderRadius = Radius.circular(5.0);
+  final Radius borderRadius = Radius.circular(5.0);
 
   @override
   Widget build(BuildContext context) {

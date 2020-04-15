@@ -1,6 +1,5 @@
 import 'package:bookoox/models/Category.dart';
 import 'package:bookoox/models/LedgerItem.dart';
-import 'package:bookoox/models/User.dart';
 import 'package:bookoox/utils/localization.dart';
 
 List<LedgerItem> createCalendarLedgerItemMock(Localization localization) {

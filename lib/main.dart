@@ -129,8 +129,8 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKooX',
-      // home: Tutorial(),
-      home: HomeTab(),
+      home: Tutorial(),
+      // home: HomeTab(),
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:bookoox/models/Photo.dart';
 import 'package:bookoox/utils/localization.dart' show Localization;
-import 'package:bookoox/utils/asset.dart' as Asset;
 
 class PhotoDetail extends StatefulWidget {
   PhotoDetail({

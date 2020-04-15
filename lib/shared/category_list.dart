@@ -46,7 +46,7 @@ class _CategoryListState extends State<CategoryList> {
                         msg: _localization.trans('CATEGORY_DELETE_ERROR'),
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.CENTER,
-                        timeInSecForIos: 1,
+                        timeInSecForIosWeb: 1,
                         fontSize: 16.0,
                       );
                     } finally {
@@ -57,7 +57,7 @@ class _CategoryListState extends State<CategoryList> {
                         msg: _localization.trans('CATEGORY_DELETED'),
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.CENTER,
-                        timeInSecForIos: 1,
+                        timeInSecForIosWeb: 1,
                         fontSize: 16.0,
                       );
                     }

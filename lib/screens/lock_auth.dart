@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:bookoox/shared/header.dart' show renderHeaderBack;
 import 'package:bookoox/shared/pin_keyboard.dart' show PinKeyboard;
 
-import 'package:bookoox/utils/general.dart' show General;
-import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/utils/localization.dart' show Localization;
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,8 +33,6 @@ class _LockAuthState extends State<LockAuth> {
   /// LocalAuthentication - Fingerprint
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   bool _hasFingerPrintSupport = false;
-  bool _isAuthorized = false;
-  List<BiometricType> _availableBiometricType = List<BiometricType>();
   
   Future<void> checkFingerprintSupport() async {
     bool isBiometricSupport = false;
@@ -212,7 +208,7 @@ class _LockAuthState extends State<LockAuth> {
             msg: _localization.trans('PIN_MISMATCH'),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
-            timeInSecForIos: 1,
+            timeInSecForIosWeb: 1,
             fontSize: 16.0,
           );
 

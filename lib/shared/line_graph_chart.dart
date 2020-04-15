@@ -84,16 +84,16 @@ class _LineGraphChartState extends State<LineGraphChart> {
       maxY: _maxY,
       gridData: FlGridData(
         show: true,
-        drawVerticalGrid: true,
-        getDrawingHorizontalGridLine: (value) {
-          return const FlLine(
+        drawVerticalLine: true,
+        getDrawingHorizontalLine: (value) {
+          return FlLine(
             // color: Color(0xff37434d),
             color: Color(0xd5d5d5ff),
             strokeWidth: 1,
           );
         },
-        getDrawingVerticalGridLine: (value) {
-          return const FlLine(
+        getDrawingVerticalLine: (value) {
+          return FlLine(
             // color: Color(0xff37434d),
             color: Color(0xd5d5d5ff),
 
@@ -113,6 +113,7 @@ class _LineGraphChartState extends State<LineGraphChart> {
           getTitles: (value) {
             if (value % 2 == 1)
               return DateFormat('MMM').format(DateTime(0, value.toInt()));
+            return null;
           },
           margin: 8,
         ),
@@ -125,6 +126,7 @@ class _LineGraphChartState extends State<LineGraphChart> {
           ),
           getTitles: (value) {
             // return '${value.toInt()}';
+            return null;
           },
           reservedSize: 0,
           margin: 12,
@@ -162,7 +164,7 @@ class _LineGraphChartState extends State<LineGraphChart> {
           colors: gradientColors,
           barWidth: 5,
           isStrokeCapRound: true,
-          dotData: const FlDotData(
+          dotData: FlDotData(
             show: false,
           ),
           belowBarData: BarAreaData(

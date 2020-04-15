@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
 
 abstract class ListItem {}
 

@@ -5,7 +5,6 @@ import 'package:bookoox/shared/edit_text_box.dart' show EditTextBox;
 import 'package:bookoox/shared/profile_image_cam.dart';
 import 'package:bookoox/utils/general.dart';
 import 'package:bookoox/utils/localization.dart' show Localization;
-import 'package:bookoox/utils/validator.dart' show Validator;
 
 class ProfileMy extends StatefulWidget {
   @override

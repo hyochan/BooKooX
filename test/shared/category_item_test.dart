@@ -1,9 +1,4 @@
-import 'package:bookoox/models/Category.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:bookoox/shared/category_item.dart' show CategoryItem;
-import '../test_utils.dart' show TestUtils;
 
 void main() {
   testWidgets("Button", (WidgetTester tester) async{

@@ -1,5 +1,4 @@
 import 'package:bookoox/models/Category.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bookoox/shared/category_list.dart' show CategoryList;

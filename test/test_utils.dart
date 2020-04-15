@@ -19,7 +19,6 @@ import 'package:bookoox/screens/intro.dart' show Intro;
 import 'package:bookoox/screens/login.dart' show Login;
 import 'package:bookoox/screens/sign_up.dart' show SignUp;
 import 'package:bookoox/screens/find_pw.dart' show FindPw;
-import 'package:bookoox/screens/home_calendar.dart' show HomeCalendar;
 import 'package:bookoox/screens/terms.dart' show Terms;
 
 

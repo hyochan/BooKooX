@@ -1,13 +1,8 @@
 import 'package:bookoox/models/Currency.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/general.dart' show General;
-
 import '../utils/localization.dart' show Localization;
 import '../shared/header.dart' show renderHeaderBack;
-import '../shared/button.dart' show Button;
-import '../utils/asset.dart' as Asset;
-
 import '../shared/setting_list_item.dart' show ListItem, TileItem, SettingTileItem;
 
 class SettingCurrency extends StatefulWidget {

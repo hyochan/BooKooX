@@ -1,4 +1,4 @@
-import 'package:bookoox/models/Category.dart' show iconMaps, categoryIcons;
+import 'package:bookoox/models/Category.dart' show categoryIcons;
 import 'package:bookoox/models/Category.dart';
 import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/shared/edit_text_box.dart';
@@ -58,7 +58,7 @@ class _CategoryAddState extends State<CategoryAdd> {
           msg: _localization.trans('CATEGORY_ADD_ERROR'),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1,
+          timeInSecForIosWeb: 1,
           fontSize: 16.0,
         );
       } finally {

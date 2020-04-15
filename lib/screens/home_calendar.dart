@@ -25,14 +25,6 @@ class HomeCalendar extends StatefulWidget {
 }
 
 class _HomeCalendarState extends State<HomeCalendar> {
-  ScrollController _scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController()..addListener(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
