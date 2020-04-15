@@ -1,7 +1,7 @@
 {
   "LOADING": "Loading...",
-  "LOGIN": "Login",
-  "SIGN_UP": "Sign Up",
+  "SIGN_IN": "Sign in",
+  "SIGN_UP": "Sign up",
   "DO_NOT_HAVE_ACCOUNT": "Don't have an account?",
   "TERMS_1": "By proceeding to the next step, you agree to the ",
   "TERMS_OF_USE": "Terms of Use",

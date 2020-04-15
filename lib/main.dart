@@ -7,7 +7,7 @@ import './navigations/home_tab.dart' show HomeTab;
 import './screens/tutorial.dart' show Tutorial;
 import './screens/splash.dart' show Splash;
 import './screens/intro.dart' show Intro;
-import './screens/login.dart' show Login;
+import './screens/sign_in.dart' show SignIn;
 import './screens/sign_up.dart' show SignUp;
 import './screens/find_pw.dart' show FindPw;
 import './screens/main_empty.dart' show MainEmpty;
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
         '/splash': (BuildContext context) => Splash(),
         '/tutorial': (BuildContext context) => Tutorial(),
         '/intro': (BuildContext context) => Intro(),
-        '/login': (BuildContext context) => Login(),
+        '/sign_in': (BuildContext context) => SignIn(),
         '/sign_up': (BuildContext context) => SignUp(),
         '/find_pw': (BuildContext context) => FindPw(),
         '/main_empty': (BuildContext context) => MainEmpty(),

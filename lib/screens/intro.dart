@@ -14,21 +14,21 @@ class Intro extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarBrightness: Theme.of(context).brightness));
     var _localization = Localization.of(context);
-    final TextStyle _loginWithTextStyle = TextStyle(
+    final TextStyle _signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
       fontSize: 16.0,
     );
 
-    Widget loginButton() {
+    Widget signInButton() {
       return Button(
-        onPress: () => General.instance.navigateScreenNamed(context, '/login'),
+        onPress: () => General.instance.navigateScreenNamed(context, '/sign_in'),
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
           color: Theme.of(context).primaryColor,
         ),
         backgroundColor: Colors.white,
-        text: _localization.trans('LOGIN'),
+        text: _localization.trans('SIGN_IN'),
         width: 240.0,
         height: 56.0,
       );
@@ -60,7 +60,7 @@ class Intro extends StatelessWidget {
       );
     }
 
-    Widget orLoginWith() {
+    Widget orSignInWith() {
       return Container(
         margin: EdgeInsets.only(top: 12.0),
         child: Flex(
@@ -70,21 +70,21 @@ class Intro extends StatelessWidget {
             Expanded(
               child: Text(
                 '----------------------',
-                style: _loginWithTextStyle,
+                style: _signInWithTextStyle,
                 textAlign: TextAlign.center,
                 maxLines: 1,
               ),
             ),
             Text(
-              ' or login with ',
-              style: _loginWithTextStyle,
+              ' or sign in with ',
+              style: _signInWithTextStyle,
               textAlign: TextAlign.center,
               maxLines: 1,
             ),
             Expanded(
               child: Text(
                 '----------------------',
-                style: _loginWithTextStyle,
+                style: _signInWithTextStyle,
                 textAlign: TextAlign.center,
                 maxLines: 1,
               ),
@@ -94,13 +94,13 @@ class Intro extends StatelessWidget {
       );
     }
 
-    Widget socialLoginButtons() {
+    Widget socialSignInButtons() {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Button(
             margin: EdgeInsets.only(top: 20.0),
-            textStyle: _loginWithTextStyle.merge(
+            textStyle: _signInWithTextStyle.merge(
               TextStyle(fontSize: 15.0),
             ),
             borderColor: Colors.white,
@@ -120,7 +120,7 @@ class Intro extends StatelessWidget {
           Button(
             margin: EdgeInsets.only(top: 20.0),
             imageMarginLeft: 8,
-            textStyle: _loginWithTextStyle,
+            textStyle: _signInWithTextStyle,
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: 'Google',
@@ -151,7 +151,7 @@ class Intro extends StatelessWidget {
         child: RichText(
           text: TextSpan(
             text: _localization.trans('TERMS_1'),
-            style: _loginWithTextStyle.merge(
+            style: _signInWithTextStyle.merge(
               TextStyle(fontSize: 12, height: 1.3),
             ),
             children: [
@@ -203,10 +203,10 @@ class Intro extends StatelessWidget {
                           image: Asset.Icons.icBooKoo,
                           width: 200.0,
                           height: 60.0),
-                      loginButton(),
+                      signInButton(),
                       doNotHaveAccount(),
-                      orLoginWith(),
-                      socialLoginButtons(),
+                      orSignInWith(),
+                      socialSignInButtons(),
                       termsAndAgreement(),
                     ],
                   ),

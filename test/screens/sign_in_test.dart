@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoox/screens/login.dart' show Login;
+import 'package:bookoox/screens/sign_in.dart' show SignIn;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
   testWidgets("Widget", (WidgetTester tester) async{
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Login()));
+    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignIn()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
 //     print(findByText.evaluate());
     expect(findByText.evaluate().isEmpty, false);
 
-    expect(find.text('LOGIN'), findsNWidgets(2));
+    expect(find.text('SIGN_IN'), findsNWidgets(2));
     expect(find.text('EMAIL'), findsOneWidget);
     expect(find.text('EMAIL_HINT'), findsOneWidget);
     expect(find.text('PASSWORD'), findsOneWidget);
     expect(find.text('PASSWORD_HINT'), findsOneWidget);
   });
   testWidgets("Show [AlertDialog] when email is not validated", (WidgetTester tester) async{
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Login()));
+    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignIn()));
     await tester.pumpAndSettle();
 
     Finder emailField = find.byKey(new Key('email'));
@@ -29,13 +29,13 @@ void main() {
     Finder passwordField = find.byKey(new Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
-    await tester.tap(find.text('LOGIN').last);
+    await tester.tap(find.text('SIGN_IN').last);
     await tester.pumpAndSettle();
 
     expect(find.byType(AlertDialog), findsOneWidget);
   });
   testWidgets("Do not show [AlertDialog] when email is validated", (WidgetTester tester) async{
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Login()));
+    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignIn()));
     await tester.pumpAndSettle();
 
     Finder emailField = find.byKey(new Key('email'));
@@ -44,7 +44,7 @@ void main() {
     Finder passwordField = find.byKey(new Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
-    await tester.tap(find.text('LOGIN').last);
+    await tester.tap(find.text('SIGN_IN').last);
     await tester.pumpAndSettle();
 
     expect(find.byType(AlertDialog), findsNothing);

@@ -6,14 +6,14 @@ import 'package:bookoox/utils/general.dart' show General;
 import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:bookoox/utils/validator.dart' show Validator;
 
-class Login extends StatefulWidget {
-  Login({Key key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  SignIn({Key key}) : super(key: key);
 
   @override
-  _LoginState createState() => new _LoginState();
+  _SignInState createState() => new _SignInState();
 }
 
-class _LoginState extends State<Login> {
+class _SignInState extends State<SignIn> {
   BuildContext _context;
   Localization _localization;
   ScrollController _scrollController = ScrollController();
@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
   String _password;
   bool _isEmail;
 
- void _onLogin() {
+ void _signIn() {
     if (_email == null || _password == null) {
       print('_email or _password is null.');
       return;
@@ -60,8 +60,8 @@ class _LoginState extends State<Login> {
       initialScrollOffset: 0.0,
     );
 
-    Widget loginText() {
-      return Text(_localization.trans('LOGIN'),
+    Widget renderSignInText() {
+      return Text(_localization.trans('SIGN_IN'),
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.headline1.color,
@@ -70,7 +70,7 @@ class _LoginState extends State<Login> {
       );
     }
 
-    Widget emailField() {
+    Widget renderEmailField() {
       return EditText(
         key: Key('email'),
         margin: EdgeInsets.only(top: 68.0),
@@ -89,11 +89,11 @@ class _LoginState extends State<Login> {
           }
           _email = str;
         },
-        onSubmitted: (String str) => _onLogin(),
+        onSubmitted: (String str) => _signIn(),
       );
     }
 
-    Widget passwordField() {
+    Widget renderPasswordField() {
       return EditText(
         key: Key('password'),
         obscureText: true,
@@ -104,14 +104,14 @@ class _LoginState extends State<Login> {
         isSecret: true,
         hasChecked: _password != null && _password.length > 0,
         onChanged: (String str) => this.setState(() => _password = str),
-        onSubmitted: (String str) => _onLogin(),
+        onSubmitted: (String str) => _signIn(),
       );
     }
 
-    Widget loginButton() {
+    Widget renderSignInButton() {
       return Button(
-        key: Key('loginButton'),
-        onPress: () => _onLogin(),
+        key: Key('signInButton'),
+        onPress: () => _signIn(),
         margin: EdgeInsets.only(top: 28.0, bottom: 8.0),
         textStyle: TextStyle(
           color: Colors.white,
@@ -119,7 +119,7 @@ class _LoginState extends State<Login> {
         ),
         borderColor: Colors.white,
         backgroundColor: Theme.of(context).primaryColor,
-        text: _localization.trans('LOGIN'),
+        text: _localization.trans('SIGN_IN'),
         width: MediaQuery.of(context).size.width / 2- 64,
         height: 56.0,
       );
@@ -170,10 +170,10 @@ class _LoginState extends State<Login> {
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   <Widget>[
-                    loginText(),
-                    emailField(),
-                    passwordField(),
-                    loginButton(),
+                    renderSignInText(),
+                    renderEmailField(),
+                    renderPasswordField(),
+                    renderSignInButton(),
                     findPwButton(),
                   ],
                 ),
