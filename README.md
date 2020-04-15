@@ -1,6 +1,6 @@
 # BooKooX
 [![Build Status](https://travis-ci.com/hyochan/bookoox.svg?token=LrhznigBQyTepcFfeNdp&branch=master)](https://travis-ci.com/hyochan/bookoox)
-[![Coverage Status](https://coveralls.io/repos/github/hyochan/bookoox/badge.svg?branch=master)](https://coveralls.io/github/hyochan/bookoox?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/hyochan/BooKooX/badge.svg)](https://coveralls.io/github/hyochan/BooKooX)
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
