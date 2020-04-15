@@ -1,5 +1,5 @@
-import 'package:bookoo2/shared/header.dart';
-import 'package:bookoo2/utils/service.dart';
+import 'package:bookoox/shared/header.dart';
+import 'package:bookoox/utils/service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';

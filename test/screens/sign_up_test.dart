@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoo2/screens/sign_up.dart' show SignUp;
+import 'package:bookoox/screens/sign_up.dart' show SignUp;
 import '../test_utils.dart' show TestUtils;
 
 void main() {

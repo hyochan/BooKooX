@@ -1,6 +1,6 @@
-import 'package:bookoo2/models/Category.dart' show Category;
-import 'package:bookoo2/models/Photo.dart';
-import 'package:bookoo2/models/User.dart' show User;
+import 'package:bookoox/models/Category.dart' show Category;
+import 'package:bookoox/models/Photo.dart';
+import 'package:bookoox/models/User.dart' show User;
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 

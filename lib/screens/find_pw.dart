@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoo2/shared/edit_text.dart' show EditText;
-import 'package:bookoo2/shared/button.dart' show Button;
-import 'package:bookoo2/utils/localization.dart' show Localization;
-import 'package:bookoo2/utils/validator.dart' show Validator;
+import 'package:bookoox/shared/edit_text.dart' show EditText;
+import 'package:bookoox/shared/button.dart' show Button;
+import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:bookoox/utils/validator.dart' show Validator;
 
 class FindPw extends StatefulWidget {
   FindPw({Key key}) : super(key: key);

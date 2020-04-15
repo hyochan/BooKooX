@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoox/utils/asset.dart' as Asset;
 
 class ProfileImageCam extends StatelessWidget {
   final Function selectGallery;

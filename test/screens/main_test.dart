@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
-import 'package:bookoo2/main.dart';
+import 'package:bookoox/main.dart';
 
 void main() {
   testWidgets('Widget', (WidgetTester tester) async {

@@ -1,5 +1,5 @@
-name: bookoo2
-description: BooKoo2 is the renewal app of BooKoo which is the global SNS ledger app.
+name: bookoox
+description: BooKooX is the renewal app of BooKoo which is the global SNS ledger app.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -42,14 +42,13 @@ dependencies:
   pie_chart: ^1.2.0
   month_picker_dialog: ^0.3.0
   fl_chart: ^0.4.1
-
   flutter_sticky_header: "^0.4.0"
+  flutter_calendar_carousel: "1.4.12"
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.7.2"
-  flutter_calendar_carousel: "1.4.10"
   flutter_native_splash: ^0.1.9
 
 flutter_icons:

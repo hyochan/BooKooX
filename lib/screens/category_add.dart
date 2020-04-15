@@ -1,10 +1,10 @@
-import 'package:bookoo2/models/Category.dart' show iconMaps, categoryIcons;
-import 'package:bookoo2/models/Category.dart';
-import 'package:bookoo2/utils/asset.dart' as Asset;
-import 'package:bookoo2/shared/edit_text_box.dart';
-import 'package:bookoo2/utils/db_helper.dart';
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoox/models/Category.dart' show iconMaps, categoryIcons;
+import 'package:bookoox/models/Category.dart';
+import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:bookoox/shared/edit_text_box.dart';
+import 'package:bookoox/utils/db_helper.dart';
+import 'package:bookoox/utils/general.dart';
+import 'package:bookoox/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

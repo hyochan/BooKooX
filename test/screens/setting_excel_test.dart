@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bookoo2/screens/setting_excel.dart' show SettingExcel;
+import 'package:bookoox/screens/setting_excel.dart' show SettingExcel;
 
 import '../test_utils.dart' show TestUtils;
 

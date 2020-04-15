@@ -1,17 +1,17 @@
-import 'package:bookoo2/shared/edit_text.dart';
+import 'package:bookoox/shared/edit_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:bookoo2/screens/profile_peer.dart';
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/shared/member_list_item.dart';
-import 'package:bookoo2/shared/header.dart';
-import 'package:bookoo2/shared/member_list_item.dart'
+import 'package:bookoox/screens/profile_peer.dart';
+import 'package:bookoox/utils/general.dart';
+import 'package:bookoox/shared/member_list_item.dart';
+import 'package:bookoox/shared/header.dart';
+import 'package:bookoox/shared/member_list_item.dart'
     show MemberItem, HeadingItem, ListItem;
-import 'package:bookoo2/models/User.dart' show User;
-import 'package:bookoo2/models/User.dart';
-import 'package:bookoo2/models/Ledger.dart';
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoox/models/User.dart' show User;
+import 'package:bookoox/models/User.dart';
+import 'package:bookoox/models/Ledger.dart';
+import 'package:bookoox/utils/localization.dart';
 
 class Members extends StatefulWidget {
   final Ledger ledger;

@@ -1,19 +1,19 @@
-import 'package:bookoo2/mocks/home_statistic.mock.dart';
-import 'package:bookoo2/models/LedgerItem.dart';
-import 'package:bookoo2/shared/date_selector.dart' show DateSelector;
-import 'package:bookoo2/screens/home_statistic/functions.dart';
+import 'package:bookoox/mocks/home_statistic.mock.dart';
+import 'package:bookoox/models/LedgerItem.dart';
+import 'package:bookoox/shared/date_selector.dart' show DateSelector;
+import 'package:bookoox/screens/home_statistic/functions.dart';
 
-import 'package:bookoo2/shared/home_list_item.dart';
-import 'package:bookoo2/utils/asset.dart' as Assets;
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoox/shared/home_list_item.dart';
+import 'package:bookoox/utils/asset.dart' as Assets;
+import 'package:bookoox/utils/localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bookoo2/utils/general.dart' show General;
-import 'package:bookoo2/shared/home_header.dart' show renderHomeAppBar;
+import 'package:bookoox/utils/general.dart' show General;
+import 'package:bookoox/shared/home_header.dart' show renderHomeAppBar;
 import 'package:pie_chart/pie_chart.dart' show PieChart;
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:intl/intl.dart' show DateFormat;
-import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoox/utils/localization.dart' show Localization;
 
 class HomeStatistic extends StatelessWidget {
   HomeStatistic({

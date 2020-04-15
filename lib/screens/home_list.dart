@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:bookoo2/models/User.dart';
+import 'package:bookoox/models/User.dart';
 
-import 'package:bookoo2/shared/home_header_search.dart' show HomeHeaderSearch;
-import 'package:bookoo2/models/Category.dart';
-import 'package:bookoo2/models/LedgerItem.dart';
-import 'package:bookoo2/shared/home_list_item.dart';
+import 'package:bookoox/shared/home_header_search.dart' show HomeHeaderSearch;
+import 'package:bookoox/models/Category.dart';
+import 'package:bookoox/models/LedgerItem.dart';
+import 'package:bookoox/shared/home_list_item.dart';
 
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoox/utils/general.dart';
+import 'package:bookoox/utils/localization.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';

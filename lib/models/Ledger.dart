@@ -1,5 +1,5 @@
-import 'package:bookoo2/models/Currency.dart';
-import 'package:bookoo2/types/color.dart';
+import 'package:bookoox/models/Currency.dart';
+import 'package:bookoox/types/color.dart';
 import 'package:flutter/material.dart';
 
 import './LedgerItem.dart' show LedgerItem;

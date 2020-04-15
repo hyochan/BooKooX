@@ -1,7 +1,7 @@
-import 'package:bookoo2/models/Category.dart';
-import 'package:bookoo2/models/LedgerItem.dart';
-import 'package:bookoo2/models/User.dart';
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoox/models/Category.dart';
+import 'package:bookoox/models/LedgerItem.dart';
+import 'package:bookoox/models/User.dart';
+import 'package:bookoox/utils/localization.dart';
 
 List<LedgerItem> createCalendarLedgerItemMock(Localization localization) {
   List<LedgerItem> ledgerList = List<LedgerItem>();

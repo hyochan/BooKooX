@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bookoo2/types/color.dart';
+import 'package:bookoox/types/color.dart';
 
 class Icons {
   Icons._();

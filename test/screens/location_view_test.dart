@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:bookoo2/screens/location_view.dart' show LocationView;
+import 'package:bookoox/screens/location_view.dart' show LocationView;
 import '../test_utils.dart' show TestUtils;
 
 void main() {

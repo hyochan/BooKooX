@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:bookoo2/models/Category.dart';
+import 'package:bookoox/models/Category.dart';
 
 final List<Category> initalCategory = [
   Category(

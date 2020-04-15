@@ -1,8 +1,8 @@
-import 'package:bookoo2/models/Category.dart';
-import 'package:bookoo2/shared/category_item.dart';
-import 'package:bookoo2/utils/db_helper.dart';
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoox/models/Category.dart';
+import 'package:bookoox/shared/category_item.dart';
+import 'package:bookoox/utils/db_helper.dart';
+import 'package:bookoox/utils/general.dart';
+import 'package:bookoox/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

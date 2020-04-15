@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bookoo2/shared/button.dart' show Button;
-import 'package:bookoo2/utils/asset.dart' as Asset;
-import 'package:bookoo2/utils/general.dart' show General;
-import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoox/shared/button.dart' show Button;
+import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:bookoox/utils/general.dart' show General;
+import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 

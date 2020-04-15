@@ -1,4 +1,4 @@
-import 'package:bookoo2/screens/home_calendar.dart' show HomeCalendar;
+import 'package:bookoox/screens/home_calendar.dart' show HomeCalendar;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
