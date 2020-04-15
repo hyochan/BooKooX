@@ -146,7 +146,7 @@ class _LockAuthState extends State<LockAuth> {
               Text(_localization.trans('LOCK_HINT'),
               style: TextStyle(
                 fontSize: 24,
-                color: Theme.of(context).textTheme.subhead.color),
+                color: Theme.of(context).textTheme.headline2.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -162,7 +162,7 @@ class _LockAuthState extends State<LockAuth> {
             OutlineButton(
               child: 
               Text(_localization.trans('FINGERPRINT_LOGIN'),
-                style: TextStyle(color: Theme.of(context).textTheme.subhead.color),
+                style: TextStyle(color: Theme.of(context).textTheme.headline2.color),
               ),
               onPressed: _hasFingerPrintSupport ? _authenticateMe : null ,
               shape: RoundedRectangleBorder(
@@ -245,13 +245,13 @@ class _LockAuthState extends State<LockAuth> {
         digit != null ? digit.toString() : "",
         style: TextStyle(
           fontSize: 30,
-          color: Theme.of(context).textTheme.title.color,
+          color: Theme.of(context).textTheme.headline1.color,
         ),
       ),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Theme.of(context).textTheme.title.color,
+            color: Theme.of(context).textTheme.headline1.color,
             width: 2,
             ),
           ),

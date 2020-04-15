@@ -125,7 +125,7 @@ class _LocationViewState extends State<LocationView> {
               onPressed: () => getPlace(),
               child: Icon(
                 Icons.search,
-                color: Theme.of(context).textTheme.title.color,
+                color: Theme.of(context).textTheme.headline1.color,
               ),
             ),
           ),
@@ -147,7 +147,7 @@ class _LocationViewState extends State<LocationView> {
               },
               child: Icon(
                 Icons.check,
-                color: Theme.of(context).textTheme.title.color,
+                color: Theme.of(context).textTheme.headline1.color,
               ),
             ),
           ),

@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
       return Text(_localization.trans('LOGIN'),
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.title.color,
+          color: Theme.of(context).textTheme.headline1.color,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -157,7 +157,7 @@ class _LoginState extends State<Login> {
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(
-          color: Theme.of(context).textTheme.title.color,
+          color: Theme.of(context).textTheme.headline1.color,
         ),
       ),
       body: GestureDetector(

@@ -25,7 +25,7 @@ class SettingOpinion extends StatelessWidget {
           _localization.trans('SHARE_OPINION'),
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.title.color,
+            color: Theme.of(context).textTheme.headline1.color,
           ),
         ),
       ),

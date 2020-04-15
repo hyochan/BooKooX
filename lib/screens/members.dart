@@ -137,7 +137,7 @@ class _MembersState extends State<Members> {
               },
               child: Icon(
                 Icons.search,
-                color: Theme.of(context).textTheme.title.color,
+                color: Theme.of(context).textTheme.headline1.color,
                 semanticLabel: _localization.trans('SEARCH'),
               ),
             ),
@@ -180,7 +180,7 @@ class _MembersState extends State<Members> {
                   : Text(
                       '${_localization.trans('MEMBER')} ${item.numOfPeople}',
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.title.color,
+                        color: Theme.of(context).textTheme.headline1.color,
                         fontSize: 28,
                       ),
                     ),

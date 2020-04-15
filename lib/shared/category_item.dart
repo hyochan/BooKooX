@@ -51,7 +51,7 @@ class _CategoryItemState extends State<CategoryItem> {
                     category.label ?? '',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.title.color,
+                      color: Theme.of(context).textTheme.headline1.color,
                     ),
                     textAlign: TextAlign.center,
                     maxLines: 1,
@@ -70,7 +70,7 @@ class _CategoryItemState extends State<CategoryItem> {
                     child: Container(
                       width: 24,
                       height: 24,
-                      color: Theme.of(context).textTheme.title.color,
+                      color: Theme.of(context).textTheme.headline1.color,
                       child: Icon(
                         Icons.close,
                         color: Theme.of(context).backgroundColor,

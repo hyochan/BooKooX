@@ -61,8 +61,8 @@ class _HomeTabState extends State<HomeTab> {
         type: BottomNavigationBarType.shifting,
         currentIndex: _index,
         onTap: (int index) { setState((){ this._index = index; }); },
-        selectedItemColor: Theme.of(context).textTheme.headline.color,
-        unselectedItemColor: Theme.of(context).textTheme.overline.color,
+        selectedItemColor: Theme.of(context).textTheme.headline1.color,
+        unselectedItemColor: Theme.of(context).textTheme.headline1.color,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,

@@ -25,7 +25,7 @@ class HomeListItem extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
-            color: Theme.of(context).textTheme.title.color,
+            color: Theme.of(context).textTheme.headline1.color,
             fontSize: 16.0,
           ),
         ),
@@ -37,7 +37,7 @@ class HomeListItem extends StatelessWidget {
           child: Text(
             writer.displayName,
             style: TextStyle(
-              color: Theme.of(context).textTheme.subtitle.color,
+              color: Theme.of(context).textTheme.headline2.color,
               fontSize: 12.0,
             ),
           ),
@@ -98,7 +98,7 @@ class HomeListItem extends StatelessWidget {
                     textAlign: TextAlign.end,
                     style: TextStyle(
                         color: _isPlus
-                            ? Theme.of(context).textTheme.title.color
+                            ? Theme.of(context).textTheme.headline1.color
                             : Asset.Colors.carnation),
                   ),
                 ),

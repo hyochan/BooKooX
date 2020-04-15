@@ -88,14 +88,14 @@ class _LockRegisterState extends State<LockRegister> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Theme.of(context).textTheme.title.color,
+        iconColor: Theme.of(context).textTheme.headline1.color,
         brightness: Theme.of(context).brightness,
         actions: <Widget> [
           FlatButton(
             child: Text( 
                 _localization.trans('DONE'),
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.title.color,
+                  color: Theme.of(context).textTheme.headline1.color,
                 ),
               ),
             onPressed: addLockPinToSF,
@@ -111,7 +111,7 @@ class _LockRegisterState extends State<LockRegister> {
               Text(_localization.trans('LOCK_HINT'),
               style: TextStyle(
                 fontSize: 24,
-                color: Theme.of(context).textTheme.title.color),
+                color: Theme.of(context).textTheme.headline1.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -190,13 +190,13 @@ class _LockRegisterState extends State<LockRegister> {
         digit != null ? digit.toString() : "",
         style: TextStyle(
           fontSize: 30,
-          color: Theme.of(context).textTheme.title.color,
+          color: Theme.of(context).textTheme.headline1.color,
         ),
       ),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Theme.of(context).textTheme.title.color,
+            color: Theme.of(context).textTheme.headline1.color,
             width: 2,
             ),
           ),

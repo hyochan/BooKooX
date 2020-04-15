@@ -75,7 +75,7 @@ class MemberHorizontalList extends StatelessWidget {
                       child: InkWell(
                         child: Icon(
                           Icons.add,
-                          color: Theme.of(context).textTheme.display1.color,
+                          color: Theme.of(context).textTheme.headline1.color,
                         ),
                         onTap: () {},
                       ),

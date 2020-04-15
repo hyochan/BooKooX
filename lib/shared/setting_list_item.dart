@@ -54,7 +54,7 @@ class SettingListItem extends StatelessWidget {
                       item.title,
                       style: TextStyle(
                         fontSize: 20,
-                        color: Theme.of(context).textTheme.title.color,
+                        color: Theme.of(context).textTheme.headline1.color,
                       ),
                     )
                   ),

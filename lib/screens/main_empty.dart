@@ -44,7 +44,7 @@ class _MainEmptyState extends State<MainEmpty> {
               child: Text(
                 _localization.trans('NO_LEDGER_DESCRIPTION'),
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.display1.color,
+                  color: Theme.of(context).textTheme.headline1.color,
                   fontSize: 20,
                 ),
                 textAlign: TextAlign.center,

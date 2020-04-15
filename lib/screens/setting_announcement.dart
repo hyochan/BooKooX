@@ -54,7 +54,7 @@ class SettingAnnouncement extends StatelessWidget {
           _localization.trans('ANNOUNCEMENT'),
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.title.color,
+            color: Theme.of(context).textTheme.headline1.color,
           ),
         ),
       ),
