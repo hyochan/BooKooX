@@ -87,7 +87,7 @@ class MemberListItem extends StatelessWidget {
                             maxLines: 1,
                             style: TextStyle(
                               fontSize: 18,
-                              color: Theme.of(context).textTheme.title.color,
+                              color: Theme.of(context).textTheme.headline1.color,
                             ),
                           ),
                           Container(
@@ -96,7 +96,7 @@ class MemberListItem extends StatelessWidget {
                               user.email,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Theme.of(context).textTheme.display2.color,
+                                color: Theme.of(context).textTheme.headline1.color,
                               ),
                             ),
                           ),
@@ -123,7 +123,7 @@ class MemberListItem extends StatelessWidget {
                 : _localization.trans('MEMBER_GUEST'),
                 style: TextStyle(
                   fontSize: 12,
-                  color: Theme.of(context).textTheme.display2.color,
+                  color: Theme.of(context).textTheme.headline1.color,
                 ),
               ),
             ),

@@ -38,7 +38,7 @@ class HomeStatistic extends StatelessWidget {
                   .navigateScreenNamed(context, '/ledger_item_add'),
               child: Icon(
                 Icons.add,
-                color: Theme.of(context).textTheme.title.color,
+                color: Theme.of(context).textTheme.headline1.color,
               ),
             ),
           ),
@@ -140,7 +140,7 @@ class _ContentState extends State<Content> {
     var chartWidget = dataMap.length > 0
         ? PieChart(
             dataMap: dataMap,
-            legendFontColor: Theme.of(context).textTheme.title.color,
+            legendFontColor: Theme.of(context).textTheme.headline1.color,
             legendFontSize: 14.0,
             legendFontWeight: FontWeight.w500,
             animationDuration: Duration(milliseconds: 800),
@@ -150,7 +150,7 @@ class _ContentState extends State<Content> {
             showChartValues: true,
             showChartValuesOutside: false,
             chartValuesColor:
-                Theme.of(context).textTheme.display3.color.withOpacity(0.9),
+                Theme.of(context).textTheme.headline1.color.withOpacity(0.9),
             colorList: colorList,
             showLegends: true,
             decimalPlaces: 1,

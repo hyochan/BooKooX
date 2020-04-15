@@ -181,7 +181,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                       '${_localization.trans('CATEGORY')}',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Theme.of(context).textTheme.title.color,
+                        color: Theme.of(context).textTheme.headline1.color,
                       ),
                     ),
                     FlatButton(
@@ -247,8 +247,8 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                   child: image == null ? Icon(
                     icon,
                     color: active
-                      ? Theme.of(context).textTheme.title.color
-                      : Theme.of(context).textTheme.subtitle.color,
+                      ? Theme.of(context).textTheme.headline1.color
+                      : Theme.of(context).textTheme.headline2.color,
                   ) : Image(
                     image: image,
                     width: 20,
@@ -266,8 +266,8 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                             text,
                             style: TextStyle(
                               color: active == true
-                                ? Theme.of(context).textTheme.title.color
-                                : Theme.of(context).textTheme.subtitle.color,
+                                ? Theme.of(context).textTheme.headline1.color
+                                : Theme.of(context).textTheme.headline2.color,
                               fontSize: 16,
                             ),
                           ),
@@ -463,7 +463,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                     Container(
                       child: Text('+ ', style: TextStyle(
                         fontSize: 28,
-                        color: Theme.of(context).textTheme.display2.color,
+                        color: Theme.of(context).textTheme.headline1.color,
                       )),
                     ),
                     Expanded(
@@ -562,7 +562,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
               onPressed: onLedgerItemAddPressed,
               child: Icon(
                 Icons.add_box,
-                color: Theme.of(context).textTheme.title.color,
+                color: Theme.of(context).textTheme.headline1.color,
               ),
             ),
           ),
@@ -581,12 +581,12 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
                 isScrollable: true,
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(color: Theme.of(context).textTheme.title.color, width: 4.0),
+                  borderSide: BorderSide(color: Theme.of(context).textTheme.headline1.color, width: 4.0),
                   insets: EdgeInsets.symmetric(horizontal: 8),
                   // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
                 ),
                 indicatorColor: Theme.of(context).backgroundColor,
-                labelColor: Theme.of(context).textTheme.title.color,
+                labelColor: Theme.of(context).textTheme.headline1.color,
                 labelStyle: TextStyle(
                   fontSize: 20,
                 ),

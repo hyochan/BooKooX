@@ -37,7 +37,7 @@ class _SettingNotificationState extends State<SettingNotification> {
           _localization.trans('NOTIFICATION'),
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.title.color,
+            color: Theme.of(context).textTheme.headline1.color,
           ),
         ),
       ),
@@ -53,7 +53,7 @@ class _SettingNotificationState extends State<SettingNotification> {
                     _localization.trans('ADDING_LEDGER_ITEM'),
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.title.color,
+                      color: Theme.of(context).textTheme.headline1.color,
                     ),
                   ),
                 ),
@@ -80,7 +80,7 @@ class _SettingNotificationState extends State<SettingNotification> {
                     _localization.trans('UPDATING_LEDGER_ITEM'),
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.title.color,
+                      color: Theme.of(context).textTheme.headline1.color,
                     ),
                   ),
                 ),

@@ -132,7 +132,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                         _localization.trans('CATEGORY_ADD'),
                         style: TextStyle(
                           fontSize: 28,
-                          color: Theme.of(context).textTheme.title.color,
+                          color: Theme.of(context).textTheme.headline1.color,
                         ),
                       ),
                     ),
@@ -189,7 +189,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                         _localization.trans('CANCEL'),
                         style: TextStyle(
                           fontSize: 20,
-                          color: Theme.of(context).textTheme.display2.color,
+                          color: Theme.of(context).textTheme.headline1.color,
                         ),
                       ),
                     ),
@@ -202,7 +202,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                         _localization.trans('DONE'),
                         style: TextStyle(
                           fontSize: 20,
-                          color: Theme.of(context).textTheme.display2.color,
+                          color: Theme.of(context).textTheme.headline1.color,
                         ),
                       ),
                     ),

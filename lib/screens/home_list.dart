@@ -261,7 +261,7 @@ class _HomeListState extends State<HomeList> {
         headerString,
         style: TextStyle(
           fontSize: 16,
-          color: Theme.of(context).textTheme.subtitle.color,
+          color: Theme.of(context).textTheme.headline2.color,
         ),
       ),
     );

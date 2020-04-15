@@ -80,7 +80,7 @@ class _SettingCurrencyState extends State<SettingCurrency> {
           _localization.trans('CURRENCY'),
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.title.color,
+            color: Theme.of(context).textTheme.headline1.color,
           ),
         ),
       ),

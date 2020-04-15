@@ -250,7 +250,7 @@ Widget renderCalendar({
     weekendTextStyle: TextStyle(
       color: Theme.of(context).primaryColorLight,
     ),
-    daysTextStyle: TextStyle(color: Theme.of(context).textTheme.title.color),
+    daysTextStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
     todayBorderColor: Colors.green,
     todayTextStyle: TextStyle(
       color: Theme.of(context).primaryColor,

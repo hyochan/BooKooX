@@ -37,7 +37,7 @@ class _FindPwState extends State<FindPw> {
       return Text(_localization.trans('FIND_PASSWORD'),
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.title.color,
+          color: Theme.of(context).textTheme.headline1.color,
           fontWeight: FontWeight.w600,
         ),
       );

@@ -58,7 +58,7 @@ class _SignUpState extends State<SignUp> {
       return Text(_localization.trans('SIGN_UP'),
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.title.color,
+          color: Theme.of(context).textTheme.headline1.color,
           fontWeight: FontWeight.w600,
         ),
       );

@@ -82,7 +82,7 @@ class _LineGraphState extends State<LineGraph> {
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).textTheme.title.color,
+        iconColor: Theme.of(context).textTheme.headline1.color,
         brightness: Theme.of(context).brightness,
       ),
       body: SafeArea(
@@ -93,7 +93,7 @@ class _LineGraphState extends State<LineGraph> {
                 _localization.trans('CAFE'),
                 style: TextStyle(
                   fontSize: 30,
-                  color: Theme.of(context).textTheme.title.color,
+                  color: Theme.of(context).textTheme.headline1.color,
                 ),
               ),
             ),

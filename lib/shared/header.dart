@@ -25,7 +25,7 @@ AppBar renderHeaderClose({
         onPressed: () => Navigator.of(context).pop(),
         child: Icon(
           Icons.close,
-          color: Theme.of(context).textTheme.title.color,
+          color: Theme.of(context).textTheme.headline1.color,
           semanticLabel: _localization.trans('CLOSE'),
         ),
       ),

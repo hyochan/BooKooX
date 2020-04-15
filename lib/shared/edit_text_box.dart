@@ -82,7 +82,7 @@ class _EditTextBoxState extends State<EditTextBox> {
           child: TextField(
             enabled: widget.enabled,
             controller: widget.controller,
-            style: widget.textStyle ?? TextStyle(color: Theme.of(context).textTheme.title.color),
+            style: widget.textStyle ?? TextStyle(color: Theme.of(context).textTheme.headline1.color),
             cursorColor: widget.focusedColor,
             onChanged: widget.onChangeText,
             maxLength: widget.maxLength,
@@ -94,7 +94,7 @@ class _EditTextBoxState extends State<EditTextBox> {
               labelStyle: widget.labelStyle,
               focusColor: widget.focusedColor,
               hintText: widget.hintText,
-              hintStyle: widget.hintStyle ?? TextStyle(color: Theme.of(context).textTheme.display2.color),
+              hintStyle: widget.hintStyle ?? TextStyle(color: Theme.of(context).textTheme.headline1.color),
               errorText: widget.errorText,
               errorStyle: widget.errorStyle,
               contentPadding: EdgeInsets.only(
