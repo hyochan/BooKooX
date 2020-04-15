@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoo2/shared/header.dart' show renderHeaderBack;
-import 'package:bookoo2/shared/button.dart' show Button;
-import 'package:bookoo2/utils/localization.dart' show Localization;
-import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoox/shared/header.dart' show renderHeaderBack;
+import 'package:bookoox/shared/button.dart' show Button;
+import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:bookoox/utils/asset.dart' as Asset;
 
 class SettingOpinion extends StatelessWidget {
 

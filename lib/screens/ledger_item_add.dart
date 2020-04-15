@@ -3,19 +3,19 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'package:bookoo2/screens/location_view.dart';
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/models/Category.dart';
-import 'package:bookoo2/utils/db_helper.dart';
-import 'package:bookoo2/screens/category_add.dart';
-import 'package:bookoo2/shared/category_list.dart';
-import 'package:bookoo2/shared/header.dart';
-import 'package:bookoo2/models/Photo.dart' show Photo;
-import 'package:bookoo2/models/LedgerItem.dart' show LedgerItem;
-import 'package:bookoo2/shared/header.dart' show renderHeaderClose;
-import 'package:bookoo2/shared/gallery.dart' show Gallery;
-import 'package:bookoo2/utils/asset.dart' as Asset;
-import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoox/screens/location_view.dart';
+import 'package:bookoox/utils/general.dart';
+import 'package:bookoox/models/Category.dart';
+import 'package:bookoox/utils/db_helper.dart';
+import 'package:bookoox/screens/category_add.dart';
+import 'package:bookoox/shared/category_list.dart';
+import 'package:bookoox/shared/header.dart';
+import 'package:bookoox/models/Photo.dart' show Photo;
+import 'package:bookoox/models/LedgerItem.dart' show LedgerItem;
+import 'package:bookoox/shared/header.dart' show renderHeaderClose;
+import 'package:bookoox/shared/gallery.dart' show Gallery;
+import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:bookoox/utils/localization.dart' show Localization;
 
 class LedgerItemAdd extends StatefulWidget {
   LedgerItemAdd({

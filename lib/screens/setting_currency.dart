@@ -1,4 +1,4 @@
-import 'package:bookoo2/models/Currency.dart';
+import 'package:bookoox/models/Currency.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/general.dart' show General;

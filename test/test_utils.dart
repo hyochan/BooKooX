@@ -1,26 +1,26 @@
-import 'package:bookoo2/navigations/home_tab.dart';
-import 'package:bookoo2/screens/ledger_add.dart';
-import 'package:bookoo2/screens/ledgers.dart';
-import 'package:bookoo2/screens/main_empty.dart';
-import 'package:bookoo2/screens/profile_my.dart';
-import 'package:bookoo2/screens/setting.dart';
-import 'package:bookoo2/screens/setting_announcement.dart';
-import 'package:bookoo2/screens/setting_faq.dart';
-import 'package:bookoo2/screens/setting_notification.dart';
-import 'package:bookoo2/screens/setting_opinion.dart';
-import 'package:bookoo2/screens/tutorial.dart';
+import 'package:bookoox/navigations/home_tab.dart';
+import 'package:bookoox/screens/ledger_add.dart';
+import 'package:bookoox/screens/ledgers.dart';
+import 'package:bookoox/screens/main_empty.dart';
+import 'package:bookoox/screens/profile_my.dart';
+import 'package:bookoox/screens/setting.dart';
+import 'package:bookoox/screens/setting_announcement.dart';
+import 'package:bookoox/screens/setting_faq.dart';
+import 'package:bookoox/screens/setting_notification.dart';
+import 'package:bookoox/screens/setting_opinion.dart';
+import 'package:bookoox/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
-import 'package:bookoo2/utils/localization.dart' show LocalizationDelegate;
+import 'package:bookoox/utils/localization.dart' show LocalizationDelegate;
 
 import 'package:mockito/mockito.dart';
-import 'package:bookoo2/screens/splash.dart' show Splash;
-import 'package:bookoo2/screens/intro.dart' show Intro;
-import 'package:bookoo2/screens/login.dart' show Login;
-import 'package:bookoo2/screens/sign_up.dart' show SignUp;
-import 'package:bookoo2/screens/find_pw.dart' show FindPw;
-import 'package:bookoo2/screens/home_calendar.dart' show HomeCalendar;
-import 'package:bookoo2/screens/terms.dart' show Terms;
+import 'package:bookoox/screens/splash.dart' show Splash;
+import 'package:bookoox/screens/intro.dart' show Intro;
+import 'package:bookoox/screens/login.dart' show Login;
+import 'package:bookoox/screens/sign_up.dart' show SignUp;
+import 'package:bookoox/screens/find_pw.dart' show FindPw;
+import 'package:bookoox/screens/home_calendar.dart' show HomeCalendar;
+import 'package:bookoox/screens/terms.dart' show Terms;
 
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}

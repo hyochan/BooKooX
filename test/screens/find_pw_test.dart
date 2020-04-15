@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoo2/screens/find_pw.dart' show FindPw;
+import 'package:bookoox/screens/find_pw.dart' show FindPw;
 import '../test_utils.dart' show TestUtils;
 
 void main() {

@@ -1,5 +1,5 @@
-import 'package:bookoo2/screens/line_graph.dart' show LineGraph;
-import 'package:bookoo2/shared/line_graph_chart.dart';
+import 'package:bookoox/screens/line_graph.dart' show LineGraph;
+import 'package:bookoox/shared/line_graph_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../test_utils.dart' show TestUtils;

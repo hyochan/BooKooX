@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoo2/shared/button.dart' show Button;
+import 'package:bookoox/shared/button.dart' show Button;
 import '../test_utils.dart' show TestUtils;
 
 void main() {

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoox/utils/general.dart';
+import 'package:bookoox/utils/asset.dart' as Asset;
 
 class Splash extends StatefulWidget {
   Splash({Key key}) : super(key: key);

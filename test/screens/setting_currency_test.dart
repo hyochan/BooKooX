@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bookoo2/screens/setting_currency.dart' show SettingCurrency;
+import 'package:bookoox/screens/setting_currency.dart' show SettingCurrency;
 
 import '../test_utils.dart' show TestUtils;
 

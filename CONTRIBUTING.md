@@ -1,7 +1,7 @@
 ## Contribution Guide
 * Recommended to have `forked` master branch to be updated to upstream.
 * Configure [Syncing a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/).
-  - `git remote add upstream https://github.com/hyochan/bookoo2`
+  - `git remote add upstream https://github.com/hyochan/bookoox`
   - Check it with `git remote -v`
 * Fetch the branches from upstream repository by `git fetch upstream`
 * When you want to give `PR`, make new branch `git checkout -b [feature_name]`

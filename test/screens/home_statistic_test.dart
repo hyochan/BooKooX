@@ -1,4 +1,4 @@
-import 'package:bookoo2/screens/home_statistic/home_statistic.dart'
+import 'package:bookoox/screens/home_statistic/home_statistic.dart'
     show HomeStatistic;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

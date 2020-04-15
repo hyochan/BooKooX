@@ -1,4 +1,4 @@
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoox/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

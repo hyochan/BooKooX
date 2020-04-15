@@ -1,12 +1,12 @@
-import 'package:bookoo2/mocks/home_calendar.mock.dart';
-import 'package:bookoo2/models/LedgerItem.dart';
-import 'package:bookoo2/shared/date_selector.dart' show DateSelector;
-import 'package:bookoo2/shared/home_list_item.dart';
-import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoox/mocks/home_calendar.mock.dart';
+import 'package:bookoox/models/LedgerItem.dart';
+import 'package:bookoox/shared/date_selector.dart' show DateSelector;
+import 'package:bookoox/shared/home_list_item.dart';
+import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:flutter/material.dart';
 
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/shared/home_header.dart' show HomeHeaderExpanded;
+import 'package:bookoox/utils/general.dart';
+import 'package:bookoox/shared/home_header.dart' show HomeHeaderExpanded;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:flutter_calendar_carousel/classes/event.dart';

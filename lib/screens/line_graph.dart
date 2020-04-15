@@ -1,6 +1,6 @@
-import 'package:bookoo2/mocks/line_graph.mock.dart';
-import 'package:bookoo2/models/LedgerItem.dart';
-import 'package:bookoo2/shared/line_graph_chart.dart';
+import 'package:bookoox/mocks/line_graph.mock.dart';
+import 'package:bookoox/models/LedgerItem.dart';
+import 'package:bookoox/shared/line_graph_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/localization.dart' show Localization;

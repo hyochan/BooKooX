@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoo2/shared/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
-import 'package:bookoo2/shared/header.dart' show renderHeaderBack;
-import 'package:bookoo2/utils/general.dart' show General;
-import 'package:bookoo2/utils/asset.dart' as Asset;
-import 'package:bookoo2/utils/localization.dart' show Localization;
+import 'package:bookoox/shared/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
+import 'package:bookoox/shared/header.dart' show renderHeaderBack;
+import 'package:bookoox/utils/general.dart' show General;
+import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:bookoox/utils/localization.dart' show Localization;
 
 import 'package:shared_preferences/shared_preferences.dart';
 

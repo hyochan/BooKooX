@@ -1,9 +1,9 @@
-import 'package:bookoo2/utils/localization.dart';
+import 'package:bookoox/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'package:bookoo2/models/User.dart';
-import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoox/models/User.dart';
+import 'package:bookoox/utils/asset.dart' as Asset;
 
 abstract class ListItem {}
 

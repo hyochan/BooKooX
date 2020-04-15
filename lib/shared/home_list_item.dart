@@ -1,9 +1,9 @@
-import 'package:bookoo2/models/LedgerItem.dart';
+import 'package:bookoox/models/LedgerItem.dart';
 import 'package:flutter/material.dart';
-import 'package:bookoo2/utils/asset.dart' as Asset;
+import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:intl/intl.dart';
-import 'package:bookoo2/models/User.dart';
-import 'package:bookoo2/utils/general.dart' show General;
+import 'package:bookoox/models/User.dart';
+import 'package:bookoox/utils/general.dart' show General;
 
 class HomeListItem extends StatelessWidget {
   final LedgerItem ledgerItem;

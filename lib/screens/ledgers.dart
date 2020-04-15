@@ -1,17 +1,17 @@
-import 'package:bookoo2/models/Currency.dart';
+import 'package:bookoox/models/Currency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:bookoo2/shared/header.dart' show renderHeaderClose;
-import 'package:bookoo2/screens/ledger_add.dart';
-import 'package:bookoo2/screens/ledger_view.dart';
-import 'package:bookoo2/shared/profile_list_item.dart' show ProfileListItem;
-import 'package:bookoo2/shared/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
-import 'package:bookoo2/models/Ledger.dart';
-import 'package:bookoo2/utils/localization.dart';
-import 'package:bookoo2/utils/asset.dart' as Asset;
-import 'package:bookoo2/utils/general.dart';
-import 'package:bookoo2/types/color.dart';
+import 'package:bookoox/shared/header.dart' show renderHeaderClose;
+import 'package:bookoox/screens/ledger_add.dart';
+import 'package:bookoox/screens/ledger_view.dart';
+import 'package:bookoox/shared/profile_list_item.dart' show ProfileListItem;
+import 'package:bookoox/shared/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
+import 'package:bookoox/models/Ledger.dart';
+import 'package:bookoox/utils/localization.dart';
+import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:bookoox/utils/general.dart';
+import 'package:bookoox/types/color.dart';
 
 class Ledgers extends StatefulWidget {
   Ledgers({Key key}) : super(key: key);

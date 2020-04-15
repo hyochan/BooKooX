@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:bookoo2/screens/main_empty.dart' show MainEmpty;
-import 'package:bookoo2/screens/ledger_add.dart' show LedgerAdd;
+import 'package:bookoox/screens/main_empty.dart' show MainEmpty;
+import 'package:bookoox/screens/ledger_add.dart' show LedgerAdd;
 import '../test_utils.dart' show TestUtils;
 
 void main() {

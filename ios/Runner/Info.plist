@@ -5,7 +5,7 @@
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,9 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>BooKoo2</string>
-	<key>CFBundlePackageType</key>
-	<string>BooKoo2</string>
+	<string>BooKooX</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -61,6 +59,5 @@
 	<string>App would like to authenticate with your face id. This will let you use additional feature to login to your ledger.</string>	
 	<key>UIStatusBarHidden</key>
 	<true/>
-
 </dict>
 </plist>

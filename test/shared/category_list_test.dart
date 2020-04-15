@@ -1,8 +1,8 @@
-import 'package:bookoo2/models/Category.dart';
+import 'package:bookoox/models/Category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoo2/shared/category_list.dart' show CategoryList;
+import 'package:bookoox/shared/category_list.dart' show CategoryList;
 import '../test_utils.dart' show TestUtils;
 
 void main() {

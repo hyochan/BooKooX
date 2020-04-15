@@ -1,5 +1,5 @@
-import 'package:bookoo2/screens/line_graph.dart';
-import 'package:bookoo2/screens/tutorial.dart';
+import 'package:bookoox/screens/line_graph.dart';
+import 'package:bookoox/screens/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
@@ -135,7 +135,7 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
-      title: 'BooKoo2',
+      title: 'BooKooX',
       // home: Tutorial(),
       home: HomeTab(),
     );
