@@ -209,7 +209,7 @@ class _SignInState extends State<SignIn> {
 
     Widget renderSignInButton() {
       return Button(
-        key: Key('signInButton'),
+        key: Key('sign-in-button'),
         onPress: _signIn,
         isLoading: _isSigningIn,
         margin: EdgeInsets.only(top: 28.0, bottom: 8.0),

@@ -17,7 +17,7 @@ void main() {
     expect(find.text('EMAIL'), findsOneWidget);
     expect(find.text('EMAIL_HINT'), findsOneWidget);
   });
-  testWidgets("Show [emailError] text when email address is not valid form", (WidgetTester tester) async{
+  testWidgets("Show [errorEmail] text when email address is not valid form", (WidgetTester tester) async{
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: FindPw()));
     await tester.pumpAndSettle();
 

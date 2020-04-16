@@ -19,7 +19,7 @@ class FindPw extends StatefulWidget {
 class _FindPwState extends State<FindPw> {
   Localization _localization;
   String _email = '';
-  String _emailError;
+  String _errorEmail;
 
   bool _isValidEmail = false;
   bool _isSendingEmail = false;
@@ -28,7 +28,7 @@ class _FindPwState extends State<FindPw> {
     bool isEmail = Validator.instance.validateEmail(_email);
 
     if (!isEmail) {
-      setState(() => _emailError = _localization.trans('NO_VALID_EMAIL'));
+      setState(() => _errorEmail = _localization.trans('NO_VALID_EMAIL'));
       return;
     }
 
@@ -65,7 +65,7 @@ class _FindPwState extends State<FindPw> {
     Widget emailField() {
       return EditText(
         key: Key('email'),
-        errorText: _emailError,
+        errorText: _errorEmail,
         margin: EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
         textLabel: _localization.trans('EMAIL'),
@@ -75,7 +75,7 @@ class _FindPwState extends State<FindPw> {
           if (Validator.instance.validateEmail(str)) {
             setState(() {
               _isValidEmail = true;
-              _emailError = null;
+              _errorEmail = null;
             });
           } else {
             setState(() => _isValidEmail = false);
