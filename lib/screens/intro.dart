@@ -1,5 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:bookoox/shared/button.dart' show Button;
 import 'package:bookoox/utils/asset.dart' as Asset;
@@ -8,33 +11,77 @@ import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final Firestore firestore = Firestore.instance;
+
 class Intro extends StatelessWidget {
+  static final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
+    hostedDomain: "",
+    clientId: "",
+  );
+
+  Future<Null> _googleLogin(BuildContext context) async {
+    General.instance.showDialogSpinner(
+      context,
+      text: Localization.of(context).trans('SIGNING_IN_WITH_GOOGLE'),
+    );
+
+    try {
+      GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+
+      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      AuthCredential credential = GoogleAuthProvider.getCredential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
+      
+      AuthResult auth = await _auth.signInWithCredential(credential);
+      FirebaseUser user = auth.user;
+
+      await firestore.collection('users').document(user.uid).setData({
+        'email': user.email,
+        'displayName': user.displayName,
+        'name': user.displayName,
+        'googleId': googleAuth.idToken,
+        'createdAt': FieldValue.serverTimestamp(),
+        'updatedAt': FieldValue.serverTimestamp(),
+        'deletedAt': null,
+      });
+    } catch (error) {
+      print('google signin err: $error');
+    } finally {
+      _googleSignIn.signOut();
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarBrightness: Theme.of(context).brightness));
     var _localization = Localization.of(context);
-    final TextStyle _loginWithTextStyle = TextStyle(
+    final TextStyle _signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
       fontSize: 16.0,
     );
 
-    Widget loginButton() {
+    Widget renderSignInBtn() {
       return Button(
-        onPress: () => General.instance.navigateScreenNamed(context, '/login'),
+        onPress: () => General.instance.navigateScreenNamed(context, '/sign_in'),
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
           color: Theme.of(context).primaryColor,
         ),
         backgroundColor: Colors.white,
-        text: _localization.trans('LOGIN'),
+        text: _localization.trans('SIGN_IN'),
         width: 240.0,
         height: 56.0,
       );
     }
 
-    Widget doNotHaveAccount() {
+    Widget renderDoNotHaveAccount() {
       return Container(
         margin: EdgeInsets.symmetric(vertical: 2.0),
         child: FlatButton(
@@ -60,7 +107,7 @@ class Intro extends StatelessWidget {
       );
     }
 
-    Widget orLoginWith() {
+    Widget renderOrSignInWith() {
       return Container(
         margin: EdgeInsets.only(top: 12.0),
         child: Flex(
@@ -70,21 +117,21 @@ class Intro extends StatelessWidget {
             Expanded(
               child: Text(
                 '----------------------',
-                style: _loginWithTextStyle,
+                style: _signInWithTextStyle,
                 textAlign: TextAlign.center,
                 maxLines: 1,
               ),
             ),
             Text(
-              ' or login with ',
-              style: _loginWithTextStyle,
+              ' or sign in with ',
+              style: _signInWithTextStyle,
               textAlign: TextAlign.center,
               maxLines: 1,
             ),
             Expanded(
               child: Text(
                 '----------------------',
-                style: _loginWithTextStyle,
+                style: _signInWithTextStyle,
                 textAlign: TextAlign.center,
                 maxLines: 1,
               ),
@@ -94,52 +141,34 @@ class Intro extends StatelessWidget {
       );
     }
 
-    Widget socialLoginButtons() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    Widget renderGoogleSignInButton() {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Button(
             margin: EdgeInsets.only(top: 20.0),
-            textStyle: _loginWithTextStyle.merge(
-              TextStyle(fontSize: 15.0),
-            ),
-            borderColor: Colors.white,
-            backgroundColor: Colors.transparent,
-            text: 'Facebook',
-            width: MediaQuery.of(context).size.width >
-                    MediaQuery.of(context).size.height
-                ? MediaQuery.of(context).size.width / 2 - 112
-                : MediaQuery.of(context).size.width / 2 - 64,
-            height: 56.0,
-            image: Image(
-              image: Asset.Icons.icFacebook,
-              width: 20.0,
-              height: 20.0,
-            ),
-          ),
-          Button(
-            margin: EdgeInsets.only(top: 20.0),
             imageMarginLeft: 8,
-            textStyle: _loginWithTextStyle,
+            textStyle: _signInWithTextStyle,
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: 'Google',
             width: MediaQuery.of(context).size.width >
                     MediaQuery.of(context).size.height
-                ? MediaQuery.of(context).size.width / 2 - 112
-                : MediaQuery.of(context).size.width / 2 - 64,
-            height: 56.0,
+                ? MediaQuery.of(context).size.width - 224
+                : MediaQuery.of(context).size.width - 128,
+            height: 52.0,
             image: Image(
               image: Asset.Icons.icGoogle,
               width: 24.0,
               height: 24.0,
             ),
+            onPress: () => _googleLogin(context),
           ),
         ],
       );
     }
 
-    Widget termsAndAgreement() {
+    Widget renderTermsAndAgreement() {
       var clickableTextStyle = TextStyle(
         fontWeight: FontWeight.bold,
         color: Theme.of(context).accentColor,
@@ -151,7 +180,7 @@ class Intro extends StatelessWidget {
         child: RichText(
           text: TextSpan(
             text: _localization.trans('TERMS_1'),
-            style: _loginWithTextStyle.merge(
+            style: _signInWithTextStyle.merge(
               TextStyle(fontSize: 12, height: 1.3),
             ),
             children: [
@@ -203,11 +232,11 @@ class Intro extends StatelessWidget {
                           image: Asset.Icons.icBooKoo,
                           width: 200.0,
                           height: 60.0),
-                      loginButton(),
-                      doNotHaveAccount(),
-                      orLoginWith(),
-                      socialLoginButtons(),
-                      termsAndAgreement(),
+                      renderSignInBtn(),
+                      renderDoNotHaveAccount(),
+                      renderOrSignInWith(),
+                      renderGoogleSignInButton(),
+                      renderTermsAndAgreement(),
                     ],
                   ),
                 ),

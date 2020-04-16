@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bookoox/utils/localization.dart';
 
 class Button extends StatelessWidget {
   const Button({
@@ -18,6 +19,7 @@ class Button extends StatelessWidget {
       color: Colors.black12,
     ),
     this.shapeBorder,
+    this.isLoading = false,
   });
 
   final Key key;
@@ -34,6 +36,7 @@ class Button extends StatelessWidget {
   final Color borderColor;
   final TextStyle textStyle;
   final ShapeBorder shapeBorder;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,14 @@ class Button extends StatelessWidget {
       child: FlatButton(
         shape: shapeBorder,
         padding: EdgeInsets.all(0.0),
-        child: Stack(
+        child: isLoading
+        ? CircularProgressIndicator(
+          semanticsLabel: Localization.of(context).trans('LOADING'),
+          backgroundColor: Theme.of(context).primaryColor,
+          strokeWidth: 3,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        )
+        : Stack(
           alignment: Alignment.center,
           children: <Widget>[
             Positioned(
@@ -52,7 +62,7 @@ class Button extends StatelessWidget {
             Container(
               margin: this.image == null
                 ? null
-                : EdgeInsets.only(left: 24),
+                : EdgeInsets.only(left: 12),
               child: Center(
                 child: Text(
                   text,
@@ -62,7 +72,7 @@ class Button extends StatelessWidget {
             ),
           ],
         ),
-        onPressed: onPress,
+        onPressed: !isLoading ? onPress : null,
       ),
       decoration: BoxDecoration(
         border: Border.all(width: borderWidth, color: borderColor),

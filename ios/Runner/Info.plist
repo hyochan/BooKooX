@@ -59,5 +59,16 @@
 	<string>App would like to authenticate with your face id. This will let you use additional feature to login to your ledger.</string>	
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.221429298568-lhf4eeq02p4bst0ft9gtd65cgqua4ucb</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

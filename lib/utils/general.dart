@@ -61,8 +61,9 @@ class General {
   void showSingleDialog(
     BuildContext context, {
     bool barrierDismissible = false,
-    String title = '',
-    String content = '',
+    @required Widget title,
+    @required Widget content,
+    Function onPress,
   }) {
     TextStyle _btnTextStyle = TextStyle(
       color: Theme.of(context).textTheme.headline1.color,
@@ -71,11 +72,11 @@ class General {
 
     showDialog<Null>(
       context: context,
-      barrierDismissible: barrierDismissible, // user must tap button!
+      barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title),
-          content: Text(content),
+          title: title,
+          content: content,
           actions: <Widget>[
             FlatButton(
               child: Text(
@@ -84,6 +85,7 @@ class General {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
+                if (onPress != null) onPress();
               },
             ),
           ],
@@ -95,8 +97,8 @@ class General {
   void showConfirmDialog(
     BuildContext context, {
     bool barrierDismissible = false,
-    String title = '',
-    String content = '',
+    @required Widget title,
+    @required Widget  content,
     Function okPressed,
     Function cancelPressed,
   }) {
@@ -109,8 +111,8 @@ class General {
       barrierDismissible: barrierDismissible, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title),
-          content: Text(content),
+          title: title,
+          content: content,
           actions: <Widget>[
             FlatButton(
               child: Text(
@@ -188,16 +190,7 @@ class General {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
-  void showDatePicker(BuildContext context, data, Function callback) {
-//    List<DateTime> data = [
-//      DateTime(2018, 8, 16),
-//      DateTime(2018, 8, 18),
-//      DateTime(2018, 8, 20),
-//      DateTime(2018, 8, 23),
-//      DateTime(2018, 8, 26),
-//      DateTime(2018, 8, 30),
-//    ];
-
+  void showDatePicker(BuildContext context, List<DateTime> dates, Function callback) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -206,7 +199,7 @@ class General {
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 var datum =
-                    '${data[index].year}/${data[index].month}/${data[index].day}';
+                    '${dates[index].year}/${dates[index].month}/${dates[index].day}';
                 return Container(
                   child: FlatButton(
                     onPressed: () {
@@ -236,7 +229,7 @@ class General {
                   ),
                 );
               },
-              itemCount: data.length,
+              itemCount: dates.length,
             ),
           );
         });

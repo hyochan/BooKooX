@@ -39,8 +39,8 @@ class _CategoryAddState extends State<CategoryAdd> {
       if (_selectedIconIndex == null) {
         General.instance.showSingleDialog(
           context,
-          title: _localization.trans('ERROR'),
-          content: _localization.trans('ERROR_CATEGORY_ICON'),
+          title: Text(_localization.trans('ERROR')),
+          content: Text(_localization.trans('ERROR_CATEGORY_ICON')),
         );
         return;
       }

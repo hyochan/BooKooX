@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
 import './navigations/home_tab.dart' show HomeTab;
+import './navigations/auth_switch.dart' show AuthSwitch;
 import './screens/tutorial.dart' show Tutorial;
 import './screens/splash.dart' show Splash;
 import './screens/intro.dart' show Intro;
-import './screens/login.dart' show Login;
+import './screens/sign_in.dart' show SignIn;
 import './screens/sign_up.dart' show SignUp;
 import './screens/find_pw.dart' show FindPw;
 import './screens/main_empty.dart' show MainEmpty;
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        brightness: Theme.of(context).brightness,
+        brightness: Brightness.light,
         accentColor: Asset.Colors.greenBlue,
         hintColor: Asset.Colors.paleGray,
         primaryColor: Asset.Colors.dusk,
@@ -81,7 +82,7 @@ class MyApp extends StatelessWidget {
         '/splash': (BuildContext context) => Splash(),
         '/tutorial': (BuildContext context) => Tutorial(),
         '/intro': (BuildContext context) => Intro(),
-        '/login': (BuildContext context) => Login(),
+        '/sign_in': (BuildContext context) => SignIn(),
         '/sign_up': (BuildContext context) => SignUp(),
         '/find_pw': (BuildContext context) => FindPw(),
         '/main_empty': (BuildContext context) => MainEmpty(),
@@ -129,8 +130,7 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'BooKooX',
-      home: Tutorial(),
-      // home: HomeTab(),
+      home: AuthSwitch(),
     );
   }
 }

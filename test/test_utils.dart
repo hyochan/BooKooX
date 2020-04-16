@@ -16,7 +16,7 @@ import 'package:bookoox/utils/localization.dart' show LocalizationDelegate;
 import 'package:mockito/mockito.dart';
 import 'package:bookoox/screens/splash.dart' show Splash;
 import 'package:bookoox/screens/intro.dart' show Intro;
-import 'package:bookoox/screens/login.dart' show Login;
+import 'package:bookoox/screens/sign_in.dart' show SignIn;
 import 'package:bookoox/screens/sign_up.dart' show SignUp;
 import 'package:bookoox/screens/find_pw.dart' show FindPw;
 import 'package:bookoox/screens/terms.dart' show Terms;
@@ -43,7 +43,7 @@ class TestUtils {
           '/splash': (BuildContext context) => Splash(),
           '/tutorial': (BuildContext context) => Tutorial(),
           '/intro': (BuildContext context) => Intro(),
-          '/login': (BuildContext context) => Login(),
+          '/sign_in': (BuildContext context) => SignIn(),
           '/sign_up': (BuildContext context) => SignUp(),
           '/find_pw': (BuildContext context) => FindPw(),
           '/main_empty': (BuildContext context) => MainEmpty(),

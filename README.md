@@ -27,6 +27,15 @@ samples, guidance on mobile development, and a full API reference.
   - dooboolab's [code of conduct](https://github.com/dooboolab/dooboolab.com/blob/master/code-of-conduct.md)
 * [Contributing](CONTRIBUTING.md)
 
+## Install firebase
+* [Setup Firebase Project](https://firebase.google.com/docs/flutter/setup)
+* Add google service files to `ios` and `android`.
+  - You need to add below files yourself in your project.
+    ```
+    android/app/google-services.json
+    ios/Runner/GoogleService-Info.plist
+    ```
+
 ## Credentials keys
 > You should replace `[*_KEY]` to your apis in order to make your application works. See below details to complete your installation.
 

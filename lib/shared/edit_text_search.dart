@@ -85,7 +85,6 @@ class EditTextSearch extends StatelessWidget {
             style: this.txtStyle,
             onChanged: this.onChanged,
             decoration: inputDecoration,
-            obscureText: this.secure,
             autocorrect: false,
           ),
         ),
