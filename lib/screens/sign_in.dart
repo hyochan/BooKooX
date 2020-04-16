@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:bookoox/shared/edit_text.dart' show EditText;
 import 'package:bookoox/shared/button.dart' show Button;
+import 'package:bookoox/shared/edit_text.dart' show EditText;
 import 'package:bookoox/utils/general.dart' show General;
 import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:bookoox/utils/validator.dart' show Validator;
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class SignIn extends StatefulWidget {
   SignIn({Key key}) : super(key: key);
@@ -14,36 +17,111 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  BuildContext _context;
   Localization _localization;
   ScrollController _scrollController = ScrollController();
+
   String _email;
   String _password;
-  bool _isEmail;
 
- void _signIn() {
-    if (_email == null || _password == null) {
-      print('_email or _password is null.');
+  bool _isValidEmail = false;
+  bool _isValidPassword = false;
+
+  String _errorEmail;
+  String _errorPassword;
+
+  bool _isSigningIn = false;
+  bool _isResendingEmail = false;
+
+ void _signIn() async {
+    if (_auth.currentUser() != null) {
+      _auth.signOut();
+    }
+
+    if (!_isValidEmail) {
+      setState(() => _errorEmail = _localization.trans('NO_VALID_EMAIL'));
       return;
     }
 
-    bool isEmail = Validator.instance.validateEmail(_email);
+    if (!_isValidPassword) {
+      setState(() => _errorPassword = _localization.trans('PASSWORD_HINT'));
+      return;
+    }
 
-    if (!isEmail) {
-      General.instance.showSingleDialog(_context,
+    setState(() => _isSigningIn = true);
+
+    AuthResult auth;
+    try {
+      auth = await _auth.signInWithEmailAndPassword(email: _email, password: _password);
+    } catch (err) {
+        switch (err.code) {
+          case 'ERROR_INVALID_EMAIL':
+            setState(() => _errorEmail = _localization.trans(err.code));
+            break;
+          case 'ERROR_WRONG_PASSWORD':
+            setState(() => _errorPassword = _localization.trans(err.code));
+            break;
+          case 'ERROR_USER_NOT_FOUND':
+          case 'ERROR_USER_DISABLED':
+          case 'ERROR_TOO_MANY_REQUESTS':
+          case 'ERROR_OPERATION_NOT_ALLOWED':
+            General.instance.showSingleDialog(
+              context,
+              title: Text(_localization.trans('ERROR')),
+              content: Text(_localization.trans(err.code)),
+            );
+            break;
+        }
+        return;
+    } finally {
+      setState(() => _isSigningIn = false);
+    }
+
+    if (auth.user != null && !auth.user.isEmailVerified) {
+      General.instance.showSingleDialog(
+        context,
         title: Text(_localization.trans('ERROR')),
-        content: Text(_localization.trans('NO_VALID_EMAIL')),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(_localization.trans('EMAIL_NOT_VERIFIED')),
+            Container(
+              margin: EdgeInsets.only(top: 32, bottom: 24),
+              child: Text(
+                _email,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Theme.of(context).secondaryHeaderColor,
+                ),
+              ),
+            ),
+            Button(
+              height: 40,
+              isLoading: _isResendingEmail,
+              onPress: () async {
+                setState(() => _isResendingEmail = true);
+                try {
+                  await auth.user.sendEmailVerification();
+                } catch (err) {
+                  print('unknown error occured. ${err.message}');
+                } finally {
+                  setState(() => _isResendingEmail = false);
+                }
+              },
+              text: _localization.trans('RESEND_EMAIL'),
+              textStyle: TextStyle(
+                color: Theme.of(context).accentColor,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+        onPress: () => _auth.signOut(),
       );
       return;
     }
 
-    if (_password == null || _password.length == 0) {
-      General.instance.showSingleDialog(_context,
-        title: Text(_localization.trans('ERROR')),
-        content: Text(_localization.trans('PASSWORD_HINT')),
-      );
-      return;
-    }
+    /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
+    General.instance.navigateScreenNamed(context, '/home', reset: true);
   }
 
   @override
@@ -54,7 +132,6 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
     _localization = Localization.of(context);
     _scrollController = ScrollController(
       initialScrollOffset: 0.0,
@@ -77,33 +154,55 @@ class _SignInState extends State<SignIn> {
         textInputAction: TextInputAction.next,
         textLabel: _localization.trans('EMAIL'),
         textHint: _localization.trans('EMAIL_HINT'),
-        hasChecked: _isEmail ?? false,
+        hasChecked: _isValidEmail ?? false,
         hintStyle: TextStyle(
           color: Theme.of(context).hintColor
         ),
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
-            this.setState(() => _isEmail = true);
+            this.setState(() {
+              _isValidEmail = true;
+              _errorEmail = null;
+              _email = str;
+            });
           } else {
-            this.setState(() => _isEmail = false);
+            this.setState(() {
+              _isValidEmail = false;
+              _email = str;
+            });
           }
-          _email = str;
         },
+        errorText: _errorEmail,
         onSubmitted: (String str) => _signIn(),
       );
     }
 
     Widget renderPasswordField() {
+      bool isValidPassword = _password != null && _password.length > 0;
+
       return EditText(
         key: Key('password'),
-        obscureText: true,
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
         textLabel: _localization.trans('PASSWORD'),
         textHint: _localization.trans('PASSWORD_HINT'),
         isSecret: true,
-        hasChecked: _password != null && _password.length > 0,
-        onChanged: (String str) => this.setState(() => _password = str),
+        hasChecked: isValidPassword ?? false,
+        onChanged: (String str) {
+          if (isValidPassword) {
+            this.setState(() {
+              _isValidPassword = true;
+              _errorPassword = null;
+              _password = str;
+            });
+          } else {
+            this.setState(() {
+              _isValidPassword = false;
+              _password = str;
+            });
+          }
+        },
+        errorText: _errorPassword,
         onSubmitted: (String str) => _signIn(),
       );
     }
@@ -111,7 +210,8 @@ class _SignInState extends State<SignIn> {
     Widget renderSignInButton() {
       return Button(
         key: Key('signInButton'),
-        onPress: () => _signIn(),
+        onPress: _signIn,
+        isLoading: _isSigningIn,
         margin: EdgeInsets.only(top: 28.0, bottom: 8.0),
         textStyle: TextStyle(
           color: Colors.white,
@@ -120,12 +220,12 @@ class _SignInState extends State<SignIn> {
         borderColor: Colors.white,
         backgroundColor: Theme.of(context).primaryColor,
         text: _localization.trans('SIGN_IN'),
-        width: MediaQuery.of(context).size.width / 2- 64,
+        width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );
     }
 
-    Widget findPwButton() {
+    Widget renderFindPw() {
       return FlatButton(
         padding: EdgeInsets.all(8),
         onPressed: () => General.instance.navigateScreenNamed(context, '/find_pw'),
@@ -174,7 +274,7 @@ class _SignInState extends State<SignIn> {
                     renderEmailField(),
                     renderPasswordField(),
                     renderSignInButton(),
-                    findPwButton(),
+                    renderFindPw(),
                   ],
                 ),
               ),

@@ -72,7 +72,7 @@ class General {
 
     showDialog<Null>(
       context: context,
-      barrierDismissible: barrierDismissible, // user must tap button!
+      barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
         return AlertDialog(
           title: title,

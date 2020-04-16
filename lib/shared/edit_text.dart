@@ -32,7 +32,6 @@ class EditText extends StatelessWidget {
     this.onSubmitted,
     this.onEditingComplete,
     this.textInputAction,
-    this.obscureText = false,
   });
 
   final Key key;
@@ -55,7 +54,6 @@ class EditText extends StatelessWidget {
   final Function(String) onSubmitted;
   final VoidCallback onEditingComplete;
   final TextInputAction textInputAction;
-  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +78,7 @@ class EditText extends StatelessWidget {
         children: <Widget>[
           TextField(
             key: this.key,
-            obscureText: obscureText,
+            obscureText: isSecret,
             focusNode: focusNode,
             maxLines: maxLines,
             controller: textEditingController,

@@ -42,11 +42,11 @@ class _SignUpState extends State<SignUp> {
 
   void _signUp() async {
     if (
-        _email == null ||
-        _password == null ||
-        _passwordConfirm == null ||
-        _displayName == null ||
-        _name == null
+      _email == null ||
+      _password == null ||
+      _passwordConfirm == null ||
+      _displayName == null ||
+      _name == null
     ) {
       return;
     }
@@ -158,7 +158,6 @@ class _SignUpState extends State<SignUp> {
     Widget renderPasswordField() {
       return EditText(
         key: Key('password'),
-        obscureText: true,
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
         textLabel: _localization.trans('PASSWORD'),
@@ -184,7 +183,6 @@ class _SignUpState extends State<SignUp> {
     Widget renderPasswordConfirmField() {
       return EditText(
         key: Key('password-confirm'),
-        obscureText: true,
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
         textLabel: _localization.trans('PASSWORD_CONFIRM'),

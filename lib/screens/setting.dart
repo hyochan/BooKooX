@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:bookoox/shared/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
 import 'package:bookoox/shared/header.dart' show renderHeaderBack;
@@ -6,7 +8,7 @@ import 'package:bookoox/utils/general.dart' show General;
 import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/utils/localization.dart' show Localization;
 
-import 'package:shared_preferences/shared_preferences.dart';
+FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Setting extends StatefulWidget {
   @override
@@ -127,9 +129,11 @@ class _SettingState extends State<Setting> {
       ),
       LogoutItem(
         _localization.trans('LOGOUT'),
-        onPressed: () {
-          print('logout');
-        }
+        onPressed: ()  {
+          _auth.signOut();
+          /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
+          General.instance.navigateScreenNamed(context, '/tutorial', reset: true);
+        },
       ),
     ];
 
@@ -153,7 +157,7 @@ class _SettingState extends State<Setting> {
                       height: 72,
                       margin: EdgeInsets.only(bottom: 40),
                       child: FlatButton(
-                        onPressed: () {},
+                        onPressed: item.onPressed,
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: Row(
                           children: <Widget>[
