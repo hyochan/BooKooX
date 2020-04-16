@@ -33,7 +33,7 @@
   "PASSWORD_CONFIRM": "비밀번호 확인",
   "PASSWORD_CONFIRM_HINT": "비밀번호를 다시 한번 입력해주세요",
   "DISPLAY_NAME": "별칭",
-  "DISPLAY_HINT": "보여지는 별칭을 입력해주세요 (3글자 이상)",
+  "DISPLAY_NAME_HINT": "보여지는 별칭을 입력해주세요 (3글자 이상)",
   "NAME": "이름",
   "NAME_HINT": "이름을 입력해주세요 (3글자 이상)",
   "DID_YOU_FORGOT_PASSWORD": "비밀번호를 잊으셨나요",
