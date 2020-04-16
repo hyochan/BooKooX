@@ -36,8 +36,8 @@ class _CategoryListState extends State<CategoryList> {
               onDeletePressed: () {
                 General.instance.showConfirmDialog(
                   context,
-                  title: _localization.trans('DELETE'),
-                  content: _localization.trans('DELETE_ASK'),
+                  title: Text(_localization.trans('DELETE')),
+                  content: Text(_localization.trans('DELETE_ASK')),
                   okPressed: () async {
                     try {
                       await DbHelper.instance.deleteCategory(context, category.iconId);

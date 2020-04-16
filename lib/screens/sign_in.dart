@@ -31,16 +31,16 @@ class _SignInState extends State<SignIn> {
 
     if (!isEmail) {
       General.instance.showSingleDialog(_context,
-        title: _localization.trans('ERROR'),
-        content: _localization.trans('NO_VALID_EMAIL'),
+        title: Text(_localization.trans('ERROR')),
+        content: Text(_localization.trans('NO_VALID_EMAIL')),
       );
       return;
     }
 
     if (_password == null || _password.length == 0) {
       General.instance.showSingleDialog(_context,
-        title: _localization.trans('ERROR'),
-        content: _localization.trans('PASSWORD_HINT'),
+        title: Text(_localization.trans('ERROR')),
+        content: Text(_localization.trans('PASSWORD_HINT')),
       );
       return;
     }
