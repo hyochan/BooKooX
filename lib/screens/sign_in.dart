@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:bookoox/shared/button.dart' show Button;
 import 'package:bookoox/shared/edit_text.dart' show EditText;
@@ -8,6 +9,7 @@ import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:bookoox/utils/validator.dart' show Validator;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+final Firestore firestore = Firestore.instance;
 
 class SignIn extends StatefulWidget {
   SignIn({Key key}) : super(key: key);

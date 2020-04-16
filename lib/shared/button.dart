@@ -62,7 +62,7 @@ class Button extends StatelessWidget {
             Container(
               margin: this.image == null
                 ? null
-                : EdgeInsets.only(left: 24),
+                : EdgeInsets.only(left: 12),
               child: Center(
                 child: Text(
                   text,

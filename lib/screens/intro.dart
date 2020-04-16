@@ -1,5 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:bookoox/shared/button.dart' show Button;
 import 'package:bookoox/utils/asset.dart' as Asset;
@@ -8,7 +11,51 @@ import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final Firestore firestore = Firestore.instance;
+
 class Intro extends StatelessWidget {
+  static final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
+    hostedDomain: "",
+    clientId: "",
+  );
+
+  Future<Null> _googleLogin(BuildContext context) async {
+    General.instance.showDialogSpinner(
+      context,
+      text: Localization.of(context).trans('SIGNING_IN_WITH_GOOGLE'),
+    );
+
+    try {
+      GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+
+      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      AuthCredential credential = GoogleAuthProvider.getCredential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
+      
+      AuthResult auth = await _auth.signInWithCredential(credential);
+      FirebaseUser user = auth.user;
+
+      await firestore.collection('users').document(user.uid).setData({
+        'email': user.email,
+        'displayName': user.displayName,
+        'name': user.displayName,
+        'googleId': googleAuth.idToken,
+        'createdAt': FieldValue.serverTimestamp(),
+        'updatedAt': FieldValue.serverTimestamp(),
+        'deletedAt': null,
+      });
+    } catch (error) {
+      print('google signin err: $error');
+    } finally {
+      _googleSignIn.signOut();
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -19,7 +66,7 @@ class Intro extends StatelessWidget {
       fontSize: 16.0,
     );
 
-    Widget signInButton() {
+    Widget renderSignInBtn() {
       return Button(
         onPress: () => General.instance.navigateScreenNamed(context, '/sign_in'),
         margin: EdgeInsets.only(top: 198.0),
@@ -34,7 +81,7 @@ class Intro extends StatelessWidget {
       );
     }
 
-    Widget doNotHaveAccount() {
+    Widget renderDoNotHaveAccount() {
       return Container(
         margin: EdgeInsets.symmetric(vertical: 2.0),
         child: FlatButton(
@@ -60,7 +107,7 @@ class Intro extends StatelessWidget {
       );
     }
 
-    Widget orSignInWith() {
+    Widget renderOrSignInWith() {
       return Container(
         margin: EdgeInsets.only(top: 12.0),
         child: Flex(
@@ -94,29 +141,10 @@ class Intro extends StatelessWidget {
       );
     }
 
-    Widget socialSignInButtons() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    Widget renderGoogleSignInButton() {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Button(
-            margin: EdgeInsets.only(top: 20.0),
-            textStyle: _signInWithTextStyle.merge(
-              TextStyle(fontSize: 15.0),
-            ),
-            borderColor: Colors.white,
-            backgroundColor: Colors.transparent,
-            text: 'Facebook',
-            width: MediaQuery.of(context).size.width >
-                    MediaQuery.of(context).size.height
-                ? MediaQuery.of(context).size.width / 2 - 112
-                : MediaQuery.of(context).size.width / 2 - 64,
-            height: 56.0,
-            image: Image(
-              image: Asset.Icons.icFacebook,
-              width: 20.0,
-              height: 20.0,
-            ),
-          ),
           Button(
             margin: EdgeInsets.only(top: 20.0),
             imageMarginLeft: 8,
@@ -126,20 +154,21 @@ class Intro extends StatelessWidget {
             text: 'Google',
             width: MediaQuery.of(context).size.width >
                     MediaQuery.of(context).size.height
-                ? MediaQuery.of(context).size.width / 2 - 112
-                : MediaQuery.of(context).size.width / 2 - 64,
-            height: 56.0,
+                ? MediaQuery.of(context).size.width - 224
+                : MediaQuery.of(context).size.width - 128,
+            height: 52.0,
             image: Image(
               image: Asset.Icons.icGoogle,
               width: 24.0,
               height: 24.0,
             ),
+            onPress: () => _googleLogin(context),
           ),
         ],
       );
     }
 
-    Widget termsAndAgreement() {
+    Widget renderTermsAndAgreement() {
       var clickableTextStyle = TextStyle(
         fontWeight: FontWeight.bold,
         color: Theme.of(context).accentColor,
@@ -203,11 +232,11 @@ class Intro extends StatelessWidget {
                           image: Asset.Icons.icBooKoo,
                           width: 200.0,
                           height: 60.0),
-                      signInButton(),
-                      doNotHaveAccount(),
-                      orSignInWith(),
-                      socialSignInButtons(),
-                      termsAndAgreement(),
+                      renderSignInBtn(),
+                      renderDoNotHaveAccount(),
+                      renderOrSignInWith(),
+                      renderGoogleSignInButton(),
+                      renderTermsAndAgreement(),
                     ],
                   ),
                 ),

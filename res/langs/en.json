@@ -10,6 +10,7 @@
   "EMAIL_NOT_VERIFIED": "Your email is not verified. Please check your inbox and verify your email address.",
   "RESEND_EMAIL": "Re-send email",
   "PASSWORD_RESET_LINK_SENT": "Password reset link has been sent to your email. Please check your inbox.",
+  "SIGNING_IN_WITH_GOOGLE": "Signing in with Google...",
   "SIGN_UP": "Sign up",
   "SIGN_UP_SUCCESS_TITLE": "Registered",
   "SIGN_UP_SUCCESS_CONTENT": "Thanks for registering to BooKooX. Please check your email to verify your email address. Or your email may be already registered.",

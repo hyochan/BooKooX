@@ -10,6 +10,7 @@
   "EMAIL_NOT_VERIFIED": "이메일 주소가 인증되지 않았습니다. 메일함을 확인하여 이메일을 인증해주세요.",
   "RESEND_EMAIL": "이메일 재전송",
   "PASSWORD_RESET_LINK_SENT": "비밀번호 변경 링크를 메일로 보냈습니다. 메일함을 확인해주세요.",
+  "SIGNING_IN_WITH_GOOGLE": "구글로 로그인중 입니다...",
   "SIGN_UP": "회원가입",
   "SIGN_UP_SUCCESS_TITLE": "회원가입 완료",
   "SIGN_UP_SUCCESS_CONTENT": "BooKooX에 회원가입을 해주셔서 감사드립니다. 이메일함을 확인하여 이메일 주소를 인증해주세요.",
