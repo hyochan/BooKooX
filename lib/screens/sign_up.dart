@@ -21,6 +21,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   Localization _localization;
+
   String _email;
   String _password;
   String _passwordConfirm;
@@ -39,88 +40,86 @@ class _SignUpState extends State<SignUp> {
   bool _isValidName = false;
   bool _isRegistering = false;
 
+  void _signUp() async {
+    if (
+        _email == null ||
+        _password == null ||
+        _passwordConfirm == null ||
+        _displayName == null ||
+        _name == null
+    ) {
+      return;
+    }
+
+    if (!_isValidEmail) {
+      setState(() => _errorEmail = _localization.trans('NO_VALID_EMAIL'));
+      return;
+    }
+
+    if (!_isValidPassword) {
+      setState(() => _errorPassword = _localization.trans('PASSWORD_HINT'));
+      return;
+    }
+
+    if (_passwordConfirm != _password) {
+      setState(() => _errorPasswordConfirm = _localization.trans('PASSWORD_CONFIRM_HINT'));
+      return;
+    }
+
+    if (!_isValidDisplayName) {
+      setState(() => _errorDisplayName = _localization.trans('DISPLAY_NAME_HINT'));
+      return;
+    }
+
+    if (!_isValidName) {
+      setState(() => _errorName = _localization.trans('NAME_HINT'));
+      return;
+    }
+
+    setState(() => _isRegistering = true);
+
+    try {
+      final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+        email: _email,
+        password: _password,
+      )).user;
+
+      if (user != null) {
+        await user.sendEmailVerification();
+        await firestore.collection('users').document(user.uid).setData({
+          'email': _email,
+          'displayName': _displayName,
+          'name': _name,
+          'createdAt': FieldValue.serverTimestamp(),
+          'updatedAt': FieldValue.serverTimestamp(),
+          'deletedAt': null,
+        });
+        return General.instance.showSingleDialog(
+          context,
+          title: Text(_localization.trans('SIGN_UP_SUCCESS_TITLE')),
+          content: Text(_localization.trans('SIGN_UP_SUCCESS_CONTENT')),
+          onPress: () {
+            _auth.signOut();
+            Navigator.of(context).pop();
+          },
+        );
+      }
+
+      throw new Error();
+    } catch (err) {
+      General.instance.showSingleDialog(
+        context,
+        title: Text(_localization.trans('SIGN_UP_ERROR_TITLE')),
+        content: Text(_localization.trans('SIGN_UP_ERROR_CONTENT')),
+      );
+    } finally {
+      setState(() => _isRegistering = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     _localization = Localization.of(context);
-
-    void _signUp() async {
-      if (
-          _email == null ||
-          _password == null ||
-          _passwordConfirm == null ||
-          _displayName == null ||
-          _name == null
-      ) {
-        return;
-      }
-
-      if (!_isValidEmail) {
-        setState(() => _errorEmail = _localization.trans('NO_VALID_EMAIL'));
-        return;
-      }
-
-      if (!_isValidPassword) {
-        setState(() => _errorPassword = _localization.trans('PASSWORD_HINT'));
-        return;
-      }
-
-      if (_passwordConfirm != _password) {
-        setState(() => _errorPasswordConfirm = _localization.trans('PASSWORD_CONFIRM_HINT'));
-        return;
-      }
-
-      if (!_isValidDisplayName) {
-        setState(() => _errorDisplayName = _localization.trans('DISPLAY_NAME_HINT'));
-        return;
-      }
-
-      if (!_isValidName) {
-        setState(() => _errorName = _localization.trans('NAME_HINT'));
-        return;
-      }
-
-      setState(() => _isRegistering = true);
-
-      try {
-        final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
-          email: _email,
-          password: _password,
-        )).user;
-
-        if (user != null) {
-          await user.sendEmailVerification();
-          await firestore.collection('users').document(user.uid).setData({
-            'email': _email,
-            'displayName': _displayName,
-            'name': _name,
-            'createdAt': FieldValue.serverTimestamp(),
-            'updatedAt': FieldValue.serverTimestamp(),
-            'deletedAt': null,
-          });
-          return General.instance.showSingleDialog(
-            context,
-            title: Text(_localization.trans('SIGN_UP_SUCCESS_TITLE')),
-            content: Text(_localization.trans('SIGN_UP_SUCCESS_CONTENT')),
-            onPress: () {
-              _auth.signOut();
-              Navigator.of(context).pop();
-            },
-          );
-        }
-
-        throw new Error();
-      } catch (err) {
-        General.instance.showSingleDialog(
-          context,
-          title: Text(_localization.trans('SIGN_UP_ERROR_TITLE')),
-          content: Text(_localization.trans('SIGN_UP_ERROR_CONTENT')),
-        );
-      } finally {
-        setState(() => _isRegistering = false);
-      }
-
-    }
 
     Widget renderSignUpText() {
       return Text(_localization.trans('SIGN_UP'),
