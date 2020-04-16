@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:bookoox/utils/general.dart' show General;
 import 'package:bookoox/shared/edit_text.dart' show EditText;
@@ -9,6 +10,7 @@ import 'package:bookoox/utils/validator.dart' show Validator;
 import 'package:bookoox/utils/asset.dart' as Asset;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+final Firestore firestore = Firestore.instance;
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);
@@ -20,13 +22,21 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   Localization _localization;
   String _email;
-  String _emailError;
   String _password;
-  String _passwordError;
   String _passwordConfirm;
-  String _passwordConfirmError;
-  bool _isEmail = false;
-  bool _isPassword = false;
+  String _displayName;
+  String _name;
+
+  String _errorEmail;
+  String _errorPassword;
+  String _errorPasswordConfirm;
+  String _errorDisplayName;
+  String _errorName;
+
+  bool _isValidEmail = false;
+  bool _isValidPassword = false;
+  bool _isValidDisplayName = false;
+  bool _isValidName = false;
   bool _isRegistering = false;
 
 
@@ -35,26 +45,38 @@ class _SignUpState extends State<SignUp> {
     _localization = Localization.of(context);
 
     void _signUp() async {
-      if (_email == null || _password == null) {
-        print('_email or _password is null.');
+      if (
+          _email == null ||
+          _password == null ||
+          _passwordConfirm == null ||
+          _displayName == null ||
+          _name == null
+      ) {
         return;
       }
 
-      bool isEmail = Validator.instance.validateEmail(_email);
-      bool isPassword = Validator.instance.validatePassword(_password);
-
-      if (!isEmail) {
-        setState(() => _emailError = _localization.trans('NO_VALID_EMAIL'));
+      if (!_isValidEmail) {
+        setState(() => _errorEmail = _localization.trans('NO_VALID_EMAIL'));
         return;
       }
 
-      if (!isPassword) {
-        setState(() => _passwordError = _localization.trans('PASSWORD_HINT'));
+      if (!_isValidPassword) {
+        setState(() => _errorPassword = _localization.trans('PASSWORD_HINT'));
         return;
       }
 
       if (_passwordConfirm != _password) {
-        setState(() => _passwordConfirmError = _localization.trans('PASSWORD_CONFIRM_HINT'));
+        setState(() => _errorPasswordConfirm = _localization.trans('PASSWORD_CONFIRM_HINT'));
+        return;
+      }
+
+      if (!_isValidDisplayName) {
+        setState(() => _errorDisplayName = _localization.trans('DISPLAY_NAME_HINT'));
+        return;
+      }
+
+      if (!_isValidName) {
+        setState(() => _errorName = _localization.trans('NAME_HINT'));
         return;
       }
 
@@ -67,7 +89,15 @@ class _SignUpState extends State<SignUp> {
         )).user;
 
         if (user != null) {
-          user.sendEmailVerification();
+          await user.sendEmailVerification();
+          await firestore.collection('users').document(user.uid).setData({
+            'email': _email,
+            'displayName': _displayName,
+            'name': _name,
+            'createdAt': FieldValue.serverTimestamp(),
+            'updatedAt': FieldValue.serverTimestamp(),
+            'deletedAt': null,
+          });
           return General.instance.showSingleDialog(
             context,
             title: Text(_localization.trans('SIGN_UP_SUCCESS_TITLE')),
@@ -109,19 +139,19 @@ class _SignUpState extends State<SignUp> {
         textInputAction: TextInputAction.next,
         textLabel: _localization.trans('EMAIL'),
         textHint: _localization.trans('EMAIL_HINT'),
-        hasChecked: _isEmail ?? false,
+        hasChecked: _isValidEmail ?? false,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
             setState(() {
-              _isEmail = true;
-              _emailError = null;
+              _isValidEmail = true;
+              _errorEmail = null;
             });
           } else {
-            setState(() => _isEmail = false);
+            setState(() => _isValidEmail = false);
           }
           _email = str;
         },
-        errorText: _emailError,
+        errorText: _errorEmail,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -135,26 +165,26 @@ class _SignUpState extends State<SignUp> {
         textLabel: _localization.trans('PASSWORD'),
         textHint: _localization.trans('PASSWORD_HINT'),
         isSecret: true,
-        hasChecked: _isPassword,
+        hasChecked: _isValidPassword ?? false,
         onChanged: (String str) {
           if (Validator.instance.validatePassword(str)) {
             setState(() {
-              _isPassword = true;
-              _passwordError = null;
+              _isValidPassword = true;
+              _errorPassword = null;
             });
           } else {
-            setState(() => _isPassword = false);
+            setState(() => _isValidPassword = false);
           }
           _password = str;
         },
-        errorText: _passwordError,
+        errorText: _errorPassword,
         onSubmitted: (String str) => _signUp(),
       );
     }
 
     Widget renderPasswordConfirmField() {
       return EditText(
-        key: Key('password_confirm'),
+        key: Key('password-confirm'),
         obscureText: true,
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
@@ -165,10 +195,58 @@ class _SignUpState extends State<SignUp> {
         onChanged: (String str) => setState(() {
           _passwordConfirm = str;
           if (str == _password) {
-            _passwordConfirmError = null;
+            _errorPasswordConfirm = null;
           }
         }),
-        errorText: _passwordConfirmError,
+        errorText: _errorPasswordConfirm,
+        onSubmitted: (String str) => _signUp(),
+      );
+    }
+
+    Widget renderDisplayNameField() {
+      return EditText(
+        key: Key('display-name'),
+        margin: EdgeInsets.only(top: 24.0),
+        textInputAction: TextInputAction.next,
+        textLabel: _localization.trans('DISPLAY_NAME'),
+        textHint: _localization.trans('DISPLAY_NAME_HINT'),
+        hasChecked: _isValidDisplayName ?? false,
+        onChanged: (String str) {
+          if (Validator.instance.validateNicknameOrName(str)) {
+            setState(() {
+              _isValidDisplayName = true;
+              _errorDisplayName = null;
+            });
+          } else {
+            setState(() => _isValidDisplayName = false);
+          }
+          _displayName = str;
+        },
+        errorText: _errorDisplayName,
+        onSubmitted: (String str) => _signUp(),
+      );
+    }
+
+    Widget renderNameField() {
+      return EditText(
+        key: Key('name'),
+        margin: EdgeInsets.only(top: 24.0),
+        textInputAction: TextInputAction.next,
+        textLabel: _localization.trans('NAME'),
+        textHint: _localization.trans('NAME_HINT'),
+        hasChecked: _isValidName ?? false,
+        onChanged: (String str) {
+          if (Validator.instance.validateNicknameOrName(str)) {
+            setState(() {
+              _isValidName = true;
+              _errorName = null;
+            });
+          } else {
+            setState(() => _isValidName = false);
+          }
+          _name = str;
+        },
+        errorText: _errorName,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -178,7 +256,7 @@ class _SignUpState extends State<SignUp> {
         key: Key('button-sign-up'),
         isLoading: _isRegistering,
         onPress: () => _signUp(),
-        margin: EdgeInsets.only(top: 36.0, bottom: 8.0),
+        margin: EdgeInsets.only(top: 36.0, bottom: 48.0),
         textStyle: TextStyle(
           color: Colors.white,
           fontSize: 16.0,
@@ -214,6 +292,8 @@ class _SignUpState extends State<SignUp> {
                     renderEmailField(),
                     renderPasswordField(),
                     renderPasswordConfirmField(),
+                    renderDisplayNameField(),
+                    renderNameField(),
                     renderSignUpButton(),
                   ],
                 ),

@@ -18,4 +18,11 @@ class Validator {
     }
     return true;
   }
+
+  bool validateNicknameOrName(String str) {
+    if (str.length < 3) {
+      return false;
+    }
+    return true;
+  }
 }
