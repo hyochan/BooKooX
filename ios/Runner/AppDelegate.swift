@@ -12,7 +12,7 @@ import GoogleMaps
     UIApplication.shared.isStatusBarHidden = false
 
     GeneratedPluginRegistrant.register(with: self)
-    GMSServices.provideAPIKey("[GEO_API_KEY")
+    GMSServices.provideAPIKey("[GEO_API_KEY]")
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
