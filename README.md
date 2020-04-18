@@ -37,11 +37,16 @@ samples, guidance on mobile development, and a full API reference.
     ```
 
 ## Credentials keys
-> You should replace `[*_KEY]` to your apis in order to make your application works. See below details to complete your installation.
+Copy `.env.sample` to `.env` and replace credentials.
+```
+cp .env.sample .env
+```
+* List of keys
 
-  | Name   | Description               | required?    |
-  |--------|---------------------------|--------------|
-  | GEO_API_KEY      | Google map api key       | yes      |
+  | Name             | Description                | required?    |
+  |------------------|----------------------------|--------------|
+  | GEO_API_KEY      | Google map api key         | yes          |
+
    - Google API KEY
      * [Installation](https://developers.google.com/maps/documentation/geocoding/get-api-key)
      * [Android](https://developers.google.com/maps/documentation/android-sdk/get-api-key)

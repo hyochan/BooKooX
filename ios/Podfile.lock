@@ -249,6 +249,8 @@ PODS:
     - GoogleUtilities/UserDefaults (~> 6.5)
     - PromisesObjC (~> 1.2)
   - Flutter (1.0.0)
+  - flutter_config (0.0.1):
+    - Flutter
   - flutter_plugin_android_lifecycle (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
@@ -273,7 +275,7 @@ PODS:
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (= 0.3.9011)
   - GoogleDataTransport (5.1.1)
-  - GoogleDataTransportCCTSupport (2.0.2):
+  - GoogleDataTransportCCTSupport (2.0.3):
     - GoogleDataTransport (~> 5.1)
     - nanopb (~> 0.3.901)
   - GoogleMaps (2.7.0):
@@ -367,6 +369,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_core_web (from `.symlinks/plugins/firebase_core_web/ios`)
   - Flutter (from `Flutter`)
+  - flutter_config (from `.symlinks/plugins/flutter_config/ios`)
   - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - geocoder (from `.symlinks/plugins/geocoder/ios`)
@@ -431,6 +434,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core_web/ios"
   Flutter:
     :path: Flutter
+  flutter_config:
+    :path: ".symlinks/plugins/flutter_config/ios"
   flutter_plugin_android_lifecycle:
     :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
   fluttertoast:
@@ -487,6 +492,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: a750487e2019ac35464c78311dcf2fde9d817c52
   FirebaseInstallations: acb3216eb9784d3b1d2d2d635ff74fa892cc0c44
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_config: 6839229637c969b496b7e64ab8647484c6a56759
   flutter_plugin_android_lifecycle: 47de533a02850f070f5696a623995e93eddcdb9b
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -496,7 +502,7 @@ SPEC CHECKSUMS:
   google_sign_in_web: 52deb24929ac0992baff65c57956031c44ed44c3
   GoogleAppMeasurement: e49be3954045b17d046f271b9cc1ec052bad9702
   GoogleDataTransport: 6ffa4dd0b6d547f8d27b91bd92fa9e197a3f5f1f
-  GoogleDataTransportCCTSupport: 12f02e5c8f09c055615de90bcd5ba2c375546051
+  GoogleDataTransportCCTSupport: 2d7e609f8c5af1a33d7d59053e6f8cba59365df5
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
@@ -521,4 +527,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1
