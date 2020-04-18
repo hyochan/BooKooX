@@ -1,6 +1,7 @@
 import UIKit
 import Flutter
 import GoogleMaps
+import flutter_config
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -8,11 +9,10 @@ import GoogleMaps
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    var flutter_native_splash = 1
     UIApplication.shared.isStatusBarHidden = false
 
     GeneratedPluginRegistrant.register(with: self)
-    GMSServices.provideAPIKey("[GEO_API_KEY]")
+    GMSServices.provideAPIKey(FlutterConfigPlugin.env(for: "GEO_API_KEY"))
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

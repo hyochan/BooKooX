@@ -10,7 +10,7 @@
         android:label="bookoox"
         android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="[GEO_API_KEY]"/>
+               android:value="@string/GEO_API_KEY"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
