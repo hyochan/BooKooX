@@ -1,5 +1,7 @@
 import 'package:bookoox/models/Currency.dart';
+import 'package:bookoox/models/User.dart';
 import 'package:bookoox/types/color.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import './LedgerItem.dart' show LedgerItem;
@@ -22,7 +24,7 @@ class Ledger {
   List<String> adminIds;
   List<LedgerItem> items;
   Currency currency;
-  // List<User> members;
+  List<User> members;
   DateTime createdAt;
   DateTime updatedAt;
   DateTime deletedAt;
@@ -38,9 +40,34 @@ class Ledger {
     this.createdAt,
     this.updatedAt,
     this.items,
-    // this.members,
+    this.members,
     this.deletedAt,
   });
+
+  factory Ledger.fromFirestore(DocumentSnapshot doc) {
+    Map data = doc.data;
+
+    return Ledger(
+      title: data['name'] ?? '',
+      color: data['color'],
+      currency: Currency(
+        code: data['currencyCode'],
+        currency: data['currency'],
+      ),
+    );
+  }
+
+  factory Ledger.fromMap(Map data) {
+    data = data ?? {};
+    return Ledger(
+      title: data['name'] ?? '',
+      color: data['color'],
+      currency: Currency(
+        code: data['currencyCode'],
+        currency: data['currency'],
+      ),
+    );
+  }
 
   @override
   String toString() {

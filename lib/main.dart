@@ -97,12 +97,10 @@ class MyApp extends StatelessWidget {
           '/terms': (BuildContext context) => Terms(),
           '/profile_my': (BuildContext context) => ProfileMy(),
           '/setting': (BuildContext context) => Setting(),
-          '/setting_announcement': (BuildContext context) =>
-              SettingAnnouncement(),
+          '/setting_announcement': (BuildContext context) => SettingAnnouncement(),
           '/setting_opinion': (BuildContext context) => SettingOpinion(),
           '/setting_faq': (BuildContext context) => SettingFAQ(),
-          '/setting_notification': (BuildContext context) =>
-              SettingNotification(),
+          '/setting_notification': (BuildContext context) => SettingNotification(),
           '/ledger_item_add': (BuildContext context) => LedgerItemAdd(),
           '/setting_currency': (BuildContext context) => SettingCurrency(),
           '/setting_excel': (BuildContext context) => SettingExcel(),

@@ -29,10 +29,10 @@ class _MainEmptyState extends State<MainEmpty> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Image(
-              image: Asset.Icons.noLedger,
-              height: 80,
-              width: 80,
+             Icon(
+              Icons.sentiment_dissatisfied,
+              color: Colors.white,
+              size: 80,
             ),
             Container(
               margin: EdgeInsets.only(
@@ -51,13 +51,13 @@ class _MainEmptyState extends State<MainEmpty> {
               ),
             ),
             Button(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.transparent,
               width: 160,
               height: 56,
               shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32),
                 side: BorderSide(
-                  color: Asset.Colors.dusk,
+                  color: Theme.of(context).textTheme.headline2.color,
                   width: 1,
                   style: BorderStyle.solid,
                 ),
@@ -66,7 +66,7 @@ class _MainEmptyState extends State<MainEmpty> {
               text: _localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,
-                color: Asset.Colors.dusk,
+                color: Theme.of(context).textTheme.headline2.color,
               ),
             ),
           ],
