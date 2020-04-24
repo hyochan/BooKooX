@@ -55,12 +55,12 @@ class _SignInState extends State<SignIn> {
     try {
       auth = await _auth.signInWithEmailAndPassword(email: _email, password: _password);
     } catch (err) {
-        switch (err.code) {
+        switch (err.currency) {
           case 'ERROR_INVALID_EMAIL':
-            setState(() => _errorEmail = _localization.trans(err.code));
+            setState(() => _errorEmail = _localization.trans(err.currency));
             break;
           case 'ERROR_WRONG_PASSWORD':
-            setState(() => _errorPassword = _localization.trans(err.code));
+            setState(() => _errorPassword = _localization.trans(err.currency));
             break;
           case 'ERROR_USER_NOT_FOUND':
           case 'ERROR_USER_DISABLED':
@@ -69,7 +69,7 @@ class _SignInState extends State<SignIn> {
             General.instance.showSingleDialog(
               context,
               title: Text(_localization.trans('ERROR')),
-              content: Text(_localization.trans(err.code)),
+              content: Text(_localization.trans(err.currency)),
             );
             break;
         }

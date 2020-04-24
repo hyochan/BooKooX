@@ -19,7 +19,7 @@ class AuthSwitch extends StatelessWidget {
         value: _db.streamMyLedgers(user),
         child: Consumer<List<Ledger>>(
           builder: (context, ledgers, child) {
-            if (ledgers.length == 0) {
+            if (ledgers == null || ledgers.length == 0) {
               return MainEmpty();
             }
             return HomeTab();

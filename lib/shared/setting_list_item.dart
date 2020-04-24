@@ -81,7 +81,7 @@ class TileItem implements ListItem {
       this.trailing,
       this.leading,
       this.optionalWidget,
-      this.onTap,      
+      this.onTap,
     }
   );
 }

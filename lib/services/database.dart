@@ -27,8 +27,8 @@ class DatabaseService {
     return _db.collection('ledgers').add({
       'title': ledger.title,
       'color': ledger.color,
-      'currency': ledger.currency.currency,
-      'currencyCode': ledger.currency.code,
+      'currency': ledger.currency.locale,
+      'currencyCode': ledger.currency.currency,
     });
   }
 }

@@ -15,29 +15,23 @@ class LedgerAdd extends StatefulWidget {
   LedgerAdd({Key key, this.ledger}) : super(key: key);
 
   @override
-  _LedgerAddState createState() => new _LedgerAddState(ledger);
+  _LedgerAddState createState() => new _LedgerAddState();
 }
 
 class _LedgerAddState extends State<LedgerAdd> {
-  Ledger _ledger;
-
-  _LedgerAddState(Ledger ledger) {
-    if (ledger != null) {
-      _ledger = ledger;
-      return;
-    }
-    _ledger  = Ledger(
-      title: 'hello',
-      currency: Currency(code: '\￦', currency: 'KRW'),
-      color: ColorType.DUSK,
-    );
-  }
+  Ledger _ledger = Ledger(
+    title: '',
+    currency: currencies[29],
+    color: ColorType.DUSK,
+  );
 
   void _onPressCurrency() async {
     var _result = await General.instance.navigateScreen(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => SettingCurrency()
+        builder: (BuildContext context) => SettingCurrency(
+          selectedCurrency: _ledger.currency.currency,
+        )
       ),
     );
 
@@ -134,7 +128,7 @@ class _LedgerAddState extends State<LedgerAdd> {
                     Row(
                       children: <Widget>[
                         Text(
-                          '${_ledger.currency.currency} | ${_ledger.currency.code}',
+                          '${_ledger.currency.currency} | ${_ledger.currency.symbol}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -194,17 +188,6 @@ class _LedgerAddState extends State<LedgerAdd> {
                 ],
               ),
             ),
-            widget.ledger != null
-            ? MemberHorizontalList(
-              showAddBtn: true,
-              onSeeAllPressed: () => General.instance.navigateScreen(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => Members(ledger: widget.ledger)
-                ),
-              ),
-            )
-            : Container(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[

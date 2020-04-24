@@ -51,8 +51,8 @@ class Ledger {
       title: data['name'] ?? '',
       color: data['color'],
       currency: Currency(
-        code: data['currencyCode'],
-        currency: data['currency'],
+        currency: data['currencyCode'],
+        locale: data['currency'],
       ),
     );
   }
@@ -63,8 +63,8 @@ class Ledger {
       title: data['name'] ?? '',
       color: data['color'],
       currency: Currency(
-        code: data['currencyCode'],
-        currency: data['currency'],
+        currency: data['currencyCode'],
+        locale: data['currency'],
       ),
     );
   }
