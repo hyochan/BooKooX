@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bookoox/screens/setting_currency.dart';
 import 'package:bookoox/screens/members.dart';
 import 'package:bookoox/shared/member_horizontal_list.dart';
+import 'package:bookoox/services/database.dart' show DatabaseService;
 import 'package:bookoox/shared/header.dart' show renderHeaderBack;
 import 'package:bookoox/utils/general.dart';
 import 'package:bookoox/utils/localization.dart';
@@ -10,28 +11,48 @@ import 'package:bookoox/models/Currency.dart';
 import 'package:bookoox/models/Ledger.dart';
 import 'package:bookoox/types/color.dart';
 
+enum LedgerEditMode {
+  ADD,
+  UPDATE,
+}
+
 class LedgerEdit extends StatefulWidget {
   final Ledger ledger;
-  LedgerEdit({Key key, this.ledger}) : super(key: key);
+  final LedgerEditMode mode;
+
+  LedgerEdit({
+    Key key,
+    this.ledger,
+    this.mode = LedgerEditMode.ADD,
+  }) : super(key: key);
 
   @override
-  _LedgerEditState createState() => new _LedgerEditState();
+  _LedgerEditState createState() => new _LedgerEditState(this.ledger, this.mode);
 }
 
 class _LedgerEditState extends State<LedgerEdit> {
-  Ledger _ledger = Ledger(
-    title: '',
-    currency: currencies[29],
-    color: ColorType.DUSK,
-  );
+  Ledger _ledger;
+
+  _LedgerEditState(Ledger ledger, LedgerEditMode mode) {
+    if (ledger == null) {
+      _ledger = Ledger(
+        title: '',
+        currency: currencies[29],
+        color: ColorType.DUSK,
+      );
+      return;
+    }
+    _ledger = ledger;
+  }
 
   void _onPressCurrency() async {
     var _result = await General.instance.navigateScreen(
       context,
       MaterialPageRoute(
-          builder: (BuildContext context) => SettingCurrency(
-                selectedCurrency: _ledger.currency.currency,
-              )),
+        builder: (BuildContext context) => SettingCurrency(
+          selectedCurrency: _ledger.currency.currency,
+        ),
+      ),
     );
 
     if (_result == null) return;
@@ -39,11 +60,28 @@ class _LedgerEditState extends State<LedgerEdit> {
     setState(() => _ledger.currency = _result);
   }
 
-  void _onSelectColor(ColorType item) {
+  void _selectColor(ColorType item) {
     setState(() => _ledger.color = item);
   }
 
-  void _onDonePressed() {
+  void _pressDone() async {
+    final _db = DatabaseService();
+
+    if (widget.mode == LedgerEditMode.ADD) {
+      if (_ledger.title == null || _ledger.title.isEmpty) {
+        print('title is null');
+        return;
+      }
+
+      if (_ledger.description == null || _ledger.description.isEmpty) {
+        print('description is null');
+        return;
+      }
+
+      bool result = await _db.requestCreateNewLedger(_ledger);
+      print('result pressed $result');
+    }
+    
     print('done\n ${_ledger.toString()}');
   }
 
@@ -63,7 +101,7 @@ class _LedgerEditState extends State<LedgerEdit> {
             Container(
               margin: EdgeInsets.only(top: 40, left: 40, right: 40),
               child: TextField(
-                maxLines: 2,
+                maxLines: 1,
                 onChanged: (String txt) {
                   _ledger.title = txt;
                 },
@@ -177,7 +215,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                           bool selected = item == _ledger.color;
                           return ColorItem(
                             color: item,
-                            onTap: () => _onSelectColor(item),
+                            onTap: () => _selectColor(item),
                             selected: selected,
                           );
                         },
@@ -210,7 +248,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(26.0),
                       ),
-                      onPressed: _onDonePressed,
+                      onPressed: _pressDone,
                       child: Text(
                         widget.ledger == null
                             ? _localization.trans('DONE')
