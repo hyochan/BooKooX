@@ -1,9 +1,17 @@
+import 'dart:io' show Platform;
+
+import 'package:flutter_config/flutter_config.dart';
 import 'package:bookoox/screens/line_graph.dart';
 import 'package:bookoox/screens/tutorial.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './navigations/home_tab.dart' show HomeTab;
 import './navigations/auth_switch.dart' show AuthSwitch;
@@ -33,7 +41,78 @@ import './screens/lock_auth.dart' show LockAuth;
 import './utils/asset.dart' as Asset;
 import './utils/localization.dart';
 
-void main() => runApp(new MyApp());
+FirebaseMessaging _fcm;
+
+void main() {
+  runApp(MyApp());
+  _initFire();
+  _fcmListeners();
+}
+
+Future<void> _initFire() async {
+  await FlutterConfig.loadEnvVariables();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  final FirebaseApp app = await FirebaseApp.configure(
+    name: 'BooKooX',
+    options: FirebaseOptions(
+      apiKey: FlutterConfig.get('API_KEY'),
+      databaseURL: FlutterConfig.get('DATABASE_URL'),
+      projectID: FlutterConfig.get('PROJECT_ID'),
+      bundleID: FlutterConfig.get('BUNDLE_ID'),
+      storageBucket: FlutterConfig.get('STORAGE_BUCKET'),
+      gcmSenderID: FlutterConfig.get('GCM_SENDER_ID'),
+      googleAppID: FlutterConfig.get('GOOGLE_APP_ID'),
+    ),
+  );
+  Firestore(app: app);
+  FirebaseStorage(
+    app: app,
+    storageBucket: 'gs://bookoox-609bf.appspot.com',
+  );
+}
+
+void checkiOSPermission() {
+  _fcm.requestNotificationPermissions(
+      IosNotificationSettings(sound: true, badge: true, alert: true)
+  );
+  _fcm.onIosSettingsRegistered
+      .listen((IosNotificationSettings settings)
+  {
+    print("Settings registered: $settings");
+  });
+}
+
+
+void _fcmListeners() {
+  _fcm = FirebaseMessaging();
+
+  if (Platform.isIOS) checkiOSPermission();
+   _fcm.requestNotificationPermissions(
+    const IosNotificationSettings(
+        sound: true, badge: true, alert: true, provisional: true)
+  );
+
+  _fcm.getToken().then((String token) async {
+    assert(token != null);
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('pushToken', token);
+    print('token: $token');
+  });
+
+  _fcm.configure(
+    onMessage: (Map<String, dynamic> message) {
+      print('on message $message');
+    },
+    onResume: (Map<String, dynamic> message) {
+      print('on resume $message');
+    },
+    onLaunch: (Map<String, dynamic> message) {
+      print('on launch $message');
+    },
+  );
+}
 
 class MyApp extends StatelessWidget {
   static const supportedLocales = ['en', 'ko'];

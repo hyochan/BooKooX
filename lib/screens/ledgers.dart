@@ -103,7 +103,7 @@ class _LedgersState extends State<Ledgers> {
         MaterialPageRoute(
           builder: (BuildContext context) => !item.isOwner
             ? LedgerView(ledger: item.ledger)
-            : LedgerEdit(ledger: item.ledger),
+            : LedgerEdit(ledger: item.ledger, mode: LedgerEditMode.UPDATE),
         ),
       );
     }
