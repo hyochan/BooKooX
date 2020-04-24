@@ -9,7 +9,7 @@ import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:bookoox/utils/validator.dart' show Validator;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-final Firestore firestore = Firestore.instance;
+final Firestore _firestore = Firestore.instance;
 
 class SignIn extends StatefulWidget {
   SignIn({Key key}) : super(key: key);
@@ -54,8 +54,27 @@ class _SignInState extends State<SignIn> {
     AuthResult auth;
     try {
       auth = await _auth.signInWithEmailAndPassword(email: _email, password: _password);
+
+      /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
+      if (auth.user != null && auth.user.isEmailVerified) {
+        var snapshots = await _firestore
+          .collection('users')
+          .document(auth.user.uid)
+          .collection('ledgers')
+          .getDocuments();
+
+        var ledgers = snapshots.documents;
+
+        if (ledgers == null || ledgers.length == 0) {
+          General.instance.navigateScreenNamed(context, '/main_empty', reset: true);
+          return;
+        }
+
+        General.instance.navigateScreenNamed(context, '/home', reset: true);
+        return;
+      }
     } catch (err) {
-        switch (err.currency) {
+        switch (err) {
           case 'ERROR_INVALID_EMAIL':
             setState(() => _errorEmail = _localization.trans(err.currency));
             break;
@@ -119,11 +138,7 @@ class _SignInState extends State<SignIn> {
         ),
         onPress: () => _auth.signOut(),
       );
-      return;
     }
-
-    /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-    General.instance.navigateScreenNamed(context, '/home', reset: true);
   }
 
   @override
