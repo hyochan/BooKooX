@@ -16,9 +16,9 @@ import './screens/find_pw.dart' show FindPw;
 import './screens/main_empty.dart' show MainEmpty;
 import './screens/terms.dart' show Terms;
 import './screens/ledgers.dart' show Ledgers;
-import './screens/ledger_add.dart' show LedgerAdd;
+import './screens/ledger_edit.dart' show LedgerEdit;
 import './screens/ledger_view.dart' show LedgerView;
-import './screens/ledger_item_add.dart' show LedgerItemAdd;
+import './screens/ledger_item_edit.dart' show LedgerItemEdit;
 import './screens/profile_my.dart' show ProfileMy;
 import './screens/setting.dart' show Setting;
 import './screens/setting_announcement.dart' show SettingAnnouncement;
@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
           '/main_empty': (BuildContext context) => MainEmpty(),
           '/home': (BuildContext context) => HomeTab(),
           '/ledgers': (BuildContext context) => Ledgers(),
-          '/ledger_add': (BuildContext context) => LedgerAdd(),
+          '/ledger_edit': (BuildContext context) => LedgerEdit(),
           '/ledger_view': (BuildContext context) => LedgerView(),
           '/terms': (BuildContext context) => Terms(),
           '/profile_my': (BuildContext context) => ProfileMy(),
@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget {
           '/setting_opinion': (BuildContext context) => SettingOpinion(),
           '/setting_faq': (BuildContext context) => SettingFAQ(),
           '/setting_notification': (BuildContext context) => SettingNotification(),
-          '/ledger_item_add': (BuildContext context) => LedgerItemAdd(),
+          '/ledger_item_add': (BuildContext context) => LedgerItemEdit(),
           '/setting_currency': (BuildContext context) => SettingCurrency(),
           '/setting_excel': (BuildContext context) => SettingExcel(),
           '/lock_register': (BuildContext context) => LockRegister(),

@@ -62,7 +62,7 @@ class _MainEmptyState extends State<MainEmpty> {
                   style: BorderStyle.solid,
                 ),
               ),
-              onPress: () => General.instance.navigateScreenNamed(context, '/ledger_add'),
+              onPress: () => General.instance.navigateScreenNamed(context, '/ledger_edit'),
               text: _localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,

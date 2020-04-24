@@ -1,5 +1,5 @@
 import 'package:bookoox/navigations/home_tab.dart';
-import 'package:bookoox/screens/ledger_add.dart';
+import 'package:bookoox/screens/ledger_edit.dart';
 import 'package:bookoox/screens/ledgers.dart';
 import 'package:bookoox/screens/main_empty.dart';
 import 'package:bookoox/screens/profile_my.dart';
@@ -49,7 +49,7 @@ class TestUtils {
           '/main_empty': (BuildContext context) => MainEmpty(),
           '/home': (BuildContext context) => HomeTab(),
           '/ledgers': (BuildContext context) => Ledgers(),
-          '/ledger_add': (BuildContext context) => LedgerAdd(),
+          '/ledger_edit': (BuildContext context) => LedgerEdit(),
           '/terms': (BuildContext context) => Terms(),
           '/profile_my': (BuildContext context) => ProfileMy(),
           '/setting': (BuildContext context) => Setting(),

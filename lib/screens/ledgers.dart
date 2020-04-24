@@ -2,7 +2,7 @@ import 'package:bookoox/models/Currency.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bookoox/shared/header.dart' show renderHeaderClose;
-import 'package:bookoox/screens/ledger_add.dart';
+import 'package:bookoox/screens/ledger_edit.dart';
 import 'package:bookoox/screens/ledger_view.dart';
 import 'package:bookoox/shared/profile_list_item.dart' show ProfileListItem;
 import 'package:bookoox/shared/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
@@ -103,13 +103,13 @@ class _LedgersState extends State<Ledgers> {
         MaterialPageRoute(
           builder: (BuildContext context) => !item.isOwner
             ? LedgerView(ledger: item.ledger)
-            : LedgerAdd(ledger: item.ledger),
+            : LedgerEdit(ledger: item.ledger),
         ),
       );
     }
 
     void onAddLedgerPressed () {
-      General.instance.navigateScreenNamed(context, '/ledger_add');
+      General.instance.navigateScreenNamed(context, '/ledger_edit');
     }
 
     return Scaffold(

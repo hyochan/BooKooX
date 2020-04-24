@@ -10,15 +10,15 @@ import 'package:bookoox/models/Currency.dart';
 import 'package:bookoox/models/Ledger.dart';
 import 'package:bookoox/types/color.dart';
 
-class LedgerAdd extends StatefulWidget {
+class LedgerEdit extends StatefulWidget {
   final Ledger ledger;
-  LedgerAdd({Key key, this.ledger}) : super(key: key);
+  LedgerEdit({Key key, this.ledger}) : super(key: key);
 
   @override
-  _LedgerAddState createState() => new _LedgerAddState();
+  _LedgerEditState createState() => new _LedgerEditState();
 }
 
-class _LedgerAddState extends State<LedgerAdd> {
+class _LedgerEditState extends State<LedgerEdit> {
   Ledger _ledger = Ledger(
     title: '',
     currency: currencies[29],
@@ -29,10 +29,9 @@ class _LedgerAddState extends State<LedgerAdd> {
     var _result = await General.instance.navigateScreen(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => SettingCurrency(
-          selectedCurrency: _ledger.currency.currency,
-        )
-      ),
+          builder: (BuildContext context) => SettingCurrency(
+                selectedCurrency: _ledger.currency.currency,
+              )),
     );
 
     if (_result == null) return;
@@ -185,6 +184,15 @@ class _LedgerAddState extends State<LedgerAdd> {
                       ),
                     ),
                   ),
+                  // MemberHorizontalList(
+                  //   showAddBtn: true,
+                  //   onSeeAllPressed: () => General.instance.navigateScreen(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (BuildContext context) =>
+                  //             Members(ledger: widget.ledger)),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -193,8 +201,8 @@ class _LedgerAddState extends State<LedgerAdd> {
               children: <Widget>[
                 Container(
                   margin: widget.ledger != null
-                    ? EdgeInsets.only(right: 20, top: 0, bottom: 20)
-                    : EdgeInsets.only(right: 20, top: 46, bottom: 20),
+                      ? EdgeInsets.only(right: 20, top: 0, bottom: 20)
+                      : EdgeInsets.only(right: 20, top: 46, bottom: 20),
                   child: SizedBox(
                     child: FlatButton(
                       padding: EdgeInsets.all(20),
@@ -205,8 +213,8 @@ class _LedgerAddState extends State<LedgerAdd> {
                       onPressed: _onDonePressed,
                       child: Text(
                         widget.ledger == null
-                          ? _localization.trans('DONE')
-                          : _localization.trans('UPDATE'),
+                            ? _localization.trans('DONE')
+                            : _localization.trans('UPDATE'),
                         style: TextStyle(
                           color: Asset.Colors.getColor(_ledger.color),
                           fontSize: 16.0,
@@ -250,7 +258,7 @@ class ColorItem extends StatelessWidget {
                 decoration: new BoxDecoration(
                   border: new Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(12),
-                ), 
+                ),
                 width: 24,
                 height: 24,
               ),
@@ -258,12 +266,12 @@ class ColorItem extends StatelessWidget {
           ),
         ),
         selected == true
-        ? Icon(
-          Icons.check,
-          color: Colors.white,
-          size: 16,
-        )
-        : Container()
+            ? Icon(
+                Icons.check,
+                color: Colors.white,
+                size: 16,
+              )
+            : Container()
       ],
     );
   }
