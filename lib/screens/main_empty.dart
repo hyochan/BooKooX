@@ -5,6 +5,8 @@ import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/utils/general.dart';
 import 'package:bookoox/utils/localization.dart' show Localization;
 
+import '../shared/home_header.dart' show renderHomeAppBar;
+
 class MainEmpty extends StatefulWidget {
   MainEmpty({
     Key key,
@@ -22,6 +24,25 @@ class _MainEmptyState extends State<MainEmpty> {
     var _localization = Localization.of(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
+      appBar: renderHomeAppBar(
+        context: context,
+        title: '',
+        actions: [
+          Container(
+            width: 56.0,
+            child: RawMaterialButton(
+              padding: EdgeInsets.all(0.0),
+              shape: CircleBorder(),
+              onPressed: () => General.instance
+                  .navigateScreenNamed(context, '/setting'),
+              child: Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Container(
         color: Theme.of(context).backgroundColor,
         width: double.infinity,
