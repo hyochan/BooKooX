@@ -85,3 +85,7 @@ android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 
 .env
+**/ios/Flutter/tmp.xcconfig
+**/ios/.envfile
+**/ios/Flutter/.last_build_id
+**/ios/..env
