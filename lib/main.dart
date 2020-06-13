@@ -62,7 +62,11 @@ Future<void> _initFire() async {
       bundleID: FlutterConfig.get('BUNDLE_ID'),
       storageBucket: FlutterConfig.get('STORAGE_BUCKET'),
       gcmSenderID: FlutterConfig.get('GCM_SENDER_ID'),
-      googleAppID: FlutterConfig.get('GOOGLE_APP_ID'),
+      googleAppID: Platform.isIOS
+        ? FlutterConfig.get('APP_ID_IOS')
+        : Platform.isAndroid
+        ? FlutterConfig.get('APP_ID_ANDROID')
+        : FlutterConfig.get('APP_ID_WEB')
     ),
   );
   Firestore(app: app);
