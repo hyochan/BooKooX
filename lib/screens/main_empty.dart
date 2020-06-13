@@ -52,7 +52,7 @@ class _MainEmptyState extends State<MainEmpty> {
           children: <Widget>[
              Icon(
               Icons.sentiment_dissatisfied,
-              color: Colors.white,
+              color: Theme.of(context).primaryColorLight,
               size: 80,
             ),
             Container(
