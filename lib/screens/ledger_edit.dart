@@ -41,6 +41,8 @@ class _LedgerEditState extends State<LedgerEdit> {
         title: '',
         currency: currencies[29],
         color: ColorType.DUSK,
+        adminIds: [],
+        memberIds: [],
       );
       return;
     }
@@ -272,7 +274,9 @@ class _LedgerEditState extends State<LedgerEdit> {
               Divider(color: Colors.white70),
               MemberHorizontalList(
                 showAddBtn: true,
-                memberIds: widget.ledger.memberIds ?? [],
+                memberIds: widget.ledger != null && widget.ledger.memberIds != null
+                    ? widget.ledger.memberIds
+                    : [],
                 onSeeAllPressed: () => General.instance.navigateScreen(
                   context,
                   MaterialPageRoute(

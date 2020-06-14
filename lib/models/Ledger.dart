@@ -49,8 +49,8 @@ class Ledger {
     /// members will be fetched when needed
     this.members,
     this.ownerId,
-    this.adminIds,
-    this.memberIds,
+    this.adminIds = const [],
+    this.memberIds = const [],
     this.createdAt,
     this.updatedAt,
     this.items,
