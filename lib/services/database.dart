@@ -51,6 +51,27 @@ class DatabaseService {
     return true;
   }
 
+  Future<bool> requestUpdateLedger(Ledger ledger) async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
+    if (user == null) {
+      print('user is not signined in');
+      return false;
+    }
+
+    await Firestore.instance.collection('ledgers').document(ledger.id)
+      .setData({
+        'title': ledger.title,
+        'color': ledger.color.index,
+        'description': ledger.description,
+        'currency': ledger.currency.currency,
+        'currencyLocale': ledger.currency.locale,
+        'currencySymbol': ledger.currency.symbol,
+      }, merge: true);
+
+    return true;
+  }
+
   Stream<FirebaseUser> streamFirebaseUser() {
     return FirebaseAuth.instance.currentUser().asStream();
   }
@@ -69,6 +90,14 @@ class DatabaseService {
       .document(id)
       .snapshots()
       .map((snap) => Ledger.fromMap(snap.data));
+  }
+
+  Stream<User> streamUser(String id) {
+    return _db
+      .collection('users')
+      .document(id)
+      .snapshots()
+      .map((snap) => User.fromMap(snap.data));
   }
 
   /// Used from [auth_switch] to detect the initial widget.

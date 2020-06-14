@@ -7,15 +7,16 @@ import 'package:flutter/material.dart';
 import './LedgerItem.dart' show LedgerItem;
 
 final List<ColorType> colorItems = [
-  ColorType.PURPLE,
-  ColorType.DUSK,
-  ColorType.BLUE,
-  ColorType.GREEN,
-  ColorType.YELLOW,
-  ColorType.ORANGE,
   ColorType.RED,
+  ColorType.ORANGE,
+  ColorType.YELLOW,
+  ColorType.GREEN,
+  ColorType.BLUE,
+  ColorType.DUSK,
+  ColorType.PURPLE,
 ];
 class Ledger {
+  String id;
   String title;
   ColorType color;
   String description;
@@ -24,12 +25,14 @@ class Ledger {
   List<String> adminIds;
   List<LedgerItem> items;
   Currency currency;
+  List<String> memberIds;
   List<User> members;
   DateTime createdAt;
   DateTime updatedAt;
   DateTime deletedAt;
 
   Ledger({
+    this.id,
     @required this.title,
     @required this.color,
     @required this.currency,
@@ -47,6 +50,7 @@ class Ledger {
     this.members,
     this.ownerId,
     this.adminIds,
+    this.memberIds,
     this.createdAt,
     this.updatedAt,
     this.items,
@@ -57,13 +61,19 @@ class Ledger {
     Map data = doc.data;
 
     return Ledger(
+      id: doc.documentID,
       title: data['title'] ?? '',
       color: colorItems[data['color'] ?? 1],
       currency: Currency(
-        currency: data['currencyCode'],
-        locale: data['currency'],
+        currency: data['currency'],
+        locale: data['currencyLocale'],
+        symbol: data['currencySymbol'],
       ),
+      description: data['description'] ?? '',
       people: List.from(data['members'] ?? []).length,
+      ownerId: data['ownerId'] ?? '',
+      adminIds: List.from(data['admins'] ?? []),
+      memberIds: List.from(data['members'] ?? []),
     );
   }
 

@@ -174,5 +174,6 @@
   "MEMBER_GUEST": "Guest",
   "SEARCH_USER_HINT": "Search user...",
   "PLZ_SEARCH": "Please search...",
-  "NO_DATA": "No data exists."
+  "NO_DATA": "No data exists.",
+  "LEAVE": "Leave"
 }

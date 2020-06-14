@@ -27,7 +27,6 @@ class ProfileListItem extends StatelessWidget {
         children: <Widget>[
           ClipOval(
             child: Material(
-              // borderRadius: BorderRadius.circular(40.0),
               clipBehavior: Clip.hardEdge,
               color: Colors.transparent,
               child: Ink.image(

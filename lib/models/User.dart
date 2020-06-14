@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 enum Membership {
   Owner,
@@ -9,34 +10,53 @@ class User {
   @required String uid;
   String email;
   @required String displayName;
-  bool showEmailAddress;
   String thumbURL;
   String photoURL;
   String phoneNumber;
-  bool showPhoneNumber;
   String statusMsg;
-  List<String> ledgers;
+  bool showEmailAddress;
+  bool showPhoneNumber;
   Membership membership;
-  DateTime createdAt;
-  DateTime updatedAt;
-  DateTime deletedAt;
+  Timestamp createdAt;
+  Timestamp updatedAt;
+  Timestamp deletedAt;
 
   User({
     this.uid,
     this.email,
     this.displayName,
-    this.showEmailAddress,
     this.thumbURL,
     this.photoURL,
     this.phoneNumber,
-    this.showPhoneNumber,
     this.statusMsg,
-    this.ledgers,
+    this.showEmailAddress,
+    this.showPhoneNumber,
+
+    /// [membership] judges the permission of user in ledger.
+    /// 
+    /// This will be fetched in the [members] screen.
     this.membership,
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
   });
+
+  factory User.fromMap(Map data) {
+    data = data ?? {};
+    return User(
+      email: data['email'] ?? '',
+      displayName: data['displayName'] ?? '',
+      showEmailAddress: data['showEmailAddress'] ?? true,
+      thumbURL: data['thumbURL'],
+      photoURL: data['photoURL'],
+      phoneNumber: data['phoneNumber'] ?? '',
+      showPhoneNumber: data['showPhoneNumber'] ?? false,
+      statusMsg: data['statusMsg'] ?? '',
+      createdAt: data['createdAt'] ?? Timestamp.now(),
+      updatedAt: data['createdAt'] ?? Timestamp.now(),
+      deletedAt: data['createdAt'] ?? null,
+    );
+  }
 
   void changeMemberShip(int val) {
     if (Membership.Owner.index == val) {
