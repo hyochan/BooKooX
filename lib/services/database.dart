@@ -97,7 +97,7 @@ class DatabaseService {
       .collection('users')
       .document(id)
       .snapshots()
-      .map((snap) => User.fromMap(snap.data));
+      .map((snap) => User.fromMap(snap.data, id));
   }
 
   /// Used from [auth_switch] to detect the initial widget.

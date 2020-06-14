@@ -94,7 +94,7 @@ class _EditTextBoxState extends State<EditTextBox> {
               labelStyle: widget.labelStyle,
               focusColor: widget.focusedColor,
               hintText: widget.hintText,
-              hintStyle: widget.hintStyle ?? TextStyle(color: Theme.of(context).textTheme.headline1.color),
+              hintStyle: widget.hintStyle ?? TextStyle(color: Theme.of(context).textTheme.headline3.color),
               errorText: widget.errorText,
               errorStyle: widget.errorStyle,
               contentPadding: EdgeInsets.only(

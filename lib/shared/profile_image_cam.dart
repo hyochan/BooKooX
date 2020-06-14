@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:bookoox/utils/asset.dart' as Asset;
@@ -5,12 +7,14 @@ import 'package:bookoox/utils/asset.dart' as Asset;
 class ProfileImageCam extends StatelessWidget {
   final Function selectGallery;
   final Function selectCamera;
+  final File imgFile;
   final String imgStr;
 
   ProfileImageCam({
     this.selectGallery,
     this.selectCamera,
-    this.imgStr = '',
+    this.imgFile,
+    this.imgStr,
   });
 
   @override
@@ -24,36 +28,45 @@ class ProfileImageCam extends StatelessWidget {
               Container(
                 width: 88.0,
                 height: 88.0,
-                child: ClipOval(
-                  child: this.imgStr == null || this.imgStr == ''
-                      ? Material(
-                          clipBehavior: Clip.hardEdge,
-                          color: Colors.transparent,
-                          child: Ink.image(
-                            image: Asset.Icons.icMask,
-                            fit: BoxFit.cover,
-                            width: 80.0,
-                            height: 80.0,
-                            child: InkWell(
-                              onTap: this.selectGallery,
+                child: this.imgStr == null && this.imgFile == null
+                    ? ClipOval(
+                        child: Material(
+                            clipBehavior: Clip.hardEdge,
+                            color: Colors.transparent,
+                            child: Ink.image(
+                              image: Asset.Icons.icMask,
+                              fit: BoxFit.cover,
+                              width: 80.0,
+                              height: 80.0,
+                              child: InkWell(
+                                onTap: this.selectGallery,
+                              ),
+                            )))
+                    : this.imgFile != null
+                        ? Container(
+                            child: FlatButton(
+                              onPressed: this.selectGallery,
+                              padding: EdgeInsets.all(0.0),
+                              child: CircleAvatar(
+                                backgroundImage: FileImage(this.imgFile),
+                                radius: 80.0,
+                              ),
                             ),
-                          ))
-                      : Material(
-                          clipBehavior: Clip.hardEdge,
-                          color: Colors.transparent,
-                          child: FlatButton(
-                            onPressed: this.selectGallery,
-                            padding: EdgeInsets.all(0.0),
-                            child: ClipOval(
-                              child: FadeInImage.assetNetwork(
-                                fit: BoxFit.cover,
-                                placeholder: 'res/icons/icMask.png',
-                                image: 'https://picsum.photos/250?image=9',
+                          )
+                        : Material(
+                            clipBehavior: Clip.hardEdge,
+                            color: Colors.transparent,
+                            child: FlatButton(
+                              onPressed: this.selectGallery,
+                              padding: EdgeInsets.all(0.0),
+                              child: ClipOval(
+                                child: FadeInImage.assetNetwork(
+                                    fit: BoxFit.cover,
+                                    placeholder: 'res/icons/icMask.png',
+                                    image: this.imgStr),
                               ),
                             ),
                           ),
-                        ),
-                ),
               ),
               Positioned(
                 right: 0.0,

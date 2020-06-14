@@ -144,6 +144,7 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             headline1: TextStyle(color: Asset.Colors.dark),
             headline2: TextStyle(color: Asset.Colors.mediumGray),
+            headline3: TextStyle(color: Asset.Colors.paleGray),
             caption: TextStyle(color: Asset.Colors.light),
           ),
         ),
@@ -162,6 +163,7 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             headline1: TextStyle(color: Asset.Colors.light),
             headline2: TextStyle(color: Asset.Colors.paleGray),
+            headline3: TextStyle(color: Asset.Colors.mediumGray),
             caption: TextStyle(color: Asset.Colors.dark),
           ),
         ),

@@ -41,9 +41,10 @@ class User {
     this.deletedAt,
   });
 
-  factory User.fromMap(Map data) {
+  factory User.fromMap(Map data, String id) {
     data = data ?? {};
     return User(
+      uid: id,
       email: data['email'] ?? '',
       displayName: data['displayName'] ?? '',
       showEmailAddress: data['showEmailAddress'] ?? true,
