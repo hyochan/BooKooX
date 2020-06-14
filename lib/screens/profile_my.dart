@@ -21,8 +21,16 @@ class _ProfileMyState extends State<ProfileMy> {
   File _imgFile;
   User _profile;
 
-  void _onUpdateProfile() {
-    print('onUpdateProfile');
+  Future<void> _onUpdateProfile() async {
+    General.instance.showDialogSpinner(context);
+
+    await DatabaseService().requestUpdateProfile(
+      _profile,
+      imgFile: _imgFile,
+    );
+
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
 
   @override
@@ -60,6 +68,8 @@ class _ProfileMyState extends State<ProfileMy> {
               phoneNumber: user.phoneNumber ?? '',
               uid: user.uid,
               statusMsg: user.statusMsg ?? '',
+              photoURL: user.photoURL,
+              thumbURL: user.thumbURL,
             );
 
             return ListView(

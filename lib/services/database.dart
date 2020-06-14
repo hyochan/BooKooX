@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:bookoox/models/Currency.dart';
 import 'package:bookoox/models/User.dart';
+import 'package:bookoox/services/storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
@@ -67,6 +70,55 @@ class DatabaseService {
         'currency': ledger.currency.currency,
         'currencyLocale': ledger.currency.locale,
         'currencySymbol': ledger.currency.symbol,
+      }, merge: true);
+
+    return true;
+  }
+
+  Future<bool> requestUpdateProfile(User _profile, {
+    File imgFile,
+  }) async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    UserUpdateInfo info = UserUpdateInfo();
+
+    if (user == null) {
+      print('user is not signined in');
+      return false;
+    }
+
+    if (imgFile != null) {
+      _profile.thumbURL = await FireStorageService.instance.uploadImage(
+        file: imgFile,
+        uploadDir: 'profile',
+        imgStr: '${_profile.uid}_thumb',
+        metaData: 'profile_thumb',
+        compressed: true,
+      );
+
+      _profile.photoURL = await FireStorageService.instance.uploadImage(
+        file: imgFile,
+        uploadDir: 'profile',
+        imgStr: '${_profile.uid}',
+        metaData: 'profile',
+      );
+
+      info.photoUrl = _profile.thumbURL;
+
+      await Firestore.instance.collection('users').document(_profile.uid)
+        .setData({
+          'photoURL': _profile.photoURL,
+          'thumbURL': _profile.thumbURL,
+        }, merge: true);
+    }
+
+    info.displayName = _profile.displayName;
+    user.updateProfile(info);
+    
+    await Firestore.instance.collection('users').document(_profile.uid)
+      .setData({
+        'displayName': _profile.displayName,
+        'phoneNumber': _profile.phoneNumber,
+        'statusMsg': _profile.statusMsg,
       }, merge: true);
 
     return true;

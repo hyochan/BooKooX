@@ -10,9 +10,9 @@ abstract class ListItem {}
 class HeadingItem implements ListItem {
   final String displayName;
   final String email;
-  final String imageString;
+  final String imgStr;
 
-  HeadingItem(this.displayName, this.email, this.imageString);
+  HeadingItem(this.displayName, this.email, this.imgStr);
 }
 
 class LedgerItem implements ListItem {

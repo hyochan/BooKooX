@@ -272,7 +272,7 @@ class _LedgerEditState extends State<LedgerEdit> {
               Divider(color: Colors.white70),
               MemberHorizontalList(
                 showAddBtn: true,
-                memberIds: widget.ledger.memberIds,
+                memberIds: widget.ledger.memberIds ?? [],
                 onSeeAllPressed: () => General.instance.navigateScreen(
                   context,
                   MaterialPageRoute(

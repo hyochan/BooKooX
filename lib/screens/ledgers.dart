@@ -1,4 +1,5 @@
 import 'package:bookoox/models/Currency.dart';
+import 'package:bookoox/models/User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -75,11 +76,19 @@ class _LedgersState extends State<Ledgers> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            ProfileListItem(
-              email: user.email ?? '',
-              displayName: user.displayName ?? '',
-              imageString: user.photoUrl ?? '',
-              onTap: onProfilePressed,
+            StreamBuilder(
+              stream: DatabaseService().streamUser(user.uid),
+              builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                if (!snapshot.hasData) return Container();
+
+                var profile = snapshot.data;
+                return ProfileListItem(
+                  email: profile.email ?? '',
+                  displayName: profile.displayName ?? '',
+                  imgStr: profile.thumbURL != null ? profile.thumbURL : profile.photoURL,
+                  onTap: onProfilePressed,
+                );
+              }
             ),
             StreamBuilder(
               stream: DatabaseService().streamLedgersWithMembership(user),

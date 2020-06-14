@@ -4,14 +4,14 @@ import 'package:bookoox/utils/asset.dart' as Asset;
 class ProfileListItem extends StatelessWidget {
   const ProfileListItem({
     this.key,
-    this.imageString,
+    this.imgStr,
     this.displayName,
     this.email,
     this.onTap,
   });
 
   final Key key;
-  final String imageString;
+  final String imgStr;
   final String displayName;
   final String email;
   final Function onTap;
@@ -25,21 +25,38 @@ class ProfileListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          ClipOval(
-            child: Material(
-              clipBehavior: Clip.hardEdge,
-              color: Colors.transparent,
-              child: Ink.image(
-                image: Asset.Icons.icMask,
-                fit: BoxFit.cover,
-                width: 80.0,
-                height: 80.0,
-                child: InkWell(
-                  onTap: this.onTap,
+          imgStr != null
+              ? Material(
+                  clipBehavior: Clip.hardEdge,
+                  color: Colors.transparent,
+                  child: FlatButton(
+                    onPressed: this.onTap,
+                    padding: EdgeInsets.all(0.0),
+                    child: ClipOval(
+                      child: FadeInImage.assetNetwork(
+                          width: 80.0,
+                          height: 80.0,
+                          fit: BoxFit.cover,
+                          placeholder: 'res/icons/icMask.png',
+                          image: this.imgStr),
+                    ),
+                  ),
+                )
+              : ClipOval(
+                  child: Material(
+                    clipBehavior: Clip.hardEdge,
+                    color: Colors.transparent,
+                    child: Ink.image(
+                      image: Asset.Icons.icMask,
+                      fit: BoxFit.cover,
+                      width: 80.0,
+                      height: 80.0,
+                      child: InkWell(
+                        onTap: this.onTap,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
           Container(
             margin: EdgeInsets.only(left: 20.0),
             child: Column(
@@ -56,7 +73,7 @@ class ProfileListItem extends StatelessWidget {
                     ),
                   ),
                 ),
-               Container(
+                Container(
                   child: Text(
                     email,
                     style: TextStyle(
