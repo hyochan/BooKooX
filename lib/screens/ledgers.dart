@@ -1,6 +1,9 @@
 import 'package:bookoox/models/Currency.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'package:bookoox/services/database.dart' show DatabaseService;
 import 'package:bookoox/shared/header.dart' show renderHeaderClose;
 import 'package:bookoox/screens/ledger_edit.dart';
 import 'package:bookoox/screens/ledger_view.dart';
@@ -11,6 +14,7 @@ import 'package:bookoox/utils/localization.dart';
 import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/utils/general.dart';
 import 'package:bookoox/types/color.dart';
+import 'package:provider/provider.dart' show Provider;
 
 class Ledgers extends StatefulWidget {
   Ledgers({Key key}) : super(key: key);
@@ -20,74 +24,9 @@ class Ledgers extends StatefulWidget {
 }
 
 class _LedgersState extends State<Ledgers> {
-  final List<ListItem> _fakeLedgers = [
-    HeadingItem(
-      'display', 'email', 'image'
-    ),
-    LedgerItem(
-      Ledger(
-        title: 'title',
-        color: ColorType.ORANGE,
-        people: 4,
-        currency: Currency(
-          currency: '\$',
-          locale: 'USD',
-        ),
-      ),
-      true,
-    ),
-    LedgerItem(
-      Ledger(
-        title: 'title2',
-        color: ColorType.BLUE,
-        people: 4,
-        currency: Currency(
-          currency: '\$',
-          locale: 'USD',
-        ),
-      ),
-      false,
-    ),
-    LedgerItem(
-      Ledger(
-        title: 'title3',
-        color: ColorType.RED,
-        people: 1,
-        currency: Currency(
-          currency: '\$',
-          locale: 'USD',
-        ),
-      ),
-      false,
-    ),
-    LedgerItem(
-      Ledger(
-        title: 'title4',
-        color: ColorType.DUSK,
-        people: 4,
-        currency: Currency(
-          currency: '\$',
-          locale: 'USD',
-        ),
-      ),
-      false,
-    ),
-    LedgerItem(
-      Ledger(
-        title: 'title5',
-        color: ColorType.GREEN,
-        people: 8,
-        currency: Currency(
-          currency: '\$',
-          locale: 'USD',
-        ),
-      ),
-      false,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<FirebaseUser>(context);
     var _localization = Localization.of(context);
     void onSettingPressed () {
       General.instance.navigateScreenNamed(context, '/setting');
@@ -97,13 +36,13 @@ class _LedgersState extends State<Ledgers> {
       General.instance.navigateScreenNamed(context, '/profile_my');
     }
 
-    void onLedgerMorePressed (LedgerItem item) {
+    void onLedgerMorePressed (Ledger item) {
       General.instance.navigateScreen(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => !item.isOwner
-            ? LedgerView(ledger: item.ledger)
-            : LedgerEdit(ledger: item.ledger, mode: LedgerEditMode.UPDATE),
+          builder: (BuildContext context) => item.ownerId != user.uid
+            ? LedgerView(ledger: item)
+            : LedgerEdit(ledger: item, mode: LedgerEditMode.UPDATE),
         ),
       );
     }
@@ -136,30 +75,35 @@ class _LedgersState extends State<Ledgers> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                itemCount: _fakeLedgers.length,
-                itemBuilder: (context, index) {
-                  final item = _fakeLedgers[index];
-                  if (item is HeadingItem) {
-                    return ProfileListItem(
-                      email: item.email,
-                      displayName: item.displayName,
-                      imageString: item.imageString,
-                      onTap: onProfilePressed,
-                    );
-                  } else if (item is LedgerItem) {
-                    return LedgerListItem(
-                      title: item.ledger.title,
-                      color: item.ledger.color,
-                      people: item.ledger.people,
-                      isOwner: item.isOwner,
-                      onMorePressed: () => onLedgerMorePressed(item),
-                    );
-                  }
-                  return null;
-                },
-              ),
+            ProfileListItem(
+              email: user.email ?? '',
+              displayName: user.displayName ?? '',
+              imageString: user.photoUrl ?? '',
+              onTap: onProfilePressed,
+            ),
+            StreamBuilder(
+              stream: DatabaseService().streamLedgersWithMembership(user),
+              builder: (BuildContext context, AsyncSnapshot<List<Ledger>> snapshot) {
+                if (snapshot.data != null) {
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        final item = snapshot.data[index];
+
+                        return LedgerListItem(
+                          title: item.title ?? '',
+                          color: item.color,
+                          people: item.people,
+                          isOwner: item.ownerId == user.uid ?? false,
+                          onMorePressed: () => onLedgerMorePressed(item),
+                        );
+                      },
+                    ),
+                  );
+                }
+                return Container();
+              },
             ),
             Divider(
               color: Color.fromARGB(255, 220, 226, 235),

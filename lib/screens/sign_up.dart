@@ -94,6 +94,11 @@ class _SignUpState extends State<SignUp> {
           'updatedAt': FieldValue.serverTimestamp(),
           'deletedAt': null,
         });
+
+        UserUpdateInfo info = UserUpdateInfo();
+        info.displayName = _displayName;
+        user.updateProfile(info);
+
         return General.instance.showSingleDialog(
           context,
           title: Text(_localization.trans('SIGN_UP_SUCCESS_TITLE')),

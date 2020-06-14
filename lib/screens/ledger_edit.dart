@@ -27,11 +27,13 @@ class LedgerEdit extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LedgerEditState createState() => new _LedgerEditState(this.ledger, this.mode);
+  _LedgerEditState createState() =>
+      new _LedgerEditState(this.ledger, this.mode);
 }
 
 class _LedgerEditState extends State<LedgerEdit> {
   Ledger _ledger;
+  bool _isLoading = false;
 
   _LedgerEditState(Ledger ledger, LedgerEditMode mode) {
     if (ledger == null) {
@@ -67,6 +69,8 @@ class _LedgerEditState extends State<LedgerEdit> {
   void _pressDone() async {
     final _db = DatabaseService();
 
+    setState(() => _isLoading = true);
+
     if (widget.mode == LedgerEditMode.ADD) {
       if (_ledger.title == null || _ledger.title.isEmpty) {
         print('title is null');
@@ -78,10 +82,17 @@ class _LedgerEditState extends State<LedgerEdit> {
         return;
       }
 
-      bool result = await _db.requestCreateNewLedger(_ledger);
-      print('result pressed $result');
+      try {
+        await _db.requestCreateNewLedger(_ledger);
+      } catch (err) {
+        print('err: $err');
+      } finally {
+        setState(() => _isLoading = false);
+      }
+
+      Navigator.of(context).pop();
     }
-    
+
     print('done\n ${_ledger.toString()}');
   }
 
@@ -93,7 +104,7 @@ class _LedgerEditState extends State<LedgerEdit> {
       backgroundColor: Asset.Colors.getColor(_ledger.color),
       appBar: renderHeaderBack(
         context: context,
-        brightness: Theme.of(context).brightness,
+        brightness: Brightness.dark,
       ),
       body: SafeArea(
         child: ListView(
@@ -242,22 +253,36 @@ class _LedgerEditState extends State<LedgerEdit> {
                       ? EdgeInsets.only(right: 20, top: 0, bottom: 20)
                       : EdgeInsets.only(right: 20, top: 46, bottom: 20),
                   child: SizedBox(
+                    // width: 120,
+                    height:60,
                     child: FlatButton(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(26.0),
                       ),
                       onPressed: _pressDone,
-                      child: Text(
-                        widget.ledger == null
-                            ? _localization.trans('DONE')
-                            : _localization.trans('UPDATE'),
-                        style: TextStyle(
-                          color: Asset.Colors.getColor(_ledger.color),
-                          fontSize: 16.0,
+                      
+                      child: _isLoading
+                        ? Container(
+                          width: 28,
+                          height: 28,
+                          child: CircularProgressIndicator(
+                            semanticsLabel: Localization.of(context).trans('LOADING'),
+                            backgroundColor: Theme.of(context).primaryColor,
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        )
+                        : Text(
+                          widget.ledger == null
+                              ? _localization.trans('DONE')
+                              : _localization.trans('UPDATE'),
+                          style: TextStyle(
+                            color: Asset.Colors.getColor(_ledger.color),
+                            fontSize: 16.0,
+                          ),
                         ),
-                      ),
                     ),
                   ),
                 )

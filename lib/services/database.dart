@@ -18,6 +18,7 @@ class DatabaseService {
     }
 
     ledger.ownerId = user.uid;
+    ledger.adminIds = [];
 
     ledger.members = [
       new User(
@@ -27,9 +28,8 @@ class DatabaseService {
 
     DocumentReference ref = await Firestore.instance.collection('ledgers').add({
       'title': ledger.title,
-      'color': ledger.color.toString(),
+      'color': ledger.color.index,
       'description': ledger.description,
-      'people': ledger.people,
       'ownerId': ledger.ownerId,
       'adminIds': FieldValue.arrayUnion(ledger.adminIds),
       'currency': ledger.currency.currency,
@@ -40,7 +40,6 @@ class DatabaseService {
       ),
     });
 
-
     await Firestore.instance
       .collection('users')
       .document(user.uid)
@@ -48,8 +47,21 @@ class DatabaseService {
       .document(ref.documentID).setData({
         'id': ref.documentID,
       });
+
     return true;
   }
+
+  Stream<FirebaseUser> streamFirebaseUser() {
+    return FirebaseAuth.instance.currentUser().asStream();
+  }
+
+  Stream<List<Ledger>> streamLedgersWithMembership(FirebaseUser user) {
+    var ref = _db.collection('ledgers').where('members', arrayContains: user.uid);
+
+    return ref.snapshots().map((list) =>
+      list.documents.map((doc) => Ledger.fromFirestore(doc)).toList());
+  }
+
 
   Stream<Ledger> streamLedger(String id) {
     return _db
@@ -59,6 +71,7 @@ class DatabaseService {
       .map((snap) => Ledger.fromMap(snap.data));
   }
 
+  /// Used from [auth_switch] to detect the initial widget.
   Stream<List<Ledger>> streamMyLedgers(FirebaseUser user) {
     var ref = _db.collection('users').document(user.uid).collection('ledgers');
 

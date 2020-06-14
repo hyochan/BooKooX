@@ -74,6 +74,7 @@ class _SignInState extends State<SignIn> {
         return;
       }
     } catch (err) {
+        setState(() => _isSigningIn = false);
         switch (err) {
           case 'ERROR_INVALID_EMAIL':
             setState(() => _errorEmail = _localization.trans(err.currency));
@@ -93,8 +94,6 @@ class _SignInState extends State<SignIn> {
             break;
         }
         return;
-    } finally {
-      setState(() => _isSigningIn = false);
     }
 
     if (auth.user != null && !auth.user.isEmailVerified) {

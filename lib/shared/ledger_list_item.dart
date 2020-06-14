@@ -106,7 +106,7 @@ class LedgerListItem extends StatelessWidget {
                             child: Text(
                               title,
                               style: TextStyle(
-                                color: Theme.of(context).textTheme.headline1.color,
+                                color: Theme.of(context).primaryColor,
                                 fontSize: 20.0,
                               ),
                             ),

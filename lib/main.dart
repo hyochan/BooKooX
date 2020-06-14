@@ -132,7 +132,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           brightness: Brightness.light,
           accentColor: Asset.Colors.greenBlue,
-          hintColor: Asset.Colors.paleGray,
+          hintColor: Asset.Colors.mediumGray,
           primaryColor: Asset.Colors.dusk,
           primaryColorLight: const Color(0xff6d7999),
           primaryColorDark: const Color(0xff172540),
