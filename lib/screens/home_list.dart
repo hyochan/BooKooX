@@ -1,3 +1,5 @@
+import 'package:bookoox/providers/CurrentLedger.dart';
+import 'package:bookoox/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:bookoox/models/User.dart';
 
@@ -9,8 +11,10 @@ import 'package:bookoox/shared/home_list_item.dart';
 import 'package:bookoox/utils/general.dart';
 import 'package:bookoox/utils/localization.dart';
 import 'package:intl/intl.dart';
+import 'package:bookoox/utils/asset.dart' as Asset;
 
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:provider/provider.dart';
 
 class HomeList extends StatefulWidget {
   HomeList({
@@ -250,7 +254,6 @@ class _HomeListState extends State<HomeList> {
     String headerString = DateFormat('yyyy-MM-dd (E)').format(date);
     return Container(
       height: 60.0,
-      color: Theme.of(context).backgroundColor,
       padding: EdgeInsets.only(
         top: 16.0,
         left: 10.0,
@@ -287,14 +290,20 @@ class _HomeListState extends State<HomeList> {
 
   @override
   Widget build(BuildContext context) {
+    var color = Provider.of<CurrentLedger>(context).getLedger() != null
+        ? Provider.of<CurrentLedger>(context).getLedger().color
+        : ColorType.DUSK;
+
     Function onAddLedgerList =
         () => General.instance.navigateScreenNamed(context, '/ledger_item_add');
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         titleSpacing: 0.0,
         title: HomeHeaderSearch(
+          color: Asset.Colors.getColor(color),
           margin: EdgeInsets.only(left: 20.0),
           textEditingController: textEditingController,
           actions: <Widget>[

@@ -15,6 +15,7 @@ final List<ColorType> colorItems = [
   ColorType.DUSK,
   ColorType.PURPLE,
 ];
+
 class Ledger {
   String id;
   String title;
@@ -45,7 +46,7 @@ class Ledger {
     this.people,
 
     /// Contain the full [User] data of members including photoURL
-    /// 
+    ///
     /// members will be fetched when needed
     this.members,
     this.ownerId,
@@ -63,7 +64,7 @@ class Ledger {
     return Ledger(
       id: doc.documentID,
       title: data['title'] ?? '',
-      color: colorItems[data['color'] ?? 1],
+      color: colorItems[data['color'] ?? 5],
       currency: Currency(
         currency: data['currency'],
         locale: data['currencyLocale'],
@@ -81,7 +82,7 @@ class Ledger {
     data = data ?? {};
     return Ledger(
       title: data['title'] ?? '',
-      color: data['color'],
+      color: colorItems[data['color'] ?? 5],
       currency: Currency(
         currency: data['currencyCode'],
         locale: data['currency'],
@@ -91,11 +92,10 @@ class Ledger {
 
   @override
   String toString() {
-    return 'title: $title, color: ${color.toString()}, '
-      + 'description: $description, people: $people, ownerId: $ownerId, '
-      + 'adminIds: $adminIds, '
-      + 'items: ${items.toString()}, currency: ${currency.toString()}, '
-      + 'createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt'
-    ;
+    return 'title: $title, color: ${color.toString()}, ' +
+        'description: $description, people: $people, ownerId: $ownerId, ' +
+        'adminIds: $adminIds, ' +
+        'items: ${items.toString()}, currency: ${currency.toString()}, ' +
+        'createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt';
   }
 }

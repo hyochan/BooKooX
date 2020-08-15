@@ -12,6 +12,7 @@ class HomeHeaderSearch extends StatefulWidget {
     this.actions,
     this.onClose,
     this.onSubmit,
+    this.color,
   }) : super(key: key);
   final EdgeInsets margin;
   final bool showSearchInput;
@@ -19,6 +20,7 @@ class HomeHeaderSearch extends StatefulWidget {
   final List<Widget> actions;
   final Function onClose;
   final Function onSubmit;
+  final Color color;
 
   @override
   _HomeHeaderSearchState createState() => new _HomeHeaderSearchState();
@@ -70,6 +72,7 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
     return AppBar(
       elevation: 0.0,
       titleSpacing: 0.0,
+      backgroundColor: widget.color,
       actions: widget.actions,
       title: Container(
         margin: widget.margin,

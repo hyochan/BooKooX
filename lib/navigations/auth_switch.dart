@@ -1,5 +1,7 @@
 import 'package:bookoox/models/Ledger.dart';
+import 'package:bookoox/providers/CurrentLedger.dart';
 import 'package:bookoox/services/database.dart';
+import 'package:bookoox/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -19,10 +21,29 @@ class AuthSwitch extends StatelessWidget {
         value: _db.streamMyLedgers(user),
         child: Consumer<List<Ledger>>(
           builder: (context, ledgers, child) {
-            if (ledgers == null || ledgers.length == 0) {
-              return MainEmpty();
-            }
-            return HomeTab();
+            return FutureBuilder(
+              future: DatabaseService().fetchSelectedLedger(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (ledgers == null || ledgers.length == 0) {
+                    return MainEmpty();
+                  }
+                  Provider.of<CurrentLedger>(context).setLedger(snapshot.data);
+                  return HomeTab();
+                }
+
+                return Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(
+                      semanticsLabel: Localization.of(context).trans('LOADING'),
+                      backgroundColor: Theme.of(context).primaryColor,
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  ),
+                );
+              },
+            );
           },
         ),
       );
@@ -33,10 +54,8 @@ class AuthSwitch extends StatelessWidget {
         if (user.isEmailVerified) {
           return renderMainLedger();
         }
-
         return Tutorial();
       }
-
       return renderMainLedger();
     }
 

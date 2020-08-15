@@ -21,12 +21,11 @@ import 'package:bookoox/screens/sign_up.dart' show SignUp;
 import 'package:bookoox/screens/find_pw.dart' show FindPw;
 import 'package:bookoox/screens/terms.dart' show Terms;
 
-
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 class TestUtils {
   static MockNavigatorObserver observer;
-  static Widget makeTestableWidget({ Widget child }) {
+  static Widget makeTestableWidget({Widget child}) {
     observer = MockNavigatorObserver();
 
     return MediaQuery(
@@ -53,10 +52,12 @@ class TestUtils {
           '/terms': (BuildContext context) => Terms(),
           '/profile_my': (BuildContext context) => ProfileMy(),
           '/setting': (BuildContext context) => Setting(),
-          '/setting_announcement': (BuildContext context) => SettingAnnouncement(),
+          '/setting_announcement': (BuildContext context) =>
+              SettingAnnouncement(),
           '/setting_opinion': (BuildContext context) => SettingOpinion(),
           '/setting_faq': (BuildContext context) => SettingFAQ(),
-          '/setting_notification': (BuildContext context) => SettingNotification(),
+          '/setting_notification': (BuildContext context) =>
+              SettingNotification(),
         },
       ),
     );

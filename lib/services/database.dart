@@ -24,9 +24,7 @@ class DatabaseService {
     ledger.adminIds = [];
 
     ledger.members = [
-      new User(
-        uid: user.uid
-      ),
+      new User(uid: user.uid),
     ];
 
     DocumentReference ref = await Firestore.instance.collection('ledgers').add({
@@ -44,12 +42,13 @@ class DatabaseService {
     });
 
     await Firestore.instance
-      .collection('users')
-      .document(user.uid)
-      .collection('ledgers')
-      .document(ref.documentID).setData({
-        'id': ref.documentID,
-      });
+        .collection('users')
+        .document(user.uid)
+        .collection('ledgers')
+        .document(ref.documentID)
+        .setData({
+      'id': ref.documentID,
+    });
 
     return true;
   }
@@ -62,20 +61,20 @@ class DatabaseService {
       return false;
     }
 
-    await Firestore.instance.collection('ledgers').document(ledger.id)
-      .setData({
-        'title': ledger.title,
-        'color': ledger.color.index,
-        'description': ledger.description,
-        'currency': ledger.currency.currency,
-        'currencyLocale': ledger.currency.locale,
-        'currencySymbol': ledger.currency.symbol,
-      }, merge: true);
+    await Firestore.instance.collection('ledgers').document(ledger.id).setData({
+      'title': ledger.title,
+      'color': ledger.color.index,
+      'description': ledger.description,
+      'currency': ledger.currency.currency,
+      'currencyLocale': ledger.currency.locale,
+      'currencySymbol': ledger.currency.symbol,
+    }, merge: true);
 
     return true;
   }
 
-  Future<bool> requestUpdateProfile(User _profile, {
+  Future<bool> requestUpdateProfile(
+    User _profile, {
     File imgFile,
   }) async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
@@ -104,22 +103,26 @@ class DatabaseService {
 
       info.photoUrl = _profile.thumbURL;
 
-      await Firestore.instance.collection('users').document(_profile.uid)
-        .setData({
-          'photoURL': _profile.photoURL,
-          'thumbURL': _profile.thumbURL,
-        }, merge: true);
+      await Firestore.instance
+          .collection('users')
+          .document(_profile.uid)
+          .setData({
+        'photoURL': _profile.photoURL,
+        'thumbURL': _profile.thumbURL,
+      }, merge: true);
     }
 
     info.displayName = _profile.displayName;
     user.updateProfile(info);
-    
-    await Firestore.instance.collection('users').document(_profile.uid)
-      .setData({
-        'displayName': _profile.displayName,
-        'phoneNumber': _profile.phoneNumber,
-        'statusMsg': _profile.statusMsg,
-      }, merge: true);
+
+    await Firestore.instance
+        .collection('users')
+        .document(_profile.uid)
+        .setData({
+      'displayName': _profile.displayName,
+      'phoneNumber': _profile.phoneNumber,
+      'statusMsg': _profile.statusMsg,
+    }, merge: true);
 
     return true;
   }
@@ -129,27 +132,27 @@ class DatabaseService {
   }
 
   Stream<List<Ledger>> streamLedgersWithMembership(FirebaseUser user) {
-    var ref = _db.collection('ledgers').where('members', arrayContains: user.uid);
+    var ref =
+        _db.collection('ledgers').where('members', arrayContains: user.uid);
 
     return ref.snapshots().map((list) =>
-      list.documents.map((doc) => Ledger.fromFirestore(doc)).toList());
+        list.documents.map((doc) => Ledger.fromFirestore(doc)).toList());
   }
-
 
   Stream<Ledger> streamLedger(String id) {
     return _db
-      .collection('ledgers')
-      .document(id)
-      .snapshots()
-      .map((snap) => Ledger.fromMap(snap.data));
+        .collection('ledgers')
+        .document(id)
+        .snapshots()
+        .map((snap) => Ledger.fromMap(snap.data));
   }
 
   Stream<User> streamUser(String id) {
     return _db
-      .collection('users')
-      .document(id)
-      .snapshots()
-      .map((snap) => User.fromMap(snap.data, id));
+        .collection('users')
+        .document(id)
+        .snapshots()
+        .map((snap) => User.fromMap(snap.data, id));
   }
 
   /// Used from [auth_switch] to detect the initial widget.
@@ -157,7 +160,7 @@ class DatabaseService {
     var ref = _db.collection('users').document(user.uid).collection('ledgers');
 
     return ref.snapshots().map((list) =>
-      list.documents.map((doc) => Ledger.fromFirestore(doc)).toList());
+        list.documents.map((doc) => Ledger.fromFirestore(doc)).toList());
   }
 
   Future<void> createLedger(Ledger ledger) {
@@ -167,5 +170,31 @@ class DatabaseService {
       'currency': ledger.currency.locale,
       'currencyCode': ledger.currency.currency,
     });
+  }
+
+  Future<DocumentSnapshot> fetchMe(FirebaseUser user) {
+    return _db.collection('users').document(user.uid).get();
+  }
+
+  Future<Ledger> fetchSelectedLedger() async {
+    var user = await FirebaseAuth.instance.currentUser();
+    var me = await DatabaseService().fetchMe(user);
+    var selectedLedger = me['selectedLedger'];
+
+    if (selectedLedger == null) {
+      var ledgers = await _db
+          .collection('users')
+          .document(user.uid)
+          .collection('ledgers')
+          .getDocuments();
+
+      var firstLedgerId = ledgers.documents[0].data['id'];
+      var ledger = await streamLedger(firstLedgerId).first;
+
+      return ledger;
+    }
+
+    var ledger = await streamLedger(selectedLedger).first;
+    return ledger;
   }
 }

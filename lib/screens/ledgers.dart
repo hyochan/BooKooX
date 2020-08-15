@@ -1,6 +1,4 @@
-import 'package:bookoox/models/Currency.dart';
 import 'package:bookoox/models/User.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +7,12 @@ import 'package:bookoox/shared/header.dart' show renderHeaderClose;
 import 'package:bookoox/screens/ledger_edit.dart';
 import 'package:bookoox/screens/ledger_view.dart';
 import 'package:bookoox/shared/profile_list_item.dart' show ProfileListItem;
-import 'package:bookoox/shared/ledger_list_item.dart' show LedgerListItem, HeadingItem, LedgerItem, ListItem;
+import 'package:bookoox/shared/ledger_list_item.dart'
+    show LedgerListItem, HeadingItem, LedgerItem, ListItem;
 import 'package:bookoox/models/Ledger.dart';
 import 'package:bookoox/utils/localization.dart';
 import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/utils/general.dart';
-import 'package:bookoox/types/color.dart';
 import 'package:provider/provider.dart' show Provider;
 
 class Ledgers extends StatefulWidget {
@@ -29,26 +27,28 @@ class _LedgersState extends State<Ledgers> {
   Widget build(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
     var _localization = Localization.of(context);
-    void onSettingPressed () {
+    void onSettingPressed() {
       General.instance.navigateScreenNamed(context, '/setting');
     }
 
-    void onProfilePressed () {
+    void onProfilePressed() {
       General.instance.navigateScreenNamed(context, '/profile_my');
     }
 
-    void onLedgerMorePressed (Ledger item) {
+    void onLedgerPressed(Ledger item) {}
+
+    void onLedgerMorePressed(Ledger item) {
       General.instance.navigateScreen(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => item.ownerId != user.uid
-            ? LedgerView(ledger: item)
-            : LedgerEdit(ledger: item, mode: LedgerEditMode.UPDATE),
+              ? LedgerView(ledger: item)
+              : LedgerEdit(ledger: item, mode: LedgerEditMode.UPDATE),
         ),
       );
     }
 
-    void onAddLedgerPressed () {
+    void onAddLedgerPressed() {
       General.instance.navigateScreenNamed(context, '/ledger_edit');
     }
 
@@ -77,22 +77,25 @@ class _LedgersState extends State<Ledgers> {
         child: Column(
           children: <Widget>[
             StreamBuilder(
-              stream: DatabaseService().streamUser(user.uid),
-              builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-                if (!snapshot.hasData) return Container();
+                stream: DatabaseService().streamUser(user.uid),
+                builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                  if (!snapshot.hasData) return Container();
 
-                var profile = snapshot.data;
-                return ProfileListItem(
-                  email: profile.email ?? '',
-                  displayName: profile.displayName ?? '',
-                  imgStr: profile.thumbURL != null ? profile.thumbURL : profile.photoURL,
-                  onTap: onProfilePressed,
-                );
-              }
-            ),
+                  var profile = snapshot.data;
+
+                  return ProfileListItem(
+                    email: profile.email ?? '',
+                    displayName: profile.displayName ?? '',
+                    imgStr: profile.thumbURL != null
+                        ? profile.thumbURL
+                        : profile.photoURL,
+                    onTap: onProfilePressed,
+                  );
+                }),
             StreamBuilder(
               stream: DatabaseService().streamLedgersWithMembership(user),
-              builder: (BuildContext context, AsyncSnapshot<List<Ledger>> snapshot) {
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Ledger>> snapshot) {
                 if (snapshot.data != null) {
                   return Expanded(
                     child: ListView.builder(
@@ -106,6 +109,7 @@ class _LedgersState extends State<Ledgers> {
                           people: item.people,
                           isOwner: item.ownerId == user.uid ?? false,
                           onMorePressed: () => onLedgerMorePressed(item),
+                          onLedgerPressed: () => onLedgerPressed(item),
                         );
                       },
                     ),
