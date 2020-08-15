@@ -17,18 +17,18 @@ import 'package:bookoox/shared/gallery.dart' show Gallery;
 import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/utils/localization.dart' show Localization;
 
-class LedgerItemAdd extends StatefulWidget {
-  LedgerItemAdd({
+class LedgerItemEdit extends StatefulWidget {
+  LedgerItemEdit({
     Key key,
     this.title = '',
   }) : super(key: key);
   final String title;
 
   @override
-  _LedgerItemAddState createState() => new _LedgerItemAddState();
+  _LedgerItemEditState createState() => new _LedgerItemEditState();
 }
  
-class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateMixin {
+class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStateMixin {
   final List<String> choices = ['CONSUME', 'INCOME'];
   final formatCurrency = NumberFormat.simpleCurrency();
   final TextEditingController priceTextEditingController1 = TextEditingController(
@@ -121,8 +121,8 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
       }
     }
 
-    void onLedgerItemAddPressed() {
-      print('onLedgerItemAddPressed');
+    void onLedgerItemEditPressed() {
+      print('onLedgerItemEditPressed');
       print('${_ledgerItemConsume.toString()}');
     }
 
@@ -559,7 +559,7 @@ class _LedgerItemAddState extends State<LedgerItemAdd> with TickerProviderStateM
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: onLedgerItemAddPressed,
+              onPressed: onLedgerItemEditPressed,
               child: Icon(
                 Icons.add_box,
                 color: Theme.of(context).textTheme.headline1.color,

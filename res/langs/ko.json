@@ -174,5 +174,6 @@
   "MEMBER_GUEST": "손님",
   "SEARCH_USER_HINT": "사용자 검색...",
   "PLZ_SEARCH": "검색해주세요...",
-  "NO_DATA": "데이터가 없습니다."
+  "NO_DATA": "데이터가 없습니다.",
+  "LEAVE": "나가기"
 }

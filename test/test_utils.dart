@@ -1,5 +1,8 @@
+import 'package:bookoox/models/Currency.dart';
+import 'package:bookoox/models/Ledger.dart';
 import 'package:bookoox/navigations/home_tab.dart';
-import 'package:bookoox/screens/ledger_add.dart';
+import 'package:bookoox/providers/CurrentLedger.dart';
+import 'package:bookoox/screens/ledger_edit.dart';
 import 'package:bookoox/screens/ledgers.dart';
 import 'package:bookoox/screens/main_empty.dart';
 import 'package:bookoox/screens/profile_my.dart';
@@ -9,6 +12,7 @@ import 'package:bookoox/screens/setting_faq.dart';
 import 'package:bookoox/screens/setting_notification.dart';
 import 'package:bookoox/screens/setting_opinion.dart';
 import 'package:bookoox/screens/tutorial.dart';
+import 'package:bookoox/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 import 'package:bookoox/utils/localization.dart' show LocalizationDelegate;
@@ -20,16 +24,16 @@ import 'package:bookoox/screens/sign_in.dart' show SignIn;
 import 'package:bookoox/screens/sign_up.dart' show SignUp;
 import 'package:bookoox/screens/find_pw.dart' show FindPw;
 import 'package:bookoox/screens/terms.dart' show Terms;
-
+import 'package:provider/provider.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 class TestUtils {
   static MockNavigatorObserver observer;
-  static Widget makeTestableWidget({ Widget child }) {
+  static Widget makeTestableWidget({Widget child}) {
     observer = MockNavigatorObserver();
 
-    return MediaQuery(
+    var widget = MediaQuery(
       data: MediaQueryData(),
       child: MaterialApp(
         localizationsDelegates: [
@@ -49,16 +53,31 @@ class TestUtils {
           '/main_empty': (BuildContext context) => MainEmpty(),
           '/home': (BuildContext context) => HomeTab(),
           '/ledgers': (BuildContext context) => Ledgers(),
-          '/ledger_add': (BuildContext context) => LedgerAdd(),
+          '/ledger_edit': (BuildContext context) => LedgerEdit(),
           '/terms': (BuildContext context) => Terms(),
           '/profile_my': (BuildContext context) => ProfileMy(),
           '/setting': (BuildContext context) => Setting(),
-          '/setting_announcement': (BuildContext context) => SettingAnnouncement(),
+          '/setting_announcement': (BuildContext context) =>
+              SettingAnnouncement(),
           '/setting_opinion': (BuildContext context) => SettingOpinion(),
           '/setting_faq': (BuildContext context) => SettingFAQ(),
-          '/setting_notification': (BuildContext context) => SettingNotification(),
+          '/setting_notification': (BuildContext context) =>
+              SettingNotification(),
         },
       ),
+    );
+
+    var ledger = Ledger(
+        id: '1234',
+        title: 'dooboolab',
+        color: ColorType.DUSK,
+        currency: Currency());
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CurrentLedger(ledger)),
+      ],
+      child: widget,
     );
   }
 }

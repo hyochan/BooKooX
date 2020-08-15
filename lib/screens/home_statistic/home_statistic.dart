@@ -1,10 +1,12 @@
 import 'package:bookoox/mocks/home_statistic.mock.dart';
 import 'package:bookoox/models/LedgerItem.dart';
+import 'package:bookoox/providers/CurrentLedger.dart';
 import 'package:bookoox/shared/date_selector.dart' show DateSelector;
 import 'package:bookoox/screens/home_statistic/functions.dart';
 
 import 'package:bookoox/shared/home_list_item.dart';
-import 'package:bookoox/utils/asset.dart' as Assets;
+import 'package:bookoox/types/color.dart';
+import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/utils/localization.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +16,7 @@ import 'package:pie_chart/pie_chart.dart' show PieChart;
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:provider/provider.dart';
 
 class HomeStatistic extends StatelessWidget {
   HomeStatistic({
@@ -24,10 +27,16 @@ class HomeStatistic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var color = Provider.of<CurrentLedger>(context).getLedger() != null
+        ? Provider.of<CurrentLedger>(context).getLedger().color
+        : ColorType.DUSK;
+
     return Scaffold(
       appBar: renderHomeAppBar(
         context: context,
         title: this.title,
+        color: Asset.Colors.getColor(color),
+        fontColor: Colors.white,
         actions: [
           Container(
             width: 56.0,
@@ -38,7 +47,7 @@ class HomeStatistic extends StatelessWidget {
                   .navigateScreenNamed(context, '/ledger_item_add'),
               child: Icon(
                 Icons.add,
-                color: Theme.of(context).textTheme.headline1.color,
+                color: Colors.white,
               ),
             ),
           ),
@@ -75,13 +84,13 @@ class _ContentState extends State<Content> {
   int _selectedChart;
 
   List<Color> colorList = [
-    Assets.Colors.blue,
-    Assets.Colors.orange,
-    Assets.Colors.green,
-    Assets.Colors.yellow,
-    Assets.Colors.purple,
-    Assets.Colors.dusk,
-    Assets.Colors.red,
+    Asset.Colors.blue,
+    Asset.Colors.orange,
+    Asset.Colors.green,
+    Asset.Colors.yellow,
+    Asset.Colors.purple,
+    Asset.Colors.dusk,
+    Asset.Colors.red,
   ];
 
   @override

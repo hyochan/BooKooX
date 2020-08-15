@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'package:bookoox/providers/CurrentLedger.dart';
 import 'package:bookoox/screens/home_calendar.dart' show HomeCalendar;
 import 'package:bookoox/screens/home_list.dart' show HomeList;
-import 'package:bookoox/screens/home_statistic/home_statistic.dart' show HomeStatistic;
+import 'package:bookoox/screens/home_statistic/home_statistic.dart'
+    show HomeStatistic;
 import 'package:bookoox/screens/home_setting.dart' show HomeSetting;
 
 class HomeTab extends StatefulWidget {
@@ -14,10 +17,11 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int _index = 0;
-  String _title = 'Dream Worker';
 
   @override
   Widget build(BuildContext context) {
+    String _title = Provider.of<CurrentLedger>(context).getTitle() ?? '';
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -41,9 +45,7 @@ class _HomeTabState extends State<HomeTab> {
             offstage: _index != 2,
             child: TickerMode(
               enabled: _index == 2,
-              child: HomeStatistic(
-                title: _title,
-              ),
+              child: HomeStatistic(title: _title),
             ),
           ),
           Offstage(
@@ -60,7 +62,7 @@ class _HomeTabState extends State<HomeTab> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
         currentIndex: _index,
-        onTap: (int index) { setState((){ this._index = index; }); },
+        onTap: (int index) => setState(() => this._index = index),
         selectedItemColor: Theme.of(context).textTheme.headline1.color,
         unselectedItemColor: Theme.of(context).textTheme.headline1.color,
         items: <BottomNavigationBarItem>[

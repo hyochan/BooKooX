@@ -46,6 +46,15 @@ cp .env.sample .env
   | Name             | Description                | required?    |
   |------------------|----------------------------|--------------|
   | GEO_API_KEY      | Google map api key         | yes          |
+  | API_KEY          | firebae api key            | yes          |
+  | DATABASE_URL     | firebase firestore url     | yes          |
+  | PROJECT_ID       | firebase project id        | yes          |
+  | BUNDLE_ID        | bundle id                  | yes          |
+  | STORAGE_BUCKET   | firebase storage url       | yes          |
+  | GCM_SENDER_ID    | firebase gcm sender id     | yes          |
+  | APP_ID_IOS       | google app id for ios      | yes          |
+  | APP_ID_ANDROID   | google app id for android  | yes          |
+  | APP_ID_WEB       | google app id for web      | yes          |
 
    - Google API KEY
      * [Installation](https://developers.google.com/maps/documentation/geocoding/get-api-key)

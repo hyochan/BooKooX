@@ -5,6 +5,8 @@ import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/utils/general.dart';
 import 'package:bookoox/utils/localization.dart' show Localization;
 
+import '../shared/home_header.dart' show renderHomeAppBar;
+
 class MainEmpty extends StatefulWidget {
   MainEmpty({
     Key key,
@@ -22,6 +24,25 @@ class _MainEmptyState extends State<MainEmpty> {
     var _localization = Localization.of(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
+      appBar: renderHomeAppBar(
+        context: context,
+        title: '',
+        actions: [
+          Container(
+            width: 56.0,
+            child: RawMaterialButton(
+              padding: EdgeInsets.all(0.0),
+              shape: CircleBorder(),
+              onPressed: () => General.instance
+                  .navigateScreenNamed(context, '/setting'),
+              child: Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Container(
         color: Theme.of(context).backgroundColor,
         width: double.infinity,
@@ -29,10 +50,10 @@ class _MainEmptyState extends State<MainEmpty> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Image(
-              image: Asset.Icons.noLedger,
-              height: 80,
-              width: 80,
+             Icon(
+              Icons.sentiment_dissatisfied,
+              color: Theme.of(context).primaryColorLight,
+              size: 80,
             ),
             Container(
               margin: EdgeInsets.only(
@@ -51,22 +72,22 @@ class _MainEmptyState extends State<MainEmpty> {
               ),
             ),
             Button(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.transparent,
               width: 160,
               height: 56,
               shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32),
                 side: BorderSide(
-                  color: Asset.Colors.dusk,
+                  color: Theme.of(context).textTheme.headline2.color,
                   width: 1,
                   style: BorderStyle.solid,
                 ),
               ),
-              onPress: () => General.instance.navigateScreenNamed(context, '/ledger_add'),
+              onPress: () => General.instance.navigateScreenNamed(context, '/ledger_edit'),
               text: _localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,
-                color: Asset.Colors.dusk,
+                color: Theme.of(context).textTheme.headline2.color,
               ),
             ),
           ],

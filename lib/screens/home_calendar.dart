@@ -1,9 +1,12 @@
 import 'package:bookoox/mocks/home_calendar.mock.dart';
 import 'package:bookoox/models/LedgerItem.dart';
+import 'package:bookoox/providers/CurrentLedger.dart';
 import 'package:bookoox/shared/date_selector.dart' show DateSelector;
 import 'package:bookoox/shared/home_list_item.dart';
+import 'package:bookoox/types/color.dart';
 import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:flutter/material.dart';
+import 'package:bookoox/utils/asset.dart' as Asset;
 
 import 'package:bookoox/utils/general.dart';
 import 'package:bookoox/shared/home_header.dart' show HomeHeaderExpanded;
@@ -12,6 +15,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:provider/provider.dart';
 
 class HomeCalendar extends StatefulWidget {
   HomeCalendar({
@@ -27,12 +31,17 @@ class HomeCalendar extends StatefulWidget {
 class _HomeCalendarState extends State<HomeCalendar> {
   @override
   Widget build(BuildContext context) {
+    var color = Provider.of<CurrentLedger>(context).getLedger() != null
+        ? Provider.of<CurrentLedger>(context).getLedger().color
+        : ColorType.DUSK;
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: CustomScrollView(
         slivers: <Widget>[
           HomeHeaderExpanded(
             title: widget.title,
+            color: Asset.Colors.getColor(color),
             actions: [
               Container(
                 width: 56.0,
@@ -125,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
         markedDateMap.add(ledger.selectedDate,
             Event(date: ledger.selectedDate, title: ledger.category.label));
       });
-      
+
       this.setState(() {
         this._ledgerList = ledgerList;
         this._markedDateMap = markedDateMap;
@@ -135,6 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var color = Provider.of<CurrentLedger>(context).getLedger() != null
+        ? Provider.of<CurrentLedger>(context).getLedger().color
+        : ColorType.DUSK;
+
     void onDatePressed() async {
       int year = this._currentDate.year;
       int prevDate = year - 100;
@@ -161,20 +174,20 @@ class _MyHomePageState extends State<MyHomePage> {
               onDatePressed: onDatePressed,
             ),
             renderCalendar(
-              context: context,
-              onCalendarChanged: (DateTime date) {
-                this.setState(() {
-                  _currentMonth = DateFormat.yMMM().format(date);
-                  _targetDate = date;
-                });
-              },
-              onDayPressed: (DateTime date, List<Event> events) {
-                this.selectDate(date);
-              },
-              markedDateMap: _markedDateMap,
-              currentDate: _currentDate,
-              targetDate: _targetDate,
-            ),
+                context: context,
+                onCalendarChanged: (DateTime date) {
+                  this.setState(() {
+                    _currentMonth = DateFormat.yMMM().format(date);
+                    _targetDate = date;
+                  });
+                },
+                onDayPressed: (DateTime date, List<Event> events) {
+                  this.selectDate(date);
+                },
+                markedDateMap: _markedDateMap,
+                currentDate: _currentDate,
+                targetDate: _targetDate,
+                color: Asset.Colors.getColor(color)),
             Divider(
               color: Colors.grey,
               indent: 10,
@@ -204,6 +217,7 @@ Widget renderCalendar({
   EventList<Event> markedDateMap,
   DateTime currentDate,
   DateTime targetDate,
+  Color color,
 }) {
   return CalendarCarousel<Event>(
     onCalendarChanged: onCalendarChanged,
@@ -217,11 +231,12 @@ Widget renderCalendar({
     markedDateShowIcon: true,
     markedDateIconMaxShown: 1,
     markedDateIconBuilder: (event) {
-      return renderMarkedIcon(color: Theme.of(context).accentColor, context: context);
+      return renderMarkedIcon(
+          color: Theme.of(context).accentColor, context: context);
     },
 
     /// selected date
-    selectedDayButtonColor: Theme.of(context).primaryColor,
+    selectedDayButtonColor: color,
     selectedDateTime: currentDate,
     selectedDayTextStyle: TextStyle(
       color: Colors.white,
@@ -242,13 +257,14 @@ Widget renderCalendar({
     weekendTextStyle: TextStyle(
       color: Theme.of(context).primaryColorLight,
     ),
-    daysTextStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
+    daysTextStyle:
+        TextStyle(color: Theme.of(context).textTheme.headline1.color),
     todayBorderColor: Colors.green,
     todayTextStyle: TextStyle(
       color: Theme.of(context).primaryColor,
     ),
     todayButtonColor: Theme.of(context).hintColor,
-    minSelectedDate: DateTime(1970,1,1),
+    minSelectedDate: DateTime(1970, 1, 1),
     maxSelectedDate: DateTime.now().add(Duration(days: 3650)),
   );
 }

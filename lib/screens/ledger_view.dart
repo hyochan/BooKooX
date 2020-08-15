@@ -29,7 +29,7 @@ class _LedgerViewState extends State<LedgerView> {
     }
     _ledger  = Ledger(
       title: 'ledger test',
-      currency: Currency(code: '\￦', currency: 'KRW'),
+      currency: Currency(currency: '\￦', locale: 'KRW'),
       color: ColorType.DUSK,
     );
   }
@@ -117,7 +117,7 @@ class _LedgerViewState extends State<LedgerView> {
                     Row(
                       children: <Widget>[
                         Text(
-                          '${_ledger.currency.currency} | ${_ledger.currency.code}',
+                          '${_ledger.currency.locale} | ${_ledger.currency.currency}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,

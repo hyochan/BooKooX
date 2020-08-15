@@ -22,7 +22,7 @@ void main() {
     expect(find.text('DONE'), findsNWidgets(1));
     expect(find.text('ICON_SELECT'), findsNWidgets(1));
   });
-  testWidgets("Navigate to [LedgerAdd] when addLedger pressed", (WidgetTester tester) async{
+  testWidgets("Navigate to [LedgerEdit] when addLedger pressed", (WidgetTester tester) async{
     // await tester.pumpWidget(TestUtils.makeTestableWidget(child: MainEmpty()));
     // await tester.pumpAndSettle();
 
@@ -30,6 +30,6 @@ void main() {
     // await tester.pumpAndSettle();
 
     // verify(TestUtils.observer.didPush(any, any));
-    // expect(find.byType(LedgerAdd), findsOneWidget);
+    // expect(find.byType(LedgerEdit), findsOneWidget);
   });
 }

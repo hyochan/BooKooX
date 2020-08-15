@@ -1,3 +1,5 @@
+import 'package:bookoox/models/User.dart';
+import 'package:bookoox/services/database.dart';
 import 'package:bookoox/utils/localization.dart';
 import 'package:flutter/material.dart';
 
@@ -6,14 +8,46 @@ import 'package:bookoox/utils/asset.dart' as Asset;
 class MemberHorizontalList extends StatelessWidget {
   final bool showAddBtn;
   final Function onSeeAllPressed;
+  final List<String> memberIds;
   MemberHorizontalList({
     this.showAddBtn,
     this.onSeeAllPressed,
+    this.memberIds = const [],
   });
 
   @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
+
+    List<Widget> memberWidgets = memberIds.map((memberId) {
+      return StreamBuilder(
+        stream: DatabaseService().streamUser(memberId),
+        builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+          return Container(
+            margin: EdgeInsets.only(left: 8),
+            child: Material(
+                clipBehavior: Clip.hardEdge,
+                color: Colors.transparent,
+                child: Ink.image(
+                  image: !snapshot.hasData
+                    || (snapshot.data.photoURL == null && snapshot.data.thumbURL == null)
+                      ? Asset.Icons.icMask
+                      : NetworkImage(snapshot.data.thumbURL != null
+                          ? snapshot.data.thumbURL
+                          : snapshot.data.photoURL
+                        ),
+                  fit: BoxFit.cover,
+                  width: 48.0,
+                  height: 48.0,
+                  child: InkWell(
+                    onTap: () {},
+                  ),
+                )),
+          );
+        },
+      );
+    }).toList();
+
     return Container(
       height: 140,
       padding: EdgeInsets.only(left: 32.0, right: 20),
@@ -63,63 +97,34 @@ class MemberHorizontalList extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: <Widget>[
                 this.showAddBtn == true
-                ? Container(
-                  margin: EdgeInsets.only(left: 8),
-                  child: Material(
-                    clipBehavior: Clip.hardEdge,
-                    color: Colors.transparent,
-                    child: Container(
-                      width: 48,
-                      height: 48,
-                      child: InkWell(
-                        child: Icon(
-                          Icons.add,
-                          color: Theme.of(context).textTheme.headline1.color,
+                    ? Container(
+                        margin: EdgeInsets.only(left: 8),
+                        child: Material(
+                          clipBehavior: Clip.hardEdge,
+                          color: Colors.transparent,
+                          child: Container(
+                            width: 48,
+                            height: 48,
+                            child: InkWell(
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                              onTap: () {},
+                            ),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 1.0,
+                                color: Asset.Colors.cloudyBlue,
+                              ),
+                            ),
+                          ),
                         ),
-                        onTap: () {},
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          width: 1.0,
-                          color: Asset.Colors.cloudyBlue,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-                : Container(),
-                Container(
-                  margin: EdgeInsets.only(left: 8),
-                  child: Material(
-                    clipBehavior: Clip.hardEdge,
-                    color: Colors.transparent,
-                    child: Ink.image(
-                      image: Asset.Icons.icMask,
-                      fit: BoxFit.cover,
-                      width: 48.0,
-                      height: 48.0,
-                      child: InkWell(
-                        onTap: () {},
-                      ),
-                    )
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 8),
-                  child: Material(
-                    clipBehavior: Clip.hardEdge,
-                    color: Colors.transparent,
-                    child: Ink.image(
-                      image: Asset.Icons.icMask,
-                      fit: BoxFit.cover,
-                      width: 48.0,
-                      height: 48.0,
-                      child: InkWell(
-                        onTap: () {},
-                      ),
-                    )
-                  ),
+                      )
+                    : Container(),
+                Row(
+                  children: memberWidgets,
                 ),
               ],
             ),

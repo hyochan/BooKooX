@@ -10,9 +10,9 @@ abstract class ListItem {}
 class HeadingItem implements ListItem {
   final String displayName;
   final String email;
-  final String imageString;
+  final String imgStr;
 
-  HeadingItem(this.displayName, this.email, this.imageString);
+  HeadingItem(this.displayName, this.email, this.imgStr);
 }
 
 class LedgerItem implements ListItem {
@@ -30,6 +30,7 @@ class LedgerListItem extends StatelessWidget {
     this.people,
     this.isOwner,
     this.onMorePressed,
+    this.onLedgerPressed,
   });
 
   final Key key;
@@ -38,6 +39,7 @@ class LedgerListItem extends StatelessWidget {
   final int people;
   final bool isOwner;
   final Function onMorePressed;
+  final Function onLedgerPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class LedgerListItem extends StatelessWidget {
             child: Container(
               child: MaterialButton(
                 padding: EdgeInsets.only(left: 24.0),
-                onPressed: () {},
+                onPressed: onLedgerPressed,
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -63,35 +65,34 @@ class LedgerListItem extends StatelessWidget {
                           ClipOval(
                             child: Image(
                               image: color == ColorType.RED
-                                ? Asset.Icons.icRed
-                                : color == ColorType.ORANGE
-                                ? Asset.Icons.icOrange
-                                : color == ColorType.YELLOW
-                                ? Asset.Icons.icYellow
-                                : color == ColorType.GREEN
-                                ? Asset.Icons.icGreen
-                                : color == ColorType.BLUE
-                                ? Asset.Icons.icBlue
-                                : color == ColorType.PURPLE
-                                ? Asset.Icons.icPurple
-                                : Asset.Icons.icDusk
-                              ,
+                                  ? Asset.Icons.icRed
+                                  : color == ColorType.ORANGE
+                                      ? Asset.Icons.icOrange
+                                      : color == ColorType.YELLOW
+                                          ? Asset.Icons.icYellow
+                                          : color == ColorType.GREEN
+                                              ? Asset.Icons.icGreen
+                                              : color == ColorType.BLUE
+                                                  ? Asset.Icons.icBlue
+                                                  : color == ColorType.PURPLE
+                                                      ? Asset.Icons.icPurple
+                                                      : Asset.Icons.icDusk,
                               fit: BoxFit.cover,
                               width: 40.0,
                               height: 40.0,
                             ),
                           ),
                           isOwner
-                          ? Positioned(
-                            right: 4,
-                            bottom: 4,
-                            child: Image(
-                              image: Asset.Icons.icOwner,
-                              width: 20,
-                              height: 20,
-                            ),
-                          )
-                          : Container(),
+                              ? Positioned(
+                                  right: 4,
+                                  bottom: 4,
+                                  child: Image(
+                                    image: Asset.Icons.icOwner,
+                                    width: 20,
+                                    height: 20,
+                                  ),
+                                )
+                              : Container(),
                         ],
                       ),
                     ),
@@ -106,16 +107,16 @@ class LedgerListItem extends StatelessWidget {
                             child: Text(
                               title,
                               style: TextStyle(
-                                color: Theme.of(context).textTheme.headline1.color,
+                                color: Theme.of(context).primaryColor,
                                 fontSize: 20.0,
                               ),
                             ),
                           ),
-                        Container(
+                          Container(
                             child: Text(
                               people > 1
-                              ? '$people ${_localization.trans("PEOPLE")}'
-                              : '$people ${_localization.trans("PERSON")}',
+                                  ? '$people ${_localization.trans("PEOPLE")}'
+                                  : '$people ${_localization.trans("PERSON")}',
                               style: TextStyle(
                                 color: Theme.of(context).hintColor,
                                 fontSize: 14.0,

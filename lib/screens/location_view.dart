@@ -63,7 +63,7 @@ class _LocationViewState extends State<LocationView> {
     try {
       currentLocation = await location.getLocation();
     } catch (e) {
-      if (e.code == 'PERMISSION_DENIED') {
+      if (e.currency == 'PERMISSION_DENIED') {
         error = 'Permission denied';
       } 
       currentLocation = null;

@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:bookoox/screens/main_empty.dart' show MainEmpty;
-import 'package:bookoox/screens/ledger_add.dart' show LedgerAdd;
+import 'package:bookoox/screens/ledger_edit.dart' show LedgerEdit;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
@@ -17,7 +17,7 @@ void main() {
     expect(find.text('NO_LEDGER_DESCRIPTION'), findsNWidgets(1));
     expect(find.text('ADD_LEDGER'), findsNWidgets(1));
   });
-  testWidgets("Navigate to [LedgerAdd] when addLedger pressed", (WidgetTester tester) async{
+  testWidgets("Navigate to [LedgerEdit] when addLedger pressed", (WidgetTester tester) async{
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: MainEmpty()));
     await tester.pumpAndSettle();
 
@@ -25,6 +25,6 @@ void main() {
     await tester.pumpAndSettle();
 
     verify(TestUtils.observer.didPush(any, any));
-    expect(find.byType(LedgerAdd), findsOneWidget);
+    expect(find.byType(LedgerEdit), findsOneWidget);
   });
 }
