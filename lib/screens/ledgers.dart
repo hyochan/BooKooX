@@ -1,4 +1,5 @@
 import 'package:bookoox/models/User.dart';
+import 'package:bookoox/providers/CurrentLedger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +36,11 @@ class _LedgersState extends State<Ledgers> {
       General.instance.navigateScreenNamed(context, '/profile_my');
     }
 
-    void onLedgerPressed(Ledger item) {}
+    void onLedgerPressed(Ledger item) {
+      Navigator.of(context).pop();
+      DatabaseService().requestSelectLedger(item.id);
+      Provider.of<CurrentLedger>(context, listen: false).setLedger(item);
+    }
 
     void onLedgerMorePressed(Ledger item) {
       General.instance.navigateScreen(

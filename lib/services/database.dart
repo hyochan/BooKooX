@@ -73,6 +73,14 @@ class DatabaseService {
     return true;
   }
 
+  Future<void> requestSelectLedger(String _ledgerId) async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
+    return Firestore.instance.collection('users').document(user.uid).setData({
+      'selectedLedger': _ledgerId,
+    }, merge: true);
+  }
+
   Future<bool> requestUpdateProfile(
     User _profile, {
     File imgFile,
