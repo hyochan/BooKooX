@@ -81,6 +81,47 @@ class DatabaseService {
     }, merge: true);
   }
 
+  Future<bool> requestLeaveLedger(String _ledgerId) async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
+    var getLedger = (String _ledgerId) async {
+      var snap = await _db .collection('ledgers').document(_ledgerId).get();
+      return Ledger.fromMap(snap.data);
+    };
+
+    Ledger ledger = await getLedger(_ledgerId);
+
+    bool hasOwnerPermission = user !=null && ledger.ownerId == user.uid;
+    bool hasMoreThanOneUser = ledger.memberIds.length > 1;
+
+    var deleteLedgerItems = (String _ledgerId) async {
+      var snapItems = await _db.collection('ledgers').document(_ledgerId).collection('items').getDocuments();
+      for (DocumentSnapshot doc in snapItems.documents) {
+        doc.reference.delete();
+      }
+    };
+
+    var deleteLedger = (String _ledgerId) =>
+      _db.collection('ledgers').document(_ledgerId).delete();
+
+    var deleteLedgerFromUser = (String _ledgerId) =>
+      _db.collection('users').document(user.uid).collection('ledgers').document(_ledgerId).delete();
+
+    if (hasOwnerPermission && !hasMoreThanOneUser) {
+      await deleteLedgerItems(_ledgerId);
+      await deleteLedger(_ledgerId);
+      await deleteLedgerFromUser(_ledgerId);
+      return true;
+    }
+
+    if (!hasOwnerPermission) {
+      await deleteLedgerFromUser(_ledgerId);
+      return true;
+    }
+
+    return false;
+  }
+
   Future<bool> requestUpdateProfile(
     User _profile, {
     File imgFile,

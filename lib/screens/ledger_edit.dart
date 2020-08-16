@@ -1,3 +1,4 @@
+import 'package:bookoox/providers/CurrentLedger.dart';
 import 'package:flutter/material.dart';
 import 'package:bookoox/screens/setting_currency.dart';
 import 'package:bookoox/screens/members.dart';
@@ -10,6 +11,7 @@ import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/models/Currency.dart';
 import 'package:bookoox/models/Ledger.dart';
 import 'package:bookoox/types/color.dart';
+import 'package:provider/provider.dart';
 
 enum LedgerEditMode {
   ADD,
@@ -48,6 +50,7 @@ class _LedgerEditState extends State<LedgerEdit> {
     }
     _ledger = ledger;
   }
+
 
   void _onPressCurrency() async {
     var _result = await General.instance.navigateScreen(
@@ -106,6 +109,24 @@ class _LedgerEditState extends State<LedgerEdit> {
     }
   }
 
+  void _leaveLedger() async {
+    bool hasLeft = await DatabaseService().requestLeaveLedger(_ledger.id);
+
+    if (hasLeft) {
+      var ledger = await DatabaseService().fetchSelectedLedger();
+      Provider.of<CurrentLedger>(context, listen: false).setLedger(ledger);
+      Navigator.of(context).pop();
+    }
+
+    var _localization = Localization.of(context);
+
+    General.instance.showSingleDialog(
+      context,
+      title: Text(_localization.trans('ERROR')),
+      content: Text(_localization.trans('SHOULD_TRANSFER_OWNERSHIP')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
@@ -122,8 +143,7 @@ class _LedgerEditState extends State<LedgerEdit> {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () =>
-                  General.instance.navigateScreenNamed(context, '/ledgers'),
+              onPressed: _leaveLedger,
               child: Text(
                 _localization.trans('LEAVE'),
                 semanticsLabel: _localization.trans('LEAVE'),
@@ -137,6 +157,7 @@ class _LedgerEditState extends State<LedgerEdit> {
           ),
         ],
       ),
+
       body: SafeArea(
           child: Stack(
         children: [
@@ -165,6 +186,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ),
                 ),
               ),
+
               Container(
                 margin:
                     EdgeInsets.only(top: 24, left: 40, right: 40, bottom: 20),
@@ -190,6 +212,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ),
                 ),
               ),
+
               MaterialButton(
                 padding: EdgeInsets.all(0.0),
                 onPressed: _onPressCurrency,
@@ -229,7 +252,9 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ),
                 ),
               ),
+
               Divider(color: Colors.white70),
+
               Container(
                 height: 80.0,
                 width: MediaQuery.of(context).size.width,
@@ -238,6 +263,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+
                     Container(
                       child: Text(
                         _localization.trans('COLOR'),
@@ -247,6 +273,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                         ),
                       ),
                     ),
+
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.only(right: 32),
@@ -271,7 +298,9 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ],
                 ),
               ),
+
               Divider(color: Colors.white70),
+
               MemberHorizontalList(
                 showAddBtn: true,
                 memberIds: widget.ledger != null && widget.ledger.memberIds != null
@@ -286,6 +315,7 @@ class _LedgerEditState extends State<LedgerEdit> {
               ),
             ],
           ),
+
           Positioned(
             bottom: 24,
             right: 24,

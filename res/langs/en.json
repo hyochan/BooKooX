@@ -175,5 +175,6 @@
   "SEARCH_USER_HINT": "Search user...",
   "PLZ_SEARCH": "Please search...",
   "NO_DATA": "No data exists.",
-  "LEAVE": "Leave"
+  "LEAVE": "Leave",
+  "SHOULD_TRANSFER_OWNERSHIP": "You should transfer ownership before leaving your ledger."
 }
