@@ -28,8 +28,10 @@ class AuthSwitch extends StatelessWidget {
                   if (ledgers == null || ledgers.length == 0) {
                     return MainEmpty();
                   }
-                  Provider.of<CurrentLedger>(context, listen: false)
-                      .setLedger(snapshot.data);
+                  if (snapshot.hasData) {
+                    Provider.of<CurrentLedger>(context, listen: false)
+                        .setLedger(snapshot.data);
+                  }
                   return HomeTab();
                 }
 

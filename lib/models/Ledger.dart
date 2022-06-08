@@ -87,6 +87,8 @@ class Ledger {
         currency: data['currencyCode'],
         locale: data['currency'],
       ),
+      ownerId: data['ownerId'] ?? '',
+      description: data['description'] ?? '',
     );
   }
 

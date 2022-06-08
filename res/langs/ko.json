@@ -175,5 +175,6 @@
   "SEARCH_USER_HINT": "사용자 검색...",
   "PLZ_SEARCH": "검색해주세요...",
   "NO_DATA": "데이터가 없습니다.",
-  "LEAVE": "나가기"
+  "LEAVE": "나가기",
+  "SHOULD_TRANSFER_OWNERSHIP": "가계부를 나가기 전에 오너를 양도해야합다."
 }
