@@ -72,15 +72,7 @@ class _HomeTabState extends State<HomeTab> {
               Icons.calendar_today,
               size: 20.0,
             ),
-            title: Container(
-              margin: EdgeInsets.only(top: 2.0),
-              child: Text(
-                'Montly',
-                style: TextStyle(
-                  fontSize: 12.0,
-                ),
-              ),
-            ),
+            label: 'Montly',
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,
@@ -88,12 +80,7 @@ class _HomeTabState extends State<HomeTab> {
               Icons.list,
               size: 20.0,
             ),
-            title: Container(
-              margin: EdgeInsets.only(top: 2.0),
-              child: Text(
-                'List',
-              ),
-            ),
+            label: 'List',
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,
@@ -101,12 +88,7 @@ class _HomeTabState extends State<HomeTab> {
               Icons.graphic_eq,
               size: 20.0,
             ),
-            title: Container(
-              margin: EdgeInsets.only(top: 2.0),
-              child: Text(
-                'Statistic',
-              ),
-            ),
+            label: 'Statistic',
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,
@@ -114,12 +96,7 @@ class _HomeTabState extends State<HomeTab> {
               Icons.settings,
               size: 20.0,
             ),
-            title: Container(
-              margin: EdgeInsets.only(top: 2.0),
-              child: Text(
-                'Setting',
-              ),
-            ),
+            label: 'Setting',
           ),
         ],
       ),

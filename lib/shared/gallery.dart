@@ -8,6 +8,7 @@ import 'package:bookoox/models/Photo.dart';
 import 'package:bookoox/utils/asset.dart' as Asset;
 import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:bookoox/utils/general.dart' show General;
+import 'package:image_picker/image_picker.dart';
 
 enum PhotoOption { Camera, Gallery }
 
@@ -15,67 +16,67 @@ Future<PhotoOption> _asyncPhotoSelect(BuildContext context) async {
   var _localization = Localization.of(context);
 
   return await showDialog<PhotoOption>(
-    context: context,
-    barrierDismissible: true,
-    builder: (BuildContext context) {
-      return SimpleDialog(
-        children: <Widget>[
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.pop(context, PhotoOption.Camera);
-            },
-            child: Container(
-              height: 44,
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.camera,
-                    color: Theme.of(context).textTheme.headline1.color,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8),
-                    child: Text(
-                      _localization.trans('CAMERA'),
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).textTheme.headline1.color,
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          children: <Widget>[
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context, PhotoOption.Camera);
+              },
+              child: Container(
+                height: 44,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.camera,
+                      color: Theme.of(context).textTheme.headline1.color,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 8),
+                      child: Text(
+                        _localization.trans('CAMERA'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).textTheme.headline1.color,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.pop(context, PhotoOption.Gallery);
-            },
-            child: Container(
-              height: 44,
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.photo,
-                    color: Theme.of(context).textTheme.headline1.color,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8),
-                    child: Text(
-                      _localization.trans('GALLERY'),
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).textTheme.headline1.color,
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context, PhotoOption.Gallery);
+              },
+              child: Container(
+                height: 44,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.photo,
+                      color: Theme.of(context).textTheme.headline1.color,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 8),
+                      child: Text(
+                        _localization.trans('GALLERY'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).textTheme.headline1.color,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-        backgroundColor: Theme.of(context).backgroundColor,
-      );
-    });
+          ],
+          backgroundColor: Theme.of(context).backgroundColor,
+        );
+      });
 }
 
 class Gallery extends StatefulWidget {
@@ -106,9 +107,7 @@ class _GalleryState extends State<Gallery> {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
 
-    void onPressShowAll() {
-
-    }
+    void onPressShowAll() {}
 
     return Container(
       margin: widget.margin,
@@ -140,17 +139,18 @@ class _GalleryState extends State<Gallery> {
                 ),
               ),
               widget.showAll
-              ? FlatButton(
-                onPressed: onPressShowAll,
-                child: Text(
-                  _localization.trans('SHOW_ALL'),
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.headline1.color,
-                    fontSize: 16,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ) : Container(),
+                  ? FlatButton(
+                      onPressed: onPressShowAll,
+                      child: Text(
+                        _localization.trans('SHOW_ALL'),
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.headline1.color,
+                          fontSize: 16,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    )
+                  : Container(),
             ],
           ),
           Container(
@@ -163,14 +163,17 @@ class _GalleryState extends State<Gallery> {
                     padding: EdgeInsets.only(right: 4, bottom: 6),
                     child: FlatButton(
                       onPressed: () async {
-                        final PhotoOption photoOption = await _asyncPhotoSelect(context);
-                        File imgFile;
+                        final PhotoOption photoOption =
+                            await _asyncPhotoSelect(context);
+                        XFile imgFile;
                         switch (photoOption) {
                           case PhotoOption.Camera:
-                            imgFile = await General.instance.chooseImage(context: context, type: 'camera');
+                            imgFile = await General.instance
+                                .chooseImage(context: context, type: 'camera');
                             break;
                           case PhotoOption.Gallery:
-                            imgFile = await General.instance.chooseImage(context: context, type: 'gallery');
+                            imgFile = await General.instance
+                                .chooseImage(context: context, type: 'gallery');
                             break;
                         }
 
@@ -209,7 +212,7 @@ class _GalleryState extends State<Gallery> {
                         Positioned.fill(
                           left: 4,
                           child: Image.file(
-                            photo.file,
+                            File(photo.file.path),
                             fit: BoxFit.cover,
                             height: 72,
                             width: 84,
@@ -223,10 +226,13 @@ class _GalleryState extends State<Gallery> {
                               onTap: () => General.instance.navigateScreen(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (BuildContext context) => PhotoDetail(
+                                  builder: (BuildContext context) =>
+                                      PhotoDetail(
                                     photo: photo,
                                     onPressDelete: () {
-                                      int index = this.picture.indexWhere((Photo compare) => compare.file == photo.file);
+                                      int index = this.picture.indexWhere(
+                                          (Photo compare) =>
+                                              compare.file == photo.file);
                                       this.picture.removeAt(index);
                                       widget.ledgerItem.picture = this.picture;
                                       Navigator.of(context).pop();

@@ -14,11 +14,12 @@ class AuthSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _db = DatabaseService();
-    var user = Provider.of<FirebaseUser>(context);
+    var user = Provider.of<User>(context);
 
     Widget renderMainLedger() {
       return StreamProvider<List<Ledger>>.value(
         value: _db.streamMyLedgers(user),
+        initialData: [],
         child: Consumer<List<Ledger>>(
           builder: (context, ledgers, child) {
             return FutureBuilder(
@@ -52,13 +53,7 @@ class AuthSwitch extends StatelessWidget {
       );
     }
 
-    if (user != null) {
-      if (user.providerData.length == 1) {
-        if (user.isEmailVerified) {
-          return renderMainLedger();
-        }
-        return Tutorial();
-      }
+    if (user != null && user.emailVerified) {
       return renderMainLedger();
     }
 

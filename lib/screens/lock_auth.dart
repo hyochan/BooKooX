@@ -68,10 +68,12 @@ class _LockAuthState extends State<LockAuth> {
     //    we do not need to create a dialog nut it popsup from device natively.
     bool authenticated = false;
     try {
-      authenticated = await _localAuthentication.authenticateWithBiometrics(
+      authenticated = await _localAuthentication.authenticate(
         localizedReason: _localization.trans('FINGERPRINT_LOGIN'), // message for dialog
-        useErrorDialogs: true,// show error in dialog
-        stickyAuth: true,// native process
+        options: AuthenticationOptions(
+          useErrorDialogs: true,
+          stickyAuth: true,
+        ),
       );
     } catch (e) {
       print(e);
@@ -155,15 +157,15 @@ class _LockAuthState extends State<LockAuth> {
                   _pinTextField(_fourthDigit),
                 ],),              
             ),
-            OutlineButton(
+            OutlinedButton(
               child: 
               Text(_localization.trans('FINGERPRINT_LOGIN'),
                 style: TextStyle(color: Theme.of(context).textTheme.headline2.color),
               ),
-              onPressed: _hasFingerPrintSupport ? _authenticateMe : null ,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
+              onPressed: _hasFingerPrintSupport ? _authenticateMe : null,
+              // shape: RoundedRectangleBorder(
+              //   borderRadius: BorderRadius.circular(30),
+              // ),
             ),
             SizedBox(height: 50 ,),
             PinKeyboard(

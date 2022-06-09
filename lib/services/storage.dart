@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 
 class FireStorageService {
@@ -16,23 +17,26 @@ class FireStorageService {
   }) async {
     /// Upload thumb
     if (compressed) {
-      file = await FlutterNativeImage.compressImage(
-          file.path,
-          quality: 100,
-          targetWidth: 120, targetHeight: 120);
+      file = await FlutterNativeImage.compressImage(file.path,
+          quality: 100, targetWidth: 120, targetHeight: 120);
     }
 
     /// Upload image
-    final StorageReference ref = FirebaseStorage.instance.ref().child(uploadDir).child('$imgStr.png');
-    StorageUploadTask uploadTask = ref.putFile(
+    final Reference ref =
+        FirebaseStorage.instance.ref().child(uploadDir).child('$imgStr.png');
+
+    UploadTask uploadTask = ref.putFile(
       file,
-      StorageMetadata(
+      SettableMetadata(
         contentLanguage: 'en',
         customMetadata: <String, String>{'activity': metaData},
       ),
     );
 
-    var downloadUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    var downloadUrl =
+        await (await uploadTask.whenComplete(() => ref.getDownloadURL()))
+            .ref
+            .getDownloadURL();
     return downloadUrl;
   }
 }

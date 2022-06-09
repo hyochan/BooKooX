@@ -9,7 +9,7 @@ import 'package:bookoox/utils/localization.dart' show Localization;
 import 'package:bookoox/utils/validator.dart' show Validator;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-final Firestore _firestore = Firestore.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class SignIn extends StatefulWidget {
   SignIn({Key key}) : super(key: key);
@@ -35,7 +35,7 @@ class _SignInState extends State<SignIn> {
   bool _isResendingEmail = false;
 
  void _signIn() async {
-    if (_auth.currentUser() != null) {
+    if (_auth.currentUser != null) {
       _auth.signOut();
     }
 
@@ -51,19 +51,19 @@ class _SignInState extends State<SignIn> {
 
     setState(() => _isSigningIn = true);
 
-    AuthResult auth;
+    UserCredential auth;
     try {
       auth = await _auth.signInWithEmailAndPassword(email: _email, password: _password);
 
       /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-      if (auth.user != null && auth.user.isEmailVerified) {
+      if (auth.user != null && auth.user.emailVerified) {
         var snapshots = await _firestore
           .collection('users')
-          .document(auth.user.uid)
+          .doc(auth.user.uid)
           .collection('ledgers')
-          .getDocuments();
+          .get();
 
-        var ledgers = snapshots.documents;
+        var ledgers = snapshots.docs;
 
         if (ledgers == null || ledgers.length == 0) {
           General.instance.navigateScreenNamed(context, '/main_empty', reset: true);
@@ -96,7 +96,7 @@ class _SignInState extends State<SignIn> {
         return;
     }
 
-    if (auth.user != null && !auth.user.isEmailVerified) {
+    if (auth.user != null && !auth.user.emailVerified) {
       General.instance.showSingleDialog(
         context,
         title: Text(_localization.trans('ERROR')),

@@ -10,7 +10,7 @@ import 'package:bookoox/utils/validator.dart' show Validator;
 import 'package:bookoox/utils/asset.dart' as Asset;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-final Firestore firestore = Firestore.instance;
+final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);
@@ -79,14 +79,14 @@ class _SignUpState extends State<SignUp> {
     setState(() => _isRegistering = true);
 
     try {
-      final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+      final User user = (await _auth.createUserWithEmailAndPassword(
         email: _email,
         password: _password,
       )).user;
 
       if (user != null) {
         await user.sendEmailVerification();
-        await firestore.collection('users').document(user.uid).setData({
+        await firestore.collection('users').doc(user.uid).set({
           'email': _email,
           'displayName': _displayName,
           'name': _name,
@@ -95,9 +95,7 @@ class _SignUpState extends State<SignUp> {
           'deletedAt': null,
         });
 
-        UserUpdateInfo info = UserUpdateInfo();
-        info.displayName = _displayName;
-        user.updateProfile(info);
+        user.updateDisplayName(_displayName);
 
         return General.instance.showSingleDialog(
           context,

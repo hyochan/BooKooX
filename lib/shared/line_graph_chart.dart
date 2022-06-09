@@ -103,34 +103,40 @@ class _LineGraphChartState extends State<LineGraphChart> {
       ),
       titlesData: FlTitlesData(
         show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 22,
-          textStyle: TextStyle(
-              color: const Color(0xff68737d),
-              fontWeight: FontWeight.bold,
-              fontSize: 13),
-          getTitles: (value) {
-            if (value % 2 == 1)
-              return DateFormat('MMM').format(DateTime(0, value.toInt()));
-            return null;
-          },
-          margin: 8,
-        ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          textStyle: TextStyle(
-            color: const Color(0xff67727d),
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
+        bottomTitles: AxisTitles(
+          // sideTitles: true,
+          // reservedSize: 22,
+          // textStyle: TextStyle(
+          //     color: const Color(0xff68737d),
+          //     fontWeight: FontWeight.bold,
+          //     fontSize: 13),
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 22,
+            // getTitlesWidget: (value) {
+            //   if (value % 2 == 1)
+            //     return DateFormat('MMM').format(DateTime(0, value.toInt()));
+            //   return null;
+            // },
           ),
-          getTitles: (value) {
-            // return '${value.toInt()}';
-            return null;
-          },
-          reservedSize: 0,
-          margin: 12,
         ),
+        leftTitles: AxisTitles(
+            sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 0,
+        )
+            // textStyle: TextStyle(
+            //   color: const Color(0xff67727d),
+            //   fontWeight: FontWeight.bold,
+            //   fontSize: 15,
+            // ),
+            // getTitles: (value) {
+            //   // return '${value.toInt()}';
+            //   return null;
+            // },
+            // reservedSize: 0,
+            // margin: 12,
+            ),
       ),
       borderData: FlBorderData(
         show: true,
@@ -150,7 +156,7 @@ class _LineGraphChartState extends State<LineGraphChart> {
             }).toList();
           },
         ),
-        touchCallback: (LineTouchResponse res) {
+        touchCallback: (FlTouchEvent te, LineTouchResponse res) {
           res.lineBarSpots.forEach((spot) {
             widget.onSelectMonth(
                 month: spot.x.toInt(), sumOfPrice: spot.y * CHART_SCALE);
@@ -161,7 +167,8 @@ class _LineGraphChartState extends State<LineGraphChart> {
         LineChartBarData(
           spots: _spots,
           isCurved: false,
-          colors: gradientColors,
+          // colors: gradientColors,
+          color: gradientColors.single,
           barWidth: 5,
           isStrokeCapRound: true,
           dotData: FlDotData(
@@ -169,8 +176,9 @@ class _LineGraphChartState extends State<LineGraphChart> {
           ),
           belowBarData: BarAreaData(
             show: true,
-            colors:
-                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+            // colors:
+            //     gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+            color: gradientColors.single,
           ),
         ),
       ],

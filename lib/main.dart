@@ -42,56 +42,56 @@ import './screens/lock_auth.dart' show LockAuth;
 import './utils/asset.dart' as Asset;
 import './utils/localization.dart';
 
-FirebaseMessaging _fcm;
-
-void main() {
+void main() async {
+  await _initFire();
   runApp(MyApp());
-  _initFire();
   _fcmListeners();
 }
 
 Future<void> _initFire() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await FlutterConfig.loadEnvVariables();
 
-  WidgetsFlutterBinding.ensureInitialized();
-  final FirebaseApp app = await FirebaseApp.configure(
+  await Firebase.initializeApp(
     name: 'BooKooX',
     options: FirebaseOptions(
         apiKey: FlutterConfig.get('API_KEY'),
         databaseURL: FlutterConfig.get('DATABASE_URL'),
-        projectID: FlutterConfig.get('PROJECT_ID'),
-        bundleID: FlutterConfig.get('BUNDLE_ID'),
+        projectId: FlutterConfig.get('PROJECT_ID'),
+        iosBundleId: FlutterConfig.get('BUNDLE_ID'),
         storageBucket: FlutterConfig.get('STORAGE_BUCKET'),
-        gcmSenderID: FlutterConfig.get('GCM_SENDER_ID'),
-        googleAppID: Platform.isIOS
+        messagingSenderId: FlutterConfig.get('GCM_SENDER_ID'),
+        appId: Platform.isIOS
             ? FlutterConfig.get('APP_ID_IOS')
             : Platform.isAndroid
                 ? FlutterConfig.get('APP_ID_ANDROID')
                 : FlutterConfig.get('APP_ID_WEB')),
   );
-  Firestore(app: app);
-  FirebaseStorage(
-    app: app,
-    storageBucket: 'gs://bookoox-609bf.appspot.com',
+  // FirebaseFirestore(app: app);
+  // FirebaseStorage(
+  //   app: app,
+  //   storageBucket: 'gs://bookoox-609bf.appspot.com',
+  // );
+}
+
+void checkIOSPermission() {
+  FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    sound: true,
   );
 }
 
-void checkiOSPermission() {
-  _fcm.requestNotificationPermissions(
-      IosNotificationSettings(sound: true, badge: true, alert: true));
-  _fcm.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
-    print("Settings registered: $settings");
-  });
-}
-
 void _fcmListeners() {
-  _fcm = FirebaseMessaging();
+  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
 
-  if (Platform.isIOS) checkiOSPermission();
-  _fcm.requestNotificationPermissions(const IosNotificationSettings(
-      sound: true, badge: true, alert: true, provisional: true));
+  if (Platform.isIOS) checkIOSPermission();
 
-  _fcm.getToken().then((String token) async {
+  FirebaseMessaging.instance.getToken().then((String token) async {
     assert(token != null);
 
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -99,17 +99,27 @@ void _fcmListeners() {
     print('token: $token');
   });
 
-  _fcm.configure(
-    onMessage: (Map<String, dynamic> message) {
-      print('on message $message');
-    },
-    onResume: (Map<String, dynamic> message) {
-      print('on resume $message');
-    },
-    onLaunch: (Map<String, dynamic> message) {
-      print('on launch $message');
-    },
-  );
+  // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   RemoteNotification? notification = message.notification;
+  //   AndroidNotification? android = message.notification?.android;
+  //   if (notification != null && android != null && !kIsWeb) {
+  //     flutterLocalNotificationsPlugin.show(
+  //       notification.hashCode,
+  //       notification.title,
+  //       notification.body,
+  //       NotificationDetails(
+  //         android: AndroidNotificationDetails(
+  //           channel.id,
+  //           channel.name,
+  //           channel.description,
+  //           // TODO add a proper drawable resource to android, for now using
+  //           //      one that already exists in example app.
+  //           icon: 'launch_background',
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // });
 }
 
 class MyApp extends StatelessWidget {
@@ -119,8 +129,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          StreamProvider<FirebaseUser>.value(
-              value: FirebaseAuth.instance.onAuthStateChanged),
+          StreamProvider<User>.value(
+              value: FirebaseAuth.instance.authStateChanges()),
           ChangeNotifierProvider(create: (context) => CurrentLedger(null)),
         ],
         child: MaterialApp(

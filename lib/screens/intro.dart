@@ -12,13 +12,12 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-final Firestore firestore = Firestore.instance;
+final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class Intro extends StatelessWidget {
   static final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
-    hostedDomain: "",
-    clientId: "",
+    // clientId: "",
   );
 
   Future<Null> _googleLogin(BuildContext context) async {
@@ -31,15 +30,15 @@ class Intro extends StatelessWidget {
       GoogleSignInAccount googleUser = await _googleSignIn.signIn();
 
       GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      AuthCredential credential = GoogleAuthProvider.getCredential(
+      AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
         accessToken: googleAuth.accessToken,
       );
-      
-      AuthResult auth = await _auth.signInWithCredential(credential);
-      FirebaseUser user = auth.user;
 
-      await firestore.collection('users').document(user.uid).setData({
+      UserCredential auth = await _auth.signInWithCredential(credential);
+      User user = auth.user;
+
+      await firestore.collection('users').doc(user.uid).set({
         'email': user.email,
         'displayName': user.displayName,
         'name': user.displayName,

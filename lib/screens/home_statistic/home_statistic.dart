@@ -147,7 +147,7 @@ class _ContentState extends State<Content> {
     var chartWidget = dataMap.length > 0
         ? PieChart(
             dataMap: dataMap,
-            legendStyle: TextStyle(
+            centerTextStyle: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
               color: Theme.of(context).textTheme.headline1.color,
@@ -155,13 +155,13 @@ class _ContentState extends State<Content> {
             animationDuration: Duration(milliseconds: 800),
             chartLegendSpacing: 32.0,
             chartRadius: MediaQuery.of(context).size.width / 2.7,
-            showChartValuesInPercentage: true,
-            showChartValues: true,
-            showChartValuesOutside: false,
-            chartValueStyle: Theme.of(context).textTheme.headline1,
+            // showChartValuesInPercentage: true,
+            // showChartValues: true,
+            // showChartValuesOutside: false,
+            // chartValueStyle: Theme.of(context).textTheme.headline1,
             colorList: colorList,
-            showLegends: true,
-            decimalPlaces: 1,
+            // showLegends: true,
+            // decimalPlaces: 1,
           )
         : Container(
             child: Flex(
