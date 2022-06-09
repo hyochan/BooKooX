@@ -1,11 +1,11 @@
-import 'package:bookoox/models/User.dart';
-import 'package:bookoox/screens/photo_detail.dart';
+import 'package:wecount/models/User.dart';
+import 'package:wecount/screens/photo_detail.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/shared/header.dart' show renderHeaderClose;
-import 'package:bookoox/shared/edit_text_box.dart' show EditTextBox;
-import 'package:bookoox/utils/general.dart';
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/shared/header.dart' show renderHeaderClose;
+import 'package:wecount/shared/edit_text_box.dart' show EditTextBox;
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/localization.dart' show Localization;
 
 class ProfilePeer extends StatefulWidget {
   final User user;
@@ -20,7 +20,6 @@ class ProfilePeer extends StatefulWidget {
 
 class _ProfilePeerState extends State<ProfilePeer> {
   void showImage(String photoUrl) async {
-
     var _result = await General.instance.navigateScreen(
       context,
       MaterialPageRoute(
@@ -56,7 +55,8 @@ class _ProfilePeerState extends State<ProfilePeer> {
                       clipBehavior: Clip.hardEdge,
                       color: Colors.transparent,
                       child: FlatButton(
-                        onPressed: () => showImage('https://picsum.photos/250?image=9'),
+                        onPressed: () =>
+                            showImage('https://picsum.photos/250?image=9'),
                         padding: EdgeInsets.all(0.0),
                         child: ClipOval(
                           child: FadeInImage.assetNetwork(

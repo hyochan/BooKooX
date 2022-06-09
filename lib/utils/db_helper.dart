@@ -1,99 +1,27 @@
 import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:bookoox/models/Category.dart';
+import 'package:wecount/models/Category.dart';
 
 final List<Category> initalCategory = [
-  Category(
-    iconId: 0,
-    label: 'CAFE',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 1,
-    label: 'DRINK',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 2,
-    label: 'SNACK',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 3,
-    label: 'MEAL',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 4,
-    label: 'DATING',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 5,
-    label: 'MOVIE',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 6,
-    label: 'PET',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 7,
-    label: 'TRANSPORT',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 8,
-    label: 'EXERCISE',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 9,
-    label: 'WEAR',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 10,
-    label: 'SLEEP',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 11,
-    label: 'BABY',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 12,
-    label: 'GIFT',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 13,
-    label: 'ELECTRONIC',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 14,
-    label: 'FURNITURE',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 15,
-    label: 'TRAVEL',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 16,
-    label: 'MOBILE_FEE',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 17,
-    label: 'HOSPITAL',
-    type: CategoryType.CONSUME
-  ),
+  Category(iconId: 0, label: 'CAFE', type: CategoryType.CONSUME),
+  Category(iconId: 1, label: 'DRINK', type: CategoryType.CONSUME),
+  Category(iconId: 2, label: 'SNACK', type: CategoryType.CONSUME),
+  Category(iconId: 3, label: 'MEAL', type: CategoryType.CONSUME),
+  Category(iconId: 4, label: 'DATING', type: CategoryType.CONSUME),
+  Category(iconId: 5, label: 'MOVIE', type: CategoryType.CONSUME),
+  Category(iconId: 6, label: 'PET', type: CategoryType.CONSUME),
+  Category(iconId: 7, label: 'TRANSPORT', type: CategoryType.CONSUME),
+  Category(iconId: 8, label: 'EXERCISE', type: CategoryType.CONSUME),
+  Category(iconId: 9, label: 'WEAR', type: CategoryType.CONSUME),
+  Category(iconId: 10, label: 'SLEEP', type: CategoryType.CONSUME),
+  Category(iconId: 11, label: 'BABY', type: CategoryType.CONSUME),
+  Category(iconId: 12, label: 'GIFT', type: CategoryType.CONSUME),
+  Category(iconId: 13, label: 'ELECTRONIC', type: CategoryType.CONSUME),
+  Category(iconId: 14, label: 'FURNITURE', type: CategoryType.CONSUME),
+  Category(iconId: 15, label: 'TRAVEL', type: CategoryType.CONSUME),
+  Category(iconId: 16, label: 'MOBILE_FEE', type: CategoryType.CONSUME),
+  Category(iconId: 17, label: 'HOSPITAL', type: CategoryType.CONSUME),
   Category(
     iconId: 18,
     label: 'WALLET_MONEY',
@@ -129,51 +57,15 @@ final List<Category> initalCategory = [
     label: 'EXTRA',
     type: CategoryType.INCOME,
   ),
-  Category(
-    iconId: 25,
-    label: 'CAR',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 26,
-    label: 'CULTURE',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 27,
-    label: 'EDUCATION',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 28,
-    label: 'ELECTRONIC',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 29,
-    label: 'INSURANCE',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 30,
-    label: 'MAINTENANCE',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 31,
-    label: 'MEMBERSHIP',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 32,
-    label: 'STUFFS',
-    type: CategoryType.CONSUME
-  ),
-  Category(
-    iconId: 33,
-    label: 'TAX',
-    type: CategoryType.CONSUME
-  ),
+  Category(iconId: 25, label: 'CAR', type: CategoryType.CONSUME),
+  Category(iconId: 26, label: 'CULTURE', type: CategoryType.CONSUME),
+  Category(iconId: 27, label: 'EDUCATION', type: CategoryType.CONSUME),
+  Category(iconId: 28, label: 'ELECTRONIC', type: CategoryType.CONSUME),
+  Category(iconId: 29, label: 'INSURANCE', type: CategoryType.CONSUME),
+  Category(iconId: 30, label: 'MAINTENANCE', type: CategoryType.CONSUME),
+  Category(iconId: 31, label: 'MEMBERSHIP', type: CategoryType.CONSUME),
+  Category(iconId: 32, label: 'STUFFS', type: CategoryType.CONSUME),
+  Category(iconId: 33, label: 'TAX', type: CategoryType.CONSUME),
 ];
 
 class DbHelper {
@@ -190,7 +82,8 @@ class DbHelper {
           "CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, type INTEGER, iconId INTEGER, label TEXT)",
         );
         initalCategory.forEach((category) {
-          db.insert('categories', category.toMapInitial(context), conflictAlgorithm: ConflictAlgorithm.abort);
+          db.insert('categories', category.toMapInitial(context),
+              conflictAlgorithm: ConflictAlgorithm.abort);
         });
       },
       version: 5,
@@ -257,8 +150,6 @@ class DbHelper {
       );
     });
   }
-
-
 
   Future<int> deleteCategory(BuildContext context, int iconId) async {
     final db = await initDb(context);

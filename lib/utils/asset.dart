@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bookoox/types/color.dart';
+import 'package:wecount/types/color.dart';
 
 class Icons {
   Icons._();
@@ -59,17 +59,17 @@ class Colors {
   static const purple = Color.fromARGB(255, 182, 105, 249);
   static Color getColor(ColorType color) {
     return color == ColorType.RED
-      ? Colors.red
-      : color == ColorType.ORANGE
-      ? Colors.orange
-      : color == ColorType.YELLOW
-      ? Colors.yellow
-      : color == ColorType.GREEN
-      ? Colors.green
-      : color == ColorType.BLUE
-      ? Colors.blue
-      : color == ColorType.PURPLE
-      ? Colors.purple
-      : Colors.dusk;
+        ? Colors.red
+        : color == ColorType.ORANGE
+            ? Colors.orange
+            : color == ColorType.YELLOW
+                ? Colors.yellow
+                : color == ColorType.GREEN
+                    ? Colors.green
+                    : color == ColorType.BLUE
+                        ? Colors.blue
+                        : color == ColorType.PURPLE
+                            ? Colors.purple
+                            : Colors.dusk;
   }
 }

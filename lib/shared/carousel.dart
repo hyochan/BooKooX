@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/models/Photo.dart' show Photo;
+import 'package:wecount/models/Photo.dart' show Photo;
 
 class Carousel extends StatefulWidget {
   final currentPage;

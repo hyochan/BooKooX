@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:bookoox/shared/setting_list_item.dart' show ListItem, LogoutItem, SettingItem, SettingListItem;
-import 'package:bookoox/shared/header.dart' show renderHeaderBack;
-import 'package:bookoox/utils/general.dart' show General;
-import 'package:bookoox/utils/asset.dart' as Asset;
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/shared/setting_list_item.dart'
+    show ListItem, LogoutItem, SettingItem, SettingListItem;
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/utils/general.dart' show General;
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/localization.dart' show Localization;
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -16,28 +17,26 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
-
   bool _lockSwitch = false;
   String _pin = '';
 
   readLockPinFromSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if(prefs.containsKey('LOCK_PIN')) {
+    if (prefs.containsKey('LOCK_PIN')) {
       _pin = prefs.getString('LOCK_PIN');
       setState(() {
-        _lockSwitch = true;        
+        _lockSwitch = true;
       });
 
       print(_pin);
     }
   }
 
-   resetLockPinToSF() async {
+  resetLockPinToSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('LOCK_PIN');
   }
-
 
   @override
   void initState() {
@@ -45,10 +44,10 @@ class _SettingState extends State<Setting> {
     readLockPinFromSF();
   }
 
-  void _onChangeLock(bool value)  {
+  void _onChangeLock(bool value) {
     if (_lockSwitch == false && value) {
-      _awaitLockRegister(context);      
-    } else {               
+      _awaitLockRegister(context);
+    } else {
       _awaitLockAuth(context);
     }
   }
@@ -57,13 +56,13 @@ class _SettingState extends State<Setting> {
     await General.instance.navigateScreenNamed(context, '/lock_register');
 
     setState(() {
-     readLockPinFromSF();
+      readLockPinFromSF();
     });
-
   }
-  void _awaitLockAuth(BuildContext context) async {
 
-    final result = await General.instance.navigateScreenNamed(context, '/lock_auth');
+  void _awaitLockAuth(BuildContext context) async {
+    final result =
+        await General.instance.navigateScreenNamed(context, '/lock_auth');
 
     setState(() {
       if (_lockSwitch == true && result == false) {
@@ -84,7 +83,8 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('ANNOUNCEMENT'),
-        onPressed: () => General.instance.navigateScreenNamed(context, '/setting_announcement'),
+        onPressed: () => General.instance
+            .navigateScreenNamed(context, '/setting_announcement'),
       ),
       SettingItem(
         Icon(
@@ -93,7 +93,8 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('SHARE_OPINION'),
-        onPressed: () => General.instance.navigateScreenNamed(context, '/setting_opinion'),
+        onPressed: () =>
+            General.instance.navigateScreenNamed(context, '/setting_opinion'),
       ),
       SettingItem(
         Icon(
@@ -102,7 +103,8 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('FAQ'),
-        onPressed: () => General.instance.navigateScreenNamed(context, '/setting_faq'),
+        onPressed: () =>
+            General.instance.navigateScreenNamed(context, '/setting_faq'),
       ),
       SettingItem(
         Icon(
@@ -111,7 +113,8 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('NOTIFICATION'),
-        onPressed: () => General.instance.navigateScreenNamed(context, '/setting_notification'),
+        onPressed: () => General.instance
+            .navigateScreenNamed(context, '/setting_notification'),
       ),
       SettingItem(
         Icon(
@@ -123,16 +126,18 @@ class _SettingState extends State<Setting> {
         optionalWidget: Switch(
           value: _lockSwitch,
           onChanged: _onChangeLock,
-          activeTrackColor: Theme.of(context).primaryColor, 
+          activeTrackColor: Theme.of(context).primaryColor,
           activeColor: Theme.of(context).accentColor,
         ),
       ),
       LogoutItem(
         _localization.trans('LOGOUT'),
-        onPressed: ()  {
+        onPressed: () {
           _auth.signOut();
+
           /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-          General.instance.navigateScreenNamed(context, '/tutorial', reset: true);
+          General.instance
+              .navigateScreenNamed(context, '/tutorial', reset: true);
         },
       ),
     ];

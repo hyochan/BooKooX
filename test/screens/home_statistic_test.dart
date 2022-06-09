@@ -1,4 +1,4 @@
-import 'package:bookoox/screens/home_statistic/home_statistic.dart'
+import 'package:wecount/screens/home_statistic/home_statistic.dart'
     show HomeStatistic;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,8 +6,7 @@ import 'package:pie_chart/pie_chart.dart' show PieChart;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets('Show [Piechart] properly',
-      (WidgetTester tester) async {
+  testWidgets('Show [Piechart] properly', (WidgetTester tester) async {
     await tester
         .pumpWidget(TestUtils.makeTestableWidget(child: HomeStatistic()));
     await tester.pumpAndSettle();

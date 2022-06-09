@@ -1,14 +1,14 @@
-import 'package:bookoox/models/Ledger.dart';
-import 'package:bookoox/providers/CurrentLedger.dart';
-import 'package:bookoox/services/database.dart';
-import 'package:bookoox/utils/localization.dart';
+import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/services/database.dart';
+import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
-import 'package:bookoox/screens/tutorial.dart' show Tutorial;
-import 'package:bookoox/navigations/home_tab.dart' show HomeTab;
-import 'package:bookoox/screens/main_empty.dart' show MainEmpty;
+import 'package:wecount/screens/tutorial.dart' show Tutorial;
+import 'package:wecount/navigations/home_tab.dart' show HomeTab;
+import 'package:wecount/screens/main_empty.dart' show MainEmpty;
 
 class AuthSwitch extends StatelessWidget {
   @override

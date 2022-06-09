@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoox/screens/splash.dart';
+import 'package:wecount/screens/splash.dart';
 import '../test_utils.dart' show TestUtils;
 
 void main() {

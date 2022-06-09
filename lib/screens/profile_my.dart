@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:bookoox/models/User.dart' show User;
-import 'package:bookoox/services/database.dart';
+import 'package:wecount/models/User.dart' show User;
+import 'package:wecount/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FireAuth show User;
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/shared/header.dart' show renderHeaderClose;
-import 'package:bookoox/shared/edit_text_box.dart' show EditTextBox;
-import 'package:bookoox/shared/profile_image_cam.dart';
-import 'package:bookoox/utils/general.dart';
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/shared/header.dart' show renderHeaderClose;
+import 'package:wecount/shared/edit_text_box.dart' show EditTextBox;
+import 'package:wecount/shared/profile_image_cam.dart';
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 

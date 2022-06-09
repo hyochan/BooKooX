@@ -1,9 +1,9 @@
-import 'package:bookoox/models/User.dart';
-import 'package:bookoox/services/database.dart';
-import 'package:bookoox/utils/localization.dart';
+import 'package:wecount/models/User.dart';
+import 'package:wecount/services/database.dart';
+import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as Asset;
 
 class MemberHorizontalList extends StatelessWidget {
   final bool showAddBtn;
@@ -29,13 +29,13 @@ class MemberHorizontalList extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 color: Colors.transparent,
                 child: Ink.image(
-                  image: !snapshot.hasData
-                    || (snapshot.data.photoURL == null && snapshot.data.thumbURL == null)
+                  image: !snapshot.hasData ||
+                          (snapshot.data.photoURL == null &&
+                              snapshot.data.thumbURL == null)
                       ? Asset.Icons.icMask
                       : NetworkImage(snapshot.data.thumbURL != null
                           ? snapshot.data.thumbURL
-                          : snapshot.data.photoURL
-                        ),
+                          : snapshot.data.photoURL),
                   fit: BoxFit.cover,
                   width: 48.0,
                   height: 48.0,

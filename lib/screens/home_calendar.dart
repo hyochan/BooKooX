@@ -1,15 +1,15 @@
-import 'package:bookoox/mocks/home_calendar.mock.dart';
-import 'package:bookoox/models/LedgerItem.dart';
-import 'package:bookoox/providers/CurrentLedger.dart';
-import 'package:bookoox/shared/date_selector.dart' show DateSelector;
-import 'package:bookoox/shared/home_list_item.dart';
-import 'package:bookoox/types/color.dart';
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/mocks/home_calendar.mock.dart';
+import 'package:wecount/models/LedgerItem.dart';
+import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/shared/date_selector.dart' show DateSelector;
+import 'package:wecount/shared/home_list_item.dart';
+import 'package:wecount/types/color.dart';
+import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:flutter/material.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as Asset;
 
-import 'package:bookoox/utils/general.dart';
-import 'package:bookoox/shared/home_header.dart' show HomeHeaderExpanded;
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/shared/home_header.dart' show HomeHeaderExpanded;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:flutter_calendar_carousel/classes/event.dart';

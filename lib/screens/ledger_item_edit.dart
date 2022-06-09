@@ -3,19 +3,19 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'package:bookoox/screens/location_view.dart';
-import 'package:bookoox/utils/general.dart';
-import 'package:bookoox/models/Category.dart';
-import 'package:bookoox/utils/db_helper.dart';
-import 'package:bookoox/screens/category_add.dart';
-import 'package:bookoox/shared/category_list.dart';
-import 'package:bookoox/shared/header.dart';
-import 'package:bookoox/models/Photo.dart' show Photo;
-import 'package:bookoox/models/LedgerItem.dart' show LedgerItem;
-import 'package:bookoox/shared/header.dart' show renderHeaderClose;
-import 'package:bookoox/shared/gallery.dart' show Gallery;
-import 'package:bookoox/utils/asset.dart' as Asset;
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/screens/location_view.dart';
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/models/Category.dart';
+import 'package:wecount/utils/db_helper.dart';
+import 'package:wecount/screens/category_add.dart';
+import 'package:wecount/shared/category_list.dart';
+import 'package:wecount/shared/header.dart';
+import 'package:wecount/models/Photo.dart' show Photo;
+import 'package:wecount/models/LedgerItem.dart' show LedgerItem;
+import 'package:wecount/shared/header.dart' show renderHeaderClose;
+import 'package:wecount/shared/gallery.dart' show Gallery;
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/localization.dart' show Localization;
 
 class LedgerItemEdit extends StatefulWidget {
   LedgerItemEdit({
@@ -27,14 +27,17 @@ class LedgerItemEdit extends StatefulWidget {
   @override
   _LedgerItemEditState createState() => new _LedgerItemEditState();
 }
- 
-class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStateMixin {
+
+class _LedgerItemEditState extends State<LedgerItemEdit>
+    with TickerProviderStateMixin {
   final List<String> choices = ['CONSUME', 'INCOME'];
   final formatCurrency = NumberFormat.simpleCurrency();
-  final TextEditingController priceTextEditingController1 = TextEditingController(
+  final TextEditingController priceTextEditingController1 =
+      TextEditingController(
     text: '0',
   );
-  final TextEditingController priceTextEditingController2 = TextEditingController(
+  final TextEditingController priceTextEditingController2 =
+      TextEditingController(
     text: '0',
   );
 
@@ -86,14 +89,20 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
       if (pickDate != null && pickTime != null) {
         if (categoryType == CategoryType.CONSUME) {
           setState(() => _ledgerItemConsume.selectedDate = DateTime(
-            pickDate.year, pickDate.month, pickDate.day,
-            pickTime.hour, pickTime.minute,
-          ));
+                pickDate.year,
+                pickDate.month,
+                pickDate.day,
+                pickTime.hour,
+                pickTime.minute,
+              ));
         } else if (categoryType == CategoryType.INCOME) {
           setState(() => _ledgerItemIncome.selectedDate = DateTime(
-            pickDate.year, pickDate.month, pickDate.day,
-            pickTime.hour, pickTime.minute,
-          ));
+                pickDate.year,
+                pickDate.month,
+                pickDate.day,
+                pickTime.hour,
+                pickTime.minute,
+              ));
         }
       }
     }
@@ -126,13 +135,14 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
       print('${_ledgerItemConsume.toString()}');
     }
 
-    void showCategory(BuildContext context, {
+    void showCategory(
+      BuildContext context, {
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
       var _localization = Localization.of(context);
       categories = categoryType == CategoryType.CONSUME
-        ? await DbHelper.instance.getConsumeCategories(context)
-        : await DbHelper.instance.getIncomeCategories(context);
+          ? await DbHelper.instance.getConsumeCategories(context)
+          : await DbHelper.instance.getIncomeCategories(context);
 
       void onClosePressed() {
         Navigator.of(context).pop();
@@ -206,7 +216,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
           ),
         ),
       );
-      
+
       if (_result != null) {
         if (categoryType == CategoryType.CONSUME) {
           setState(() => _ledgerItemConsume.category = _result);
@@ -244,16 +254,18 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(right: 20),
-                  child: image == null ? Icon(
-                    icon,
-                    color: active
-                      ? Theme.of(context).textTheme.headline1.color
-                      : Theme.of(context).textTheme.headline2.color,
-                  ) : Image(
-                    image: image,
-                    width: 20,
-                    height: 20,
-                  ),
+                  child: image == null
+                      ? Icon(
+                          icon,
+                          color: active
+                              ? Theme.of(context).textTheme.headline1.color
+                              : Theme.of(context).textTheme.headline2.color,
+                        )
+                      : Image(
+                          image: image,
+                          width: 20,
+                          height: 20,
+                        ),
                 ),
                 Expanded(
                   child: Container(
@@ -266,18 +278,18 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
                             text,
                             style: TextStyle(
                               color: active == true
-                                ? Theme.of(context).textTheme.headline1.color
-                                : Theme.of(context).textTheme.headline2.color,
+                                  ? Theme.of(context).textTheme.headline1.color
+                                  : Theme.of(context).textTheme.headline2.color,
                               fontSize: 16,
                             ),
                           ),
                         ),
                         showDropdown
-                        ? Icon(
-                            Icons.arrow_drop_down,
-                            color: Asset.Colors.cloudyBlue,
-                          )
-                        : Container(),
+                            ? Icon(
+                                Icons.arrow_drop_down,
+                                color: Asset.Colors.cloudyBlue,
+                              )
+                            : Container(),
                       ],
                     ),
                   ),
@@ -298,7 +310,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: GestureDetector(
           onTap: () {
-            priceTextEditingController1.text = '${formatCurrency.format(_ledgerItemConsume.price ?? 0.0)}';
+            priceTextEditingController1.text =
+                '${formatCurrency.format(_ledgerItemConsume.price ?? 0.0)}';
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: ListView(
@@ -326,29 +339,35 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
                   ],
                 ),
               ),
+
               /// PRICE INPUT
               Container(
                 child: Row(
                   children: <Widget>[
                     Container(
-                      child: Text('- ', style: TextStyle(
-                        fontSize: 28,
-                        color: Asset.Colors.carnation,
-                      )),
+                      child: Text('- ',
+                          style: TextStyle(
+                            fontSize: 28,
+                            color: Asset.Colors.carnation,
+                          )),
                     ),
                     Expanded(
                       child: Container(
                         child: TextField(
                           textInputAction: TextInputAction.done,
-                          onChanged: (String value) => _ledgerItemConsume.price = double.parse(value),
+                          onChanged: (String value) =>
+                              _ledgerItemConsume.price = double.parse(value),
                           onTap: () {
-                            priceTextEditingController1.text = '${_ledgerItemConsume.price ?? 0.0}';
+                            priceTextEditingController1.text =
+                                '${_ledgerItemConsume.price ?? 0.0}';
                           },
                           onEditingComplete: () {
-                            priceTextEditingController1.text = '${formatCurrency.format(_ledgerItemConsume.price ?? 0.0)}';
+                            priceTextEditingController1.text =
+                                '${formatCurrency.format(_ledgerItemConsume.price ?? 0.0)}';
                           },
                           controller: priceTextEditingController1,
-                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: '0',
@@ -363,51 +382,62 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
                   ],
                 ),
               ),
+
               /// CATEGORY
-              _ledgerItemConsume.category == null ? renderBox(
-                margin: EdgeInsets.only(top: 52),
-                icon: Icons.category,
-                text: _localization.trans('CATEGORY'),
-                showDropdown: true,
-                onPressed: onCategoryPressed,
-              ) : renderBox(
-                margin: EdgeInsets.only(top: 52),
-                image: iconMaps[_ledgerItemConsume.category.iconId],
-                text: _ledgerItemConsume.category.label,
-                showDropdown: true,
-                onPressed: onCategoryPressed,
-                active: true,
-              ),
+              _ledgerItemConsume.category == null
+                  ? renderBox(
+                      margin: EdgeInsets.only(top: 52),
+                      icon: Icons.category,
+                      text: _localization.trans('CATEGORY'),
+                      showDropdown: true,
+                      onPressed: onCategoryPressed,
+                    )
+                  : renderBox(
+                      margin: EdgeInsets.only(top: 52),
+                      image: iconMaps[_ledgerItemConsume.category.iconId],
+                      text: _ledgerItemConsume.category.label,
+                      showDropdown: true,
+                      onPressed: onCategoryPressed,
+                      active: true,
+                    ),
+
               /// SELECTED DATE
-              _ledgerItemConsume.selectedDate == null ? renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.date_range,
-                text: _localization.trans('DATE'),
-                showDropdown: true,
-                onPressed: onDatePressed,
-              ) : renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.date_range,
-                text: DateFormat('yyyy-MM-dd hh:mm a').format(_ledgerItemConsume.selectedDate).toLowerCase(),
-                showDropdown: true,
-                onPressed: onDatePressed,
-                active: true,
-              ),
+              _ledgerItemConsume.selectedDate == null
+                  ? renderBox(
+                      margin: EdgeInsets.only(top: 8),
+                      icon: Icons.date_range,
+                      text: _localization.trans('DATE'),
+                      showDropdown: true,
+                      onPressed: onDatePressed,
+                    )
+                  : renderBox(
+                      margin: EdgeInsets.only(top: 8),
+                      icon: Icons.date_range,
+                      text: DateFormat('yyyy-MM-dd hh:mm a')
+                          .format(_ledgerItemConsume.selectedDate)
+                          .toLowerCase(),
+                      showDropdown: true,
+                      onPressed: onDatePressed,
+                      active: true,
+                    ),
+
               /// LOCATION
-              _ledgerItemConsume.address == null ? renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.date_range,
-                text: _localization.trans('LOCATION'),
-                showDropdown: true,
-                onPressed: onLocationPressed,
-              ) : renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.location_on,
-                text: _ledgerItemConsume.address,
-                showDropdown: false,
-                onPressed: onLocationPressed,
-                active: true,
-              ),
+              _ledgerItemConsume.address == null
+                  ? renderBox(
+                      margin: EdgeInsets.only(top: 8),
+                      icon: Icons.date_range,
+                      text: _localization.trans('LOCATION'),
+                      showDropdown: true,
+                      onPressed: onLocationPressed,
+                    )
+                  : renderBox(
+                      margin: EdgeInsets.only(top: 8),
+                      icon: Icons.location_on,
+                      text: _ledgerItemConsume.address,
+                      showDropdown: false,
+                      onPressed: onLocationPressed,
+                      active: true,
+                    ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),
                 picture: [Photo(isAddBtn: true)],
@@ -428,7 +458,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: GestureDetector(
           onTap: () {
-            priceTextEditingController2.text = '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
+            priceTextEditingController2.text =
+                '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: ListView(
@@ -456,29 +487,35 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
                   ],
                 ),
               ),
+
               /// PRICE INPUT
               Container(
                 child: Row(
                   children: <Widget>[
                     Container(
-                      child: Text('+ ', style: TextStyle(
-                        fontSize: 28,
-                        color: Theme.of(context).textTheme.headline1.color,
-                      )),
+                      child: Text('+ ',
+                          style: TextStyle(
+                            fontSize: 28,
+                            color: Theme.of(context).textTheme.headline1.color,
+                          )),
                     ),
                     Expanded(
                       child: Container(
                         child: TextField(
                           textInputAction: TextInputAction.done,
-                          onChanged: (String value) => _ledgerItemIncome.price = double.parse(value),
+                          onChanged: (String value) =>
+                              _ledgerItemIncome.price = double.parse(value),
                           onTap: () {
-                            priceTextEditingController2.text = '${_ledgerItemIncome.price ?? 0.0}';
+                            priceTextEditingController2.text =
+                                '${_ledgerItemIncome.price ?? 0.0}';
                           },
                           onEditingComplete: () {
-                            priceTextEditingController2.text = '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
+                            priceTextEditingController2.text =
+                                '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
                           },
                           controller: priceTextEditingController2,
-                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: '0',
@@ -493,51 +530,66 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
                   ],
                 ),
               ),
+
               /// CATEGORY
-              _ledgerItemIncome.category == null ? renderBox(
-                margin: EdgeInsets.only(top: 52),
-                icon: Icons.category,
-                text: _localization.trans('CATEGORY'),
-                showDropdown: true,
-                onPressed: onCategoryPressed,
-              ) : renderBox(
-                margin: EdgeInsets.only(top: 52),
-                image: iconMaps[_ledgerItemIncome.category.iconId],
-                text: _ledgerItemIncome.category.label,
-                showDropdown: true,
-                onPressed: onCategoryPressed,
-                active: true,
-              ),
+              _ledgerItemIncome.category == null
+                  ? renderBox(
+                      margin: EdgeInsets.only(top: 52),
+                      icon: Icons.category,
+                      text: _localization.trans('CATEGORY'),
+                      showDropdown: true,
+                      onPressed: onCategoryPressed,
+                    )
+                  : renderBox(
+                      margin: EdgeInsets.only(top: 52),
+                      image: iconMaps[_ledgerItemIncome.category.iconId],
+                      text: _ledgerItemIncome.category.label,
+                      showDropdown: true,
+                      onPressed: onCategoryPressed,
+                      active: true,
+                    ),
+
               /// SELECTED DATE
-              _ledgerItemIncome.selectedDate == null ? renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.date_range,
-                text: _localization.trans('DATE'),
-                showDropdown: true,
-                onPressed: () => onDatePressed(categoryType: CategoryType.INCOME),
-              ) : renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.date_range,
-                text: DateFormat('yyyy-MM-dd hh:mm a').format(_ledgerItemIncome.selectedDate).toLowerCase(),
-                showDropdown: true,
-                onPressed: () => onDatePressed(categoryType: CategoryType.INCOME),
-                active: true,
-              ),
+              _ledgerItemIncome.selectedDate == null
+                  ? renderBox(
+                      margin: EdgeInsets.only(top: 8),
+                      icon: Icons.date_range,
+                      text: _localization.trans('DATE'),
+                      showDropdown: true,
+                      onPressed: () =>
+                          onDatePressed(categoryType: CategoryType.INCOME),
+                    )
+                  : renderBox(
+                      margin: EdgeInsets.only(top: 8),
+                      icon: Icons.date_range,
+                      text: DateFormat('yyyy-MM-dd hh:mm a')
+                          .format(_ledgerItemIncome.selectedDate)
+                          .toLowerCase(),
+                      showDropdown: true,
+                      onPressed: () =>
+                          onDatePressed(categoryType: CategoryType.INCOME),
+                      active: true,
+                    ),
+
               /// LOCATION
-              _ledgerItemIncome.address == null ? renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.date_range,
-                text: _localization.trans('LOCATION'),
-                showDropdown: true,
-                onPressed: () => onLocationPressed(categoryType: CategoryType.INCOME),
-              ) : renderBox(
-                margin: EdgeInsets.only(top: 8),
-                icon: Icons.location_on,
-                text: _ledgerItemIncome.address,
-                showDropdown: false,
-                onPressed: () => onLocationPressed(categoryType: CategoryType.INCOME),
-                active: true,
-              ),
+              _ledgerItemIncome.address == null
+                  ? renderBox(
+                      margin: EdgeInsets.only(top: 8),
+                      icon: Icons.date_range,
+                      text: _localization.trans('LOCATION'),
+                      showDropdown: true,
+                      onPressed: () =>
+                          onLocationPressed(categoryType: CategoryType.INCOME),
+                    )
+                  : renderBox(
+                      margin: EdgeInsets.only(top: 8),
+                      icon: Icons.location_on,
+                      text: _ledgerItemIncome.address,
+                      showDropdown: false,
+                      onPressed: () =>
+                          onLocationPressed(categoryType: CategoryType.INCOME),
+                      active: true,
+                    ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),
                 picture: [Photo(isAddBtn: true)],
@@ -581,7 +633,9 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
                 isScrollable: true,
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(color: Theme.of(context).textTheme.headline1.color, width: 4.0),
+                  borderSide: BorderSide(
+                      color: Theme.of(context).textTheme.headline1.color,
+                      width: 4.0),
                   insets: EdgeInsets.symmetric(horizontal: 8),
                   // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
                 ),

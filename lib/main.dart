@@ -1,9 +1,9 @@
 import 'dart:io' show Platform;
 
-import 'package:bookoox/providers/CurrentLedger.dart';
+import 'package:wecount/providers/CurrentLedger.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:bookoox/screens/line_graph.dart';
-import 'package:bookoox/screens/tutorial.dart';
+import 'package:wecount/screens/line_graph.dart';
+import 'package:wecount/screens/tutorial.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -54,7 +54,7 @@ Future<void> _initFire() async {
   await FlutterConfig.loadEnvVariables();
 
   await Firebase.initializeApp(
-    name: 'BooKooX',
+    name: 'WeCount',
     options: FirebaseOptions(
         apiKey: FlutterConfig.get('API_KEY'),
         databaseURL: FlutterConfig.get('DATABASE_URL'),
@@ -226,7 +226,7 @@ class MyApp extends StatelessWidget {
             }
             return supportedLocales.first;
           },
-          title: 'BooKooX',
+          title: 'WeCount',
           home: AuthSwitch(),
         ));
   }

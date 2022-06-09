@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Im;
 
-import 'package:bookoox/shared/dialog_spinner.dart';
-import 'package:bookoox/utils/localization.dart';
+import 'package:wecount/shared/dialog_spinner.dart';
+import 'package:wecount/utils/localization.dart';
 
 class General {
   static final General instance = new General();

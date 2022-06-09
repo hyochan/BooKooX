@@ -1,6 +1,6 @@
-import 'package:bookoox/models/Currency.dart';
-import 'package:bookoox/models/User.dart';
-import 'package:bookoox/types/color.dart';
+import 'package:wecount/models/Currency.dart';
+import 'package:wecount/models/User.dart';
+import 'package:wecount/types/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:bookoox/shared/button.dart' show Button;
-import 'package:bookoox/shared/edit_text.dart' show EditText;
-import 'package:bookoox/utils/general.dart' show General;
-import 'package:bookoox/utils/localization.dart' show Localization;
-import 'package:bookoox/utils/validator.dart' show Validator;
+import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/shared/edit_text.dart' show EditText;
+import 'package:wecount/utils/general.dart' show General;
+import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/validator.dart' show Validator;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -34,7 +34,7 @@ class _SignInState extends State<SignIn> {
   bool _isSigningIn = false;
   bool _isResendingEmail = false;
 
- void _signIn() async {
+  void _signIn() async {
     if (_auth.currentUser != null) {
       _auth.signOut();
     }
@@ -53,20 +53,22 @@ class _SignInState extends State<SignIn> {
 
     UserCredential auth;
     try {
-      auth = await _auth.signInWithEmailAndPassword(email: _email, password: _password);
+      auth = await _auth.signInWithEmailAndPassword(
+          email: _email, password: _password);
 
       /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
       if (auth.user != null && auth.user.emailVerified) {
         var snapshots = await _firestore
-          .collection('users')
-          .doc(auth.user.uid)
-          .collection('ledgers')
-          .get();
+            .collection('users')
+            .doc(auth.user.uid)
+            .collection('ledgers')
+            .get();
 
         var ledgers = snapshots.docs;
 
         if (ledgers == null || ledgers.length == 0) {
-          General.instance.navigateScreenNamed(context, '/main_empty', reset: true);
+          General.instance
+              .navigateScreenNamed(context, '/main_empty', reset: true);
           return;
         }
 
@@ -74,26 +76,26 @@ class _SignInState extends State<SignIn> {
         return;
       }
     } catch (err) {
-        setState(() => _isSigningIn = false);
-        switch (err) {
-          case 'ERROR_INVALID_EMAIL':
-            setState(() => _errorEmail = _localization.trans(err.currency));
-            break;
-          case 'ERROR_WRONG_PASSWORD':
-            setState(() => _errorPassword = _localization.trans(err.currency));
-            break;
-          case 'ERROR_USER_NOT_FOUND':
-          case 'ERROR_USER_DISABLED':
-          case 'ERROR_TOO_MANY_REQUESTS':
-          case 'ERROR_OPERATION_NOT_ALLOWED':
-            General.instance.showSingleDialog(
-              context,
-              title: Text(_localization.trans('ERROR')),
-              content: Text(_localization.trans(err.currency)),
-            );
-            break;
-        }
-        return;
+      setState(() => _isSigningIn = false);
+      switch (err) {
+        case 'ERROR_INVALID_EMAIL':
+          setState(() => _errorEmail = _localization.trans(err.currency));
+          break;
+        case 'ERROR_WRONG_PASSWORD':
+          setState(() => _errorPassword = _localization.trans(err.currency));
+          break;
+        case 'ERROR_USER_NOT_FOUND':
+        case 'ERROR_USER_DISABLED':
+        case 'ERROR_TOO_MANY_REQUESTS':
+        case 'ERROR_OPERATION_NOT_ALLOWED':
+          General.instance.showSingleDialog(
+            context,
+            title: Text(_localization.trans('ERROR')),
+            content: Text(_localization.trans(err.currency)),
+          );
+          break;
+      }
+      return;
     }
 
     if (auth.user != null && !auth.user.emailVerified) {
@@ -154,7 +156,8 @@ class _SignInState extends State<SignIn> {
     );
 
     Widget renderSignInText() {
-      return Text(_localization.trans('SIGN_IN'),
+      return Text(
+        _localization.trans('SIGN_IN'),
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.headline1.color,
@@ -171,9 +174,7 @@ class _SignInState extends State<SignIn> {
         textLabel: _localization.trans('EMAIL'),
         textHint: _localization.trans('EMAIL_HINT'),
         hasChecked: _isValidEmail ?? false,
-        hintStyle: TextStyle(
-          color: Theme.of(context).hintColor
-        ),
+        hintStyle: TextStyle(color: Theme.of(context).hintColor),
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
             this.setState(() {
@@ -244,7 +245,8 @@ class _SignInState extends State<SignIn> {
     Widget renderFindPw() {
       return FlatButton(
         padding: EdgeInsets.all(8),
-        onPressed: () => General.instance.navigateScreenNamed(context, '/find_pw'),
+        onPressed: () =>
+            General.instance.navigateScreenNamed(context, '/find_pw'),
         child: RichText(
           text: TextSpan(
             text: '${_localization.trans('DID_YOU_FORGOT_PASSWORD')}?',
@@ -257,8 +259,7 @@ class _SignInState extends State<SignIn> {
                 text: '  ' + _localization.trans('FIND_PASSWORD'),
                 style: TextStyle(
                     color: const Color(0xff1dd3a8),
-                    fontWeight: FontWeight.bold
-                ),
+                    fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -282,7 +283,8 @@ class _SignInState extends State<SignIn> {
           controller: _scrollController,
           slivers: <Widget>[
             SliverPadding(
-              padding: const EdgeInsets.only(top: 44, left: 60, right: 60, bottom: 40),
+              padding: const EdgeInsets.only(
+                  top: 44, left: 60, right: 60, bottom: 40),
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   <Widget>[

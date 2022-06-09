@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:bookoox/screens/main_empty.dart' show MainEmpty;
-import 'package:bookoox/screens/ledger_edit.dart' show LedgerEdit;
+import 'package:wecount/screens/main_empty.dart' show MainEmpty;
+import 'package:wecount/screens/ledger_edit.dart' show LedgerEdit;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async{
+  testWidgets("Widget", (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: MainEmpty()));
     await tester.pumpAndSettle();
 
@@ -17,7 +17,8 @@ void main() {
     expect(find.text('NO_LEDGER_DESCRIPTION'), findsNWidgets(1));
     expect(find.text('ADD_LEDGER'), findsNWidgets(1));
   });
-  testWidgets("Navigate to [LedgerEdit] when addLedger pressed", (WidgetTester tester) async{
+  testWidgets("Navigate to [LedgerEdit] when addLedger pressed",
+      (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: MainEmpty()));
     await tester.pumpAndSettle();
 

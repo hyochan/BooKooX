@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoox/screens/find_pw.dart' show FindPw;
+import 'package:wecount/screens/find_pw.dart' show FindPw;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async{
+  testWidgets("Widget", (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: FindPw()));
     await tester.pumpAndSettle();
 
@@ -17,7 +17,8 @@ void main() {
     expect(find.text('EMAIL'), findsOneWidget);
     expect(find.text('EMAIL_HINT'), findsOneWidget);
   });
-  testWidgets("Show [errorEmail] text when email address is not valid form", (WidgetTester tester) async{
+  testWidgets("Show [errorEmail] text when email address is not valid form",
+      (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: FindPw()));
     await tester.pumpAndSettle();
 

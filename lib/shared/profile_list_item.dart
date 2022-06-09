@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as Asset;
 
 class ProfileListItem extends StatelessWidget {
   const ProfileListItem({

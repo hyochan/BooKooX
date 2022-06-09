@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bookoox/utils/localization.dart';
+import 'package:wecount/utils/localization.dart';
 
 class Button extends StatelessWidget {
   const Button({
@@ -46,32 +46,31 @@ class Button extends StatelessWidget {
         shape: shapeBorder,
         padding: EdgeInsets.all(0.0),
         child: isLoading
-        ? CircularProgressIndicator(
-          semanticsLabel: Localization.of(context).trans('LOADING'),
-          backgroundColor: Theme.of(context).primaryColor,
-          strokeWidth: 3,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-        )
-        : Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            Positioned(
-              child: Container(child: image),
-              left: this.imageMarginLeft,
-            ),
-            Container(
-              margin: this.image == null
-                ? null
-                : EdgeInsets.only(left: 12),
-              child: Center(
-                child: Text(
-                  text,
-                  style: textStyle,
-                ),
+            ? CircularProgressIndicator(
+                semanticsLabel: Localization.of(context).trans('LOADING'),
+                backgroundColor: Theme.of(context).primaryColor,
+                strokeWidth: 3,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              )
+            : Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Positioned(
+                    child: Container(child: image),
+                    left: this.imageMarginLeft,
+                  ),
+                  Container(
+                    margin:
+                        this.image == null ? null : EdgeInsets.only(left: 12),
+                    child: Center(
+                      child: Text(
+                        text,
+                        style: textStyle,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
         onPressed: !isLoading ? onPress : null,
       ),
       decoration: BoxDecoration(
@@ -81,8 +80,7 @@ class Button extends StatelessWidget {
       ),
       margin: margin,
       height: height,
-      width:
-          width != null ? width : MediaQuery.of(context).size.width,
+      width: width != null ? width : MediaQuery.of(context).size.width,
     );
   }
 }

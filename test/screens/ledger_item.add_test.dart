@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoox/screens/ledger_item_edit.dart' show LedgerItemEdit;
+import 'package:wecount/screens/ledger_item_edit.dart' show LedgerItemEdit;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async{
+  testWidgets("Widget", (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(
       child: LedgerItemEdit(),
     ));
@@ -19,7 +19,8 @@ void main() {
     expect(find.text('DATE'), findsNWidgets(1));
     expect(find.text('LOCATION'), findsNWidgets(1));
   });
-  testWidgets("Navigate to [LedgerEdit] when addLedger pressed", (WidgetTester tester) async{
+  testWidgets("Navigate to [LedgerEdit] when addLedger pressed",
+      (WidgetTester tester) async {
     // await tester.pumpWidget(TestUtils.makeTestableWidget(child: MainEmpty()));
     // await tester.pumpAndSettle();
 

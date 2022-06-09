@@ -1,6 +1,6 @@
-import 'package:bookoox/models/Category.dart' show Category;
-import 'package:bookoox/models/Photo.dart';
-import 'package:bookoox/models/User.dart' show User;
+import 'package:wecount/models/Category.dart' show Category;
+import 'package:wecount/models/Photo.dart';
+import 'package:wecount/models/User.dart' show User;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LedgerItem {
@@ -64,8 +64,8 @@ class LedgerItem {
         label: this.category.label,
         type: this.category.type,
       ),
-      selectedDate: DateTime(this.selectedDate.year,
-          this.selectedDate.month, this.selectedDate.day),
+      selectedDate: DateTime(this.selectedDate.year, this.selectedDate.month,
+          this.selectedDate.day),
     );
   }
 }

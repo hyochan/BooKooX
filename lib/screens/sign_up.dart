@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:bookoox/utils/general.dart' show General;
-import 'package:bookoox/shared/edit_text.dart' show EditText;
-import 'package:bookoox/shared/button.dart' show Button;
-import 'package:bookoox/utils/localization.dart' show Localization;
-import 'package:bookoox/utils/validator.dart' show Validator;
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/utils/general.dart' show General;
+import 'package:wecount/shared/edit_text.dart' show EditText;
+import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/validator.dart' show Validator;
+import 'package:wecount/utils/asset.dart' as Asset;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -41,13 +41,11 @@ class _SignUpState extends State<SignUp> {
   bool _isRegistering = false;
 
   void _signUp() async {
-    if (
-      _email == null ||
-      _password == null ||
-      _passwordConfirm == null ||
-      _displayName == null ||
-      _name == null
-    ) {
+    if (_email == null ||
+        _password == null ||
+        _passwordConfirm == null ||
+        _displayName == null ||
+        _name == null) {
       return;
     }
 
@@ -62,12 +60,14 @@ class _SignUpState extends State<SignUp> {
     }
 
     if (_passwordConfirm != _password) {
-      setState(() => _errorPasswordConfirm = _localization.trans('PASSWORD_CONFIRM_HINT'));
+      setState(() =>
+          _errorPasswordConfirm = _localization.trans('PASSWORD_CONFIRM_HINT'));
       return;
     }
 
     if (!_isValidDisplayName) {
-      setState(() => _errorDisplayName = _localization.trans('DISPLAY_NAME_HINT'));
+      setState(
+          () => _errorDisplayName = _localization.trans('DISPLAY_NAME_HINT'));
       return;
     }
 
@@ -82,7 +82,8 @@ class _SignUpState extends State<SignUp> {
       final User user = (await _auth.createUserWithEmailAndPassword(
         email: _email,
         password: _password,
-      )).user;
+      ))
+          .user;
 
       if (user != null) {
         await user.sendEmailVerification();
@@ -125,7 +126,8 @@ class _SignUpState extends State<SignUp> {
     _localization = Localization.of(context);
 
     Widget renderSignUpText() {
-      return Text(_localization.trans('SIGN_UP'),
+      return Text(
+        _localization.trans('SIGN_UP'),
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.headline1.color,
@@ -191,7 +193,9 @@ class _SignUpState extends State<SignUp> {
         textLabel: _localization.trans('PASSWORD_CONFIRM'),
         textHint: _localization.trans('PASSWORD_CONFIRM_HINT'),
         isSecret: true,
-        hasChecked: _passwordConfirm != null && _passwordConfirm != '' && _passwordConfirm == _password,
+        hasChecked: _passwordConfirm != null &&
+            _passwordConfirm != '' &&
+            _passwordConfirm == _password,
         onChanged: (String str) => setState(() {
           _passwordConfirm = str;
           if (str == _password) {
@@ -284,7 +288,8 @@ class _SignUpState extends State<SignUp> {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverPadding(
-              padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
+              padding:
+                  const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   <Widget>[

@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoox/main.dart';
+import 'package:wecount/main.dart';
 
 void main() {
   testWidgets('Widget', (WidgetTester tester) async {

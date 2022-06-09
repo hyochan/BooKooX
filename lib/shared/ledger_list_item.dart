@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/models/Ledger.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
-import 'package:bookoox/utils/localization.dart' show Localization;
-import 'package:bookoox/types/color.dart' show ColorType;
+import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/types/color.dart' show ColorType;
 
 abstract class ListItem {}
 

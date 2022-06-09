@@ -1,9 +1,9 @@
-import 'package:bookoox/utils/localization.dart';
+import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'package:bookoox/models/User.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/models/User.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
 
 abstract class ListItem {}
 
@@ -62,17 +62,18 @@ class MemberListItem extends StatelessWidget {
                         ),
                       ),
                       user.membership == Membership.Owner
-                      ? Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Image(
-                          image: user.membership == Membership.Owner
-                            ? Asset.Icons.icOwner
-                            : Asset.Icons.icOwner,
-                          width: 20,
-                          height: 20,
-                        ),
-                      ) : Container(),
+                          ? Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Image(
+                                image: user.membership == Membership.Owner
+                                    ? Asset.Icons.icOwner
+                                    : Asset.Icons.icOwner,
+                                width: 20,
+                                height: 20,
+                              ),
+                            )
+                          : Container(),
                     ],
                   ),
                   Expanded(
@@ -87,7 +88,8 @@ class MemberListItem extends StatelessWidget {
                             maxLines: 1,
                             style: TextStyle(
                               fontSize: 18,
-                              color: Theme.of(context).textTheme.headline1.color,
+                              color:
+                                  Theme.of(context).textTheme.headline1.color,
                             ),
                           ),
                           Container(
@@ -96,7 +98,8 @@ class MemberListItem extends StatelessWidget {
                               user.email,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Theme.of(context).textTheme.headline1.color,
+                                color:
+                                    Theme.of(context).textTheme.headline1.color,
                               ),
                             ),
                           ),
@@ -109,7 +112,7 @@ class MemberListItem extends StatelessWidget {
             ),
           ),
           Container(
-            alignment: Alignment(0,0),
+            alignment: Alignment(0, 0),
             width: 80,
             height: double.infinity,
             child: FlatButton(
@@ -117,10 +120,10 @@ class MemberListItem extends StatelessWidget {
               onPressed: this.onPressAuth,
               child: Text(
                 user.membership == Membership.Owner
-                ? _localization.trans('MEMBER_OWNER')
-                : user.membership == Membership.Admin
-                ? _localization.trans('MEMBER_ADMIN')
-                : _localization.trans('MEMBER_GUEST'),
+                    ? _localization.trans('MEMBER_OWNER')
+                    : user.membership == Membership.Admin
+                        ? _localization.trans('MEMBER_ADMIN')
+                        : _localization.trans('MEMBER_GUEST'),
                 style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(context).textTheme.headline1.color,

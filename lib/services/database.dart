@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:bookoox/models/Currency.dart';
-import 'package:bookoox/models/User.dart' as UserM;
-import 'package:bookoox/services/storage.dart';
+import 'package:wecount/models/Currency.dart';
+import 'package:wecount/models/User.dart' as UserM;
+import 'package:wecount/services/storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 
-import 'package:bookoox/models/Ledger.dart';
+import 'package:wecount/models/Ledger.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DatabaseService {

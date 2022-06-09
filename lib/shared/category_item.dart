@@ -1,5 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:bookoox/models/Category.dart';
+import 'package:wecount/models/Category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -31,10 +31,9 @@ class _CategoryItemState extends State<CategoryItem> {
         onTap: () {
           widget.onSelectPressed();
         },
-        onLongPress: () => setState((){
+        onLongPress: () => setState(() {
           category.showDelete = !category.showDelete;
         }),
-
         child: Stack(
           children: <Widget>[
             Column(
@@ -62,24 +61,26 @@ class _CategoryItemState extends State<CategoryItem> {
             Positioned(
               right: 0,
               top: 0,
-              child: category.showDelete ? Container(
-                padding: EdgeInsets.all(2),
-                child: InkWell(
-                  onTap: widget.onDeletePressed,
-                  child: ClipOval(
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      color: Theme.of(context).textTheme.headline1.color,
-                      child: Icon(
-                        Icons.close,
-                        color: Theme.of(context).backgroundColor,
-                        size: 18,
+              child: category.showDelete
+                  ? Container(
+                      padding: EdgeInsets.all(2),
+                      child: InkWell(
+                        onTap: widget.onDeletePressed,
+                        child: ClipOval(
+                          child: Container(
+                            width: 24,
+                            height: 24,
+                            color: Theme.of(context).textTheme.headline1.color,
+                            child: Icon(
+                              Icons.close,
+                              color: Theme.of(context).backgroundColor,
+                              size: 18,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              ) : Container(),
+                    )
+                  : Container(),
             ),
           ],
         ),

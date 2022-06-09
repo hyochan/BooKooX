@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoox/screens/sign_up.dart' show SignUp;
+import 'package:wecount/screens/sign_up.dart' show SignUp;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async{
+  testWidgets("Widget", (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
     await tester.pumpAndSettle();
 
@@ -21,7 +21,8 @@ void main() {
     expect(find.text('PASSWORD_CONFIRM'), findsOneWidget);
     expect(find.text('PASSWORD_CONFIRM_HINT'), findsOneWidget);
   });
-  testWidgets("Show [emailError] text when email address is not valid form", (WidgetTester tester) async{
+  testWidgets("Show [emailError] text when email address is not valid form",
+      (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
     await tester.pumpAndSettle();
 
@@ -38,7 +39,8 @@ void main() {
 
     // expect(find.text('NO_VALID_EMAIL'), findsOneWidget);
   });
-  testWidgets("Show [passwordError] text when password is not valid form", (WidgetTester tester) async{
+  testWidgets("Show [passwordError] text when password is not valid form",
+      (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
     await tester.pumpAndSettle();
 
@@ -53,7 +55,8 @@ void main() {
 
     expect(find.text('PASSWORD_CONFIRM_HINT'), findsOneWidget);
   });
-  testWidgets("Show [passwordConfirmError] text when password is not cofirmed", (WidgetTester tester) async{
+  testWidgets("Show [passwordConfirmError] text when password is not cofirmed",
+      (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
     await tester.pumpAndSettle();
 

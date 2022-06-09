@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/shared/header.dart' show renderHeaderBack;
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/utils/localization.dart' show Localization;
 
 // One entry in the multilevel list displayed by this app.
 class Entry {
@@ -36,10 +36,12 @@ class SettingAnnouncement extends StatelessWidget {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
     final List<Entry> data = <Entry>[
-      Entry(_localization.trans('ANNOUNCEMENT_1'),
+      Entry(
+        _localization.trans('ANNOUNCEMENT_1'),
         <Entry>[Entry(_localization.trans('ANNOUNCEMENT_TXT_1'))],
       ),
-      Entry(_localization.trans('ANNOUNCEMENT_2'),
+      Entry(
+        _localization.trans('ANNOUNCEMENT_2'),
         <Entry>[Entry(_localization.trans('ANNOUNCEMENT_TXT_2'))],
       ),
     ];

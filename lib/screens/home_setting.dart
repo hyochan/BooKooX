@@ -1,5 +1,5 @@
-import 'package:bookoox/providers/CurrentLedger.dart';
-import 'package:bookoox/types/color.dart';
+import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

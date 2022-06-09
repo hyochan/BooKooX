@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:bookoox/models/LedgerItem.dart';
+import 'package:wecount/models/LedgerItem.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/screens/photo_detail.dart';
-import 'package:bookoox/models/Photo.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
-import 'package:bookoox/utils/localization.dart' show Localization;
-import 'package:bookoox/utils/general.dart' show General;
+import 'package:wecount/screens/photo_detail.dart';
+import 'package:wecount/models/Photo.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/general.dart' show General;
 import 'package:image_picker/image_picker.dart';
 
 enum PhotoOption { Camera, Gallery }

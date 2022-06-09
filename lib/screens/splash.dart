@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:bookoox/utils/general.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
 
 class Splash extends StatefulWidget {
   Splash({Key key}) : super(key: key);
@@ -17,7 +17,7 @@ class _SplashState extends State<Splash> {
   Timer _navigationTimer;
   Timer _timer;
 
-  Future<void> navigateRoute() async{
+  Future<void> navigateRoute() async {
     String initialRoute = '/tutorial';
 
     _navigationTimer = Timer(Duration(milliseconds: 1500), () {
@@ -68,7 +68,8 @@ class _SplashState extends State<Splash> {
               child: Container(
                 margin: EdgeInsets.only(bottom: 60.0),
                 child: Center(
-                  child: Image(image: Asset.Icons.icBooKoo, width: 200.0, height: 60.0),
+                  child: Image(
+                      image: Asset.Icons.icBooKoo, width: 200.0, height: 60.0),
                 ),
               ),
             ),

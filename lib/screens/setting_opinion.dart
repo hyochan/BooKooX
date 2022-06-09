@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/shared/header.dart' show renderHeaderBack;
-import 'package:bookoox/shared/button.dart' show Button;
-import 'package:bookoox/utils/localization.dart' show Localization;
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/asset.dart' as Asset;
 
 class SettingOpinion extends StatelessWidget {
-
   void onSendOpinion() {
     print('on send opinion');
   }
@@ -46,7 +45,6 @@ class SettingOpinion extends StatelessWidget {
                     hintText: _localization.trans('SHARE_OPINION_HINT'),
                     contentPadding: EdgeInsets.symmetric(horizontal: 24),
                   ),
-                  
                 ),
               ),
             ),

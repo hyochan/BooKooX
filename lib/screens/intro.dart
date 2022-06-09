@@ -4,10 +4,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:bookoox/shared/button.dart' show Button;
-import 'package:bookoox/utils/asset.dart' as Asset;
-import 'package:bookoox/utils/general.dart' show General;
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/general.dart' show General;
+import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -57,8 +57,8 @@ class Intro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarBrightness: Theme.of(context).brightness));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarBrightness: Theme.of(context).brightness));
     var _localization = Localization.of(context);
     final TextStyle _signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -67,7 +67,8 @@ class Intro extends StatelessWidget {
 
     Widget renderSignInBtn() {
       return Button(
-        onPress: () => General.instance.navigateScreenNamed(context, '/sign_in'),
+        onPress: () =>
+            General.instance.navigateScreenNamed(context, '/sign_in'),
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
