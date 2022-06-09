@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
       var _localization = Localization.of(context);
 
       List<LedgerItem> ledgerList = createCalendarLedgerItemMock(_localization);
-      EventList markedDateMap = EventList();
+      EventList markedDateMap = EventList(events: {});
       ledgerList.forEach((ledger) {
         markedDateMap.add(ledger.selectedDate,
             Event(date: ledger.selectedDate, title: ledger.category.label));

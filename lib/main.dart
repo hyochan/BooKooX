@@ -130,7 +130,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           StreamProvider<User>.value(
-              value: FirebaseAuth.instance.authStateChanges()),
+            value: FirebaseAuth.instance.authStateChanges(),
+            initialData: null,
+          ),
           ChangeNotifierProvider(create: (context) => CurrentLedger(null)),
         ],
         child: MaterialApp(
