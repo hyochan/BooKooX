@@ -1,4 +1,4 @@
-import 'package:bookoox/models/LedgerItem.dart';
+import 'package:wecount/models/LedgerItem.dart';
 
 List<LedgerItem> ledgerListByMonth(
   String month,

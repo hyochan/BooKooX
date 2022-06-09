@@ -1,4 +1,4 @@
-package com.dooboolab.bookoox
+package com.dooboolab.wecount
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bookoox/utils/localization.dart';
+import 'package:wecount/utils/localization.dart';
 
 enum CategoryType {
   CONSUME,

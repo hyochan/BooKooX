@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:image_picker/image_picker.dart';
 
 class ProfileImageCam extends StatelessWidget {

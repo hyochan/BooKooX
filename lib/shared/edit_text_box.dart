@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as Asset;
 
 class EditTextBox extends StatefulWidget {
   const EditTextBox({
@@ -65,24 +65,27 @@ class _EditTextBoxState extends State<EditTextBox> {
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        widget.iconData != null ? Positioned(
-          left: 12,
-          bottom: 0,
-          top: widget.margin.top,
-          child:  Container(
-            child: Icon(
-              widget.iconData,
-              color: widget.enabledColor,
-              semanticLabel: widget.semanticLabel,
-              size: widget.iconSize,
-            ),
-          ),
-        ): Container(),
+        widget.iconData != null
+            ? Positioned(
+                left: 12,
+                bottom: 0,
+                top: widget.margin.top,
+                child: Container(
+                  child: Icon(
+                    widget.iconData,
+                    color: widget.enabledColor,
+                    semanticLabel: widget.semanticLabel,
+                    size: widget.iconSize,
+                  ),
+                ),
+              )
+            : Container(),
         Container(
           child: TextField(
             enabled: widget.enabled,
             controller: widget.controller,
-            style: widget.textStyle ?? TextStyle(color: Theme.of(context).textTheme.headline1.color),
+            style: widget.textStyle ??
+                TextStyle(color: Theme.of(context).textTheme.headline1.color),
             cursorColor: widget.focusedColor,
             onChanged: widget.onChangeText,
             maxLength: widget.maxLength,
@@ -94,7 +97,8 @@ class _EditTextBoxState extends State<EditTextBox> {
               labelStyle: widget.labelStyle,
               focusColor: widget.focusedColor,
               hintText: widget.hintText,
-              hintStyle: widget.hintStyle ?? TextStyle(color: Theme.of(context).textTheme.headline3.color),
+              hintStyle: widget.hintStyle ??
+                  TextStyle(color: Theme.of(context).textTheme.headline3.color),
               errorText: widget.errorText,
               errorStyle: widget.errorStyle,
               contentPadding: EdgeInsets.only(

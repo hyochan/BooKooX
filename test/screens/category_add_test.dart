@@ -1,16 +1,15 @@
-import 'package:bookoox/models/Category.dart';
+import 'package:wecount/models/Category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoox/screens/category_add.dart' show CategoryAdd;
+import 'package:wecount/screens/category_add.dart' show CategoryAdd;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async{
-    await tester.pumpWidget(TestUtils.makeTestableWidget(
-      child: CategoryAdd(
-        lastId: 100,
-        categoryType: CategoryType.CONSUME),
+  testWidgets("Widget", (WidgetTester tester) async {
+    await tester.pumpWidget(
+      TestUtils.makeTestableWidget(
+        child: CategoryAdd(lastId: 100, categoryType: CategoryType.CONSUME),
       ),
     );
     await tester.pumpAndSettle();
@@ -22,7 +21,8 @@ void main() {
     expect(find.text('DONE'), findsNWidgets(1));
     expect(find.text('ICON_SELECT'), findsNWidgets(1));
   });
-  testWidgets("Navigate to [LedgerEdit] when addLedger pressed", (WidgetTester tester) async{
+  testWidgets("Navigate to [LedgerEdit] when addLedger pressed",
+      (WidgetTester tester) async {
     // await tester.pumpWidget(TestUtils.makeTestableWidget(child: MainEmpty()));
     // await tester.pumpAndSettle();
 

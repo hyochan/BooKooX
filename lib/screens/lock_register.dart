@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:bookoox/shared/header.dart' show renderHeaderBack;
-import 'package:bookoox/shared/pin_keyboard.dart' show PinKeyboard;
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/shared/pin_keyboard.dart' show PinKeyboard;
+import 'package:wecount/utils/localization.dart' show Localization;
 
 class LockRegister extends StatefulWidget {
   @override
@@ -12,7 +12,6 @@ class LockRegister extends StatefulWidget {
 }
 
 class _LockRegisterState extends State<LockRegister> {
-
   Size _screenSize;
 
   int _currentDigit;
@@ -27,19 +26,19 @@ class _LockRegisterState extends State<LockRegister> {
   readLockPinFromSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if(prefs.containsKey('LOCK_PIN')) {
+    if (prefs.containsKey('LOCK_PIN')) {
       _pin = prefs.getString('LOCK_PIN');
       print(_pin);
     }
   }
 
   addLockPinToSF() async {
-    if(_pin.length != 4 ) {
+    if (_pin.length != 4) {
       return;
     } else {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('LOCK_PIN', _pin);
-      Navigator.of(context).pop();     
+      Navigator.of(context).pop();
       print(_pin);
     }
   }
@@ -59,7 +58,7 @@ class _LockRegisterState extends State<LockRegister> {
       DeviceOrientation.portraitDown,
     ]);
 
-    readLockPinFromSF();    
+    readLockPinFromSF();
   }
 
   @override
@@ -72,7 +71,6 @@ class _LockRegisterState extends State<LockRegister> {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-
   }
 
   @override
@@ -86,14 +84,14 @@ class _LockRegisterState extends State<LockRegister> {
         context: context,
         iconColor: Theme.of(context).textTheme.headline1.color,
         brightness: Theme.of(context).brightness,
-        actions: <Widget> [
+        actions: <Widget>[
           FlatButton(
-            child: Text( 
-                _localization.trans('DONE'),
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.headline1.color,
-                ),
+            child: Text(
+              _localization.trans('DONE'),
+              style: TextStyle(
+                color: Theme.of(context).textTheme.headline1.color,
               ),
+            ),
             onPressed: addLockPinToSF,
             shape: CircleBorder(),
           ),
@@ -103,11 +101,14 @@ class _LockRegisterState extends State<LockRegister> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(height: 40 ,),
-              Text(_localization.trans('LOCK_HINT'),
+            SizedBox(
+              height: 40,
+            ),
+            Text(
+              _localization.trans('LOCK_HINT'),
               style: TextStyle(
-                fontSize: 24,
-                color: Theme.of(context).textTheme.headline1.color),
+                  fontSize: 24,
+                  color: Theme.of(context).textTheme.headline1.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -118,19 +119,22 @@ class _LockRegisterState extends State<LockRegister> {
                   _pinTextField(_secondDigit),
                   _pinTextField(_thirdDigit),
                   _pinTextField(_fourthDigit),
-                ],),              
+                ],
+              ),
             ),
             // OutlineButton(
-            //   child: 
+            //   child:
             //   Text(_localization.trans('FINGERPRINT_SET')),
             //   onPressed: () {} ,
             //   shape: RoundedRectangleBorder(
             //     borderRadius: BorderRadius.circular(30),
             //   ),
             // ),
-            SizedBox(height: 50 ,),
+            SizedBox(
+              height: 50,
+            ),
             PinKeyboard(
-              keyboardHeight: _screenSize.height / 3.0  ,
+              keyboardHeight: _screenSize.height / 3.0,
               onButtonPressed: _setCurrentDigit,
               onDeletePressed: _deleteCurrentDigit,
             ),
@@ -157,7 +161,6 @@ class _LockRegisterState extends State<LockRegister> {
             _thirdDigit.toString() +
             _fourthDigit.toString();
 
-
         print(_pin);
       }
     });
@@ -179,24 +182,23 @@ class _LockRegisterState extends State<LockRegister> {
 
   Widget _pinTextField(int digit) {
     return Container(
-      width: 50,
-      height: 45,
-      alignment: Alignment.center,
-      child: Text(
-        digit != null ? digit.toString() : "",
-        style: TextStyle(
-          fontSize: 30,
-          color: Theme.of(context).textTheme.headline1.color,
-        ),
-      ),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
+        width: 50,
+        height: 45,
+        alignment: Alignment.center,
+        child: Text(
+          digit != null ? digit.toString() : "",
+          style: TextStyle(
+            fontSize: 30,
             color: Theme.of(context).textTheme.headline1.color,
-            width: 2,
+          ),
+        ),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Theme.of(context).textTheme.headline1.color,
+              width: 2,
             ),
           ),
-        )
-    );
+        ));
   }
 }

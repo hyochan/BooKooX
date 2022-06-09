@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:bookoox/shared/header.dart' show renderHeaderBack;
-import 'package:bookoox/shared/pin_keyboard.dart' show PinKeyboard;
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/shared/pin_keyboard.dart' show PinKeyboard;
 
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart' show Localization;
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,7 +16,6 @@ class LockAuth extends StatefulWidget {
 }
 
 class _LockAuthState extends State<LockAuth> {
-
   Size _screenSize;
   int _currentDigit;
 
@@ -33,7 +32,7 @@ class _LockAuthState extends State<LockAuth> {
   /// LocalAuthentication - Fingerprint
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   bool _hasFingerPrintSupport = false;
-  
+
   Future<void> checkFingerprintSupport() async {
     bool isBiometricSupport = false;
     List<BiometricType> availableBiometricType = List<BiometricType>();
@@ -44,7 +43,7 @@ class _LockAuthState extends State<LockAuth> {
     } catch (e) {
       print(e);
     }
-    if (!mounted)  return;
+    if (!mounted) return;
 
     try {
       availableBiometricType =
@@ -69,7 +68,8 @@ class _LockAuthState extends State<LockAuth> {
     bool authenticated = false;
     try {
       authenticated = await _localAuthentication.authenticate(
-        localizedReason: _localization.trans('FINGERPRINT_LOGIN'), // message for dialog
+        localizedReason:
+            _localization.trans('FINGERPRINT_LOGIN'), // message for dialog
         options: AuthenticationOptions(
           useErrorDialogs: true,
           stickyAuth: true,
@@ -90,7 +90,7 @@ class _LockAuthState extends State<LockAuth> {
   readLockPinFromSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if(prefs.containsKey('LOCK_PIN')) {
+    if (prefs.containsKey('LOCK_PIN')) {
       _pin = prefs.getString('LOCK_PIN');
       print(_pin);
     }
@@ -98,7 +98,6 @@ class _LockAuthState extends State<LockAuth> {
 
   @override
   void initState() {
-
     super.initState();
 
     SystemChrome.setPreferredOrientations([
@@ -106,8 +105,8 @@ class _LockAuthState extends State<LockAuth> {
       DeviceOrientation.portraitDown,
     ]);
 
-    checkFingerprintSupport();    
-    readLockPinFromSF();    
+    checkFingerprintSupport();
+    readLockPinFromSF();
   }
 
   @override
@@ -120,9 +119,8 @@ class _LockAuthState extends State<LockAuth> {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-
   }
-  
+
   @override
   Widget build(BuildContext context) {
     _localization = Localization.of(context);
@@ -140,11 +138,14 @@ class _LockAuthState extends State<LockAuth> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(height: 40 ,),
-              Text(_localization.trans('LOCK_HINT'),
+            SizedBox(
+              height: 40,
+            ),
+            Text(
+              _localization.trans('LOCK_HINT'),
               style: TextStyle(
-                fontSize: 24,
-                color: Theme.of(context).textTheme.headline2.color),
+                  fontSize: 24,
+                  color: Theme.of(context).textTheme.headline2.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -155,21 +156,25 @@ class _LockAuthState extends State<LockAuth> {
                   _pinTextField(_secondDigit),
                   _pinTextField(_thirdDigit),
                   _pinTextField(_fourthDigit),
-                ],),              
+                ],
+              ),
             ),
             OutlinedButton(
-              child: 
-              Text(_localization.trans('FINGERPRINT_LOGIN'),
-                style: TextStyle(color: Theme.of(context).textTheme.headline2.color),
+              child: Text(
+                _localization.trans('FINGERPRINT_LOGIN'),
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.headline2.color),
               ),
               onPressed: _hasFingerPrintSupport ? _authenticateMe : null,
               // shape: RoundedRectangleBorder(
               //   borderRadius: BorderRadius.circular(30),
               // ),
             ),
-            SizedBox(height: 50 ,),
+            SizedBox(
+              height: 50,
+            ),
             PinKeyboard(
-              keyboardHeight: _screenSize.height / 3.0 ,
+              keyboardHeight: _screenSize.height / 3.0,
               onButtonPressed: _setCurrentDigit,
               onDeletePressed: _deleteCurrentDigit,
             ),
@@ -180,7 +185,6 @@ class _LockAuthState extends State<LockAuth> {
   }
 
   void _setCurrentDigit(int i) {
-
     setState(() {
       _currentDigit = i;
       if (_firstDigit == null) {
@@ -198,29 +202,27 @@ class _LockAuthState extends State<LockAuth> {
             _fourthDigit.toString();
 
         print('INPUT PIN is $_inputPin');
-
       }
     });
 
-    if (_inputPin.length == 4 ) {
-        if (_inputPin == _pin) {
-          Navigator.pop(context, false);
-        } else {
-          Fluttertoast.showToast(
-            msg: _localization.trans('PIN_MISMATCH'),
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            fontSize: 16.0,
-          );
+    if (_inputPin.length == 4) {
+      if (_inputPin == _pin) {
+        Navigator.pop(context, false);
+      } else {
+        Fluttertoast.showToast(
+          msg: _localization.trans('PIN_MISMATCH'),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0,
+        );
 
-          _inputPin = '';
-        }
+        _inputPin = '';
+      }
     }
   }
 
   void _deleteCurrentDigit() {
-
     setState(() {
       if (_fourthDigit != null) {
         _fourthDigit = null;
@@ -236,24 +238,23 @@ class _LockAuthState extends State<LockAuth> {
 
   Widget _pinTextField(int digit) {
     return Container(
-      width: 50,
-      height: 45,
-      alignment: Alignment.center,
-      child: Text(
-        digit != null ? digit.toString() : "",
-        style: TextStyle(
-          fontSize: 30,
-          color: Theme.of(context).textTheme.headline1.color,
-        ),
-      ),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
+        width: 50,
+        height: 45,
+        alignment: Alignment.center,
+        child: Text(
+          digit != null ? digit.toString() : "",
+          style: TextStyle(
+            fontSize: 30,
             color: Theme.of(context).textTheme.headline1.color,
-            width: 2,
+          ),
+        ),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Theme.of(context).textTheme.headline1.color,
+              width: 2,
             ),
           ),
-        )
-    );
+        ));
   }
 }

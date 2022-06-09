@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:bookoox/shared/edit_text.dart' show EditText;
-import 'package:bookoox/utils/general.dart' show General;
-import 'package:bookoox/shared/button.dart' show Button;
-import 'package:bookoox/utils/localization.dart' show Localization;
-import 'package:bookoox/utils/validator.dart' show Validator;
+import 'package:wecount/shared/edit_text.dart' show EditText;
+import 'package:wecount/utils/general.dart' show General;
+import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/validator.dart' show Validator;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -53,7 +53,8 @@ class _FindPwState extends State<FindPw> {
     _localization = Localization.of(context);
 
     Widget findPwText() {
-      return Text(_localization.trans('FIND_PASSWORD'),
+      return Text(
+        _localization.trans('FIND_PASSWORD'),
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.headline1.color,
@@ -99,11 +100,10 @@ class _FindPwState extends State<FindPw> {
         borderColor: Theme.of(context).primaryIconTheme.color,
         backgroundColor: Theme.of(context).primaryColor,
         text: _localization.trans('SEND_EMAIL'),
-        width: MediaQuery.of(context).size.width / 2- 64,
+        width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );
     }
-
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -120,7 +120,8 @@ class _FindPwState extends State<FindPw> {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverPadding(
-              padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
+              padding:
+                  const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
               sliver: SliverList(
                 delegate: SliverChildListDelegate(
                   <Widget>[

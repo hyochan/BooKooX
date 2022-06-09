@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bookoox/shared/button.dart' show Button;
+import 'package:wecount/shared/button.dart' show Button;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Button", (WidgetTester tester) async{
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Button(
+  testWidgets("Button", (WidgetTester tester) async {
+    await tester.pumpWidget(TestUtils.makeTestableWidget(
+        child: Button(
       text: 'TextTest',
     )));
     await tester.pumpAndSettle();

@@ -4,8 +4,8 @@ import 'package:photo_view/photo_view.dart'
     show PhotoView, PhotoViewComputedScale;
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/models/Photo.dart';
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/models/Photo.dart';
+import 'package:wecount/utils/localization.dart' show Localization;
 
 class PhotoDetail extends StatefulWidget {
   PhotoDetail({

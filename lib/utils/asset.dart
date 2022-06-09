@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:bookoox/types/color.dart';
+import 'package:wecount/types/color.dart';
 
 class Icons {
   Icons._();
   static AssetImage icMask = AssetImage('res/icons/icMask.png');
-  static AssetImage icBooKoo = AssetImage('res/icons/BooKoo.png');
+  static AssetImage icWeCount = AssetImage('res/icons/wecount.png');
   static AssetImage icFacebook = AssetImage('res/icons/icFacebook.png');
   static AssetImage icGoogle = AssetImage('res/icons/icGoogle.png');
   static AssetImage icTab1 = AssetImage('res/icons/icTab1.png');
@@ -55,21 +55,21 @@ class Colors {
   static const yellow = Color.fromARGB(255, 240, 192, 0);
   static const green = Color.fromARGB(255, 29, 211, 168);
   static const blue = Color.fromARGB(255, 103, 157, 255);
-  static const dusk = Color.fromARGB(255, 65, 77, 107);
+  static const main = Color.fromARGB(255, 13, 178, 147);
   static const purple = Color.fromARGB(255, 182, 105, 249);
   static Color getColor(ColorType color) {
     return color == ColorType.RED
-      ? Colors.red
-      : color == ColorType.ORANGE
-      ? Colors.orange
-      : color == ColorType.YELLOW
-      ? Colors.yellow
-      : color == ColorType.GREEN
-      ? Colors.green
-      : color == ColorType.BLUE
-      ? Colors.blue
-      : color == ColorType.PURPLE
-      ? Colors.purple
-      : Colors.dusk;
+        ? Colors.red
+        : color == ColorType.ORANGE
+            ? Colors.orange
+            : color == ColorType.YELLOW
+                ? Colors.yellow
+                : color == ColorType.GREEN
+                    ? Colors.green
+                    : color == ColorType.BLUE
+                        ? Colors.blue
+                        : color == ColorType.PURPLE
+                            ? Colors.purple
+                            : Colors.main;
   }
 }

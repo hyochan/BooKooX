@@ -38,7 +38,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.dooboolab.bookoox"
+        applicationId "com.dooboolab.wecount"
         minSdkVersion 21
         targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()

@@ -1,17 +1,17 @@
-import 'package:bookoox/shared/edit_text.dart';
+import 'package:wecount/shared/edit_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:bookoox/screens/profile_peer.dart';
-import 'package:bookoox/utils/general.dart';
-import 'package:bookoox/shared/member_list_item.dart';
-import 'package:bookoox/shared/header.dart';
-import 'package:bookoox/shared/member_list_item.dart'
+import 'package:wecount/screens/profile_peer.dart';
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/shared/member_list_item.dart';
+import 'package:wecount/shared/header.dart';
+import 'package:wecount/shared/member_list_item.dart'
     show MemberItem, HeadingItem, ListItem;
-import 'package:bookoox/models/User.dart' show User;
-import 'package:bookoox/models/User.dart';
-import 'package:bookoox/models/Ledger.dart';
-import 'package:bookoox/utils/localization.dart';
+import 'package:wecount/models/User.dart' show User;
+import 'package:wecount/models/User.dart';
+import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/utils/localization.dart';
 
 class Members extends StatefulWidget {
   final Ledger ledger;
@@ -163,8 +163,7 @@ class _MembersState extends State<Members> {
                           _filteredMembers = _fakeMembers.where((list) {
                             if (list is HeadingItem) {
                               return true;
-                            }
-                            else if (list is MemberItem) {
+                            } else if (list is MemberItem) {
                               return list.user.email
                                       .toLowerCase()
                                       .contains(str) ||

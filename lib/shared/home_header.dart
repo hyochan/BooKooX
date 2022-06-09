@@ -1,7 +1,7 @@
-import 'package:bookoox/models/Ledger.dart';
-import 'package:bookoox/types/color.dart';
+import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as Asset;
 
 final EdgeInsets _titlePadding =
     EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);

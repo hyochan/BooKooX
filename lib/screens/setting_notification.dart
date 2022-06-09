@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/shared/header.dart';
-import 'package:bookoox/utils/localization.dart';
+import 'package:wecount/shared/header.dart';
+import 'package:wecount/utils/localization.dart';
 
 class SettingNotification extends StatefulWidget {
   @override
@@ -66,7 +66,7 @@ class _SettingNotificationState extends State<SettingNotification> {
                   child: Switch(
                     value: _addLedgerSwitch,
                     onChanged: _onChangeAddingLedgerSwitch,
-                    activeTrackColor: Theme.of(context).primaryColor, 
+                    activeTrackColor: Theme.of(context).primaryColor,
                     activeColor: Theme.of(context).accentColor,
                   ),
                 ),
@@ -93,7 +93,7 @@ class _SettingNotificationState extends State<SettingNotification> {
                   child: Switch(
                     value: _updateLedgerSwitch,
                     onChanged: _onChangeUpdateLedgerSwitch,
-                    activeTrackColor: Theme.of(context).primaryColor, 
+                    activeTrackColor: Theme.of(context).primaryColor,
                     activeColor: Theme.of(context).accentColor,
                   ),
                 ),

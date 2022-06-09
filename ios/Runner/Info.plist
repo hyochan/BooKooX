@@ -1,76 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>io.flutter.embedded_views_preview</key>
-	<true/>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>BooKooX</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>App would like to access your camera to upload photo. Your photos wont be shared without your permission.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>App would like to access your record your voice to upload. Your voice wont be shared without your permission.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>App would like to save photo to your local storage. Please give permission to procceed.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App would like to access your photo gallery for your profile photo upload. Your photos wont be shared without your permission.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App would like to access your location to pin your location. This will let you save additional information for your ledger.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>App would like to access your location to pin your location. This will let you save additional information for your ledger.</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>App would like to authenticate with your face id. This will let you use additional feature to login to your ledger.</string>	
-	<key>UIStatusBarHidden</key>
-	<true/>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.221429298568-lhf4eeq02p4bst0ft9gtd65cgqua4ucb</string>
-			</array>
-		</dict>
-	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-</dict>
+	<dict>
+		<key>io.flutter.embedded_views_preview</key>
+		<true/>
+		<key>CFBundleDevelopmentRegion</key>
+		<string>$(DEVELOPMENT_LANGUAGE)</string>
+		<key>CFBundleExecutable</key>
+		<string>$(EXECUTABLE_NAME)</string>
+		<key>CFBundleIdentifier</key>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+		<key>CFBundleInfoDictionaryVersion</key>
+		<string>6.0</string>
+		<key>CFBundleName</key>
+		<string>WeCount</string>
+		<key>CFBundlePackageType</key>
+		<string>APPL</string>
+		<key>CFBundleShortVersionString</key>
+		<string>$(FLUTTER_BUILD_NAME)</string>
+		<key>CFBundleSignature</key>
+		<string>????</string>
+		<key>CFBundleVersion</key>
+		<string>$(FLUTTER_BUILD_NUMBER)</string>
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
+		<key>UILaunchStoryboardName</key>
+		<string>LaunchScreen</string>
+		<key>UIMainStoryboardFile</key>
+		<string>Main</string>
+		<key>UISupportedInterfaceOrientations</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
+		<key>UISupportedInterfaceOrientations~ipad</key>
+		<array>
+			<string>UIInterfaceOrientationPortrait</string>
+			<string>UIInterfaceOrientationPortraitUpsideDown</string>
+			<string>UIInterfaceOrientationLandscapeLeft</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
+		</array>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
+		<key>NSCameraUsageDescription</key>
+		<string>App would like to access your camera to upload photo. Your photos wont be shared without your permission.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>App would like to access your record your voice to upload. Your voice wont be shared without your permission.</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>App would like to save photo to your local storage. Please give permission to procceed.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>App would like to access your photo gallery for your profile photo upload. Your photos wont be shared without your permission.</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>App would like to access your location to pin your location. This will let you save additional information for your ledger.</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>App would like to access your location to pin your location. This will let you save additional information for your ledger.</string>
+		<key>NSFaceIDUsageDescription</key>
+		<string>App would like to authenticate with your face id. This will let you use additional feature to login to your ledger.</string>
+		<key>UIStatusBarHidden</key>
+		<false/>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.221429298568-lhf4eeq02p4bst0ft9gtd65cgqua4ucb</string>
+				</array>
+			</dict>
+		</array>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+		<true/>
+	</dict>
 </plist>

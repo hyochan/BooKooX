@@ -1,6 +1,6 @@
 {
-  "projectName": "BooKooX",
-  "projectOwner": "hyochan",
+  "projectName": "WeCount",
+  "projectOwner": "dooboolab",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -19,35 +19,6 @@
         "code",
         "test",
         "doc"
-      ]
-    },
-    {
-      "login": "joonmyung",
-      "name": "정준명",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/17468301?v=4",
-      "profile": "https://github.com/joonmyung",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "godon019",
-      "name": "Dong-Kyun Ko",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/10363850?v=4",
-      "profile": "https://github.com/godon019",
-      "contributions": [
-        "code",
-        "test",
-        "doc"
-      ]
-    },
-    {
-      "login": "bumjoo",
-      "name": "bumjoo.lee",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/43266906?v=4",
-      "profile": "https://github.com/bumjoo",
-      "contributions": [
-        "code"
       ]
     },
     {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/shared/button.dart' show Button;
-import 'package:bookoox/utils/asset.dart' as Asset;
-import 'package:bookoox/utils/general.dart';
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/localization.dart' show Localization;
 
 import '../shared/home_header.dart' show renderHomeAppBar;
 
@@ -33,8 +33,8 @@ class _MainEmptyState extends State<MainEmpty> {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () => General.instance
-                  .navigateScreenNamed(context, '/setting'),
+              onPressed: () =>
+                  General.instance.navigateScreenNamed(context, '/setting'),
               child: Icon(
                 Icons.settings,
                 color: Colors.white,
@@ -50,7 +50,7 @@ class _MainEmptyState extends State<MainEmpty> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-             Icon(
+            Icon(
               Icons.sentiment_dissatisfied,
               color: Theme.of(context).primaryColorLight,
               size: 80,
@@ -83,7 +83,8 @@ class _MainEmptyState extends State<MainEmpty> {
                   style: BorderStyle.solid,
                 ),
               ),
-              onPress: () => General.instance.navigateScreenNamed(context, '/ledger_edit'),
+              onPress: () =>
+                  General.instance.navigateScreenNamed(context, '/ledger_edit'),
               text: _localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,

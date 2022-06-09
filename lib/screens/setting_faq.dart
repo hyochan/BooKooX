@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/shared/header.dart' show renderHeaderBack;
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/utils/localization.dart' show Localization;
 
 // One entry in the multilevel list displayed by this app.
 class Entry {
@@ -36,37 +36,48 @@ class SettingFAQ extends StatelessWidget {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context);
     final List<Entry> data = <Entry>[
-      Entry(_localization.trans('FAQ_1'),
+      Entry(
+        _localization.trans('FAQ_1'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_1'))],
       ),
-      Entry(_localization.trans('FAQ_2'),
+      Entry(
+        _localization.trans('FAQ_2'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_2'))],
       ),
-      Entry(_localization.trans('FAQ_3'),
+      Entry(
+        _localization.trans('FAQ_3'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_3'))],
       ),
-      Entry(_localization.trans('FAQ_4'),
+      Entry(
+        _localization.trans('FAQ_4'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_4'))],
       ),
-      Entry(_localization.trans('FAQ_5'),
+      Entry(
+        _localization.trans('FAQ_5'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_5'))],
       ),
-      Entry(_localization.trans('FAQ_6'),
+      Entry(
+        _localization.trans('FAQ_6'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_6'))],
       ),
-      Entry(_localization.trans('FAQ_7'),
+      Entry(
+        _localization.trans('FAQ_7'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_7'))],
       ),
-      Entry(_localization.trans('FAQ_8'),
+      Entry(
+        _localization.trans('FAQ_8'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_8'))],
       ),
-      Entry(_localization.trans('FAQ_9'),
+      Entry(
+        _localization.trans('FAQ_9'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_9'))],
       ),
-      Entry(_localization.trans('FAQ_10'),
+      Entry(
+        _localization.trans('FAQ_10'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_10'))],
       ),
-      Entry(_localization.trans('FAQ_11'),
+      Entry(
+        _localization.trans('FAQ_11'),
         <Entry>[Entry(_localization.trans('FAQ_TXT_11'))],
       ),
     ];

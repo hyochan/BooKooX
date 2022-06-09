@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/utils/localization.dart' show Localization;
-import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/asset.dart' as Asset;
 
 class Tutorial extends StatefulWidget {
   @override
@@ -41,12 +41,12 @@ class _TutorialState extends State<Tutorial> {
               margin: EdgeInsets.only(top: 148),
               child: Image(
                 image: page == 0
-                  ? Asset.Icons.tutorial1
-                  : page == 1
-                  ? Asset.Icons.tutorial2
-                  : page == 2
-                  ? Asset.Icons.tutorial3
-                  : Asset.Icons.tutorial1,
+                    ? Asset.Icons.tutorial1
+                    : page == 1
+                        ? Asset.Icons.tutorial2
+                        : page == 2
+                            ? Asset.Icons.tutorial3
+                            : Asset.Icons.tutorial1,
                 width: 200,
                 height: 160,
               ),
@@ -55,12 +55,12 @@ class _TutorialState extends State<Tutorial> {
               margin: EdgeInsets.only(top: 56),
               child: Text(
                 page == 0
-                  ? _localization.trans('RECORD_IT')
-                  : page == 1
-                  ? _localization.trans('SHARE_IT')
-                  : page == 2
-                  ? _localization.trans('TAKE_CARE')
-                  : _localization.trans('RECORD_IT'),
+                    ? _localization.trans('RECORD_IT')
+                    : page == 1
+                        ? _localization.trans('SHARE_IT')
+                        : page == 2
+                            ? _localization.trans('TAKE_CARE')
+                            : _localization.trans('RECORD_IT'),
                 style: TextStyle(
                   fontSize: 28,
                   color: Colors.white,
@@ -72,12 +72,12 @@ class _TutorialState extends State<Tutorial> {
               margin: EdgeInsets.only(top: 20),
               child: Text(
                 page == 0
-                  ? _localization.trans('TUTORIAL_1_DETAIL')
-                  : page == 1
-                  ? _localization.trans('TUTORIAL_2_DETAIL')
-                  : page == 2
-                  ? _localization.trans('TUTORIAL_3_DETAIL')
-                  : _localization.trans('TUTORIAL_1_DETAIL'),
+                    ? _localization.trans('TUTORIAL_1_DETAIL')
+                    : page == 1
+                        ? _localization.trans('TUTORIAL_2_DETAIL')
+                        : page == 2
+                            ? _localization.trans('TUTORIAL_3_DETAIL')
+                            : _localization.trans('TUTORIAL_1_DETAIL'),
                 style: TextStyle(
                   fontSize: 16,
                   height: 1.3,
@@ -93,14 +93,14 @@ class _TutorialState extends State<Tutorial> {
 
     Widget renderIndicator({
       Key key,
-      @required  currentPage,
+      @required currentPage,
       int page = 0,
     }) {
       return Container(
         key: key,
         margin: EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
-          color: page == currentPage ? Colors.white : Asset.Colors.dusk,
+          color: page == currentPage ? Colors.white : Asset.Colors.main,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
             width: 1,
@@ -137,11 +137,11 @@ class _TutorialState extends State<Tutorial> {
     }
 
     return Scaffold(
-      backgroundColor: Asset.Colors.dusk,
+      backgroundColor: Asset.Colors.main,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          color: Asset.Colors.dusk,
+          color: Asset.Colors.main,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

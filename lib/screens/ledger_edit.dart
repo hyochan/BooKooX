@@ -1,16 +1,16 @@
-import 'package:bookoox/providers/CurrentLedger.dart';
+import 'package:wecount/providers/CurrentLedger.dart';
 import 'package:flutter/material.dart';
-import 'package:bookoox/screens/setting_currency.dart';
-import 'package:bookoox/screens/members.dart';
-import 'package:bookoox/shared/member_horizontal_list.dart';
-import 'package:bookoox/services/database.dart' show DatabaseService;
-import 'package:bookoox/shared/header.dart' show renderHeaderBack;
-import 'package:bookoox/utils/general.dart';
-import 'package:bookoox/utils/localization.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
-import 'package:bookoox/models/Currency.dart';
-import 'package:bookoox/models/Ledger.dart';
-import 'package:bookoox/types/color.dart';
+import 'package:wecount/screens/setting_currency.dart';
+import 'package:wecount/screens/members.dart';
+import 'package:wecount/shared/member_horizontal_list.dart';
+import 'package:wecount/services/database.dart' show DatabaseService;
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/localization.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/models/Currency.dart';
+import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/types/color.dart';
 import 'package:provider/provider.dart';
 
 enum LedgerEditMode {
@@ -50,7 +50,6 @@ class _LedgerEditState extends State<LedgerEdit> {
     }
     _ledger = ledger;
   }
-
 
   void _onPressCurrency() async {
     var _result = await General.instance.navigateScreen(
@@ -157,7 +156,6 @@ class _LedgerEditState extends State<LedgerEdit> {
           ),
         ],
       ),
-
       body: SafeArea(
           child: Stack(
         children: [
@@ -186,7 +184,6 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ),
                 ),
               ),
-
               Container(
                 margin:
                     EdgeInsets.only(top: 24, left: 40, right: 40, bottom: 20),
@@ -212,7 +209,6 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ),
                 ),
               ),
-
               MaterialButton(
                 padding: EdgeInsets.all(0.0),
                 onPressed: _onPressCurrency,
@@ -252,9 +248,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ),
                 ),
               ),
-
               Divider(color: Colors.white70),
-
               Container(
                 height: 80.0,
                 width: MediaQuery.of(context).size.width,
@@ -263,7 +257,6 @@ class _LedgerEditState extends State<LedgerEdit> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-
                     Container(
                       child: Text(
                         _localization.trans('COLOR'),
@@ -273,7 +266,6 @@ class _LedgerEditState extends State<LedgerEdit> {
                         ),
                       ),
                     ),
-
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.only(right: 32),
@@ -298,14 +290,13 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ],
                 ),
               ),
-
               Divider(color: Colors.white70),
-
               MemberHorizontalList(
                 showAddBtn: true,
-                memberIds: widget.ledger != null && widget.ledger.memberIds != null
-                    ? widget.ledger.memberIds
-                    : [],
+                memberIds:
+                    widget.ledger != null && widget.ledger.memberIds != null
+                        ? widget.ledger.memberIds
+                        : [],
                 onSeeAllPressed: () => General.instance.navigateScreen(
                   context,
                   MaterialPageRoute(
@@ -315,7 +306,6 @@ class _LedgerEditState extends State<LedgerEdit> {
               ),
             ],
           ),
-
           Positioned(
             bottom: 24,
             right: 24,

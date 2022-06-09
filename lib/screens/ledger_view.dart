@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/shared/member_horizontal_list.dart';
-import 'package:bookoox/shared/header.dart' show renderHeaderBack;
-import 'package:bookoox/models/Currency.dart';
-import 'package:bookoox/models/Ledger.dart';
-import 'package:bookoox/utils/localization.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
-import 'package:bookoox/types/color.dart';
+import 'package:wecount/shared/member_horizontal_list.dart';
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/models/Currency.dart';
+import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/utils/localization.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/types/color.dart';
 
 class LedgerView extends StatefulWidget {
   final Ledger ledger;
@@ -27,7 +27,7 @@ class _LedgerViewState extends State<LedgerView> {
       _ledger = ledger;
       return;
     }
-    _ledger  = Ledger(
+    _ledger = Ledger(
       title: 'ledger test',
       currency: Currency(currency: '\￦', locale: 'KRW'),
       color: ColorType.DUSK,
@@ -211,7 +211,7 @@ class ColorItem extends StatelessWidget {
                 decoration: new BoxDecoration(
                   border: new Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(12),
-                ), 
+                ),
                 width: 24,
                 height: 24,
               ),
@@ -219,12 +219,12 @@ class ColorItem extends StatelessWidget {
           ),
         ),
         selected == true
-        ? Icon(
-          Icons.check,
-          color: Colors.white,
-          size: 16,
-        )
-        : Container()
+            ? Icon(
+                Icons.check,
+                color: Colors.white,
+                size: 16,
+              )
+            : Container()
       ],
     );
   }

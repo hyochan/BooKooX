@@ -1,21 +1,21 @@
-import 'package:bookoox/mocks/home_statistic.mock.dart';
-import 'package:bookoox/models/LedgerItem.dart';
-import 'package:bookoox/providers/CurrentLedger.dart';
-import 'package:bookoox/shared/date_selector.dart' show DateSelector;
-import 'package:bookoox/screens/home_statistic/functions.dart';
+import 'package:wecount/mocks/home_statistic.mock.dart';
+import 'package:wecount/models/LedgerItem.dart';
+import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/shared/date_selector.dart' show DateSelector;
+import 'package:wecount/screens/home_statistic/functions.dart';
 
-import 'package:bookoox/shared/home_list_item.dart';
-import 'package:bookoox/types/color.dart';
-import 'package:bookoox/utils/asset.dart' as Asset;
-import 'package:bookoox/utils/localization.dart';
+import 'package:wecount/shared/home_list_item.dart';
+import 'package:wecount/types/color.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bookoox/utils/general.dart' show General;
-import 'package:bookoox/shared/home_header.dart' show renderHomeAppBar;
+import 'package:wecount/utils/general.dart' show General;
+import 'package:wecount/shared/home_header.dart' show renderHomeAppBar;
 import 'package:pie_chart/pie_chart.dart' show PieChart;
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:intl/intl.dart' show DateFormat;
-import 'package:bookoox/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:provider/provider.dart';
 
 class HomeStatistic extends StatelessWidget {
@@ -89,7 +89,7 @@ class _ContentState extends State<Content> {
     Asset.Colors.green,
     Asset.Colors.yellow,
     Asset.Colors.purple,
-    Asset.Colors.dusk,
+    Asset.Colors.main,
     Asset.Colors.red,
   ];
 
