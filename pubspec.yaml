@@ -67,8 +67,8 @@ flutter_icons:
   image_path: "res/icons/AppIcon.png"
 
 flutter_native_splash:
-  image: res/icons/BooKoo_Splash.png
-  color: "414d6b"
+  image: res/icons/wecount.png
+  color: "#0DB293"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

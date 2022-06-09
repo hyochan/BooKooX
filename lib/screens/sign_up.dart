@@ -266,7 +266,7 @@ class _SignUpState extends State<SignUp> {
           fontSize: 16.0,
         ),
         borderColor: Colors.white,
-        backgroundColor: Asset.Colors.dusk,
+        backgroundColor: Asset.Colors.main,
         text: _localization.trans('SIGN_UP'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,

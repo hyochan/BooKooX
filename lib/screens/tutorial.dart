@@ -100,7 +100,7 @@ class _TutorialState extends State<Tutorial> {
         key: key,
         margin: EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
-          color: page == currentPage ? Colors.white : Asset.Colors.dusk,
+          color: page == currentPage ? Colors.white : Asset.Colors.main,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
             width: 1,
@@ -137,11 +137,11 @@ class _TutorialState extends State<Tutorial> {
     }
 
     return Scaffold(
-      backgroundColor: Asset.Colors.dusk,
+      backgroundColor: Asset.Colors.main,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          color: Asset.Colors.dusk,
+          color: Asset.Colors.main,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

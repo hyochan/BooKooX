@@ -139,9 +139,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             brightness: Brightness.light,
-            accentColor: Asset.Colors.greenBlue,
             hintColor: Asset.Colors.mediumGray,
-            primaryColor: Asset.Colors.dusk,
+            primaryColor: Asset.Colors.main,
             primaryColorLight: const Color(0xff6d7999),
             primaryColorDark: const Color(0xff172540),
             secondaryHeaderColor: Asset.Colors.mediumGray,
@@ -155,12 +154,14 @@ class MyApp extends StatelessWidget {
               headline3: TextStyle(color: Asset.Colors.paleGray),
               caption: TextStyle(color: Asset.Colors.light),
             ),
+            colorScheme: ColorScheme.fromSwatch()
+                .copyWith(secondary: Asset.Colors.greenBlue),
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
             accentColor: Asset.Colors.greenBlue,
             hintColor: Asset.Colors.warmGray,
-            primaryColor: Asset.Colors.dusk,
+            primaryColor: Asset.Colors.main,
             primaryColorLight: const Color(0xff6d7999),
             primaryColorDark: const Color(0xff172540),
             secondaryHeaderColor: Asset.Colors.mediumGray,

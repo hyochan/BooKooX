@@ -6,7 +6,6 @@ import '../shared/button.dart' show Button;
 import '../utils/asset.dart' as Asset;
 
 class SettingExcel extends StatelessWidget {
-
   void onExportExcel() {
     print('on send excel');
   }
@@ -46,7 +45,6 @@ class SettingExcel extends StatelessWidget {
                     hintText: _localization.trans('EMAIL_HINT'),
                     contentPadding: EdgeInsets.symmetric(horizontal: 24),
                   ),
-                  
                 ),
               ),
             ),
@@ -60,7 +58,7 @@ class SettingExcel extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 16,
                 ),
-                backgroundColor: Asset.Colors.dusk,
+                backgroundColor: Asset.Colors.main,
               ),
             )
           ],

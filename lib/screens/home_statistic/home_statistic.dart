@@ -89,7 +89,7 @@ class _ContentState extends State<Content> {
     Asset.Colors.green,
     Asset.Colors.yellow,
     Asset.Colors.purple,
-    Asset.Colors.dusk,
+    Asset.Colors.main,
     Asset.Colors.red,
   ];
 

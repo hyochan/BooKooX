@@ -229,7 +229,7 @@ class Intro extends StatelessWidget {
                   delegate: SliverChildListDelegate(
                     <Widget>[
                       Image(
-                          image: Asset.Icons.icBooKoo,
+                          image: Asset.Icons.icWeCount,
                           width: 200.0,
                           height: 60.0),
                       renderSignInBtn(),

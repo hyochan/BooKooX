@@ -21,7 +21,8 @@ class _SplashState extends State<Splash> {
     String initialRoute = '/tutorial';
 
     _navigationTimer = Timer(Duration(milliseconds: 1500), () {
-      SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+          overlays: SystemUiOverlay.values);
       General.instance.navigateScreenNamed(context, initialRoute, reset: true);
     });
   }
@@ -69,7 +70,7 @@ class _SplashState extends State<Splash> {
                 margin: EdgeInsets.only(bottom: 60.0),
                 child: Center(
                   child: Image(
-                      image: Asset.Icons.icBooKoo, width: 200.0, height: 60.0),
+                      image: Asset.Icons.icWeCount, width: 200.0, height: 60.0),
                 ),
               ),
             ),
