@@ -98,7 +98,7 @@ class General {
     BuildContext context, {
     bool barrierDismissible = false,
     @required Widget title,
-    @required Widget  content,
+    @required Widget content,
     Function okPressed,
     Function cancelPressed,
   }) {
@@ -190,7 +190,8 @@ class General {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
-  void showDatePicker(BuildContext context, List<DateTime> dates, Function callback) {
+  void showDatePicker(
+      BuildContext context, List<DateTime> dates, Function callback) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -235,17 +236,19 @@ class General {
         });
   }
 
-  Future<File> chooseImage({
+  Future<XFile> chooseImage({
     @required BuildContext context,
     String type,
   }) async {
     General.instance.showDialogSpinner(context,
         text: Localization.of(context).trans('LOADING'));
 
+    ImagePicker picker = ImagePicker();
+
     try {
-      File imgFile = type == 'camera'
-          ? await ImagePicker.pickImage(source: ImageSource.camera)
-          : await ImagePicker.pickImage(source: ImageSource.gallery);
+      XFile imgFile = type == 'camera'
+          ? await picker.pickImage(source: ImageSource.camera)
+          : await picker.pickImage(source: ImageSource.gallery);
       return imgFile;
     } catch (err) {
       print('chooseImage err $err');

@@ -26,7 +26,7 @@ class Ledgers extends StatefulWidget {
 class _LedgersState extends State<Ledgers> {
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<FirebaseUser>(context);
+    var user = Provider.of<FirebaseAuth>(context).currentUser;
     var _localization = Localization.of(context);
     void onSettingPressed() {
       General.instance.navigateScreenNamed(context, '/setting');
@@ -83,7 +83,7 @@ class _LedgersState extends State<Ledgers> {
           children: <Widget>[
             StreamBuilder(
                 stream: DatabaseService().streamUser(user.uid),
-                builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData) return Container();
 
                   var profile = snapshot.data;
@@ -129,9 +129,9 @@ class _LedgersState extends State<Ledgers> {
             ),
             Container(
               height: 68.0,
-              child: FlatButton(
+              child: TextButton(
                 onPressed: onAddLedgerPressed,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                // padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Row(
                   children: <Widget>[
                     Icon(

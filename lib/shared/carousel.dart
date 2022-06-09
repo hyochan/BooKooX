@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:bookoox/models/Photo.dart' show Photo;
@@ -18,11 +20,12 @@ class Carousel extends StatefulWidget {
   });
 
   @override
-  _CarouselState createState() => _CarouselState(picture,
-    currentPage: this.currentPage,
-    height: this.height,
-    viewportFraction: this.viewportFraction,
-  );
+  _CarouselState createState() => _CarouselState(
+        picture,
+        currentPage: this.currentPage,
+        height: this.height,
+        viewportFraction: this.viewportFraction,
+      );
 }
 
 class _CarouselState extends State<Carousel> {
@@ -31,7 +34,8 @@ class _CarouselState extends State<Carousel> {
   final double viewportFraction;
   int currentPage;
 
-  _CarouselState(this.picture, {
+  _CarouselState(
+    this.picture, {
     this.currentPage,
     this.height,
     this.viewportFraction,
@@ -45,7 +49,9 @@ class _CarouselState extends State<Carousel> {
     _controller = PageController(
       initialPage: this.currentPage,
       keepPage: false,
-      viewportFraction: this.viewportFraction, /// width percentage
+      viewportFraction: this.viewportFraction,
+
+      /// width percentage
     );
   }
 
@@ -117,7 +123,7 @@ class _CarouselState extends State<Carousel> {
                           //   imageUrl: imgUrls[index],
                           // )
                           child: Image.file(
-                            widget.picture[index].file,
+                            File(widget.picture[index].file.path),
                             fit: BoxFit.cover,
                             height: 72,
                             width: 84,
@@ -143,10 +149,10 @@ class _CarouselState extends State<Carousel> {
                   child: Text(
                     '${index + 1} / ${picture.length}',
                     style: TextStyle(
-                      color:  const Color(0xffffffff),
+                      color: const Color(0xffffffff),
                       fontWeight: FontWeight.w100,
                       fontFamily: "AppleSDGothicNeo",
-                      fontStyle:  FontStyle.normal,
+                      fontStyle: FontStyle.normal,
                       fontSize: 14.0,
                     ),
                   ),

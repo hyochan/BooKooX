@@ -94,13 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
   DateTime _targetDate;
   String _currentMonth = '';
 
-  EventList<Event> _markedDateMap = EventList<Event>();
+  EventList<Event> _markedDateMap;
 
   /// ledgerList from parents
-  List<LedgerItem> _ledgerList = List<LedgerItem>();
+  List<LedgerItem> _ledgerList = List.empty();
 
   /// for bottom list UI
-  List<LedgerItem> _ledgerListOfSelectedDate = List<LedgerItem>();
+  List<LedgerItem> _ledgerListOfSelectedDate = List.empty();
 
   void selectDate(
     DateTime date,
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
       var _localization = Localization.of(context);
 
       List<LedgerItem> ledgerList = createCalendarLedgerItemMock(_localization);
-      EventList<Event> markedDateMap = new EventList<Event>();
+      EventList markedDateMap = EventList(events: {});
       ledgerList.forEach((ledger) {
         markedDateMap.add(ledger.selectedDate,
             Event(date: ledger.selectedDate, title: ledger.category.label));

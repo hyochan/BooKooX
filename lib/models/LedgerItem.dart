@@ -1,7 +1,6 @@
 import 'package:bookoox/models/Category.dart' show Category;
 import 'package:bookoox/models/Photo.dart';
 import 'package:bookoox/models/User.dart' show User;
-import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LedgerItem {
@@ -12,7 +11,7 @@ class LedgerItem {
   DateTime selectedDate;
   List<Photo> picture;
   LatLng latlng;
-  Address address;
+  String address;
   DateTime createdAt;
   DateTime updatedAt;
   DateTime deletedAt;

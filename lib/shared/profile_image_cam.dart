@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:bookoox/utils/asset.dart' as Asset;
+import 'package:image_picker/image_picker.dart';
 
 class ProfileImageCam extends StatelessWidget {
   final Function selectGallery;
   final Function selectCamera;
-  final File imgFile;
+  final XFile imgFile;
   final String imgStr;
 
   ProfileImageCam({
@@ -48,7 +49,8 @@ class ProfileImageCam extends StatelessWidget {
                               onPressed: this.selectGallery,
                               padding: EdgeInsets.all(0.0),
                               child: CircleAvatar(
-                                backgroundImage: FileImage(this.imgFile),
+                                backgroundImage:
+                                    FileImage(File(this.imgFile.path)),
                                 radius: 80.0,
                               ),
                             ),

@@ -403,7 +403,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
               ) : renderBox(
                 margin: EdgeInsets.only(top: 8),
                 icon: Icons.location_on,
-                text: '${_ledgerItemConsume.address.subAdminArea}, ${_ledgerItemConsume.address.thoroughfare}, ${_ledgerItemConsume.address.subThoroughfare}',
+                text: _ledgerItemConsume.address,
                 showDropdown: false,
                 onPressed: onLocationPressed,
                 active: true,
@@ -533,7 +533,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit> with TickerProviderStat
               ) : renderBox(
                 margin: EdgeInsets.only(top: 8),
                 icon: Icons.location_on,
-                text: '${_ledgerItemIncome.address.subAdminArea}, ${_ledgerItemIncome.address.thoroughfare}, ${_ledgerItemIncome.address.subLocality}',
+                text: _ledgerItemIncome.address,
                 showDropdown: false,
                 onPressed: () => onLocationPressed(categoryType: CategoryType.INCOME),
                 active: true,

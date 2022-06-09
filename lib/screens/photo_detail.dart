@@ -1,4 +1,7 @@
-import 'package:photo_view/photo_view.dart' show PhotoView, PhotoViewComputedScale;
+import 'dart:io';
+
+import 'package:photo_view/photo_view.dart'
+    show PhotoView, PhotoViewComputedScale;
 import 'package:flutter/material.dart';
 
 import 'package:bookoox/models/Photo.dart';
@@ -35,14 +38,13 @@ class _State extends State<PhotoDetail> {
         child: Stack(
           children: <Widget>[
             PhotoView(
-              imageProvider:
-                widget.photoUrl != null
-                ? NetworkImage(widget.photoUrl)
-                : widget.photo != null && widget.photo.file != null
-                ? FileImage(widget.photo.file)
-                : widget.photo != null && widget.photo.url != null
-                ? NetworkImage(widget.photo.url)
-                : AssetImage('res/icons/icMask.png'),
+              imageProvider: widget.photoUrl != null
+                  ? NetworkImage(widget.photoUrl)
+                  : widget.photo != null && widget.photo.file != null
+                      ? FileImage(File(widget.photo.file.path))
+                      : widget.photo != null && widget.photo.url != null
+                          ? NetworkImage(widget.photo.url)
+                          : AssetImage('res/icons/icMask.png'),
               minScale: PhotoViewComputedScale.contained * 0.8,
               maxScale: 4.0,
             ),
@@ -76,51 +78,54 @@ class _State extends State<PhotoDetail> {
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   mainAxisAlignment: widget.canShare
-                    ? MainAxisAlignment.spaceAround
-                    : MainAxisAlignment.center,
+                      ? MainAxisAlignment.spaceAround
+                      : MainAxisAlignment.center,
                   children: <Widget>[
                     widget.canShare
-                    ? Container(
-                      width: 60.0,
-                      height: 60.0,
-                      child: RawMaterialButton(
-                        padding: EdgeInsets.all(0.0),
-                        shape: CircleBorder(),
-                        onPressed: widget.onPressDownload,
-                        child: Icon(
-                          Icons.file_download,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ) : Container(),
+                        ? Container(
+                            width: 60.0,
+                            height: 60.0,
+                            child: RawMaterialButton(
+                              padding: EdgeInsets.all(0.0),
+                              shape: CircleBorder(),
+                              onPressed: widget.onPressDownload,
+                              child: Icon(
+                                Icons.file_download,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        : Container(),
                     widget.canShare
-                    ? Container(
-                      width: 60.0,
-                      height: 60.0,
-                      child: RawMaterialButton(
-                        padding: EdgeInsets.all(0.0),
-                        shape: CircleBorder(),
-                        onPressed: widget.onPressShare,
-                        child: Icon(
-                          Icons.share,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ) : Container(),
+                        ? Container(
+                            width: 60.0,
+                            height: 60.0,
+                            child: RawMaterialButton(
+                              padding: EdgeInsets.all(0.0),
+                              shape: CircleBorder(),
+                              onPressed: widget.onPressShare,
+                              child: Icon(
+                                Icons.share,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        : Container(),
                     widget.onPressDelete != null
-                    ? Container(
-                      width: 60.0,
-                      height: 60.0,
-                      child: RawMaterialButton(
-                        padding: EdgeInsets.all(0.0),
-                        shape: CircleBorder(),
-                        onPressed: widget.onPressDelete,
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ) : Container(),
+                        ? Container(
+                            width: 60.0,
+                            height: 60.0,
+                            child: RawMaterialButton(
+                              padding: EdgeInsets.all(0.0),
+                              shape: CircleBorder(),
+                              onPressed: widget.onPressDelete,
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
               ),

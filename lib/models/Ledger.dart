@@ -59,10 +59,10 @@ class Ledger {
   });
 
   factory Ledger.fromFirestore(DocumentSnapshot doc) {
-    Map data = doc.data;
+    Map data = doc.data();
 
     return Ledger(
-      id: doc.documentID,
+      id: doc.id,
       title: data['title'] ?? '',
       color: colorItems[data['color'] ?? 5],
       currency: Currency(

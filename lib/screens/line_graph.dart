@@ -77,7 +77,7 @@ class _LineGraphState extends State<LineGraph> {
 
     /// Render
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         centerTitle: false,

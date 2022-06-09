@@ -3,7 +3,6 @@ import 'package:bookoox/utils/service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:geocoder/geocoder.dart';
 
 class LocationView extends StatefulWidget {
   @override
@@ -73,12 +72,6 @@ class _LocationViewState extends State<LocationView> {
       var latLng = LatLng(currentLocation.latitude, currentLocation.longitude);
       _setMarker(latLng);
 
-      var addresses = await Geocoder.local.findAddressesFromCoordinates(
-                  Coordinates(currentLocation.latitude, currentLocation.longitude));
-      Map<String, dynamic> result = Map();
-      result['address'] = addresses.first;
-      _countryCode = addresses.first.countryCode;
-
       setState(() => _center = latLng);
       return;
     }
@@ -138,12 +131,11 @@ class _LocationViewState extends State<LocationView> {
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
               onPressed: () async {
-                var addresses = await Geocoder.local.findAddressesFromCoordinates(
-                  Coordinates(_center.latitude, _center.longitude));
-                Map<String, dynamic> result = Map();
-                result['address'] = addresses.first;
-                result['latlng'] = _center;
-                Navigator.pop(context, result);
+                // var addresses = await locationFromAddress();
+                // Map<String, dynamic> result = Map();
+                // result['address'] = addresses.first;
+                // result['latlng'] = _center;
+                // Navigator.pop(context, result);
               },
               child: Icon(
                 Icons.check,

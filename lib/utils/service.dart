@@ -4,10 +4,10 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as LocationManager;
 import 'package:google_maps_webservice/places.dart';
-import 'package:geocoder/geocoder.dart';
+import 'package:geocoding/geocoding.dart';
 
 class LocationService {
-   Future<LatLng> getUserLocation() async {
+  Future<LatLng> getUserLocation() async {
     LocationManager.LocationData currentLocation;
     final location = LocationManager.Location();
     try {
@@ -22,13 +22,15 @@ class LocationService {
     }
   }
 }
+
 class GooglePlaceService {
   static GooglePlaceService _instance = GooglePlaceService();
   static GooglePlaceService get instance => _instance;
 
   String kGoogleApiKey = '[PLACE_API_KEY]';
 
-  Future<Map<String, dynamic>> showGooglePlaceSearch(BuildContext context, {
+  Future<Map<String, dynamic>> showGooglePlaceSearch(
+    BuildContext context, {
     String country = 'us',
   }) async {
     Map<String, dynamic> location = Map();
@@ -51,17 +53,21 @@ class GooglePlaceService {
     if (p != null) {
       List<String> list = p.description.split(', ');
       if (list.length > 1) {
-        location['country'] = list[list.length - 1]; /// country
-        location['city'] = list[list.length - 2]; /// city
+        location['country'] = list[list.length - 1];
+
+        /// country
+        location['city'] = list[list.length - 2];
+
+        /// city
       }
 
       if (location['lat'] == null) {
         final query = list.toString();
         try {
-          var addresses = await Geocoder.local.findAddressesFromQuery(query);
+          var addresses = await locationFromAddress(query);
           var first = addresses.first;
-          location['lat'] = first.coordinates.latitude;
-          location['lng'] = first.coordinates.longitude;
+          location['lat'] = first.latitude;
+          location['lng'] = first.longitude;
         } catch (err) {
           print('catch: ${err.toString()}');
         }
@@ -70,14 +76,17 @@ class GooglePlaceService {
     return location;
   }
 
-  Future<Null> _displayPrediction(Prediction p, ScaffoldState scaffold, Function(double, double) callback) async {
+  Future<Null> _displayPrediction(Prediction p, ScaffoldState scaffold,
+      Function(double, double) callback) async {
     GoogleMapsPlaces _places = new GoogleMapsPlaces();
 
     if (p != null) {
       // get detail (lat/lng)
-      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
+      PlacesDetailsResponse detail =
+          await _places.getDetailsByPlaceId(p.placeId);
       if (detail.result != null) {
-        callback(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
+        callback(detail.result.geometry.location.lat,
+            detail.result.geometry.location.lng);
       }
     }
   }
