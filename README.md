@@ -19,8 +19,8 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Contributing to `WeCount`
 * See also
-  - dooboolab's [vision-and-mission](https://github.com/dooboolab/dooboolab.com/blob/master/vision-and-mission.md)
-  - dooboolab's [code of conduct](https://github.com/dooboolab/dooboolab.com/blob/master/code-of-conduct.md)
+  - dooboolab's [vision-and-mission](https://dooboolab.com/vision_and_mission)
+  - dooboolab's [code of conduct](https://dooboolab.com/code_of_conduct)
 * [Contributing](CONTRIBUTING.md)
 
 ## Install firebase
