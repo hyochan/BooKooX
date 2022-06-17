@@ -1,6 +1,8 @@
 import 'package:wecount/mocks/home_calendar.mock.dart';
-import 'package:wecount/models/LedgerItem.dart';
-import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/providers/current_ledger.dart';
+import 'package:wecount/screens/ledger_item_edit.dart';
+import 'package:wecount/screens/ledgers.dart';
 import 'package:wecount/shared/date_selector.dart' show DateSelector;
 import 'package:wecount/shared/home_list_item.dart';
 import 'package:wecount/types/color.dart';
@@ -19,7 +21,7 @@ import 'package:provider/provider.dart';
 
 class HomeCalendar extends StatefulWidget {
   HomeCalendar({
-    Key key,
+    Key? key,
     this.title = '2017 Bookoo',
   }) : super(key: key);
   final String title;
@@ -32,7 +34,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
   @override
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger().color
+        ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
 
     return Scaffold(
@@ -48,8 +50,8 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
-                  onPressed: () =>
-                      General.instance.navigateScreenNamed(context, '/ledgers'),
+                  onPressed: () => General.instance
+                      .navigateScreenNamed(context, Ledgers.name),
                   child: Icon(
                     Icons.book,
                     color: Colors.white,
@@ -61,8 +63,8 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
-                  onPressed: () => General.instance
-                      .navigateScreenNamed(context, '/ledger_item_add'),
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed(LedgerItemEdit.name),
                   child: Icon(
                     Icons.add,
                     color: Colors.white,
@@ -83,24 +85,24 @@ class _HomeCalendarState extends State<HomeCalendar> {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate;
-  DateTime _targetDate;
+  DateTime? _currentDate;
+  DateTime? _targetDate;
   String _currentMonth = '';
 
-  EventList<Event> _markedDateMap;
+  EventList<Event>? _markedDateMap;
 
   /// ledgerList from parents
-  List<LedgerItem> _ledgerList = List.empty();
+  List<LedgerItem> _ledgerList = [];
 
   /// for bottom list UI
-  List<LedgerItem> _ledgerListOfSelectedDate = List.empty();
+  List<LedgerItem> _ledgerListOfSelectedDate = [];
 
   void selectDate(
     DateTime date,
@@ -123,16 +125,16 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _currentDate = DateTime.now();
     _targetDate = DateTime.now();
-    _currentMonth = DateFormat.yMMM().format(_currentDate);
+    _currentMonth = DateFormat.yMMM().format(_currentDate!);
 
     Future.delayed(Duration.zero, () {
-      var _localization = Localization.of(context);
+      var _localization = Localization.of(context)!;
 
       List<LedgerItem> ledgerList = createCalendarLedgerItemMock(_localization);
-      EventList markedDateMap = EventList(events: {});
+      EventList<Event>? markedDateMap = EventList(events: {});
       ledgerList.forEach((ledger) {
-        markedDateMap.add(ledger.selectedDate,
-            Event(date: ledger.selectedDate, title: ledger.category.label));
+        markedDateMap.add(ledger.selectedDate!,
+            Event(date: ledger.selectedDate!, title: ledger.category!.label));
       });
 
       this.setState(() {
@@ -145,16 +147,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger().color
+        ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
 
     void onDatePressed() async {
-      int year = this._currentDate.year;
+      int year = this._currentDate!.year;
       int prevDate = year - 100;
       int lastDate = year + 10;
-      DateTime pickDate = await showDatePicker(
+      DateTime? pickDate = await showDatePicker(
         context: context,
-        initialDate: this._currentDate,
+        initialDate: this._currentDate!,
         firstDate: DateTime(prevDate),
         lastDate: DateTime(lastDate),
       );
@@ -211,17 +213,17 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Widget renderCalendar({
-  BuildContext context,
-  Function onCalendarChanged,
-  Function onDayPressed,
-  EventList<Event> markedDateMap,
-  DateTime currentDate,
-  DateTime targetDate,
-  Color color,
+  required BuildContext context,
+  Function? onCalendarChanged,
+  Function? onDayPressed,
+  EventList<Event>? markedDateMap,
+  DateTime? currentDate,
+  DateTime? targetDate,
+  required Color color,
 }) {
   return CalendarCarousel<Event>(
-    onCalendarChanged: onCalendarChanged,
-    onDayPressed: onDayPressed,
+    onCalendarChanged: onCalendarChanged as dynamic Function(DateTime)?,
+    onDayPressed: onDayPressed as dynamic Function(DateTime, List<Event>)?,
 
     /// make calendar to be scrollable together with its screen
     customGridViewPhysics: NeverScrollableScrollPhysics(),
@@ -258,7 +260,7 @@ Widget renderCalendar({
       color: Theme.of(context).primaryColorLight,
     ),
     daysTextStyle:
-        TextStyle(color: Theme.of(context).textTheme.headline1.color),
+        TextStyle(color: Theme.of(context).textTheme.headline1!.color),
     todayBorderColor: Colors.green,
     todayTextStyle: TextStyle(
       color: Theme.of(context).primaryColor,
@@ -269,7 +271,7 @@ Widget renderCalendar({
   );
 }
 
-Widget renderMarkedIcon({Color color, BuildContext context}) {
+Widget renderMarkedIcon({required Color color, required BuildContext context}) {
   return Container(
     child: Stack(
       children: <Widget>[
@@ -288,9 +290,9 @@ Widget renderMarkedIcon({Color color, BuildContext context}) {
 }
 
 class DrawCircle extends CustomPainter {
-  Paint _paint;
+  late Paint _paint;
 
-  DrawCircle({Color color}) {
+  DrawCircle({required Color color}) {
     _paint = Paint()
       ..color = color
       ..style = PaintingStyle.fill;

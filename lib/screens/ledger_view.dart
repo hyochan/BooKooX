@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 import 'package:wecount/shared/member_horizontal_list.dart';
 import 'package:wecount/shared/header.dart' show renderHeaderBack;
-import 'package:wecount/models/Currency.dart';
-import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/models/currency.dart';
+import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/types/color.dart';
 
 class LedgerView extends StatefulWidget {
-  final Ledger ledger;
+  static const String name = '/ledger_view';
+
+  final Ledger? ledger;
   const LedgerView({
-    Key key,
+    Key? key,
     this.ledger,
   }) : super(key: key);
 
@@ -20,9 +22,9 @@ class LedgerView extends StatefulWidget {
 }
 
 class _LedgerViewState extends State<LedgerView> {
-  Ledger _ledger;
+  late Ledger _ledger;
 
-  _LedgerViewState(Ledger ledger) {
+  _LedgerViewState(Ledger? ledger) {
     if (ledger != null) {
       _ledger = ledger;
       return;
@@ -36,7 +38,7 @@ class _LedgerViewState extends State<LedgerView> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     return Scaffold(
       backgroundColor: Asset.Colors.getColor(_ledger.color),
@@ -108,7 +110,7 @@ class _LedgerViewState extends State<LedgerView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      _localization.trans('CURRENCY'),
+                      _localization.trans('CURRENCY')!,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -147,7 +149,7 @@ class _LedgerViewState extends State<LedgerView> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      _localization.trans('COLOR'),
+                      _localization.trans('COLOR')!,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -187,14 +189,14 @@ class _LedgerViewState extends State<LedgerView> {
 
 class ColorItem extends StatelessWidget {
   ColorItem({
-    Key key,
+    Key? key,
     this.color,
     this.selected,
     this.onTap,
   }) : super(key: key);
-  final ColorType color;
-  final bool selected;
-  final Function onTap;
+  final ColorType? color;
+  final bool? selected;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +208,7 @@ class ColorItem extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             color: Asset.Colors.getColor(color),
             child: InkWell(
-              onTap: onTap,
+              onTap: onTap as void Function()?,
               child: Container(
                 decoration: new BoxDecoration(
                   border: new Border.all(color: Colors.white),

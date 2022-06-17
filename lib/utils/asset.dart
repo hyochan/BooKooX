@@ -57,7 +57,7 @@ class Colors {
   static const blue = Color.fromARGB(255, 103, 157, 255);
   static const main = Color.fromARGB(255, 13, 178, 147);
   static const purple = Color.fromARGB(255, 182, 105, 249);
-  static Color getColor(ColorType color) {
+  static Color getColor(ColorType? color) {
     return color == ColorType.RED
         ? Colors.red
         : color == ColorType.ORANGE

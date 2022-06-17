@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:wecount/screens/lock_auth.dart';
+import 'package:wecount/screens/lock_register.dart';
+import 'package:wecount/screens/setting_announcement.dart';
+import 'package:wecount/screens/setting_faq.dart';
+import 'package:wecount/screens/setting_notification.dart';
+import 'package:wecount/screens/setting_opinion.dart';
+import 'package:wecount/screens/tutorial.dart';
 
 import 'package:wecount/shared/setting_list_item.dart'
     show ListItem, LogoutItem, SettingItem, SettingListItem;
@@ -12,13 +19,15 @@ import 'package:wecount/utils/localization.dart' show Localization;
 FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Setting extends StatefulWidget {
+  static const String name = '/setting';
+
   @override
   _SettingState createState() => _SettingState();
 }
 
 class _SettingState extends State<Setting> {
   bool _lockSwitch = false;
-  String _pin = '';
+  String? _pin = '';
 
   readLockPinFromSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -53,7 +62,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockRegister(BuildContext context) async {
-    await General.instance.navigateScreenNamed(context, '/lock_register');
+    await General.instance.navigateScreenNamed(context, LockRegister.name);
 
     setState(() {
       readLockPinFromSF();
@@ -62,7 +71,7 @@ class _SettingState extends State<Setting> {
 
   void _awaitLockAuth(BuildContext context) async {
     final result =
-        await General.instance.navigateScreenNamed(context, '/lock_auth');
+        await General.instance.navigateScreenNamed(context, LockAuth.name);
 
     setState(() {
       if (_lockSwitch == true && result == false) {
@@ -74,7 +83,7 @@ class _SettingState extends State<Setting> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     final List<ListItem> _items = [
       SettingItem(
         Icon(
@@ -84,7 +93,7 @@ class _SettingState extends State<Setting> {
         ),
         _localization.trans('ANNOUNCEMENT'),
         onPressed: () => General.instance
-            .navigateScreenNamed(context, '/setting_announcement'),
+            .navigateScreenNamed(context, SettingAnnouncement.name),
       ),
       SettingItem(
         Icon(
@@ -94,7 +103,7 @@ class _SettingState extends State<Setting> {
         ),
         _localization.trans('SHARE_OPINION'),
         onPressed: () =>
-            General.instance.navigateScreenNamed(context, '/setting_opinion'),
+            General.instance.navigateScreenNamed(context, SettingOpinion.name),
       ),
       SettingItem(
         Icon(
@@ -104,7 +113,7 @@ class _SettingState extends State<Setting> {
         ),
         _localization.trans('FAQ'),
         onPressed: () =>
-            General.instance.navigateScreenNamed(context, '/setting_faq'),
+            General.instance.navigateScreenNamed(context, SettingFAQ.name),
       ),
       SettingItem(
         Icon(
@@ -114,7 +123,7 @@ class _SettingState extends State<Setting> {
         ),
         _localization.trans('NOTIFICATION'),
         onPressed: () => General.instance
-            .navigateScreenNamed(context, '/setting_notification'),
+            .navigateScreenNamed(context, SettingNotification.name),
       ),
       SettingItem(
         Icon(
@@ -137,7 +146,7 @@ class _SettingState extends State<Setting> {
 
           /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
           General.instance
-              .navigateScreenNamed(context, '/tutorial', reset: true);
+              .navigateScreenNamed(context, Tutorial.name, reset: true);
         },
       ),
     ];
@@ -162,12 +171,12 @@ class _SettingState extends State<Setting> {
                       height: 72,
                       margin: EdgeInsets.only(bottom: 40),
                       child: FlatButton(
-                        onPressed: item.onPressed,
+                        onPressed: item.onPressed as void Function()?,
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: Row(
                           children: <Widget>[
                             Text(
-                              item.title,
+                              item.title!,
                               style: TextStyle(
                                 color: Asset.Colors.carnation,
                                 fontSize: 20,
@@ -178,7 +187,7 @@ class _SettingState extends State<Setting> {
                       ),
                     );
                   }
-                  return SettingListItem(item);
+                  return SettingListItem(item as SettingItem);
                 },
               ),
             ),

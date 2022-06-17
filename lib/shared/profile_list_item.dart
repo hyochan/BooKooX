@@ -10,11 +10,11 @@ class ProfileListItem extends StatelessWidget {
     this.onTap,
   });
 
-  final Key key;
-  final String imgStr;
-  final String displayName;
-  final String email;
-  final Function onTap;
+  final Key? key;
+  final String? imgStr;
+  final String? displayName;
+  final String? email;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class ProfileListItem extends StatelessWidget {
                   clipBehavior: Clip.hardEdge,
                   color: Colors.transparent,
                   child: FlatButton(
-                    onPressed: this.onTap,
+                    onPressed: this.onTap as void Function()?,
                     padding: EdgeInsets.all(0.0),
                     child: ClipOval(
                       child: FadeInImage.assetNetwork(
@@ -38,7 +38,7 @@ class ProfileListItem extends StatelessWidget {
                           height: 80.0,
                           fit: BoxFit.cover,
                           placeholder: 'res/icons/icMask.png',
-                          image: this.imgStr),
+                          image: this.imgStr!),
                     ),
                   ),
                 )
@@ -52,7 +52,7 @@ class ProfileListItem extends StatelessWidget {
                       width: 80.0,
                       height: 80.0,
                       child: InkWell(
-                        onTap: this.onTap,
+                        onTap: this.onTap as void Function()?,
                       ),
                     ),
                   ),
@@ -66,16 +66,16 @@ class ProfileListItem extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(bottom: 8.0),
                   child: Text(
-                    displayName,
+                    displayName!,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.headline1.color,
+                      color: Theme.of(context).textTheme.headline1!.color,
                       fontSize: 20.0,
                     ),
                   ),
                 ),
                 Container(
                   child: Text(
-                    email,
+                    email!,
                     style: TextStyle(
                       color: Theme.of(context).hintColor,
                       fontSize: 14.0,

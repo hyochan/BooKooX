@@ -1,4 +1,4 @@
-import 'package:wecount/models/Currency.dart';
+import 'package:wecount/models/currency.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/localization.dart' show Localization;
@@ -7,13 +7,15 @@ import '../shared/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
 
 class SettingCurrency extends StatefulWidget {
+  static const String name = '/setting_currency';
+
   SettingCurrency({
-    Key key,
+    Key? key,
     this.title = '',
     this.selectedCurrency = '',
   }) : super(key: key);
   final String title;
-  final String selectedCurrency;
+  final String? selectedCurrency;
 
   @override
   _SettingCurrencyState createState() => _SettingCurrencyState();
@@ -27,7 +29,7 @@ class _SettingCurrencyState extends State<SettingCurrency> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     final List<ListItem> _items = currencies
         .map((el) => TileItem(
@@ -51,10 +53,10 @@ class _SettingCurrencyState extends State<SettingCurrency> {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          _localization.trans('CURRENCY'),
+          _localization.trans('CURRENCY')!,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.headline1.color,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
         ),
       ),
@@ -72,7 +74,7 @@ class _SettingCurrencyState extends State<SettingCurrency> {
                   itemCount: _items.length,
                   itemBuilder: (context, index) {
                     final item = _items[index];
-                    return SettingTileItem(item);
+                    return SettingTileItem(item as TileItem);
                   }),
             ),
           ],

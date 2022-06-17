@@ -4,7 +4,7 @@ import 'package:wecount/screens/splash.dart';
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  Future future;
+  late Future future;
 
   setUp(() {
     future = new Future.value();

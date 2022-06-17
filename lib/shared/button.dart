@@ -22,20 +22,20 @@ class Button extends StatelessWidget {
     this.isLoading = false,
   });
 
-  final Key key;
-  final String text;
-  final Image image;
-  final double width;
+  final Key? key;
+  final String? text;
+  final Image? image;
+  final double? width;
   final double imageMarginLeft;
   final double height;
-  final VoidCallback onPress;
+  final VoidCallback? onPress;
   final Color backgroundColor;
   final EdgeInsets margin;
   final double borderWidth;
   final double borderRadius;
-  final Color borderColor;
+  final Color? borderColor;
   final TextStyle textStyle;
-  final ShapeBorder shapeBorder;
+  final ShapeBorder? shapeBorder;
   final bool isLoading;
 
   @override
@@ -47,7 +47,7 @@ class Button extends StatelessWidget {
         padding: EdgeInsets.all(0.0),
         child: isLoading
             ? CircularProgressIndicator(
-                semanticsLabel: Localization.of(context).trans('LOADING'),
+                semanticsLabel: Localization.of(context)!.trans('LOADING'),
                 backgroundColor: Theme.of(context).primaryColor,
                 strokeWidth: 3,
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
@@ -64,7 +64,7 @@ class Button extends StatelessWidget {
                         this.image == null ? null : EdgeInsets.only(left: 12),
                     child: Center(
                       child: Text(
-                        text,
+                        text!,
                         style: textStyle,
                       ),
                     ),
@@ -74,7 +74,7 @@ class Button extends StatelessWidget {
         onPressed: !isLoading ? onPress : null,
       ),
       decoration: BoxDecoration(
-        border: Border.all(width: borderWidth, color: borderColor),
+        border: Border.all(width: borderWidth, color: borderColor!),
         borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         color: backgroundColor,
       ),

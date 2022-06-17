@@ -4,23 +4,23 @@ abstract class ListItem {}
 
 class SettingItem implements ListItem {
   final Icon icon;
-  final String title;
-  final Widget optionalWidget;
-  final Function onPressed;
+  final String? title;
+  final Widget? optionalWidget;
+  final Function? onPressed;
 
   SettingItem(
-    this.icon, this.title,
-    {
-      this.optionalWidget,
-      this.onPressed,
-    }
-  );
+    this.icon,
+    this.title, {
+    this.optionalWidget,
+    this.onPressed,
+  });
 }
 
 class LogoutItem implements ListItem {
-  final String title;
-  final Function onPressed;
-  LogoutItem(this.title, {
+  final String? title;
+  final Function? onPressed;
+  LogoutItem(
+    this.title, {
     this.onPressed,
   });
 }
@@ -32,7 +32,7 @@ class SettingListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: item.onPressed,
+      onPressed: item.onPressed as void Function()?,
       padding: EdgeInsets.symmetric(horizontal: 40),
       child: Container(
         height: 72,
@@ -49,14 +49,13 @@ class SettingListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    child: Text(
-                      item.title,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).textTheme.headline1.color,
-                      ),
-                    )
-                  ),
+                      child: Text(
+                    item.title!,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).textTheme.headline1!.color,
+                    ),
+                  )),
                   item.optionalWidget ?? Container(),
                 ],
               ),
@@ -69,21 +68,19 @@ class SettingListItem extends StatelessWidget {
 }
 
 class TileItem implements ListItem {
-  final Widget leading;
-  final String title;
-  final Widget trailing;
-  final Widget optionalWidget;
-  final Function onTap;  
+  final Widget? leading;
+  final String? title;
+  final Widget? trailing;
+  final Widget? optionalWidget;
+  final Function? onTap;
 
-  TileItem(
-    {
-      this.title, 
-      this.trailing,
-      this.leading,
-      this.optionalWidget,
-      this.onTap,
-    }
-  );
+  TileItem({
+    this.title,
+    this.trailing,
+    this.leading,
+    this.optionalWidget,
+    this.onTap,
+  });
 }
 
 class SettingTileItem extends StatelessWidget {
@@ -93,12 +90,12 @@ class SettingTileItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: item.onTap,
+      onTap: item.onTap as void Function()?,
       child: ListTile(
         leading: item.leading,
-        title: Text(item.title),
+        title: Text(item.title!),
         trailing: item.trailing,
       ),
     );
-  }  
+  }
 }

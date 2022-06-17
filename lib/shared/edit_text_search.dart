@@ -16,7 +16,7 @@ class EditTextSearch extends StatelessWidget {
     this.decoration,
     this.borderRadius = 4.0,
     this.margin = const EdgeInsets.only(top: 0.0),
-    this.padding= const EdgeInsets.all(0.0),
+    this.padding = const EdgeInsets.all(0.0),
     this.underline = true,
     this.background = Colors.white,
     this.enabled = true,
@@ -27,12 +27,12 @@ class EditTextSearch extends StatelessWidget {
     this.maxLength,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final txtLabel;
   final txtHint;
   final txtHintStyle;
   final decoration;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onChanged;
   final onSubmit;
   final secure;
   final txtStyle;
@@ -46,7 +46,7 @@ class EditTextSearch extends StatelessWidget {
   final width;
   final textInputAction;
   final keyboardType;
-  final int maxLength;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {

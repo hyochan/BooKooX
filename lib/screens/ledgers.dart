@@ -1,23 +1,25 @@
-import 'package:wecount/models/User.dart';
-import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/providers/current_ledger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wecount/screens/profile_my.dart';
+import 'package:wecount/screens/setting.dart';
 
 import 'package:wecount/services/database.dart' show DatabaseService;
 import 'package:wecount/shared/header.dart' show renderHeaderClose;
 import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/ledger_view.dart';
 import 'package:wecount/shared/profile_list_item.dart' show ProfileListItem;
-import 'package:wecount/shared/ledger_list_item.dart'
-    show LedgerListItem, HeadingItem, LedgerItem, ListItem;
-import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/shared/ledger_list_item.dart' show LedgerListItem;
+import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/general.dart';
 import 'package:provider/provider.dart' show Provider;
 
 class Ledgers extends StatefulWidget {
-  Ledgers({Key key}) : super(key: key);
+  static const String name = '/ledgers';
+
+  Ledgers({Key? key}) : super(key: key);
 
   @override
   _LedgersState createState() => new _LedgersState();
@@ -26,14 +28,14 @@ class Ledgers extends StatefulWidget {
 class _LedgersState extends State<Ledgers> {
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<FirebaseAuth>(context).currentUser;
-    var _localization = Localization.of(context);
+    User? user = FirebaseAuth.instance.currentUser!;
+    var _localization = Localization.of(context)!;
     void onSettingPressed() {
-      General.instance.navigateScreenNamed(context, '/setting');
+      General.instance.navigateScreenNamed(context, Setting.name);
     }
 
     void onProfilePressed() {
-      General.instance.navigateScreenNamed(context, '/profile_my');
+      General.instance.navigateScreenNamed(context, ProfileMy.name);
     }
 
     void onLedgerPressed(Ledger item) {
@@ -104,15 +106,15 @@ class _LedgersState extends State<Ledgers> {
                 if (snapshot.data != null) {
                   return Expanded(
                     child: ListView.builder(
-                      itemCount: snapshot.data.length,
+                      itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-                        final item = snapshot.data[index];
+                        final item = snapshot.data![index];
 
                         return LedgerListItem(
-                          title: item.title ?? '',
+                          title: item.title,
                           color: item.color,
                           people: item.people,
-                          isOwner: item.ownerId == user.uid ?? false,
+                          isOwner: item.ownerId == user.uid,
                           onMorePressed: () => onLedgerMorePressed(item),
                           onLedgerPressed: () => onLedgerPressed(item),
                         );
@@ -142,7 +144,7 @@ class _LedgersState extends State<Ledgers> {
                     Container(
                       padding: EdgeInsets.only(left: 20.0),
                       child: Text(
-                        _localization.trans('ADD_LEDGER'),
+                        _localization.trans('ADD_LEDGER')!,
                         style: TextStyle(
                           color: Asset.Colors.mediumGray,
                           fontSize: 20.0,

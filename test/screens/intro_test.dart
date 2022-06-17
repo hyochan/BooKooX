@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 
 import 'package:wecount/screens/intro.dart' show Intro;
 import 'package:wecount/screens/sign_in.dart' show SignIn;
@@ -24,7 +23,7 @@ void main() {
     await tester.tap(find.text('SIGN_IN'));
     await tester.pumpAndSettle();
 
-    verify(TestUtils.observer.didPush(any, any));
+    // verify(TestUtils.observer.didPush(any, any));
     expect(find.byType(SignIn), findsOneWidget);
   });
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/types/color.dart' show ColorType;
@@ -33,17 +33,17 @@ class LedgerListItem extends StatelessWidget {
     this.onLedgerPressed,
   });
 
-  final Key key;
-  final String title;
-  final ColorType color;
-  final int people;
-  final bool isOwner;
-  final Function onMorePressed;
-  final Function onLedgerPressed;
+  final Key? key;
+  final String? title;
+  final ColorType? color;
+  final int? people;
+  final bool? isOwner;
+  final Function? onMorePressed;
+  final Function? onLedgerPressed;
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     return Container(
       height: 100.0,
       child: Row(
@@ -54,7 +54,7 @@ class LedgerListItem extends StatelessWidget {
             child: Container(
               child: MaterialButton(
                 padding: EdgeInsets.only(left: 24.0),
-                onPressed: onLedgerPressed,
+                onPressed: onLedgerPressed as void Function()?,
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -82,7 +82,7 @@ class LedgerListItem extends StatelessWidget {
                               height: 40.0,
                             ),
                           ),
-                          isOwner
+                          isOwner!
                               ? Positioned(
                                   right: 4,
                                   bottom: 4,
@@ -105,7 +105,7 @@ class LedgerListItem extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(bottom: 8.0),
                             child: Text(
-                              title,
+                              title!,
                               style: TextStyle(
                                 color: Theme.of(context).primaryColor,
                                 fontSize: 20.0,
@@ -114,7 +114,7 @@ class LedgerListItem extends StatelessWidget {
                           ),
                           Container(
                             child: Text(
-                              people > 1
+                              people! > 1
                                   ? '$people ${_localization.trans("PEOPLE")}'
                                   : '$people ${_localization.trans("PERSON")}',
                               style: TextStyle(
@@ -132,13 +132,13 @@ class LedgerListItem extends StatelessWidget {
             ),
           ),
           FlatButton(
-            onPressed: onMorePressed,
+            onPressed: onMorePressed as void Function()?,
             padding: EdgeInsets.all(0),
             child: Container(
               height: double.infinity,
               child: Center(
                 child: Text(
-                  _localization.trans('MORE'),
+                  _localization.trans('MORE')!,
                   style: TextStyle(
                     color: Asset.Colors.green,
                   ),

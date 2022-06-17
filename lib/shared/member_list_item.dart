@@ -2,7 +2,7 @@ import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'package:wecount/models/User.dart';
+import 'package:wecount/models/user.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 
 abstract class ListItem {}
@@ -22,14 +22,14 @@ class MemberItem implements ListItem {
 }
 
 class MemberListItem extends StatelessWidget {
-  final Key key;
+  final Key? key;
   final User user;
-  final Function onPressMember;
-  final Function onPressAuth;
+  final Function? onPressMember;
+  final Function? onPressAuth;
 
   const MemberListItem({
     this.key,
-    @required this.user,
+    required this.user,
     this.onPressMember,
     this.onPressAuth,
   });
@@ -45,7 +45,7 @@ class MemberListItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: FlatButton(
-              onPressed: this.onPressMember,
+              onPressed: this.onPressMember as void Function()?,
               padding: EdgeInsets.symmetric(horizontal: 40),
               child: Row(
                 children: <Widget>[
@@ -84,22 +84,24 @@ class MemberListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           AutoSizeText(
-                            user.displayName,
+                            user.displayName!,
                             maxLines: 1,
                             style: TextStyle(
                               fontSize: 18,
                               color:
-                                  Theme.of(context).textTheme.headline1.color,
+                                  Theme.of(context).textTheme.headline1!.color,
                             ),
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 4),
                             child: AutoSizeText(
-                              user.email,
+                              user.email!,
                               style: TextStyle(
                                 fontSize: 14,
-                                color:
-                                    Theme.of(context).textTheme.headline1.color,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .color,
                               ),
                             ),
                           ),
@@ -117,16 +119,16 @@ class MemberListItem extends StatelessWidget {
             height: double.infinity,
             child: FlatButton(
               padding: EdgeInsets.all(0),
-              onPressed: this.onPressAuth,
+              onPressed: this.onPressAuth as void Function()?,
               child: Text(
                 user.membership == Membership.Owner
-                    ? _localization.trans('MEMBER_OWNER')
+                    ? _localization!.trans('MEMBER_OWNER')!
                     : user.membership == Membership.Admin
-                        ? _localization.trans('MEMBER_ADMIN')
-                        : _localization.trans('MEMBER_GUEST'),
+                        ? _localization!.trans('MEMBER_ADMIN')!
+                        : _localization!.trans('MEMBER_GUEST')!,
                 style: TextStyle(
                   fontSize: 12,
-                  color: Theme.of(context).textTheme.headline1.color,
+                  color: Theme.of(context).textTheme.headline1!.color,
                 ),
               ),
             ),

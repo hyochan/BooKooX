@@ -4,12 +4,12 @@ import 'package:photo_view/photo_view.dart'
     show PhotoView, PhotoViewComputedScale;
 import 'package:flutter/material.dart';
 
-import 'package:wecount/models/Photo.dart';
+import 'package:wecount/models/photo.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class PhotoDetail extends StatefulWidget {
   PhotoDetail({
-    Key key,
+    Key? key,
     this.photo,
     this.photoUrl,
     this.canShare = false,
@@ -17,12 +17,12 @@ class PhotoDetail extends StatefulWidget {
     this.onPressShare,
     this.onPressDownload,
   }) : super(key: key);
-  final Photo photo;
-  final String photoUrl;
+  final Photo? photo;
+  final String? photoUrl;
   final bool canShare;
-  final Function onPressDelete;
-  final Function onPressShare;
-  final Function onPressDownload;
+  final Function? onPressDelete;
+  final Function? onPressShare;
+  final Function? onPressDownload;
 
   @override
   _State createState() => new _State();
@@ -31,7 +31,7 @@ class PhotoDetail extends StatefulWidget {
 class _State extends State<PhotoDetail> {
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -39,12 +39,13 @@ class _State extends State<PhotoDetail> {
           children: <Widget>[
             PhotoView(
               imageProvider: widget.photoUrl != null
-                  ? NetworkImage(widget.photoUrl)
-                  : widget.photo != null && widget.photo.file != null
-                      ? FileImage(File(widget.photo.file.path))
-                      : widget.photo != null && widget.photo.url != null
-                          ? NetworkImage(widget.photo.url)
-                          : AssetImage('res/icons/icMask.png'),
+                  ? NetworkImage(widget.photoUrl!)
+                  : widget.photo != null && widget.photo!.file != null
+                      ? FileImage(File(widget.photo!.file!.path))
+                      : (widget.photo != null && widget.photo!.url != null
+                              ? NetworkImage(widget.photo!.url!)
+                              : AssetImage('res/icons/icMask.png'))
+                          as ImageProvider<Object>?,
               minScale: PhotoViewComputedScale.contained * 0.8,
               maxScale: 4.0,
             ),
@@ -88,7 +89,8 @@ class _State extends State<PhotoDetail> {
                             child: RawMaterialButton(
                               padding: EdgeInsets.all(0.0),
                               shape: CircleBorder(),
-                              onPressed: widget.onPressDownload,
+                              onPressed:
+                                  widget.onPressDownload as void Function()?,
                               child: Icon(
                                 Icons.file_download,
                                 color: Colors.white,
@@ -103,7 +105,8 @@ class _State extends State<PhotoDetail> {
                             child: RawMaterialButton(
                               padding: EdgeInsets.all(0.0),
                               shape: CircleBorder(),
-                              onPressed: widget.onPressShare,
+                              onPressed:
+                                  widget.onPressShare as void Function()?,
                               child: Icon(
                                 Icons.share,
                                 color: Colors.white,
@@ -118,7 +121,8 @@ class _State extends State<PhotoDetail> {
                             child: RawMaterialButton(
                               padding: EdgeInsets.all(0.0),
                               shape: CircleBorder(),
-                              onPressed: widget.onPressDelete,
+                              onPressed:
+                                  widget.onPressDelete as void Function()?,
                               child: Icon(
                                 Icons.delete,
                                 color: Colors.white,

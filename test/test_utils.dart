@@ -1,7 +1,7 @@
-import 'package:wecount/models/Currency.dart';
-import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/models/currency.dart';
+import 'package:wecount/models/ledger.dart';
 import 'package:wecount/navigations/home_tab.dart';
-import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/ledgers.dart';
 import 'package:wecount/screens/main_empty.dart';
@@ -29,8 +29,8 @@ import 'package:provider/provider.dart';
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 class TestUtils {
-  static MockNavigatorObserver observer;
-  static Widget makeTestableWidget({Widget child}) {
+  static late MockNavigatorObserver observer;
+  static Widget makeTestableWidget({Widget? child}) {
     observer = MockNavigatorObserver();
 
     var widget = MediaQuery(
@@ -44,24 +44,24 @@ class TestUtils {
         home: child,
         navigatorObservers: <NavigatorObserver>[observer],
         routes: {
-          '/splash': (BuildContext context) => Splash(),
-          '/tutorial': (BuildContext context) => Tutorial(),
-          '/intro': (BuildContext context) => Intro(),
-          '/sign_in': (BuildContext context) => SignIn(),
-          '/sign_up': (BuildContext context) => SignUp(),
-          '/find_pw': (BuildContext context) => FindPw(),
-          '/main_empty': (BuildContext context) => MainEmpty(),
-          '/home': (BuildContext context) => HomeTab(),
-          '/ledgers': (BuildContext context) => Ledgers(),
-          '/ledger_edit': (BuildContext context) => LedgerEdit(),
-          '/terms': (BuildContext context) => Terms(),
-          '/profile_my': (BuildContext context) => ProfileMy(),
-          '/setting': (BuildContext context) => Setting(),
-          '/setting_announcement': (BuildContext context) =>
+          Splash.name: (BuildContext context) => Splash(),
+          Tutorial.name: (BuildContext context) => Tutorial(),
+          Intro.name: (BuildContext context) => Intro(),
+          SignIn.name: (BuildContext context) => SignIn(),
+          SignUp.name: (BuildContext context) => SignUp(),
+          FindPw.name: (BuildContext context) => FindPw(),
+          MainEmpty.name: (BuildContext context) => MainEmpty(),
+          HomeTab.name: (BuildContext context) => HomeTab(),
+          Ledgers.name: (BuildContext context) => Ledgers(),
+          LedgerEdit.name: (BuildContext context) => LedgerEdit(),
+          Terms.name: (BuildContext context) => Terms(),
+          ProfileMy.name: (BuildContext context) => ProfileMy(),
+          Setting.name: (BuildContext context) => Setting(),
+          SettingAnnouncement.name: (BuildContext context) =>
               SettingAnnouncement(),
-          '/setting_opinion': (BuildContext context) => SettingOpinion(),
-          '/setting_faq': (BuildContext context) => SettingFAQ(),
-          '/setting_notification': (BuildContext context) =>
+          SettingOpinion.name: (BuildContext context) => SettingOpinion(),
+          SettingFAQ.name: (BuildContext context) => SettingFAQ(),
+          SettingNotification.name: (BuildContext context) =>
               SettingNotification(),
         },
       ),

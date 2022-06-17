@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:wecount/utils/localization.dart' show Localization;
 
 AppBar renderHeaderClose({
-  Key key,
-  Widget title,
-  List<Widget> actions,
-  @required BuildContext context,
-  Brightness brightness,
-  bool centerTitle,
-  Widget bottom,
+  Key? key,
+  Widget? title,
+  List<Widget>? actions,
+  required BuildContext context,
+  Brightness? brightness,
+  bool? centerTitle,
+  Widget? bottom,
 }) {
-  var _localization = Localization.of(context);
+  var _localization = Localization.of(context)!;
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
@@ -25,7 +24,7 @@ AppBar renderHeaderClose({
         onPressed: () => Navigator.of(context).pop(),
         child: Icon(
           Icons.close,
-          color: Theme.of(context).textTheme.headline1.color,
+          color: Theme.of(context).textTheme.headline1!.color,
           semanticLabel: _localization.trans('CLOSE'),
         ),
       ),
@@ -33,21 +32,21 @@ AppBar renderHeaderClose({
     elevation: 0.0,
     actions: actions,
     titleSpacing: 0.0,
-    bottom: bottom,
+    bottom: bottom as PreferredSizeWidget?,
     // title: title,
   );
 }
 
 AppBar renderHeaderBack({
-  Key key,
-  Widget title,
-  List<Widget> actions,
-  BuildContext context,
-  Brightness brightness,
-  Color iconColor,
-  bool centerTitle,
+  Key? key,
+  Widget? title,
+  List<Widget>? actions,
+  required BuildContext context,
+  Brightness? brightness,
+  Color? iconColor,
+  bool? centerTitle,
 }) {
-  var _localization = Localization.of(context);
+  var _localization = Localization.of(context)!;
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,

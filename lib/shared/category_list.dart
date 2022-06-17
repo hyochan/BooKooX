@@ -1,4 +1,4 @@
-import 'package:wecount/models/Category.dart';
+import 'package:wecount/models/category.dart';
 import 'package:wecount/shared/category_item.dart';
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class CategoryList extends StatefulWidget {
   CategoryList({
-    @required this.categories,
+    required this.categories,
   });
   final List<Category> categories;
 
@@ -35,15 +35,15 @@ class _CategoryListState extends State<CategoryList> {
               },
               onDeletePressed: () {
                 General.instance.showConfirmDialog(context,
-                    title: Text(_localization.trans('DELETE')),
-                    content: Text(_localization.trans('DELETE_ASK')),
+                    title: Text(_localization!.trans('DELETE')!),
+                    content: Text(_localization.trans('DELETE_ASK')!),
                     okPressed: () async {
                   try {
-                    await DbHelper.instance
+                    await DBHelper.instance
                         .deleteCategory(context, category.iconId);
                   } catch (err) {
                     Fluttertoast.showToast(
-                      msg: _localization.trans('CATEGORY_DELETE_ERROR'),
+                      msg: _localization.trans('CATEGORY_DELETE_ERROR')!,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,
@@ -54,7 +54,7 @@ class _CategoryListState extends State<CategoryList> {
                       categories.remove(category);
                     });
                     Fluttertoast.showToast(
-                      msg: _localization.trans('CATEGORY_DELETED'),
+                      msg: _localization.trans('CATEGORY_DELETED')!,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,

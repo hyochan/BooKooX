@@ -1,4 +1,4 @@
-import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/providers/current_ledger.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/screens/setting_currency.dart';
 import 'package:wecount/screens/members.dart';
@@ -8,8 +8,8 @@ import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
-import 'package:wecount/models/Currency.dart';
-import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/models/currency.dart';
+import 'package:wecount/models/ledger.dart';
 import 'package:wecount/types/color.dart';
 import 'package:provider/provider.dart';
 
@@ -19,11 +19,13 @@ enum LedgerEditMode {
 }
 
 class LedgerEdit extends StatefulWidget {
-  final Ledger ledger;
+  static const String name = '/ledger_edit';
+
+  final Ledger? ledger;
   final LedgerEditMode mode;
 
   LedgerEdit({
-    Key key,
+    Key? key,
     this.ledger,
     this.mode = LedgerEditMode.ADD,
   }) : super(key: key);
@@ -34,10 +36,10 @@ class LedgerEdit extends StatefulWidget {
 }
 
 class _LedgerEditState extends State<LedgerEdit> {
-  Ledger _ledger;
+  Ledger? _ledger;
   bool _isLoading = false;
 
-  _LedgerEditState(Ledger ledger, LedgerEditMode mode) {
+  _LedgerEditState(Ledger? ledger, LedgerEditMode mode) {
     if (ledger == null) {
       _ledger = Ledger(
         title: '',
@@ -56,18 +58,18 @@ class _LedgerEditState extends State<LedgerEdit> {
       context,
       MaterialPageRoute(
         builder: (BuildContext context) => SettingCurrency(
-          selectedCurrency: _ledger.currency.currency,
+          selectedCurrency: _ledger!.currency.currency,
         ),
       ),
     );
 
     if (_result == null) return;
 
-    setState(() => _ledger.currency = _result);
+    setState(() => _ledger!.currency = _result);
   }
 
   void _selectColor(ColorType item) {
-    setState(() => _ledger.color = item);
+    setState(() => _ledger!.color = item);
   }
 
   void _pressDone() async {
@@ -75,12 +77,12 @@ class _LedgerEditState extends State<LedgerEdit> {
 
     setState(() => _isLoading = true);
 
-    if (_ledger.title == null || _ledger.title.isEmpty) {
+    if (_ledger!.title.isEmpty) {
       print('title is null');
       return;
     }
 
-    if (_ledger.description == null || _ledger.description.isEmpty) {
+    if (_ledger!.description == null || _ledger!.description!.isEmpty) {
       print('description is null');
       return;
     }
@@ -109,7 +111,7 @@ class _LedgerEditState extends State<LedgerEdit> {
   }
 
   void _leaveLedger() async {
-    bool hasLeft = await DatabaseService().requestLeaveLedger(_ledger.id);
+    bool hasLeft = await DatabaseService().requestLeaveLedger(_ledger!.id);
 
     if (hasLeft) {
       var ledger = await DatabaseService().fetchSelectedLedger();
@@ -117,21 +119,21 @@ class _LedgerEditState extends State<LedgerEdit> {
       Navigator.of(context).pop();
     }
 
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     General.instance.showSingleDialog(
       context,
-      title: Text(_localization.trans('ERROR')),
-      content: Text(_localization.trans('SHOULD_TRANSFER_OWNERSHIP')),
+      title: Text(_localization.trans('ERROR')!),
+      content: Text(_localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     return Scaffold(
-      backgroundColor: Asset.Colors.getColor(_ledger.color),
+      backgroundColor: Asset.Colors.getColor(_ledger!.color),
       appBar: renderHeaderBack(
         context: context,
         brightness: Brightness.dark,
@@ -144,7 +146,7 @@ class _LedgerEditState extends State<LedgerEdit> {
               shape: CircleBorder(),
               onPressed: _leaveLedger,
               child: Text(
-                _localization.trans('LEAVE'),
+                _localization.trans('LEAVE')!,
                 semanticsLabel: _localization.trans('LEAVE'),
                 style: TextStyle(
                   color: Colors.red,
@@ -166,9 +168,9 @@ class _LedgerEditState extends State<LedgerEdit> {
                 child: TextField(
                   maxLines: 1,
                   onChanged: (String txt) {
-                    _ledger.title = txt;
+                    _ledger!.title = txt;
                   },
-                  controller: TextEditingController(text: _ledger.title),
+                  controller: TextEditingController(text: _ledger!.title),
                   decoration: InputDecoration(
                     hintMaxLines: 2,
                     border: InputBorder.none,
@@ -191,9 +193,9 @@ class _LedgerEditState extends State<LedgerEdit> {
                 child: TextField(
                   maxLines: 8,
                   onChanged: (String txt) {
-                    _ledger.description = txt;
+                    _ledger!.description = txt;
                   },
-                  controller: TextEditingController(text: _ledger.description),
+                  controller: TextEditingController(text: _ledger!.description),
                   textAlignVertical: TextAlignVertical.top,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -220,7 +222,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        _localization.trans('CURRENCY'),
+                        _localization.trans('CURRENCY')!,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -229,7 +231,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                       Row(
                         children: <Widget>[
                           Text(
-                            '${_ledger.currency.currency} | ${_ledger.currency.symbol}',
+                            '${_ledger!.currency.currency} | ${_ledger!.currency.symbol}',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -259,7 +261,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        _localization.trans('COLOR'),
+                        _localization.trans('COLOR')!,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -277,7 +279,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                           itemBuilder: (context, index) {
                             final item =
                                 colorItems[colorItems.length - index - 1];
-                            bool selected = item == _ledger.color;
+                            bool selected = item == _ledger!.color;
                             return ColorItem(
                               color: item,
                               onTap: () => _selectColor(item),
@@ -294,9 +296,7 @@ class _LedgerEditState extends State<LedgerEdit> {
               MemberHorizontalList(
                 showAddBtn: true,
                 memberIds:
-                    widget.ledger != null && widget.ledger.memberIds != null
-                        ? widget.ledger.memberIds
-                        : [],
+                    widget.ledger != null ? widget.ledger!.memberIds : [],
                 onSeeAllPressed: () => General.instance.navigateScreen(
                   context,
                   MaterialPageRoute(
@@ -325,7 +325,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                         height: 28,
                         child: CircularProgressIndicator(
                           semanticsLabel:
-                              Localization.of(context).trans('LOADING'),
+                              Localization.of(context)!.trans('LOADING'),
                           backgroundColor: Theme.of(context).primaryColor,
                           strokeWidth: 2,
                           valueColor:
@@ -334,10 +334,10 @@ class _LedgerEditState extends State<LedgerEdit> {
                       )
                     : Text(
                         widget.ledger == null
-                            ? _localization.trans('DONE')
-                            : _localization.trans('UPDATE'),
+                            ? _localization.trans('DONE')!
+                            : _localization.trans('UPDATE')!,
                         style: TextStyle(
-                          color: Asset.Colors.getColor(_ledger.color),
+                          color: Asset.Colors.getColor(_ledger!.color),
                           fontSize: 16.0,
                         ),
                       ),
@@ -352,14 +352,14 @@ class _LedgerEditState extends State<LedgerEdit> {
 
 class ColorItem extends StatelessWidget {
   ColorItem({
-    Key key,
+    Key? key,
     this.color,
     this.selected,
     this.onTap,
   }) : super(key: key);
-  final ColorType color;
-  final bool selected;
-  final Function onTap;
+  final ColorType? color;
+  final bool? selected;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -371,7 +371,7 @@ class ColorItem extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             color: Asset.Colors.getColor(color),
             child: InkWell(
-              onTap: onTap,
+              onTap: onTap as void Function()?,
               child: Container(
                 decoration: new BoxDecoration(
                   border: new Border.all(color: Colors.white),

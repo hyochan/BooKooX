@@ -11,22 +11,24 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LockAuth extends StatefulWidget {
+  static const String name = '/lock_auth';
+
   @override
   _LockAuthState createState() => _LockAuthState();
 }
 
 class _LockAuthState extends State<LockAuth> {
-  Size _screenSize;
-  int _currentDigit;
+  late Size _screenSize;
+  int? _currentDigit;
 
-  int _firstDigit;
-  int _secondDigit;
-  int _thirdDigit;
-  int _fourthDigit;
+  int? _firstDigit;
+  int? _secondDigit;
+  int? _thirdDigit;
+  int? _fourthDigit;
 
-  Localization _localization;
+  Localization? _localization;
 
-  String _pin = '';
+  String? _pin = '';
   String _inputPin = '';
 
   /// LocalAuthentication - Fingerprint
@@ -35,7 +37,7 @@ class _LockAuthState extends State<LockAuth> {
 
   Future<void> checkFingerprintSupport() async {
     bool isBiometricSupport = false;
-    List<BiometricType> availableBiometricType = List<BiometricType>();
+    List<BiometricType> availableBiometricType = [];
 
     try {
       isBiometricSupport = await _localAuthentication.canCheckBiometrics;
@@ -64,12 +66,12 @@ class _LockAuthState extends State<LockAuth> {
 
   Future<void> _authenticateMe() async {
     // 8. this method opens a dialog for fingerprint authentication.
-    //    we do not need to create a dialog nut it popsup from device natively.
+    //    we do not need to create a dialog nut it pop sup from device natively.
     bool authenticated = false;
     try {
       authenticated = await _localAuthentication.authenticate(
         localizedReason:
-            _localization.trans('FINGERPRINT_LOGIN'), // message for dialog
+            _localization!.trans('FINGERPRINT_LOGIN')!, // message for dialog
         options: AuthenticationOptions(
           useErrorDialogs: true,
           stickyAuth: true,
@@ -142,10 +144,10 @@ class _LockAuthState extends State<LockAuth> {
               height: 40,
             ),
             Text(
-              _localization.trans('LOCK_HINT'),
+              _localization!.trans('LOCK_HINT')!,
               style: TextStyle(
                   fontSize: 24,
-                  color: Theme.of(context).textTheme.headline2.color),
+                  color: Theme.of(context).textTheme.headline2!.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -161,9 +163,9 @@ class _LockAuthState extends State<LockAuth> {
             ),
             OutlinedButton(
               child: Text(
-                _localization.trans('FINGERPRINT_LOGIN'),
+                _localization!.trans('FINGERPRINT_LOGIN')!,
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.headline2.color),
+                    color: Theme.of(context).textTheme.headline2!.color),
               ),
               onPressed: _hasFingerPrintSupport ? _authenticateMe : null,
               // shape: RoundedRectangleBorder(
@@ -210,7 +212,7 @@ class _LockAuthState extends State<LockAuth> {
         Navigator.pop(context, false);
       } else {
         Fluttertoast.showToast(
-          msg: _localization.trans('PIN_MISMATCH'),
+          msg: _localization!.trans('PIN_MISMATCH')!,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -236,7 +238,7 @@ class _LockAuthState extends State<LockAuth> {
     });
   }
 
-  Widget _pinTextField(int digit) {
+  Widget _pinTextField(int? digit) {
     return Container(
         width: 50,
         height: 45,
@@ -245,13 +247,13 @@ class _LockAuthState extends State<LockAuth> {
           digit != null ? digit.toString() : "",
           style: TextStyle(
             fontSize: 30,
-            color: Theme.of(context).textTheme.headline1.color,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
         ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: Theme.of(context).textTheme.headline1.color,
+              color: Theme.of(context).textTheme.headline1!.color!,
               width: 2,
             ),
           ),

@@ -1,4 +1,4 @@
-import 'package:wecount/models/User.dart';
+import 'package:wecount/models/user.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 
 class MemberHorizontalList extends StatelessWidget {
-  final bool showAddBtn;
-  final Function onSeeAllPressed;
+  final bool? showAddBtn;
+  final Function? onSeeAllPressed;
   final List<String> memberIds;
   MemberHorizontalList({
     this.showAddBtn,
@@ -17,7 +17,7 @@ class MemberHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     List<Widget> memberWidgets = memberIds.map((memberId) {
       return StreamBuilder(
@@ -29,13 +29,13 @@ class MemberHorizontalList extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 color: Colors.transparent,
                 child: Ink.image(
-                  image: !snapshot.hasData ||
-                          (snapshot.data.photoURL == null &&
-                              snapshot.data.thumbURL == null)
+                  image: (!snapshot.hasData ||
+                          (snapshot.data!.photoURL == null &&
+                              snapshot.data!.thumbURL == null)
                       ? Asset.Icons.icMask
-                      : NetworkImage(snapshot.data.thumbURL != null
-                          ? snapshot.data.thumbURL
-                          : snapshot.data.photoURL),
+                      : NetworkImage(snapshot.data!.thumbURL != null
+                          ? snapshot.data!.thumbURL!
+                          : snapshot.data!.photoURL!)) as ImageProvider<Object>,
                   fit: BoxFit.cover,
                   width: 48.0,
                   height: 48.0,
@@ -61,7 +61,7 @@ class MemberHorizontalList extends StatelessWidget {
               children: <Widget>[
                 Container(
                   child: Text(
-                    _localization.trans('MEMBER'),
+                    _localization.trans('MEMBER')!,
                     semanticsLabel: _localization.trans('MEMBER'),
                     style: TextStyle(
                       color: Colors.white,
@@ -72,10 +72,10 @@ class MemberHorizontalList extends StatelessWidget {
                 ),
                 Container(
                   child: FlatButton(
-                    onPressed: this.onSeeAllPressed,
+                    onPressed: this.onSeeAllPressed as void Function()?,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     child: Text(
-                      _localization.trans('SEE_ALL'),
+                      _localization.trans('SEE_ALL')!,
                       semanticsLabel: _localization.trans('SEE_ALL'),
                       style: TextStyle(
                         color: Colors.white,

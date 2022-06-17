@@ -1,20 +1,20 @@
-import 'package:wecount/models/Category.dart' show Category;
-import 'package:wecount/models/Photo.dart';
-import 'package:wecount/models/User.dart' show User;
+import 'package:wecount/models/category.dart' show Category;
+import 'package:wecount/models/photo.dart';
+import 'package:wecount/models/user.dart' show User;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LedgerItem {
-  double price;
-  Category category;
-  String memo;
-  User writer;
-  DateTime selectedDate;
-  List<Photo> picture;
-  LatLng latlng;
-  String address;
-  DateTime createdAt;
-  DateTime updatedAt;
-  DateTime deletedAt;
+  double? price;
+  Category? category;
+  String? memo;
+  User? writer;
+  DateTime? selectedDate;
+  List<Photo>? picture;
+  LatLng? latlng;
+  String? address;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  DateTime? deletedAt;
 
   LedgerItem({
     this.price,
@@ -60,12 +60,12 @@ class LedgerItem {
     return LedgerItem(
       price: this.price,
       category: Category(
-        iconId: this.category.iconId,
-        label: this.category.label,
-        type: this.category.type,
+        iconId: this.category!.iconId,
+        label: this.category!.label,
+        type: this.category!.type,
       ),
-      selectedDate: DateTime(this.selectedDate.year, this.selectedDate.month,
-          this.selectedDate.day),
+      selectedDate: DateTime(this.selectedDate!.year, this.selectedDate!.month,
+          this.selectedDate!.day),
     );
   }
 }

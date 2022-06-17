@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Terms extends StatefulWidget {
-  Terms({Key key}) : super(key: key);
+  static const String name = '/terms';
+
+  Terms({Key? key}) : super(key: key);
 
   @override
   _TermsState createState() => new _TermsState();
@@ -19,7 +21,8 @@ class _TermsState extends State<Terms> {
         iconTheme: IconThemeData(
           color: Theme.of(context).primaryColor,
         ),
-        title: Text('Terms',
+        title: Text(
+          'Terms',
           style: TextStyle(
             color: Theme.of(context).primaryColor,
           ),
@@ -31,9 +34,7 @@ class _TermsState extends State<Terms> {
             padding: const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
             sliver: SliverList(
               delegate: SliverChildListDelegate(
-                <Widget>[
-
-                ],
+                <Widget>[],
               ),
             ),
           ),

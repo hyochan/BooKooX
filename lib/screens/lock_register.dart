@@ -7,21 +7,23 @@ import 'package:wecount/shared/pin_keyboard.dart' show PinKeyboard;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class LockRegister extends StatefulWidget {
+  static const String name = '/lock_register';
+
   @override
   _LockRegisterState createState() => _LockRegisterState();
 }
 
 class _LockRegisterState extends State<LockRegister> {
-  Size _screenSize;
+  late Size _screenSize;
 
-  int _currentDigit;
+  int? _currentDigit;
 
-  int _firstDigit;
-  int _secondDigit;
-  int _thirdDigit;
-  int _fourthDigit;
+  int? _firstDigit;
+  int? _secondDigit;
+  int? _thirdDigit;
+  int? _fourthDigit;
 
-  String _pin = '';
+  String? _pin = '';
 
   readLockPinFromSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -33,11 +35,11 @@ class _LockRegisterState extends State<LockRegister> {
   }
 
   addLockPinToSF() async {
-    if (_pin.length != 4) {
+    if (_pin!.length != 4) {
       return;
     } else {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('LOCK_PIN', _pin);
+      prefs.setString('LOCK_PIN', _pin!);
       Navigator.of(context).pop();
       print(_pin);
     }
@@ -75,21 +77,21 @@ class _LockRegisterState extends State<LockRegister> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Theme.of(context).textTheme.headline1.color,
+        iconColor: Theme.of(context).textTheme.headline1!.color,
         brightness: Theme.of(context).brightness,
         actions: <Widget>[
           FlatButton(
             child: Text(
-              _localization.trans('DONE'),
+              _localization.trans('DONE')!,
               style: TextStyle(
-                color: Theme.of(context).textTheme.headline1.color,
+                color: Theme.of(context).textTheme.headline1!.color,
               ),
             ),
             onPressed: addLockPinToSF,
@@ -105,10 +107,10 @@ class _LockRegisterState extends State<LockRegister> {
               height: 40,
             ),
             Text(
-              _localization.trans('LOCK_HINT'),
+              _localization.trans('LOCK_HINT')!,
               style: TextStyle(
                   fontSize: 24,
-                  color: Theme.of(context).textTheme.headline1.color),
+                  color: Theme.of(context).textTheme.headline1!.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -180,7 +182,7 @@ class _LockRegisterState extends State<LockRegister> {
     });
   }
 
-  Widget _pinTextField(int digit) {
+  Widget _pinTextField(int? digit) {
     return Container(
         width: 50,
         height: 45,
@@ -189,13 +191,13 @@ class _LockRegisterState extends State<LockRegister> {
           digit != null ? digit.toString() : "",
           style: TextStyle(
             fontSize: 30,
-            color: Theme.of(context).textTheme.headline1.color,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
         ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: Theme.of(context).textTheme.headline1.color,
+              color: Theme.of(context).textTheme.headline1!.color!,
               width: 2,
             ),
           ),

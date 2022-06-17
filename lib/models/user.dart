@@ -7,19 +7,19 @@ enum Membership {
 }
 
 class User {
-  @required String uid;
-  String email;
-  @required String displayName;
-  String thumbURL;
-  String photoURL;
-  String phoneNumber;
-  String statusMsg;
-  bool showEmailAddress;
-  bool showPhoneNumber;
-  Membership membership;
-  Timestamp createdAt;
-  Timestamp updatedAt;
-  Timestamp deletedAt;
+  @required String? uid;
+  String? email;
+  @required String? displayName;
+  String? thumbURL;
+  String? photoURL;
+  String? phoneNumber;
+  String? statusMsg;
+  bool? showEmailAddress;
+  bool? showPhoneNumber;
+  Membership? membership;
+  Timestamp? createdAt;
+  Timestamp? updatedAt;
+  Timestamp? deletedAt;
 
   User({
     this.uid,
@@ -41,7 +41,7 @@ class User {
     this.deletedAt,
   });
 
-  factory User.fromMap(Map data, String id) {
+  factory User.fromMap(Map? data, String id) {
     data = data ?? {};
     return User(
       uid: id,

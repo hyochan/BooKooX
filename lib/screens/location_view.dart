@@ -10,11 +10,11 @@ class LocationView extends StatefulWidget {
 }
 
 class _LocationViewState extends State<LocationView> {
-  GoogleMapController mapController;
-  LatLng _center;
+  late GoogleMapController mapController;
+  LatLng? _center;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
-  Set markerSet;
-  String _countryCode;
+  Set? markerSet;
+  late String _countryCode;
 
   @override
   void initState() {
@@ -33,9 +33,7 @@ class _LocationViewState extends State<LocationView> {
       country: _countryCode,
     );
 
-    if (location != null &&
-        location['lat'] != null &&
-        location['lng'] != null) {
+    if (location['lat'] != null && location['lng'] != null) {
       var latLng = LatLng(location['lat'], location['lng']);
       _setMarker(latLng);
 
@@ -63,9 +61,9 @@ class _LocationViewState extends State<LocationView> {
     try {
       currentLocation = await location.getLocation();
     } catch (e) {
-      if (e.currency == 'PERMISSION_DENIED') {
-        error = 'Permission denied';
-      }
+      // if (e.currency == 'PERMISSION_DENIED') {
+      //   error = 'Permission denied';
+      // }
       currentLocation = null;
     }
 
@@ -119,7 +117,7 @@ class _LocationViewState extends State<LocationView> {
               onPressed: () => getPlace(),
               child: Icon(
                 Icons.search,
-                color: Theme.of(context).textTheme.headline1.color,
+                color: Theme.of(context).textTheme.headline1!.color,
               ),
             ),
           ),
@@ -141,7 +139,7 @@ class _LocationViewState extends State<LocationView> {
               },
               child: Icon(
                 Icons.check,
-                color: Theme.of(context).textTheme.headline1.color,
+                color: Theme.of(context).textTheme.headline1!.color,
               ),
             ),
           ),
@@ -152,10 +150,10 @@ class _LocationViewState extends State<LocationView> {
           : GoogleMap(
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
-                target: _center,
+                target: _center!,
                 zoom: 11.0,
               ),
-              markers: markerSet ?? null,
+              markers: markerSet as Set<Marker>,
               onCameraMove: _onCameraMoved,
             ),
     );

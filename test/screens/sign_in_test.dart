@@ -30,8 +30,6 @@ void main() {
     Finder passwordField = find.byKey(new Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
-    Finder signInBtn = find.byKey(new Key('sign-in-button'));
-
     // TODO: Should mock firebase in order to survive below codes
 
     // await tester.tap(signInBtn);

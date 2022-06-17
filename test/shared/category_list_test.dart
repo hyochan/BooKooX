@@ -1,4 +1,4 @@
-import 'package:wecount/models/Category.dart';
+import 'package:wecount/models/category.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:wecount/shared/category_list.dart' show CategoryList;

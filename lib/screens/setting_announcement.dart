@@ -7,7 +7,7 @@ import 'package:wecount/utils/localization.dart' show Localization;
 class Entry {
   Entry(this.title, [this.children = const <Entry>[]]);
 
-  final String title;
+  final String? title;
   final List<Entry> children;
 }
 
@@ -17,7 +17,7 @@ class EntryItem extends StatelessWidget {
   final Entry entry;
 
   Widget _buildTiles(Entry root) {
-    if (root.children.isEmpty) return ListTile(title: Text(root.title));
+    if (root.children.isEmpty) return ListTile(title: Text(root.title!));
     return ExpansionTile(
       key: PageStorageKey<Entry>(root),
       title: Text(root.title ?? ''),
@@ -32,9 +32,11 @@ class EntryItem extends StatelessWidget {
 }
 
 class SettingAnnouncement extends StatelessWidget {
+  static const String name = '/setting_announcement';
+
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     final List<Entry> data = <Entry>[
       Entry(
         _localization.trans('ANNOUNCEMENT_1'),
@@ -53,10 +55,10 @@ class SettingAnnouncement extends StatelessWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          _localization.trans('ANNOUNCEMENT'),
+          _localization.trans('ANNOUNCEMENT')!,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.headline1.color,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
         ),
       ),

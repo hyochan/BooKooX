@@ -1,6 +1,6 @@
 import 'package:wecount/mocks/home_statistic.mock.dart';
-import 'package:wecount/models/LedgerItem.dart';
-import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/shared/date_selector.dart' show DateSelector;
 import 'package:wecount/screens/home_statistic/functions.dart';
 
@@ -20,7 +20,7 @@ import 'package:provider/provider.dart';
 
 class HomeStatistic extends StatelessWidget {
   HomeStatistic({
-    Key key,
+    Key? key,
     this.title = '대학 하계 MT',
   }) : super(key: key);
   final String title;
@@ -28,7 +28,7 @@ class HomeStatistic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger().color
+        ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
 
     return Scaffold(
@@ -44,7 +44,7 @@ class HomeStatistic extends StatelessWidget {
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
               onPressed: () => General.instance
-                  .navigateScreenNamed(context, '/ledger_item_add'),
+                  .navigateScreenNamed(context, '/ledger_item_edit'),
               child: Icon(
                 Icons.add,
                 color: Colors.white,
@@ -66,7 +66,7 @@ class HomeStatistic extends StatelessWidget {
 }
 
 class Content extends StatefulWidget {
-  Content({Key key}) : super(key: key);
+  Content({Key? key}) : super(key: key);
 
   @override
   _ContentState createState() => _ContentState();
@@ -74,14 +74,14 @@ class Content extends StatefulWidget {
 
 class _ContentState extends State<Content> {
   /// From parent
-  List<LedgerItem> _ledgerList;
+  late List<LedgerItem> _ledgerList;
 
   /// State
   DateTime _date = DateTime.now();
-  List<LedgerItem> _condensedLedgerList = List();
-  Map<String, double> _dataMapIncome = Map();
-  Map<String, double> _dataMapExpense = Map();
-  int _selectedChart;
+  List<LedgerItem> _condensedLedgerList = [];
+  Map<String, double>? _dataMapIncome = Map();
+  Map<String, double>? _dataMapExpense = Map();
+  int? _selectedChart;
 
   List<Color> colorList = [
     Asset.Colors.blue,
@@ -97,7 +97,7 @@ class _ContentState extends State<Content> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      _ledgerList = createHomeStatisticMock(Localization.of(context));
+      _ledgerList = createHomeStatisticMock(Localization.of(context)!);
 
       calculateAndRender(this._date.month.toString(), _ledgerList);
       this.setState(() => this._selectedChart = 1);
@@ -128,7 +128,7 @@ class _ContentState extends State<Content> {
       int year = this._date.year;
       int prevDate = year - 100;
       int lastDate = year + 10;
-      DateTime pickDate = await showMonthPicker(
+      DateTime? pickDate = await showMonthPicker(
         context: context,
         initialDate: this._date,
         firstDate: DateTime(prevDate),
@@ -141,7 +141,7 @@ class _ContentState extends State<Content> {
     }
 
     Map<String, double> dataMap =
-        this._selectedChart == 1 ? this._dataMapIncome : this._dataMapExpense;
+        this._selectedChart == 1 ? this._dataMapIncome! : this._dataMapExpense!;
 
     /// PieChart throws error when `_dataMap` is empty
     var chartWidget = dataMap.length > 0
@@ -150,7 +150,7 @@ class _ContentState extends State<Content> {
             centerTextStyle: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
-              color: Theme.of(context).textTheme.headline1.color,
+              color: Theme.of(context).textTheme.headline1!.color,
             ),
             animationDuration: Duration(milliseconds: 800),
             chartLegendSpacing: 32.0,
@@ -170,7 +170,7 @@ class _ContentState extends State<Content> {
                   padding: EdgeInsets.all(20),
                 ),
                 Text(
-                  localization.trans('NO_DATA'),
+                  localization!.trans('NO_DATA')!,
                   style: TextStyle(),
                 ),
               ],
@@ -234,10 +234,10 @@ class ButtonGroup extends StatelessWidget {
   final Function onButtonTwoPressed;
 
   ButtonGroup(
-      {Key key,
-      @required this.selected,
-      @required this.onButtonOnePressed,
-      @required this.onButtonTwoPressed})
+      {Key? key,
+      required this.selected,
+      required this.onButtonOnePressed,
+      required this.onButtonTwoPressed})
       : super(key: key);
 
   final width = 300;
@@ -248,7 +248,7 @@ class ButtonGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color selectedColor = Theme.of(context).primaryColor;
-    var localization = Localization.of(context);
+    var localization = Localization.of(context)!;
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       height: 40,
@@ -261,9 +261,9 @@ class ButtonGroup extends StatelessWidget {
               height: buttonHeight,
               child: RaisedButton(
                 color: this.selected == 1 ? selectedColor : Colors.white,
-                onPressed: this.onButtonOnePressed,
+                onPressed: this.onButtonOnePressed as void Function()?,
                 child: Text(
-                  localization.trans("INCOME"),
+                  localization.trans("INCOME")!,
                   style: TextStyle(
                     color:
                         this.selected == 1 ? selectedColorText : Colors.black,
@@ -282,9 +282,9 @@ class ButtonGroup extends StatelessWidget {
               height: buttonHeight,
               child: RaisedButton(
                 color: this.selected == 2 ? selectedColor : Colors.white,
-                onPressed: this.onButtonTwoPressed,
+                onPressed: this.onButtonTwoPressed as void Function()?,
                 child: Text(
-                  localization.trans("CONSUME"),
+                  localization.trans("CONSUME")!,
                   style: TextStyle(
                     color:
                         this.selected == 2 ? selectedColorText : Colors.black,

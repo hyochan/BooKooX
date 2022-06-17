@@ -6,10 +6,10 @@ import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:image_picker/image_picker.dart';
 
 class ProfileImageCam extends StatelessWidget {
-  final Function selectGallery;
-  final Function selectCamera;
-  final XFile imgFile;
-  final String imgStr;
+  final Function? selectGallery;
+  final Function? selectCamera;
+  final XFile? imgFile;
+  final String? imgStr;
 
   ProfileImageCam({
     this.selectGallery,
@@ -40,17 +40,17 @@ class ProfileImageCam extends StatelessWidget {
                               width: 80.0,
                               height: 80.0,
                               child: InkWell(
-                                onTap: this.selectGallery,
+                                onTap: this.selectGallery as void Function()?,
                               ),
                             )))
                     : this.imgFile != null
                         ? Container(
                             child: FlatButton(
-                              onPressed: this.selectGallery,
+                              onPressed: this.selectGallery as void Function()?,
                               padding: EdgeInsets.all(0.0),
                               child: CircleAvatar(
                                 backgroundImage:
-                                    FileImage(File(this.imgFile.path)),
+                                    FileImage(File(this.imgFile!.path)),
                                 radius: 80.0,
                               ),
                             ),
@@ -59,13 +59,13 @@ class ProfileImageCam extends StatelessWidget {
                             clipBehavior: Clip.hardEdge,
                             color: Colors.transparent,
                             child: FlatButton(
-                              onPressed: this.selectGallery,
+                              onPressed: this.selectGallery as void Function()?,
                               padding: EdgeInsets.all(0.0),
                               child: ClipOval(
                                 child: FadeInImage.assetNetwork(
                                     fit: BoxFit.cover,
                                     placeholder: 'res/icons/icMask.png',
-                                    image: this.imgStr),
+                                    image: this.imgStr!),
                               ),
                             ),
                           ),
@@ -78,7 +78,7 @@ class ProfileImageCam extends StatelessWidget {
                 child: ClipOval(
                   child: FlatButton(
                     padding: EdgeInsets.all(0.0),
-                    onPressed: this.selectCamera,
+                    onPressed: this.selectCamera as void Function()?,
                     child: Icon(
                       Icons.camera,
                     ),

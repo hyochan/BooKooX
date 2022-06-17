@@ -8,7 +8,7 @@ import 'package:wecount/shared/dialog_spinner.dart';
 import 'package:wecount/utils/localization.dart';
 
 class General {
-  static final General instance = new General();
+  static final General instance = General();
 
   TextSelection setCursorAtTheEnd(TextEditingController textController) {
     /// Flutter currently reset the cursor. Always place the cursor at the end.
@@ -21,7 +21,7 @@ class General {
     return cursorPos;
   }
 
-  Future<Object> navigateScreenNamed(BuildContext context, String routeName,
+  Future<dynamic> navigateScreenNamed(BuildContext context, String routeName,
       {bool reset = false}) {
     if (reset) {
       return Navigator.pushNamedAndRemoveUntil(
@@ -43,8 +43,8 @@ class General {
 
   void showDialogSpinner(
     BuildContext context, {
-    String text,
-    TextStyle textStyle,
+    String? text,
+    TextStyle? textStyle,
   }) {
     showDialog<bool>(
         context: context,
@@ -52,8 +52,9 @@ class General {
         builder: (BuildContext context) {
           return DialogSpinner(
             textStyle: textStyle,
-            text:
-                text != null ? text : Localization.of(context).trans('LOADING'),
+            text: text != null
+                ? text
+                : Localization.of(context)!.trans('LOADING'),
           );
         });
   }
@@ -61,12 +62,12 @@ class General {
   void showSingleDialog(
     BuildContext context, {
     bool barrierDismissible = false,
-    @required Widget title,
-    @required Widget content,
-    Function onPress,
+    required Widget title,
+    required Widget content,
+    Function? onPress,
   }) {
     TextStyle _btnTextStyle = TextStyle(
-      color: Theme.of(context).textTheme.headline1.color,
+      color: Theme.of(context).textTheme.headline1!.color,
       fontSize: 16,
     );
 
@@ -80,7 +81,7 @@ class General {
           actions: <Widget>[
             FlatButton(
               child: Text(
-                Localization.of(context).trans('OK'),
+                Localization.of(context)!.trans('OK')!,
                 style: _btnTextStyle,
               ),
               onPressed: () {
@@ -97,13 +98,13 @@ class General {
   void showConfirmDialog(
     BuildContext context, {
     bool barrierDismissible = false,
-    @required Widget title,
-    @required Widget content,
-    Function okPressed,
-    Function cancelPressed,
+    required Widget title,
+    required Widget content,
+    Function? okPressed,
+    Function? cancelPressed,
   }) {
     TextStyle _btnTextStyle = TextStyle(
-      color: Theme.of(context).textTheme.headline1.color,
+      color: Theme.of(context).textTheme.headline1!.color,
       fontSize: 16,
     );
     showDialog<Null>(
@@ -116,15 +117,15 @@ class General {
           actions: <Widget>[
             FlatButton(
               child: Text(
-                Localization.of(context).trans('OK'),
+                Localization.of(context)!.trans('OK')!,
                 style: _btnTextStyle,
               ),
-              onPressed: okPressed,
+              onPressed: okPressed as void Function()?,
             ),
             FlatButton(
-              onPressed: cancelPressed,
+              onPressed: cancelPressed as void Function()?,
               child: Text(
-                Localization.of(context).trans('CANCEL'),
+                Localization.of(context)!.trans('CANCEL')!,
                 style: _btnTextStyle,
               ),
             )
@@ -135,13 +136,13 @@ class General {
   }
 
   void showMembershipDialog(
-      BuildContext context, Function onChange, int value) {
+      BuildContext context, void Function(int?)? onChange, int value) {
     var _localization = Localization.of(context);
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(_localization.trans('MEMBERSHIP_CHANGE')),
+          title: Text(_localization!.trans('MEMBERSHIP_CHANGE')!),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Container(
@@ -149,19 +150,19 @@ class General {
                 child: Column(
                   children: <Widget>[
                     RadioListTile(
-                      title: Text(_localization.trans('MEMBER_OWNER')),
+                      title: Text(_localization.trans('MEMBER_OWNER')!),
                       groupValue: value,
                       value: 0,
                       onChanged: onChange,
                     ),
                     RadioListTile(
-                      title: Text(_localization.trans('MEMBER_ADMIN')),
+                      title: Text(_localization.trans('MEMBER_ADMIN')!),
                       groupValue: value,
                       value: 1,
                       onChanged: onChange,
                     ),
                     RadioListTile(
-                      title: Text(_localization.trans('MEMBER_GUEST')),
+                      title: Text(_localization.trans('MEMBER_GUEST')!),
                       groupValue: value,
                       value: 2,
                       onChanged: onChange,
@@ -236,17 +237,17 @@ class General {
         });
   }
 
-  Future<XFile> chooseImage({
-    @required BuildContext context,
-    String type,
+  Future<XFile?> chooseImage({
+    required BuildContext context,
+    String? type,
   }) async {
     General.instance.showDialogSpinner(context,
-        text: Localization.of(context).trans('LOADING'));
+        text: Localization.of(context)!.trans('LOADING'));
 
     ImagePicker picker = ImagePicker();
 
     try {
-      XFile imgFile = type == 'camera'
+      XFile? imgFile = type == 'camera'
           ? await picker.pickImage(source: ImageSource.camera)
           : await picker.pickImage(source: ImageSource.gallery);
       return imgFile;
@@ -259,7 +260,7 @@ class General {
   }
 
   File compressImage(File img, {int size = 500}) {
-    Im.Image image = Im.decodeImage(img.readAsBytesSync());
+    Im.Image image = Im.decodeImage(img.readAsBytesSync())!;
     Im.Image smallerImage = Im.copyResize(image, width: size, height: size);
     return smallerImage as File;
   }

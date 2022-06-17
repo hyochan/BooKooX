@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DialogSpinner extends StatelessWidget {
   const DialogSpinner({
     this.textStyle,
-    @required this.text,
+    required this.text,
   });
 
   final textStyle;
@@ -20,7 +20,8 @@ class DialogSpinner extends StatelessWidget {
             CircularProgressIndicator(
               backgroundColor: Theme.of(context).primaryColorLight,
               strokeWidth: 5.0,
-              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
             ),
             Container(
               margin: EdgeInsets.only(left: 30.0),

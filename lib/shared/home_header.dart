@@ -1,5 +1,4 @@
-import 'package:wecount/models/Ledger.dart';
-import 'package:wecount/types/color.dart';
+import 'package:wecount/models/ledger.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 
@@ -8,7 +7,7 @@ final EdgeInsets _titlePadding =
 
 class HomeHeaderExpanded extends StatelessWidget {
   HomeHeaderExpanded({
-    Key key,
+    Key? key,
     this.title = '',
     this.actions,
     this.color,
@@ -16,9 +15,9 @@ class HomeHeaderExpanded extends StatelessWidget {
   }) : super(key: key);
 
   final String title;
-  final List<Widget> actions;
-  final Color color;
-  final Color fontColor;
+  final List<Widget>? actions;
+  final Color? color;
+  final Color? fontColor;
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +53,12 @@ class HomeHeaderExpanded extends StatelessWidget {
 }
 
 AppBar renderHomeAppBar({
-  Key key,
-  @required BuildContext context,
+  Key? key,
+  required BuildContext context,
   String title = '',
-  List<Widget> actions,
-  Color color,
-  Color fontColor,
+  List<Widget>? actions,
+  Color? color,
+  Color? fontColor,
 }) {
   return AppBar(
     elevation: 1.0,
@@ -71,7 +70,7 @@ AppBar renderHomeAppBar({
       title: Text(
         title,
         style: TextStyle(
-          color: fontColor ?? Theme.of(context).textTheme.headline1.color,
+          color: fontColor ?? Theme.of(context).textTheme.headline1!.color,
           fontSize: 16.0,
         ),
       ),

@@ -7,13 +7,13 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:geocoding/geocoding.dart';
 
 class LocationService {
-  Future<LatLng> getUserLocation() async {
-    LocationManager.LocationData currentLocation;
+  Future<LatLng?> getUserLocation() async {
+    LocationManager.LocationData? currentLocation;
     final location = LocationManager.Location();
     try {
       currentLocation = await location.getLocation();
-      final lat = currentLocation.latitude;
-      final lng = currentLocation.longitude;
+      final lat = currentLocation.latitude!;
+      final lng = currentLocation.longitude!;
       final center = LatLng(lat, lng);
       return center;
     } on Exception {
@@ -37,10 +37,10 @@ class GooglePlaceService {
 
     final homeScaffoldKey = new GlobalKey<ScaffoldState>();
 
-    Prediction p = await PlacesAutocomplete.show(
+    Prediction? p = await PlacesAutocomplete.show(
       context: context,
       apiKey: kGoogleApiKey,
-      language: Localization.of(context).locale.languageCode ?? 'en',
+      language: Localization.of(context)!.locale.languageCode,
       mode: Mode.fullscreen,
       components: [Component(Component.country, country)],
     );
@@ -51,7 +51,7 @@ class GooglePlaceService {
 
     /// Get city from p string
     if (p != null) {
-      List<String> list = p.description.split(', ');
+      List<String> list = p.description!.split(', ');
       if (list.length > 1) {
         location['country'] = list[list.length - 1];
 
@@ -76,18 +76,18 @@ class GooglePlaceService {
     return location;
   }
 
-  Future<Null> _displayPrediction(Prediction p, ScaffoldState scaffold,
+  Future<Null> _displayPrediction(Prediction? p, ScaffoldState? scaffold,
       Function(double, double) callback) async {
-    GoogleMapsPlaces _places = new GoogleMapsPlaces();
+    // GoogleMapsPlaces _places = new GoogleMapsPlaces();
 
-    if (p != null) {
-      // get detail (lat/lng)
-      PlacesDetailsResponse detail =
-          await _places.getDetailsByPlaceId(p.placeId);
-      if (detail.result != null) {
-        callback(detail.result.geometry.location.lat,
-            detail.result.geometry.location.lng);
-      }
-    }
+    // if (p != null) {
+    //   // get detail (lat/lng)
+    //   PlacesDetailsResponse detail =
+    //       await _places.getDetailsByPlaceId(p.placeId!);
+    //   if (detail.result != null) {
+    //     callback(detail.result.geometry!.location.lat,
+    //         detail.result.geometry!.location.lng);
+    //   }
+    // }
   }
 }

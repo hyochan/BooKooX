@@ -1,11 +1,6 @@
-import 'package:wecount/models/Currency.dart';
-import 'package:wecount/providers/CurrentLedger.dart';
-import 'package:wecount/models/Ledger.dart';
-import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wecount/screens/home_setting.dart' show HomeSetting;
-import 'package:provider/provider.dart';
 
 import '../test_utils.dart' show TestUtils;
 

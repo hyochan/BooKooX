@@ -1,22 +1,23 @@
-import 'package:wecount/models/LedgerItem.dart';
+import 'package:wecount/models/ledger_item.dart';
 import 'package:flutter/material.dart';
+import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:intl/intl.dart';
-import 'package:wecount/models/User.dart';
+import 'package:wecount/models/user.dart';
 import 'package:wecount/utils/general.dart' show General;
 
 class HomeListItem extends StatelessWidget {
-  final LedgerItem ledgerItem;
+  final LedgerItem? ledgerItem;
 
   HomeListItem({
-    Key key,
+    Key? key,
     this.ledgerItem,
   }) : super(key: key);
 
   List<Widget> buildLabelArea(
     String label, {
-    User writer,
-    BuildContext context,
+    User? writer,
+    required BuildContext context,
   }) {
     List<Widget> labelArea = [];
     labelArea.add(
@@ -25,7 +26,7 @@ class HomeListItem extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
-            color: Theme.of(context).textTheme.headline1.color,
+            color: Theme.of(context).textTheme.headline1!.color,
             fontSize: 16.0,
           ),
         ),
@@ -35,9 +36,9 @@ class HomeListItem extends StatelessWidget {
       labelArea.add(
         Container(
           child: Text(
-            writer.displayName,
+            writer.displayName!,
             style: TextStyle(
-              color: Theme.of(context).textTheme.headline2.color,
+              color: Theme.of(context).textTheme.headline2!.color,
               fontSize: 12.0,
             ),
           ),
@@ -51,18 +52,18 @@ class HomeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final formatCurrency = NumberFormat.simpleCurrency();
 
-    AssetImage _image = ledgerItem.category.getIconImage();
-    String _label = ledgerItem.category.label;
-    User _writer = ledgerItem.writer;
-    bool _isPlus = ledgerItem.price > 0;
-    String _priceFormatted = formatCurrency.format(ledgerItem.price ?? 0.0);
+    AssetImage _image = ledgerItem!.category!.getIconImage()!;
+    String _label = ledgerItem!.category!.label!;
+    User? _writer = ledgerItem!.writer;
+    bool _isPlus = ledgerItem!.price! > 0;
+    String _priceFormatted = formatCurrency.format(ledgerItem!.price ?? 0.0);
     String _priceToShow = (_isPlus ? '+ ' : '- ') +
         _priceFormatted.toString().replaceAll('-', '');
 
     return FlatButton(
       padding: EdgeInsets.all(0),
       onPressed: () =>
-          General.instance.navigateScreenNamed(context, '/line_graph'),
+          General.instance.navigateScreenNamed(context, LineGraph.name),
       child: Container(
         height: 60,
         child: Row(
@@ -98,7 +99,7 @@ class HomeListItem extends StatelessWidget {
                     textAlign: TextAlign.end,
                     style: TextStyle(
                         color: _isPlus
-                            ? Theme.of(context).textTheme.headline1.color
+                            ? Theme.of(context).textTheme.headline1!.color
                             : Asset.Colors.carnation),
                   ),
                 ),

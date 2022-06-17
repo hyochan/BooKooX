@@ -1,32 +1,25 @@
 import 'package:wecount/shared/edit_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:wecount/screens/profile_peer.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/shared/member_list_item.dart';
 import 'package:wecount/shared/header.dart';
-import 'package:wecount/shared/member_list_item.dart'
-    show MemberItem, HeadingItem, ListItem;
-import 'package:wecount/models/User.dart' show User;
-import 'package:wecount/models/User.dart';
-import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/models/user.dart';
+import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
 
 class Members extends StatefulWidget {
-  final Ledger ledger;
-  Members({Key key, this.ledger}) : super(key: key);
+  final Ledger? ledger;
+  Members({Key? key, this.ledger}) : super(key: key);
 
   @override
-  _MembersState createState() => _MembersState(this.ledger);
+  _MembersState createState() => _MembersState();
 }
 
 class _MembersState extends State<Members> {
-  Ledger _ledger;
   bool _isSearchMode = false;
   List<ListItem> _filteredMembers = [];
-
-  _MembersState(this._ledger);
 
   final List<ListItem> _fakeMembers = [
     HeadingItem(
@@ -114,7 +107,7 @@ class _MembersState extends State<Members> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -137,7 +130,7 @@ class _MembersState extends State<Members> {
               },
               child: Icon(
                 Icons.search,
-                color: Theme.of(context).textTheme.headline1.color,
+                color: Theme.of(context).textTheme.headline1!.color,
                 semanticLabel: _localization.trans('SEARCH'),
               ),
             ),
@@ -153,7 +146,7 @@ class _MembersState extends State<Members> {
               height: 80,
               padding: EdgeInsets.symmetric(horizontal: 40),
               alignment: Alignment(-1, 0),
-              child: _isSearchMode ?? false
+              child: _isSearchMode
                   ? EditText(
                       key: Key('member'),
                       textInputAction: TextInputAction.next,
@@ -164,10 +157,10 @@ class _MembersState extends State<Members> {
                             if (list is HeadingItem) {
                               return true;
                             } else if (list is MemberItem) {
-                              return list.user.email
+                              return list.user.email!
                                       .toLowerCase()
                                       .contains(str) ||
-                                  list.user.displayName
+                                  list.user.displayName!
                                       .toLowerCase()
                                       .contains(str);
                             }
@@ -179,7 +172,7 @@ class _MembersState extends State<Members> {
                   : Text(
                       '${_localization.trans('MEMBER')} ${item.numOfPeople}',
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.headline1.color,
+                        color: Theme.of(context).textTheme.headline1!.color,
                         fontSize: 28,
                       ),
                     ),
@@ -188,12 +181,12 @@ class _MembersState extends State<Members> {
             return MemberListItem(
               user: item.user,
               onPressAuth: () {
-                General.instance.showMembershipDialog(context, (int val) {
+                General.instance.showMembershipDialog(context, (int? val) {
                   setState(() {
-                    item.user.changeMemberShip(val);
+                    item.user.changeMemberShip(val!);
                   });
                   Navigator.of(context).pop();
-                }, item.user.membership.index);
+                }, item.user.membership!.index);
               },
               onPressMember: () {
                 General.instance.navigateScreen(
@@ -206,7 +199,7 @@ class _MembersState extends State<Members> {
               },
             );
           }
-          return null;
+          return Container();
         },
       ),
     );

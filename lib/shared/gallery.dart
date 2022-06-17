@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:wecount/models/LedgerItem.dart';
+import 'package:wecount/models/ledger_item.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/screens/photo_detail.dart';
-import 'package:wecount/models/Photo.dart';
+import 'package:wecount/models/photo.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/general.dart' show General;
@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 
 enum PhotoOption { Camera, Gallery }
 
-Future<PhotoOption> _asyncPhotoSelect(BuildContext context) async {
+Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
   var _localization = Localization.of(context);
 
   return await showDialog<PhotoOption>(
@@ -31,15 +31,15 @@ Future<PhotoOption> _asyncPhotoSelect(BuildContext context) async {
                   children: <Widget>[
                     Icon(
                       Icons.camera,
-                      color: Theme.of(context).textTheme.headline1.color,
+                      color: Theme.of(context).textTheme.headline1!.color,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 8),
                       child: Text(
-                        _localization.trans('CAMERA'),
+                        _localization!.trans('CAMERA')!,
                         style: TextStyle(
                           fontSize: 16,
-                          color: Theme.of(context).textTheme.headline1.color,
+                          color: Theme.of(context).textTheme.headline1!.color,
                         ),
                       ),
                     ),
@@ -57,15 +57,15 @@ Future<PhotoOption> _asyncPhotoSelect(BuildContext context) async {
                   children: <Widget>[
                     Icon(
                       Icons.photo,
-                      color: Theme.of(context).textTheme.headline1.color,
+                      color: Theme.of(context).textTheme.headline1!.color,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 8),
                       child: Text(
-                        _localization.trans('GALLERY'),
+                        _localization.trans('GALLERY')!,
                         style: TextStyle(
                           fontSize: 16,
-                          color: Theme.of(context).textTheme.headline1.color,
+                          color: Theme.of(context).textTheme.headline1!.color,
                         ),
                       ),
                     ),
@@ -83,11 +83,11 @@ class Gallery extends StatefulWidget {
   Gallery({
     this.margin,
     this.showAll = false,
-    @required this.picture,
-    @required this.ledgerItem,
+    required this.picture,
+    required this.ledgerItem,
   });
 
-  final EdgeInsets margin;
+  final EdgeInsets? margin;
   final bool showAll;
   final List<Photo> picture;
   final LedgerItem ledgerItem;
@@ -97,7 +97,7 @@ class Gallery extends StatefulWidget {
 }
 
 class _GalleryState extends State<Gallery> {
-  List<Photo> picture;
+  List<Photo>? picture;
 
   _GalleryState(List<Photo> picture) {
     this.picture = picture;
@@ -105,7 +105,7 @@ class _GalleryState extends State<Gallery> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     void onPressShowAll() {}
 
@@ -129,9 +129,9 @@ class _GalleryState extends State<Gallery> {
                       ),
                     ),
                     Text(
-                      _localization.trans('PICTURE'),
+                      _localization.trans('PICTURE')!,
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.headline1.color,
+                        color: Theme.of(context).textTheme.headline1!.color,
                         fontSize: 16,
                       ),
                     ),
@@ -142,9 +142,9 @@ class _GalleryState extends State<Gallery> {
                   ? FlatButton(
                       onPressed: onPressShowAll,
                       child: Text(
-                        _localization.trans('SHOW_ALL'),
+                        _localization.trans('SHOW_ALL')!,
                         style: TextStyle(
-                          color: Theme.of(context).textTheme.headline1.color,
+                          color: Theme.of(context).textTheme.headline1!.color,
                           fontSize: 16,
                           decoration: TextDecoration.underline,
                         ),
@@ -157,15 +157,15 @@ class _GalleryState extends State<Gallery> {
             width: double.infinity,
             margin: EdgeInsets.only(bottom: 32),
             child: Wrap(
-              children: this.picture.map((Photo photo) {
+              children: this.picture!.map((Photo photo) {
                 if (photo.isAddBtn == true) {
                   return Container(
                     padding: EdgeInsets.only(right: 4, bottom: 6),
                     child: FlatButton(
                       onPressed: () async {
-                        final PhotoOption photoOption =
+                        final PhotoOption? photoOption =
                             await _asyncPhotoSelect(context);
-                        XFile imgFile;
+                        XFile? imgFile;
                         switch (photoOption) {
                           case PhotoOption.Camera:
                             imgFile = await General.instance
@@ -175,11 +175,13 @@ class _GalleryState extends State<Gallery> {
                             imgFile = await General.instance
                                 .chooseImage(context: context, type: 'gallery');
                             break;
+                          default:
+                            break;
                         }
 
                         if (imgFile != null) {
                           Photo photo = new Photo(file: imgFile);
-                          this.picture.add(photo);
+                          this.picture!.add(photo);
                           widget.ledgerItem.picture = this.picture;
                         }
                       },
@@ -190,7 +192,7 @@ class _GalleryState extends State<Gallery> {
                         height: 72,
                         child: Icon(
                           Icons.add,
-                          color: Theme.of(context).textTheme.headline1.color,
+                          color: Theme.of(context).textTheme.headline1!.color,
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -212,7 +214,7 @@ class _GalleryState extends State<Gallery> {
                         Positioned.fill(
                           left: 4,
                           child: Image.file(
-                            File(photo.file.path),
+                            File(photo.file!.path),
                             fit: BoxFit.cover,
                             height: 72,
                             width: 84,
@@ -230,10 +232,10 @@ class _GalleryState extends State<Gallery> {
                                       PhotoDetail(
                                     photo: photo,
                                     onPressDelete: () {
-                                      int index = this.picture.indexWhere(
+                                      int index = this.picture!.indexWhere(
                                           (Photo compare) =>
                                               compare.file == photo.file);
-                                      this.picture.removeAt(index);
+                                      this.picture!.removeAt(index);
                                       widget.ledgerItem.picture = this.picture;
                                       Navigator.of(context).pop();
                                     },

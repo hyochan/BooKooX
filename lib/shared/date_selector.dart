@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DateSelector extends StatelessWidget {
   final Function onDatePressed;
   final String date;
-  DateSelector({@required this.onDatePressed, @required this.date});
+  DateSelector({required this.onDatePressed, required this.date});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +11,7 @@ class DateSelector extends StatelessWidget {
       child: Row(
         children: <Widget>[
           FlatButton(
-            onPressed: this.onDatePressed,
+            onPressed: this.onDatePressed as void Function()?,
             child: Row(
               children: <Widget>[
                 Text(
@@ -24,7 +24,7 @@ class DateSelector extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.arrow_drop_down),
                   color: Colors.grey,
-                  onPressed: onDatePressed,
+                  onPressed: onDatePressed as void Function()?,
                 ),
               ],
             ),

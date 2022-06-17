@@ -1,5 +1,5 @@
 import 'package:wecount/mocks/line_graph.mock.dart';
-import 'package:wecount/models/LedgerItem.dart';
+import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/shared/line_graph_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -8,21 +8,20 @@ import '../shared/header.dart' show renderHeaderBack;
 
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
 
-/// utils
-bool notNull(Object o) => o != null;
-
 double getPriceSum(List<LedgerItem> items) {
   double sum = 0;
   items.forEach((item) {
-    sum += item.price.abs();
+    sum += item.price!.abs();
   });
   return sum;
 }
 
 /// main
 class LineGraph extends StatefulWidget {
+  static const String name = '/line_graph';
+
   LineGraph({
-    Key key,
+    Key? key,
     this.title = '',
     this.year = '2019',
   }) : super(key: key);
@@ -36,8 +35,8 @@ class LineGraph extends StatefulWidget {
 class _LineGraphState extends State<LineGraph> {
   int _selectedMonth = 0;
   double _priceSum = 0;
-  List<LedgerItem> _items = List();
-  List<LedgerItem> _selectedItems = List();
+  List<LedgerItem> _items = [];
+  List<LedgerItem> _selectedItems = [];
 
   @override
   void initState() {
@@ -47,7 +46,7 @@ class _LineGraphState extends State<LineGraph> {
 
       // this._items = createCafeList(_localization);
       this.setState(() {
-        this._items = createMockCafeList(_localization);
+        this._items = createMockCafeList(_localization!);
         this._selectedItems = this._items;
         this._priceSum = getPriceSum(this._items);
       });
@@ -56,10 +55,10 @@ class _LineGraphState extends State<LineGraph> {
 
   /// on click the month on graph
   /// set bottom list to show selected month, total expenditure and its list
-  void handleClickGraph({@required int month, @required double sumOfPrice}) {
-    List<LedgerItem> itemsOfThisMonth = List();
+  void handleClickGraph({required int month, required double sumOfPrice}) {
+    List<LedgerItem> itemsOfThisMonth = [];
     this._items.forEach((item) {
-      if (item.selectedDate.month == month) {
+      if (item.selectedDate!.month == month) {
         itemsOfThisMonth.add(item);
       }
     });
@@ -73,7 +72,7 @@ class _LineGraphState extends State<LineGraph> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     /// Render
     return Scaffold(
@@ -82,7 +81,7 @@ class _LineGraphState extends State<LineGraph> {
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).textTheme.headline1.color,
+        iconColor: Theme.of(context).textTheme.headline1!.color,
         brightness: Theme.of(context).brightness,
       ),
       body: SafeArea(
@@ -90,10 +89,10 @@ class _LineGraphState extends State<LineGraph> {
           children: <Widget>[
             headerAlign(
               child: Text(
-                _localization.trans('CAFE'),
+                _localization.trans('CAFE')!,
                 style: TextStyle(
                   fontSize: 30,
-                  color: Theme.of(context).textTheme.headline1.color,
+                  color: Theme.of(context).textTheme.headline1!.color,
                 ),
               ),
             ),
@@ -124,8 +123,8 @@ class _LineGraphState extends State<LineGraph> {
               itemBuilder: (context, index) {
                 final item = this._selectedItems[index];
                 return bottomItemWidget(
-                  date: DateFormat('yyyy-MM-dd').format(item.selectedDate),
-                  price: item.price.abs(),
+                  date: DateFormat('yyyy-MM-dd').format(item.selectedDate!),
+                  price: item.price!.abs(),
                 );
               },
             ),
@@ -136,8 +135,7 @@ class _LineGraphState extends State<LineGraph> {
   }
 }
 
-/// Wigets
-Widget headerAlign({@required Widget child}) {
+Widget headerAlign({required Widget child}) {
   return Align(
     alignment: Alignment.centerLeft,
     child: Container(
@@ -153,7 +151,7 @@ class BottomListTitle extends StatelessWidget {
   final double fontSize = 25;
   final FontWeight fontWeight = FontWeight.w500;
 
-  BottomListTitle({Key key, @required this.date, @required price})
+  BottomListTitle({Key? key, required this.date, required price})
       : this.formattedPrice =
             NumberFormat.simpleCurrency().format(price ?? 0.0),
         super(key: key);
@@ -180,12 +178,12 @@ class BottomListTitle extends StatelessWidget {
   }
 }
 
-Widget bottomItemWidget({@required String date, @required double price}) {
+Widget bottomItemWidget({required String date, required double price}) {
   double fontSize = 15;
   return ListTile(
     leading:
         Text(date, style: TextStyle(color: Colors.grey, fontSize: fontSize)),
-    trailing: Text(NumberFormat.simpleCurrency().format(price ?? 0.0),
+    trailing: Text(NumberFormat.simpleCurrency().format(price),
         style: TextStyle(fontSize: fontSize)),
   );
 }
