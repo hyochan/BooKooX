@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/widgets.dart';
+
 enum Membership {
   Owner,
   Admin,
@@ -7,9 +7,9 @@ enum Membership {
 }
 
 class User {
-  @required String? uid;
+  String? uid;
   String? email;
-  @required String? displayName;
+  String? displayName;
   String? thumbURL;
   String? photoURL;
   String? phoneNumber;
@@ -33,7 +33,7 @@ class User {
     this.showPhoneNumber,
 
     /// [membership] judges the permission of user in ledger.
-    /// 
+    ///
     /// This will be fetched in the [members] screen.
     this.membership,
     this.createdAt,

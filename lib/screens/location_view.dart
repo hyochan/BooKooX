@@ -56,7 +56,7 @@ class _LocationViewState extends State<LocationView> {
     var currentLocation;
     var error;
 
-    var location = new Location();
+    var location = Location();
 
     try {
       currentLocation = await location.getLocation();

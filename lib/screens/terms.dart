@@ -6,7 +6,7 @@ class Terms extends StatefulWidget {
   Terms({Key? key}) : super(key: key);
 
   @override
-  _TermsState createState() => new _TermsState();
+  _TermsState createState() => _TermsState();
 }
 
 class _TermsState extends State<Terms> {

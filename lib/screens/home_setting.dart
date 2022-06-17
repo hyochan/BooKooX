@@ -21,7 +21,7 @@ class HomeSetting extends StatefulWidget {
   final String title;
 
   @override
-  _HomeSettingState createState() => new _HomeSettingState();
+  _HomeSettingState createState() => _HomeSettingState();
 }
 
 class _HomeSettingState extends State<HomeSetting> {

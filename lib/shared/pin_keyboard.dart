@@ -19,7 +19,7 @@ class PinKeyboard extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onPressed,
-        borderRadius: new BorderRadius.circular(40.0),
+        borderRadius: BorderRadius.circular(40.0),
         child: Container(
           height: 80.0,
           width: 80.0,

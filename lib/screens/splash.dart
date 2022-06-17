@@ -12,7 +12,7 @@ class Splash extends StatefulWidget {
   Splash({Key? key}) : super(key: key);
 
   @override
-  _SplashState createState() => new _SplashState();
+  _SplashState createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {

@@ -25,7 +25,7 @@ class PhotoDetail extends StatefulWidget {
   final Function? onPressDownload;
 
   @override
-  _State createState() => new _State();
+  _State createState() => _State();
 }
 
 class _State extends State<PhotoDetail> {

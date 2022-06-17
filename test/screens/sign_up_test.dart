@@ -26,10 +26,10 @@ void main() {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(new Key('email'));
+    Finder emailField = find.byKey(Key('email'));
     await tester.enterText(emailField, 'aa@aa');
 
-    Finder passwordField = find.byKey(new Key('password'));
+    Finder passwordField = find.byKey(Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
     // TODO: Should mock firebase in order to survive below codes
@@ -44,10 +44,10 @@ void main() {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(new Key('email'));
+    Finder emailField = find.byKey(Key('email'));
     await tester.enterText(emailField, 'aa@aa.aa');
 
-    Finder passwordField = find.byKey(new Key('password'));
+    Finder passwordField = find.byKey(Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
     await tester.tap(find.text('SIGN_UP').last);
@@ -60,13 +60,13 @@ void main() {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(new Key('email'));
+    Finder emailField = find.byKey(Key('email'));
     await tester.enterText(emailField, 'aa@aa.aa');
 
-    Finder passwordField = find.byKey(new Key('password'));
+    Finder passwordField = find.byKey(Key('password'));
     await tester.enterText(passwordField, 'aaaaaa12');
 
-    Finder passwordConfirmField = find.byKey(new Key('password-confirm'));
+    Finder passwordConfirmField = find.byKey(Key('password-confirm'));
     await tester.enterText(passwordConfirmField, 'aaaaaa');
 
     await tester.tap(find.text('SIGN_UP').last);

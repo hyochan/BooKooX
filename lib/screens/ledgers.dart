@@ -22,7 +22,7 @@ class Ledgers extends StatefulWidget {
   Ledgers({Key? key}) : super(key: key);
 
   @override
-  _LedgersState createState() => new _LedgersState();
+  _LedgersState createState() => _LedgersState();
 }
 
 class _LedgersState extends State<Ledgers> {

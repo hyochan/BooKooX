@@ -24,7 +24,7 @@ class DatabaseService {
     ledger.adminIds = [];
 
     ledger.members = [
-      new UserM.User(uid: user.uid),
+      UserM.User(uid: user.uid),
     ];
 
     DocumentReference ref =

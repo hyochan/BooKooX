@@ -31,8 +31,7 @@ class LedgerEdit extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LedgerEditState createState() =>
-      new _LedgerEditState(this.ledger, this.mode);
+  _LedgerEditState createState() => _LedgerEditState(this.ledger, this.mode);
 }
 
 class _LedgerEditState extends State<LedgerEdit> {
@@ -373,8 +372,8 @@ class ColorItem extends StatelessWidget {
             child: InkWell(
               onTap: onTap as void Function()?,
               child: Container(
-                decoration: new BoxDecoration(
-                  border: new Border.all(color: Colors.white),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 width: 24,

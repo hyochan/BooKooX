@@ -20,7 +20,7 @@ class SignIn extends StatefulWidget {
   SignIn({Key? key}) : super(key: key);
 
   @override
-  _SignInState createState() => new _SignInState();
+  _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {

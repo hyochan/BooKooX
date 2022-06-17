@@ -70,7 +70,7 @@ final List<Category> initialCategory = [
 ];
 
 class DBHelper {
-  static final DBHelper instance = new DBHelper();
+  static final DBHelper instance = DBHelper();
   static const String CATEGORY_DB = 'category.db';
   static Database? _database;
 

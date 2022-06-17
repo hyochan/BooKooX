@@ -35,7 +35,7 @@ class GooglePlaceService {
   }) async {
     Map<String, dynamic> location = Map();
 
-    final homeScaffoldKey = new GlobalKey<ScaffoldState>();
+    final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
@@ -78,7 +78,7 @@ class GooglePlaceService {
 
   Future<Null> _displayPrediction(Prediction? p, ScaffoldState? scaffold,
       Function(double, double) callback) async {
-    // GoogleMapsPlaces _places = new GoogleMapsPlaces();
+    // GoogleMapsPlaces _places = GoogleMapsPlaces();
 
     // if (p != null) {
     //   // get detail (lat/lng)

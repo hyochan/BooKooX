@@ -7,7 +7,7 @@ void main() {
   late Future future;
 
   setUp(() {
-    future = new Future.value();
+    future = Future.value();
   });
 
   testWidgets('Widget', (WidgetTester tester) async {

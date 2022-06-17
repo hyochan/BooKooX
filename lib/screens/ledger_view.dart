@@ -18,7 +18,7 @@ class LedgerView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LedgerViewState createState() => new _LedgerViewState(ledger);
+  _LedgerViewState createState() => _LedgerViewState(ledger);
 }
 
 class _LedgerViewState extends State<LedgerView> {
@@ -210,8 +210,8 @@ class ColorItem extends StatelessWidget {
             child: InkWell(
               onTap: onTap as void Function()?,
               child: Container(
-                decoration: new BoxDecoration(
-                  border: new Border.all(color: Colors.white),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 width: 24,

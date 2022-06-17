@@ -18,7 +18,7 @@ class MainEmpty extends StatefulWidget {
   final String title;
 
   @override
-  _MainEmptyState createState() => new _MainEmptyState();
+  _MainEmptyState createState() => _MainEmptyState();
 }
 
 class _MainEmptyState extends State<MainEmpty> {

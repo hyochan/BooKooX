@@ -25,7 +25,7 @@ class LedgerItemEdit extends StatefulWidget {
   final String title;
 
   @override
-  _LedgerItemEditState createState() => new _LedgerItemEditState();
+  _LedgerItemEditState createState() => _LedgerItemEditState();
 }
 
 class _LedgerItemEditState extends State<LedgerItemEdit>

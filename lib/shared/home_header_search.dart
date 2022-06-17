@@ -23,7 +23,7 @@ class HomeHeaderSearch extends StatefulWidget {
   final Color? color;
 
   @override
-  _HomeHeaderSearchState createState() => new _HomeHeaderSearchState();
+  _HomeHeaderSearchState createState() => _HomeHeaderSearchState();
 }
 
 class _HomeHeaderSearchState extends State<HomeHeaderSearch> {

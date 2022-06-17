@@ -15,7 +15,7 @@ class FindPw extends StatefulWidget {
   FindPw({Key? key}) : super(key: key);
 
   @override
-  _FindPwState createState() => new _FindPwState();
+  _FindPwState createState() => _FindPwState();
 }
 
 class _FindPwState extends State<FindPw> {

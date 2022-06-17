@@ -14,7 +14,7 @@ class HomeTab extends StatefulWidget {
   HomeTab({Key? key}) : super(key: key);
 
   @override
-  _HomeTabState createState() => new _HomeTabState();
+  _HomeTabState createState() => _HomeTabState();
 }
 
 class _HomeTabState extends State<HomeTab> {

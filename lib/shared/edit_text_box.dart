@@ -58,7 +58,7 @@ class EditTextBox extends StatefulWidget {
 }
 
 class _EditTextBoxState extends State<EditTextBox> {
-  FocusNode _focus = new FocusNode();
+  FocusNode _focus = FocusNode();
 
   @override
   Widget build(BuildContext context) {

@@ -180,7 +180,7 @@ class _GalleryState extends State<Gallery> {
                         }
 
                         if (imgFile != null) {
-                          Photo photo = new Photo(file: imgFile);
+                          Photo photo = Photo(file: imgFile);
                           this.picture!.add(photo);
                           widget.ledgerItem.picture = this.picture;
                         }

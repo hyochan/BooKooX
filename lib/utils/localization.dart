@@ -26,7 +26,7 @@ class Localization {
         await rootBundle.loadString('res/langs/${locale.languageCode}.json');
 
     Map<String, dynamic> _result = json.decode(data);
-    _sentences = new Map();
+    _sentences = Map();
     _result.forEach((String key, dynamic value) {
       _sentences[key] = value.toString();
     });
@@ -57,7 +57,7 @@ class LocalizationDelegate extends LocalizationsDelegate<Localization> {
 
   @override
   Future<Localization> load(Locale locale) async {
-    Localization localizations = new Localization(locale, isTest: isTest);
+    Localization localizations = Localization(locale, isTest: isTest);
     if (isTest) {
       await localizations.loadTest(locale);
     } else {

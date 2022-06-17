@@ -18,7 +18,7 @@ class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
 
   @override
-  _SignUpState createState() => new _SignUpState();
+  _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
@@ -111,7 +111,7 @@ class _SignUpState extends State<SignUp> {
         );
       }
 
-      throw new Error();
+      throw Error();
     } catch (err) {
       General.instance.showSingleDialog(
         context,
