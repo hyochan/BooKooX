@@ -41,7 +41,6 @@ pubspec.lock
 **/android/.project
 **/android/app/.project
 android/app/bin/.project
-android/app/src/main/res/values/strings.xml
 
 # iOS/XCode related
 **/ios/Flutter/flutter_export_environment.sh
@@ -81,11 +80,14 @@ android/app/src/main/res/values/strings.xml
 .DS_Store
 coverage/
 
-# firebase
+# Firebase
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 ios/firebase_app_id_file.json
+
+# Geo API key
+android/app/src/main/res/values/strings.xml
 
 .env
 **/ios/Flutter/tmp.xcconfig
