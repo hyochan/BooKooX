@@ -83,24 +83,26 @@ class Gallery extends StatefulWidget {
   Gallery({
     this.margin,
     this.showAll = false,
-    required this.picture,
+    this.pictures = const [],
     required this.ledgerItem,
   });
 
   final EdgeInsets? margin;
   final bool showAll;
-  final List<Photo> picture;
+  final List<Photo> pictures;
   final LedgerItem ledgerItem;
 
   @override
-  _GalleryState createState() => _GalleryState(picture);
+  _GalleryState createState() => _GalleryState();
 }
 
 class _GalleryState extends State<Gallery> {
-  List<Photo>? picture;
+  late List<Photo> _pictures;
 
-  _GalleryState(List<Photo> picture) {
-    this.picture = picture;
+  @override
+  void initState() {
+    _pictures = widget.pictures;
+    super.initState();
   }
 
   @override
@@ -157,12 +159,12 @@ class _GalleryState extends State<Gallery> {
             width: double.infinity,
             margin: EdgeInsets.only(bottom: 32),
             child: Wrap(
-              children: this.picture!.map((Photo photo) {
+              children: _pictures.map((Photo photo) {
                 if (photo.isAddBtn == true) {
                   return Container(
                     padding: EdgeInsets.only(right: 4, bottom: 6),
-                    child: FlatButton(
-                      onPressed: () async {
+                    child: InkWell(
+                      onTap: () async {
                         final PhotoOption? photoOption =
                             await _asyncPhotoSelect(context);
                         XFile? imgFile;
@@ -181,12 +183,12 @@ class _GalleryState extends State<Gallery> {
 
                         if (imgFile != null) {
                           Photo photo = Photo(file: imgFile);
-                          this.picture!.add(photo);
-                          widget.ledgerItem.picture = this.picture;
+                          setState(() {
+                            _pictures.add(photo);
+                          });
+                          widget.ledgerItem.picture = _pictures;
                         }
                       },
-                      padding: EdgeInsets.all(0),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       child: Container(
                         width: 80,
                         height: 72,
@@ -232,11 +234,11 @@ class _GalleryState extends State<Gallery> {
                                       PhotoDetail(
                                     photo: photo,
                                     onPressDelete: () {
-                                      int index = this.picture!.indexWhere(
+                                      int index = _pictures.indexWhere(
                                           (Photo compare) =>
                                               compare.file == photo.file);
-                                      this.picture!.removeAt(index);
-                                      widget.ledgerItem.picture = this.picture;
+                                      _pictures.removeAt(index);
+                                      widget.ledgerItem.picture = _pictures;
                                       Navigator.of(context).pop();
                                     },
                                   ),

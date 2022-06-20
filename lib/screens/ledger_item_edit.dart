@@ -14,6 +14,7 @@ import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/logger.dart';
 
 class LedgerItemEdit extends StatefulWidget {
   static const String name = '/ledger_item_edit';
@@ -133,8 +134,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     }
 
     void onLedgerItemEditPressed() {
-      print('onLedgerItemEditPressed');
-      print('${_ledgerItemConsume.toString()}');
+      logger.i('onLedgerItemEditPressed');
+      logger.d('${_ledgerItemConsume.toString()}');
     }
 
     void showCategory(
@@ -175,19 +176,16 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.symmetric(vertical: 8),
+                margin: EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 10,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    FlatButton(
-                      padding: EdgeInsets.all(0),
-                      shape: CircleBorder(),
+                    IconButton(
                       onPressed: onClosePressed,
-                      child: Container(
-                        child: Icon(Icons.close),
-                        width: 40,
-                        height: 40,
-                      ),
+                      icon: Icon(Icons.close),
                     ),
                     Text(
                       '${_localization!.trans('CATEGORY')}',
@@ -196,15 +194,9 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                         color: Theme.of(context).textTheme.headline1!.color,
                       ),
                     ),
-                    FlatButton(
-                      padding: EdgeInsets.all(0),
-                      shape: CircleBorder(),
+                    IconButton(
                       onPressed: () => onAddPressed(categoryType),
-                      child: Container(
-                        child: Icon(Icons.add),
-                        width: 40,
-                        height: 40,
-                      ),
+                      icon: Icon(Icons.add),
                     ),
                   ],
                 ),
@@ -358,8 +350,15 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       child: Container(
                         child: TextField(
                           textInputAction: TextInputAction.done,
-                          onChanged: (String value) =>
-                              _ledgerItemConsume.price = double.parse(value),
+                          onChanged: (String value) {
+                            String inputPrice = value.trim();
+
+                            if (inputPrice == "") {
+                              _ledgerItemConsume.price = 0;
+                            } else {
+                              _ledgerItemConsume.price = double.parse(value);
+                            }
+                          },
                           onTap: () {
                             priceTextEditingController1.text =
                                 '${_ledgerItemConsume.price ?? 0.0}';
@@ -428,7 +427,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               _ledgerItemConsume.address == null
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
-                      icon: Icons.date_range,
+                      icon: Icons.location_on,
                       text: _localization.trans('LOCATION')!,
                       showDropdown: true,
                       onPressed: onLocationPressed,
@@ -443,7 +442,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                     ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),
-                picture: [Photo(isAddBtn: true)],
+                pictures: [Photo(isAddBtn: true)],
                 ledgerItem: _ledgerItemConsume,
               ),
             ],
@@ -506,8 +505,15 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       child: Container(
                         child: TextField(
                           textInputAction: TextInputAction.done,
-                          onChanged: (String value) =>
-                              _ledgerItemIncome.price = double.parse(value),
+                          onChanged: (String value) {
+                            String inputPrice = value.trim();
+
+                            if (inputPrice == "") {
+                              _ledgerItemIncome.price = 0;
+                            } else {
+                              _ledgerItemIncome.price = double.parse(value);
+                            }
+                          },
                           onTap: () {
                             priceTextEditingController2.text =
                                 '${_ledgerItemIncome.price ?? 0.0}';
@@ -578,7 +584,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               _ledgerItemIncome.address == null
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
-                      icon: Icons.date_range,
+                      icon: Icons.location_on,
                       text: _localization.trans('LOCATION')!,
                       showDropdown: true,
                       onPressed: () =>
@@ -595,7 +601,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                     ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),
-                picture: [Photo(isAddBtn: true)],
+                pictures: [Photo(isAddBtn: true)],
                 ledgerItem: _ledgerItemIncome,
               ),
             ],
