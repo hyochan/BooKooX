@@ -110,10 +110,12 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     void onLocationPressed({
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
-      Map<String, dynamic>? result = (General.instance.navigateScreen(
+      Map<String, dynamic>? result = await (General.instance.navigateScreen(
         context,
-        MaterialPageRoute(builder: (BuildContext context) => LocationView()),
-      ) as Map<String, dynamic>?);
+        MaterialPageRoute(
+          builder: (BuildContext context) => LocationView(),
+        ),
+      ));
 
       if (result == null) return;
 
@@ -233,14 +235,12 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
       String text = '',
       bool showDropdown = true,
       bool active = false,
-      Function? onPressed,
+      required void Function() onPressed,
     }) {
       return Container(
         margin: margin,
-        child: FlatButton(
-          color: Theme.of(context).backgroundColor,
-          onPressed: onPressed as void Function()?,
-          padding: EdgeInsets.all(0),
+        child: GestureDetector(
+          onTap: onPressed,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             height: 56,

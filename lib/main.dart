@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,6 +49,7 @@ void main() async {
 
 Future<void> _initFire() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterConfig.loadEnvVariables();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
@@ -82,113 +84,114 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          StreamProvider<User?>.value(
-            value: FirebaseAuth.instance.authStateChanges(),
-            initialData: null,
+      providers: [
+        StreamProvider<User?>.value(
+          value: FirebaseAuth.instance.authStateChanges(),
+          initialData: null,
+        ),
+        ChangeNotifierProvider(create: (context) => CurrentLedger(null)),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          hintColor: Asset.Colors.mediumGray,
+          primaryColor: Asset.Colors.main,
+          primaryColorLight: const Color(0xff6d7999),
+          primaryColorDark: const Color(0xff172540),
+          secondaryHeaderColor: Asset.Colors.mediumGray,
+          backgroundColor: Asset.Colors.light,
+          bottomAppBarColor: Asset.Colors.lightDim,
+          disabledColor: Asset.Colors.warmGray,
+          dialogBackgroundColor: Asset.Colors.light,
+          textTheme: TextTheme(
+            headline1: TextStyle(color: Asset.Colors.dark),
+            headline2: TextStyle(color: Asset.Colors.mediumGray),
+            headline3: TextStyle(color: Asset.Colors.paleGray),
+            caption: TextStyle(color: Asset.Colors.light),
           ),
-          ChangeNotifierProvider(create: (context) => CurrentLedger(null)),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            brightness: Brightness.light,
-            hintColor: Asset.Colors.mediumGray,
-            primaryColor: Asset.Colors.main,
-            primaryColorLight: const Color(0xff6d7999),
-            primaryColorDark: const Color(0xff172540),
-            secondaryHeaderColor: Asset.Colors.mediumGray,
-            backgroundColor: Asset.Colors.light,
-            bottomAppBarColor: Asset.Colors.lightDim,
-            disabledColor: Asset.Colors.warmGray,
-            dialogBackgroundColor: Asset.Colors.light,
-            textTheme: TextTheme(
-              headline1: TextStyle(color: Asset.Colors.dark),
-              headline2: TextStyle(color: Asset.Colors.mediumGray),
-              headline3: TextStyle(color: Asset.Colors.paleGray),
-              caption: TextStyle(color: Asset.Colors.light),
-            ),
-            colorScheme: ColorScheme.fromSwatch().copyWith(
-              secondary: Asset.Colors.greenBlue,
-            ),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: Asset.Colors.greenBlue,
           ),
-          darkTheme: ThemeData(
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          hintColor: Asset.Colors.warmGray,
+          primaryColor: Asset.Colors.main,
+          primaryColorLight: const Color(0xff6d7999),
+          primaryColorDark: const Color(0xff172540),
+          secondaryHeaderColor: Asset.Colors.mediumGray,
+          backgroundColor: Asset.Colors.darkDim,
+          bottomAppBarColor: Asset.Colors.darkDim,
+          disabledColor: Asset.Colors.warmGray,
+          dialogBackgroundColor: Asset.Colors.dark,
+          textTheme: TextTheme(
+            headline1: TextStyle(color: Asset.Colors.light),
+            headline2: TextStyle(color: Asset.Colors.paleGray),
+            headline3: TextStyle(color: Asset.Colors.mediumGray),
+            caption: TextStyle(color: Asset.Colors.dark),
+          ),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            secondary: Asset.Colors.greenBlue,
             brightness: Brightness.dark,
-            hintColor: Asset.Colors.warmGray,
-            primaryColor: Asset.Colors.main,
-            primaryColorLight: const Color(0xff6d7999),
-            primaryColorDark: const Color(0xff172540),
-            secondaryHeaderColor: Asset.Colors.mediumGray,
-            backgroundColor: Asset.Colors.darkDim,
-            bottomAppBarColor: Asset.Colors.darkDim,
-            disabledColor: Asset.Colors.warmGray,
-            dialogBackgroundColor: Asset.Colors.dark,
-            textTheme: TextTheme(
-              headline1: TextStyle(color: Asset.Colors.light),
-              headline2: TextStyle(color: Asset.Colors.paleGray),
-              headline3: TextStyle(color: Asset.Colors.mediumGray),
-              caption: TextStyle(color: Asset.Colors.dark),
-            ),
-            colorScheme: ColorScheme.fromSwatch().copyWith(
-              secondary: Asset.Colors.greenBlue,
-              brightness: Brightness.dark,
-            ),
           ),
-          routes: {
-            AuthSwitch.name: (BuildContext context) => AuthSwitch(),
-            Splash.name: (BuildContext context) => Splash(),
-            Tutorial.name: (BuildContext context) => Tutorial(),
-            Intro.name: (BuildContext context) => Intro(),
-            SignIn.name: (BuildContext context) => SignIn(),
-            SignUp.name: (BuildContext context) => SignUp(),
-            FindPw.name: (BuildContext context) => FindPw(),
-            MainEmpty.name: (BuildContext context) => MainEmpty(),
-            HomeTab.name: (BuildContext context) => HomeTab(),
-            Ledgers.name: (BuildContext context) => Ledgers(),
-            LedgerEdit.name: (BuildContext context) => LedgerEdit(),
-            LedgerView.name: (BuildContext context) => LedgerView(),
-            Terms.name: (BuildContext context) => Terms(),
-            ProfileMy.name: (BuildContext context) => ProfileMy(),
-            Setting.name: (BuildContext context) => Setting(),
-            SettingAnnouncement.name: (BuildContext context) =>
-                SettingAnnouncement(),
-            SettingOpinion.name: (BuildContext context) => SettingOpinion(),
-            SettingFAQ.name: (BuildContext context) => SettingFAQ(),
-            SettingNotification.name: (BuildContext context) =>
-                SettingNotification(),
-            LedgerItemEdit.name: (BuildContext context) => LedgerItemEdit(),
-            SettingCurrency.name: (BuildContext context) => SettingCurrency(),
-            SettingExcel.name: (BuildContext context) => SettingExcel(),
-            LockRegister.name: (BuildContext context) => LockRegister(),
-            LockAuth.name: (BuildContext context) => LockAuth(),
-            LineGraph.name: (BuildContext context) => LineGraph(),
-          },
-          supportedLocales: [
-            const Locale('en', 'US'),
-            const Locale('ko', 'KR'),
-          ],
-          localizationsDelegates: [
-            const LocalizationDelegate(supportedLocales: ['en', 'ko']),
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          localeResolutionCallback:
-              (Locale? locale, Iterable<Locale> supportedLocales) {
-            if (locale == null) {
-              debugPrint("*language locale is null!!!");
-              return supportedLocales.first;
-            }
-            for (Locale supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale.languageCode ||
-                  supportedLocale.countryCode == locale.countryCode) {
-                return supportedLocale;
-              }
-            }
+        ),
+        routes: {
+          AuthSwitch.name: (BuildContext context) => AuthSwitch(),
+          Splash.name: (BuildContext context) => Splash(),
+          Tutorial.name: (BuildContext context) => Tutorial(),
+          Intro.name: (BuildContext context) => Intro(),
+          SignIn.name: (BuildContext context) => SignIn(),
+          SignUp.name: (BuildContext context) => SignUp(),
+          FindPw.name: (BuildContext context) => FindPw(),
+          MainEmpty.name: (BuildContext context) => MainEmpty(),
+          HomeTab.name: (BuildContext context) => HomeTab(),
+          Ledgers.name: (BuildContext context) => Ledgers(),
+          LedgerEdit.name: (BuildContext context) => LedgerEdit(),
+          LedgerView.name: (BuildContext context) => LedgerView(),
+          Terms.name: (BuildContext context) => Terms(),
+          ProfileMy.name: (BuildContext context) => ProfileMy(),
+          Setting.name: (BuildContext context) => Setting(),
+          SettingAnnouncement.name: (BuildContext context) =>
+              SettingAnnouncement(),
+          SettingOpinion.name: (BuildContext context) => SettingOpinion(),
+          SettingFAQ.name: (BuildContext context) => SettingFAQ(),
+          SettingNotification.name: (BuildContext context) =>
+              SettingNotification(),
+          LedgerItemEdit.name: (BuildContext context) => LedgerItemEdit(),
+          SettingCurrency.name: (BuildContext context) => SettingCurrency(),
+          SettingExcel.name: (BuildContext context) => SettingExcel(),
+          LockRegister.name: (BuildContext context) => LockRegister(),
+          LockAuth.name: (BuildContext context) => LockAuth(),
+          LineGraph.name: (BuildContext context) => LineGraph(),
+        },
+        supportedLocales: [
+          const Locale('en', 'US'),
+          const Locale('ko', 'KR'),
+        ],
+        localizationsDelegates: [
+          const LocalizationDelegate(supportedLocales: ['en', 'ko']),
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        localeResolutionCallback:
+            (Locale? locale, Iterable<Locale> supportedLocales) {
+          if (locale == null) {
+            debugPrint("*language locale is null!!!");
             return supportedLocales.first;
-          },
-          title: appName,
-          home: AuthSwitch(),
-        ));
+          }
+          for (Locale supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale.languageCode ||
+                supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
+            }
+          }
+          return supportedLocales.first;
+        },
+        title: appName,
+        home: AuthSwitch(),
+      ),
+    );
   }
 }

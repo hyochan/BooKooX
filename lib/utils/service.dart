@@ -1,3 +1,4 @@
+import 'package:flutter_config/flutter_config.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -5,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as LocationManager;
 import 'package:google_maps_webservice/places.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:wecount/utils/logger.dart';
 
 class LocationService {
   Future<LatLng?> getUserLocation() async {
@@ -27,8 +29,6 @@ class GooglePlaceService {
   static GooglePlaceService _instance = GooglePlaceService();
   static GooglePlaceService get instance => _instance;
 
-  String kGoogleApiKey = '[PLACE_API_KEY]';
-
   Future<Map<String, dynamic>> showGooglePlaceSearch(
     BuildContext context, {
     String country = 'us',
@@ -39,9 +39,14 @@ class GooglePlaceService {
 
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
-      apiKey: kGoogleApiKey,
+      apiKey: FlutterConfig.get('PLACE_API_KEY'),
       language: Localization.of(context)!.locale.languageCode,
       mode: Mode.fullscreen,
+      onError: (e) {
+        logger.e(e.errorMessage);
+      },
+      types: [],
+      strictbounds: false,
       components: [Component(Component.country, country)],
     );
     await _displayPrediction(p, homeScaffoldKey.currentState, (lat, lng) {

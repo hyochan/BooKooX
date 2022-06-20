@@ -80,12 +80,14 @@ class DBHelper {
       path,
       onCreate: (db, version) async {
         await db.execute(
-          "CREATE TABLE categories(id INTEGER primary key AUTO INCREMENT, type INTEGER, iconId INTEGER, label TEXT)",
+          "CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, type INTEGER, iconId INTEGER, label TEXT)",
         );
-        initialCategory.forEach((category) {
-          db.insert('categories', category.toMapInitial(context),
-              conflictAlgorithm: ConflictAlgorithm.abort);
-        });
+        initialCategory.forEach(
+          (category) {
+            db.insert('categories', category.toMapInitial(context),
+                conflictAlgorithm: ConflictAlgorithm.abort);
+          },
+        );
       },
       version: 5,
     );
