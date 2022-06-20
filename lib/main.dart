@@ -11,6 +11,7 @@ import 'package:wecount/firebase_options.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/screens/tutorial.dart';
+import 'package:wecount/utils/constatns.dart';
 
 import './navigations/auth_switch.dart' show AuthSwitch;
 import './navigations/home_tab.dart' show HomeTab;
@@ -107,12 +108,12 @@ class MyApp extends StatelessWidget {
               headline3: TextStyle(color: Asset.Colors.paleGray),
               caption: TextStyle(color: Asset.Colors.light),
             ),
-            colorScheme: ColorScheme.fromSwatch()
-                .copyWith(secondary: Asset.Colors.greenBlue),
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              secondary: Asset.Colors.greenBlue,
+            ),
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
-            accentColor: Asset.Colors.greenBlue,
             hintColor: Asset.Colors.warmGray,
             primaryColor: Asset.Colors.main,
             primaryColorLight: const Color(0xff6d7999),
@@ -127,6 +128,10 @@ class MyApp extends StatelessWidget {
               headline2: TextStyle(color: Asset.Colors.paleGray),
               headline3: TextStyle(color: Asset.Colors.mediumGray),
               caption: TextStyle(color: Asset.Colors.dark),
+            ),
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              secondary: Asset.Colors.greenBlue,
+              brightness: Brightness.dark,
             ),
           ),
           routes: {
@@ -182,7 +187,7 @@ class MyApp extends StatelessWidget {
             }
             return supportedLocales.first;
           },
-          title: 'WeCount',
+          title: appName,
           home: AuthSwitch(),
         ));
   }
