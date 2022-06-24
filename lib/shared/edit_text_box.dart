@@ -29,26 +29,26 @@ class EditTextBox extends StatefulWidget {
     this.borderWidth = 0.7,
     this.borderStyle = BorderStyle.solid,
   });
-  final Key key;
+  final Key? key;
   final bool enabled;
-  final TextEditingController controller;
-  final Color focusedColor;
-  final Color enabledColor;
+  final TextEditingController? controller;
+  final Color? focusedColor;
+  final Color? enabledColor;
   final Color disabledColor;
-  final Image leftImage;
-  final String semanticLabel;
+  final Image? leftImage;
+  final String? semanticLabel;
   final EdgeInsets margin;
-  final IconData iconData;
+  final IconData? iconData;
   final double iconSize;
-  final Function onChangeText;
-  final int maxLength;
+  final Function? onChangeText;
+  final int? maxLength;
   final int maxLines;
-  final TextStyle textStyle;
-  final String labelText;
-  final TextStyle labelStyle;
-  final String hintText;
-  final TextStyle hintStyle;
-  final String errorText;
+  final TextStyle? textStyle;
+  final String? labelText;
+  final TextStyle? labelStyle;
+  final String? hintText;
+  final TextStyle? hintStyle;
+  final String? errorText;
   final TextStyle errorStyle;
   final double borderWidth;
   final BorderStyle borderStyle;
@@ -58,7 +58,7 @@ class EditTextBox extends StatefulWidget {
 }
 
 class _EditTextBoxState extends State<EditTextBox> {
-  FocusNode _focus = new FocusNode();
+  FocusNode _focus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +85,9 @@ class _EditTextBoxState extends State<EditTextBox> {
             enabled: widget.enabled,
             controller: widget.controller,
             style: widget.textStyle ??
-                TextStyle(color: Theme.of(context).textTheme.headline1.color),
+                TextStyle(color: Theme.of(context).textTheme.headline1!.color),
             cursorColor: widget.focusedColor,
-            onChanged: widget.onChangeText,
+            onChanged: widget.onChangeText as void Function(String)?,
             maxLength: widget.maxLength,
             focusNode: _focus,
             maxLines: widget.maxLines,
@@ -98,7 +98,8 @@ class _EditTextBoxState extends State<EditTextBox> {
               focusColor: widget.focusedColor,
               hintText: widget.hintText,
               hintStyle: widget.hintStyle ??
-                  TextStyle(color: Theme.of(context).textTheme.headline3.color),
+                  TextStyle(
+                      color: Theme.of(context).textTheme.headline3!.color),
               errorText: widget.errorText,
               errorStyle: widget.errorStyle,
               contentPadding: EdgeInsets.only(
@@ -110,7 +111,7 @@ class _EditTextBoxState extends State<EditTextBox> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: widget.focusedColor,
+                  color: widget.focusedColor!,
                   width: widget.borderWidth,
                   style: widget.borderStyle,
                 ),
@@ -118,7 +119,7 @@ class _EditTextBoxState extends State<EditTextBox> {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: widget.enabledColor,
+                  color: widget.enabledColor!,
                   width: widget.borderWidth,
                   style: widget.borderStyle,
                 ),
@@ -134,7 +135,7 @@ class _EditTextBoxState extends State<EditTextBox> {
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: widget.errorStyle.color,
+                  color: widget.errorStyle.color!,
                   width: widget.borderWidth,
                   style: widget.borderStyle,
                 ),
@@ -142,7 +143,7 @@ class _EditTextBoxState extends State<EditTextBox> {
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: widget.errorStyle.color,
+                  color: widget.errorStyle.color!,
                   width: widget.borderWidth,
                   style: widget.borderStyle,
                 ),

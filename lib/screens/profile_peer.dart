@@ -1,4 +1,4 @@
-import 'package:wecount/models/User.dart';
+import 'package:wecount/models/user.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,7 @@ class ProfilePeer extends StatefulWidget {
   final User user;
 
   ProfilePeer({
-    @required this.user,
+    required this.user,
   });
 
   @override
@@ -20,7 +20,7 @@ class ProfilePeer extends StatefulWidget {
 
 class _ProfilePeerState extends State<ProfilePeer> {
   void showImage(String photoUrl) async {
-    var _result = await General.instance.navigateScreen(
+    await General.instance.navigateScreen(
       context,
       MaterialPageRoute(
         builder: (BuildContext context) => PhotoDetail(
@@ -32,7 +32,7 @@ class _ProfilePeerState extends State<ProfilePeer> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    Localization.of(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -75,8 +75,8 @@ class _ProfilePeerState extends State<ProfilePeer> {
               controller: TextEditingController(text: 'hello'),
               iconData: Icons.person_outline,
               margin: EdgeInsets.only(top: 24.0),
-              focusedColor: Theme.of(context).textTheme.headline1.color,
-              enabledColor: Theme.of(context).textTheme.headline2.color,
+              focusedColor: Theme.of(context).textTheme.headline1!.color,
+              enabledColor: Theme.of(context).textTheme.headline2!.color,
               enabled: false,
               borderStyle: BorderStyle.none,
               borderWidth: 0,
@@ -84,8 +84,8 @@ class _ProfilePeerState extends State<ProfilePeer> {
             EditTextBox(
               iconData: Icons.email,
               margin: EdgeInsets.only(top: 8.0),
-              focusedColor: Theme.of(context).textTheme.headline1.color,
-              enabledColor: Theme.of(context).textTheme.headline2.color,
+              focusedColor: Theme.of(context).textTheme.headline1!.color,
+              enabledColor: Theme.of(context).textTheme.headline2!.color,
               enabled: false,
               borderStyle: BorderStyle.none,
               borderWidth: 0,
@@ -93,8 +93,8 @@ class _ProfilePeerState extends State<ProfilePeer> {
             EditTextBox(
               iconData: Icons.phone,
               margin: EdgeInsets.only(top: 8.0),
-              focusedColor: Theme.of(context).textTheme.headline1.color,
-              enabledColor: Theme.of(context).textTheme.headline2.color,
+              focusedColor: Theme.of(context).textTheme.headline1!.color,
+              enabledColor: Theme.of(context).textTheme.headline2!.color,
               enabled: false,
               borderStyle: BorderStyle.none,
               borderWidth: 0,

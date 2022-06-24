@@ -6,13 +6,15 @@ import '../shared/button.dart' show Button;
 import '../utils/asset.dart' as Asset;
 
 class SettingExcel extends StatelessWidget {
+  static const String name = '/setting_excel';
+
   void onExportExcel() {
     print('on send excel');
   }
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
@@ -21,10 +23,10 @@ class SettingExcel extends StatelessWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          _localization.trans('EXPORT_EXCEL'),
+          _localization.trans('EXPORT_EXCEL')!,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.headline1.color,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
         ),
       ),

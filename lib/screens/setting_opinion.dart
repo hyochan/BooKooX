@@ -6,13 +6,15 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/asset.dart' as Asset;
 
 class SettingOpinion extends StatelessWidget {
+  static const String name = '/setting_opinion';
+
   void onSendOpinion() {
     print('on send opinion');
   }
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
@@ -21,10 +23,10 @@ class SettingOpinion extends StatelessWidget {
         brightness: Theme.of(context).brightness,
         iconColor: Theme.of(context).iconTheme.color,
         title: Text(
-          _localization.trans('SHARE_OPINION'),
+          _localization.trans('SHARE_OPINION')!,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.headline1.color,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
         ),
       ),

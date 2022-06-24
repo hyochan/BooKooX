@@ -1,31 +1,30 @@
+import 'dart:async';
 import 'dart:io';
 
-import 'package:wecount/models/Currency.dart';
-import 'package:wecount/models/User.dart' as UserM;
-import 'package:wecount/services/storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:async';
-
-import 'package:wecount/models/Ledger.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/user.dart' as UserM;
+import 'package:wecount/services/storage.dart';
+import 'package:wecount/utils/db_helper.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<bool> requestCreateNewLedger(Ledger ledger) async {
-    User user = FirebaseAuth.instance.currentUser;
+  Future<bool> requestCreateNewLedger(Ledger? ledger) async {
+    User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
-      print('user is not signined in');
+      print('user is not sign-in');
       return false;
     }
 
-    ledger.ownerId = user.uid;
+    ledger!.ownerId = user.uid;
     ledger.adminIds = [];
 
     ledger.members = [
-      new UserM.User(uid: user.uid),
+      UserM.User(uid: user.uid),
     ];
 
     DocumentReference ref =
@@ -39,7 +38,7 @@ class DatabaseService {
       'currencyLocale': ledger.currency.locale,
       'currencySymbol': ledger.currency.symbol,
       'members': FieldValue.arrayUnion(
-        ledger.members.map((el) => el.uid).toList(),
+        ledger.members!.map((el) => el.uid).toList(),
       ),
     });
 
@@ -55,15 +54,15 @@ class DatabaseService {
     return true;
   }
 
-  Future<bool> requestUpdateLedger(Ledger ledger) async {
-    User user = await FirebaseAuth.instance.currentUser;
+  Future<bool> requestUpdateLedger(Ledger? ledger) async {
+    User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
-      print('user is not signined in');
+      print('user is not sign-in');
       return false;
     }
 
-    await FirebaseFirestore.instance.collection('ledgers').doc(ledger.id).set({
+    await FirebaseFirestore.instance.collection('ledgers').doc(ledger!.id).set({
       'title': ledger.title,
       'color': ledger.color.index,
       'description': ledger.description,
@@ -75,18 +74,18 @@ class DatabaseService {
     return true;
   }
 
-  Future<void> requestSelectLedger(String _ledgerId) async {
-    User user = FirebaseAuth.instance.currentUser;
+  Future<void> requestSelectLedger(String? _ledgerId) async {
+    User user = FirebaseAuth.instance.currentUser!;
 
     return FirebaseFirestore.instance.collection('users').doc(user.uid).set({
       'selectedLedger': _ledgerId,
     }, SetOptions(merge: true));
   }
 
-  Future<bool> requestLeaveLedger(String _ledgerId) async {
-    User user = FirebaseAuth.instance.currentUser;
+  Future<bool> requestLeaveLedger(String? _ledgerId) async {
+    User? user = FirebaseAuth.instance.currentUser;
 
-    var getLedger = (String _ledgerId) async {
+    var getLedger = (String? _ledgerId) async {
       var snap = await _db.collection('ledgers').doc(_ledgerId).get();
       return Ledger.fromMap(snap.data());
     };
@@ -96,7 +95,7 @@ class DatabaseService {
     bool hasOwnerPermission = user != null && ledger.ownerId == user.uid;
     bool hasMoreThanOneUser = ledger.memberIds.length > 1;
 
-    var deleteLedgerItems = (String _ledgerId) async {
+    var deleteLedgerItems = (String? _ledgerId) async {
       var snapItems = await _db
           .collection('ledgers')
           .doc(_ledgerId)
@@ -107,12 +106,12 @@ class DatabaseService {
       }
     };
 
-    var deleteLedger =
-        (String _ledgerId) => _db.collection('ledgers').doc(_ledgerId).delete();
+    var deleteLedger = (String? _ledgerId) =>
+        _db.collection('ledgers').doc(_ledgerId).delete();
 
-    var deleteLedgerFromUser = (String _ledgerId) => _db
+    var deleteLedgerFromUser = (String? _ledgerId) => _db
         .collection('users')
-        .doc(user.uid)
+        .doc(user!.uid)
         .collection('ledgers')
         .doc(_ledgerId)
         .delete();
@@ -133,18 +132,18 @@ class DatabaseService {
   }
 
   Future<bool> requestUpdateProfile(
-    UserM.User _profile, {
-    XFile imgFile,
+    UserM.User? _profile, {
+    XFile? imgFile,
   }) async {
-    User user = FirebaseAuth.instance.currentUser;
+    User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
-      print('user is not signined in');
+      print('user is not sign-in');
       return false;
     }
 
     if (imgFile != null) {
-      _profile.thumbURL = await FireStorageService.instance.uploadImage(
+      _profile!.thumbURL = await FireStorageService.instance.uploadImage(
         file: File(imgFile.path),
         uploadDir: 'profile',
         imgStr: '${_profile.uid}_thumb',
@@ -171,7 +170,10 @@ class DatabaseService {
       }, SetOptions(merge: true));
     }
 
-    await FirebaseFirestore.instance.collection('users').doc(_profile.uid).set({
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_profile!.uid)
+        .set({
       'displayName': _profile.displayName,
       'phoneNumber': _profile.phoneNumber,
       'statusMsg': _profile.statusMsg,
@@ -188,7 +190,7 @@ class DatabaseService {
         (list) => list.docs.map((doc) => Ledger.fromFirestore(doc)).toList());
   }
 
-  Stream<Ledger> streamLedger(String id) {
+  Stream<Ledger> streamLedger(String? id) {
     return _db
         .collection('ledgers')
         .doc(id)
@@ -225,12 +227,11 @@ class DatabaseService {
     return _db.collection('users').doc(user.uid).get();
   }
 
-  Future<Ledger> fetchSelectedLedger() async {
-    var user = FirebaseAuth.instance.currentUser;
-    var me = await DatabaseService().fetchMe(user);
-    var selectedLedger = me['selectedLedger'];
+  Future<Ledger?> fetchSelectedLedger() async {
+    User? user = FirebaseAuth.instance.currentUser!;
+    DocumentSnapshot me = await DatabaseService().fetchMe(user);
 
-    if (selectedLedger == null) {
+    if (DBHelper.instance.isExistFiled(me, 'selectedLedger')) {
       var ledgers = await _db
           .collection('users')
           .doc(user.uid)
@@ -243,7 +244,6 @@ class DatabaseService {
       return ledger;
     }
 
-    var ledger = await streamLedger(selectedLedger).first;
-    return ledger;
+    return null;
   }
 }

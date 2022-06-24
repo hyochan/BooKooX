@@ -1,10 +1,9 @@
-import 'package:wecount/models/Currency.dart';
-import 'package:wecount/models/User.dart';
+import 'package:wecount/models/currency.dart';
+import 'package:wecount/models/user.dart';
 import 'package:wecount/types/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
-import './LedgerItem.dart' show LedgerItem;
+import './ledger_item.dart' show LedgerItem;
 
 final List<ColorType> colorItems = [
   ColorType.RED,
@@ -17,32 +16,32 @@ final List<ColorType> colorItems = [
 ];
 
 class Ledger {
-  String id;
+  String? id;
   String title;
   ColorType color;
-  String description;
-  int people;
-  String ownerId;
+  String? description;
+  int? people;
+  String? ownerId;
   List<String> adminIds;
-  List<LedgerItem> items;
+  List<LedgerItem>? items;
   Currency currency;
   List<String> memberIds;
-  List<User> members;
-  DateTime createdAt;
-  DateTime updatedAt;
-  DateTime deletedAt;
+  List<User>? members;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  DateTime? deletedAt;
 
   Ledger({
     this.id,
-    @required this.title,
-    @required this.color,
-    @required this.currency,
+    required this.title,
+    required this.color,
+    required this.currency,
     this.description,
 
     /// Contain only the [int] number of members
     ///
     /// Since we don't need to render all member's data in first-hand
-    /// We've seperated people to only fetch the length of the members
+    /// We've separated people to only fetch the length of the members
     this.people,
 
     /// Contain the full [User] data of members including photoURL
@@ -59,7 +58,7 @@ class Ledger {
   });
 
   factory Ledger.fromFirestore(DocumentSnapshot doc) {
-    Map data = doc.data();
+    Map data = doc.data() as Map<dynamic, dynamic>;
 
     return Ledger(
       id: doc.id,
@@ -78,7 +77,7 @@ class Ledger {
     );
   }
 
-  factory Ledger.fromMap(Map data) {
+  factory Ledger.fromMap(Map? data) {
     data = data ?? {};
     return Ledger(
       title: data['title'] ?? '',

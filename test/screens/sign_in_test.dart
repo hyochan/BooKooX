@@ -24,13 +24,11 @@ void main() {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignIn()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(new Key('email'));
+    Finder emailField = find.byKey(Key('email'));
     await tester.enterText(emailField, 'aa@aa');
 
-    Finder passwordField = find.byKey(new Key('password'));
+    Finder passwordField = find.byKey(Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
-
-    Finder signInBtn = find.byKey(new Key('sign-in-button'));
 
     // TODO: Should mock firebase in order to survive below codes
 
@@ -44,10 +42,10 @@ void main() {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignIn()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(new Key('email'));
+    Finder emailField = find.byKey(Key('email'));
     await tester.enterText(emailField, 'aa@aa.aa');
 
-    Finder passwordField = find.byKey(new Key('password'));
+    Finder passwordField = find.byKey(Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
     await tester.tap(find.text('SIGN_IN').last);

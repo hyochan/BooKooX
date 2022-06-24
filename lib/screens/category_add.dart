@@ -1,19 +1,18 @@
-import 'package:wecount/models/Category.dart' show categoryIcons;
-import 'package:wecount/models/Category.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:wecount/models/category.dart';
 import 'package:wecount/shared/edit_text_box.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class CategoryAdd extends StatefulWidget {
   final CategoryType categoryType;
-  final int lastId;
+  final int? lastId;
   CategoryAdd({
     this.categoryType = CategoryType.CONSUME,
-    @required this.lastId,
+    required this.lastId,
   });
 
   @override
@@ -21,13 +20,13 @@ class CategoryAdd extends StatefulWidget {
 }
 
 class _CategoryAddState extends State<CategoryAdd> {
-  int _selectedIconIndex;
+  int? _selectedIconIndex;
   TextEditingController _textController = TextEditingController();
-  String _errorText;
+  String? _errorText;
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     void onDonePressed() async {
       if (_textController.text == '') {
@@ -39,23 +38,23 @@ class _CategoryAddState extends State<CategoryAdd> {
       if (_selectedIconIndex == null) {
         General.instance.showSingleDialog(
           context,
-          title: Text(_localization.trans('ERROR')),
-          content: Text(_localization.trans('ERROR_CATEGORY_ICON')),
+          title: Text(_localization.trans('ERROR')!),
+          content: Text(_localization.trans('ERROR_CATEGORY_ICON')!),
         );
         return;
       }
       Category category = Category(
-        id: widget.lastId + 1,
+        id: widget.lastId! + 1,
         iconId: _selectedIconIndex,
         label: _textController.text,
         type: widget.categoryType,
       );
 
       try {
-        await DbHelper.instance.insertCategory(context, category);
+        await DBHelper.instance.insertCategory(context, category);
       } catch (err) {
         Fluttertoast.showToast(
-          msg: _localization.trans('CATEGORY_ADD_ERROR'),
+          msg: _localization.trans('CATEGORY_ADD_ERROR')!,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -129,10 +128,10 @@ class _CategoryAddState extends State<CategoryAdd> {
                         bottom: 24,
                       ),
                       child: Text(
-                        _localization.trans('CATEGORY_ADD'),
+                        _localization.trans('CATEGORY_ADD')!,
                         style: TextStyle(
                           fontSize: 28,
-                          color: Theme.of(context).textTheme.headline1.color,
+                          color: Theme.of(context).textTheme.headline1!.color,
                         ),
                       ),
                     ),
@@ -161,7 +160,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                             ),
                           ),
                           Text(
-                            _localization.trans('ICON_SELECT'),
+                            _localization.trans('ICON_SELECT')!,
                             style: TextStyle(
                               color: Asset.Colors.mediumGray,
                               fontSize: 16,
@@ -186,10 +185,10 @@ class _CategoryAddState extends State<CategoryAdd> {
                     child: FlatButton(
                       onPressed: onCancelPressed,
                       child: Text(
-                        _localization.trans('CANCEL'),
+                        _localization.trans('CANCEL')!,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Theme.of(context).textTheme.headline1.color,
+                          color: Theme.of(context).textTheme.headline1!.color,
                         ),
                       ),
                     ),
@@ -199,10 +198,10 @@ class _CategoryAddState extends State<CategoryAdd> {
                     child: FlatButton(
                       onPressed: onDonePressed,
                       child: Text(
-                        _localization.trans('DONE'),
+                        _localization.trans('DONE')!,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Theme.of(context).textTheme.headline1.color,
+                          color: Theme.of(context).textTheme.headline1!.color,
                         ),
                       ),
                     ),

@@ -1,4 +1,6 @@
-import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/providers/current_ledger.dart';
+import 'package:wecount/screens/setting_currency.dart';
+import 'package:wecount/screens/setting_excel.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,21 +15,21 @@ import '../shared/home_header.dart' show renderHomeAppBar;
 
 class HomeSetting extends StatefulWidget {
   HomeSetting({
-    Key key,
+    Key? key,
     this.title = '',
   }) : super(key: key);
   final String title;
 
   @override
-  _HomeSettingState createState() => new _HomeSettingState();
+  _HomeSettingState createState() => _HomeSettingState();
 }
 
 class _HomeSettingState extends State<HomeSetting> {
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger().color
+        ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
 
     final List<ListItem> _items = [
@@ -40,7 +42,7 @@ class _HomeSettingState extends State<HomeSetting> {
           size: 24.0,
         ),
         onTap: () =>
-            General.instance.navigateScreenNamed(context, '/setting_currency'),
+            General.instance.navigateScreenNamed(context, SettingCurrency.name),
       ),
       TileItem(
         title: _localization.trans('EXPORT_EXCEL'),
@@ -51,7 +53,7 @@ class _HomeSettingState extends State<HomeSetting> {
           size: 24.0,
         ),
         onTap: () =>
-            General.instance.navigateScreenNamed(context, '/setting_excel'),
+            General.instance.navigateScreenNamed(context, SettingExcel.name),
       ),
     ];
 
@@ -75,7 +77,7 @@ class _HomeSettingState extends State<HomeSetting> {
                   itemCount: _items.length,
                   itemBuilder: (context, index) {
                     final item = _items[index];
-                    return SettingTileItem(item);
+                    return SettingTileItem(item as TileItem);
                   }),
             )
           ],

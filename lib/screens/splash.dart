@@ -1,24 +1,27 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wecount/screens/tutorial.dart';
 
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 
 class Splash extends StatefulWidget {
-  Splash({Key key}) : super(key: key);
+  static const String name = '/splash';
+
+  Splash({Key? key}) : super(key: key);
 
   @override
-  _SplashState createState() => new _SplashState();
+  _SplashState createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
   bool _visible = false;
-  Timer _navigationTimer;
-  Timer _timer;
+  Timer? _navigationTimer;
+  Timer? _timer;
 
   Future<void> navigateRoute() async {
-    String initialRoute = '/tutorial';
+    String initialRoute = Tutorial.name;
 
     _navigationTimer = Timer(Duration(milliseconds: 1500), () {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -43,10 +46,10 @@ class _SplashState extends State<Splash> {
   @override
   void dispose() {
     if (_timer != null) {
-      _timer.cancel();
+      _timer!.cancel();
     }
     if (_navigationTimer != null) {
-      _navigationTimer.cancel();
+      _navigationTimer!.cancel();
     }
     super.dispose();
   }

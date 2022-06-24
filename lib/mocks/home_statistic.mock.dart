@@ -1,10 +1,10 @@
-import 'package:wecount/models/Category.dart';
-import 'package:wecount/models/LedgerItem.dart';
-import 'package:wecount/models/User.dart';
+import 'package:wecount/models/category.dart';
+import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/user.dart';
 import 'package:wecount/utils/localization.dart';
 
 List<LedgerItem> createHomeStatisticMock(Localization localization) {
-  List<LedgerItem> ledgerList = List<LedgerItem>();
+  List<LedgerItem> ledgerList = [];
   var currentMonth = DateTime.now().month;
 
   ledgerList.addAll([

@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:wecount/models/User.dart' show User;
+import 'package:wecount/models/user.dart' show User;
 import 'package:wecount/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FireAuth show User;
 import 'package:flutter/material.dart';
@@ -14,13 +12,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ProfileMy extends StatefulWidget {
+  static const String name = '/profile_my';
+
   @override
   _ProfileMyState createState() => _ProfileMyState();
 }
 
 class _ProfileMyState extends State<ProfileMy> {
-  XFile _imgFile;
-  User _profile;
+  XFile? _imgFile;
+  User? _profile;
 
   Future<void> _onUpdateProfile() async {
     General.instance.showDialogSpinner(context);
@@ -36,7 +36,7 @@ class _ProfileMyState extends State<ProfileMy> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     var _user = Provider.of<FireAuth.User>(context);
 
     return Scaffold(
@@ -50,7 +50,7 @@ class _ProfileMyState extends State<ProfileMy> {
               Icons.save_alt,
               semanticLabel: _localization.trans('UPDATE'),
             ),
-            color: Theme.of(context).textTheme.headline1.color,
+            color: Theme.of(context).textTheme.headline1!.color,
             padding: EdgeInsets.all(0.0),
             onPressed: _onUpdateProfile,
           ),
@@ -82,9 +82,9 @@ class _ProfileMyState extends State<ProfileMy> {
                   children: <Widget>[
                     ProfileImageCam(
                       imgFile: _imgFile,
-                      imgStr: _profile.thumbURL != null
-                          ? _profile.thumbURL
-                          : _profile.photoURL,
+                      imgStr: _profile!.thumbURL != null
+                          ? _profile!.thumbURL
+                          : _profile!.photoURL,
                       selectCamera: () async {
                         var file = await General.instance
                             .chooseImage(context: context, type: 'camera');
@@ -111,31 +111,31 @@ class _ProfileMyState extends State<ProfileMy> {
                 iconData: Icons.email,
                 margin: EdgeInsets.only(top: 24.0),
                 hintText: _localization.trans('EMAIL'),
-                focusedColor: Theme.of(context).textTheme.headline1.color,
-                enabledColor: Theme.of(context).textTheme.headline2.color,
+                focusedColor: Theme.of(context).textTheme.headline1!.color,
+                enabledColor: Theme.of(context).textTheme.headline2!.color,
               ),
               EditTextBox(
                 controller: TextEditingController(
                   text: user.displayName,
                 ),
-                onChangeText: (String str) => _profile.displayName = str,
+                onChangeText: (String str) => _profile!.displayName = str,
                 semanticLabel: _localization.trans('NICKNAME'),
                 iconData: Icons.person_outline,
                 margin: EdgeInsets.only(top: 8.0),
                 hintText: _localization.trans('NICKNAME'),
-                focusedColor: Theme.of(context).textTheme.headline1.color,
-                enabledColor: Theme.of(context).textTheme.headline2.color,
+                focusedColor: Theme.of(context).textTheme.headline1!.color,
+                enabledColor: Theme.of(context).textTheme.headline2!.color,
               ),
               EditTextBox(
                 controller: TextEditingController(
                   text: user.phoneNumber,
                 ),
-                onChangeText: (String str) => _profile.phoneNumber = str,
+                onChangeText: (String str) => _profile!.phoneNumber = str,
                 iconData: Icons.phone,
                 margin: EdgeInsets.only(top: 8.0),
                 hintText: _localization.trans('PHONE'),
-                focusedColor: Theme.of(context).textTheme.headline1.color,
-                enabledColor: Theme.of(context).textTheme.headline2.color,
+                focusedColor: Theme.of(context).textTheme.headline1!.color,
+                enabledColor: Theme.of(context).textTheme.headline2!.color,
               ),
               Container(
                 margin: EdgeInsets.only(top: 32.0, bottom: 12.0),
@@ -147,7 +147,7 @@ class _ProfileMyState extends State<ProfileMy> {
                 controller: TextEditingController(
                   text: user.statusMsg,
                 ),
-                onChangeText: (String str) => _profile.statusMsg = str,
+                onChangeText: (String str) => _profile!.statusMsg = str,
                 labelText: _localization.trans('STATUS_MESSAGE'),
                 hintText: _localization.trans('STATUS_MESSAGE_HINT'),
                 maxLines: 5,

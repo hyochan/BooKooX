@@ -5,7 +5,7 @@ import 'package:wecount/utils/localization.dart' show Localization;
 
 class HomeHeaderSearch extends StatefulWidget {
   HomeHeaderSearch({
-    Key key,
+    Key? key,
     this.margin,
     this.showSearchInput = false,
     this.textEditingController,
@@ -14,16 +14,16 @@ class HomeHeaderSearch extends StatefulWidget {
     this.onSubmit,
     this.color,
   }) : super(key: key);
-  final EdgeInsets margin;
+  final EdgeInsets? margin;
   final bool showSearchInput;
-  final TextEditingController textEditingController;
-  final List<Widget> actions;
-  final Function onClose;
-  final Function onSubmit;
-  final Color color;
+  final TextEditingController? textEditingController;
+  final List<Widget>? actions;
+  final Function? onClose;
+  final Function? onSubmit;
+  final Color? color;
 
   @override
-  _HomeHeaderSearchState createState() => new _HomeHeaderSearchState();
+  _HomeHeaderSearchState createState() => _HomeHeaderSearchState();
 }
 
 class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
@@ -31,7 +31,7 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context);
+    var localization = Localization.of(context)!;
     var textInput = EditTextSearch(
       controller: widget.textEditingController,
       textInputAction: TextInputAction.search,
@@ -97,7 +97,7 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
                       child: RawMaterialButton(
                         onPressed: () {
                           setState(() {
-                            widget.textEditingController.clear();
+                            widget.textEditingController!.clear();
                             _showClose = false;
                           });
                         },

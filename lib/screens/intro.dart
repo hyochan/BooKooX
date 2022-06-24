@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:wecount/navigations/auth_switch.dart';
+import 'package:wecount/screens/sign_in.dart';
+import 'package:wecount/screens/sign_up.dart';
 
 import 'package:wecount/shared/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as Asset;
@@ -11,34 +14,33 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
 class Intro extends StatelessWidget {
-  static final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
-    // clientId: "",
-  );
+  static const String name = '/intro';
 
-  Future<Null> _googleLogin(BuildContext context) async {
-    General.instance.showDialogSpinner(
-      context,
-      text: Localization.of(context).trans('SIGNING_IN_WITH_GOOGLE'),
+  Future<void> _googleLogin(BuildContext context) async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
     );
 
-    try {
-      GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    General.instance.showDialogSpinner(
+      context,
+      text: Localization.of(context)!.trans('SIGNING_IN_WITH_GOOGLE'),
+    );
 
+    GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+    if (googleUser != null) {
       GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
         accessToken: googleAuth.accessToken,
       );
 
-      UserCredential auth = await _auth.signInWithCredential(credential);
-      User user = auth.user;
+      UserCredential auth =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      User user = auth.user!;
 
-      await firestore.collection('users').doc(user.uid).set({
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
         'email': user.email,
         'displayName': user.displayName,
         'name': user.displayName,
@@ -47,11 +49,9 @@ class Intro extends StatelessWidget {
         'updatedAt': FieldValue.serverTimestamp(),
         'deletedAt': null,
       });
-    } catch (error) {
-      print('google signin err: $error');
-    } finally {
+
       _googleSignIn.signOut();
-      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, AuthSwitch.name);
     }
   }
 
@@ -68,14 +68,14 @@ class Intro extends StatelessWidget {
     Widget renderSignInBtn() {
       return Button(
         onPress: () =>
-            General.instance.navigateScreenNamed(context, '/sign_in'),
+            General.instance.navigateScreenNamed(context, SignIn.name),
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
           color: Theme.of(context).primaryColor,
         ),
         backgroundColor: Colors.white,
-        text: _localization.trans('SIGN_IN'),
+        text: _localization!.trans('SIGN_IN'),
         width: 240.0,
         height: 56.0,
       );
@@ -84,18 +84,17 @@ class Intro extends StatelessWidget {
     Widget renderDoNotHaveAccount() {
       return Container(
         margin: EdgeInsets.symmetric(vertical: 2.0),
-        child: FlatButton(
-          padding: EdgeInsets.all(0.0),
+        child: TextButton(
           onPressed: () =>
-              General.instance.navigateScreenNamed(context, '/sign_up'),
+              General.instance.navigateScreenNamed(context, SignUp.name),
           child: RichText(
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: _localization.trans('DO_NOT_HAVE_ACCOUNT'),
+                  text: _localization!.trans('DO_NOT_HAVE_ACCOUNT'),
                 ),
                 TextSpan(
-                  text: '  ' + _localization.trans('SIGN_UP'),
+                  text: '  ' + _localization.trans('SIGN_UP')!,
                   style: TextStyle(
                       color: Asset.Colors.green, fontWeight: FontWeight.bold),
                 ),
@@ -171,7 +170,7 @@ class Intro extends StatelessWidget {
     Widget renderTermsAndAgreement() {
       var clickableTextStyle = TextStyle(
         fontWeight: FontWeight.bold,
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.secondary,
         fontSize: 13,
       );
 
@@ -179,7 +178,7 @@ class Intro extends StatelessWidget {
         margin: EdgeInsets.only(top: 16.0, bottom: 40.0),
         child: RichText(
           text: TextSpan(
-            text: _localization.trans('TERMS_1'),
+            text: _localization!.trans('TERMS_1'),
             style: _signInWithTextStyle.merge(
               TextStyle(fontSize: 12, height: 1.3),
             ),
@@ -188,9 +187,11 @@ class Intro extends StatelessWidget {
                 text: _localization.trans('TERMS_OF_USE'),
                 style: clickableTextStyle,
                 semanticsLabel: _localization.trans('TERMS_OF_USE'),
-                recognizer: new TapGestureRecognizer()
+                recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    launch('https://dooboolab.com/termsofservice');
+                    launchUrl(
+                      Uri.parse('https://dooboolab.com/termsofservice'),
+                    );
                   },
               ),
               TextSpan(
@@ -201,9 +202,11 @@ class Intro extends StatelessWidget {
                 text: _localization.trans('PRIVACY_POLICY'),
                 style: clickableTextStyle,
                 semanticsLabel: _localization.trans('PRIVACY_POLICY'),
-                recognizer: new TapGestureRecognizer()
+                recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    launch('https://dooboolab.com/privacyandpolicy');
+                    launchUrl(
+                      Uri.parse('https://dooboolab.com/privacyandpolicy'),
+                    );
                   },
               ),
               TextSpan(

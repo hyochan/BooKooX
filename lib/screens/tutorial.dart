@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/screens/intro.dart';
 
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/asset.dart' as Asset;
 
 class Tutorial extends StatefulWidget {
+  static const String name = '/tutorial';
+
   @override
   _TutorialState createState() => _TutorialState();
 }
@@ -16,7 +19,7 @@ class _TutorialState extends State<Tutorial> {
   );
   void onNextPressed() {
     if (_currentPage == pageCnt) {
-      Navigator.pushNamedAndRemoveUntil(context, '/intro', (_) => false);
+      Navigator.pushNamedAndRemoveUntil(context, Intro.name, (_) => false);
       return;
     }
     _pageController.nextPage(
@@ -27,10 +30,10 @@ class _TutorialState extends State<Tutorial> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
 
     Widget renderPage({
-      Key key,
+      Key? key,
       int page = 0,
     }) {
       return Container(
@@ -55,12 +58,12 @@ class _TutorialState extends State<Tutorial> {
               margin: EdgeInsets.only(top: 56),
               child: Text(
                 page == 0
-                    ? _localization.trans('RECORD_IT')
+                    ? _localization.trans('RECORD_IT')!
                     : page == 1
-                        ? _localization.trans('SHARE_IT')
+                        ? _localization.trans('SHARE_IT')!
                         : page == 2
-                            ? _localization.trans('TAKE_CARE')
-                            : _localization.trans('RECORD_IT'),
+                            ? _localization.trans('TAKE_CARE')!
+                            : _localization.trans('RECORD_IT')!,
                 style: TextStyle(
                   fontSize: 28,
                   color: Colors.white,
@@ -72,12 +75,12 @@ class _TutorialState extends State<Tutorial> {
               margin: EdgeInsets.only(top: 20),
               child: Text(
                 page == 0
-                    ? _localization.trans('TUTORIAL_1_DETAIL')
+                    ? _localization.trans('TUTORIAL_1_DETAIL')!
                     : page == 1
-                        ? _localization.trans('TUTORIAL_2_DETAIL')
+                        ? _localization.trans('TUTORIAL_2_DETAIL')!
                         : page == 2
-                            ? _localization.trans('TUTORIAL_3_DETAIL')
-                            : _localization.trans('TUTORIAL_1_DETAIL'),
+                            ? _localization.trans('TUTORIAL_3_DETAIL')!
+                            : _localization.trans('TUTORIAL_1_DETAIL')!,
                 style: TextStyle(
                   fontSize: 16,
                   height: 1.3,
@@ -92,8 +95,8 @@ class _TutorialState extends State<Tutorial> {
     }
 
     Widget renderIndicator({
-      Key key,
-      @required currentPage,
+      Key? key,
+      required currentPage,
       int page = 0,
     }) {
       return Container(
@@ -113,8 +116,8 @@ class _TutorialState extends State<Tutorial> {
     }
 
     Widget renderIndicatorGroup({
-      Key key,
-      @required currentPage,
+      Key? key,
+      required currentPage,
     }) {
       return Container(
         child: Row(
@@ -168,10 +171,10 @@ class _TutorialState extends State<Tutorial> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     renderIndicatorGroup(currentPage: _currentPage),
-                    FlatButton(
+                    TextButton(
                       onPressed: onNextPressed,
                       child: Text(
-                        _localization.trans('NEXT'),
+                        _localization.trans('NEXT')!,
                         style: TextStyle(
                           fontSize: 20,
                           color: Asset.Colors.green,

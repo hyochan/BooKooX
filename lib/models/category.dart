@@ -81,10 +81,10 @@ final Map<int, dynamic> iconMaps = {
 };
 
 class Category {
-  int id;
-  int iconId;
-  String label;
-  CategoryType type;
+  int? id;
+  int? iconId;
+  String? label;
+  CategoryType? type;
   bool showDelete = false;
 
   Category({
@@ -98,8 +98,8 @@ class Category {
   Map<String, dynamic> toMapInitial(BuildContext context) {
     return {
       'iconId': iconId,
-      'label': Localization.of(context).trans(label),
-      'type': type.index,
+      'label': Localization.of(context)!.trans(label),
+      'type': type!.index,
     };
   }
 
@@ -112,8 +112,8 @@ class Category {
     };
   }
 
-  AssetImage getIconImage() {
-    return iconMaps[iconId];
+  AssetImage? getIconImage() {
+    return iconMaps[iconId!];
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 
 class FireStorageService {
@@ -9,15 +8,15 @@ class FireStorageService {
   static FireStorageService get instance => _instance;
 
   Future<String> uploadImage({
-    File file,
-    String uploadDir,
-    String imgStr,
+    File? file,
+    required String uploadDir,
+    String? imgStr,
     String metaData = '',
     bool compressed = false,
   }) async {
     /// Upload thumb
     if (compressed) {
-      file = await FlutterNativeImage.compressImage(file.path,
+      file = await FlutterNativeImage.compressImage(file!.path,
           quality: 100, targetWidth: 120, targetHeight: 120);
     }
 
@@ -26,7 +25,7 @@ class FireStorageService {
         FirebaseStorage.instance.ref().child(uploadDir).child('$imgStr.png');
 
     UploadTask uploadTask = ref.putFile(
-      file,
+      file!,
       SettableMetadata(
         contentLanguage: 'en',
         customMetadata: <String, String>{'activity': metaData},

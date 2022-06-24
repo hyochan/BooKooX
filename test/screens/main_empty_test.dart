@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 
 import 'package:wecount/screens/main_empty.dart' show MainEmpty;
 import 'package:wecount/screens/ledger_edit.dart' show LedgerEdit;
@@ -25,7 +24,7 @@ void main() {
     await tester.tap(find.text('ADD_LEDGER'));
     await tester.pumpAndSettle();
 
-    verify(TestUtils.observer.didPush(any, any));
+    // verify(TestUtils.observer.didPush(any, any));
     expect(find.byType(LedgerEdit), findsOneWidget);
   });
 }

@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:wecount/models/Category.dart';
+import 'package:wecount/models/category.dart';
 
-final List<Category> initalCategory = [
+final List<Category> initialCategory = [
   Category(iconId: 0, label: 'CAFE', type: CategoryType.CONSUME),
   Category(iconId: 1, label: 'DRINK', type: CategoryType.CONSUME),
   Category(iconId: 2, label: 'SNACK', type: CategoryType.CONSUME),
@@ -68,45 +69,50 @@ final List<Category> initalCategory = [
   Category(iconId: 33, label: 'TAX', type: CategoryType.CONSUME),
 ];
 
-class DbHelper {
-  static final DbHelper instance = new DbHelper();
+class DBHelper {
+  static final DBHelper instance = DBHelper();
   static const String CATEGORY_DB = 'category.db';
-  static Database _database;
+  static Database? _database;
 
-  Future<Database> initDb(BuildContext context) async {
-    String path = join(await getDatabasesPath(), 'category.db');
+  Future<Database> initDB(BuildContext context) async {
+    final String path = join(await getDatabasesPath(), 'category.db');
     _database = await openDatabase(
       path,
       onCreate: (db, version) async {
         await db.execute(
           "CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, type INTEGER, iconId INTEGER, label TEXT)",
         );
-        initalCategory.forEach((category) {
-          db.insert('categories', category.toMapInitial(context),
-              conflictAlgorithm: ConflictAlgorithm.abort);
-        });
+        initialCategory.forEach(
+          (category) {
+            db.insert('categories', category.toMapInitial(context),
+                conflictAlgorithm: ConflictAlgorithm.abort);
+          },
+        );
       },
       version: 5,
     );
-    return _database;
+
+    return _database!;
   }
 
   Future<int> insertCategory(BuildContext context, Category category) async {
-    final db = await initDb(context);
+    final Database db = await initDB(context);
+
     return db.insert(
       'categories',
       {
         'iconId': category.iconId,
         'label': category.label,
-        'type': category.type.index,
+        'type': category.type!.index,
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
   Future<List<Category>> getCategories(BuildContext context) async {
-    final db = await initDb(context);
+    final Database db = await initDB(context);
     final List<Map<String, dynamic>> maps = await db.query('categories');
+
     return List.generate(maps.length, (i) {
       return Category(
         id: maps[i]['id'],
@@ -118,7 +124,7 @@ class DbHelper {
   }
 
   Future<List<Category>> getIncomeCategories(BuildContext context) async {
-    final db = await initDb(context);
+    final Database db = await initDB(context);
     final List<Map<String, dynamic>> maps = await db.query(
       'categories',
       where: 'type = ?',
@@ -135,7 +141,8 @@ class DbHelper {
   }
 
   Future<List<Category>> getConsumeCategories(BuildContext context) async {
-    final db = await initDb(context);
+    final Database db = await initDB(context);
+
     final List<Map<String, dynamic>> maps = await db.query(
       'categories',
       where: 'type = ?',
@@ -151,8 +158,15 @@ class DbHelper {
     });
   }
 
-  Future<int> deleteCategory(BuildContext context, int iconId) async {
-    final db = await initDb(context);
+  Future<int> deleteCategory(BuildContext context, int? iconId) async {
+    final Database db = await initDB(context);
+
     return db.delete('categories', where: "iconId = ?", whereArgs: [iconId]);
+  }
+
+  bool isExistFiled(DocumentSnapshot doc, String filedName) {
+    Map data = doc.data() as Map;
+
+    return data[filedName] != null;
   }
 }

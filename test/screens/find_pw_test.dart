@@ -22,7 +22,7 @@ void main() {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: FindPw()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(new Key('email'));
+    Finder emailField = find.byKey(Key('email'));
     await tester.enterText(emailField, 'aa@aa');
 
     await tester.tap(find.text('SEND_EMAIL'));

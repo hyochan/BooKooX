@@ -13,26 +13,28 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class SignUp extends StatefulWidget {
-  SignUp({Key key}) : super(key: key);
+  static const String name = '/sign_up';
+
+  SignUp({Key? key}) : super(key: key);
 
   @override
-  _SignUpState createState() => new _SignUpState();
+  _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  Localization _localization;
+  Localization? _localization;
 
-  String _email;
-  String _password;
-  String _passwordConfirm;
-  String _displayName;
-  String _name;
+  String? _email;
+  String? _password;
+  String? _passwordConfirm;
+  String? _displayName;
+  String? _name;
 
-  String _errorEmail;
-  String _errorPassword;
-  String _errorPasswordConfirm;
-  String _errorDisplayName;
-  String _errorName;
+  String? _errorEmail;
+  String? _errorPassword;
+  String? _errorPasswordConfirm;
+  String? _errorDisplayName;
+  String? _errorName;
 
   bool _isValidEmail = false;
   bool _isValidPassword = false;
@@ -50,38 +52,38 @@ class _SignUpState extends State<SignUp> {
     }
 
     if (!_isValidEmail) {
-      setState(() => _errorEmail = _localization.trans('NO_VALID_EMAIL'));
+      setState(() => _errorEmail = _localization!.trans('NO_VALID_EMAIL'));
       return;
     }
 
     if (!_isValidPassword) {
-      setState(() => _errorPassword = _localization.trans('PASSWORD_HINT'));
+      setState(() => _errorPassword = _localization!.trans('PASSWORD_HINT'));
       return;
     }
 
     if (_passwordConfirm != _password) {
-      setState(() =>
-          _errorPasswordConfirm = _localization.trans('PASSWORD_CONFIRM_HINT'));
+      setState(() => _errorPasswordConfirm =
+          _localization!.trans('PASSWORD_CONFIRM_HINT'));
       return;
     }
 
     if (!_isValidDisplayName) {
       setState(
-          () => _errorDisplayName = _localization.trans('DISPLAY_NAME_HINT'));
+          () => _errorDisplayName = _localization!.trans('DISPLAY_NAME_HINT'));
       return;
     }
 
     if (!_isValidName) {
-      setState(() => _errorName = _localization.trans('NAME_HINT'));
+      setState(() => _errorName = _localization!.trans('NAME_HINT'));
       return;
     }
 
     setState(() => _isRegistering = true);
 
     try {
-      final User user = (await _auth.createUserWithEmailAndPassword(
-        email: _email,
-        password: _password,
+      final User? user = (await _auth.createUserWithEmailAndPassword(
+        email: _email!,
+        password: _password!,
       ))
           .user;
 
@@ -100,8 +102,8 @@ class _SignUpState extends State<SignUp> {
 
         return General.instance.showSingleDialog(
           context,
-          title: Text(_localization.trans('SIGN_UP_SUCCESS_TITLE')),
-          content: Text(_localization.trans('SIGN_UP_SUCCESS_CONTENT')),
+          title: Text(_localization!.trans('SIGN_UP_SUCCESS_TITLE')!),
+          content: Text(_localization!.trans('SIGN_UP_SUCCESS_CONTENT')!),
           onPress: () {
             _auth.signOut();
             Navigator.of(context).pop();
@@ -109,12 +111,12 @@ class _SignUpState extends State<SignUp> {
         );
       }
 
-      throw new Error();
+      throw Error();
     } catch (err) {
       General.instance.showSingleDialog(
         context,
-        title: Text(_localization.trans('SIGN_UP_ERROR_TITLE')),
-        content: Text(_localization.trans('SIGN_UP_ERROR_CONTENT')),
+        title: Text(_localization!.trans('SIGN_UP_ERROR_TITLE')!),
+        content: Text(_localization!.trans('SIGN_UP_ERROR_CONTENT')!),
       );
     } finally {
       setState(() => _isRegistering = false);
@@ -127,10 +129,10 @@ class _SignUpState extends State<SignUp> {
 
     Widget renderSignUpText() {
       return Text(
-        _localization.trans('SIGN_UP'),
+        _localization!.trans('SIGN_UP')!,
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.headline1.color,
+          color: Theme.of(context).textTheme.headline1!.color,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -141,9 +143,9 @@ class _SignUpState extends State<SignUp> {
         key: Key('email'),
         margin: EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization.trans('EMAIL'),
-        textHint: _localization.trans('EMAIL_HINT'),
-        hasChecked: _isValidEmail ?? false,
+        textLabel: _localization!.trans('EMAIL'),
+        textHint: _localization!.trans('EMAIL_HINT'),
+        hasChecked: _isValidEmail,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
             setState(() {
@@ -165,10 +167,10 @@ class _SignUpState extends State<SignUp> {
         key: Key('password'),
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization.trans('PASSWORD'),
-        textHint: _localization.trans('PASSWORD_HINT'),
+        textLabel: _localization!.trans('PASSWORD'),
+        textHint: _localization!.trans('PASSWORD_HINT'),
         isSecret: true,
-        hasChecked: _isValidPassword ?? false,
+        hasChecked: _isValidPassword,
         onChanged: (String str) {
           if (Validator.instance.validatePassword(str)) {
             setState(() {
@@ -190,8 +192,8 @@ class _SignUpState extends State<SignUp> {
         key: Key('password-confirm'),
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization.trans('PASSWORD_CONFIRM'),
-        textHint: _localization.trans('PASSWORD_CONFIRM_HINT'),
+        textLabel: _localization!.trans('PASSWORD_CONFIRM'),
+        textHint: _localization!.trans('PASSWORD_CONFIRM_HINT'),
         isSecret: true,
         hasChecked: _passwordConfirm != null &&
             _passwordConfirm != '' &&
@@ -212,9 +214,9 @@ class _SignUpState extends State<SignUp> {
         key: Key('display-name'),
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization.trans('DISPLAY_NAME'),
-        textHint: _localization.trans('DISPLAY_NAME_HINT'),
-        hasChecked: _isValidDisplayName ?? false,
+        textLabel: _localization!.trans('DISPLAY_NAME'),
+        textHint: _localization!.trans('DISPLAY_NAME_HINT'),
+        hasChecked: _isValidDisplayName,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
             setState(() {
@@ -236,9 +238,9 @@ class _SignUpState extends State<SignUp> {
         key: Key('name'),
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization.trans('NAME'),
-        textHint: _localization.trans('NAME_HINT'),
-        hasChecked: _isValidName ?? false,
+        textLabel: _localization!.trans('NAME'),
+        textHint: _localization!.trans('NAME_HINT'),
+        hasChecked: _isValidName,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
             setState(() {
@@ -267,7 +269,7 @@ class _SignUpState extends State<SignUp> {
         ),
         borderColor: Colors.white,
         backgroundColor: Asset.Colors.main,
-        text: _localization.trans('SIGN_UP'),
+        text: _localization!.trans('SIGN_UP'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );
@@ -280,7 +282,7 @@ class _SignUpState extends State<SignUp> {
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(
-          color: Theme.of(context).textTheme.headline1.color,
+          color: Theme.of(context).textTheme.headline1!.color,
         ),
       ),
       body: GestureDetector(

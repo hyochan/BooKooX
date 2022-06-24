@@ -1,10 +1,10 @@
-import 'package:wecount/models/LedgerItem.dart';
+import 'package:wecount/models/ledger_item.dart';
 
 List<LedgerItem> ledgerListByMonth(
   String month,
   List<LedgerItem> ledgersIn,
 ) {
-  List<LedgerItem> ledgersOut = List<LedgerItem>();
+  List<LedgerItem> ledgersOut = [];
   // print('get ledgers by month of ' + month);
   ledgersIn.forEach((ledger) {
     // print('item ' +
@@ -12,7 +12,7 @@ List<LedgerItem> ledgerListByMonth(
     //     ' price: ' +
     //     ledger.price.toString());
 
-    if (ledger.selectedDate.month.toString() == month) {
+    if (ledger.selectedDate!.month.toString() == month) {
       // print('added');
       ledgersOut.add(ledger);
     }
@@ -24,16 +24,16 @@ List<LedgerItem> ledgerListByMonth(
 
 List<LedgerItem> condense(List<LedgerItem> ledgerList) {
   // print('ledgerList');
-  Map<String, LedgerItem> mappedLedgerList = Map();
+  Map<String?, LedgerItem> mappedLedgerList = Map();
   ledgerList.forEach((item) {
     // print('item ' +
     //     item.category.toString() +
     //     ' price: ' +
     //     item.price.toString());
     mappedLedgerList.update(
-      item.category.label,
+      item.category!.label,
       (LedgerItem existingItem) {
-        existingItem.price += item.price;
+        // existingItem.price += item.price!;
         return existingItem;
       },
       ifAbsent: () => item.createRoughCopy(),
@@ -41,7 +41,7 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
     // print('Map ' + mappedLedgerList.length.toString());
   });
 
-  List<LedgerItem> result = List();
+  List<LedgerItem> result = [];
   // print('mapped result length : ${mappedLedgerList.length}');
   mappedLedgerList.forEach((key, value) {
     result.add(value);
@@ -56,10 +56,10 @@ Map<String, Map<String, double>> splitLedgers(List<LedgerItem> ledgerList) {
 
   /// map ledgerList to dataMap
   ledgerList.forEach((ledger) {
-    if (ledger.price > 0) {
-      income.putIfAbsent(ledger.category.label, () => ledger.price);
+    if (ledger.price! > 0) {
+      income.putIfAbsent(ledger.category!.label!, () => ledger.price!);
     } else {
-      expense.putIfAbsent(ledger.category.label, () => ledger.price);
+      expense.putIfAbsent(ledger.category!.label!, () => ledger.price!);
     }
   });
   return {'income': income, 'expense': expense};

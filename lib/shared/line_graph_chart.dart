@@ -1,12 +1,12 @@
-import 'package:wecount/models/LedgerItem.dart';
+import 'package:wecount/models/ledger_item.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:intl/intl.dart' show NumberFormat, DateFormat;
+import 'package:intl/intl.dart' show NumberFormat;
 
 /// typing callback function
 typedef void SelectMonthToShow(
-    {@required int month, @required double sumOfPrice});
+    {required int month, required double sumOfPrice});
 
 /// to reduce performance issue,
 /// if I don't scale down the price values from parent,
@@ -15,16 +15,16 @@ const CHART_SCALE = 10000;
 
 class LineGraphChart extends StatefulWidget {
   final List<LedgerItem> items;
-  final SelectMonthToShow onSelectMonth;
-  LineGraphChart({@required this.items, this.onSelectMonth});
+  final SelectMonthToShow? onSelectMonth;
+  LineGraphChart({required this.items, this.onSelectMonth});
 
   @override
   _LineGraphChartState createState() => _LineGraphChartState();
 }
 
 class _LineGraphChartState extends State<LineGraphChart> {
-  ChartValues chartValues;
-  double _minY, _maxY;
+  late ChartValues chartValues;
+  double? _minY, _maxY;
   var _spots;
 
   @override
@@ -150,15 +150,15 @@ class _LineGraphChartState extends State<LineGraphChart> {
               final flSpot = barSpot;
 
               return LineTooltipItem(
-                '${NumberFormat.simpleCurrency().format((flSpot.y * CHART_SCALE) ?? 0.0)}',
+                '${NumberFormat.simpleCurrency().format((flSpot.y * CHART_SCALE))}',
                 const TextStyle(color: Colors.white),
               );
             }).toList();
           },
         ),
-        touchCallback: (FlTouchEvent te, LineTouchResponse res) {
-          res.lineBarSpots.forEach((spot) {
-            widget.onSelectMonth(
+        touchCallback: (FlTouchEvent te, LineTouchResponse? res) {
+          res!.lineBarSpots!.forEach((spot) {
+            widget.onSelectMonth!(
                 month: spot.x.toInt(), sumOfPrice: spot.y * CHART_SCALE);
           });
         },
@@ -189,16 +189,16 @@ class _LineGraphChartState extends State<LineGraphChart> {
 class Tuple {
   final double price;
   final int month;
-  const Tuple({@required this.price, @required this.month});
+  const Tuple({required this.price, required this.month});
 }
 
 class ChartValues {
   var minPrice;
-  var maxPrice;
-  List<Tuple> tupleValues = List();
+  late var maxPrice;
+  List<Tuple> tupleValues = [];
 
   ChartValues(Map<String, double> items) {
-    List<double> priceList = List();
+    List<double> priceList = [];
     items.forEach((String month, double price) {
       priceList.add(price);
       this.tupleValues.add(Tuple(price: price, month: int.parse(month)));
@@ -226,8 +226,8 @@ Map<String, double> mapValues(List<LedgerItem> items) {
   };
 
   items.forEach((LedgerItem item) {
-    returnVal[item.selectedDate.month.toString()] =
-        item.price.abs() + returnVal[item.selectedDate.month.toString()];
+    returnVal[item.selectedDate!.month.toString()] =
+        item.price!.abs() + returnVal[item.selectedDate!.month.toString()]!;
   });
 
   return returnVal;

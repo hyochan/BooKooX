@@ -1,14 +1,14 @@
-import 'package:wecount/models/Ledger.dart';
+import 'package:wecount/models/ledger.dart';
 import 'package:flutter/material.dart';
 
 class CurrentLedger with ChangeNotifier {
-  Ledger _ledger;
-  String _title;
+  Ledger? _ledger;
+  String? _title;
 
-  Ledger getLedger() => _ledger;
-  String getTitle() => _title;
+  Ledger? getLedger() => _ledger;
+  String? getTitle() => _title;
 
-  CurrentLedger(Ledger ledger) {
+  CurrentLedger(Ledger? ledger) {
     _ledger = ledger;
 
     if (ledger != null) {
@@ -16,7 +16,7 @@ class CurrentLedger with ChangeNotifier {
     }
   }
 
-  void setLedger(Ledger ledger) {
+  void setLedger(Ledger? ledger) {
     _ledger = ledger;
 
     if (ledger != null) {

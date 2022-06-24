@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/home_calendar.dart' show HomeCalendar;
 import 'package:wecount/screens/home_list.dart' show HomeList;
 import 'package:wecount/screens/home_statistic/home_statistic.dart'
@@ -9,10 +9,12 @@ import 'package:wecount/screens/home_statistic/home_statistic.dart'
 import 'package:wecount/screens/home_setting.dart' show HomeSetting;
 
 class HomeTab extends StatefulWidget {
-  HomeTab({Key key}) : super(key: key);
+  static const String name = '/home_tab';
+
+  HomeTab({Key? key}) : super(key: key);
 
   @override
-  _HomeTabState createState() => new _HomeTabState();
+  _HomeTabState createState() => _HomeTabState();
 }
 
 class _HomeTabState extends State<HomeTab> {
@@ -63,8 +65,8 @@ class _HomeTabState extends State<HomeTab> {
         type: BottomNavigationBarType.shifting,
         currentIndex: _index,
         onTap: (int index) => setState(() => this._index = index),
-        selectedItemColor: Theme.of(context).textTheme.headline1.color,
-        unselectedItemColor: Theme.of(context).textTheme.headline1.color,
+        selectedItemColor: Theme.of(context).textTheme.headline1!.color,
+        unselectedItemColor: Theme.of(context).textTheme.headline1!.color,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,
@@ -72,7 +74,7 @@ class _HomeTabState extends State<HomeTab> {
               Icons.calendar_today,
               size: 20.0,
             ),
-            label: 'Montly',
+            label: 'Monthly',
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,

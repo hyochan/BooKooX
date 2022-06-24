@@ -1,31 +1,32 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/services.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-
-import 'package:wecount/screens/location_view.dart';
-import 'package:wecount/utils/general.dart';
-import 'package:wecount/models/Category.dart';
-import 'package:wecount/utils/db_helper.dart';
+import 'package:wecount/models/category.dart';
+import 'package:wecount/models/ledger_item.dart' show LedgerItem;
+import 'package:wecount/models/photo.dart' show Photo;
 import 'package:wecount/screens/category_add.dart';
+import 'package:wecount/screens/location_view.dart';
 import 'package:wecount/shared/category_list.dart';
-import 'package:wecount/shared/header.dart';
-import 'package:wecount/models/Photo.dart' show Photo;
-import 'package:wecount/models/LedgerItem.dart' show LedgerItem;
-import 'package:wecount/shared/header.dart' show renderHeaderClose;
 import 'package:wecount/shared/gallery.dart' show Gallery;
+import 'package:wecount/shared/header.dart';
+import 'package:wecount/shared/header.dart' show renderHeaderClose;
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/db_helper.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/logger.dart';
 
 class LedgerItemEdit extends StatefulWidget {
+  static const String name = '/ledger_item_edit';
+
   LedgerItemEdit({
-    Key key,
+    Key? key,
     this.title = '',
   }) : super(key: key);
   final String title;
 
   @override
-  _LedgerItemEditState createState() => new _LedgerItemEditState();
+  _LedgerItemEditState createState() => _LedgerItemEditState();
 }
 
 class _LedgerItemEditState extends State<LedgerItemEdit>
@@ -43,7 +44,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
 
   LedgerItem _ledgerItemIncome = LedgerItem();
   LedgerItem _ledgerItemConsume = LedgerItem();
-  TabController _tabController;
+  TabController? _tabController;
   List<Category> categories = [];
 
   @override
@@ -58,7 +59,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
   @override
   void dispose() {
     if (_tabController != null) {
-      _tabController.dispose();
+      _tabController!.dispose();
     }
     super.dispose();
   }
@@ -73,13 +74,13 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
       int year = DateTime.now().year;
       int prevDate = year - 100;
       int lastDate = year + 10;
-      DateTime pickDate = await showDatePicker(
+      DateTime? pickDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(prevDate),
         lastDate: DateTime(lastDate),
       );
-      TimeOfDay pickTime;
+      TimeOfDay? pickTime;
       if (pickDate != null) {
         pickTime = await showTimePicker(
           context: context,
@@ -92,7 +93,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                 pickDate.year,
                 pickDate.month,
                 pickDate.day,
-                pickTime.hour,
+                pickTime!.hour,
                 pickTime.minute,
               ));
         } else if (categoryType == CategoryType.INCOME) {
@@ -100,7 +101,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                 pickDate.year,
                 pickDate.month,
                 pickDate.day,
-                pickTime.hour,
+                pickTime!.hour,
                 pickTime.minute,
               ));
         }
@@ -110,10 +111,12 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     void onLocationPressed({
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
-      Map<String, dynamic> result = await General.instance.navigateScreen(
+      Map<String, dynamic>? result = await (General.instance.navigateScreen(
         context,
-        MaterialPageRoute(builder: (BuildContext context) => LocationView()),
-      );
+        MaterialPageRoute(
+          builder: (BuildContext context) => LocationView(),
+        ),
+      ));
 
       if (result == null) return;
 
@@ -131,8 +134,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     }
 
     void onLedgerItemEditPressed() {
-      print('onLedgerItemEditPressed');
-      print('${_ledgerItemConsume.toString()}');
+      logger.i('onLedgerItemEditPressed');
+      logger.d('${_ledgerItemConsume.toString()}');
     }
 
     void showCategory(
@@ -141,8 +144,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     }) async {
       var _localization = Localization.of(context);
       categories = categoryType == CategoryType.CONSUME
-          ? await DbHelper.instance.getConsumeCategories(context)
-          : await DbHelper.instance.getIncomeCategories(context);
+          ? await DBHelper.instance.getConsumeCategories(context)
+          : await DBHelper.instance.getIncomeCategories(context);
 
       void onClosePressed() {
         Navigator.of(context).pop();
@@ -173,36 +176,27 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.symmetric(vertical: 8),
+                margin: EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 10,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    FlatButton(
-                      padding: EdgeInsets.all(0),
-                      shape: CircleBorder(),
+                    IconButton(
                       onPressed: onClosePressed,
-                      child: Container(
-                        child: Icon(Icons.close),
-                        width: 40,
-                        height: 40,
-                      ),
+                      icon: Icon(Icons.close),
                     ),
                     Text(
-                      '${_localization.trans('CATEGORY')}',
+                      '${_localization!.trans('CATEGORY')}',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Theme.of(context).textTheme.headline1.color,
+                        color: Theme.of(context).textTheme.headline1!.color,
                       ),
                     ),
-                    FlatButton(
-                      padding: EdgeInsets.all(0),
-                      shape: CircleBorder(),
+                    IconButton(
                       onPressed: () => onAddPressed(categoryType),
-                      child: Container(
-                        child: Icon(Icons.add),
-                        width: 40,
-                        height: 40,
-                      ),
+                      icon: Icon(Icons.add),
                     ),
                   ],
                 ),
@@ -229,18 +223,16 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     Widget renderBox({
       EdgeInsets margin = const EdgeInsets.only(top: 8.0),
       IconData icon = Icons.category,
-      AssetImage image,
+      AssetImage? image,
       String text = '',
       bool showDropdown = true,
       bool active = false,
-      Function onPressed,
+      required void Function() onPressed,
     }) {
       return Container(
         margin: margin,
-        child: FlatButton(
-          color: Theme.of(context).backgroundColor,
-          onPressed: onPressed,
-          padding: EdgeInsets.all(0),
+        child: GestureDetector(
+          onTap: onPressed,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             height: 56,
@@ -258,8 +250,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       ? Icon(
                           icon,
                           color: active
-                              ? Theme.of(context).textTheme.headline1.color
-                              : Theme.of(context).textTheme.headline2.color,
+                              ? Theme.of(context).textTheme.headline1!.color
+                              : Theme.of(context).textTheme.headline2!.color,
                         )
                       : Image(
                           image: image,
@@ -278,8 +270,11 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                             text,
                             style: TextStyle(
                               color: active == true
-                                  ? Theme.of(context).textTheme.headline1.color
-                                  : Theme.of(context).textTheme.headline2.color,
+                                  ? Theme.of(context).textTheme.headline1!.color
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .color,
                               fontSize: 16,
                             ),
                           ),
@@ -330,7 +325,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       ),
                     ),
                     Text(
-                      _localization.trans('PRICE'),
+                      _localization!.trans('PRICE')!,
                       style: TextStyle(
                         color: Asset.Colors.cloudyBlue,
                         fontSize: 16,
@@ -355,8 +350,15 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       child: Container(
                         child: TextField(
                           textInputAction: TextInputAction.done,
-                          onChanged: (String value) =>
-                              _ledgerItemConsume.price = double.parse(value),
+                          onChanged: (String value) {
+                            String inputPrice = value.trim();
+
+                            if (inputPrice == "") {
+                              _ledgerItemConsume.price = 0;
+                            } else {
+                              _ledgerItemConsume.price = double.parse(value);
+                            }
+                          },
                           onTap: () {
                             priceTextEditingController1.text =
                                 '${_ledgerItemConsume.price ?? 0.0}';
@@ -388,14 +390,14 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 52),
                       icon: Icons.category,
-                      text: _localization.trans('CATEGORY'),
+                      text: _localization.trans('CATEGORY')!,
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                     )
                   : renderBox(
                       margin: EdgeInsets.only(top: 52),
-                      image: iconMaps[_ledgerItemConsume.category.iconId],
-                      text: _ledgerItemConsume.category.label,
+                      image: iconMaps[_ledgerItemConsume.category!.iconId!],
+                      text: _ledgerItemConsume.category!.label!,
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                       active: true,
@@ -406,7 +408,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
-                      text: _localization.trans('DATE'),
+                      text: _localization.trans('DATE')!,
                       showDropdown: true,
                       onPressed: onDatePressed,
                     )
@@ -414,7 +416,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
                       text: DateFormat('yyyy-MM-dd hh:mm a')
-                          .format(_ledgerItemConsume.selectedDate)
+                          .format(_ledgerItemConsume.selectedDate!)
                           .toLowerCase(),
                       showDropdown: true,
                       onPressed: onDatePressed,
@@ -425,22 +427,22 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               _ledgerItemConsume.address == null
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
-                      icon: Icons.date_range,
-                      text: _localization.trans('LOCATION'),
+                      icon: Icons.location_on,
+                      text: _localization.trans('LOCATION')!,
                       showDropdown: true,
                       onPressed: onLocationPressed,
                     )
                   : renderBox(
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
-                      text: _ledgerItemConsume.address,
+                      text: _ledgerItemConsume.address!,
                       showDropdown: false,
                       onPressed: onLocationPressed,
                       active: true,
                     ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),
-                picture: [Photo(isAddBtn: true)],
+                pictures: [Photo(isAddBtn: true)],
                 ledgerItem: _ledgerItemConsume,
               ),
             ],
@@ -478,7 +480,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       ),
                     ),
                     Text(
-                      _localization.trans('PRICE'),
+                      _localization!.trans('PRICE')!,
                       style: TextStyle(
                         color: Asset.Colors.cloudyBlue,
                         fontSize: 16,
@@ -496,15 +498,22 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       child: Text('+ ',
                           style: TextStyle(
                             fontSize: 28,
-                            color: Theme.of(context).textTheme.headline1.color,
+                            color: Theme.of(context).textTheme.headline1!.color,
                           )),
                     ),
                     Expanded(
                       child: Container(
                         child: TextField(
                           textInputAction: TextInputAction.done,
-                          onChanged: (String value) =>
-                              _ledgerItemIncome.price = double.parse(value),
+                          onChanged: (String value) {
+                            String inputPrice = value.trim();
+
+                            if (inputPrice == "") {
+                              _ledgerItemIncome.price = 0;
+                            } else {
+                              _ledgerItemIncome.price = double.parse(value);
+                            }
+                          },
                           onTap: () {
                             priceTextEditingController2.text =
                                 '${_ledgerItemIncome.price ?? 0.0}';
@@ -536,14 +545,14 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 52),
                       icon: Icons.category,
-                      text: _localization.trans('CATEGORY'),
+                      text: _localization.trans('CATEGORY')!,
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                     )
                   : renderBox(
                       margin: EdgeInsets.only(top: 52),
-                      image: iconMaps[_ledgerItemIncome.category.iconId],
-                      text: _ledgerItemIncome.category.label,
+                      image: iconMaps[_ledgerItemIncome.category!.iconId!],
+                      text: _ledgerItemIncome.category!.label!,
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                       active: true,
@@ -554,7 +563,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
-                      text: _localization.trans('DATE'),
+                      text: _localization.trans('DATE')!,
                       showDropdown: true,
                       onPressed: () =>
                           onDatePressed(categoryType: CategoryType.INCOME),
@@ -563,7 +572,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
                       text: DateFormat('yyyy-MM-dd hh:mm a')
-                          .format(_ledgerItemIncome.selectedDate)
+                          .format(_ledgerItemIncome.selectedDate!)
                           .toLowerCase(),
                       showDropdown: true,
                       onPressed: () =>
@@ -575,8 +584,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               _ledgerItemIncome.address == null
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
-                      icon: Icons.date_range,
-                      text: _localization.trans('LOCATION'),
+                      icon: Icons.location_on,
+                      text: _localization.trans('LOCATION')!,
                       showDropdown: true,
                       onPressed: () =>
                           onLocationPressed(categoryType: CategoryType.INCOME),
@@ -584,7 +593,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   : renderBox(
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
-                      text: _ledgerItemIncome.address,
+                      text: _ledgerItemIncome.address!,
                       showDropdown: false,
                       onPressed: () =>
                           onLocationPressed(categoryType: CategoryType.INCOME),
@@ -592,7 +601,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                     ),
               Gallery(
                 margin: EdgeInsets.only(top: 26),
-                picture: [Photo(isAddBtn: true)],
+                pictures: [Photo(isAddBtn: true)],
                 ledgerItem: _ledgerItemIncome,
               ),
             ],
@@ -614,7 +623,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               onPressed: onLedgerItemEditPressed,
               child: Icon(
                 Icons.add_box,
-                color: Theme.of(context).textTheme.headline1.color,
+                color: Theme.of(context).textTheme.headline1!.color,
               ),
             ),
           ),
@@ -634,13 +643,13 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
                   borderSide: BorderSide(
-                      color: Theme.of(context).textTheme.headline1.color,
+                      color: Theme.of(context).textTheme.headline1!.color!,
                       width: 4.0),
                   insets: EdgeInsets.symmetric(horizontal: 8),
                   // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
                 ),
                 indicatorColor: Theme.of(context).backgroundColor,
-                labelColor: Theme.of(context).textTheme.headline1.color,
+                labelColor: Theme.of(context).textTheme.headline1!.color,
                 labelStyle: TextStyle(
                   fontSize: 20,
                 ),
@@ -649,7 +658,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                 tabs: choices.map((String choice) {
                   return Container(
                     child: Tab(
-                      text: _localization.trans(choice),
+                      text: _localization!.trans(choice),
                     ),
                   );
                 }).toList(),
@@ -662,10 +671,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   switch (choice) {
                     case 'CONSUME':
                       return renderConsumeView();
-                      break;
                     case 'INCOME':
                       return renderIncomeView();
-                      break;
                   }
                   return Container();
                 }).toList(),

@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/screens/ledger_edit.dart';
+import 'package:wecount/screens/setting.dart';
 
 import 'package:wecount/shared/button.dart' show Button;
-import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 
 import '../shared/home_header.dart' show renderHomeAppBar;
 
 class MainEmpty extends StatefulWidget {
+  static const String name = '/main_empty';
+
   MainEmpty({
-    Key key,
+    Key? key,
     this.title = '',
   }) : super(key: key);
   final String title;
 
   @override
-  _MainEmptyState createState() => new _MainEmptyState();
+  _MainEmptyState createState() => _MainEmptyState();
 }
 
 class _MainEmptyState extends State<MainEmpty> {
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHomeAppBar(
@@ -34,7 +37,7 @@ class _MainEmptyState extends State<MainEmpty> {
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
               onPressed: () =>
-                  General.instance.navigateScreenNamed(context, '/setting'),
+                  General.instance.navigateScreenNamed(context, Setting.name),
               child: Icon(
                 Icons.settings,
                 color: Colors.white,
@@ -63,9 +66,9 @@ class _MainEmptyState extends State<MainEmpty> {
                 bottom: 32,
               ),
               child: Text(
-                _localization.trans('NO_LEDGER_DESCRIPTION'),
+                _localization.trans('NO_LEDGER_DESCRIPTION')!,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.headline1.color,
+                  color: Theme.of(context).textTheme.headline1!.color,
                   fontSize: 20,
                 ),
                 textAlign: TextAlign.center,
@@ -78,17 +81,16 @@ class _MainEmptyState extends State<MainEmpty> {
               shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32),
                 side: BorderSide(
-                  color: Theme.of(context).textTheme.headline2.color,
+                  color: Theme.of(context).textTheme.headline2!.color!,
                   width: 1,
                   style: BorderStyle.solid,
                 ),
               ),
-              onPress: () =>
-                  General.instance.navigateScreenNamed(context, '/ledger_edit'),
+              onPress: () => Navigator.of(context).pushNamed(LedgerEdit.name),
               text: _localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,
-                color: Theme.of(context).textTheme.headline2.color,
+                color: Theme.of(context).textTheme.headline2!.color,
               ),
             ),
           ],

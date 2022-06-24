@@ -1,11 +1,11 @@
-import 'package:wecount/providers/CurrentLedger.dart';
+import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/models/User.dart';
+import 'package:wecount/models/user.dart';
 
 import 'package:wecount/shared/home_header_search.dart' show HomeHeaderSearch;
-import 'package:wecount/models/Category.dart';
-import 'package:wecount/models/LedgerItem.dart';
+import 'package:wecount/models/category.dart';
+import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/shared/home_list_item.dart';
 
 import 'package:wecount/utils/general.dart';
@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 
 class HomeList extends StatefulWidget {
   HomeList({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -36,7 +36,7 @@ class _HomeListState extends State<HomeList> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      var _localization = Localization.of(context);
+      var _localization = Localization.of(context)!;
 
       _data.add(
         LedgerItem(
@@ -224,7 +224,7 @@ class _HomeListState extends State<HomeList> {
       });
 
       // insert Date row as Header
-      DateTime prevDate;
+      DateTime? prevDate;
       var temp = [];
       for (var i = 0; i < _data.length; i++) {
         if (prevDate != _data[i].selectedDate) {
@@ -264,7 +264,7 @@ class _HomeListState extends State<HomeList> {
         headerString,
         style: TextStyle(
           fontSize: 16,
-          color: Theme.of(context).textTheme.headline2.color,
+          color: Theme.of(context).textTheme.headline2!.color,
         ),
       ),
     );
@@ -291,11 +291,11 @@ class _HomeListState extends State<HomeList> {
   @override
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger().color
+        ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
 
-    Function onAddLedgerList =
-        () => General.instance.navigateScreenNamed(context, '/ledger_item_add');
+    Function onAddLedgerList = () =>
+        General.instance.navigateScreenNamed(context, '/ledger_item_edit');
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -312,7 +312,7 @@ class _HomeListState extends State<HomeList> {
               child: RawMaterialButton(
                 padding: EdgeInsets.all(0.0),
                 shape: CircleBorder(),
-                onPressed: onAddLedgerList,
+                onPressed: onAddLedgerList as void Function()?,
                 child: Icon(
                   Icons.add,
                   color: Colors.white,

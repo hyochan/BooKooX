@@ -2,17 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:wecount/models/Photo.dart' show Photo;
+import 'package:wecount/models/photo.dart' show Photo;
 
 class Carousel extends StatefulWidget {
   final currentPage;
   final List<Photo> picture;
   final double height;
   final double viewportFraction;
-  final Function(int) onPressed;
+  final Function(int)? onPressed;
 
   Carousel({
-    @required this.picture,
+    required this.picture,
     this.currentPage = 0,
     this.height = 256.0,
     this.viewportFraction = 1.0,
@@ -30,9 +30,9 @@ class Carousel extends StatefulWidget {
 
 class _CarouselState extends State<Carousel> {
   final List<Photo> picture;
-  final double height;
-  final double viewportFraction;
-  int currentPage;
+  final double? height;
+  final double? viewportFraction;
+  int? currentPage;
 
   _CarouselState(
     this.picture, {
@@ -41,15 +41,15 @@ class _CarouselState extends State<Carousel> {
     this.viewportFraction,
   });
 
-  PageController _controller;
+  PageController? _controller;
 
   @override
   initState() {
     super.initState();
     _controller = PageController(
-      initialPage: this.currentPage,
+      initialPage: this.currentPage!,
       keepPage: false,
-      viewportFraction: this.viewportFraction,
+      viewportFraction: this.viewportFraction!,
 
       /// width percentage
     );
@@ -57,7 +57,7 @@ class _CarouselState extends State<Carousel> {
 
   @override
   dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -84,11 +84,11 @@ class _CarouselState extends State<Carousel> {
   builder(int index) {
     double screenWidth = MediaQuery.of(context).size.width;
     return AnimatedBuilder(
-      animation: _controller,
+      animation: _controller!,
       builder: (context, child) {
         double value = 1.0;
-        if (_controller.position.haveDimensions) {
-          value = _controller.page - index;
+        if (_controller!.position.haveDimensions) {
+          value = _controller!.page! - index;
           value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
         }
 
@@ -111,7 +111,7 @@ class _CarouselState extends State<Carousel> {
                   minWidth: double.infinity,
                   child: FlatButton(
                     padding: EdgeInsets.all(0.0),
-                    onPressed: () => widget.onPressed(index),
+                    onPressed: () => widget.onPressed!(index),
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -123,7 +123,7 @@ class _CarouselState extends State<Carousel> {
                           //   imageUrl: imgUrls[index],
                           // )
                           child: Image.file(
-                            File(widget.picture[index].file.path),
+                            File(widget.picture[index].file!.path),
                             fit: BoxFit.cover,
                             height: 72,
                             width: 84,

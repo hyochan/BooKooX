@@ -1,19 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:wecount/models/Category.dart';
+import 'package:wecount/models/category.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CategoryItem extends StatefulWidget {
   CategoryItem({
     this.key,
-    @required this.category,
+    required this.category,
     this.onSelectPressed,
     this.onDeletePressed,
   });
-  final Key key;
+  final Key? key;
   final Category category;
-  final Function onDeletePressed;
-  final Function onSelectPressed;
+  final Function? onDeletePressed;
+  final Function? onSelectPressed;
 
   @override
   _CategoryItemState createState() => _CategoryItemState(category);
@@ -29,7 +28,7 @@ class _CategoryItemState extends State<CategoryItem> {
       margin: EdgeInsets.only(top: 10, bottom: 10, left: 8),
       child: InkWell(
         onTap: () {
-          widget.onSelectPressed();
+          widget.onSelectPressed!();
         },
         onLongPress: () => setState(() {
           category.showDelete = !category.showDelete;
@@ -39,7 +38,7 @@ class _CategoryItemState extends State<CategoryItem> {
             Column(
               children: <Widget>[
                 Image(
-                  image: category.getIconImage(),
+                  image: category.getIconImage()!,
                   width: 72,
                   height: 72,
                 ),
@@ -50,7 +49,7 @@ class _CategoryItemState extends State<CategoryItem> {
                     category.label ?? '',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.headline1.color,
+                      color: Theme.of(context).textTheme.headline1!.color,
                     ),
                     textAlign: TextAlign.center,
                     maxLines: 1,
@@ -65,12 +64,12 @@ class _CategoryItemState extends State<CategoryItem> {
                   ? Container(
                       padding: EdgeInsets.all(2),
                       child: InkWell(
-                        onTap: widget.onDeletePressed,
+                        onTap: widget.onDeletePressed as void Function()?,
                         child: ClipOval(
                           child: Container(
                             width: 24,
                             height: 24,
-                            color: Theme.of(context).textTheme.headline1.color,
+                            color: Theme.of(context).textTheme.headline1!.color,
                             child: Icon(
                               Icons.close,
                               color: Theme.of(context).backgroundColor,

@@ -1,4 +1,4 @@
-import 'package:wecount/models/Category.dart';
+import 'package:wecount/models/category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
