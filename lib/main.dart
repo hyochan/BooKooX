@@ -12,7 +12,7 @@ import 'package:wecount/firebase_options.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/screens/tutorial.dart';
-import 'package:wecount/utils/constatns.dart';
+import 'package:wecount/utils/constants.dart';
 
 import './navigations/auth_switch.dart' show AuthSwitch;
 import './navigations/home_tab.dart' show HomeTab;
@@ -89,7 +89,9 @@ class MyApp extends StatelessWidget {
           value: FirebaseAuth.instance.authStateChanges(),
           initialData: null,
         ),
-        ChangeNotifierProvider(create: (context) => CurrentLedger(null)),
+        ChangeNotifierProvider(
+          create: (context) => CurrentLedger(null),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
