@@ -26,20 +26,18 @@ class _CategoryAddState extends State<CategoryAdd> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
-
     void onDonePressed() async {
       if (_textController.text == '') {
         setState(() {
-          _errorText = _localization.trans('ERROR_CATEGORY_NAME');
+          _errorText = t('ERROR_CATEGORY_NAME');
         });
         return;
       }
       if (_selectedIconIndex == null) {
         General.instance.showSingleDialog(
           context,
-          title: Text(_localization.trans('ERROR')!),
-          content: Text(_localization.trans('ERROR_CATEGORY_ICON')!),
+          title: Text(t('ERROR')),
+          content: Text(t('ERROR_CATEGORY_ICON')),
         );
         return;
       }
@@ -54,7 +52,7 @@ class _CategoryAddState extends State<CategoryAdd> {
         await DBHelper.instance.insertCategory(context, category);
       } catch (err) {
         Fluttertoast.showToast(
-          msg: _localization.trans('CATEGORY_ADD_ERROR')!,
+          msg: t('CATEGORY_ADD_ERROR'),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -128,7 +126,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                         bottom: 24,
                       ),
                       child: Text(
-                        _localization.trans('CATEGORY_ADD')!,
+                        t('CATEGORY_ADD'),
                         style: TextStyle(
                           fontSize: 28,
                           color: Theme.of(context).textTheme.headline1!.color,
@@ -142,7 +140,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                         left: 24,
                         right: 24,
                       ),
-                      hintText: _localization.trans('CATEGORY_ADD_HINT'),
+                      hintText: t('CATEGORY_ADD_HINT'),
                       errorText: _errorText,
                     ),
                     Container(
@@ -160,7 +158,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                             ),
                           ),
                           Text(
-                            _localization.trans('ICON_SELECT')!,
+                            t('ICON_SELECT'),
                             style: TextStyle(
                               color: Asset.Colors.mediumGray,
                               fontSize: 16,
@@ -185,7 +183,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                     child: FlatButton(
                       onPressed: onCancelPressed,
                       child: Text(
-                        _localization.trans('CANCEL')!,
+                        t('CANCEL'),
                         style: TextStyle(
                           fontSize: 20,
                           color: Theme.of(context).textTheme.headline1!.color,
@@ -198,7 +196,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                     child: FlatButton(
                       onPressed: onDonePressed,
                       child: Text(
-                        _localization.trans('DONE')!,
+                        t('DONE'),
                         style: TextStyle(
                           fontSize: 20,
                           color: Theme.of(context).textTheme.headline1!.color,

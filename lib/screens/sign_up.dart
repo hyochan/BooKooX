@@ -5,9 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/shared/edit_text.dart' show EditText;
 import 'package:wecount/shared/button.dart' show Button;
-import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/validator.dart' show Validator;
 import 'package:wecount/utils/asset.dart' as Asset;
+
+import '../utils/localization.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -22,8 +23,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  Localization? _localization;
-
   String? _email;
   String? _password;
   String? _passwordConfirm;
@@ -52,29 +51,27 @@ class _SignUpState extends State<SignUp> {
     }
 
     if (!_isValidEmail) {
-      setState(() => _errorEmail = _localization!.trans('NO_VALID_EMAIL'));
+      setState(() => _errorEmail = t('NO_VALID_EMAIL'));
       return;
     }
 
     if (!_isValidPassword) {
-      setState(() => _errorPassword = _localization!.trans('PASSWORD_HINT'));
+      setState(() => _errorPassword = t('PASSWORD_HINT'));
       return;
     }
 
     if (_passwordConfirm != _password) {
-      setState(() => _errorPasswordConfirm =
-          _localization!.trans('PASSWORD_CONFIRM_HINT'));
+      setState(() => _errorPasswordConfirm = t('PASSWORD_CONFIRM_HINT'));
       return;
     }
 
     if (!_isValidDisplayName) {
-      setState(
-          () => _errorDisplayName = _localization!.trans('DISPLAY_NAME_HINT'));
+      setState(() => _errorDisplayName = t('DISPLAY_NAME_HINT'));
       return;
     }
 
     if (!_isValidName) {
-      setState(() => _errorName = _localization!.trans('NAME_HINT'));
+      setState(() => _errorName = t('NAME_HINT'));
       return;
     }
 
@@ -102,8 +99,8 @@ class _SignUpState extends State<SignUp> {
 
         return General.instance.showSingleDialog(
           context,
-          title: Text(_localization!.trans('SIGN_UP_SUCCESS_TITLE')!),
-          content: Text(_localization!.trans('SIGN_UP_SUCCESS_CONTENT')!),
+          title: Text(t('SIGN_UP_SUCCESS_TITLE')),
+          content: Text(t('SIGN_UP_SUCCESS_CONTENT')),
           onPress: () {
             _auth.signOut();
             Navigator.of(context).pop();
@@ -115,8 +112,8 @@ class _SignUpState extends State<SignUp> {
     } catch (err) {
       General.instance.showSingleDialog(
         context,
-        title: Text(_localization!.trans('SIGN_UP_ERROR_TITLE')!),
-        content: Text(_localization!.trans('SIGN_UP_ERROR_CONTENT')!),
+        title: Text(t('SIGN_UP_ERROR_TITLE')),
+        content: Text(t('SIGN_UP_ERROR_CONTENT')),
       );
     } finally {
       setState(() => _isRegistering = false);
@@ -125,11 +122,9 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    _localization = Localization.of(context);
-
     Widget renderSignUpText() {
       return Text(
-        _localization!.trans('SIGN_UP')!,
+        t('SIGN_UP'),
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.headline1!.color,
@@ -143,8 +138,8 @@ class _SignUpState extends State<SignUp> {
         key: Key('email'),
         margin: EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('EMAIL'),
-        textHint: _localization!.trans('EMAIL_HINT'),
+        textLabel: t('EMAIL'),
+        textHint: t('EMAIL_HINT'),
         hasChecked: _isValidEmail,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
@@ -167,8 +162,8 @@ class _SignUpState extends State<SignUp> {
         key: Key('password'),
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('PASSWORD'),
-        textHint: _localization!.trans('PASSWORD_HINT'),
+        textLabel: t('PASSWORD'),
+        textHint: t('PASSWORD_HINT'),
         isSecret: true,
         hasChecked: _isValidPassword,
         onChanged: (String str) {
@@ -192,8 +187,8 @@ class _SignUpState extends State<SignUp> {
         key: Key('password-confirm'),
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('PASSWORD_CONFIRM'),
-        textHint: _localization!.trans('PASSWORD_CONFIRM_HINT'),
+        textLabel: t('PASSWORD_CONFIRM'),
+        textHint: t('PASSWORD_CONFIRM_HINT'),
         isSecret: true,
         hasChecked: _passwordConfirm != null &&
             _passwordConfirm != '' &&
@@ -214,8 +209,8 @@ class _SignUpState extends State<SignUp> {
         key: Key('display-name'),
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('DISPLAY_NAME'),
-        textHint: _localization!.trans('DISPLAY_NAME_HINT'),
+        textLabel: t('DISPLAY_NAME'),
+        textHint: t('DISPLAY_NAME_HINT'),
         hasChecked: _isValidDisplayName,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
@@ -238,8 +233,8 @@ class _SignUpState extends State<SignUp> {
         key: Key('name'),
         margin: EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('NAME'),
-        textHint: _localization!.trans('NAME_HINT'),
+        textLabel: t('NAME'),
+        textHint: t('NAME_HINT'),
         hasChecked: _isValidName,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
@@ -269,7 +264,7 @@ class _SignUpState extends State<SignUp> {
         ),
         borderColor: Colors.white,
         backgroundColor: Asset.Colors.main,
-        text: _localization!.trans('SIGN_UP'),
+        text: t('SIGN_UP'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );

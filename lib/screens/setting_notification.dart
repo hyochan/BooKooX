@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:wecount/shared/header.dart';
-import 'package:wecount/utils/localization.dart';
+
+import '../utils/localization.dart';
 
 class SettingNotification extends StatefulWidget {
   static const String name = '/setting_notification';
@@ -27,7 +26,6 @@ class _SettingNotificationState extends State<SettingNotification> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
@@ -36,7 +34,7 @@ class _SettingNotificationState extends State<SettingNotification> {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          _localization.trans('NOTIFICATION')!,
+          t('NOTIFICATION')!,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.headline1!.color,
@@ -52,7 +50,7 @@ class _SettingNotificationState extends State<SettingNotification> {
                 Container(
                   padding: EdgeInsets.only(left: 40, right: 40, top: 44),
                   child: Text(
-                    _localization.trans('ADDING_LEDGER_ITEM')!,
+                    t('ADDING_LEDGER_ITEM')!,
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.headline1!.color,
@@ -79,7 +77,7 @@ class _SettingNotificationState extends State<SettingNotification> {
                 Container(
                   padding: EdgeInsets.only(left: 40, right: 40, top: 44),
                   child: Text(
-                    _localization.trans('UPDATING_LEDGER_ITEM')!,
+                    t('UPDATING_LEDGER_ITEM')!,
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.headline1!.color,

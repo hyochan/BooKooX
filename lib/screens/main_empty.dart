@@ -4,9 +4,9 @@ import 'package:wecount/screens/setting.dart';
 
 import 'package:wecount/shared/button.dart' show Button;
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
 
 import '../shared/home_header.dart' show renderHomeAppBar;
+import '../utils/localization.dart';
 
 class MainEmpty extends StatefulWidget {
   static const String name = '/main_empty';
@@ -24,7 +24,6 @@ class MainEmpty extends StatefulWidget {
 class _MainEmptyState extends State<MainEmpty> {
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHomeAppBar(
@@ -66,7 +65,7 @@ class _MainEmptyState extends State<MainEmpty> {
                 bottom: 32,
               ),
               child: Text(
-                _localization.trans('NO_LEDGER_DESCRIPTION')!,
+                t('NO_LEDGER_DESCRIPTION')!,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.headline1!.color,
                   fontSize: 20,
@@ -87,7 +86,7 @@ class _MainEmptyState extends State<MainEmpty> {
                 ),
               ),
               onPress: () => Navigator.of(context).pushNamed(LedgerEdit.name),
-              text: _localization.trans('ADD_LEDGER'),
+              text: t('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,
                 color: Theme.of(context).textTheme.headline2!.color,

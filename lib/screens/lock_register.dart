@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/shared/pin_keyboard.dart' show PinKeyboard;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 class LockRegister extends StatefulWidget {
   static const String name = '/lock_register';
@@ -77,7 +77,6 @@ class _LockRegisterState extends State<LockRegister> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -89,7 +88,7 @@ class _LockRegisterState extends State<LockRegister> {
         actions: <Widget>[
           FlatButton(
             child: Text(
-              _localization.trans('DONE')!,
+              t('DONE'),
               style: TextStyle(
                 color: Theme.of(context).textTheme.headline1!.color,
               ),
@@ -107,7 +106,7 @@ class _LockRegisterState extends State<LockRegister> {
               height: 40,
             ),
             Text(
-              _localization.trans('LOCK_HINT')!,
+              t('LOCK_HINT'),
               style: TextStyle(
                   fontSize: 24,
                   color: Theme.of(context).textTheme.headline1!.color),

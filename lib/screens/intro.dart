@@ -63,7 +63,6 @@ class Intro extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarBrightness: Theme.of(context).brightness));
-    var _localization = Localization.of(context);
     final TextStyle _signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
       fontSize: 16.0,
@@ -79,7 +78,7 @@ class Intro extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
         backgroundColor: Colors.white,
-        text: _localization!.trans('SIGN_IN'),
+        text: t('SIGN_IN'),
         width: 240.0,
         height: 56.0,
       );
@@ -95,10 +94,10 @@ class Intro extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: _localization!.trans('DO_NOT_HAVE_ACCOUNT'),
+                  text: t('DO_NOT_HAVE_ACCOUNT'),
                 ),
                 TextSpan(
-                  text: '  ' + _localization.trans('SIGN_UP')!,
+                  text: '  ' + t('SIGN_UP'),
                   style: TextStyle(
                       color: Asset.Colors.green, fontWeight: FontWeight.bold),
                 ),
@@ -182,15 +181,15 @@ class Intro extends StatelessWidget {
         margin: EdgeInsets.only(top: 16.0, bottom: 40.0),
         child: RichText(
           text: TextSpan(
-            text: _localization!.trans('TERMS_1'),
+            text: t('TERMS_1'),
             style: _signInWithTextStyle.merge(
               TextStyle(fontSize: 12, height: 1.3),
             ),
             children: [
               TextSpan(
-                text: _localization.trans('TERMS_OF_USE'),
+                text: t('TERMS_OF_USE'),
                 style: clickableTextStyle,
-                semanticsLabel: _localization.trans('TERMS_OF_USE'),
+                semanticsLabel: t('TERMS_OF_USE'),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -199,13 +198,13 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: _localization.trans('TERMS_2'),
-                semanticsLabel: _localization.trans('TERMS_2'),
+                text: t('TERMS_2'),
+                semanticsLabel: t('TERMS_2'),
               ),
               TextSpan(
-                text: _localization.trans('PRIVACY_POLICY'),
+                text: t('PRIVACY_POLICY'),
                 style: clickableTextStyle,
-                semanticsLabel: _localization.trans('PRIVACY_POLICY'),
+                semanticsLabel: t('PRIVACY_POLICY'),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -214,8 +213,8 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: _localization.trans('TERMS_3'),
-                semanticsLabel: _localization.trans('TERMS_3'),
+                text: t('TERMS_3'),
+                semanticsLabel: t('TERMS_3'),
               ),
             ],
           ),

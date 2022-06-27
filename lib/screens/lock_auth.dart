@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/shared/pin_keyboard.dart' show PinKeyboard;
 
-import 'package:wecount/utils/localization.dart' show Localization;
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:local_auth/local_auth.dart';
+
+import '../utils/localization.dart';
 
 class LockAuth extends StatefulWidget {
   static const String name = '/lock_auth';
@@ -25,8 +25,6 @@ class _LockAuthState extends State<LockAuth> {
   int? _secondDigit;
   int? _thirdDigit;
   int? _fourthDigit;
-
-  Localization? _localization;
 
   String? _pin = '';
   String _inputPin = '';
@@ -70,8 +68,7 @@ class _LockAuthState extends State<LockAuth> {
     bool authenticated = false;
     try {
       authenticated = await _localAuthentication.authenticate(
-        localizedReason:
-            _localization!.trans('FINGERPRINT_LOGIN')!, // message for dialog
+        localizedReason: t('FINGERPRINT_LOGIN'), // message for dialog
         options: AuthenticationOptions(
           useErrorDialogs: true,
           stickyAuth: true,
@@ -125,7 +122,6 @@ class _LockAuthState extends State<LockAuth> {
 
   @override
   Widget build(BuildContext context) {
-    _localization = Localization.of(context);
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -144,7 +140,7 @@ class _LockAuthState extends State<LockAuth> {
               height: 40,
             ),
             Text(
-              _localization!.trans('LOCK_HINT')!,
+              t('LOCK_HINT'),
               style: TextStyle(
                   fontSize: 24,
                   color: Theme.of(context).textTheme.headline2!.color),
@@ -163,7 +159,7 @@ class _LockAuthState extends State<LockAuth> {
             ),
             OutlinedButton(
               child: Text(
-                _localization!.trans('FINGERPRINT_LOGIN')!,
+                t('FINGERPRINT_LOGIN'),
                 style: TextStyle(
                     color: Theme.of(context).textTheme.headline2!.color),
               ),
@@ -212,7 +208,7 @@ class _LockAuthState extends State<LockAuth> {
         Navigator.pop(context, false);
       } else {
         Fluttertoast.showToast(
-          msg: _localization!.trans('PIN_MISMATCH')!,
+          msg: t('PIN_MISMATCH'),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,

@@ -7,9 +7,10 @@ import 'package:wecount/shared/header.dart' show renderHeaderClose;
 import 'package:wecount/shared/edit_text_box.dart' show EditTextBox;
 import 'package:wecount/shared/profile_image_cam.dart';
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import '../utils/localization.dart';
 
 class ProfileMy extends StatefulWidget {
   static const String name = '/profile_my';
@@ -36,7 +37,6 @@ class _ProfileMyState extends State<ProfileMy> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     var _user = Provider.of<FireAuth.User>(context);
 
     return Scaffold(
@@ -48,7 +48,7 @@ class _ProfileMyState extends State<ProfileMy> {
           IconButton(
             icon: Icon(
               Icons.save_alt,
-              semanticLabel: _localization.trans('UPDATE'),
+              semanticLabel: t('UPDATE'),
             ),
             color: Theme.of(context).textTheme.headline1!.color,
             padding: EdgeInsets.all(0.0),
@@ -110,7 +110,7 @@ class _ProfileMyState extends State<ProfileMy> {
                 enabled: false,
                 iconData: Icons.email,
                 margin: EdgeInsets.only(top: 24.0),
-                hintText: _localization.trans('EMAIL'),
+                hintText: t('EMAIL'),
                 focusedColor: Theme.of(context).textTheme.headline1!.color,
                 enabledColor: Theme.of(context).textTheme.headline2!.color,
               ),
@@ -119,10 +119,10 @@ class _ProfileMyState extends State<ProfileMy> {
                   text: user.displayName,
                 ),
                 onChangeText: (String str) => _profile!.displayName = str,
-                semanticLabel: _localization.trans('NICKNAME'),
+                semanticLabel: t('NICKNAME'),
                 iconData: Icons.person_outline,
                 margin: EdgeInsets.only(top: 8.0),
-                hintText: _localization.trans('NICKNAME'),
+                hintText: t('NICKNAME'),
                 focusedColor: Theme.of(context).textTheme.headline1!.color,
                 enabledColor: Theme.of(context).textTheme.headline2!.color,
               ),
@@ -133,7 +133,7 @@ class _ProfileMyState extends State<ProfileMy> {
                 onChangeText: (String str) => _profile!.phoneNumber = str,
                 iconData: Icons.phone,
                 margin: EdgeInsets.only(top: 8.0),
-                hintText: _localization.trans('PHONE'),
+                hintText: t('PHONE'),
                 focusedColor: Theme.of(context).textTheme.headline1!.color,
                 enabledColor: Theme.of(context).textTheme.headline2!.color,
               ),
@@ -148,8 +148,8 @@ class _ProfileMyState extends State<ProfileMy> {
                   text: user.statusMsg,
                 ),
                 onChangeText: (String str) => _profile!.statusMsg = str,
-                labelText: _localization.trans('STATUS_MESSAGE'),
-                hintText: _localization.trans('STATUS_MESSAGE_HINT'),
+                labelText: t('STATUS_MESSAGE'),
+                hintText: t('STATUS_MESSAGE_HINT'),
                 maxLines: 5,
               ),
             ],

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:wecount/shared/edit_text_search.dart' show EditTextSearch;
-import 'package:wecount/utils/localization.dart' show Localization;
+
+import '../utils/localization.dart';
 
 class HomeHeaderSearch extends StatefulWidget {
   HomeHeaderSearch({
@@ -31,7 +32,6 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context)!;
     var textInput = EditTextSearch(
       controller: widget.textEditingController,
       textInputAction: TextInputAction.search,
@@ -48,7 +48,7 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
       },
       onSubmit: widget.onSubmit,
       background: Colors.transparent,
-      txtHint: localization.trans('PLZ_SEARCH'),
+      txtHint: t('PLZ_SEARCH'),
       underline: false,
       txtHintStyle: TextStyle(
           color: Color.fromRGBO(255, 255, 255, 0.5),

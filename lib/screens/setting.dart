@@ -14,7 +14,8 @@ import 'package:wecount/shared/setting_list_item.dart'
 import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/asset.dart' as Asset;
-import 'package:wecount/utils/localization.dart' show Localization;
+
+import '../utils/localization.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -83,7 +84,6 @@ class _SettingState extends State<Setting> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     final List<ListItem> _items = [
       SettingItem(
         Icon(
@@ -91,7 +91,7 @@ class _SettingState extends State<Setting> {
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('ANNOUNCEMENT'),
+        t('ANNOUNCEMENT'),
         onPressed: () => General.instance
             .navigateScreenNamed(context, SettingAnnouncement.name),
       ),
@@ -101,7 +101,7 @@ class _SettingState extends State<Setting> {
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('SHARE_OPINION'),
+        t('SHARE_OPINION'),
         onPressed: () =>
             General.instance.navigateScreenNamed(context, SettingOpinion.name),
       ),
@@ -111,7 +111,7 @@ class _SettingState extends State<Setting> {
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('FAQ'),
+        t('FAQ'),
         onPressed: () =>
             General.instance.navigateScreenNamed(context, SettingFAQ.name),
       ),
@@ -121,7 +121,7 @@ class _SettingState extends State<Setting> {
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('NOTIFICATION'),
+        t('NOTIFICATION'),
         onPressed: () => General.instance
             .navigateScreenNamed(context, SettingNotification.name),
       ),
@@ -131,7 +131,7 @@ class _SettingState extends State<Setting> {
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('LOCK'),
+        t('LOCK'),
         optionalWidget: Switch(
           value: _lockSwitch,
           onChanged: _onChangeLock,
@@ -140,7 +140,7 @@ class _SettingState extends State<Setting> {
         ),
       ),
       LogoutItem(
-        _localization.trans('LOGOUT'),
+        t('LOGOUT'),
         onPressed: () {
           _auth.signOut();
 

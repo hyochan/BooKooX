@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wecount/screens/intro.dart';
 
-import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/asset.dart' as Asset;
+
+import '../utils/localization.dart';
 
 class Tutorial extends StatefulWidget {
   static const String name = '/tutorial';
@@ -31,8 +32,6 @@ class _TutorialState extends State<Tutorial> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
-
     Widget renderPage({
       Key? key,
       int page = 0,
@@ -59,12 +58,12 @@ class _TutorialState extends State<Tutorial> {
               margin: EdgeInsets.only(top: 56),
               child: Text(
                 page == 0
-                    ? _localization.trans('RECORD_IT')!
+                    ? t('RECORD_IT')
                     : page == 1
-                        ? _localization.trans('SHARE_IT')!
+                        ? t('SHARE_IT')
                         : page == 2
-                            ? _localization.trans('TAKE_CARE')!
-                            : _localization.trans('RECORD_IT')!,
+                            ? t('TAKE_CARE')
+                            : t('RECORD_IT'),
                 style: TextStyle(
                   fontSize: 28,
                   color: Colors.white,
@@ -76,12 +75,12 @@ class _TutorialState extends State<Tutorial> {
               margin: EdgeInsets.only(top: 20),
               child: Text(
                 page == 0
-                    ? _localization.trans('TUTORIAL_1_DETAIL')!
+                    ? t('TUTORIAL_1_DETAIL')
                     : page == 1
-                        ? _localization.trans('TUTORIAL_2_DETAIL')!
+                        ? t('TUTORIAL_2_DETAIL')
                         : page == 2
-                            ? _localization.trans('TUTORIAL_3_DETAIL')!
-                            : _localization.trans('TUTORIAL_1_DETAIL')!,
+                            ? t('TUTORIAL_3_DETAIL')
+                            : t('TUTORIAL_1_DETAIL'),
                 style: TextStyle(
                   fontSize: 16,
                   height: 1.3,
@@ -175,7 +174,7 @@ class _TutorialState extends State<Tutorial> {
                     TextButton(
                       onPressed: onNextPressed,
                       child: Text(
-                        _localization.trans('NEXT')!,
+                        t('NEXT'),
                         style: TextStyle(
                           fontSize: 20,
                           color: Asset.Colors.green,

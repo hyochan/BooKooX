@@ -174,7 +174,6 @@ class Wecount extends StatelessWidget {
           const Locale('ko', 'KR'),
         ],
         localizationsDelegates: [
-          const LocalizationDelegate(supportedLocales: ['en', 'ko']),
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
-import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/types/color.dart' show ColorType;
+
+import '../utils/localization.dart';
 
 abstract class ListItem {}
 
@@ -43,7 +44,6 @@ class LedgerListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     return Container(
       height: 100.0,
       child: Row(
@@ -115,8 +115,8 @@ class LedgerListItem extends StatelessWidget {
                           Container(
                             child: Text(
                               people! > 1
-                                  ? '$people ${_localization.trans("PEOPLE")}'
-                                  : '$people ${_localization.trans("PERSON")}',
+                                  ? '$people ${t("PEOPLE")}'
+                                  : '$people ${t("PERSON")}',
                               style: TextStyle(
                                 color: Theme.of(context).hintColor,
                                 fontSize: 14.0,
@@ -138,7 +138,7 @@ class LedgerListItem extends StatelessWidget {
               height: double.infinity,
               child: Center(
                 child: Text(
-                  _localization.trans('MORE')!,
+                  t('MORE'),
                   style: TextStyle(
                     color: Asset.Colors.green,
                   ),

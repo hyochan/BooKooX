@@ -1,20 +1,18 @@
 import 'dart:io';
 
-import 'package:wecount/models/ledger_item.dart';
 import 'package:flutter/material.dart';
-
-import 'package:wecount/screens/photo_detail.dart';
-import 'package:wecount/models/photo.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
-import 'package:wecount/utils/localization.dart' show Localization;
-import 'package:wecount/utils/general.dart' show General;
 import 'package:image_picker/image_picker.dart';
+import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/photo.dart';
+import 'package:wecount/screens/photo_detail.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/general.dart' show General;
+
+import '../utils/localization.dart';
 
 enum PhotoOption { Camera, Gallery }
 
 Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
-  var _localization = Localization.of(context);
-
   return await showDialog<PhotoOption>(
       context: context,
       barrierDismissible: true,
@@ -36,7 +34,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                     Container(
                       margin: EdgeInsets.only(left: 8),
                       child: Text(
-                        _localization!.trans('CAMERA')!,
+                        t('CAMERA'),
                         style: TextStyle(
                           fontSize: 16,
                           color: Theme.of(context).textTheme.headline1!.color,
@@ -62,7 +60,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                     Container(
                       margin: EdgeInsets.only(left: 8),
                       child: Text(
-                        _localization.trans('GALLERY')!,
+                        t('GALLERY'),
                         style: TextStyle(
                           fontSize: 16,
                           color: Theme.of(context).textTheme.headline1!.color,
@@ -107,8 +105,6 @@ class _GalleryState extends State<Gallery> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
-
     void onPressShowAll() {}
 
     return Container(
@@ -131,7 +127,7 @@ class _GalleryState extends State<Gallery> {
                       ),
                     ),
                     Text(
-                      _localization.trans('PICTURE')!,
+                      t('PICTURE'),
                       style: TextStyle(
                         color: Theme.of(context).textTheme.headline1!.color,
                         fontSize: 16,
@@ -144,7 +140,7 @@ class _GalleryState extends State<Gallery> {
                   ? FlatButton(
                       onPressed: onPressShowAll,
                       child: Text(
-                        _localization.trans('SHOW_ALL')!,
+                        t('SHOW_ALL'),
                         style: TextStyle(
                           color: Theme.of(context).textTheme.headline1!.color,
                           fontSize: 16,

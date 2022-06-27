@@ -1,22 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' show DateFormat;
+import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:pie_chart/pie_chart.dart' show PieChart;
+import 'package:provider/provider.dart';
 import 'package:wecount/mocks/home_statistic.mock.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/providers/current_ledger.dart';
-import 'package:wecount/shared/date_selector.dart' show DateSelector;
 import 'package:wecount/screens/home_statistic/functions.dart';
-
+import 'package:wecount/shared/date_selector.dart' show DateSelector;
+import 'package:wecount/shared/home_header.dart' show renderHomeAppBar;
 import 'package:wecount/shared/home_list_item.dart';
 import 'package:wecount/types/color.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
-import 'package:wecount/utils/localization.dart';
-import 'package:flutter/material.dart';
-
 import 'package:wecount/utils/general.dart' show General;
-import 'package:wecount/shared/home_header.dart' show renderHomeAppBar;
-import 'package:pie_chart/pie_chart.dart' show PieChart;
-import 'package:month_picker_dialog/month_picker_dialog.dart';
-import 'package:intl/intl.dart' show DateFormat;
-import 'package:wecount/utils/localization.dart' show Localization;
-import 'package:provider/provider.dart';
+import 'package:wecount/utils/localization.dart';
 
 class HomeStatistic extends StatelessWidget {
   HomeStatistic({
@@ -97,7 +94,7 @@ class _ContentState extends State<Content> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      _ledgerList = createHomeStatisticMock(Localization.of(context)!);
+      _ledgerList = createHomeStatisticMock();
 
       calculateAndRender(this._date.month.toString(), _ledgerList);
       this.setState(() => this._selectedChart = 1);
@@ -121,8 +118,6 @@ class _ContentState extends State<Content> {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context);
-
     /// Month select Widget -> select month, set _date and calculate
     void onDatePressed() async {
       int year = this._date.year;
@@ -170,7 +165,7 @@ class _ContentState extends State<Content> {
                   padding: EdgeInsets.all(20),
                 ),
                 Text(
-                  localization!.trans('NO_DATA')!,
+                  t('NO_DATA'),
                   style: TextStyle(),
                 ),
               ],
@@ -248,7 +243,6 @@ class ButtonGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color selectedColor = Theme.of(context).primaryColor;
-    var localization = Localization.of(context)!;
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       height: 40,
@@ -263,7 +257,7 @@ class ButtonGroup extends StatelessWidget {
                 color: this.selected == 1 ? selectedColor : Colors.white,
                 onPressed: this.onButtonOnePressed as void Function()?,
                 child: Text(
-                  localization.trans("INCOME")!,
+                  t("INCOME"),
                   style: TextStyle(
                     color:
                         this.selected == 1 ? selectedColorText : Colors.black,
@@ -284,7 +278,7 @@ class ButtonGroup extends StatelessWidget {
                 color: this.selected == 2 ? selectedColor : Colors.white,
                 onPressed: this.onButtonTwoPressed as void Function()?,
                 child: Text(
-                  localization.trans("CONSUME")!,
+                  t("CONSUME"),
                   style: TextStyle(
                     color:
                         this.selected == 2 ? selectedColorText : Colors.black,

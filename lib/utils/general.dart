@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Im;
-
+import 'package:image_picker/image_picker.dart';
 import 'package:wecount/shared/dialog_spinner.dart';
 import 'package:wecount/utils/localization.dart';
 
@@ -76,7 +76,7 @@ class General {
           actions: <Widget>[
             FlatButton(
               child: Text(
-                Localization.of(context)!.trans('OK')!,
+                t('OK'),
                 style: _btnTextStyle,
               ),
               onPressed: () {
@@ -112,7 +112,7 @@ class General {
           actions: <Widget>[
             FlatButton(
               child: Text(
-                Localization.of(context)!.trans('OK')!,
+                t('OK'),
                 style: _btnTextStyle,
               ),
               onPressed: okPressed as void Function()?,
@@ -120,7 +120,7 @@ class General {
             FlatButton(
               onPressed: cancelPressed as void Function()?,
               child: Text(
-                Localization.of(context)!.trans('CANCEL')!,
+                t('CANCEL'),
                 style: _btnTextStyle,
               ),
             )
@@ -132,12 +132,11 @@ class General {
 
   void showMembershipDialog(
       BuildContext context, void Function(int?)? onChange, int value) {
-    var _localization = Localization.of(context);
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(_localization!.trans('MEMBERSHIP_CHANGE')!),
+          title: Text(t('MEMBERSHIP_CHANGE')),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Container(
@@ -145,19 +144,19 @@ class General {
                 child: Column(
                   children: <Widget>[
                     RadioListTile(
-                      title: Text(_localization.trans('MEMBER_OWNER')!),
+                      title: Text(t('MEMBER_OWNER')),
                       groupValue: value,
                       value: 0,
                       onChanged: onChange,
                     ),
                     RadioListTile(
-                      title: Text(_localization.trans('MEMBER_ADMIN')!),
+                      title: Text(t('MEMBER_ADMIN')),
                       groupValue: value,
                       value: 1,
                       onChanged: onChange,
                     ),
                     RadioListTile(
-                      title: Text(_localization.trans('MEMBER_GUEST')!),
+                      title: Text(t('MEMBER_GUEST')),
                       groupValue: value,
                       value: 2,
                       onChanged: onChange,
