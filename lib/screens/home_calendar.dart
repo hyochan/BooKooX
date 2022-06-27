@@ -1,22 +1,21 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
+import 'package:flutter_calendar_carousel/classes/event_list.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
+    show CalendarCarousel;
+import 'package:intl/intl.dart' show DateFormat;
+import 'package:provider/provider.dart';
 import 'package:wecount/mocks/home_calendar.mock.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/ledger_item_edit.dart';
 import 'package:wecount/screens/ledgers.dart';
 import 'package:wecount/shared/date_selector.dart' show DateSelector;
+import 'package:wecount/shared/home_header.dart' show HomeHeaderExpanded;
 import 'package:wecount/shared/home_list_item.dart';
 import 'package:wecount/types/color.dart';
-import 'package:flutter/material.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
-
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/shared/home_header.dart' show HomeHeaderExpanded;
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
-    show CalendarCarousel;
-import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/event_list.dart';
-import 'package:intl/intl.dart' show DateFormat;
-import 'package:provider/provider.dart';
 
 class HomeCalendar extends StatefulWidget {
   HomeCalendar({
@@ -42,7 +41,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
         slivers: <Widget>[
           HomeHeaderExpanded(
             title: widget.title,
-            color: Asset.Colors.getColor(color),
+            color: getColor(color),
             actions: [
               Container(
                 width: 56.0,
@@ -186,7 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 markedDateMap: _markedDateMap,
                 currentDate: _currentDate,
                 targetDate: _targetDate,
-                color: Asset.Colors.getColor(color)),
+                color: getColor(color)),
             Divider(
               color: Colors.grey,
               indent: 10,

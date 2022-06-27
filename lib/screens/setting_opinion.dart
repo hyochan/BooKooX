@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/shared/button.dart' show Button;
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/colors.dart';
 
 import '../utils/localization.dart';
 
@@ -60,7 +60,7 @@ class SettingOpinion extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 16,
                 ),
-                backgroundColor: Asset.Colors.main,
+                backgroundColor: mainColor,
               ),
             )
           ],

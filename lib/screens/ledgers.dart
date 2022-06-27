@@ -11,8 +11,8 @@ import 'package:wecount/screens/ledger_view.dart';
 import 'package:wecount/shared/profile_list_item.dart' show ProfileListItem;
 import 'package:wecount/shared/ledger_list_item.dart' show LedgerListItem;
 import 'package:wecount/models/ledger.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/general.dart';
 import 'package:provider/provider.dart' show Provider;
 
@@ -137,7 +137,7 @@ class _LedgersState extends State<Ledgers> {
                   children: <Widget>[
                     Icon(
                       Icons.add,
-                      color: Asset.Colors.mediumGray,
+                      color: mediumGrayColor,
                       size: 24.0,
                     ),
                     Container(
@@ -145,7 +145,7 @@ class _LedgersState extends State<Ledgers> {
                       child: Text(
                         t('ADD_LEDGER'),
                         style: TextStyle(
-                          color: Asset.Colors.mediumGray,
+                          color: mediumGrayColor,
                           fontSize: 20.0,
                         ),
                       ),

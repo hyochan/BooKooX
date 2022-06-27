@@ -5,8 +5,9 @@ import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/types/color.dart';
+
+import '../utils/colors.dart';
 
 class LedgerView extends StatefulWidget {
   static const String name = '/ledger_view';
@@ -39,7 +40,7 @@ class _LedgerViewState extends State<LedgerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Asset.Colors.getColor(_ledger.color),
+      backgroundColor: getColor(_ledger.color),
       appBar: renderHeaderBack(
         context: context,
         iconColor: Colors.white,
@@ -204,7 +205,7 @@ class ColorItem extends StatelessWidget {
         ClipOval(
           child: Material(
             clipBehavior: Clip.hardEdge,
-            color: Asset.Colors.getColor(color),
+            color: getColor(color),
             child: InkWell(
               onTap: onTap as void Function()?,
               child: Container(

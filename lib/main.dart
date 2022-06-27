@@ -15,6 +15,7 @@ import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/screens/tutorial.dart';
 import 'package:wecount/utils/constants.dart';
+import 'package:wecount/utils/themes.dart';
 
 import './navigations/auth_switch.dart' show AuthSwitch;
 import './navigations/home_tab.dart' show HomeTab;
@@ -97,49 +98,9 @@ class Wecount extends StatelessWidget {
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: Brightness.light,
-          hintColor: Asset.Colors.mediumGray,
-          primaryColor: Asset.Colors.main,
-          primaryColorLight: const Color(0xff6d7999),
-          primaryColorDark: const Color(0xff172540),
-          secondaryHeaderColor: Asset.Colors.mediumGray,
-          backgroundColor: Asset.Colors.light,
-          bottomAppBarColor: Asset.Colors.lightDim,
-          disabledColor: Asset.Colors.warmGray,
-          dialogBackgroundColor: Asset.Colors.light,
-          textTheme: TextTheme(
-            headline1: TextStyle(color: Asset.Colors.dark),
-            headline2: TextStyle(color: Asset.Colors.mediumGray),
-            headline3: TextStyle(color: Asset.Colors.paleGray),
-            caption: TextStyle(color: Asset.Colors.light),
-          ),
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            secondary: Asset.Colors.greenBlue,
-          ),
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          hintColor: Asset.Colors.warmGray,
-          primaryColor: Asset.Colors.main,
-          primaryColorLight: const Color(0xff6d7999),
-          primaryColorDark: const Color(0xff172540),
-          secondaryHeaderColor: Asset.Colors.mediumGray,
-          backgroundColor: Asset.Colors.darkDim,
-          bottomAppBarColor: Asset.Colors.darkDim,
-          disabledColor: Asset.Colors.warmGray,
-          dialogBackgroundColor: Asset.Colors.dark,
-          textTheme: TextTheme(
-            headline1: TextStyle(color: Asset.Colors.light),
-            headline2: TextStyle(color: Asset.Colors.paleGray),
-            headline3: TextStyle(color: Asset.Colors.mediumGray),
-            caption: TextStyle(color: Asset.Colors.dark),
-          ),
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            secondary: Asset.Colors.greenBlue,
-            brightness: Brightness.dark,
-          ),
-        ),
+        theme: Themes.light,
+        darkTheme: Themes.dark,
+        themeMode: ThemeMode.system,
         routes: {
           AuthSwitch.name: (BuildContext context) => AuthSwitch(),
           Splash.name: (BuildContext context) => Splash(),

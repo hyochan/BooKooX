@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:wecount/screens/intro.dart';
 
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/colors.dart';
 
 import '../utils/localization.dart';
 
@@ -103,7 +104,7 @@ class _TutorialState extends State<Tutorial> {
         key: key,
         margin: EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
-          color: page == currentPage ? Colors.white : Asset.Colors.main,
+          color: page == currentPage ? Colors.white : mainColor,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
             width: 1,
@@ -140,11 +141,11 @@ class _TutorialState extends State<Tutorial> {
     }
 
     return Scaffold(
-      backgroundColor: Asset.Colors.main,
+      backgroundColor: mainColor,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          color: Asset.Colors.main,
+          color: mainColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -177,7 +178,7 @@ class _TutorialState extends State<Tutorial> {
                         t('NEXT'),
                         style: TextStyle(
                           fontSize: 20,
-                          color: Asset.Colors.green,
+                          color: greenColor,
                         ),
                       ),
                     ),

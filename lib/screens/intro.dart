@@ -11,8 +11,9 @@ import 'package:wecount/screens/sign_in.dart';
 import 'package:wecount/screens/sign_up.dart';
 import 'package:wecount/shared/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart' show General;
-import 'package:wecount/utils/localization.dart' show Localization, t;
+import 'package:wecount/utils/localization.dart';
 
 class Intro extends StatelessWidget {
   static const String name = '/intro';
@@ -99,7 +100,9 @@ class Intro extends StatelessWidget {
                 TextSpan(
                   text: '  ' + t('SIGN_UP'),
                   style: TextStyle(
-                      color: Asset.Colors.green, fontWeight: FontWeight.bold),
+                    color: greenColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),

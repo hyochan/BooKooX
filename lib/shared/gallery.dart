@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/models/photo.dart';
 import 'package:wecount/screens/photo_detail.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart' show General;
 
 import '../utils/localization.dart';
@@ -123,7 +123,7 @@ class _GalleryState extends State<Gallery> {
                       width: 20.0,
                       child: Icon(
                         Icons.photo,
-                        color: Asset.Colors.cloudyBlue,
+                        color: cloudyBlueColor,
                       ),
                     ),
                     Text(
@@ -195,7 +195,7 @@ class _GalleryState extends State<Gallery> {
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 1.0,
-                            color: Asset.Colors.cloudyBlue,
+                            color: cloudyBlueColor,
                           ),
                         ),
                       ),
@@ -222,7 +222,7 @@ class _GalleryState extends State<Gallery> {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              splashColor: Asset.Colors.paleGray,
+                              splashColor: paleGrayColor,
                               onTap: () => General.instance.navigateScreen(
                                 context,
                                 MaterialPageRoute(

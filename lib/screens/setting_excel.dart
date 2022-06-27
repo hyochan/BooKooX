@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 
 import '../shared/header.dart' show renderHeaderBack;
 import '../shared/button.dart' show Button;
@@ -59,7 +60,7 @@ class SettingExcel extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 16,
                 ),
-                backgroundColor: Asset.Colors.main,
+                backgroundColor: mainColor,
               ),
             )
           ],

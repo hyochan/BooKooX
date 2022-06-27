@@ -1,16 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/setting_currency.dart';
 import 'package:wecount/screens/setting_excel.dart';
 import 'package:wecount/types/color.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:wecount/utils/colors.dart';
 
-import '../utils/general.dart' show General;
-import '../utils/asset.dart' as Asset;
-
+import '../shared/home_header.dart' show renderHomeAppBar;
 import '../shared/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
-import '../shared/home_header.dart' show renderHomeAppBar;
+import '../utils/general.dart' show General;
 import '../utils/localization.dart';
 
 class HomeSetting extends StatefulWidget {
@@ -37,7 +36,7 @@ class _HomeSettingState extends State<HomeSetting> {
         trailing: Text('ARS | \$ '),
         leading: Icon(
           Icons.account_balance,
-          color: Asset.Colors.cloudyBlue,
+          color: cloudyBlueColor,
           size: 24.0,
         ),
         onTap: () =>
@@ -48,7 +47,7 @@ class _HomeSettingState extends State<HomeSetting> {
         trailing: Icon(Icons.arrow_forward),
         leading: Icon(
           Icons.import_export,
-          color: Asset.Colors.cloudyBlue,
+          color: cloudyBlueColor,
           size: 24.0,
         ),
         onTap: () =>
@@ -60,7 +59,7 @@ class _HomeSettingState extends State<HomeSetting> {
       appBar: renderHomeAppBar(
         context: context,
         title: widget.title,
-        color: Asset.Colors.getColor(color),
+        color: getColor(color),
         fontColor: Colors.white,
       ),
       backgroundColor: Theme.of(context).backgroundColor,

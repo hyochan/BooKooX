@@ -11,6 +11,7 @@ import 'package:wecount/shared/gallery.dart' show Gallery;
 import 'package:wecount/shared/header.dart';
 import 'package:wecount/shared/header.dart' show renderHeaderClose;
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/logger.dart';
@@ -236,7 +237,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
             height: 56,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Asset.Colors.cloudyBlue,
+                color: cloudyBlueColor,
                 width: 1.0,
               ),
             ),
@@ -280,7 +281,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                         showDropdown
                             ? Icon(
                                 Icons.arrow_drop_down,
-                                color: Asset.Colors.cloudyBlue,
+                                color: cloudyBlueColor,
                               )
                             : Container(),
                       ],
@@ -325,7 +326,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                     Text(
                       t('PRICE'),
                       style: TextStyle(
-                        color: Asset.Colors.cloudyBlue,
+                        color: cloudyBlueColor,
                         fontSize: 16,
                       ),
                     ),
@@ -341,7 +342,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       child: Text('- ',
                           style: TextStyle(
                             fontSize: 28,
-                            color: Asset.Colors.carnation,
+                            color: carnationColor,
                           )),
                     ),
                     Expanded(
@@ -374,7 +375,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                           ),
                           style: TextStyle(
                             fontSize: 28,
-                            color: Asset.Colors.carnation,
+                            color: carnationColor,
                           ),
                         ),
                       ),
@@ -480,7 +481,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                     Text(
                       t('PRICE'),
                       style: TextStyle(
-                        color: Asset.Colors.cloudyBlue,
+                        color: cloudyBlueColor,
                         fontSize: 16,
                       ),
                     ),
@@ -529,7 +530,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                           ),
                           style: TextStyle(
                             fontSize: 28,
-                            color: Asset.Colors.mediumGray,
+                            color: mediumGrayColor,
                           ),
                         ),
                       ),
@@ -636,7 +637,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 32),
               child: TabBar(
-                unselectedLabelColor: Asset.Colors.paleGray,
+                unselectedLabelColor: paleGrayColor,
                 isScrollable: true,
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(

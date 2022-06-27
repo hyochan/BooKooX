@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 
 class MemberHorizontalList extends StatelessWidget {
@@ -113,7 +114,7 @@ class MemberHorizontalList extends StatelessWidget {
                               shape: BoxShape.circle,
                               border: Border.all(
                                 width: 1.0,
-                                color: Asset.Colors.cloudyBlue,
+                                color: cloudyBlueColor,
                               ),
                             ),
                           ),

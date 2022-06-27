@@ -15,6 +15,8 @@ import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/localization.dart';
 
+import '../../utils/colors.dart';
+
 class HomeStatistic extends StatelessWidget {
   HomeStatistic({
     Key? key,
@@ -32,7 +34,7 @@ class HomeStatistic extends StatelessWidget {
       appBar: renderHomeAppBar(
         context: context,
         title: this.title,
-        color: Asset.Colors.getColor(color),
+        color: getColor(color),
         fontColor: Colors.white,
         actions: [
           Container(
@@ -81,13 +83,13 @@ class _ContentState extends State<Content> {
   int? _selectedChart;
 
   List<Color> colorList = [
-    Asset.Colors.blue,
-    Asset.Colors.orange,
-    Asset.Colors.green,
-    Asset.Colors.yellow,
-    Asset.Colors.purple,
-    Asset.Colors.main,
-    Asset.Colors.red,
+    blueColor,
+    orangeColor,
+    greenColor,
+    yellowColor,
+    purpleColor,
+    mainColor,
+    redColor,
   ];
 
   @override

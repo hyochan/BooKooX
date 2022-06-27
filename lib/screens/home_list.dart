@@ -1,20 +1,17 @@
-import 'package:wecount/providers/current_ledger.dart';
-import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/models/user.dart';
-
-import 'package:wecount/shared/home_header_search.dart' show HomeHeaderSearch;
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:wecount/models/category.dart';
 import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/user.dart';
+import 'package:wecount/providers/current_ledger.dart';
+import 'package:wecount/shared/home_header_search.dart' show HomeHeaderSearch;
 import 'package:wecount/shared/home_list_item.dart';
-
+import 'package:wecount/types/color.dart';
 import 'package:wecount/utils/general.dart';
-import 'package:intl/intl.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
 
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:provider/provider.dart';
-
+import '../utils/colors.dart';
 import '../utils/localization.dart';
 
 class HomeList extends StatefulWidget {
@@ -268,7 +265,7 @@ class _HomeListState extends State<HomeList> {
         automaticallyImplyLeading: false,
         titleSpacing: 0.0,
         title: HomeHeaderSearch(
-          color: Asset.Colors.getColor(color),
+          color: getColor(color),
           margin: EdgeInsets.only(left: 20.0),
           textEditingController: textEditingController,
           actions: <Widget>[

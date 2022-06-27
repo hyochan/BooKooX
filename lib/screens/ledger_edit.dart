@@ -1,17 +1,18 @@
-import 'package:wecount/providers/current_ledger.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/screens/setting_currency.dart';
-import 'package:wecount/screens/members.dart';
-import 'package:wecount/shared/member_horizontal_list.dart';
-import 'package:wecount/services/database.dart' show DatabaseService;
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
-import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:provider/provider.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
+import 'package:wecount/providers/current_ledger.dart';
+import 'package:wecount/screens/members.dart';
+import 'package:wecount/screens/setting_currency.dart';
+import 'package:wecount/services/database.dart' show DatabaseService;
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/shared/member_horizontal_list.dart';
 import 'package:wecount/types/color.dart';
-import 'package:provider/provider.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/general.dart';
 
+import '../utils/colors.dart';
 import '../utils/localization.dart';
 
 enum LedgerEditMode {
@@ -129,7 +130,7 @@ class _LedgerEditState extends State<LedgerEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Asset.Colors.getColor(_ledger!.color),
+      backgroundColor: getColor(_ledger!.color),
       appBar: renderHeaderBack(
         context: context,
         brightness: Brightness.dark,
@@ -333,7 +334,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                       : Text(
                           widget.ledger == null ? t('DONE') : t('UPDATE'),
                           style: TextStyle(
-                            color: Asset.Colors.getColor(_ledger!.color),
+                            color: getColor(_ledger!.color),
                             fontSize: 16.0,
                           ),
                         ),
@@ -366,7 +367,7 @@ class ColorItem extends StatelessWidget {
         ClipOval(
           child: Material(
             clipBehavior: Clip.hardEdge,
-            color: Asset.Colors.getColor(color),
+            color: getColor(color),
             child: InkWell(
               onTap: onTap as void Function()?,
               child: Container(

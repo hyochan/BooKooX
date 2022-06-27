@@ -1,6 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wecount/screens/lock_auth.dart';
 import 'package:wecount/screens/lock_register.dart';
 import 'package:wecount/screens/setting_announcement.dart';
@@ -8,12 +8,11 @@ import 'package:wecount/screens/setting_faq.dart';
 import 'package:wecount/screens/setting_notification.dart';
 import 'package:wecount/screens/setting_opinion.dart';
 import 'package:wecount/screens/tutorial.dart';
-
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/shared/setting_list_item.dart'
     show ListItem, LogoutItem, SettingItem, SettingListItem;
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart' show General;
-import 'package:wecount/utils/asset.dart' as Asset;
 
 import '../utils/localization.dart';
 
@@ -88,7 +87,7 @@ class _SettingState extends State<Setting> {
       SettingItem(
         Icon(
           Icons.announcement,
-          color: Asset.Colors.cloudyBlue,
+          color: cloudyBlueColor,
           size: 24,
         ),
         t('ANNOUNCEMENT'),
@@ -98,7 +97,7 @@ class _SettingState extends State<Setting> {
       SettingItem(
         Icon(
           Icons.message,
-          color: Asset.Colors.cloudyBlue,
+          color: cloudyBlueColor,
           size: 24,
         ),
         t('SHARE_OPINION'),
@@ -108,7 +107,7 @@ class _SettingState extends State<Setting> {
       SettingItem(
         Icon(
           Icons.question_answer,
-          color: Asset.Colors.cloudyBlue,
+          color: cloudyBlueColor,
           size: 24,
         ),
         t('FAQ'),
@@ -118,7 +117,7 @@ class _SettingState extends State<Setting> {
       SettingItem(
         Icon(
           Icons.notifications,
-          color: Asset.Colors.cloudyBlue,
+          color: cloudyBlueColor,
           size: 24,
         ),
         t('NOTIFICATION'),
@@ -128,7 +127,7 @@ class _SettingState extends State<Setting> {
       SettingItem(
         Icon(
           Icons.lock,
-          color: Asset.Colors.cloudyBlue,
+          color: cloudyBlueColor,
           size: 24,
         ),
         t('LOCK'),
@@ -178,7 +177,7 @@ class _SettingState extends State<Setting> {
                             Text(
                               item.title!,
                               style: TextStyle(
-                                color: Asset.Colors.carnation,
+                                color: carnationColor,
                                 fontSize: 20,
                               ),
                             ),
@@ -198,13 +197,13 @@ class _SettingState extends State<Setting> {
                   Text(
                     'Version ',
                     style: TextStyle(
-                      color: Asset.Colors.cloudyBlue,
+                      color: cloudyBlueColor,
                     ),
                   ),
                   Text(
                     '17.13(1246)',
                     style: TextStyle(
-                      color: Asset.Colors.cloudyBlue,
+                      color: cloudyBlueColor,
                     ),
                   ),
                 ],
