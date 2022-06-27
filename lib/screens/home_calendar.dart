@@ -172,20 +172,21 @@ class _MyHomePageState extends State<MyHomePage> {
               onDatePressed: onDatePressed,
             ),
             renderCalendar(
-                context: context,
-                onCalendarChanged: (DateTime date) {
-                  this.setState(() {
-                    _currentMonth = DateFormat.yMMM().format(date);
-                    _targetDate = date;
-                  });
-                },
-                onDayPressed: (DateTime date, List<Event> events) {
-                  this.selectDate(date);
-                },
-                markedDateMap: _markedDateMap,
-                currentDate: _currentDate,
-                targetDate: _targetDate,
-                color: getColor(color)),
+              context: context,
+              onCalendarChanged: (DateTime date) {
+                this.setState(() {
+                  _currentMonth = DateFormat.yMMM().format(date);
+                  _targetDate = date;
+                });
+              },
+              onDayPressed: (DateTime date, List<Event> events) {
+                this.selectDate(date);
+              },
+              markedDateMap: _markedDateMap,
+              currentDate: _currentDate,
+              targetDate: _targetDate,
+              color: getColor(color),
+            ),
             Divider(
               color: Colors.grey,
               indent: 10,
@@ -230,7 +231,9 @@ Widget renderCalendar({
     markedDateIconMaxShown: 1,
     markedDateIconBuilder: (event) {
       return renderMarkedIcon(
-          color: Theme.of(context).accentColor, context: context);
+        color: Theme.of(context).accentColor,
+        context: context,
+      );
     },
 
     /// selected date

@@ -7,7 +7,8 @@ import 'package:wecount/utils/localization.dart';
 
 class MemberHorizontalList extends StatelessWidget {
   final bool? showAddBtn;
-  final Function? onSeeAllPressed;
+  final void Function()? onSeeAllPressed;
+
   final List<String> memberIds;
   MemberHorizontalList({
     this.showAddBtn,
@@ -69,9 +70,8 @@ class MemberHorizontalList extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: FlatButton(
-                    onPressed: this.onSeeAllPressed as void Function()?,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  child: TextButton(
+                    onPressed: this.onSeeAllPressed,
                     child: Text(
                       t('SEE_ALL'),
                       semanticsLabel: t('SEE_ALL'),
@@ -114,7 +114,7 @@ class MemberHorizontalList extends StatelessWidget {
                               shape: BoxShape.circle,
                               border: Border.all(
                                 width: 1.0,
-                                color: cloudyBlueColor,
+                                color: Colors.white,
                               ),
                             ),
                           ),
