@@ -31,7 +31,7 @@ class Intro extends StatelessWidget {
       await storeUser(googleUser);
       googleSignIn.signOut();
 
-      Get.off(AuthSwitch());
+      Get.offAll(AuthSwitch());
     } else {
       Get.back();
     }
