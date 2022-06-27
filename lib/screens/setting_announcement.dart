@@ -55,7 +55,7 @@ class SettingAnnouncement extends StatelessWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          t('ANNOUNCEMENT')!,
+          t('ANNOUNCEMENT'),
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.headline1!.color,

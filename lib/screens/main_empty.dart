@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/setting.dart';
 
@@ -35,8 +36,7 @@ class _MainEmptyState extends State<MainEmpty> {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () =>
-                  General.instance.navigateScreenNamed(context, Setting.name),
+              onPressed: () => Get.to(() => Setting()),
               child: Icon(
                 Icons.settings,
                 color: Colors.white,
@@ -65,7 +65,7 @@ class _MainEmptyState extends State<MainEmpty> {
                 bottom: 32,
               ),
               child: Text(
-                t('NO_LEDGER_DESCRIPTION')!,
+                t('NO_LEDGER_DESCRIPTION'),
                 style: TextStyle(
                   color: Theme.of(context).textTheme.headline1!.color,
                   fontSize: 20,
@@ -85,7 +85,7 @@ class _MainEmptyState extends State<MainEmpty> {
                   style: BorderStyle.solid,
                 ),
               ),
-              onPress: () => Navigator.of(context).pushNamed(LedgerEdit.name),
+              onPress: () => Get.to(() => LedgerEdit()),
               text: t('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,

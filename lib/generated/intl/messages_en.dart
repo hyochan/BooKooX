@@ -79,6 +79,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please write email address"),
         "EMAIL_NOT_VERIFIED": MessageLookupByLibrary.simpleMessage(
             "Your email is not verified. Please check your inbox and verify your email address."),
+        "EMPTY_WARNING":
+            MessageLookupByLibrary.simpleMessage("this field cannot be empty."),
         "ERROR": MessageLookupByLibrary.simpleMessage("Error"),
         "ERROR_CATEGORY_ICON":
             MessageLookupByLibrary.simpleMessage("Please select icon."),
@@ -105,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "FAQ_10": MessageLookupByLibrary.simpleMessage(
             "How is BooKoo different from other ledger app?"),
         "FAQ_11": MessageLookupByLibrary.simpleMessage(
-            "Why did you think you need to make Bookoo?"),
+            "Why did you think you need to make Wecount?"),
         "FAQ_2":
             MessageLookupByLibrary.simpleMessage("How do I create ledger?"),
         "FAQ_3": MessageLookupByLibrary.simpleMessage("What do BooKoo earn?"),
@@ -152,7 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "GALLERY": MessageLookupByLibrary.simpleMessage("Gallery"),
         "GIFT": MessageLookupByLibrary.simpleMessage("Gift"),
         "HOME_LIST": MessageLookupByLibrary.simpleMessage("List"),
-        "HOME_MONTHY": MessageLookupByLibrary.simpleMessage("Monthly"),
+        "HOME_MONTHLY": MessageLookupByLibrary.simpleMessage("Monthly"),
         "HOME_SETTING": MessageLookupByLibrary.simpleMessage("Setting"),
         "HOME_STATISTIC": MessageLookupByLibrary.simpleMessage("Statistic"),
         "HOSPITAL": MessageLookupByLibrary.simpleMessage("Hospital"),
@@ -240,7 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "SIGN_IN": MessageLookupByLibrary.simpleMessage("Sign in"),
         "SIGN_UP": MessageLookupByLibrary.simpleMessage("Sign up"),
         "SIGN_UP_ERROR_CONTENT": MessageLookupByLibrary.simpleMessage(
-            "Unexpected error occured. Please check your internet connection and try again later."),
+            "Unexpected error occurred. Please check your internet connection and try again later."),
         "SIGN_UP_ERROR_TITLE":
             MessageLookupByLibrary.simpleMessage("Registered Failed"),
         "SIGN_UP_SUCCESS_CONTENT": MessageLookupByLibrary.simpleMessage(

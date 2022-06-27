@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,7 +31,7 @@ class Intro extends StatelessWidget {
       await storeUser(googleUser);
       googleSignIn.signOut();
 
-      Get.offAll(AuthSwitch());
+      Get.offAll(() => AuthSwitch());
     } else {
       Get.back();
     }
@@ -62,7 +61,7 @@ class Intro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle _signInWithTextStyle = TextStyle(
+    final TextStyle signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
       fontSize: 16.0,
     );
@@ -119,21 +118,21 @@ class Intro extends StatelessWidget {
             Expanded(
               child: Text(
                 '----------------------',
-                style: _signInWithTextStyle,
+                style: signInWithTextStyle,
                 textAlign: TextAlign.center,
                 maxLines: 1,
               ),
             ),
             Text(
               ' or sign in with ',
-              style: _signInWithTextStyle,
+              style: signInWithTextStyle,
               textAlign: TextAlign.center,
               maxLines: 1,
             ),
             Expanded(
               child: Text(
                 '----------------------',
-                style: _signInWithTextStyle,
+                style: signInWithTextStyle,
                 textAlign: TextAlign.center,
                 maxLines: 1,
               ),
@@ -150,7 +149,7 @@ class Intro extends StatelessWidget {
           Button(
             margin: EdgeInsets.only(top: 20.0),
             imageMarginLeft: 8,
-            textStyle: _signInWithTextStyle,
+            textStyle: signInWithTextStyle,
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: 'Google',
@@ -182,7 +181,7 @@ class Intro extends StatelessWidget {
         child: RichText(
           text: TextSpan(
             text: t('TERMS_1'),
-            style: _signInWithTextStyle.merge(
+            style: signInWithTextStyle.merge(
               TextStyle(fontSize: 12, height: 1.3),
             ),
             children: [
