@@ -1,3 +1,4 @@
+import 'package:wecount/generated/l10n.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/navigations/home_tab.dart';
@@ -37,7 +38,7 @@ class TestUtils {
       data: MediaQueryData(),
       child: MaterialApp(
         localizationsDelegates: [
-          LocalizationDelegate(isTest: true),
+          S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],

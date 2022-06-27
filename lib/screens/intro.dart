@@ -1,65 +1,68 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/screens/sign_in.dart';
 import 'package:wecount/screens/sign_up.dart';
-
 import 'package:wecount/shared/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/general.dart' show General;
-import 'package:wecount/utils/localization.dart' show Localization;
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:wecount/utils/localization.dart' show Localization, t;
 
 class Intro extends StatelessWidget {
   static const String name = '/intro';
 
   Future<void> _googleLogin(BuildContext context) async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn(
+    final GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
     );
-
-    General.instance.showDialogSpinner(
-      context,
-      text: Localization.of(context)!.trans('SIGNING_IN_WITH_GOOGLE'),
+    General.instance.showSpinnerDialog(
+      text: t('SIGNING_IN_WITH_GOOGLE'),
     );
 
-    GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
     if (googleUser != null) {
-      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-        accessToken: googleAuth.accessToken,
-      );
+      await storeUser(googleUser);
+      googleSignIn.signOut();
 
-      UserCredential auth =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      User user = auth.user!;
-
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'email': user.email,
-        'displayName': user.displayName,
-        'name': user.displayName,
-        'googleId': googleAuth.idToken,
-        'createdAt': FieldValue.serverTimestamp(),
-        'updatedAt': FieldValue.serverTimestamp(),
-        'deletedAt': null,
-      });
-
-      _googleSignIn.signOut();
-      Navigator.pushReplacementNamed(context, AuthSwitch.name);
+      Get.off(AuthSwitch());
+    } else {
+      Get.back();
     }
+  }
+
+  Future<void> storeUser(GoogleSignInAccount googleUser) async {
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+
+    UserCredential auth =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    User user = auth.user!;
+
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+      'email': user.email,
+      'displayName': user.displayName,
+      'name': user.displayName,
+      'googleId': googleAuth.idToken,
+      'createdAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
+      'deletedAt': null,
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarBrightness: Theme.of(context).brightness));
-    var _localization = Localization.of(context);
     final TextStyle _signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
       fontSize: 16.0,
@@ -75,7 +78,7 @@ class Intro extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
         backgroundColor: Colors.white,
-        text: _localization!.trans('SIGN_IN'),
+        text: t('SIGN_IN'),
         width: 240.0,
         height: 56.0,
       );
@@ -91,10 +94,10 @@ class Intro extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: _localization!.trans('DO_NOT_HAVE_ACCOUNT'),
+                  text: t('DO_NOT_HAVE_ACCOUNT'),
                 ),
                 TextSpan(
-                  text: '  ' + _localization.trans('SIGN_UP')!,
+                  text: '  ' + t('SIGN_UP'),
                   style: TextStyle(
                       color: Asset.Colors.green, fontWeight: FontWeight.bold),
                 ),
@@ -178,15 +181,15 @@ class Intro extends StatelessWidget {
         margin: EdgeInsets.only(top: 16.0, bottom: 40.0),
         child: RichText(
           text: TextSpan(
-            text: _localization!.trans('TERMS_1'),
+            text: t('TERMS_1'),
             style: _signInWithTextStyle.merge(
               TextStyle(fontSize: 12, height: 1.3),
             ),
             children: [
               TextSpan(
-                text: _localization.trans('TERMS_OF_USE'),
+                text: t('TERMS_OF_USE'),
                 style: clickableTextStyle,
-                semanticsLabel: _localization.trans('TERMS_OF_USE'),
+                semanticsLabel: t('TERMS_OF_USE'),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -195,13 +198,13 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: _localization.trans('TERMS_2'),
-                semanticsLabel: _localization.trans('TERMS_2'),
+                text: t('TERMS_2'),
+                semanticsLabel: t('TERMS_2'),
               ),
               TextSpan(
-                text: _localization.trans('PRIVACY_POLICY'),
+                text: t('PRIVACY_POLICY'),
                 style: clickableTextStyle,
-                semanticsLabel: _localization.trans('PRIVACY_POLICY'),
+                semanticsLabel: t('PRIVACY_POLICY'),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -210,8 +213,8 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: _localization.trans('TERMS_3'),
-                semanticsLabel: _localization.trans('TERMS_3'),
+                text: t('TERMS_3'),
+                semanticsLabel: t('TERMS_3'),
               ),
             ],
           ),
@@ -232,9 +235,10 @@ class Intro extends StatelessWidget {
                   delegate: SliverChildListDelegate(
                     <Widget>[
                       Image(
-                          image: Asset.Icons.icWeCount,
-                          width: 200.0,
-                          height: 60.0),
+                        image: Asset.Icons.icWeCount,
+                        width: 200.0,
+                        height: 60.0,
+                      ),
                       renderSignInBtn(),
                       renderDoNotHaveAccount(),
                       renderOrSignInWith(),

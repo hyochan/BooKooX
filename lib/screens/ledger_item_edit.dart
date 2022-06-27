@@ -13,8 +13,9 @@ import 'package:wecount/shared/header.dart' show renderHeaderClose;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/logger.dart';
+
+import '../utils/localization.dart';
 
 class LedgerItemEdit extends StatefulWidget {
   static const String name = '/ledger_item_edit';
@@ -66,8 +67,6 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
-
     void onDatePressed({
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
@@ -142,7 +141,6 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
       BuildContext context, {
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
-      var _localization = Localization.of(context);
       categories = categoryType == CategoryType.CONSUME
           ? await DBHelper.instance.getConsumeCategories(context)
           : await DBHelper.instance.getIncomeCategories(context);
@@ -188,7 +186,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       icon: Icon(Icons.close),
                     ),
                     Text(
-                      '${_localization!.trans('CATEGORY')}',
+                      '${t('CATEGORY')}',
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).textTheme.headline1!.color,
@@ -325,7 +323,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       ),
                     ),
                     Text(
-                      _localization!.trans('PRICE')!,
+                      t('PRICE'),
                       style: TextStyle(
                         color: Asset.Colors.cloudyBlue,
                         fontSize: 16,
@@ -390,7 +388,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 52),
                       icon: Icons.category,
-                      text: _localization.trans('CATEGORY')!,
+                      text: t('CATEGORY'),
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                     )
@@ -408,7 +406,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
-                      text: _localization.trans('DATE')!,
+                      text: t('DATE'),
                       showDropdown: true,
                       onPressed: onDatePressed,
                     )
@@ -428,7 +426,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
-                      text: _localization.trans('LOCATION')!,
+                      text: t('LOCATION'),
                       showDropdown: true,
                       onPressed: onLocationPressed,
                     )
@@ -480,7 +478,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       ),
                     ),
                     Text(
-                      _localization!.trans('PRICE')!,
+                      t('PRICE'),
                       style: TextStyle(
                         color: Asset.Colors.cloudyBlue,
                         fontSize: 16,
@@ -545,7 +543,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 52),
                       icon: Icons.category,
-                      text: _localization.trans('CATEGORY')!,
+                      text: t('CATEGORY'),
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                     )
@@ -563,7 +561,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
-                      text: _localization.trans('DATE')!,
+                      text: t('DATE'),
                       showDropdown: true,
                       onPressed: () =>
                           onDatePressed(categoryType: CategoryType.INCOME),
@@ -585,7 +583,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   ? renderBox(
                       margin: EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
-                      text: _localization.trans('LOCATION')!,
+                      text: t('LOCATION'),
                       showDropdown: true,
                       onPressed: () =>
                           onLocationPressed(categoryType: CategoryType.INCOME),
@@ -658,7 +656,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                 tabs: choices.map((String choice) {
                   return Container(
                     child: Tab(
-                      text: _localization!.trans(choice),
+                      text: t(choice),
                     ),
                   );
                 }).toList(),

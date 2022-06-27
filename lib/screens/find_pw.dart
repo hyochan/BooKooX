@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wecount/shared/edit_text.dart' show EditText;
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/shared/button.dart' show Button;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/validator.dart' show Validator;
+
+import '../utils/localization.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -19,7 +21,6 @@ class FindPw extends StatefulWidget {
 }
 
 class _FindPwState extends State<FindPw> {
-  Localization? _localization;
   String _email = '';
   String? _errorEmail;
 
@@ -30,7 +31,7 @@ class _FindPwState extends State<FindPw> {
     bool isEmail = Validator.instance.validateEmail(_email);
 
     if (!isEmail) {
-      setState(() => _errorEmail = _localization!.trans('NO_VALID_EMAIL'));
+      setState(() => _errorEmail = t('NO_VALID_EMAIL'));
       return;
     }
 
@@ -40,11 +41,11 @@ class _FindPwState extends State<FindPw> {
       await _auth.sendPasswordResetEmail(email: _email);
       General.instance.showSingleDialog(
         context,
-        title: Text(_localization!.trans('SUCCESS')!),
-        content: Text(_localization!.trans('PASSWORD_RESET_LINK_SENT')!),
+        title: Text(t('SUCCESS')),
+        content: Text(t('PASSWORD_RESET_LINK_SENT')),
       );
     } catch (err) {
-      print('error occured: ${err.toString()}');
+      logger.e('error occurred: ${err.toString()}');
     } finally {
       setState(() => _isSendingEmail = false);
     }
@@ -52,11 +53,9 @@ class _FindPwState extends State<FindPw> {
 
   @override
   Widget build(BuildContext context) {
-    _localization = Localization.of(context);
-
     Widget findPwText() {
       return Text(
-        _localization!.trans('FIND_PASSWORD')!,
+        t('FIND_PASSWORD'),
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.headline1!.color,
@@ -71,8 +70,8 @@ class _FindPwState extends State<FindPw> {
         errorText: _errorEmail,
         margin: EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('EMAIL'),
-        textHint: _localization!.trans('EMAIL_HINT'),
+        textLabel: t('EMAIL'),
+        textHint: t('EMAIL_HINT'),
         hasChecked: _isValidEmail,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
@@ -101,7 +100,7 @@ class _FindPwState extends State<FindPw> {
         isLoading: _isSendingEmail,
         borderColor: Theme.of(context).primaryIconTheme.color,
         backgroundColor: Theme.of(context).primaryColor,
-        text: _localization!.trans('SEND_EMAIL'),
+        text: t('SEND_EMAIL'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );

@@ -6,12 +6,13 @@ import 'package:wecount/shared/member_horizontal_list.dart';
 import 'package:wecount/services/database.dart' show DatabaseService;
 import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/types/color.dart';
 import 'package:provider/provider.dart';
+
+import '../utils/localization.dart';
 
 enum LedgerEditMode {
   ADD,
@@ -118,19 +119,15 @@ class _LedgerEditState extends State<LedgerEdit> {
       Navigator.of(context).pop();
     }
 
-    var _localization = Localization.of(context)!;
-
     General.instance.showSingleDialog(
       context,
-      title: Text(_localization.trans('ERROR')!),
-      content: Text(_localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
+      title: Text(t('ERROR')),
+      content: Text(t('SHOULD_TRANSFER_OWNERSHIP')),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
-
     return Scaffold(
       backgroundColor: Asset.Colors.getColor(_ledger!.color),
       appBar: renderHeaderBack(
@@ -145,8 +142,8 @@ class _LedgerEditState extends State<LedgerEdit> {
               shape: CircleBorder(),
               onPressed: _leaveLedger,
               child: Text(
-                _localization.trans('LEAVE')!,
-                semanticsLabel: _localization.trans('LEAVE'),
+                t('LEAVE'),
+                semanticsLabel: t('LEAVE'),
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 18,
@@ -173,7 +170,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                     decoration: InputDecoration(
                       hintMaxLines: 2,
                       border: InputBorder.none,
-                      hintText: _localization.trans('LEDGER_NAME_HINT'),
+                      hintText: t('LEDGER_NAME_HINT'),
                       hintStyle: TextStyle(
                         fontSize: 28.0,
                         color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -199,7 +196,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                     textAlignVertical: TextAlignVertical.top,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: _localization.trans('LEDGER_DESCRIPTION_HINT'),
+                      hintText: t('LEDGER_DESCRIPTION_HINT'),
                       hintStyle: TextStyle(
                         fontSize: 16.0,
                         color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -222,7 +219,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          _localization.trans('CURRENCY')!,
+                          t('CURRENCY'),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -261,7 +258,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                     children: <Widget>[
                       Container(
                         child: Text(
-                          _localization.trans('COLOR')!,
+                          t('COLOR'),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -326,8 +323,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                           width: 28,
                           height: 28,
                           child: CircularProgressIndicator(
-                            semanticsLabel:
-                                Localization.of(context)!.trans('LOADING'),
+                            semanticsLabel: t('LOADING'),
                             backgroundColor: Theme.of(context).primaryColor,
                             strokeWidth: 2,
                             valueColor:
@@ -335,9 +331,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                           ),
                         )
                       : Text(
-                          widget.ledger == null
-                              ? _localization.trans('DONE')!
-                              : _localization.trans('UPDATE')!,
+                          widget.ledger == null ? t('DONE') : t('UPDATE'),
                           style: TextStyle(
                             color: Asset.Colors.getColor(_ledger!.color),
                             fontSize: 16.0,

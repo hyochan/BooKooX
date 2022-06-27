@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wecount/models/category.dart';
 import 'package:wecount/shared/category_item.dart';
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class CategoryList extends StatefulWidget {
   CategoryList({
@@ -22,7 +22,6 @@ class _CategoryListState extends State<CategoryList> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: Wrap(
@@ -35,15 +34,14 @@ class _CategoryListState extends State<CategoryList> {
               },
               onDeletePressed: () {
                 General.instance.showConfirmDialog(context,
-                    title: Text(_localization!.trans('DELETE')!),
-                    content: Text(_localization.trans('DELETE_ASK')!),
-                    okPressed: () async {
+                    title: Text(t('DELETE')),
+                    content: Text(t('DELETE_ASK')), okPressed: () async {
                   try {
                     await DBHelper.instance
                         .deleteCategory(context, category.iconId);
                   } catch (err) {
                     Fluttertoast.showToast(
-                      msg: _localization.trans('CATEGORY_DELETE_ERROR')!,
+                      msg: t('CATEGORY_DELETE_ERROR'),
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,
@@ -54,7 +52,7 @@ class _CategoryListState extends State<CategoryList> {
                       categories.remove(category);
                     });
                     Fluttertoast.showToast(
-                      msg: _localization.trans('CATEGORY_DELETED')!,
+                      msg: t('CATEGORY_DELETED'),
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,

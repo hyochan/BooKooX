@@ -107,8 +107,6 @@ class _MembersState extends State<Members> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
-
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderClose(
@@ -131,7 +129,7 @@ class _MembersState extends State<Members> {
               child: Icon(
                 Icons.search,
                 color: Theme.of(context).textTheme.headline1!.color,
-                semanticLabel: _localization.trans('SEARCH'),
+                semanticLabel: t('SEARCH'),
               ),
             ),
           ),
@@ -150,7 +148,7 @@ class _MembersState extends State<Members> {
                   ? EditText(
                       key: Key('member'),
                       textInputAction: TextInputAction.next,
-                      textHint: _localization.trans('SEARCH_USER_HINT'),
+                      textHint: t('SEARCH_USER_HINT'),
                       onChanged: (String str) {
                         setState(() {
                           _filteredMembers = _fakeMembers.where((list) {
@@ -170,7 +168,7 @@ class _MembersState extends State<Members> {
                       },
                     )
                   : Text(
-                      '${_localization.trans('MEMBER')} ${item.numOfPeople}',
+                      '${t('MEMBER')} ${item.numOfPeople}',
                       style: TextStyle(
                         color: Theme.of(context).textTheme.headline1!.color,
                         fontSize: 28,
@@ -190,12 +188,13 @@ class _MembersState extends State<Members> {
               },
               onPressMember: () {
                 General.instance.navigateScreen(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => ProfilePeer(
-                        user: item.user,
-                      ),
-                    ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ProfilePeer(
+                      user: item.user,
+                    ),
+                  ),
+                );
               },
             );
           }

@@ -38,8 +38,6 @@ class _LedgerViewState extends State<LedgerView> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
-
     return Scaffold(
       backgroundColor: Asset.Colors.getColor(_ledger.color),
       appBar: renderHeaderBack(
@@ -62,7 +60,7 @@ class _LedgerViewState extends State<LedgerView> {
                 decoration: InputDecoration(
                   hintMaxLines: 2,
                   border: InputBorder.none,
-                  hintText: _localization.trans('LEDGER_NAME_HINT'),
+                  hintText: t('LEDGER_NAME_HINT'),
                   hintStyle: TextStyle(
                     fontSize: 28.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -87,7 +85,7 @@ class _LedgerViewState extends State<LedgerView> {
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: _localization.trans('LEDGER_DESCRIPTION_HINT'),
+                  hintText: t('LEDGER_DESCRIPTION_HINT'),
                   hintStyle: TextStyle(
                     fontSize: 16.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -110,7 +108,7 @@ class _LedgerViewState extends State<LedgerView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      _localization.trans('CURRENCY')!,
+                      t('CURRENCY'),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -149,7 +147,7 @@ class _LedgerViewState extends State<LedgerView> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      _localization.trans('COLOR')!,
+                      t('COLOR'),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

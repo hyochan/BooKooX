@@ -29,7 +29,6 @@ class _LedgersState extends State<Ledgers> {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser!;
-    var _localization = Localization.of(context)!;
     void onSettingPressed() {
       General.instance.navigateScreenNamed(context, Setting.name);
     }
@@ -74,7 +73,7 @@ class _LedgersState extends State<Ledgers> {
               child: Icon(
                 Icons.settings,
                 color: Theme.of(context).iconTheme.color,
-                semanticLabel: _localization.trans('SETTING'),
+                semanticLabel: t('SETTING'),
               ),
             ),
           ),
@@ -144,7 +143,7 @@ class _LedgersState extends State<Ledgers> {
                     Container(
                       padding: EdgeInsets.only(left: 20.0),
                       child: Text(
-                        _localization.trans('ADD_LEDGER')!,
+                        t('ADD_LEDGER'),
                         style: TextStyle(
                           color: Asset.Colors.mediumGray,
                           fontSize: 20.0,

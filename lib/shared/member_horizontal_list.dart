@@ -1,9 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/services/database.dart';
-import 'package:wecount/utils/localization.dart';
-import 'package:flutter/material.dart';
-
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/localization.dart';
 
 class MemberHorizontalList extends StatelessWidget {
   final bool? showAddBtn;
@@ -17,8 +16,6 @@ class MemberHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
-
     List<Widget> memberWidgets = memberIds.map((memberId) {
       return StreamBuilder(
         stream: DatabaseService().streamUser(memberId),
@@ -61,8 +58,8 @@ class MemberHorizontalList extends StatelessWidget {
               children: <Widget>[
                 Container(
                   child: Text(
-                    _localization.trans('MEMBER')!,
-                    semanticsLabel: _localization.trans('MEMBER'),
+                    t('MEMBER'),
+                    semanticsLabel: t('MEMBER'),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -75,8 +72,8 @@ class MemberHorizontalList extends StatelessWidget {
                     onPressed: this.onSeeAllPressed as void Function()?,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     child: Text(
-                      _localization.trans('SEE_ALL')!,
-                      semanticsLabel: _localization.trans('SEE_ALL'),
+                      t('SEE_ALL'),
+                      semanticsLabel: t('SEE_ALL'),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

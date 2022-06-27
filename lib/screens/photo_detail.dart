@@ -5,7 +5,8 @@ import 'package:photo_view/photo_view.dart'
 import 'package:flutter/material.dart';
 
 import 'package:wecount/models/photo.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
+
+import '../utils/localization.dart';
 
 class PhotoDetail extends StatefulWidget {
   PhotoDetail({
@@ -31,7 +32,6 @@ class PhotoDetail extends StatefulWidget {
 class _State extends State<PhotoDetail> {
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -65,7 +65,7 @@ class _State extends State<PhotoDetail> {
                       child: Icon(
                         Icons.close,
                         color: Colors.white,
-                        semanticLabel: _localization.trans('BACK'),
+                        semanticLabel: t('BACK'),
                       ),
                     ),
                   ),

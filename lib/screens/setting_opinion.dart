@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/shared/button.dart' show Button;
-import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/asset.dart' as Asset;
+
+import '../utils/localization.dart';
 
 class SettingOpinion extends StatelessWidget {
   static const String name = '/setting_opinion';
@@ -14,7 +15,6 @@ class SettingOpinion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
@@ -23,7 +23,7 @@ class SettingOpinion extends StatelessWidget {
         brightness: Theme.of(context).brightness,
         iconColor: Theme.of(context).iconTheme.color,
         title: Text(
-          _localization.trans('SHARE_OPINION')!,
+          t('SHARE_OPINION'),
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.headline1!.color,
@@ -44,7 +44,7 @@ class SettingOpinion extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: _localization.trans('SHARE_OPINION_HINT'),
+                    hintText: t('SHARE_OPINION_HINT'),
                     contentPadding: EdgeInsets.symmetric(horizontal: 24),
                   ),
                 ),
@@ -53,7 +53,7 @@ class SettingOpinion extends StatelessWidget {
             Container(
               child: Button(
                 onPress: onSendOpinion,
-                text: _localization.trans('SEND'),
+                text: t('SEND'),
                 margin: EdgeInsets.all(0),
                 height: 56,
                 textStyle: TextStyle(

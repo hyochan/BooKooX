@@ -6,7 +6,6 @@ import 'package:wecount/screens/ledgers.dart';
 import 'package:wecount/shared/date_selector.dart' show DateSelector;
 import 'package:wecount/shared/home_list_item.dart';
 import 'package:wecount/types/color.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 
@@ -22,7 +21,7 @@ import 'package:provider/provider.dart';
 class HomeCalendar extends StatefulWidget {
   HomeCalendar({
     Key? key,
-    this.title = '2017 Bookoo',
+    this.title = '2017 Wecount',
   }) : super(key: key);
   final String title;
 
@@ -128,9 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _currentMonth = DateFormat.yMMM().format(_currentDate!);
 
     Future.delayed(Duration.zero, () {
-      var _localization = Localization.of(context)!;
-
-      List<LedgerItem> ledgerList = createCalendarLedgerItemMock(_localization);
+      List<LedgerItem> ledgerList = createCalendarLedgerItemMock();
       EventList<Event>? markedDateMap = EventList(events: {});
       ledgerList.forEach((ledger) {
         markedDateMap.add(ledger.selectedDate!,

@@ -3,10 +3,11 @@ import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/shared/line_graph_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/localization.dart' show Localization;
 import '../shared/header.dart' show renderHeaderBack;
 
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
+
+import '../utils/localization.dart';
 
 double getPriceSum(List<LedgerItem> items) {
   double sum = 0;
@@ -42,11 +43,8 @@ class _LineGraphState extends State<LineGraph> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      var _localization = Localization.of(context);
-
-      // this._items = createCafeList(_localization);
       this.setState(() {
-        this._items = createMockCafeList(_localization!);
+        this._items = createMockCafeList();
         this._selectedItems = this._items;
         this._priceSum = getPriceSum(this._items);
       });
@@ -72,8 +70,6 @@ class _LineGraphState extends State<LineGraph> {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
-
     /// Render
     return Scaffold(
       // resizeToAvoidBottomPadding: false,
@@ -89,7 +85,7 @@ class _LineGraphState extends State<LineGraph> {
           children: <Widget>[
             headerAlign(
               child: Text(
-                _localization.trans('CAFE')!,
+                t('CAFE'),
                 style: TextStyle(
                   fontSize: 30,
                   color: Theme.of(context).textTheme.headline1!.color,

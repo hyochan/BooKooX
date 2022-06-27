@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../utils/localization.dart' show Localization;
 import '../shared/header.dart' show renderHeaderBack;
 import '../shared/button.dart' show Button;
 import '../utils/asset.dart' as Asset;
+import '../utils/localization.dart';
 
 class SettingExcel extends StatelessWidget {
   static const String name = '/setting_excel';
@@ -14,7 +14,6 @@ class SettingExcel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
@@ -23,7 +22,7 @@ class SettingExcel extends StatelessWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          _localization.trans('EXPORT_EXCEL')!,
+          t('EXPORT_EXCEL'),
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.headline1!.color,
@@ -44,7 +43,7 @@ class SettingExcel extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: _localization.trans('EMAIL_HINT'),
+                    hintText: t('EMAIL_HINT'),
                     contentPadding: EdgeInsets.symmetric(horizontal: 24),
                   ),
                 ),
@@ -53,7 +52,7 @@ class SettingExcel extends StatelessWidget {
             Container(
               child: Button(
                 onPress: onExportExcel,
-                text: _localization.trans('SEND'),
+                text: t('SEND'),
                 margin: EdgeInsets.all(0),
                 height: 56,
                 textStyle: TextStyle(

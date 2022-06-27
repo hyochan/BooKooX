@@ -7,11 +7,11 @@ import 'package:provider/provider.dart';
 
 import '../utils/general.dart' show General;
 import '../utils/asset.dart' as Asset;
-import '../utils/localization.dart' show Localization;
 
 import '../shared/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
 import '../shared/home_header.dart' show renderHomeAppBar;
+import '../utils/localization.dart';
 
 class HomeSetting extends StatefulWidget {
   HomeSetting({
@@ -27,14 +27,13 @@ class HomeSetting extends StatefulWidget {
 class _HomeSettingState extends State<HomeSetting> {
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
 
     final List<ListItem> _items = [
       TileItem(
-        title: _localization.trans('CURRENCY'),
+        title: t('CURRENCY'),
         trailing: Text('ARS | \$ '),
         leading: Icon(
           Icons.account_balance,
@@ -45,7 +44,7 @@ class _HomeSettingState extends State<HomeSetting> {
             General.instance.navigateScreenNamed(context, SettingCurrency.name),
       ),
       TileItem(
-        title: _localization.trans('EXPORT_EXCEL'),
+        title: t('EXPORT_EXCEL'),
         trailing: Icon(Icons.arrow_forward),
         leading: Icon(
           Icons.import_export,

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:wecount/shared/header.dart' show renderHeaderClose;
 import 'package:wecount/shared/edit_text_box.dart' show EditTextBox;
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
 
 class ProfilePeer extends StatefulWidget {
   final User user;
@@ -32,8 +31,6 @@ class _ProfilePeerState extends State<ProfilePeer> {
 
   @override
   Widget build(BuildContext context) {
-    Localization.of(context);
-
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderClose(
