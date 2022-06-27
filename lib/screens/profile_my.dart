@@ -23,7 +23,7 @@ class _ProfileMyState extends State<ProfileMy> {
   User? _profile;
 
   Future<void> _onUpdateProfile() async {
-    General.instance.showDialogSpinner(context);
+    General.instance.showSpinnerDialog();
 
     await DatabaseService().requestUpdateProfile(
       _profile,

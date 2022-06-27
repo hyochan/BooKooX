@@ -6,9 +6,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wecount/firebase_options.dart';
+import 'package:wecount/generated/l10n.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/screens/tutorial.dart';
@@ -43,7 +45,7 @@ import './utils/localization.dart';
 
 void main() async {
   await _initFire();
-  runApp(MyApp());
+  runApp(Wecount());
   _fcmListeners();
 }
 
@@ -78,7 +80,7 @@ void _fcmListeners() {
   });
 }
 
-class MyApp extends StatelessWidget {
+class Wecount extends StatelessWidget {
   static const supportedLocales = ['en', 'ko'];
 
   @override
@@ -93,7 +95,7 @@ class MyApp extends StatelessWidget {
           create: (context) => CurrentLedger(null),
         ),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.light,
@@ -173,6 +175,7 @@ class MyApp extends StatelessWidget {
         ],
         localizationsDelegates: [
           const LocalizationDelegate(supportedLocales: ['en', 'ko']),
+          S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,

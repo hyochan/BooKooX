@@ -1,58 +1,62 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/screens/sign_in.dart';
 import 'package:wecount/screens/sign_up.dart';
-
 import 'package:wecount/shared/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/general.dart' show General;
-import 'package:wecount/utils/localization.dart' show Localization;
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:wecount/utils/localization.dart' show Localization, t;
 
 class Intro extends StatelessWidget {
   static const String name = '/intro';
 
   Future<void> _googleLogin(BuildContext context) async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn(
+    final GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
     );
-
-    General.instance.showDialogSpinner(
-      context,
-      text: Localization.of(context)!.trans('SIGNING_IN_WITH_GOOGLE'),
+    General.instance.showSpinnerDialog(
+      text: t('SIGNING_IN_WITH_GOOGLE'),
     );
 
-    GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
     if (googleUser != null) {
-      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-        accessToken: googleAuth.accessToken,
-      );
+      await storeUser(googleUser);
+      googleSignIn.signOut();
 
-      UserCredential auth =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      User user = auth.user!;
-
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-        'email': user.email,
-        'displayName': user.displayName,
-        'name': user.displayName,
-        'googleId': googleAuth.idToken,
-        'createdAt': FieldValue.serverTimestamp(),
-        'updatedAt': FieldValue.serverTimestamp(),
-        'deletedAt': null,
-      });
-
-      _googleSignIn.signOut();
-      Navigator.pushReplacementNamed(context, AuthSwitch.name);
+      Get.off(AuthSwitch());
+    } else {
+      Get.back();
     }
+  }
+
+  Future<void> storeUser(GoogleSignInAccount googleUser) async {
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+
+    UserCredential auth =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    User user = auth.user!;
+
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+      'email': user.email,
+      'displayName': user.displayName,
+      'name': user.displayName,
+      'googleId': googleAuth.idToken,
+      'createdAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
+      'deletedAt': null,
+    });
   }
 
   @override
@@ -232,9 +236,10 @@ class Intro extends StatelessWidget {
                   delegate: SliverChildListDelegate(
                     <Widget>[
                       Image(
-                          image: Asset.Icons.icWeCount,
-                          width: 200.0,
-                          height: 60.0),
+                        image: Asset.Icons.icWeCount,
+                        width: 200.0,
+                        height: 60.0,
+                      ),
                       renderSignInBtn(),
                       renderDoNotHaveAccount(),
                       renderOrSignInWith(),

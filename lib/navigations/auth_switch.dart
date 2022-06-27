@@ -12,54 +12,55 @@ import 'package:wecount/utils/localization.dart';
 class AuthSwitch extends StatelessWidget {
   static const String name = '/auth_switch';
 
-  @override
-  Widget build(BuildContext context) {
-    final _db = DatabaseService();
-    var user = Provider.of<User?>(context);
+  Widget renderMainLedger(User user) {
+    final DatabaseService db = DatabaseService();
 
-    Widget renderMainLedger() {
-      return StreamProvider<List<Ledger>>.value(
-        value: _db.streamMyLedgers(user!),
-        initialData: [],
-        child: Consumer<List<Ledger>>(
-          builder: (context, ledgers, child) {
-            return FutureBuilder(
-              future: DatabaseService().fetchSelectedLedger(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (ledgers.isEmpty) {
-                    return MainEmpty();
-                  }
-                  if (snapshot.hasData) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Provider.of<CurrentLedger>(context, listen: false)
-                          .setLedger(snapshot.data as Ledger);
-                    });
-                  }
-
-                  return HomeTab();
+    return StreamProvider<List<Ledger>>.value(
+      value: db.streamMyLedgers(user),
+      initialData: [],
+      child: Consumer<List<Ledger>>(
+        builder: (context, ledgers, child) {
+          return FutureBuilder(
+            future: DatabaseService().fetchSelectedLedger(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (ledgers.isEmpty) {
+                  return MainEmpty();
                 }
 
-                return Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(
-                      semanticsLabel:
-                          Localization.of(context)!.trans('LOADING'),
-                      backgroundColor: Theme.of(context).primaryColor,
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
+                if (snapshot.hasData) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Provider.of<CurrentLedger>(context, listen: false)
+                        .setLedger(snapshot.data as Ledger);
+                  });
+                }
+
+                return HomeTab();
+              }
+
+              return Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(
+                    semanticsLabel: Localization.of(context)!.trans('LOADING'),
+                    backgroundColor: Theme.of(context).primaryColor,
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
-                );
-              },
-            );
-          },
-        ),
-      );
-    }
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    User? user = Provider.of<User?>(context);
 
     if (user != null && user.emailVerified) {
-      return renderMainLedger();
+      return renderMainLedger(user);
     }
 
     return Tutorial();

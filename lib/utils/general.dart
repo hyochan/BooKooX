@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Im;
 
@@ -41,22 +42,16 @@ class General {
     );
   }
 
-  void showDialogSpinner(
-    BuildContext context, {
+  void showSpinnerDialog({
     String? text,
     TextStyle? textStyle,
   }) {
-    showDialog<bool>(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return DialogSpinner(
-            textStyle: textStyle,
-            text: text != null
-                ? text
-                : Localization.of(context)!.trans('LOADING'),
-          );
-        });
+    Get.dialog(
+      DialogSpinner(
+        textStyle: textStyle,
+        text: text != null ? text : t('LOADING'),
+      ),
+    );
   }
 
   void showSingleDialog(
@@ -241,8 +236,7 @@ class General {
     required BuildContext context,
     String? type,
   }) async {
-    General.instance.showDialogSpinner(context,
-        text: Localization.of(context)!.trans('LOADING'));
+    General.instance.showSpinnerDialog(text: t('LOADING'));
 
     ImagePicker picker = ImagePicker();
 

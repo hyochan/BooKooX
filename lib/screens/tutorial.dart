@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wecount/screens/intro.dart';
 
 import 'package:wecount/utils/localization.dart' show Localization;
@@ -12,16 +13,16 @@ class Tutorial extends StatefulWidget {
 }
 
 class _TutorialState extends State<Tutorial> {
-  final int pageCnt = 2; // 3
+  final int pageCnt = 2;
   int _currentPage = 0;
-  var _pageController = PageController(
-    initialPage: 0,
-  );
+  var _pageController = PageController();
+
   void onNextPressed() {
     if (_currentPage == pageCnt) {
-      Navigator.pushNamedAndRemoveUntil(context, Intro.name, (_) => false);
+      Get.to(Intro());
       return;
     }
+
     _pageController.nextPage(
       duration: Duration(milliseconds: 300),
       curve: Curves.easeIn,
