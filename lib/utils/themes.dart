@@ -32,7 +32,7 @@ class Themes {
     );
   }
 
-  static final light = ThemeData.light().copyWith(
+  static final light = ThemeData(
     brightness: Brightness.light,
     hintColor: mediumGrayColor,
     primaryColor: mainColor,
@@ -57,7 +57,7 @@ class Themes {
       secondary: greenBlueColor,
     ),
   );
-  static final dark = ThemeData.dark().copyWith(
+  static final dark = ThemeData(
     brightness: Brightness.dark,
     hintColor: warmGrayColor,
     primaryColor: mainColor,
