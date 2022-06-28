@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "toba.vsfire",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+    ]
+}
