@@ -15,13 +15,16 @@
   },
   "emulators": {
     "functions": {
-      "port": 5001
+      "port": 5001,
+      "host": "0.0.0.0"
     },
     "firestore": {
-      "port": 8080
+      "port": 8080,
+      "host": "0.0.0.0"
     },
     "storage": {
-      "port": 9199
+      "port": 9199,
+      "host": "0.0.0.0"
     },
     "ui": {
       "enabled": true
