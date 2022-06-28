@@ -10,13 +10,13 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "seed": "ts-node ./src/seeds/index.ts",
-    "dev": "firebase emulators:start --import=./data --export-on-exit",
+    "dev": "npm run build && firebase emulators:start --import=./data --export-on-exit",
     "dev:seed": "ts-node-dev --respawn --files ./src/seeds/index.ts"
   },
   "engines": {
     "node": "16"
   },
-  "main": "lib/src/index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",

@@ -12,7 +12,35 @@ Firebase emulator boilerplate repository.
 
 # Configuration Settings
 
-## 1. Install the Local Emulator Suite
+## 1. Copy the .firebaserc_example file to create the .firebaserc file.
+
+⚠️ If you only use the emulator, it doesn't matter what `project_id` it is.
+
+Example.
+
+```json
+{
+  "projects": {
+    "default": "[project_id]"
+  }
+}
+```
+
+## 2. Dependency Installation
+
+1. Navigate to the functions folder with the command below.
+
+   `$ cd functions`
+
+2. Install the dependency with the command below.
+
+   `$ npm install`
+
+---
+
+## 🚀 If you want to connect directly to the Firebase, not the emulator, proceed with the process below.
+
+## 3. (Optional) Install the Local Emulator Suite
 
 Before installing the Emulator Suite you will need:
 
@@ -30,7 +58,7 @@ To install the Emulator Suite:
 
    `$ firebase init emulators`
 
-## 2. Copy the .env_example file to create the .env file.
+## 4. (Optional) Copy the .env_example file to create the .env file.
 
 path: `functions/.env`
 
@@ -45,31 +73,21 @@ FAKER_LOCALE="en"
 
 The DATABASE_URL can be found in the project settings as shown in the picture below.
 
-Project settings -> Service ccounts
+Project settings -> Service accounts
 ![database_url](./doc/database_url.png)
 
-## 3.Set Project Private Key
+## 5. (Optional) Set Project Private Key
 
 1. Download the Private key and rename it `key.json`.
 
    The project's private key can be downloaded from the project settings as shown in the picture below.
 
-   Project settings -> Service ccounts
+   Project settings -> Service accounts
    ![private_key](./doc/private_key.png)
 
 2. Place the key.json file in the directory below.
 
    path: `functions/key.json`
-
-## 4. Dependency Installation
-
-1. Navigate to the functions folder with the command below.
-
-   `$ cd functions`
-
-2. Install the dependency with the command below.
-
-   `$ npm install`
 
 # Usage
 
