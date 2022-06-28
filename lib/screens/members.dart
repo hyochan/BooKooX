@@ -11,7 +11,10 @@ import 'package:wecount/utils/localization.dart';
 
 class Members extends StatefulWidget {
   final Ledger? ledger;
-  Members({Key? key, this.ledger}) : super(key: key);
+  Members({
+    Key? key,
+    this.ledger,
+  }) : super(key: key);
 
   @override
   _MembersState createState() => _MembersState();

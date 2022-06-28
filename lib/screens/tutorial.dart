@@ -21,7 +21,7 @@ class _TutorialState extends State<Tutorial> {
 
   void onNextPressed() {
     if (_currentPage == pageCnt) {
-      Get.to(Intro());
+      Get.to(() => Intro());
       return;
     }
 

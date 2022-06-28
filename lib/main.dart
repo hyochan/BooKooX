@@ -1,7 +1,6 @@
 import 'dart:io' show Platform;
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -9,12 +8,12 @@ import 'package:flutter\_localizations/flutter\_localizations.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wecount/firebase_options.dart';
 import 'package:wecount/generated/l10n.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/screens/tutorial.dart';
 import 'package:wecount/utils/constants.dart';
+import 'package:wecount/utils/firebase_config.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/themes.dart';
 
@@ -52,7 +51,7 @@ void main() async {
 Future<void> _initFire() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseConfig.initializeApp();
 }
 
 void _checkIOSPermission() {

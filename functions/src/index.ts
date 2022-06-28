@@ -1,16 +1,12 @@
-import * as functions from 'firebase-functions';
+import * as functions from "firebase-functions";
+import * as express from "express";
+import { StatusCodes } from "http-status-codes";
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-export const privacyPolicy = functions.https.onRequest((_, response) => {
-  response.redirect(
-    'https://dooboolab.com/privacyandpolicy',
-  );
+const app = express();
+
+app.use(express.json());
+app.post("/", async (req: express.Request, res: express.Response) => {
+  res.send("Hello Firebase").status(StatusCodes.OK).end();
 });
 
-export const termsOfService = functions.https.onRequest((_, response) => {
-  response.redirect(
-    'https://dooboolab.com/termsofservice',
-  );
-});
+exports.api = functions.region("asia-northeast3").https.onRequest(app);

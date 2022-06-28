@@ -296,6 +296,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                               final item =
                                   colorItems[colorItems.length - index - 1];
                               bool selected = item == _ledger.color;
+
                               return ColorItem(
                                 color: item,
                                 onTap: () => _selectColor(item),
