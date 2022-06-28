@@ -10,3 +10,5 @@ node_modules/
 
 # Credentials
 key.json
+
+data/

@@ -28,6 +28,10 @@
     },
     "ui": {
       "enabled": true
+    },
+    "auth": {
+      "port": 9099,
+      "host": "0.0.0.0"
     }
   }
 }
