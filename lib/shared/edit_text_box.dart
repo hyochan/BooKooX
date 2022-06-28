@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/colors.dart';
 
 class EditTextBox extends StatefulWidget {
   const EditTextBox({
@@ -23,7 +23,7 @@ class EditTextBox extends StatefulWidget {
     this.hintStyle,
     this.errorText,
     this.errorStyle = const TextStyle(
-      color: Asset.Colors.carnation,
+      color: carnationColor,
     ),
     this.controller,
     this.borderWidth = 0.7,

@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `this field cannot be empty.`
+  String get EMPTY_WARNING {
+    return Intl.message(
+      'this field cannot be empty.',
+      name: 'EMPTY_WARNING',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your email is invalid. Please check your email address.`
   String get ERROR_INVALID_EMAIL {
     return Intl.message(
@@ -210,10 +220,10 @@ class S {
     );
   }
 
-  /// `Unexpected error occured. Please check your internet connection and try again later.`
+  /// `Unexpected error occurred. Please check your internet connection and try again later.`
   String get SIGN_UP_ERROR_CONTENT {
     return Intl.message(
-      'Unexpected error occured. Please check your internet connection and try again later.',
+      'Unexpected error occurred. Please check your internet connection and try again later.',
       name: 'SIGN_UP_ERROR_CONTENT',
       desc: '',
       args: [],
@@ -281,10 +291,10 @@ class S {
   }
 
   /// `Monthly`
-  String get HOME_MONTHY {
+  String get HOME_MONTHLY {
     return Intl.message(
       'Monthly',
-      name: 'HOME_MONTHY',
+      name: 'HOME_MONTHLY',
       desc: '',
       args: [],
     );
@@ -990,10 +1000,10 @@ class S {
     );
   }
 
-  /// `Why did you think you need to make Bookoo?`
+  /// `Why did you think you need to make Wecount?`
   String get FAQ_11 {
     return Intl.message(
-      'Why did you think you need to make Bookoo?',
+      'Why did you think you need to make Wecount?',
       name: 'FAQ_11',
       desc: '',
       args: [],

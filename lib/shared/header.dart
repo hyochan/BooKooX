@@ -48,7 +48,6 @@ AppBar renderHeaderBack({
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
-    brightness: brightness,
     leading: RawMaterialButton(
       padding: EdgeInsets.all(0.0),
       shape: CircleBorder(),

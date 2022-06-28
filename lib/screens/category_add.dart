@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wecount/models/category.dart';
 import 'package:wecount/shared/edit_text_box.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
@@ -154,13 +154,13 @@ class _CategoryAddState extends State<CategoryAdd> {
                             child: Icon(
                               Icons.star,
                               size: 20,
-                              color: Asset.Colors.mediumGray,
+                              color: mediumGrayColor,
                             ),
                           ),
                           Text(
                             t('ICON_SELECT'),
                             style: TextStyle(
-                              color: Asset.Colors.mediumGray,
+                              color: mediumGrayColor,
                               fontSize: 16,
                             ),
                           )

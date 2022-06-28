@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/types/color.dart' show ColorType;
+import 'package:wecount/utils/colors.dart';
 
 import '../utils/localization.dart';
 
@@ -140,7 +141,7 @@ class LedgerListItem extends StatelessWidget {
                 child: Text(
                   t('MORE'),
                   style: TextStyle(
-                    color: Asset.Colors.green,
+                    color: greenColor,
                   ),
                 ),
               ),

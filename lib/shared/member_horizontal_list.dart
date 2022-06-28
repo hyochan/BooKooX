@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 
 class MemberHorizontalList extends StatelessWidget {
   final bool? showAddBtn;
-  final Function? onSeeAllPressed;
+  final void Function()? onSeeAllPressed;
+
   final List<String> memberIds;
   MemberHorizontalList({
     this.showAddBtn,
@@ -68,9 +70,8 @@ class MemberHorizontalList extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: FlatButton(
-                    onPressed: this.onSeeAllPressed as void Function()?,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  child: TextButton(
+                    onPressed: this.onSeeAllPressed,
                     child: Text(
                       t('SEE_ALL'),
                       semanticsLabel: t('SEE_ALL'),
@@ -113,7 +114,7 @@ class MemberHorizontalList extends StatelessWidget {
                               shape: BoxShape.circle,
                               border: Border.all(
                                 width: 1.0,
-                                color: Asset.Colors.cloudyBlue,
+                                color: Colors.white,
                               ),
                             ),
                           ),

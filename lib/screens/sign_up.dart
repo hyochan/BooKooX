@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:wecount/utils/colors.dart';
 
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/shared/edit_text.dart' show EditText;
@@ -263,7 +264,7 @@ class _SignUpState extends State<SignUp> {
           fontSize: 16.0,
         ),
         borderColor: Colors.white,
-        backgroundColor: Asset.Colors.main,
+        backgroundColor: mainColor,
         text: t('SIGN_UP'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,

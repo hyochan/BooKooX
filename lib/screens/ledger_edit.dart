@@ -1,17 +1,21 @@
-import 'package:wecount/providers/current_ledger.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/screens/setting_currency.dart';
-import 'package:wecount/screens/members.dart';
-import 'package:wecount/shared/member_horizontal_list.dart';
-import 'package:wecount/services/database.dart' show DatabaseService;
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
-import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
+import 'package:wecount/providers/current_ledger.dart';
+import 'package:wecount/screens/empty.dart';
+import 'package:wecount/screens/members.dart';
+import 'package:wecount/screens/setting_currency.dart';
+import 'package:wecount/services/database.dart' show DatabaseService;
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/shared/member_horizontal_list.dart';
 import 'package:wecount/types/color.dart';
-import 'package:provider/provider.dart';
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/logger.dart';
 
+import '../utils/colors.dart';
 import '../utils/localization.dart';
 
 enum LedgerEditMode {
@@ -32,15 +36,23 @@ class LedgerEdit extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LedgerEditState createState() => _LedgerEditState(this.ledger, this.mode);
+  _LedgerEditState createState() => _LedgerEditState();
 }
 
 class _LedgerEditState extends State<LedgerEdit> {
-  Ledger? _ledger;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late Ledger _ledger;
+
   bool _isLoading = false;
 
-  _LedgerEditState(Ledger? ledger, LedgerEditMode mode) {
-    if (ledger == null) {
+  @override
+  void initState() {
+    _setLedger();
+    super.initState();
+  }
+
+  void _setLedger() {
+    if (widget.ledger == null) {
       _ledger = Ledger(
         title: '',
         currency: currencies[29],
@@ -48,9 +60,9 @@ class _LedgerEditState extends State<LedgerEdit> {
         adminIds: [],
         memberIds: [],
       );
-      return;
+    } else {
+      _ledger = widget.ledger!;
     }
-    _ledger = ledger;
   }
 
   void _onPressCurrency() async {
@@ -58,65 +70,53 @@ class _LedgerEditState extends State<LedgerEdit> {
       context,
       MaterialPageRoute(
         builder: (BuildContext context) => SettingCurrency(
-          selectedCurrency: _ledger!.currency.currency,
+          selectedCurrency: _ledger.currency.currency,
         ),
       ),
     );
 
-    if (_result == null) return;
-
-    setState(() => _ledger!.currency = _result);
+    if (_result != null) {
+      setState(() => _ledger.currency = _result);
+    }
   }
 
   void _selectColor(ColorType item) {
-    setState(() => _ledger!.color = item);
+    setState(() => _ledger.color = item);
   }
 
-  void _pressDone() async {
-    final _db = DatabaseService();
+  Future<void> _pressDone() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() => _isLoading = true);
 
-    setState(() => _isLoading = true);
+      _ledger.description =
+          _ledger.description == '' ? null : _ledger.description;
 
-    if (_ledger!.title.isEmpty) {
-      print('title is null');
-      return;
-    }
-
-    if (_ledger!.description == null || _ledger!.description!.isEmpty) {
-      print('description is null');
-      return;
-    }
-
-    if (widget.mode == LedgerEditMode.ADD) {
       try {
-        await _db.requestCreateNewLedger(_ledger);
+        final DatabaseService db = DatabaseService();
+
+        if (widget.mode == LedgerEditMode.ADD) {
+          await db.requestCreateNewLedger(_ledger);
+        } else if (widget.mode == LedgerEditMode.UPDATE) {
+          await db.requestUpdateLedger(_ledger);
+        }
+
+        Get.back();
       } catch (err) {
-        print('err: $err');
+        logger.e('err: $err');
       } finally {
         setState(() => _isLoading = false);
       }
-
-      Navigator.of(context).pop();
-    } else if (widget.mode == LedgerEditMode.UPDATE) {
-      try {
-        await _db.requestUpdateLedger(_ledger);
-      } catch (err) {
-        print('err: $err');
-      } finally {
-        setState(() => _isLoading = false);
-      }
-
-      Navigator.of(context).pop();
     }
   }
 
   void _leaveLedger() async {
-    bool hasLeft = await DatabaseService().requestLeaveLedger(_ledger!.id);
+    bool hasLeft = await DatabaseService().requestLeaveLedger(_ledger.id);
 
     if (hasLeft) {
-      var ledger = await DatabaseService().fetchSelectedLedger();
+      Ledger? ledger = await DatabaseService().fetchSelectedLedger();
       Provider.of<CurrentLedger>(context, listen: false).setLedger(ledger);
-      Navigator.of(context).pop();
+
+      Get.back();
     }
 
     General.instance.showSingleDialog(
@@ -126,26 +126,31 @@ class _LedgerEditState extends State<LedgerEdit> {
     );
   }
 
+  String? _validateFiled(String inputString) {
+    if (inputString.isEmpty) {
+      return Intl.message('EMPTY_WARNING');
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Asset.Colors.getColor(_ledger!.color),
+      backgroundColor: getColor(_ledger.color),
       appBar: renderHeaderBack(
         context: context,
         brightness: Brightness.dark,
         actions: [
           Container(
-            width: 56.0,
             margin: EdgeInsets.only(right: 16),
-            child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
+            child: TextButton(
               onPressed: _leaveLedger,
               child: Text(
                 t('LEAVE'),
                 semanticsLabel: t('LEAVE'),
                 style: TextStyle(
-                  color: Colors.red,
+                  color: darkTransparent,
                   fontSize: 18,
                   decoration: TextDecoration.underline,
                 ),
@@ -155,25 +160,35 @@ class _LedgerEditState extends State<LedgerEdit> {
         ],
       ),
       body: SafeArea(
-        child: Stack(
-          children: [
-            ListView(
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(top: 40, left: 40, right: 40),
-                  child: TextField(
+                  margin: EdgeInsets.only(
+                    top: 40,
+                    left: 40,
+                    right: 40,
+                  ),
+                  child: TextFormField(
                     maxLines: 1,
+                    maxLength: 20,
                     onChanged: (String txt) {
-                      _ledger!.title = txt;
+                      _ledger.title = txt.trim();
                     },
-                    controller: TextEditingController(text: _ledger!.title),
+                    validator: (String? _) => _validateFiled(_ledger.title),
+                    controller: TextEditingController(text: _ledger.title),
                     decoration: InputDecoration(
+                      counterStyle: TextStyle(
+                        color: darkTransparent,
+                      ),
                       hintMaxLines: 2,
                       border: InputBorder.none,
                       hintText: t('LEDGER_NAME_HINT'),
                       hintStyle: TextStyle(
                         fontSize: 28.0,
-                        color: Color.fromRGBO(255, 255, 255, 0.7),
+                        color: darkTransparent,
                       ),
                     ),
                     style: TextStyle(
@@ -183,23 +198,28 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ),
                 ),
                 Container(
-                  margin:
-                      EdgeInsets.only(top: 24, left: 40, right: 40, bottom: 20),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 40,
+                  ),
                   height: 160,
-                  child: TextField(
-                    maxLines: 8,
+                  child: TextFormField(
+                    maxLines: 7,
+                    maxLength: 300,
                     onChanged: (String txt) {
-                      _ledger!.description = txt;
+                      _ledger.description = txt.trim();
                     },
                     controller:
-                        TextEditingController(text: _ledger!.description),
+                        TextEditingController(text: _ledger.description),
                     textAlignVertical: TextAlignVertical.top,
                     decoration: InputDecoration(
+                      counterStyle: TextStyle(
+                        color: darkTransparent,
+                      ),
                       border: InputBorder.none,
                       hintText: t('LEDGER_DESCRIPTION_HINT'),
                       hintStyle: TextStyle(
                         fontSize: 16.0,
-                        color: Color.fromRGBO(255, 255, 255, 0.7),
+                        color: darkTransparent,
                       ),
                     ),
                     style: TextStyle(
@@ -209,12 +229,11 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ),
                 ),
                 MaterialButton(
-                  padding: EdgeInsets.all(0.0),
+                  padding: EdgeInsets.all(0),
                   onPressed: _onPressCurrency,
                   child: Container(
-                    height: 80.0,
-                    width: double.infinity,
-                    padding: EdgeInsets.only(left: 40.0, right: 28.0),
+                    height: 80,
+                    padding: EdgeInsets.only(left: 40, right: 28),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -228,7 +247,8 @@ class _LedgerEditState extends State<LedgerEdit> {
                         Row(
                           children: <Widget>[
                             Text(
-                              '${_ledger!.currency.currency} | ${_ledger!.currency.symbol}',
+                              '${_ledger.currency.currency}'
+                              ' | ${_ledger.currency.symbol}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -238,7 +258,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                               child: Icon(
                                 Icons.chevron_right,
                                 size: 16,
-                                color: Color.fromRGBO(255, 255, 255, 0.7),
+                                color: darkTransparent,
                               ),
                             ),
                           ],
@@ -249,9 +269,8 @@ class _LedgerEditState extends State<LedgerEdit> {
                 ),
                 Divider(color: Colors.white70),
                 Container(
-                  height: 80.0,
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 40.0),
+                  height: 80,
+                  padding: EdgeInsets.only(left: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -276,7 +295,8 @@ class _LedgerEditState extends State<LedgerEdit> {
                             itemBuilder: (context, index) {
                               final item =
                                   colorItems[colorItems.length - index - 1];
-                              bool selected = item == _ledger!.color;
+                              bool selected = item == _ledger.color;
+
                               return ColorItem(
                                 color: item,
                                 onTap: () => _selectColor(item),
@@ -294,53 +314,46 @@ class _LedgerEditState extends State<LedgerEdit> {
                   showAddBtn: true,
                   memberIds:
                       widget.ledger != null ? widget.ledger!.memberIds : [],
-                  onSeeAllPressed: () => General.instance.navigateScreen(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => Members(
-                        ledger: widget.ledger,
-                      ),
+                  onSeeAllPressed: () => Get.to(
+                    () => Members(
+                      ledger: widget.ledger,
                     ),
                   ),
                 ),
               ],
             ),
-            Positioned(
-              bottom: 24,
-              right: 24,
-              child: SizedBox(
-                // width: 120,
-                height: 60,
-                child: FlatButton(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(26.0),
+          ),
+        ),
+      ),
+      floatingActionButton: SizedBox(
+        height: 60,
+        width: 100,
+        child: ElevatedButton(
+          onPressed: _pressDone,
+          child: _isLoading
+              ? Container(
+                  width: 25,
+                  height: 25,
+                  child: CircularProgressIndicator(
+                    semanticsLabel: t('LOADING'),
+                    backgroundColor: Theme.of(context).primaryColor,
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
-                  onPressed: _pressDone,
-                  child: _isLoading
-                      ? Container(
-                          width: 28,
-                          height: 28,
-                          child: CircularProgressIndicator(
-                            semanticsLabel: t('LOADING'),
-                            backgroundColor: Theme.of(context).primaryColor,
-                            strokeWidth: 2,
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.white),
-                          ),
-                        )
-                      : Text(
-                          widget.ledger == null ? t('DONE') : t('UPDATE'),
-                          style: TextStyle(
-                            color: Asset.Colors.getColor(_ledger!.color),
-                            fontSize: 16.0,
-                          ),
-                        ),
+                )
+              : Text(
+                  widget.ledger == null ? t('DONE') : t('UPDATE'),
+                  style: TextStyle(
+                    color: getColor(_ledger.color),
+                    fontSize: 16.0,
+                  ),
                 ),
-              ),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32),
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -366,7 +379,7 @@ class ColorItem extends StatelessWidget {
         ClipOval(
           child: Material(
             clipBehavior: Clip.hardEdge,
-            color: Asset.Colors.getColor(color),
+            color: getColor(color),
             child: InkWell(
               onTap: onTap as void Function()?,
               child: Container(
@@ -386,7 +399,7 @@ class ColorItem extends StatelessWidget {
                 color: Colors.white,
                 size: 16,
               )
-            : Container()
+            : const Empty()
       ],
     );
   }

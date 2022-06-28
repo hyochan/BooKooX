@@ -4,6 +4,7 @@ import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:intl/intl.dart';
 import 'package:wecount/models/user.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart' show General;
 
 class HomeListItem extends StatelessWidget {
@@ -98,9 +99,10 @@ class HomeListItem extends StatelessWidget {
                     _priceToShow,
                     textAlign: TextAlign.end,
                     style: TextStyle(
-                        color: _isPlus
-                            ? Theme.of(context).textTheme.headline1!.color
-                            : Asset.Colors.carnation),
+                      color: _isPlus
+                          ? Theme.of(context).textTheme.headline1!.color
+                          : carnationColor,
+                    ),
                   ),
                 ),
               ),

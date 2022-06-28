@@ -75,6 +75,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "EMAIL_HINT": MessageLookupByLibrary.simpleMessage("이메일을 입력해주세요"),
         "EMAIL_NOT_VERIFIED": MessageLookupByLibrary.simpleMessage(
             "이메일 주소가 인증되지 않았습니다. 메일함을 확인하여 이메일을 인증해주세요."),
+        "EMPTY_WARNING":
+            MessageLookupByLibrary.simpleMessage("해당 필드는 비어 있을 수 없습니다."),
         "ERROR": MessageLookupByLibrary.simpleMessage("오류"),
         "ERROR_CATEGORY_ICON":
             MessageLookupByLibrary.simpleMessage("아이콘을 선택해주세요."),
@@ -140,7 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "GALLERY": MessageLookupByLibrary.simpleMessage("갤러리"),
         "GIFT": MessageLookupByLibrary.simpleMessage("경조사비"),
         "HOME_LIST": MessageLookupByLibrary.simpleMessage("리스트"),
-        "HOME_MONTHY": MessageLookupByLibrary.simpleMessage("월별"),
+        "HOME_MONTHLY": MessageLookupByLibrary.simpleMessage("월별"),
         "HOME_SETTING": MessageLookupByLibrary.simpleMessage("설정"),
         "HOME_STATISTIC": MessageLookupByLibrary.simpleMessage("통계"),
         "HOSPITAL": MessageLookupByLibrary.simpleMessage("병원"),
@@ -211,7 +213,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "SHARE_IT": MessageLookupByLibrary.simpleMessage("공유하세요."),
         "SHARE_OPINION": MessageLookupByLibrary.simpleMessage("의견 나누기"),
         "SHARE_OPINION_HINT":
-            MessageLookupByLibrary.simpleMessage("저희에게 BooKoo에 대한 의견을 보내주세요."),
+            MessageLookupByLibrary.simpleMessage("저희에게 Wecount 대한 의견을 보내주세요."),
         "SHOULD_TRANSFER_OWNERSHIP":
             MessageLookupByLibrary.simpleMessage("가계부를 나가기 전에 오너를 양도해야합다."),
         "SHOW_ALL": MessageLookupByLibrary.simpleMessage("전체보기"),
