@@ -55,12 +55,32 @@ cp .env.sample .env
   - [Android](https://developers.google.com/maps/documentation/android-sdk/get-api-key)
   - [iOS](https://developers.google.com/maps/documentation/ios-sdk/get-api-key)
 * PLACE_API_KEY
-  > Same as `GEO_API_KEY` but recommend to create another `API_KEY` to track usage seperately. You can use this one without platform specific.
+  > Same as `GEO_API_KEY` but recommend to create another `API_KEY` to track usage separately. You can use this one without platform specific.
 
 ## Firebase Settings
 
 Wecount can be developed using an emulator.
 See [this link](https://github.com/Jay-flow/firebase-boilerplate) for instructions on how to set it up.
+
+Follow the procedure below to use the emulator on the flutter after setting up.
+
+1. In the `.env` file, change SHOULD_USE_EMULATOR from false to true.
+
+```
+...
+SHOULD_USE_EMULATOR=true
+...
+```
+
+2.  In the `.env` file, Change to the internal IP where the emulator is running.
+
+```
+...
+INTERNAL_IP=192.168.0.3
+...
+```
+
+If you want to run an Android emulator, you need to enter `10.0.2.2`
 
 ## Contributors ✨
 
