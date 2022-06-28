@@ -10,7 +10,7 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "seed": "ts-node ./src/seeds/index.ts",
-    "dev": "firebase emulators:start --import=./data --export-on-exit",
+    "dev": "npm run build && firebase emulators:start --import=./data --export-on-exit",
     "dev:seed": "ts-node-dev --respawn --files ./src/seeds/index.ts"
   },
   "engines": {
