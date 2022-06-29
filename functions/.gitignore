@@ -9,6 +9,6 @@ typings/
 node_modules/
 
 # Credentials
-key.json
+src/key.json
 
 data/

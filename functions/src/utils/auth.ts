@@ -9,7 +9,7 @@ const init = async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line import/no-unresolved
-    const serviceAccount = await import('../../key.json')
+    const serviceAccount = await import('../key.json')
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       databaseURL: process.env.DATABASE_URL
