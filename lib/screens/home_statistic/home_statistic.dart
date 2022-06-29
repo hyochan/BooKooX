@@ -11,7 +11,6 @@ import 'package:wecount/shared/date_selector.dart' show DateSelector;
 import 'package:wecount/shared/home_header.dart' show renderHomeAppBar;
 import 'package:wecount/shared/home_list_item.dart';
 import 'package:wecount/types/color.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/localization.dart';
 

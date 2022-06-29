@@ -131,6 +131,7 @@ class _LedgerEditState extends State<LedgerEdit> {
     if (inputString.isEmpty) {
       return Intl.message('EMPTY_WARNING');
     }
+    print('hi');
 
     return null;
   }
@@ -265,7 +266,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                     ),
                   ),
                 ),
-                Divider(color: Colors.white70),
+                const Divider(color: Colors.white70),
                 Container(
                   height: 80,
                   padding: EdgeInsets.symmetric(

@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
-import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
+
+import '../screens/empty.dart';
 
 class MemberHorizontalList extends StatelessWidget {
   final bool? showAddBtn;
   final void Function()? onSeeAllPressed;
 
   final List<String> memberIds;
+
   MemberHorizontalList({
     this.showAddBtn,
     this.onSeeAllPressed,
@@ -47,88 +49,77 @@ class MemberHorizontalList extends StatelessWidget {
       );
     }).toList();
 
-    return Container(
-      height: 140,
-      padding: EdgeInsets.only(left: 32.0, right: 20),
-      margin: EdgeInsets.only(top: 24),
-      child: Column(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
+    return Column(
+      children: <Widget>[
+        Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                child: Text(
+                  t('MEMBER'),
+                  semanticsLabel: t('MEMBER'),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              Container(
+                child: TextButton(
+                  onPressed: this.onSeeAllPressed,
                   child: Text(
-                    t('MEMBER'),
-                    semanticsLabel: t('MEMBER'),
+                    t('SEE_ALL'),
+                    semanticsLabel: t('SEE_ALL'),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
-                Container(
-                  child: TextButton(
-                    onPressed: this.onSeeAllPressed,
-                    child: Text(
-                      t('SEE_ALL'),
-                      semanticsLabel: t('SEE_ALL'),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            height: 48,
-            width: double.infinity,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                this.showAddBtn == true
-                    ? Container(
-                        margin: EdgeInsets.only(left: 8),
-                        child: Material(
-                          clipBehavior: Clip.hardEdge,
-                          color: Colors.transparent,
-                          child: Container(
-                            width: 48,
-                            height: 48,
-                            child: InkWell(
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                              onTap: () {},
-                            ),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 1.0,
-                                color: Colors.white,
-                              ),
-                            ),
+        ),
+        Container(
+          height: 50,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              this.showAddBtn == true
+                  ? Material(
+                      clipBehavior: Clip.hardEdge,
+                      color: Colors.transparent,
+                      child: Container(
+                        width: 48,
+                        height: 48,
+                        child: InkWell(
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                          onTap: () {},
+                        ),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 1.0,
+                            color: Colors.white,
                           ),
                         ),
-                      )
-                    : Container(),
-                Row(
-                  children: memberWidgets,
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+                      ),
+                    )
+                  : Empty(),
+              Row(
+                children: memberWidgets,
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }
