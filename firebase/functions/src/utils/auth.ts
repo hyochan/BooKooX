@@ -6,11 +6,11 @@ const init = async () => {
   const keyFilePath = '../../key.json'
 
   if (existsSync(keyFilePath)) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    /* eslint-disable */
     // @ts-ignore
-    // eslint-disable-next-line import/no-unresolved
     const serviceAccount = await import('../key.json')
     admin.initializeApp({
+      // @ts-ignore
       credential: admin.credential.cert(serviceAccount),
       databaseURL: process.env.DATABASE_URL
     })
