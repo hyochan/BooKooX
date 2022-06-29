@@ -42,6 +42,7 @@ class LedgerEdit extends StatefulWidget {
 class _LedgerEditState extends State<LedgerEdit> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late Ledger _ledger;
+  final double paddingHorizontal = 25;
 
   bool _isLoading = false;
 
@@ -166,17 +167,16 @@ class _LedgerEditState extends State<LedgerEdit> {
             child: Column(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(
-                    top: 40,
-                    left: 40,
-                    right: 40,
+                  margin: const EdgeInsets.only(
+                    top: 20,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: paddingHorizontal,
                   ),
                   child: TextFormField(
                     maxLines: 1,
                     maxLength: 20,
-                    onChanged: (String txt) {
-                      _ledger.title = txt.trim();
-                    },
+                    onChanged: (String txt) => _ledger.title = txt.trim(),
                     validator: (String? _) => _validateFiled(_ledger.title),
                     controller: TextEditingController(text: _ledger.title),
                     decoration: InputDecoration(
@@ -197,17 +197,14 @@ class _LedgerEditState extends State<LedgerEdit> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 40,
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: paddingHorizontal,
                   ),
-                  height: 160,
                   child: TextFormField(
                     maxLines: 7,
                     maxLength: 300,
-                    onChanged: (String txt) {
-                      _ledger.description = txt.trim();
-                    },
+                    onChanged: (String txt) => _ledger.description = txt.trim(),
                     controller:
                         TextEditingController(text: _ledger.description),
                     textAlignVertical: TextAlignVertical.top,
@@ -228,12 +225,13 @@ class _LedgerEditState extends State<LedgerEdit> {
                     ),
                   ),
                 ),
-                MaterialButton(
-                  padding: EdgeInsets.all(0),
-                  onPressed: _onPressCurrency,
+                InkWell(
+                  onTap: _onPressCurrency,
                   child: Container(
                     height: 80,
-                    padding: EdgeInsets.only(left: 40, right: 28),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: paddingHorizontal,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -270,7 +268,9 @@ class _LedgerEditState extends State<LedgerEdit> {
                 Divider(color: Colors.white70),
                 Container(
                   height: 80,
-                  padding: EdgeInsets.only(left: 40),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: paddingHorizontal,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -285,41 +285,46 @@ class _LedgerEditState extends State<LedgerEdit> {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          padding: EdgeInsets.only(right: 32),
-                          child: ListView.builder(
-                            reverse: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: colorItems.length,
-                            itemExtent: 32,
-                            itemBuilder: (context, index) {
-                              final item =
-                                  colorItems[colorItems.length - index - 1];
-                              bool selected = item == _ledger.color;
+                        child: ListView.builder(
+                          reverse: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: colorItems.length,
+                          itemExtent: 32,
+                          itemBuilder: (context, index) {
+                            final item =
+                                colorItems[colorItems.length - index - 1];
+                            bool selected = item == _ledger.color;
 
-                              return ColorItem(
-                                color: item,
-                                onTap: () => _selectColor(item),
-                                selected: selected,
-                              );
-                            },
-                          ),
+                            return ColorItem(
+                              color: item,
+                              onTap: () => _selectColor(item),
+                              selected: selected,
+                            );
+                          },
                         ),
                       ),
                     ],
                   ),
                 ),
                 Divider(color: Colors.white70),
-                MemberHorizontalList(
-                  showAddBtn: true,
-                  memberIds:
-                      widget.ledger != null ? widget.ledger!.memberIds : [],
-                  onSeeAllPressed: () => Get.to(
-                    () => Members(
-                      ledger: widget.ledger,
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: paddingHorizontal,
+                  ),
+                  child: MemberHorizontalList(
+                    showAddBtn: true,
+                    memberIds:
+                        widget.ledger != null ? widget.ledger!.memberIds : [],
+                    onSeeAllPressed: () => Get.to(
+                      () => Members(
+                        ledger: widget.ledger,
+                      ),
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 150,
+                )
               ],
             ),
           ),

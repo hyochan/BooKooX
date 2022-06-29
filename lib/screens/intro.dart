@@ -68,7 +68,7 @@ class Intro extends StatelessWidget {
 
     Widget renderSignInBtn() {
       return Button(
-        onPress: () => Get.to(() => SignIn.name),
+        onPress: () => Get.to(() => SignIn()),
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
