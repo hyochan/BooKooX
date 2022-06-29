@@ -6,7 +6,7 @@ const init = async () => {
   const keyFilePath = '../../key.json'
 
   if (existsSync(keyFilePath)) {
-    /* eslint-disable @typescript-eslint/ban-ts-comment */
+    /* eslint-disable */
     // @ts-ignore
     const serviceAccount = await import('../key.json')
     admin.initializeApp({

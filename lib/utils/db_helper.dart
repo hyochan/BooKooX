@@ -165,8 +165,12 @@ class DBHelper {
   }
 
   bool isExistFiled(DocumentSnapshot doc, String filedName) {
-    Map data = doc.data() as Map;
+    Object? data = doc.data();
 
-    return data[filedName] != null;
+    if (data != null) {
+      return (data as Map)[filedName] != null;
+    }
+
+    return false;
   }
 }
