@@ -57,12 +57,28 @@ cp .env.sample .env
 * PLACE_API_KEY
   > Same as `GEO_API_KEY` but recommend to create another `API_KEY` to track usage separately. You can use this one without platform specific.
 
-## Firebase Settings
+## Firebase settings
 
-Wecount can be developed using an emulator.
-See [this link](https://github.com/Jay-flow/firebase-boilerplate) for instructions on how to set it up.
+1. Install the CLI programs below.
 
-Follow the procedure below to use the emulator on the flutter after setting up.
+```bash
+$ npm install -g firebase-tools
+$ dart pub global activate flutterfire_cli
+```
+
+2. If you installed firebase-tools for the first time, log in using the command below.
+
+```bash
+$ firebase login
+```
+
+3. Run the command below from the we count project root path.
+
+```bash
+$ flutterfire configure
+```
+
+## Firebase emulator settings
 
 1. In the `.env` file, change SHOULD_USE_EMULATOR from false to true.
 
@@ -81,6 +97,44 @@ INTERNAL_IP=192.168.0.3
 ```
 
 If you want to run an Android emulator, you need to enter `10.0.2.2`
+
+3. Install the firebase CLI program using the command below.
+
+```bash
+$ npm install -g firebase-tools
+```
+
+4. Go to the firebase directory with the command below.
+
+```bash
+$ cd firebase
+```
+
+5. Use the command below to set up the emulator.
+
+```bash
+$ firebase init emulator
+```
+
+6. Go to the functions directory with the command below.
+
+```bash
+$ cd functions
+```
+
+7. Use the command below to install the dependencies.
+
+```bash
+$ npm install
+```
+
+8. Use the command below to run the emulator.
+
+```
+$ npm run dev
+```
+
+See also: [firebase-boilerplate](https://github.com/Jay-flow/firebase-boilerplate)
 
 ## Contributors ✨
 
