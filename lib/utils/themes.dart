@@ -42,12 +42,12 @@ class Themes {
     backgroundColor: lightColor,
     bottomAppBarColor: lightDimColor,
     disabledColor: warmGrayColor,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: mainColor,
       systemOverlayStyle: lightModeStatusBarColor,
     ),
     dialogBackgroundColor: lightColor,
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       headline1: TextStyle(color: darkColor),
       headline2: TextStyle(color: mediumGrayColor),
       headline3: TextStyle(color: paleGrayColor),
@@ -68,7 +68,7 @@ class Themes {
     bottomAppBarColor: darkDimColor,
     disabledColor: warmGrayColor,
     dialogBackgroundColor: darkColor,
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       headline1: TextStyle(color: lightColor),
       headline2: TextStyle(color: paleGrayColor),
       headline3: TextStyle(color: mediumGrayColor),

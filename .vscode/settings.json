@@ -20,6 +20,7 @@
     "sqflite",
     "strictbounds",
     "vsync",
-    "webservice"
+    "webservice",
+    "wecount"
   ]
 }

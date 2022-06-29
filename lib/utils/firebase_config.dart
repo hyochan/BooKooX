@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:wecount/utils/logger.dart';
 
 import '../firebase_options.dart';
 
@@ -12,19 +13,27 @@ class FirebaseConfig {
         options: DefaultFirebaseOptions.currentPlatform);
 
     if (shouldUseEmulator()) {
-      final String internalIP = FlutterConfig.get('INTERNAL_IP') ?? '10.0.2.2';
-
       FirebaseFirestore.instance.settings = Settings(
-        host: '$internalIP:8080',
+        host: '$getInternalIP():8080',
         sslEnabled: false,
         persistenceEnabled: false,
       );
-      await FirebaseAuth.instance.useAuthEmulator(internalIP, 9099);
+      await FirebaseAuth.instance.useAuthEmulator(getInternalIP(), 9099);
       await FirebaseStorage.instance.useStorageEmulator(
-        internalIP,
+        getInternalIP(),
         9199,
       );
     }
+  }
+
+  static String getInternalIP() {
+    final String? internalIP = FlutterConfig.get('INTERNAL_IP');
+
+    if (internalIP == null || internalIP == "") {
+      return '10.0.2.2';
+    }
+
+    return internalIP;
   }
 
   static bool shouldUseEmulator() =>
