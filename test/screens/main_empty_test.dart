@@ -7,7 +7,8 @@ import '../test_utils.dart' show TestUtils;
 
 void main() {
   testWidgets("Widget", (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: MainEmpty()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const MainEmpty()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
@@ -18,7 +19,8 @@ void main() {
   });
   testWidgets("Navigate to [LedgerEdit] when addLedger pressed",
       (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: MainEmpty()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const MainEmpty()));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('ADD_LEDGER'));

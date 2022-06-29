@@ -5,51 +5,37 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/photo.dart' show Photo;
 
 class Carousel extends StatefulWidget {
-  final currentPage;
+  final int currentPage;
   final List<Photo> picture;
   final double height;
   final double viewportFraction;
   final Function(int)? onPressed;
 
-  Carousel({
+  const Carousel({
+    Key? key,
     required this.picture,
     this.currentPage = 0,
     this.height = 256.0,
     this.viewportFraction = 1.0,
     this.onPressed,
-  });
+  }) : super(key: key);
 
   @override
-  _CarouselState createState() => _CarouselState(
-        picture,
-        currentPage: this.currentPage,
-        height: this.height,
-        viewportFraction: this.viewportFraction,
-      );
+  State<Carousel> createState() => _CarouselState();
 }
 
 class _CarouselState extends State<Carousel> {
-  final List<Photo> picture;
-  final double? height;
-  final double? viewportFraction;
   int? currentPage;
-
-  _CarouselState(
-    this.picture, {
-    this.currentPage,
-    this.height,
-    this.viewportFraction,
-  });
-
-  PageController? _controller;
+  late PageController _controller;
 
   @override
   initState() {
     super.initState();
+
     _controller = PageController(
-      initialPage: this.currentPage!,
+      initialPage: currentPage!,
       keepPage: false,
-      viewportFraction: this.viewportFraction!,
+      viewportFraction: widget.viewportFraction,
 
       /// width percentage
     );
@@ -57,19 +43,19 @@ class _CarouselState extends State<Carousel> {
 
   @override
   dispose() {
-    _controller!.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: this.height,
+    return SizedBox(
+      height: widget.height,
       child: PageView.builder(
-        itemCount: picture.length,
+        itemCount: widget.picture.length,
         onPageChanged: (value) {
           setState(() {
-            this.currentPage = value;
+            currentPage = value;
           });
         },
         controller: _controller,
@@ -84,11 +70,11 @@ class _CarouselState extends State<Carousel> {
   builder(int index) {
     double screenWidth = MediaQuery.of(context).size.width;
     return AnimatedBuilder(
-      animation: _controller!,
+      animation: _controller,
       builder: (context, child) {
         double value = 1.0;
-        if (_controller!.position.haveDimensions) {
-          value = _controller!.page! - index;
+        if (_controller.position.haveDimensions) {
+          value = _controller.page! - index;
           value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
         }
 
@@ -100,67 +86,66 @@ class _CarouselState extends State<Carousel> {
           ),
         );
       },
-      child: Container(
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              child: Container(
-                width: double.infinity,
-                height: widget.height,
-                child: ButtonTheme(
-                  minWidth: double.infinity,
-                  child: FlatButton(
-                    padding: EdgeInsets.all(0.0),
-                    onPressed: () => widget.onPressed!(index),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          // child: CachedNetworkImage(
-                          //   fit: BoxFit.cover,
-                          //   placeholder: Image(
-                          //     image: Theme.Icons.icLoadingImage,
-                          //   ),
-                          //   imageUrl: imgUrls[index],
-                          // )
-                          child: Image.file(
-                            File(widget.picture[index].file!.path),
-                            fit: BoxFit.cover,
-                            height: 72,
-                            width: 84,
-                          ),
-                        )
-                      ],
-                    ),
+      child: Stack(
+        children: <Widget>[
+          Positioned(
+            child: SizedBox(
+              width: double.infinity,
+              height: widget.height,
+              child: ButtonTheme(
+                minWidth: double.infinity,
+                // ignore: deprecated_member_use
+                child: FlatButton(
+                  padding: const EdgeInsets.all(0.0),
+                  onPressed: () => widget.onPressed!(index),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        // child: CachedNetworkImage(
+                        //   fit: BoxFit.cover,
+                        //   placeholder: Image(
+                        //     image: Theme.Icons.icLoadingImage,
+                        //   ),
+                        //   imageUrl: imgUrls[index],
+                        // )
+                        child: Image.file(
+                          File(widget.picture[index].file!.path),
+                          fit: BoxFit.cover,
+                          height: 72,
+                          width: 84,
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: EdgeInsets.only(bottom: 20.0),
-                width: 72.0,
-                height: 24.0,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(0, 0, 0, 0.3),
-                  borderRadius: BorderRadius.circular(14.0),
-                ),
-                child: Center(
-                  child: Text(
-                    '${index + 1} / ${picture.length}',
-                    style: TextStyle(
-                      color: const Color(0xffffffff),
-                      fontWeight: FontWeight.w100,
-                      fontFamily: "AppleSDGothicNeo",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14.0,
-                    ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 20.0),
+              width: 72.0,
+              height: 24.0,
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(0, 0, 0, 0.3),
+                borderRadius: BorderRadius.circular(14.0),
+              ),
+              child: Center(
+                child: Text(
+                  '${index + 1} / ${widget.picture.length}',
+                  style: const TextStyle(
+                    color: Color(0xffffffff),
+                    fontWeight: FontWeight.w100,
+                    fontFamily: "AppleSDGothicNeo",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 14.0,
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -5,27 +5,31 @@ import 'dart:math';
 import 'package:intl/intl.dart' show NumberFormat;
 
 /// typing callback function
-typedef void SelectMonthToShow(
+typedef SelectMonthToShow = void Function(
     {required int month, required double sumOfPrice});
 
 /// to reduce performance issue,
 /// if I don't scale down the price values from parent,
 /// chart will have performance issue
-const CHART_SCALE = 10000;
+const chartScale = 10000;
 
 class LineGraphChart extends StatefulWidget {
   final List<LedgerItem> items;
   final SelectMonthToShow? onSelectMonth;
-  LineGraphChart({required this.items, this.onSelectMonth});
+  const LineGraphChart({
+    Key? key,
+    required this.items,
+    this.onSelectMonth,
+  }) : super(key: key);
 
   @override
-  _LineGraphChartState createState() => _LineGraphChartState();
+  State<LineGraphChart> createState() => _LineGraphChartState();
 }
 
 class _LineGraphChartState extends State<LineGraphChart> {
   late ChartValues chartValues;
   double? _minY, _maxY;
-  var _spots;
+  late List<FlSpot>? _spots;
 
   @override
   void initState() {
@@ -34,10 +38,10 @@ class _LineGraphChartState extends State<LineGraphChart> {
     /// make min, max values and spots(tuple values) for chart
     chartValues = ChartValues(mapValues(widget.items));
     _minY = 0;
-    _maxY = chartValues.maxPrice / CHART_SCALE;
+    _maxY = chartValues.maxPrice / chartScale;
 
     _spots = chartValues.tupleValues.map((Tuple tuple) {
-      return FlSpot(tuple.month.toDouble(), tuple.price / CHART_SCALE);
+      return FlSpot(tuple.month.toDouble(), tuple.price / chartScale);
     }).toList();
   }
 
@@ -46,8 +50,8 @@ class _LineGraphChartState extends State<LineGraphChart> {
     const Color(0xff02d39a),
   ];
 
-  double _minX = 1;
-  double _maxX = 12;
+  final double _minX = 1;
+  final double _maxX = 12;
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +61,8 @@ class _LineGraphChartState extends State<LineGraphChart> {
           AspectRatio(
             aspectRatio: 1.70,
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
                   Radius.circular(18),
                 ),
               ),
@@ -88,14 +92,14 @@ class _LineGraphChartState extends State<LineGraphChart> {
         getDrawingHorizontalLine: (value) {
           return FlLine(
             // color: Color(0xff37434d),
-            color: Color(0xd5d5d5ff),
+            color: const Color(0xd5d5d5ff),
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
           return FlLine(
             // color: Color(0xff37434d),
-            color: Color(0xd5d5d5ff),
+            color: const Color(0xd5d5d5ff),
 
             strokeWidth: 1,
           );
@@ -150,17 +154,17 @@ class _LineGraphChartState extends State<LineGraphChart> {
               final flSpot = barSpot;
 
               return LineTooltipItem(
-                '${NumberFormat.simpleCurrency().format((flSpot.y * CHART_SCALE))}',
+                NumberFormat.simpleCurrency().format((flSpot.y * chartScale)),
                 const TextStyle(color: Colors.white),
               );
             }).toList();
           },
         ),
         touchCallback: (FlTouchEvent te, LineTouchResponse? res) {
-          res!.lineBarSpots!.forEach((spot) {
+          for (var spot in res!.lineBarSpots!) {
             widget.onSelectMonth!(
-                month: spot.x.toInt(), sumOfPrice: spot.y * CHART_SCALE);
-          });
+                month: spot.x.toInt(), sumOfPrice: spot.y * chartScale);
+          }
         },
       ),
       lineBarsData: [
@@ -193,18 +197,18 @@ class Tuple {
 }
 
 class ChartValues {
-  var minPrice;
-  late var maxPrice;
+  late double minPrice;
+  late double maxPrice;
   List<Tuple> tupleValues = [];
 
   ChartValues(Map<String, double> items) {
     List<double> priceList = [];
     items.forEach((String month, double price) {
       priceList.add(price);
-      this.tupleValues.add(Tuple(price: price, month: int.parse(month)));
+      tupleValues.add(Tuple(price: price, month: int.parse(month)));
     });
-    this.minPrice = priceList.reduce(min);
-    this.maxPrice = priceList.reduce(max);
+    minPrice = priceList.reduce(min);
+    maxPrice = priceList.reduce(max);
   }
 }
 
@@ -225,10 +229,10 @@ Map<String, double> mapValues(List<LedgerItem> items) {
     '12': 0,
   };
 
-  items.forEach((LedgerItem item) {
+  for (LedgerItem item in items) {
     returnVal[item.selectedDate!.month.toString()] =
         item.price!.abs() + returnVal[item.selectedDate!.month.toString()]!;
-  });
+  }
 
   return returnVal;
 }

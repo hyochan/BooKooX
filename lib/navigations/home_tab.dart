@@ -11,10 +11,10 @@ import 'package:wecount/screens/home_setting.dart' show HomeSetting;
 class HomeTab extends StatefulWidget {
   static const String name = '/home_tab';
 
-  HomeTab({Key? key}) : super(key: key);
+  const HomeTab({Key? key}) : super(key: key);
 
   @override
-  _HomeTabState createState() => _HomeTabState();
+  State<HomeTab> createState() => _HomeTabState();
 }
 
 class _HomeTabState extends State<HomeTab> {
@@ -22,7 +22,7 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    String _title = Provider.of<CurrentLedger>(context).getTitle() ?? '';
+    String title = Provider.of<CurrentLedger>(context).getTitle() ?? '';
 
     return Scaffold(
       body: Stack(
@@ -32,7 +32,7 @@ class _HomeTabState extends State<HomeTab> {
             child: TickerMode(
               enabled: _index == 0,
               child: HomeCalendar(
-                title: _title,
+                title: title,
               ),
             ),
           ),
@@ -40,14 +40,14 @@ class _HomeTabState extends State<HomeTab> {
             offstage: _index != 1,
             child: TickerMode(
               enabled: _index == 1,
-              child: HomeList(),
+              child: const HomeList(),
             ),
           ),
           Offstage(
             offstage: _index != 2,
             child: TickerMode(
               enabled: _index == 2,
-              child: HomeStatistic(title: _title),
+              child: HomeStatistic(title: title),
             ),
           ),
           Offstage(
@@ -55,7 +55,7 @@ class _HomeTabState extends State<HomeTab> {
             child: TickerMode(
               enabled: _index == 3,
               child: HomeSetting(
-                title: _title,
+                title: title,
               ),
             ),
           ),
@@ -64,13 +64,13 @@ class _HomeTabState extends State<HomeTab> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
         currentIndex: _index,
-        onTap: (int index) => setState(() => this._index = index),
+        onTap: (int index) => setState(() => _index = index),
         selectedItemColor: Theme.of(context).textTheme.headline1!.color,
         unselectedItemColor: Theme.of(context).textTheme.headline1!.color,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,
-            icon: Icon(
+            icon: const Icon(
               Icons.calendar_today,
               size: 20.0,
             ),
@@ -78,7 +78,7 @@ class _HomeTabState extends State<HomeTab> {
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,
-            icon: Icon(
+            icon: const Icon(
               Icons.list,
               size: 20.0,
             ),
@@ -86,7 +86,7 @@ class _HomeTabState extends State<HomeTab> {
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,
-            icon: Icon(
+            icon: const Icon(
               Icons.graphic_eq,
               size: 20.0,
             ),
@@ -94,7 +94,7 @@ class _HomeTabState extends State<HomeTab> {
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarColor,
-            icon: Icon(
+            icon: const Icon(
               Icons.settings,
               size: 20.0,
             ),

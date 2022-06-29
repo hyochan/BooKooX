@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/services/database.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
 
 import '../screens/empty.dart';
@@ -12,11 +12,12 @@ class MemberHorizontalList extends StatelessWidget {
 
   final List<String> memberIds;
 
-  MemberHorizontalList({
+  const MemberHorizontalList({
+    Key? key,
     this.showAddBtn,
     this.onSeeAllPressed,
     this.memberIds = const [],
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class MemberHorizontalList extends StatelessWidget {
         stream: DatabaseService().streamUser(memberId),
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
           return Container(
-            margin: EdgeInsets.only(left: 8),
+            margin: const EdgeInsets.only(left: 8),
             child: Material(
                 clipBehavior: Clip.hardEdge,
                 color: Colors.transparent,
@@ -33,7 +34,7 @@ class MemberHorizontalList extends StatelessWidget {
                   image: (!snapshot.hasData ||
                           (snapshot.data!.photoURL == null &&
                               snapshot.data!.thumbURL == null)
-                      ? Asset.Icons.icMask
+                      ? asset.Icons.icMask
                       : NetworkImage(snapshot.data!.thumbURL != null
                           ? snapshot.data!.thumbURL!
                           : snapshot.data!.photoURL!)) as ImageProvider<Object>,
@@ -51,58 +52,45 @@ class MemberHorizontalList extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                child: Text(
-                  t('MEMBER'),
-                  semanticsLabel: t('MEMBER'),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              t('MEMBER'),
+              semanticsLabel: t('MEMBER'),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            TextButton(
+              onPressed: onSeeAllPressed,
+              child: Text(
+                t('SEE_ALL'),
+                semanticsLabel: t('SEE_ALL'),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  decoration: TextDecoration.underline,
                 ),
               ),
-              Container(
-                child: TextButton(
-                  onPressed: this.onSeeAllPressed,
-                  child: Text(
-                    t('SEE_ALL'),
-                    semanticsLabel: t('SEE_ALL'),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-        Container(
+        SizedBox(
           height: 50,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
-              this.showAddBtn == true
+              showAddBtn == true
                   ? Material(
                       clipBehavior: Clip.hardEdge,
                       color: Colors.transparent,
                       child: Container(
                         width: 48,
                         height: 48,
-                        child: InkWell(
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                          onTap: () {},
-                        ),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
@@ -110,9 +98,16 @@ class MemberHorizontalList extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
+                        child: InkWell(
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                          onTap: () {},
+                        ),
                       ),
                     )
-                  : Empty(),
+                  : const Empty(),
               Row(
                 children: memberWidgets,
               ),

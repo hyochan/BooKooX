@@ -7,7 +7,7 @@ import '../test_utils.dart' show TestUtils;
 
 void main() {
   testWidgets("Widget", (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Intro()));
+    await tester.pumpWidget(TestUtils.makeTestableWidget(child: const Intro()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
@@ -17,7 +17,7 @@ void main() {
   });
   testWidgets("Navigate to [SignIn] when signIn pressed",
       (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Intro()));
+    await tester.pumpWidget(TestUtils.makeTestableWidget(child: const Intro()));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('SIGN_IN'));

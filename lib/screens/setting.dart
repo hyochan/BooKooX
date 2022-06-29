@@ -15,30 +15,31 @@ import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart' show General;
 
 import '../utils/localization.dart';
+import '../utils/logger.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Setting extends StatefulWidget {
   static const String name = '/setting';
 
+  const Setting({Key? key}) : super(key: key);
+
   @override
-  _SettingState createState() => _SettingState();
+  State<Setting> createState() => _SettingState();
 }
 
 class _SettingState extends State<Setting> {
   bool _lockSwitch = false;
-  String? _pin = '';
 
   readLockPinFromSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (prefs.containsKey('LOCK_PIN')) {
-      _pin = prefs.getString('LOCK_PIN');
+      logger.d(prefs.getString('LOCK_PIN'));
+
       setState(() {
         _lockSwitch = true;
       });
-
-      print(_pin);
     }
   }
 
@@ -83,9 +84,9 @@ class _SettingState extends State<Setting> {
 
   @override
   Widget build(BuildContext context) {
-    final List<ListItem> _items = [
+    final List<ListItem> items = [
       SettingItem(
-        Icon(
+        const Icon(
           Icons.announcement,
           color: cloudyBlueColor,
           size: 24,
@@ -95,7 +96,7 @@ class _SettingState extends State<Setting> {
             .navigateScreenNamed(context, SettingAnnouncement.name),
       ),
       SettingItem(
-        Icon(
+        const Icon(
           Icons.message,
           color: cloudyBlueColor,
           size: 24,
@@ -105,7 +106,7 @@ class _SettingState extends State<Setting> {
             General.instance.navigateScreenNamed(context, SettingOpinion.name),
       ),
       SettingItem(
-        Icon(
+        const Icon(
           Icons.question_answer,
           color: cloudyBlueColor,
           size: 24,
@@ -115,7 +116,7 @@ class _SettingState extends State<Setting> {
             General.instance.navigateScreenNamed(context, SettingFAQ.name),
       ),
       SettingItem(
-        Icon(
+        const Icon(
           Icons.notifications,
           color: cloudyBlueColor,
           size: 24,
@@ -125,7 +126,7 @@ class _SettingState extends State<Setting> {
             .navigateScreenNamed(context, SettingNotification.name),
       ),
       SettingItem(
-        Icon(
+        const Icon(
           Icons.lock,
           color: cloudyBlueColor,
           size: 24,
@@ -135,7 +136,7 @@ class _SettingState extends State<Setting> {
           value: _lockSwitch,
           onChanged: _onChangeLock,
           activeTrackColor: Theme.of(context).primaryColor,
-          activeColor: Theme.of(context).accentColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
         ),
       ),
       LogoutItem(
@@ -162,21 +163,22 @@ class _SettingState extends State<Setting> {
           children: <Widget>[
             Expanded(
               child: ListView.builder(
-                itemCount: _items.length,
+                itemCount: items.length,
                 itemBuilder: (context, index) {
-                  final item = _items[index];
+                  final item = items[index];
                   if (item is LogoutItem) {
                     return Container(
                       height: 72,
-                      margin: EdgeInsets.only(bottom: 40),
+                      margin: const EdgeInsets.only(bottom: 40),
+                      // ignore: deprecated_member_use
                       child: FlatButton(
                         onPressed: item.onPressed as void Function()?,
-                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Row(
                           children: <Widget>[
                             Text(
                               item.title!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: carnationColor,
                                 fontSize: 20,
                               ),
@@ -191,9 +193,9 @@ class _SettingState extends State<Setting> {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
               child: Row(
-                children: <Widget>[
+                children: const <Widget>[
                   Text(
                     'Version ',
                     style: TextStyle(

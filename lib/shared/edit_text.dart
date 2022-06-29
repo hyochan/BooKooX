@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class EditText extends StatelessWidget {
   const EditText({
-    this.key,
+    Key? key,
     this.focusNode,
     this.maxLines = 1,
     this.margin,
@@ -32,9 +32,8 @@ class EditText extends StatelessWidget {
     this.onSubmitted,
     this.onEditingComplete,
     this.textInputAction,
-  });
+  }) : super(key: key);
 
-  final Key? key;
   final FocusNode? focusNode;
   final int maxLines;
   final EdgeInsets? margin;
@@ -57,14 +56,14 @@ class EditText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    InputBorder _underlineBorderFocused = UnderlineInputBorder(
+    InputBorder underlineBorderFocused = UnderlineInputBorder(
       borderSide: BorderSide(
         color: Theme.of(context).textTheme.headline1!.color!,
         width: 1.0,
       ),
     );
 
-    InputBorder _underlineBorderUnfocused = UnderlineInputBorder(
+    InputBorder underlineBorderUnfocused = UnderlineInputBorder(
       borderSide: BorderSide(
         color: Theme.of(context).disabledColor,
         width: 0.7,
@@ -77,7 +76,7 @@ class EditText extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           TextField(
-            key: this.key,
+            key: key,
             obscureText: isSecret,
             focusNode: focusNode,
             maxLines: maxLines,
@@ -89,11 +88,11 @@ class EditText extends StatelessWidget {
             onEditingComplete: onEditingComplete,
             decoration: InputDecoration(
               focusedBorder:
-                  showUnderline ? _underlineBorderFocused : InputBorder.none,
+                  showUnderline ? underlineBorderFocused : InputBorder.none,
               labelText: textLabel,
               labelStyle: labelStyle,
               enabledBorder:
-                  showUnderline ? _underlineBorderUnfocused : InputBorder.none,
+                  showUnderline ? underlineBorderUnfocused : InputBorder.none,
               hintText: textHint,
               hintStyle: hintStyle,
               errorText: errorText,
@@ -103,7 +102,7 @@ class EditText extends StatelessWidget {
             autocorrect: false,
           ),
           hasChecked
-              ? Positioned(
+              ? const Positioned(
                   right: 0.0,
                   top: 16.0,
                   child: Icon(

@@ -12,7 +12,10 @@ class Entry {
 }
 
 class EntryItem extends StatelessWidget {
-  const EntryItem(this.entry);
+  const EntryItem(
+    this.entry, {
+    Key? key,
+  }) : super(key: key);
 
   final Entry entry;
 
@@ -33,6 +36,8 @@ class EntryItem extends StatelessWidget {
 
 class SettingFAQ extends StatelessWidget {
   static const String name = '/setting_faq';
+
+  const SettingFAQ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +102,10 @@ class SettingFAQ extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        child: ListView.builder(
-          itemBuilder: (BuildContext context, int index) =>
-              EntryItem(data[index]),
-          itemCount: data.length,
-        ),
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) =>
+            EntryItem(data[index]),
+        itemCount: data.length,
       ),
     );
   }

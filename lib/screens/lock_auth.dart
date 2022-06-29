@@ -9,12 +9,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../utils/localization.dart';
+import '../utils/logger.dart';
 
 class LockAuth extends StatefulWidget {
   static const String name = '/lock_auth';
 
+  const LockAuth({Key? key}) : super(key: key);
+
   @override
-  _LockAuthState createState() => _LockAuthState();
+  State<LockAuth> createState() => _LockAuthState();
 }
 
 class _LockAuthState extends State<LockAuth> {
@@ -41,7 +44,7 @@ class _LockAuthState extends State<LockAuth> {
       isBiometricSupport = await _localAuthentication.canCheckBiometrics;
       if (!isBiometricSupport) return;
     } catch (e) {
-      print(e);
+      logger.d(e);
     }
     if (!mounted) return;
 
@@ -49,7 +52,7 @@ class _LockAuthState extends State<LockAuth> {
       availableBiometricType =
           await _localAuthentication.getAvailableBiometrics();
     } catch (e) {
-      print(e);
+      logger.d(e);
     }
     if (!mounted) return;
 
@@ -69,13 +72,13 @@ class _LockAuthState extends State<LockAuth> {
     try {
       authenticated = await _localAuthentication.authenticate(
         localizedReason: t('FINGERPRINT_LOGIN'), // message for dialog
-        options: AuthenticationOptions(
+        options: const AuthenticationOptions(
           useErrorDialogs: true,
           stickyAuth: true,
         ),
       );
     } catch (e) {
-      print(e);
+      logger.d(e);
     }
     if (!mounted) return;
 
@@ -91,7 +94,7 @@ class _LockAuthState extends State<LockAuth> {
 
     if (prefs.containsKey('LOCK_PIN')) {
       _pin = prefs.getString('LOCK_PIN');
-      print(_pin);
+      logger.d(_pin);
     }
   }
 
@@ -136,7 +139,7 @@ class _LockAuthState extends State<LockAuth> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Text(
@@ -146,7 +149,7 @@ class _LockAuthState extends State<LockAuth> {
                   color: Theme.of(context).textTheme.headline2!.color),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -158,17 +161,17 @@ class _LockAuthState extends State<LockAuth> {
               ),
             ),
             OutlinedButton(
+              onPressed: _hasFingerPrintSupport ? _authenticateMe : null,
               child: Text(
                 t('FINGERPRINT_LOGIN'),
                 style: TextStyle(
                     color: Theme.of(context).textTheme.headline2!.color),
               ),
-              onPressed: _hasFingerPrintSupport ? _authenticateMe : null,
               // shape: RoundedRectangleBorder(
               //   borderRadius: BorderRadius.circular(30),
               // ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             PinKeyboard(
@@ -199,7 +202,7 @@ class _LockAuthState extends State<LockAuth> {
             _thirdDigit.toString() +
             _fourthDigit.toString();
 
-        print('INPUT PIN is $_inputPin');
+        logger.d('INPUT PIN is $_inputPin');
       }
     });
 
@@ -239,19 +242,19 @@ class _LockAuthState extends State<LockAuth> {
         width: 50,
         height: 45,
         alignment: Alignment.center,
-        child: Text(
-          digit != null ? digit.toString() : "",
-          style: TextStyle(
-            fontSize: 30,
-            color: Theme.of(context).textTheme.headline1!.color,
-          ),
-        ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
               color: Theme.of(context).textTheme.headline1!.color!,
               width: 2,
             ),
+          ),
+        ),
+        child: Text(
+          digit != null ? digit.toString() : "",
+          style: TextStyle(
+            fontSize: 30,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
         ));
   }

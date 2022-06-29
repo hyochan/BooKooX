@@ -19,8 +19,8 @@ import '../utils/colors.dart';
 import '../utils/localization.dart';
 
 enum LedgerEditMode {
-  ADD,
-  UPDATE,
+  add,
+  update,
 }
 
 class LedgerEdit extends StatefulWidget {
@@ -29,14 +29,14 @@ class LedgerEdit extends StatefulWidget {
   final Ledger? ledger;
   final LedgerEditMode mode;
 
-  LedgerEdit({
+  const LedgerEdit({
     Key? key,
     this.ledger,
-    this.mode = LedgerEditMode.ADD,
+    this.mode = LedgerEditMode.add,
   }) : super(key: key);
 
   @override
-  _LedgerEditState createState() => _LedgerEditState();
+  State<LedgerEdit> createState() => _LedgerEditState();
 }
 
 class _LedgerEditState extends State<LedgerEdit> {
@@ -57,7 +57,7 @@ class _LedgerEditState extends State<LedgerEdit> {
       _ledger = Ledger(
         title: '',
         currency: currencies[29],
-        color: ColorType.DUSK,
+        color: ColorType.dusk,
         adminIds: [],
         memberIds: [],
       );
@@ -67,7 +67,7 @@ class _LedgerEditState extends State<LedgerEdit> {
   }
 
   void _onPressCurrency() async {
-    var _result = await General.instance.navigateScreen(
+    var result = await General.instance.navigateScreen(
       context,
       MaterialPageRoute(
         builder: (BuildContext context) => SettingCurrency(
@@ -76,8 +76,8 @@ class _LedgerEditState extends State<LedgerEdit> {
       ),
     );
 
-    if (_result != null) {
-      setState(() => _ledger.currency = _result);
+    if (result != null) {
+      setState(() => _ledger.currency = result);
     }
   }
 
@@ -95,9 +95,9 @@ class _LedgerEditState extends State<LedgerEdit> {
       try {
         final DatabaseService db = DatabaseService();
 
-        if (widget.mode == LedgerEditMode.ADD) {
+        if (widget.mode == LedgerEditMode.add) {
           await db.requestCreateNewLedger(_ledger);
-        } else if (widget.mode == LedgerEditMode.UPDATE) {
+        } else if (widget.mode == LedgerEditMode.update) {
           await db.requestUpdateLedger(_ledger);
         }
 
@@ -115,11 +115,13 @@ class _LedgerEditState extends State<LedgerEdit> {
 
     if (hasLeft) {
       Ledger? ledger = await DatabaseService().fetchSelectedLedger();
+      // ignore: use_build_context_synchronously
       Provider.of<CurrentLedger>(context, listen: false).setLedger(ledger);
 
       Get.back();
     }
 
+    // ignore: use_build_context_synchronously
     General.instance.showSingleDialog(
       context,
       title: Text(t('ERROR')),
@@ -131,7 +133,6 @@ class _LedgerEditState extends State<LedgerEdit> {
     if (inputString.isEmpty) {
       return Intl.message('EMPTY_WARNING');
     }
-    print('hi');
 
     return null;
   }
@@ -145,13 +146,13 @@ class _LedgerEditState extends State<LedgerEdit> {
         brightness: Brightness.dark,
         actions: [
           Container(
-            margin: EdgeInsets.only(right: 16),
+            margin: const EdgeInsets.only(right: 16),
             child: TextButton(
               onPressed: _leaveLedger,
               child: Text(
                 t('LEAVE'),
                 semanticsLabel: t('LEAVE'),
-                style: TextStyle(
+                style: const TextStyle(
                   color: darkTransparent,
                   fontSize: 18,
                   decoration: TextDecoration.underline,
@@ -181,18 +182,18 @@ class _LedgerEditState extends State<LedgerEdit> {
                     validator: (String? _) => _validateFiled(_ledger.title),
                     controller: TextEditingController(text: _ledger.title),
                     decoration: InputDecoration(
-                      counterStyle: TextStyle(
+                      counterStyle: const TextStyle(
                         color: darkTransparent,
                       ),
                       hintMaxLines: 2,
                       border: InputBorder.none,
                       hintText: t('LEDGER_NAME_HINT'),
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         fontSize: 28.0,
                         color: darkTransparent,
                       ),
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 28.0,
                       color: Colors.white,
                     ),
@@ -210,17 +211,17 @@ class _LedgerEditState extends State<LedgerEdit> {
                         TextEditingController(text: _ledger.description),
                     textAlignVertical: TextAlignVertical.top,
                     decoration: InputDecoration(
-                      counterStyle: TextStyle(
+                      counterStyle: const TextStyle(
                         color: darkTransparent,
                       ),
                       border: InputBorder.none,
                       hintText: t('LEDGER_DESCRIPTION_HINT'),
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         fontSize: 16.0,
                         color: darkTransparent,
                       ),
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16.0,
                       color: Colors.white,
                     ),
@@ -238,7 +239,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                       children: <Widget>[
                         Text(
                           t('CURRENCY'),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                           ),
@@ -248,17 +249,15 @@ class _LedgerEditState extends State<LedgerEdit> {
                             Text(
                               '${_ledger.currency.currency}'
                               ' | ${_ledger.currency.symbol}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                               ),
                             ),
-                            Container(
-                              child: Icon(
-                                Icons.chevron_right,
-                                size: 16,
-                                color: darkTransparent,
-                              ),
+                            const Icon(
+                              Icons.chevron_right,
+                              size: 16,
+                              color: darkTransparent,
                             ),
                           ],
                         ),
@@ -276,13 +275,11 @@ class _LedgerEditState extends State<LedgerEdit> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        child: Text(
-                          t('COLOR'),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
+                      Text(
+                        t('COLOR'),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
                         ),
                       ),
                       Expanded(
@@ -307,7 +304,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                     ],
                   ),
                 ),
-                Divider(color: Colors.white70),
+                const Divider(color: Colors.white70),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: paddingHorizontal,
@@ -323,7 +320,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 150,
                 )
               ],
@@ -336,15 +333,22 @@ class _LedgerEditState extends State<LedgerEdit> {
         width: 100,
         child: ElevatedButton(
           onPressed: _pressDone,
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32),
+            ),
+          ),
           child: _isLoading
-              ? Container(
+              ? SizedBox(
                   width: 25,
                   height: 25,
                   child: CircularProgressIndicator(
                     semanticsLabel: t('LOADING'),
                     backgroundColor: Theme.of(context).primaryColor,
                     strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 )
               : Text(
@@ -354,12 +358,6 @@ class _LedgerEditState extends State<LedgerEdit> {
                     fontSize: 16.0,
                   ),
                 ),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32),
-            ),
-          ),
         ),
       ),
     );
@@ -367,12 +365,13 @@ class _LedgerEditState extends State<LedgerEdit> {
 }
 
 class ColorItem extends StatelessWidget {
-  ColorItem({
+  const ColorItem({
     Key? key,
     this.color,
     this.selected,
     this.onTap,
   }) : super(key: key);
+
   final ColorType? color;
   final bool? selected;
   final Function? onTap;
@@ -400,7 +399,7 @@ class ColorItem extends StatelessWidget {
           ),
         ),
         selected == true
-            ? Icon(
+            ? const Icon(
                 Icons.check,
                 color: Colors.white,
                 size: 16,

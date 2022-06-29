@@ -10,7 +10,7 @@ import 'package:wecount/shared/category_list.dart';
 import 'package:wecount/shared/gallery.dart' show Gallery;
 import 'package:wecount/shared/header.dart';
 import 'package:wecount/shared/header.dart' show renderHeaderClose;
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
@@ -21,14 +21,14 @@ import '../utils/localization.dart';
 class LedgerItemEdit extends StatefulWidget {
   static const String name = '/ledger_item_edit';
 
-  LedgerItemEdit({
+  const LedgerItemEdit({
     Key? key,
     this.title = '',
   }) : super(key: key);
   final String title;
 
   @override
-  _LedgerItemEditState createState() => _LedgerItemEditState();
+  State<LedgerItemEdit> createState() => _LedgerItemEditState();
 }
 
 class _LedgerItemEditState extends State<LedgerItemEdit>
@@ -44,8 +44,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     text: '0',
   );
 
-  LedgerItem _ledgerItemIncome = LedgerItem();
-  LedgerItem _ledgerItemConsume = LedgerItem();
+  final LedgerItem _ledgerItemIncome = LedgerItem();
+  final LedgerItem _ledgerItemConsume = LedgerItem();
   TabController? _tabController;
   List<Category> categories = [];
 
@@ -69,7 +69,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
   @override
   Widget build(BuildContext context) {
     void onDatePressed({
-      CategoryType categoryType = CategoryType.CONSUME,
+      CategoryType categoryType = CategoryType.consume,
     }) async {
       int year = DateTime.now().year;
       int prevDate = year - 100;
@@ -84,11 +84,11 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
       if (pickDate != null) {
         pickTime = await showTimePicker(
           context: context,
-          initialTime: TimeOfDay(hour: 0, minute: 0),
+          initialTime: const TimeOfDay(hour: 0, minute: 0),
         );
       }
       if (pickDate != null && pickTime != null) {
-        if (categoryType == CategoryType.CONSUME) {
+        if (categoryType == CategoryType.consume) {
           setState(() => _ledgerItemConsume.selectedDate = DateTime(
                 pickDate.year,
                 pickDate.month,
@@ -96,7 +96,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                 pickTime!.hour,
                 pickTime.minute,
               ));
-        } else if (categoryType == CategoryType.INCOME) {
+        } else if (categoryType == CategoryType.income) {
           setState(() => _ledgerItemIncome.selectedDate = DateTime(
                 pickDate.year,
                 pickDate.month,
@@ -109,23 +109,23 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     }
 
     void onLocationPressed({
-      CategoryType categoryType = CategoryType.CONSUME,
+      CategoryType categoryType = CategoryType.consume,
     }) async {
       Map<String, dynamic>? result = await (General.instance.navigateScreen(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => LocationView(),
+          builder: (BuildContext context) => const LocationView(),
         ),
       ));
 
       if (result == null) return;
 
-      if (categoryType == CategoryType.CONSUME) {
+      if (categoryType == CategoryType.consume) {
         setState(() {
           _ledgerItemConsume.address = result['address'];
           _ledgerItemConsume.latlng = result['latlng'];
         });
-      } else if (categoryType == CategoryType.INCOME) {
+      } else if (categoryType == CategoryType.income) {
         setState(() {
           _ledgerItemIncome.address = result['address'];
           _ledgerItemIncome.latlng = result['latlng'];
@@ -135,14 +135,14 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
 
     void onLedgerItemEditPressed() {
       logger.i('onLedgerItemEditPressed');
-      logger.d('${_ledgerItemConsume.toString()}');
+      logger.d(_ledgerItemConsume.toString());
     }
 
     void showCategory(
       BuildContext context, {
-      CategoryType categoryType = CategoryType.CONSUME,
+      CategoryType categoryType = CategoryType.consume,
     }) async {
-      categories = categoryType == CategoryType.CONSUME
+      categories = categoryType == CategoryType.consume
           ? await DBHelper.instance.getConsumeCategories(context)
           : await DBHelper.instance.getIncomeCategories(context);
 
@@ -155,7 +155,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
           context: context,
           builder: (BuildContext context) {
             return Padding(
-              padding: EdgeInsets.symmetric(vertical: 50),
+              padding: const EdgeInsets.symmetric(vertical: 50),
               child: CategoryAdd(
                 categoryType: categoryType,
                 lastId: categories[categories.length - 1].id,
@@ -168,14 +168,14 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
         }
       }
 
-      var _result = await showModalBottomSheet(
+      var result = await showModalBottomSheet(
         context: context,
         builder: (context) => Container(
-          padding: EdgeInsets.only(top: 8),
+          padding: const EdgeInsets.only(top: 8),
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.symmetric(
+                margin: const EdgeInsets.symmetric(
                   vertical: 8,
                   horizontal: 10,
                 ),
@@ -184,10 +184,10 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   children: <Widget>[
                     IconButton(
                       onPressed: onClosePressed,
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                     ),
                     Text(
-                      '${t('CATEGORY')}',
+                      t('CATEGORY'),
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).textTheme.headline1!.color,
@@ -195,7 +195,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                     ),
                     IconButton(
                       onPressed: () => onAddPressed(categoryType),
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                     ),
                   ],
                 ),
@@ -210,11 +210,11 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
         ),
       );
 
-      if (_result != null) {
-        if (categoryType == CategoryType.CONSUME) {
-          setState(() => _ledgerItemConsume.category = _result);
-        } else if (categoryType == CategoryType.INCOME) {
-          setState(() => _ledgerItemIncome.category = _result);
+      if (result != null) {
+        if (categoryType == CategoryType.consume) {
+          setState(() => _ledgerItemConsume.category = result);
+        } else if (categoryType == CategoryType.income) {
+          setState(() => _ledgerItemIncome.category = result);
         }
       }
     }
@@ -233,7 +233,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
         child: GestureDetector(
           onTap: onPressed,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             height: 56,
             decoration: BoxDecoration(
               border: Border.all(
@@ -244,7 +244,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
             child: Row(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(right: 20),
+                  margin: const EdgeInsets.only(right: 20),
                   child: image == null
                       ? Icon(
                           icon,
@@ -259,33 +259,28 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                         ),
                 ),
                 Expanded(
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: AutoSizeText(
-                            text,
-                            style: TextStyle(
-                              color: active == true
-                                  ? Theme.of(context).textTheme.headline1!.color
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .color,
-                              fontSize: 16,
-                            ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: AutoSizeText(
+                          text,
+                          style: TextStyle(
+                            color: active == true
+                                ? Theme.of(context).textTheme.headline1!.color
+                                : Theme.of(context).textTheme.headline2!.color,
+                            fontSize: 16,
                           ),
                         ),
-                        showDropdown
-                            ? Icon(
-                                Icons.arrow_drop_down,
-                                color: cloudyBlueColor,
-                              )
-                            : Container(),
-                      ],
-                    ),
+                      ),
+                      showDropdown
+                          ? const Icon(
+                              Icons.arrow_drop_down,
+                              color: cloudyBlueColor,
+                            )
+                          : Container(),
+                    ],
                   ),
                 ),
               ],
@@ -297,7 +292,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
 
     Widget renderConsumeView() {
       void onCategoryPressed() {
-        showCategory(context, categoryType: CategoryType.CONSUME);
+        showCategory(context, categoryType: CategoryType.consume);
       }
 
       return Padding(
@@ -305,27 +300,27 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
         child: GestureDetector(
           onTap: () {
             priceTextEditingController1.text =
-                '${formatCurrency.format(_ledgerItemConsume.price ?? 0.0)}';
+                formatCurrency.format(_ledgerItemConsume.price ?? 0.0);
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: ListView(
             children: <Widget>[
               /// PRICE
               Container(
-                margin: EdgeInsets.only(top: 44),
+                margin: const EdgeInsets.only(top: 44),
                 child: Row(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(right: 8),
+                      margin: const EdgeInsets.only(right: 8),
                       child: Image(
-                        image: Asset.Icons.icCoins,
+                        image: asset.Icons.icCoins,
                         width: 20,
                         height: 20,
                       ),
                     ),
                     Text(
                       t('PRICE'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: cloudyBlueColor,
                         fontSize: 16,
                       ),
@@ -335,66 +330,60 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               ),
 
               /// PRICE INPUT
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      child: Text('- ',
-                          style: TextStyle(
-                            fontSize: 28,
-                            color: carnationColor,
-                          )),
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: TextField(
-                          textInputAction: TextInputAction.done,
-                          onChanged: (String value) {
-                            String inputPrice = value.trim();
+              Row(
+                children: <Widget>[
+                  const Text('- ',
+                      style: TextStyle(
+                        fontSize: 28,
+                        color: carnationColor,
+                      )),
+                  Expanded(
+                    child: TextField(
+                      textInputAction: TextInputAction.done,
+                      onChanged: (String value) {
+                        String inputPrice = value.trim();
 
-                            if (inputPrice == "") {
-                              _ledgerItemConsume.price = 0;
-                            } else {
-                              _ledgerItemConsume.price = double.parse(value);
-                            }
-                          },
-                          onTap: () {
-                            priceTextEditingController1.text =
-                                '${_ledgerItemConsume.price ?? 0.0}';
-                          },
-                          onEditingComplete: () {
-                            priceTextEditingController1.text =
-                                '${formatCurrency.format(_ledgerItemConsume.price ?? 0.0)}';
-                          },
-                          controller: priceTextEditingController1,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: '0',
-                          ),
-                          style: TextStyle(
-                            fontSize: 28,
-                            color: carnationColor,
-                          ),
-                        ),
+                        if (inputPrice == "") {
+                          _ledgerItemConsume.price = 0;
+                        } else {
+                          _ledgerItemConsume.price = double.parse(value);
+                        }
+                      },
+                      onTap: () {
+                        priceTextEditingController1.text =
+                            '${_ledgerItemConsume.price ?? 0.0}';
+                      },
+                      onEditingComplete: () {
+                        priceTextEditingController1.text = formatCurrency
+                            .format(_ledgerItemConsume.price ?? 0.0);
+                      },
+                      controller: priceTextEditingController1,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '0',
+                      ),
+                      style: const TextStyle(
+                        fontSize: 28,
+                        color: carnationColor,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
 
               /// CATEGORY
               _ledgerItemConsume.category == null
                   ? renderBox(
-                      margin: EdgeInsets.only(top: 52),
+                      margin: const EdgeInsets.only(top: 52),
                       icon: Icons.category,
                       text: t('CATEGORY'),
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                     )
                   : renderBox(
-                      margin: EdgeInsets.only(top: 52),
+                      margin: const EdgeInsets.only(top: 52),
                       image: iconMaps[_ledgerItemConsume.category!.iconId!],
                       text: _ledgerItemConsume.category!.label!,
                       showDropdown: true,
@@ -405,14 +394,14 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               /// SELECTED DATE
               _ledgerItemConsume.selectedDate == null
                   ? renderBox(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: const EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
                       text: t('DATE'),
                       showDropdown: true,
                       onPressed: onDatePressed,
                     )
                   : renderBox(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: const EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
                       text: DateFormat('yyyy-MM-dd hh:mm a')
                           .format(_ledgerItemConsume.selectedDate!)
@@ -425,14 +414,14 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               /// LOCATION
               _ledgerItemConsume.address == null
                   ? renderBox(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: const EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
                       text: t('LOCATION'),
                       showDropdown: true,
                       onPressed: onLocationPressed,
                     )
                   : renderBox(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: const EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
                       text: _ledgerItemConsume.address!,
                       showDropdown: false,
@@ -440,7 +429,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       active: true,
                     ),
               Gallery(
-                margin: EdgeInsets.only(top: 26),
+                margin: const EdgeInsets.only(top: 26),
                 pictures: [Photo(isAddBtn: true)],
                 ledgerItem: _ledgerItemConsume,
               ),
@@ -452,7 +441,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
 
     Widget renderIncomeView() {
       void onCategoryPressed() {
-        showCategory(context, categoryType: CategoryType.INCOME);
+        showCategory(context, categoryType: CategoryType.income);
       }
 
       return Padding(
@@ -460,27 +449,27 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
         child: GestureDetector(
           onTap: () {
             priceTextEditingController2.text =
-                '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
+                formatCurrency.format(_ledgerItemIncome.price ?? 0.0);
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: ListView(
             children: <Widget>[
               /// PRICE
               Container(
-                margin: EdgeInsets.only(top: 44),
+                margin: const EdgeInsets.only(top: 44),
                 child: Row(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(right: 8),
+                      margin: const EdgeInsets.only(right: 8),
                       child: Image(
-                        image: Asset.Icons.icCoins,
+                        image: asset.Icons.icCoins,
                         width: 20,
                         height: 20,
                       ),
                     ),
                     Text(
                       t('PRICE'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: cloudyBlueColor,
                         fontSize: 16,
                       ),
@@ -490,66 +479,60 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               ),
 
               /// PRICE INPUT
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      child: Text('+ ',
-                          style: TextStyle(
-                            fontSize: 28,
-                            color: Theme.of(context).textTheme.headline1!.color,
-                          )),
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: TextField(
-                          textInputAction: TextInputAction.done,
-                          onChanged: (String value) {
-                            String inputPrice = value.trim();
+              Row(
+                children: <Widget>[
+                  Text('+ ',
+                      style: TextStyle(
+                        fontSize: 28,
+                        color: Theme.of(context).textTheme.headline1!.color,
+                      )),
+                  Expanded(
+                    child: TextField(
+                      textInputAction: TextInputAction.done,
+                      onChanged: (String value) {
+                        String inputPrice = value.trim();
 
-                            if (inputPrice == "") {
-                              _ledgerItemIncome.price = 0;
-                            } else {
-                              _ledgerItemIncome.price = double.parse(value);
-                            }
-                          },
-                          onTap: () {
-                            priceTextEditingController2.text =
-                                '${_ledgerItemIncome.price ?? 0.0}';
-                          },
-                          onEditingComplete: () {
-                            priceTextEditingController2.text =
-                                '${formatCurrency.format(_ledgerItemIncome.price ?? 0.0)}';
-                          },
-                          controller: priceTextEditingController2,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: '0',
-                          ),
-                          style: TextStyle(
-                            fontSize: 28,
-                            color: mediumGrayColor,
-                          ),
-                        ),
+                        if (inputPrice == "") {
+                          _ledgerItemIncome.price = 0;
+                        } else {
+                          _ledgerItemIncome.price = double.parse(value);
+                        }
+                      },
+                      onTap: () {
+                        priceTextEditingController2.text =
+                            '${_ledgerItemIncome.price ?? 0.0}';
+                      },
+                      onEditingComplete: () {
+                        priceTextEditingController2.text = formatCurrency
+                            .format(_ledgerItemIncome.price ?? 0.0);
+                      },
+                      controller: priceTextEditingController2,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '0',
+                      ),
+                      style: const TextStyle(
+                        fontSize: 28,
+                        color: mediumGrayColor,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
 
               /// CATEGORY
               _ledgerItemIncome.category == null
                   ? renderBox(
-                      margin: EdgeInsets.only(top: 52),
+                      margin: const EdgeInsets.only(top: 52),
                       icon: Icons.category,
                       text: t('CATEGORY'),
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                     )
                   : renderBox(
-                      margin: EdgeInsets.only(top: 52),
+                      margin: const EdgeInsets.only(top: 52),
                       image: iconMaps[_ledgerItemIncome.category!.iconId!],
                       text: _ledgerItemIncome.category!.label!,
                       showDropdown: true,
@@ -560,46 +543,46 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               /// SELECTED DATE
               _ledgerItemIncome.selectedDate == null
                   ? renderBox(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: const EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
                       text: t('DATE'),
                       showDropdown: true,
                       onPressed: () =>
-                          onDatePressed(categoryType: CategoryType.INCOME),
+                          onDatePressed(categoryType: CategoryType.income),
                     )
                   : renderBox(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: const EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
                       text: DateFormat('yyyy-MM-dd hh:mm a')
                           .format(_ledgerItemIncome.selectedDate!)
                           .toLowerCase(),
                       showDropdown: true,
                       onPressed: () =>
-                          onDatePressed(categoryType: CategoryType.INCOME),
+                          onDatePressed(categoryType: CategoryType.income),
                       active: true,
                     ),
 
               /// LOCATION
               _ledgerItemIncome.address == null
                   ? renderBox(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: const EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
                       text: t('LOCATION'),
                       showDropdown: true,
                       onPressed: () =>
-                          onLocationPressed(categoryType: CategoryType.INCOME),
+                          onLocationPressed(categoryType: CategoryType.income),
                     )
                   : renderBox(
-                      margin: EdgeInsets.only(top: 8),
+                      margin: const EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
                       text: _ledgerItemIncome.address!,
                       showDropdown: false,
                       onPressed: () =>
-                          onLocationPressed(categoryType: CategoryType.INCOME),
+                          onLocationPressed(categoryType: CategoryType.income),
                       active: true,
                     ),
               Gallery(
-                margin: EdgeInsets.only(top: 26),
+                margin: const EdgeInsets.only(top: 26),
                 pictures: [Photo(isAddBtn: true)],
                 ledgerItem: _ledgerItemIncome,
               ),
@@ -614,11 +597,11 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
         context: context,
         brightness: Theme.of(context).brightness,
         actions: [
-          Container(
+          SizedBox(
             width: 56.0,
             child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
+              padding: const EdgeInsets.all(0.0),
+              shape: const CircleBorder(),
               onPressed: onLedgerItemEditPressed,
               child: Icon(
                 Icons.add_box,
@@ -635,7 +618,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: TabBar(
                 unselectedLabelColor: paleGrayColor,
                 isScrollable: true,
@@ -644,21 +627,19 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   borderSide: BorderSide(
                       color: Theme.of(context).textTheme.headline1!.color!,
                       width: 4.0),
-                  insets: EdgeInsets.symmetric(horizontal: 8),
+                  insets: const EdgeInsets.symmetric(horizontal: 8),
                   // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
                 ),
                 indicatorColor: Theme.of(context).backgroundColor,
                 labelColor: Theme.of(context).textTheme.headline1!.color,
-                labelStyle: TextStyle(
+                labelStyle: const TextStyle(
                   fontSize: 20,
                 ),
-                labelPadding: EdgeInsets.symmetric(horizontal: 8),
+                labelPadding: const EdgeInsets.symmetric(horizontal: 8),
                 // indicatorPadding: EdgeInsets.symmetric(horizontal: 10),
                 tabs: choices.map((String choice) {
-                  return Container(
-                    child: Tab(
-                      text: t(choice),
-                    ),
+                  return Tab(
+                    text: t(choice),
                   );
                 }).toList(),
               ),

@@ -2,45 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:wecount/utils/localization.dart';
 
 enum CategoryType {
-  CONSUME,
-  INCOME,
+  consume,
+  income,
 }
 
 final List<AssetImage> categoryIcons = [
-  AssetImage('res/icons/categoryCafe.png'),
-  AssetImage('res/icons/categoryDrink.png'),
-  AssetImage('res/icons/categorySnack.png'),
-  AssetImage('res/icons/categoryMeal.png'),
-  AssetImage('res/icons/categoryDate.png'),
-  AssetImage('res/icons/categoryMovie.png'),
-  AssetImage('res/icons/categoryPet.png'),
-  AssetImage('res/icons/categoryTransport.png'),
-  AssetImage('res/icons/categoryExercise.png'),
-  AssetImage('res/icons/categoryWear.png'),
-  AssetImage('res/icons/categorySleep.png'),
-  AssetImage('res/icons/categoryBaby.png'),
-  AssetImage('res/icons/categoryGift.png'),
-  AssetImage('res/icons/categoryElectronic.png'),
-  AssetImage('res/icons/categoryFurniture.png'),
-  AssetImage('res/icons/categoryTravel.png'),
-  AssetImage('res/icons/categoryMobileFee.png'),
-  AssetImage('res/icons/categoryHospital.png'),
-  AssetImage('res/icons/categoryWallet.png'),
-  AssetImage('res/icons/categorySalary.png'),
-  AssetImage('res/icons/categoryBonus.png'),
-  AssetImage('res/icons/categoryProduct.png'),
-  AssetImage('res/icons/categoryAward.png'),
-  AssetImage('res/icons/categoryPresent.png'),
-  AssetImage('res/icons/categoryExtra.png'),
-  AssetImage('res/icons/categoryCar.png'),
-  AssetImage('res/icons/categoryCulture.png'),
-  AssetImage('res/icons/categoryEducation.png'),
-  AssetImage('res/icons/categoryElectric.png'),
-  AssetImage('res/icons/categoryInsurance.png'),
-  AssetImage('res/icons/categoryMaintenance.png'),
-  AssetImage('res/icons/categoryMembership.png'),
-  AssetImage('res/icons/categoryStuffs.png'),
-  AssetImage('res/icons/categoryTax.png'),
+  const AssetImage('res/icons/categoryCafe.png'),
+  const AssetImage('res/icons/categoryDrink.png'),
+  const AssetImage('res/icons/categorySnack.png'),
+  const AssetImage('res/icons/categoryMeal.png'),
+  const AssetImage('res/icons/categoryDate.png'),
+  const AssetImage('res/icons/categoryMovie.png'),
+  const AssetImage('res/icons/categoryPet.png'),
+  const AssetImage('res/icons/categoryTransport.png'),
+  const AssetImage('res/icons/categoryExercise.png'),
+  const AssetImage('res/icons/categoryWear.png'),
+  const AssetImage('res/icons/categorySleep.png'),
+  const AssetImage('res/icons/categoryBaby.png'),
+  const AssetImage('res/icons/categoryGift.png'),
+  const AssetImage('res/icons/categoryElectronic.png'),
+  const AssetImage('res/icons/categoryFurniture.png'),
+  const AssetImage('res/icons/categoryTravel.png'),
+  const AssetImage('res/icons/categoryMobileFee.png'),
+  const AssetImage('res/icons/categoryHospital.png'),
+  const AssetImage('res/icons/categoryWallet.png'),
+  const AssetImage('res/icons/categorySalary.png'),
+  const AssetImage('res/icons/categoryBonus.png'),
+  const AssetImage('res/icons/categoryProduct.png'),
+  const AssetImage('res/icons/categoryAward.png'),
+  const AssetImage('res/icons/categoryPresent.png'),
+  const AssetImage('res/icons/categoryExtra.png'),
+  const AssetImage('res/icons/categoryCar.png'),
+  const AssetImage('res/icons/categoryCulture.png'),
+  const AssetImage('res/icons/categoryEducation.png'),
+  const AssetImage('res/icons/categoryElectric.png'),
+  const AssetImage('res/icons/categoryInsurance.png'),
+  const AssetImage('res/icons/categoryMaintenance.png'),
+  const AssetImage('res/icons/categoryMembership.png'),
+  const AssetImage('res/icons/categoryStuffs.png'),
+  const AssetImage('res/icons/categoryTax.png'),
 ];
 
 final Map<int, dynamic> iconMaps = {
@@ -118,6 +118,6 @@ class Category {
 
   @override
   String toString() {
-    return this.toMap().toString();
+    return toMap().toString();
   }
 }

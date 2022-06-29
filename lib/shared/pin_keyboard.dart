@@ -5,11 +5,12 @@ class PinKeyboard extends StatelessWidget {
   final Function(int)? onButtonPressed;
   final Function? onDeletePressed;
 
-  PinKeyboard({
+  const PinKeyboard({
+    Key? key,
     this.keyboardHeight,
     this.onButtonPressed,
     this.onDeletePressed,
-  });
+  }) : super(key: key);
 
   Widget pinKeyboardInputButton(
       {required BuildContext context,
@@ -23,7 +24,7 @@ class PinKeyboard extends StatelessWidget {
         child: Container(
           height: 80.0,
           width: 80.0,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
           ),
           child: Center(
@@ -47,7 +48,7 @@ class PinKeyboard extends StatelessWidget {
       child: Container(
         height: 80.0,
         width: 80.0,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
         ),
         child: Center(
@@ -59,7 +60,7 @@ class PinKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         height: keyboardHeight,
         child: Column(
           children: <Widget>[
@@ -142,7 +143,7 @@ class PinKeyboard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  SizedBox(
+                  const SizedBox(
                     width: 80.0,
                   ),
                   pinKeyboardInputButton(

@@ -31,17 +31,17 @@ const purpleColor = Color.fromARGB(255, 182, 105, 249);
 const darkTransparent = Color.fromRGBO(255, 255, 255, 0.7);
 
 Color getColor(ColorType? color) {
-  return color == ColorType.RED
+  return color == ColorType.red
       ? redColor
-      : color == ColorType.ORANGE
+      : color == ColorType.orange
           ? orangeColor
-          : color == ColorType.YELLOW
+          : color == ColorType.yellow
               ? yellowColor
-              : color == ColorType.GREEN
+              : color == ColorType.green
                   ? greenColor
-                  : color == ColorType.BLUE
+                  : color == ColorType.blue
                       ? blueColor
-                      : color == ColorType.PURPLE
+                      : color == ColorType.purple
                           ? purpleColor
                           : mainColor;
 }

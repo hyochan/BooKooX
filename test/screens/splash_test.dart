@@ -11,7 +11,8 @@ void main() {
   });
 
   testWidgets('Widget', (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Splash()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const Splash()));
     await tester.runAsync(() => future);
 
 //     var finderByType = find.byType(Image);

@@ -7,7 +7,8 @@ import '../test_utils.dart' show TestUtils;
 void main() {
   testWidgets('Show [LineGraphChart] properly and show total consume/income',
       (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: LineGraph()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const LineGraph()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);

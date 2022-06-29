@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/colors.dart';
 
-import '../shared/header.dart' show renderHeaderBack;
 import '../shared/button.dart' show Button;
-import '../utils/asset.dart' as Asset;
+import '../shared/header.dart' show renderHeaderBack;
 import '../utils/localization.dart';
+import '../utils/logger.dart';
 
 class SettingExcel extends StatelessWidget {
   static const String name = '/setting_excel';
 
+  const SettingExcel({Key? key}) : super(key: key);
+
   void onExportExcel() {
-    print('on send excel');
+    logger.d('on send excel');
   }
 
   @override
@@ -35,33 +37,31 @@ class SettingExcel extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 child: TextField(
                   maxLines: 10,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     height: 1.2,
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: t('EMAIL_HINT'),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 24),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                   ),
                 ),
               ),
             ),
-            Container(
-              child: Button(
-                onPress: onExportExcel,
-                text: t('SEND'),
-                margin: EdgeInsets.all(0),
-                height: 56,
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-                backgroundColor: mainColor,
+            Button(
+              onPress: onExportExcel,
+              text: t('SEND'),
+              margin: const EdgeInsets.all(0),
+              height: 56,
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
               ),
+              backgroundColor: mainColor,
             )
           ],
         ),

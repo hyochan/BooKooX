@@ -9,12 +9,13 @@ import 'package:wecount/utils/general.dart';
 class ProfilePeer extends StatefulWidget {
   final User user;
 
-  ProfilePeer({
+  const ProfilePeer({
+    Key? key,
     required this.user,
-  });
+  }) : super(key: key);
 
   @override
-  _ProfilePeerState createState() => _ProfilePeerState();
+  State<ProfilePeer> createState() => _ProfilePeerState();
 }
 
 class _ProfilePeerState extends State<ProfilePeer> {
@@ -39,22 +40,23 @@ class _ProfilePeerState extends State<ProfilePeer> {
       ),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 40.0),
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 24, bottom: 8),
+              margin: const EdgeInsets.only(top: 24, bottom: 8),
               child: Row(
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: 88,
                     height: 88,
                     child: Material(
                       clipBehavior: Clip.hardEdge,
                       color: Colors.transparent,
+                      // ignore: deprecated_member_use
                       child: FlatButton(
                         onPressed: () =>
                             showImage('https://picsum.photos/250?image=9'),
-                        padding: EdgeInsets.all(0.0),
+                        padding: const EdgeInsets.all(0.0),
                         child: ClipOval(
                           child: FadeInImage.assetNetwork(
                             fit: BoxFit.cover,
@@ -71,7 +73,7 @@ class _ProfilePeerState extends State<ProfilePeer> {
             EditTextBox(
               controller: TextEditingController(text: 'hello'),
               iconData: Icons.person_outline,
-              margin: EdgeInsets.only(top: 24.0),
+              margin: const EdgeInsets.only(top: 24.0),
               focusedColor: Theme.of(context).textTheme.headline1!.color,
               enabledColor: Theme.of(context).textTheme.headline2!.color,
               enabled: false,
@@ -80,7 +82,7 @@ class _ProfilePeerState extends State<ProfilePeer> {
             ),
             EditTextBox(
               iconData: Icons.email,
-              margin: EdgeInsets.only(top: 8.0),
+              margin: const EdgeInsets.only(top: 8.0),
               focusedColor: Theme.of(context).textTheme.headline1!.color,
               enabledColor: Theme.of(context).textTheme.headline2!.color,
               enabled: false,
@@ -89,7 +91,7 @@ class _ProfilePeerState extends State<ProfilePeer> {
             ),
             EditTextBox(
               iconData: Icons.phone,
-              margin: EdgeInsets.only(top: 8.0),
+              margin: const EdgeInsets.only(top: 8.0),
               focusedColor: Theme.of(context).textTheme.headline1!.color,
               enabledColor: Theme.of(context).textTheme.headline2!.color,
               enabled: false,
@@ -97,12 +99,12 @@ class _ProfilePeerState extends State<ProfilePeer> {
               borderWidth: 0,
             ),
             Container(
-              margin: EdgeInsets.only(top: 32.0, bottom: 12.0),
-              child: Divider(
+              margin: const EdgeInsets.only(top: 32.0, bottom: 12.0),
+              child: const Divider(
                 height: 1.0,
               ),
             ),
-            EditTextBox(
+            const EditTextBox(
               maxLines: 5,
               enabled: false,
               borderWidth: 0,

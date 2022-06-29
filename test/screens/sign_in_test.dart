@@ -6,11 +6,12 @@ import '../test_utils.dart' show TestUtils;
 
 void main() {
   testWidgets("Widget", (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignIn()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
-//     print(findByText.evaluate());
+//     logger.d(findByText.evaluate());
     expect(findByText.evaluate().isEmpty, false);
 
     expect(find.text('SIGN_IN'), findsNWidgets(2));
@@ -21,13 +22,14 @@ void main() {
   });
   testWidgets("Show `errorEmail` text when email is not validated",
       (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignIn()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(Key('email'));
+    Finder emailField = find.byKey(const Key('email'));
     await tester.enterText(emailField, 'aa@aa');
 
-    Finder passwordField = find.byKey(Key('password'));
+    Finder passwordField = find.byKey(const Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
     // TODO: Should mock firebase in order to survive below codes
@@ -39,13 +41,14 @@ void main() {
   });
   testWidgets("Do not show [AlertDialog] when email is validated",
       (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignIn()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(Key('email'));
+    Finder emailField = find.byKey(const Key('email'));
     await tester.enterText(emailField, 'aa@aa.aa');
 
-    Finder passwordField = find.byKey(Key('password'));
+    Finder passwordField = find.byKey(const Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
     await tester.tap(find.text('SIGN_IN').last);

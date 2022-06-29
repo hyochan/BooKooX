@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:wecount/models/category.dart';
 import 'package:wecount/shared/category_item.dart';
 import 'package:wecount/utils/db_helper.dart';
@@ -7,25 +8,31 @@ import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 
 class CategoryList extends StatefulWidget {
-  CategoryList({
+  const CategoryList({
+    Key? key,
     required this.categories,
-  });
+  }) : super(key: key);
   final List<Category> categories;
 
   @override
-  _CategoryListState createState() => _CategoryListState(categories);
+  State<CategoryList> createState() => _CategoryListState();
 }
 
 class _CategoryListState extends State<CategoryList> {
-  List<Category> categories;
-  _CategoryListState(this.categories);
+  late List<Category> _categories;
+
+  @override
+  void initState() {
+    _categories = widget.categories;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
         child: Wrap(
-          children: categories.map((Category category) {
+          children: _categories.map((Category category) {
             return CategoryItem(
               key: Key(category.id.toString()),
               category: category,
@@ -48,8 +55,8 @@ class _CategoryListState extends State<CategoryList> {
                       fontSize: 16.0,
                     );
                   } finally {
-                    this.setState(() {
-                      categories.remove(category);
+                    setState(() {
+                      _categories.remove(category);
                     });
                     Fluttertoast.showToast(
                       msg: t('CATEGORY_DELETED'),
@@ -59,9 +66,9 @@ class _CategoryListState extends State<CategoryList> {
                       fontSize: 16.0,
                     );
                   }
-                  Navigator.of(context).pop();
+                  Get.back();
                 }, cancelPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
                 });
               },
             );

@@ -8,8 +8,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class LocationView extends StatefulWidget {
+  const LocationView({Key? key}) : super(key: key);
+
   @override
-  _LocationViewState createState() => _LocationViewState();
+  State<LocationView> createState() => _LocationViewState();
 }
 
 class _LocationViewState extends State<LocationView> {
@@ -57,8 +59,8 @@ class _LocationViewState extends State<LocationView> {
   /// It also fetches current `countryCode` to be used when searching google places.
   ///
   void getCurrentLocation() async {
-    var currentLocation;
-    var error;
+    LocationData? currentLocation;
+    String? error;
 
     var location = Location();
 
@@ -71,20 +73,20 @@ class _LocationViewState extends State<LocationView> {
       currentLocation = null;
     }
 
-    if (error == null) {
+    if (error == null && currentLocation != null) {
       final LatLng latLng =
-          LatLng(currentLocation.latitude, currentLocation.longitude);
+          LatLng(currentLocation.latitude!, currentLocation.longitude!);
       _setMarker(latLng);
 
       setState(() => _center = latLng);
       return;
     }
 
-    setState(() => _center = LatLng(0, 0));
+    setState(() => _center = const LatLng(0, 0));
   }
 
   void _setMarker(LatLng latLng) {
-    MarkerId markerId = MarkerId('myMarker');
+    MarkerId markerId = const MarkerId('myMarker');
 
     // creating a new MARKER
     final Marker marker = Marker(
@@ -116,11 +118,11 @@ class _LocationViewState extends State<LocationView> {
               brightness: Theme.of(context).brightness,
               actions: [
                 /// The button that calls `getPlace` method when pressed.
-                Container(
+                SizedBox(
                   width: 56.0,
                   child: RawMaterialButton(
-                    padding: EdgeInsets.all(0.0),
-                    shape: CircleBorder(),
+                    padding: const EdgeInsets.all(0.0),
+                    shape: const CircleBorder(),
                     onPressed: () => getPlace(),
                     child: Icon(
                       Icons.search,
@@ -132,21 +134,22 @@ class _LocationViewState extends State<LocationView> {
                 /// The button that `findAddressesFromCoordinates` when pressed.
                 ///
                 /// returns `address` and `latlng` and pop current [Screen].
-                Container(
+                SizedBox(
                   width: 56.0,
                   child: RawMaterialButton(
-                    padding: EdgeInsets.all(0.0),
-                    shape: CircleBorder(),
+                    padding: const EdgeInsets.all(0.0),
+                    shape: const CircleBorder(),
                     onPressed: () async {
                       List<Placemark> addresses =
                           await placemarkFromCoordinates(
                         _center!.latitude,
                         _center!.longitude,
                       );
-                      Map<String, dynamic> result = Map();
+                      Map<String, dynamic> result = {};
                       result['address'] = addresses.first.street;
                       result['latlng'] = _center;
 
+                      // ignore: use_build_context_synchronously
                       Navigator.pop(context, result);
                     },
                     child: Icon(

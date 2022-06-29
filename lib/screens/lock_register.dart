@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/shared/pin_keyboard.dart' show PinKeyboard;
 import 'package:wecount/utils/localization.dart';
 
+import '../utils/logger.dart';
+
 class LockRegister extends StatefulWidget {
   static const String name = '/lock_register';
 
+  const LockRegister({Key? key}) : super(key: key);
+
   @override
-  _LockRegisterState createState() => _LockRegisterState();
+  State<LockRegister> createState() => _LockRegisterState();
 }
 
 class _LockRegisterState extends State<LockRegister> {
@@ -30,7 +35,7 @@ class _LockRegisterState extends State<LockRegister> {
 
     if (prefs.containsKey('LOCK_PIN')) {
       _pin = prefs.getString('LOCK_PIN');
-      print(_pin);
+      logger.d(_pin);
     }
   }
 
@@ -40,8 +45,8 @@ class _LockRegisterState extends State<LockRegister> {
     } else {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('LOCK_PIN', _pin!);
-      Navigator.of(context).pop();
-      print(_pin);
+      Get.back();
+      logger.d(_pin);
     }
   }
 
@@ -86,15 +91,16 @@ class _LockRegisterState extends State<LockRegister> {
         iconColor: Theme.of(context).textTheme.headline1!.color,
         brightness: Theme.of(context).brightness,
         actions: <Widget>[
+          // ignore: deprecated_member_use
           FlatButton(
+            onPressed: addLockPinToSF,
+            shape: const CircleBorder(),
             child: Text(
               t('DONE'),
               style: TextStyle(
                 color: Theme.of(context).textTheme.headline1!.color,
               ),
             ),
-            onPressed: addLockPinToSF,
-            shape: CircleBorder(),
           ),
         ],
       ),
@@ -102,7 +108,7 @@ class _LockRegisterState extends State<LockRegister> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Text(
@@ -112,7 +118,7 @@ class _LockRegisterState extends State<LockRegister> {
                   color: Theme.of(context).textTheme.headline1!.color),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -131,7 +137,7 @@ class _LockRegisterState extends State<LockRegister> {
             //     borderRadius: BorderRadius.circular(30),
             //   ),
             // ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             PinKeyboard(
@@ -162,7 +168,7 @@ class _LockRegisterState extends State<LockRegister> {
             _thirdDigit.toString() +
             _fourthDigit.toString();
 
-        print(_pin);
+        logger.d(_pin);
       }
     });
   }
@@ -186,19 +192,19 @@ class _LockRegisterState extends State<LockRegister> {
         width: 50,
         height: 45,
         alignment: Alignment.center,
-        child: Text(
-          digit != null ? digit.toString() : "",
-          style: TextStyle(
-            fontSize: 30,
-            color: Theme.of(context).textTheme.headline1!.color,
-          ),
-        ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
               color: Theme.of(context).textTheme.headline1!.color!,
               width: 2,
             ),
+          ),
+        ),
+        child: Text(
+          digit != null ? digit.toString() : "",
+          style: TextStyle(
+            fontSize: 30,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
         ));
   }

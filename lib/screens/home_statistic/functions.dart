@@ -5,28 +5,29 @@ List<LedgerItem> ledgerListByMonth(
   List<LedgerItem> ledgersIn,
 ) {
   List<LedgerItem> ledgersOut = [];
-  // print('get ledgers by month of ' + month);
-  ledgersIn.forEach((ledger) {
-    // print('item ' +
+  // logger.d('get ledgers by month of ' + month);
+  for (LedgerItem ledger in ledgersIn) {
+    // logger.d('item ' +
     //     ledger.category.toString() +
     //     ' price: ' +
     //     ledger.price.toString());
 
     if (ledger.selectedDate!.month.toString() == month) {
-      // print('added');
+      // logger.d('added');
       ledgersOut.add(ledger);
     }
-  });
+  }
 
-  // print('ledger quantity by Month: ' + ledgersOut.length.toString());
+  // logger.d('ledger quantity by Month: ' + ledgersOut.length.toString());
   return ledgersOut;
 }
 
 List<LedgerItem> condense(List<LedgerItem> ledgerList) {
-  // print('ledgerList');
-  Map<String?, LedgerItem> mappedLedgerList = Map();
+  // logger.d('ledgerList');
+  Map<String?, LedgerItem> mappedLedgerList = {};
+  // ignore: avoid_function_literals_in_foreach_calls
   ledgerList.forEach((item) {
-    // print('item ' +
+    // logger.d('item ' +
     //     item.category.toString() +
     //     ' price: ' +
     //     item.price.toString());
@@ -38,29 +39,29 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
       },
       ifAbsent: () => item.createRoughCopy(),
     );
-    // print('Map ' + mappedLedgerList.length.toString());
+    // logger.d('Map ' + mappedLedgerList.length.toString());
   });
 
   List<LedgerItem> result = [];
-  // print('mapped result length : ${mappedLedgerList.length}');
+  // logger.d('mapped result length : ${mappedLedgerList.length}');
   mappedLedgerList.forEach((key, value) {
     result.add(value);
   });
-  // print('list length : ${result.length}');
+  // logger.d('list length : ${result.length}');
   return result;
 }
 
 Map<String, Map<String, double>> splitLedgers(List<LedgerItem> ledgerList) {
-  Map<String, double> income = Map();
-  Map<String, double> expense = Map();
+  Map<String, double> income = {};
+  Map<String, double> expense = {};
 
   /// map ledgerList to dataMap
-  ledgerList.forEach((ledger) {
+  for (var ledger in ledgerList) {
     if (ledger.price! > 0) {
       income.putIfAbsent(ledger.category!.label!, () => ledger.price!);
     } else {
       expense.putIfAbsent(ledger.category!.label!, () => ledger.price!);
     }
-  });
+  }
   return {'income': income, 'expense': expense};
 }

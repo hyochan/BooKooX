@@ -3,7 +3,7 @@ import 'package:wecount/utils/colors.dart';
 
 class EditTextBox extends StatefulWidget {
   const EditTextBox({
-    this.key,
+    Key? key,
     this.enabled = true,
     this.focusedColor = const Color.fromARGB(255, 66, 77, 107),
     this.enabledColor = const Color.fromARGB(255, 220, 226, 235),
@@ -28,8 +28,8 @@ class EditTextBox extends StatefulWidget {
     this.controller,
     this.borderWidth = 0.7,
     this.borderStyle = BorderStyle.solid,
-  });
-  final Key? key;
+  }) : super(key: key);
+
   final bool enabled;
   final TextEditingController? controller;
   final Color? focusedColor;
@@ -54,11 +54,11 @@ class EditTextBox extends StatefulWidget {
   final BorderStyle borderStyle;
 
   @override
-  _EditTextBoxState createState() => _EditTextBoxState();
+  State<EditTextBox> createState() => _EditTextBoxState();
 }
 
 class _EditTextBoxState extends State<EditTextBox> {
-  FocusNode _focus = FocusNode();
+  final FocusNode _focus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -70,17 +70,16 @@ class _EditTextBoxState extends State<EditTextBox> {
                 left: 12,
                 bottom: 0,
                 top: widget.margin.top,
-                child: Container(
-                  child: Icon(
-                    widget.iconData,
-                    color: widget.enabledColor,
-                    semanticLabel: widget.semanticLabel,
-                    size: widget.iconSize,
-                  ),
+                child: Icon(
+                  widget.iconData,
+                  color: widget.enabledColor,
+                  semanticLabel: widget.semanticLabel,
+                  size: widget.iconSize,
                 ),
               )
             : Container(),
         Container(
+          margin: widget.margin,
           child: TextField(
             enabled: widget.enabled,
             controller: widget.controller,
@@ -109,7 +108,7 @@ class _EditTextBoxState extends State<EditTextBox> {
                 right: 16,
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.focusedColor!,
                   width: widget.borderWidth,
@@ -117,7 +116,7 @@ class _EditTextBoxState extends State<EditTextBox> {
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.enabledColor!,
                   width: widget.borderWidth,
@@ -125,7 +124,7 @@ class _EditTextBoxState extends State<EditTextBox> {
                 ),
               ),
               disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.disabledColor,
                   width: widget.borderWidth,
@@ -133,7 +132,7 @@ class _EditTextBoxState extends State<EditTextBox> {
                 ),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.errorStyle.color!,
                   width: widget.borderWidth,
@@ -141,7 +140,7 @@ class _EditTextBoxState extends State<EditTextBox> {
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: widget.errorStyle.color!,
                   width: widget.borderWidth,
@@ -151,7 +150,6 @@ class _EditTextBoxState extends State<EditTextBox> {
             ),
             autocorrect: false,
           ),
-          margin: widget.margin,
         ),
       ],
     );

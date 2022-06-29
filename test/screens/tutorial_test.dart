@@ -6,7 +6,8 @@ import '../test_utils.dart' show TestUtils;
 
 void main() {
   testWidgets("Button", (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Tutorial()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const Tutorial()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
@@ -22,7 +23,8 @@ void main() {
     expect(find.text('TAKE_CARE'), findsNothing);
   });
   testWidgets("Change pages when [Next] clicked", (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: Tutorial()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const Tutorial()));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('NEXT'));

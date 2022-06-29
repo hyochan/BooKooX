@@ -10,7 +10,7 @@ import 'package:wecount/utils/general.dart' show General;
 
 import '../utils/localization.dart';
 
-enum PhotoOption { Camera, Gallery }
+enum PhotoOption { camera, gallery }
 
 Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
   return await showDialog<PhotoOption>(
@@ -18,12 +18,13 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return SimpleDialog(
+          backgroundColor: Theme.of(context).backgroundColor,
           children: <Widget>[
             SimpleDialogOption(
               onPressed: () {
-                Navigator.pop(context, PhotoOption.Camera);
+                Navigator.pop(context, PhotoOption.camera);
               },
-              child: Container(
+              child: SizedBox(
                 height: 44,
                 child: Row(
                   children: <Widget>[
@@ -32,7 +33,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                       color: Theme.of(context).textTheme.headline1!.color,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 8),
+                      margin: const EdgeInsets.only(left: 8),
                       child: Text(
                         t('CAMERA'),
                         style: TextStyle(
@@ -47,9 +48,9 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
             ),
             SimpleDialogOption(
               onPressed: () {
-                Navigator.pop(context, PhotoOption.Gallery);
+                Navigator.pop(context, PhotoOption.gallery);
               },
-              child: Container(
+              child: SizedBox(
                 height: 44,
                 child: Row(
                   children: <Widget>[
@@ -58,7 +59,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                       color: Theme.of(context).textTheme.headline1!.color,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 8),
+                      margin: const EdgeInsets.only(left: 8),
                       child: Text(
                         t('GALLERY'),
                         style: TextStyle(
@@ -72,18 +73,18 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
               ),
             ),
           ],
-          backgroundColor: Theme.of(context).backgroundColor,
         );
       });
 }
 
 class Gallery extends StatefulWidget {
-  Gallery({
+  const Gallery({
+    Key? key,
     this.margin,
     this.showAll = false,
     this.pictures = const [],
     required this.ledgerItem,
-  });
+  }) : super(key: key);
 
   final EdgeInsets? margin;
   final bool showAll;
@@ -91,7 +92,7 @@ class Gallery extends StatefulWidget {
   final LedgerItem ledgerItem;
 
   @override
-  _GalleryState createState() => _GalleryState();
+  State<Gallery> createState() => _GalleryState();
 }
 
 class _GalleryState extends State<Gallery> {
@@ -115,13 +116,13 @@ class _GalleryState extends State<Gallery> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(bottom: 8),
+                margin: const EdgeInsets.only(bottom: 8),
                 child: Row(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(right: 18),
+                      margin: const EdgeInsets.only(right: 18),
                       width: 20.0,
-                      child: Icon(
+                      child: const Icon(
                         Icons.photo,
                         color: cloudyBlueColor,
                       ),
@@ -137,6 +138,7 @@ class _GalleryState extends State<Gallery> {
                 ),
               ),
               widget.showAll
+                  // ignore: deprecated_member_use
                   ? FlatButton(
                       onPressed: onPressShowAll,
                       child: Text(
@@ -153,23 +155,23 @@ class _GalleryState extends State<Gallery> {
           ),
           Container(
             width: double.infinity,
-            margin: EdgeInsets.only(bottom: 32),
+            margin: const EdgeInsets.only(bottom: 32),
             child: Wrap(
               children: _pictures.map((Photo photo) {
                 if (photo.isAddBtn == true) {
                   return Container(
-                    padding: EdgeInsets.only(right: 4, bottom: 6),
+                    padding: const EdgeInsets.only(right: 4, bottom: 6),
                     child: InkWell(
                       onTap: () async {
                         final PhotoOption? photoOption =
                             await _asyncPhotoSelect(context);
                         XFile? imgFile;
                         switch (photoOption) {
-                          case PhotoOption.Camera:
+                          case PhotoOption.camera:
                             imgFile = await General.instance
                                 .chooseImage(context: context, type: 'camera');
                             break;
-                          case PhotoOption.Gallery:
+                          case PhotoOption.gallery:
                             imgFile = await General.instance
                                 .chooseImage(context: context, type: 'gallery');
                             break;
@@ -188,15 +190,15 @@ class _GalleryState extends State<Gallery> {
                       child: Container(
                         width: 80,
                         height: 72,
-                        child: Icon(
-                          Icons.add,
-                          color: Theme.of(context).textTheme.headline1!.color,
-                        ),
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 1.0,
                             color: cloudyBlueColor,
                           ),
+                        ),
+                        child: Icon(
+                          Icons.add,
+                          color: Theme.of(context).textTheme.headline1!.color,
                         ),
                       ),
                     ),
@@ -206,7 +208,7 @@ class _GalleryState extends State<Gallery> {
                   return Container(
                     height: 72,
                     width: 84,
-                    margin: EdgeInsets.only(right: 8, bottom: 6),
+                    margin: const EdgeInsets.only(right: 8, bottom: 6),
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(

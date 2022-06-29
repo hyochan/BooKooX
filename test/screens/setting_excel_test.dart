@@ -7,7 +7,7 @@ import '../test_utils.dart' show TestUtils;
 void main() {
   testWidgets("Widget", (WidgetTester tester) async {
     await tester
-        .pumpWidget(TestUtils.makeTestableWidget(child: SettingExcel()));
+        .pumpWidget(TestUtils.makeTestableWidget(child: const SettingExcel()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);

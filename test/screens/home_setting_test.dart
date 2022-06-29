@@ -7,7 +7,7 @@ import '../test_utils.dart' show TestUtils;
 void main() {
   testWidgets("Widget", (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(
-      child: HomeSetting(),
+      child: const HomeSetting(),
     ));
     await tester.pumpAndSettle();
 

@@ -4,15 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:wecount/screens/tutorial.dart';
 
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
 class Splash extends StatefulWidget {
   static const String name = '/splash';
 
-  Splash({Key? key}) : super(key: key);
+  const Splash({Key? key}) : super(key: key);
 
   @override
-  _SplashState createState() => _SplashState();
+  State<Splash> createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
@@ -23,7 +23,7 @@ class _SplashState extends State<Splash> {
   Future<void> navigateRoute() async {
     String initialRoute = Tutorial.name;
 
-    _navigationTimer = Timer(Duration(milliseconds: 1500), () {
+    _navigationTimer = Timer(const Duration(milliseconds: 1500), () {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
           overlays: SystemUiOverlay.values);
       General.instance.navigateScreenNamed(context, initialRoute, reset: true);
@@ -34,13 +34,13 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    _timer = Timer(Duration(milliseconds: 1000), () {
+    _timer = Timer(const Duration(milliseconds: 1000), () {
       setState(() {
-        this._visible = true;
+        _visible = true;
       });
     });
-    SystemChrome.setEnabledSystemUIOverlays([]);
-    this.navigateRoute();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    navigateRoute();
   }
 
   @override
@@ -68,12 +68,12 @@ class _SplashState extends State<Splash> {
             ),
             AnimatedOpacity(
               opacity: !_visible ? 0.0 : 1.0,
-              duration: Duration(milliseconds: 1000),
+              duration: const Duration(milliseconds: 1000),
               child: Container(
-                margin: EdgeInsets.only(bottom: 60.0),
+                margin: const EdgeInsets.only(bottom: 60.0),
                 child: Center(
                   child: Image(
-                      image: Asset.Icons.icWeCount, width: 200.0, height: 60.0),
+                      image: asset.Icons.icWeCount, width: 200.0, height: 60.0),
                 ),
               ),
             ),

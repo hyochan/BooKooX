@@ -18,14 +18,14 @@ import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 
 class HomeCalendar extends StatefulWidget {
-  HomeCalendar({
+  const HomeCalendar({
     Key? key,
     this.title = '2017 Wecount',
   }) : super(key: key);
   final String title;
 
   @override
-  _HomeCalendarState createState() => _HomeCalendarState();
+  State<HomeCalendar> createState() => _HomeCalendarState();
 }
 
 class _HomeCalendarState extends State<HomeCalendar> {
@@ -33,7 +33,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.DUSK;
+        : ColorType.dusk;
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -43,27 +43,27 @@ class _HomeCalendarState extends State<HomeCalendar> {
             title: widget.title,
             color: getColor(color),
             actions: [
-              Container(
+              SizedBox(
                 width: 56.0,
                 child: RawMaterialButton(
-                  padding: EdgeInsets.all(0.0),
-                  shape: CircleBorder(),
+                  padding: const EdgeInsets.all(0.0),
+                  shape: const CircleBorder(),
                   onPressed: () => General.instance
                       .navigateScreenNamed(context, Ledgers.name),
-                  child: Icon(
+                  child: const Icon(
                     Icons.book,
                     color: Colors.white,
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 56.0,
                 child: RawMaterialButton(
-                  padding: EdgeInsets.all(0.0),
-                  shape: CircleBorder(),
+                  padding: const EdgeInsets.all(0.0),
+                  shape: const CircleBorder(),
                   onPressed: () =>
                       Navigator.of(context).pushNamed(LedgerItemEdit.name),
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     color: Colors.white,
                   ),
@@ -73,7 +73,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
           ),
           SliverList(
             delegate: SliverChildListDelegate([
-              MyHomePage(),
+              const MyHomePage(),
             ]),
           )
         ],
@@ -83,10 +83,10 @@ class _HomeCalendarState extends State<HomeCalendar> {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -100,17 +100,17 @@ class _MyHomePageState extends State<MyHomePage> {
   List<LedgerItem> _ledgerList = [];
 
   /// for bottom list UI
-  List<LedgerItem> _ledgerListOfSelectedDate = [];
+  final List<LedgerItem> _ledgerListOfSelectedDate = [];
 
   void selectDate(
     DateTime date,
   ) {
     _ledgerListOfSelectedDate.clear();
-    _ledgerList.forEach((item) {
+    for (var item in _ledgerList) {
       if (item.selectedDate == date) {
         _ledgerListOfSelectedDate.add(item);
       }
-    });
+    }
     setState(() {
       _currentDate = date;
       _targetDate = DateTime(date.year, date.month);
@@ -128,14 +128,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.delayed(Duration.zero, () {
       List<LedgerItem> ledgerList = createCalendarLedgerItemMock();
       EventList<Event>? markedDateMap = EventList(events: {});
-      ledgerList.forEach((ledger) {
+      for (var ledger in ledgerList) {
         markedDateMap.add(ledger.selectedDate!,
             Event(date: ledger.selectedDate!, title: ledger.category!.label));
-      });
+      }
 
-      this.setState(() {
-        this._ledgerList = ledgerList;
-        this._markedDateMap = markedDateMap;
+      setState(() {
+        _ledgerList = ledgerList;
+        _markedDateMap = markedDateMap;
       });
     });
   }
@@ -144,57 +144,57 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.DUSK;
+        : ColorType.dusk;
 
     void onDatePressed() async {
-      int year = this._currentDate!.year;
+      int year = _currentDate!.year;
       int prevDate = year - 100;
       int lastDate = year + 10;
       DateTime? pickDate = await showDatePicker(
         context: context,
-        initialDate: this._currentDate!,
+        initialDate: _currentDate!,
         firstDate: DateTime(prevDate),
         lastDate: DateTime(lastDate),
       );
       if (pickDate != null) {
-        this.selectDate(pickDate);
+        selectDate(pickDate);
       }
     }
 
     return SafeArea(
       top: false,
       child: Container(
-        margin: EdgeInsets.only(left: 5, right: 5),
+        margin: const EdgeInsets.only(left: 5, right: 5),
         child: Column(
           children: <Widget>[
             DateSelector(
-              date: this._currentMonth,
+              date: _currentMonth,
               onDatePressed: onDatePressed,
             ),
             renderCalendar(
               context: context,
               onCalendarChanged: (DateTime date) {
-                this.setState(() {
+                setState(() {
                   _currentMonth = DateFormat.yMMM().format(date);
                   _targetDate = date;
                 });
               },
               onDayPressed: (DateTime date, List<Event> events) {
-                this.selectDate(date);
+                selectDate(date);
               },
               markedDateMap: _markedDateMap,
               currentDate: _currentDate,
               targetDate: _targetDate,
               color: getColor(color),
             ),
-            Divider(
+            const Divider(
               color: Colors.grey,
               indent: 10,
               endIndent: 10,
             ),
             ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               itemCount: _ledgerListOfSelectedDate.length,
               itemBuilder: (BuildContext context, int index) {
@@ -223,7 +223,7 @@ Widget renderCalendar({
     onDayPressed: onDayPressed as dynamic Function(DateTime, List<Event>)?,
 
     /// make calendar to be scrollable together with its screen
-    customGridViewPhysics: NeverScrollableScrollPhysics(),
+    customGridViewPhysics: const NeverScrollableScrollPhysics(),
 
     /// marked Date
     markedDatesMap: markedDateMap,
@@ -231,7 +231,7 @@ Widget renderCalendar({
     markedDateIconMaxShown: 1,
     markedDateIconBuilder: (event) {
       return renderMarkedIcon(
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.secondary,
         context: context,
       );
     },
@@ -239,7 +239,7 @@ Widget renderCalendar({
     /// selected date
     selectedDayButtonColor: color,
     selectedDateTime: currentDate,
-    selectedDayTextStyle: TextStyle(
+    selectedDayTextStyle: const TextStyle(
       color: Colors.white,
     ),
 
@@ -266,25 +266,22 @@ Widget renderCalendar({
     ),
     todayButtonColor: Theme.of(context).hintColor,
     minSelectedDate: DateTime(1970, 1, 1),
-    maxSelectedDate: DateTime.now().add(Duration(days: 3650)),
+    maxSelectedDate: DateTime.now().add(const Duration(days: 3650)),
   );
 }
 
 Widget renderMarkedIcon({required Color color, required BuildContext context}) {
-  return Container(
-    child: Stack(
-      children: <Widget>[
-        Positioned(
-          child: CustomPaint(painter: DrawCircle(color: color)),
-          top: 7,
-          right: MediaQuery.of(context).orientation == Orientation.portrait
-              ? 0
-              : 15,
-          height: 5,
-          width: 5,
-        )
-      ],
-    ),
+  return Stack(
+    children: <Widget>[
+      Positioned(
+        top: 7,
+        right:
+            MediaQuery.of(context).orientation == Orientation.portrait ? 0 : 15,
+        height: 5,
+        width: 5,
+        child: CustomPaint(painter: DrawCircle(color: color)),
+      )
+    ],
   );
 }
 
@@ -299,7 +296,7 @@ class DrawCircle extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawCircle(Offset(0.0, 0.0), 3.0, _paint);
+    canvas.drawCircle(const Offset(0.0, 0.0), 3.0, _paint);
   }
 
   @override

@@ -13,14 +13,14 @@ import '../utils/general.dart' show General;
 import '../utils/localization.dart';
 
 class HomeSetting extends StatefulWidget {
-  HomeSetting({
+  const HomeSetting({
     Key? key,
     this.title = '',
   }) : super(key: key);
   final String title;
 
   @override
-  _HomeSettingState createState() => _HomeSettingState();
+  State<HomeSetting> createState() => _HomeSettingState();
 }
 
 class _HomeSettingState extends State<HomeSetting> {
@@ -28,13 +28,13 @@ class _HomeSettingState extends State<HomeSetting> {
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.DUSK;
+        : ColorType.dusk;
 
-    final List<ListItem> _items = [
+    final List<ListItem> items = [
       TileItem(
         title: t('CURRENCY'),
-        trailing: Text('ARS | \$ '),
-        leading: Icon(
+        trailing: const Text('ARS | \$ '),
+        leading: const Icon(
           Icons.account_balance,
           color: cloudyBlueColor,
           size: 24.0,
@@ -44,8 +44,8 @@ class _HomeSettingState extends State<HomeSetting> {
       ),
       TileItem(
         title: t('EXPORT_EXCEL'),
-        trailing: Icon(Icons.arrow_forward),
-        leading: Icon(
+        trailing: const Icon(Icons.arrow_forward),
+        leading: const Icon(
           Icons.import_export,
           color: cloudyBlueColor,
           size: 24.0,
@@ -68,13 +68,13 @@ class _HomeSettingState extends State<HomeSetting> {
           children: <Widget>[
             Expanded(
               child: ListView.separated(
-                  separatorBuilder: (context, index) => Divider(
+                  separatorBuilder: (context, index) => const Divider(
                         color: Colors.grey,
                         height: 1.0,
                       ),
-                  itemCount: _items.length,
+                  itemCount: items.length,
                   itemBuilder: (context, index) {
-                    final item = _items[index];
+                    final item = items[index];
                     return SettingTileItem(item as TileItem);
                   }),
             )

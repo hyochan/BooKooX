@@ -10,18 +10,19 @@ import 'package:wecount/utils/localization.dart';
 class CategoryAdd extends StatefulWidget {
   final CategoryType categoryType;
   final int? lastId;
-  CategoryAdd({
-    this.categoryType = CategoryType.CONSUME,
+  const CategoryAdd({
+    Key? key,
+    this.categoryType = CategoryType.consume,
     required this.lastId,
-  });
+  }) : super(key: key);
 
   @override
-  _CategoryAddState createState() => _CategoryAddState();
+  State<CategoryAdd> createState() => _CategoryAddState();
 }
 
 class _CategoryAddState extends State<CategoryAdd> {
   int? _selectedIconIndex;
-  TextEditingController _textController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
   String? _errorText;
 
   @override
@@ -69,7 +70,7 @@ class _CategoryAddState extends State<CategoryAdd> {
 
     Widget renderIcons() {
       return Container(
-        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
         child: SingleChildScrollView(
           child: Center(
             child: Wrap(
@@ -80,7 +81,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                       return MapEntry(
                         i,
                         Container(
-                          padding: EdgeInsets.only(left: 8, bottom: 8),
+                          padding: const EdgeInsets.only(left: 8, bottom: 8),
                           child: InkWell(
                             onTap: () {
                               setState(() {
@@ -109,77 +110,74 @@ class _CategoryAddState extends State<CategoryAdd> {
     }
 
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: <Widget>[
             Expanded(
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(
-                        left: 24,
-                        right: 24,
-                        top: 40,
-                        bottom: 24,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(
+                      left: 24,
+                      right: 24,
+                      top: 40,
+                      bottom: 24,
+                    ),
+                    child: Text(
+                      t('CATEGORY_ADD'),
+                      style: TextStyle(
+                        fontSize: 28,
+                        color: Theme.of(context).textTheme.headline1!.color,
                       ),
-                      child: Text(
-                        t('CATEGORY_ADD'),
-                        style: TextStyle(
-                          fontSize: 28,
-                          color: Theme.of(context).textTheme.headline1!.color,
+                    ),
+                  ),
+                  EditTextBox(
+                    controller: _textController,
+                    margin: const EdgeInsets.only(
+                      bottom: 16,
+                      left: 24,
+                      right: 24,
+                    ),
+                    hintText: t('CATEGORY_ADD_HINT'),
+                    errorText: _errorText,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(
+                          left: 24,
+                          right: 8,
+                        ),
+                        child: const Icon(
+                          Icons.star,
+                          size: 20,
+                          color: mediumGrayColor,
                         ),
                       ),
-                    ),
-                    EditTextBox(
-                      controller: _textController,
-                      margin: EdgeInsets.only(
-                        bottom: 16,
-                        left: 24,
-                        right: 24,
-                      ),
-                      hintText: t('CATEGORY_ADD_HINT'),
-                      errorText: _errorText,
-                    ),
-                    Container(
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: 24,
-                              right: 8,
-                            ),
-                            child: Icon(
-                              Icons.star,
-                              size: 20,
-                              color: mediumGrayColor,
-                            ),
-                          ),
-                          Text(
-                            t('ICON_SELECT'),
-                            style: TextStyle(
-                              color: mediumGrayColor,
-                              fontSize: 16,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(child: renderIcons()),
-                  ],
-                ),
+                      Text(
+                        t('ICON_SELECT'),
+                        style: const TextStyle(
+                          color: mediumGrayColor,
+                          fontSize: 16,
+                        ),
+                      )
+                    ],
+                  ),
+                  Expanded(child: renderIcons()),
+                ],
               ),
             ),
             Container(
               height: 68,
-              padding: EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 40),
+                    margin: const EdgeInsets.only(left: 40),
+                    // ignore: deprecated_member_use
                     child: FlatButton(
                       onPressed: onCancelPressed,
                       child: Text(
@@ -192,7 +190,8 @@ class _CategoryAddState extends State<CategoryAdd> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 20),
+                    margin: const EdgeInsets.only(left: 20),
+                    // ignore: deprecated_member_use
                     child: FlatButton(
                       onPressed: onDonePressed,
                       child: Text(

@@ -5,12 +5,15 @@ import 'package:wecount/shared/button.dart' show Button;
 import 'package:wecount/utils/colors.dart';
 
 import '../utils/localization.dart';
+import '../utils/logger.dart';
 
 class SettingOpinion extends StatelessWidget {
   static const String name = '/setting_opinion';
 
+  const SettingOpinion({Key? key}) : super(key: key);
+
   void onSendOpinion() {
-    print('on send opinion');
+    logger.d('on send opinion');
   }
 
   @override
@@ -35,33 +38,31 @@ class SettingOpinion extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20),
                 child: TextField(
                   maxLines: 10,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     height: 1.2,
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: t('SHARE_OPINION_HINT'),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 24),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                   ),
                 ),
               ),
             ),
-            Container(
-              child: Button(
-                onPress: onSendOpinion,
-                text: t('SEND'),
-                margin: EdgeInsets.all(0),
-                height: 56,
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-                backgroundColor: mainColor,
+            Button(
+              onPress: onSendOpinion,
+              text: t('SEND'),
+              margin: const EdgeInsets.all(0),
+              height: 56,
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
               ),
+              backgroundColor: mainColor,
             )
           ],
         ),

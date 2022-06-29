@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wecount/navigations/home_tab.dart';
+import 'package:get/get.dart';
 import 'package:wecount/screens/find_pw.dart';
 import 'package:wecount/screens/main_empty.dart';
 
@@ -18,10 +18,10 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 class SignIn extends StatefulWidget {
   static const String name = '/sign_in';
 
-  SignIn({Key? key}) : super(key: key);
+  const SignIn({Key? key}) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
+  State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
@@ -63,22 +63,13 @@ class _SignInState extends State<SignIn> {
 
       /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
       if (auth.user != null && auth.user!.emailVerified) {
-        var snapshots = await _firestore
+        await _firestore
             .collection('users')
             .doc(auth.user!.uid)
             .collection('ledgers')
             .get();
 
-        var ledgers = snapshots.docs;
-
-        if (ledgers.length == 0) {
-          General.instance
-              .navigateScreenNamed(context, MainEmpty.name, reset: true);
-          return;
-        }
-
-        General.instance
-            .navigateScreenNamed(context, HomeTab.name, reset: true);
+        Get.offAll(() => const MainEmpty());
         return;
       }
     } catch (err) {
@@ -105,6 +96,7 @@ class _SignInState extends State<SignIn> {
     }
 
     if (auth.user != null && !auth.user!.emailVerified) {
+      // ignore: use_build_context_synchronously
       General.instance.showSingleDialog(
         context,
         title: Text(t('ERROR')),
@@ -113,11 +105,12 @@ class _SignInState extends State<SignIn> {
           children: <Widget>[
             Text(t('EMAIL_NOT_VERIFIED')),
             Container(
-              margin: EdgeInsets.only(top: 32, bottom: 24),
+              margin: const EdgeInsets.only(top: 32, bottom: 24),
               child: Text(
                 _email,
                 style: TextStyle(
                   fontSize: 24,
+                  // ignore: use_build_context_synchronously
                   color: Theme.of(context).secondaryHeaderColor,
                 ),
               ),
@@ -130,14 +123,15 @@ class _SignInState extends State<SignIn> {
                 try {
                   await auth.user!.sendEmailVerification();
                 } catch (err) {
-                  // print('unknown error occurred. ${err.message}');
+                  // logger.d('unknown error occurred. ${err.message}');
                 } finally {
                   setState(() => _isResendingEmail = false);
                 }
               },
               text: t('RESEND_EMAIL'),
               textStyle: TextStyle(
-                color: Theme.of(context).accentColor,
+                // ignore: use_build_context_synchronously
+                color: Theme.of(context).colorScheme.secondary,
                 fontSize: 16,
               ),
             ),
@@ -173,8 +167,8 @@ class _SignInState extends State<SignIn> {
 
     Widget renderEmailField() {
       return EditText(
-        key: Key('email'),
-        margin: EdgeInsets.only(top: 68.0),
+        key: const Key('email'),
+        margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
         textLabel: t('EMAIL'),
         textHint: t('EMAIL_HINT'),
@@ -182,13 +176,13 @@ class _SignInState extends State<SignIn> {
         hintStyle: TextStyle(color: Theme.of(context).hintColor),
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
-            this.setState(() {
+            setState(() {
               _isValidEmail = true;
               _errorEmail = null;
               _email = str;
             });
           } else {
-            this.setState(() {
+            setState(() {
               _isValidEmail = false;
               _email = str;
             });
@@ -200,11 +194,11 @@ class _SignInState extends State<SignIn> {
     }
 
     Widget renderPasswordField() {
-      bool isValidPassword = _password != null && _password!.length > 0;
+      bool isValidPassword = _password != null && _password!.isNotEmpty;
 
       return EditText(
-        key: Key('password'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('password'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
         textLabel: t('PASSWORD'),
         textHint: t('PASSWORD_HINT'),
@@ -212,13 +206,13 @@ class _SignInState extends State<SignIn> {
         hasChecked: isValidPassword,
         onChanged: (String str) {
           if (isValidPassword) {
-            this.setState(() {
+            setState(() {
               _isValidPassword = true;
               _errorPassword = null;
               _password = str;
             });
           } else {
-            this.setState(() {
+            setState(() {
               _isValidPassword = false;
               _password = str;
             });
@@ -231,11 +225,11 @@ class _SignInState extends State<SignIn> {
 
     Widget renderSignInButton() {
       return Button(
-        key: Key('sign-in-button'),
+        key: const Key('sign-in-button'),
         onPress: _signIn,
         isLoading: _isSigningIn,
-        margin: EdgeInsets.only(top: 28.0, bottom: 8.0),
-        textStyle: TextStyle(
+        margin: const EdgeInsets.only(top: 28.0, bottom: 8.0),
+        textStyle: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
         ),
@@ -248,23 +242,23 @@ class _SignInState extends State<SignIn> {
     }
 
     Widget renderFindPw() {
+      // ignore: deprecated_member_use
       return FlatButton(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         onPressed: () =>
             General.instance.navigateScreenNamed(context, FindPw.name),
         child: RichText(
           text: TextSpan(
             text: '${t('DID_YOU_FORGOT_PASSWORD')}?',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12.0,
-              color: const Color(0xff869ab7),
+              color: Color(0xff869ab7),
             ),
             children: <TextSpan>[
               TextSpan(
-                text: '  ' + t('FIND_PASSWORD'),
-                style: TextStyle(
-                    color: const Color(0xff1dd3a8),
-                    fontWeight: FontWeight.bold),
+                text: '  ${t('FIND_PASSWORD')}',
+                style: const TextStyle(
+                    color: Color(0xff1dd3a8), fontWeight: FontWeight.bold),
               ),
             ],
           ),

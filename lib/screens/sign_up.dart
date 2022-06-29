@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wecount/utils/colors.dart';
-
-import 'package:wecount/utils/general.dart' show General;
-import 'package:wecount/shared/edit_text.dart' show EditText;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/shared/edit_text.dart' show EditText;
+import 'package:wecount/utils/colors.dart';
+import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/validator.dart' show Validator;
-import 'package:wecount/utils/asset.dart' as Asset;
 
 import '../utils/localization.dart';
 
@@ -17,10 +15,10 @@ final FirebaseFirestore firestore = FirebaseFirestore.instance;
 class SignUp extends StatefulWidget {
   static const String name = '/sign_up';
 
-  SignUp({Key? key}) : super(key: key);
+  const SignUp({Key? key}) : super(key: key);
 
   @override
-  _SignUpState createState() => _SignUpState();
+  State<SignUp> createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
@@ -98,6 +96,7 @@ class _SignUpState extends State<SignUp> {
 
         user.updateDisplayName(_displayName);
 
+        // ignore: use_build_context_synchronously
         return General.instance.showSingleDialog(
           context,
           title: Text(t('SIGN_UP_SUCCESS_TITLE')),
@@ -136,8 +135,8 @@ class _SignUpState extends State<SignUp> {
 
     Widget renderEmailField() {
       return EditText(
-        key: Key('email'),
-        margin: EdgeInsets.only(top: 68.0),
+        key: const Key('email'),
+        margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
         textLabel: t('EMAIL'),
         textHint: t('EMAIL_HINT'),
@@ -160,8 +159,8 @@ class _SignUpState extends State<SignUp> {
 
     Widget renderPasswordField() {
       return EditText(
-        key: Key('password'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('password'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
         textLabel: t('PASSWORD'),
         textHint: t('PASSWORD_HINT'),
@@ -185,8 +184,8 @@ class _SignUpState extends State<SignUp> {
 
     Widget renderPasswordConfirmField() {
       return EditText(
-        key: Key('password-confirm'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('password-confirm'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
         textLabel: t('PASSWORD_CONFIRM'),
         textHint: t('PASSWORD_CONFIRM_HINT'),
@@ -207,8 +206,8 @@ class _SignUpState extends State<SignUp> {
 
     Widget renderDisplayNameField() {
       return EditText(
-        key: Key('display-name'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('display-name'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
         textLabel: t('DISPLAY_NAME'),
         textHint: t('DISPLAY_NAME_HINT'),
@@ -231,8 +230,8 @@ class _SignUpState extends State<SignUp> {
 
     Widget renderNameField() {
       return EditText(
-        key: Key('name'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('name'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
         textLabel: t('NAME'),
         textHint: t('NAME_HINT'),
@@ -255,11 +254,11 @@ class _SignUpState extends State<SignUp> {
 
     Widget renderSignUpButton() {
       return Button(
-        key: Key('button-sign-up'),
+        key: const Key('button-sign-up'),
         isLoading: _isRegistering,
         onPress: () => _signUp(),
-        margin: EdgeInsets.only(top: 36.0, bottom: 48.0),
-        textStyle: TextStyle(
+        margin: const EdgeInsets.only(top: 36.0, bottom: 48.0),
+        textStyle: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
         ),
@@ -274,6 +273,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+        // ignore: deprecated_member_use
         brightness: Theme.of(context).brightness,
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,

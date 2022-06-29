@@ -7,7 +7,7 @@ import '../test_utils.dart' show TestUtils;
 void main() {
   testWidgets("Widget", (WidgetTester tester) async {
     await tester
-        .pumpWidget(TestUtils.makeTestableWidget(child: LocationView()));
+        .pumpWidget(TestUtils.makeTestableWidget(child: const LocationView()));
     await tester.pumpAndSettle();
 
     var findByType = find.byType(Container);

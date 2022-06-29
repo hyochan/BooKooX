@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:image_picker/image_picker.dart';
 
 class ProfileImageCam extends StatelessWidget {
@@ -11,61 +11,61 @@ class ProfileImageCam extends StatelessWidget {
   final XFile? imgFile;
   final String? imgStr;
 
-  ProfileImageCam({
+  const ProfileImageCam({
+    Key? key,
     this.selectGallery,
     this.selectCamera,
     this.imgFile,
     this.imgStr,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(0.0),
+          padding: const EdgeInsets.all(0.0),
           child: Stack(
             children: <Widget>[
-              Container(
+              SizedBox(
                 width: 88.0,
                 height: 88.0,
-                child: this.imgStr == null && this.imgFile == null
+                child: imgStr == null && imgFile == null
                     ? ClipOval(
                         child: Material(
                             clipBehavior: Clip.hardEdge,
                             color: Colors.transparent,
                             child: Ink.image(
-                              image: Asset.Icons.icMask,
+                              image: asset.Icons.icMask,
                               fit: BoxFit.cover,
                               width: 80.0,
                               height: 80.0,
                               child: InkWell(
-                                onTap: this.selectGallery as void Function()?,
+                                onTap: selectGallery as void Function()?,
                               ),
                             )))
-                    : this.imgFile != null
-                        ? Container(
-                            child: FlatButton(
-                              onPressed: this.selectGallery as void Function()?,
-                              padding: EdgeInsets.all(0.0),
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    FileImage(File(this.imgFile!.path)),
-                                radius: 80.0,
-                              ),
+                    : imgFile != null
+                        // ignore: deprecated_member_use
+                        ? FlatButton(
+                            onPressed: selectGallery as void Function()?,
+                            padding: const EdgeInsets.all(0.0),
+                            child: CircleAvatar(
+                              backgroundImage: FileImage(File(imgFile!.path)),
+                              radius: 80.0,
                             ),
                           )
                         : Material(
                             clipBehavior: Clip.hardEdge,
                             color: Colors.transparent,
+                            // ignore: deprecated_member_use
                             child: FlatButton(
-                              onPressed: this.selectGallery as void Function()?,
-                              padding: EdgeInsets.all(0.0),
+                              onPressed: selectGallery as void Function()?,
+                              padding: const EdgeInsets.all(0.0),
                               child: ClipOval(
                                 child: FadeInImage.assetNetwork(
                                     fit: BoxFit.cover,
                                     placeholder: 'res/icons/icMask.png',
-                                    image: this.imgStr!),
+                                    image: imgStr!),
                               ),
                             ),
                           ),
@@ -76,10 +76,11 @@ class ProfileImageCam extends StatelessWidget {
                 width: 36.0,
                 height: 36.0,
                 child: ClipOval(
+                  // ignore: deprecated_member_use
                   child: FlatButton(
-                    padding: EdgeInsets.all(0.0),
-                    onPressed: this.selectCamera as void Function()?,
-                    child: Icon(
+                    padding: const EdgeInsets.all(0.0),
+                    onPressed: selectCamera as void Function()?,
+                    child: const Icon(
                       Icons.camera,
                     ),
                   ),
