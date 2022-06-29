@@ -113,7 +113,7 @@ $ cd firebase
 5. Use the command below to set up the emulator.
 
 ```bash
-$ firebase init emulator
+$ firebase init emulators
 ```
 
 6. Go to the functions directory with the command below.
