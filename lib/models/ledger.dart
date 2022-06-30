@@ -77,7 +77,7 @@ class Ledger {
     );
   }
 
-  factory Ledger.fromMap(Map? data) {
+  factory Ledger.fromJson(Map? data) {
     data = data ?? {};
     return Ledger(
       title: data['title'] ?? '',

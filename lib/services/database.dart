@@ -5,13 +5,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/models/ledger.dart';
-import 'package:wecount/models/user.dart' as model;
+import 'package:wecount/models/user.dart' as m;
 import 'package:wecount/services/storage.dart';
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/logger.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final CollectionReference<m.User> _userRef =
+      FirebaseFirestore.instance.collection('users').withConverter<m.User>(
+            fromFirestore: (snapshot, _) => m.User.fromJson(
+              snapshot.data(),
+              snapshot.id,
+            ),
+            toFirestore: (user, _) => user.toJson(),
+          );
 
   Future<bool> requestCreateNewLedger(Ledger? ledger) async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -25,7 +33,7 @@ class DatabaseService {
     ledger.adminIds = [];
 
     ledger.members = [
-      model.User(uid: user.uid),
+      m.User(uid: user.uid),
     ];
 
     DocumentReference ref =
@@ -86,7 +94,7 @@ class DatabaseService {
   Future<Ledger> _getLedger(String? ledgerId) async {
     var snap = await _db.collection('ledgers').doc(ledgerId).get();
 
-    return Ledger.fromMap(snap.data());
+    return Ledger.fromJson(snap.data());
   }
 
   Future<bool> requestLeaveLedger(String? ledgerId) async {
@@ -132,7 +140,7 @@ class DatabaseService {
       .delete();
 
   Future<bool> requestUpdateProfile(
-    model.User? profile, {
+    m.User? profile, {
     XFile? imgFile,
   }) async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -193,15 +201,15 @@ class DatabaseService {
         .collection('ledgers')
         .doc(id)
         .snapshots()
-        .map((snap) => Ledger.fromMap(snap.data()));
+        .map((snap) => Ledger.fromJson(snap.data()));
   }
 
-  Stream<model.User> streamUser(String id) {
+  Stream<m.User> streamUser(String id) {
     return _db
         .collection('users')
         .doc(id)
         .snapshots()
-        .map((snap) => model.User.fromMap(snap.data(), id));
+        .map((snap) => m.User.fromJson(snap.data(), id));
   }
 
   /// Used from [auth_switch] to detect the initial widget.
@@ -243,5 +251,17 @@ class DatabaseService {
     }
 
     return null;
+  }
+
+  Future<List<m.User>> searchUsers(String query) async {
+    List<QuerySnapshot> res = await Future.wait([
+      _userRef
+          .orderBy("displayName")
+          .startAt([query]).endAt(["$query\uf8ff"]).get(),
+      _userRef.orderBy("email").startAt([query]).endAt(["$query\uf8ff"]).get(),
+    ]);
+    var docs = [...res[0].docs, ...res[1].docs];
+
+    return docs.map((doc) => doc.data() as m.User).toList();
   }
 }

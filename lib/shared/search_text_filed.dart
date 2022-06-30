@@ -6,7 +6,7 @@ class SearchTextField extends StatefulWidget {
   const SearchTextField({
     Key? key,
     required this.onSearched,
-    this.debounceDuration = const Duration(milliseconds: 350),
+    this.debounceDuration = const Duration(milliseconds: 500),
     this.style,
     this.decoration,
     this.autofocus = false,

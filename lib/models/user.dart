@@ -41,7 +41,7 @@ class User {
     this.deletedAt,
   });
 
-  factory User.fromMap(Map? data, String id) {
+  factory User.fromJson(Map? data, String id) {
     data = data ?? {};
     return User(
       uid: id,
@@ -57,6 +57,22 @@ class User {
       updatedAt: data['createdAt'] ?? Timestamp.now(),
       deletedAt: data['createdAt'],
     );
+  }
+
+  Map<String, Object?> toJson() {
+    return {
+      'email': email,
+      'displayName': displayName,
+      'showEmailAddress': showEmailAddress,
+      'thumbURL': thumbURL,
+      'photoURL': photoURL,
+      'phoneNumber': phoneNumber,
+      'showPhoneNumber': showPhoneNumber,
+      'statusMsg': statusMsg,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'deletedAt': deletedAt,
+    };
   }
 
   void changeMemberShip(int val) {

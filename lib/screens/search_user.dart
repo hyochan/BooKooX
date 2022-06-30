@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/services/database.dart';
 import 'package:wecount/shared/header.dart';
 import 'package:wecount/shared/loading_indicator.dart';
 import 'package:wecount/shared/search_text_filed.dart';
-import 'package:wecount/utils/logger.dart';
 
+import '../models/user.dart';
 import '../utils/localization.dart';
 
 class SearchUser extends StatefulWidget {
@@ -15,12 +16,15 @@ class SearchUser extends StatefulWidget {
 
 class _SearchUserState extends State<SearchUser> {
   bool _isLoading = false;
-  void _onSearchTextChanged(String searchText) {
-    setState(() => _isLoading = true);
-    _search();
-  }
+  List<User> _users = [];
 
-  Future<void> _search() async {}
+  Future<void> _onSearchTextChanged(String searchText) async {
+    setState(() => _isLoading = true);
+    DatabaseService().searchUsers(searchText).then(
+          (users) => setState(() => _users = users),
+        );
+    setState(() => _isLoading = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,24 +60,37 @@ class _SearchUserState extends State<SearchUser> {
                       ),
                     )
                   : Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              t("NO_WECOUNT_USER"),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  t("INVITE"),
+                      child: Column(
+                        children: [
+                          _users.isNotEmpty
+                              ? Expanded(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: _users.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Text(_users[index].displayName!);
+                                    },
+                                  ),
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      t("NO_WECOUNT_USER"),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: TextButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          t("INVITE"),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        ],
                       ),
                     ),
             ],
