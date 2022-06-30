@@ -1,14 +1,15 @@
 import * as admin from 'firebase-admin'
 import 'dotenv/config'
 import { existsSync } from 'fs'
+import { resolve } from 'path'
 
 const init = async () => {
-  const keyFilePath = '../../key.json'
+  const keyFilePath = resolve(__dirname, '../key.json')
 
   if (existsSync(keyFilePath)) {
     /* eslint-disable */
     // @ts-ignore
-    const serviceAccount = await import('../key.json')
+    const serviceAccount = await import(keyFilePath)
     admin.initializeApp({
       // @ts-ignore
       credential: admin.credential.cert(serviceAccount),
