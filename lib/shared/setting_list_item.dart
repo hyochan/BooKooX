@@ -26,36 +26,40 @@ class LogoutItem implements ListItem {
 }
 
 class SettingListItem extends StatelessWidget {
-  SettingListItem(this.item);
+  const SettingListItem(
+    this.item, {
+    Key? key,
+  }) : super(key: key);
+
   final SettingItem item;
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return FlatButton(
       onPressed: item.onPressed as void Function()?,
-      padding: EdgeInsets.symmetric(horizontal: 40),
-      child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      child: SizedBox(
         height: 72,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(right: 24),
+              margin: const EdgeInsets.only(right: 24),
               child: item.icon,
             ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                      child: Text(
+                  Text(
                     item.title!,
                     style: TextStyle(
                       fontSize: 20,
                       color: Theme.of(context).textTheme.headline1!.color,
                     ),
-                  )),
+                  ),
                   item.optionalWidget ?? Container(),
                 ],
               ),
@@ -84,7 +88,10 @@ class TileItem implements ListItem {
 }
 
 class SettingTileItem extends StatelessWidget {
-  SettingTileItem(this.item);
+  const SettingTileItem(
+    this.item, {
+    Key? key,
+  }) : super(key: key);
   final TileItem item;
 
   @override

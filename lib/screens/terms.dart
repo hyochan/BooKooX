@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class Terms extends StatefulWidget {
   static const String name = '/terms';
 
-  Terms({Key? key}) : super(key: key);
+  const Terms({Key? key}) : super(key: key);
 
   @override
-  _TermsState createState() => _TermsState();
+  State<Terms> createState() => _TermsState();
 }
 
 class _TermsState extends State<Terms> {
@@ -17,6 +17,7 @@ class _TermsState extends State<Terms> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
+        // ignore: deprecated_member_use
         brightness: Theme.of(context).brightness,
         iconTheme: IconThemeData(
           color: Theme.of(context).primaryColor,

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:wecount/shared/header.dart';
 
 import '../utils/localization.dart';
+import '../utils/logger.dart';
 
 class SettingNotification extends StatefulWidget {
   static const String name = '/setting_notification';
 
+  const SettingNotification({Key? key}) : super(key: key);
+
   @override
-  _SettingNotificationState createState() => _SettingNotificationState();
+  State<SettingNotification> createState() => _SettingNotificationState();
 }
 
 class _SettingNotificationState extends State<SettingNotification> {
@@ -16,12 +19,12 @@ class _SettingNotificationState extends State<SettingNotification> {
 
   void _onChangeAddingLedgerSwitch(bool value) {
     setState(() => _addLedgerSwitch = value);
-    print('value: $value');
+    logger.d('value: $value');
   }
 
   void _onChangeUpdateLedgerSwitch(bool value) {
     setState(() => _updateLedgerSwitch = value);
-    print('value: $value');
+    logger.d('value: $value');
   }
 
   @override
@@ -48,7 +51,7 @@ class _SettingNotificationState extends State<SettingNotification> {
             Row(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(left: 40, right: 40, top: 44),
+                  padding: const EdgeInsets.only(left: 40, right: 40, top: 44),
                   child: Text(
                     t('ADDING_LEDGER_ITEM'),
                     style: TextStyle(
@@ -62,12 +65,12 @@ class _SettingNotificationState extends State<SettingNotification> {
             Row(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(left: 40, top: 16),
+                  padding: const EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
                     value: _addLedgerSwitch,
                     onChanged: _onChangeAddingLedgerSwitch,
                     activeTrackColor: Theme.of(context).primaryColor,
-                    activeColor: Theme.of(context).accentColor,
+                    activeColor: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ],
@@ -75,7 +78,7 @@ class _SettingNotificationState extends State<SettingNotification> {
             Row(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(left: 40, right: 40, top: 44),
+                  padding: const EdgeInsets.only(left: 40, right: 40, top: 44),
                   child: Text(
                     t('UPDATING_LEDGER_ITEM'),
                     style: TextStyle(
@@ -89,12 +92,12 @@ class _SettingNotificationState extends State<SettingNotification> {
             Row(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(left: 40, top: 16),
+                  padding: const EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
                     value: _updateLedgerSwitch,
                     onChanged: _onChangeUpdateLedgerSwitch,
                     activeTrackColor: Theme.of(context).primaryColor,
-                    activeColor: Theme.of(context).accentColor,
+                    activeColor: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ],

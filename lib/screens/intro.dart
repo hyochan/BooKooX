@@ -9,13 +9,15 @@ import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/screens/sign_in.dart';
 import 'package:wecount/screens/sign_up.dart';
 import 'package:wecount/shared/button.dart' show Button;
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/localization.dart';
 
 class Intro extends StatelessWidget {
   static const String name = '/intro';
+
+  const Intro({Key? key}) : super(key: key);
 
   Future<void> _googleLogin(BuildContext context) async {
     final GoogleSignIn googleSignIn = GoogleSignIn(
@@ -31,7 +33,7 @@ class Intro extends StatelessWidget {
       await storeUser(googleUser);
       googleSignIn.signOut();
 
-      Get.offAll(() => AuthSwitch());
+      Get.offAll(() => const AuthSwitch());
     } else {
       Get.back();
     }
@@ -61,15 +63,15 @@ class Intro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle signInWithTextStyle = TextStyle(
+    const TextStyle signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
       fontSize: 16.0,
     );
 
     Widget renderSignInBtn() {
       return Button(
-        onPress: () => Get.to(() => SignIn.name),
-        margin: EdgeInsets.only(top: 198.0),
+        onPress: () => Get.to(() => const SignIn()),
+        margin: const EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
           color: Theme.of(context).primaryColor,
@@ -83,7 +85,7 @@ class Intro extends StatelessWidget {
 
     Widget renderDoNotHaveAccount() {
       return Container(
-        margin: EdgeInsets.symmetric(vertical: 2.0),
+        margin: const EdgeInsets.symmetric(vertical: 2.0),
         child: TextButton(
           onPressed: () =>
               General.instance.navigateScreenNamed(context, SignUp.name),
@@ -94,8 +96,8 @@ class Intro extends StatelessWidget {
                   text: t('DO_NOT_HAVE_ACCOUNT'),
                 ),
                 TextSpan(
-                  text: '  ' + t('SIGN_UP'),
-                  style: TextStyle(
+                  text: '  ${t('SIGN_UP')}',
+                  style: const TextStyle(
                     color: greenColor,
                     fontWeight: FontWeight.bold,
                   ),
@@ -110,11 +112,11 @@ class Intro extends StatelessWidget {
 
     Widget renderOrSignInWith() {
       return Container(
-        margin: EdgeInsets.only(top: 12.0),
+        margin: const EdgeInsets.only(top: 12.0),
         child: Flex(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           direction: Axis.horizontal,
-          children: <Widget>[
+          children: const <Widget>[
             Expanded(
               child: Text(
                 '----------------------',
@@ -147,7 +149,7 @@ class Intro extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Button(
-            margin: EdgeInsets.only(top: 20.0),
+            margin: const EdgeInsets.only(top: 20.0),
             imageMarginLeft: 8,
             textStyle: signInWithTextStyle,
             borderColor: Colors.white,
@@ -159,7 +161,7 @@ class Intro extends StatelessWidget {
                 : MediaQuery.of(context).size.width - 128,
             height: 52.0,
             image: Image(
-              image: Asset.Icons.icGoogle,
+              image: asset.Icons.icGoogle,
               width: 24.0,
               height: 24.0,
             ),
@@ -177,12 +179,12 @@ class Intro extends StatelessWidget {
       );
 
       return Container(
-        margin: EdgeInsets.only(top: 16.0, bottom: 40.0),
+        margin: const EdgeInsets.only(top: 16.0, bottom: 40.0),
         child: RichText(
           text: TextSpan(
             text: t('TERMS_1'),
             style: signInWithTextStyle.merge(
-              TextStyle(fontSize: 12, height: 1.3),
+              const TextStyle(fontSize: 12, height: 1.3),
             ),
             children: [
               TextSpan(
@@ -224,6 +226,22 @@ class Intro extends StatelessWidget {
 
     return Scaffold(
       body: Container(
+        constraints: const BoxConstraints.expand(
+          height: double.infinity,
+          width: double.infinity,
+        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Theme.of(context).primaryColor,
+              Theme.of(context).primaryColorDark
+            ],
+            begin: const FractionalOffset(0.0, 0.0),
+            end: const FractionalOffset(1.0, 1.0),
+            stops: const [0.0, 1.0],
+            tileMode: TileMode.clamp,
+          ),
+        ),
         child: SafeArea(
           child: CustomScrollView(
             slivers: <Widget>[
@@ -234,7 +252,7 @@ class Intro extends StatelessWidget {
                   delegate: SliverChildListDelegate(
                     <Widget>[
                       Image(
-                        image: Asset.Icons.icWeCount,
+                        image: asset.Icons.icWeCount,
                         width: 200.0,
                         height: 60.0,
                       ),
@@ -248,22 +266,6 @@ class Intro extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-        constraints: BoxConstraints.expand(
-          height: double.infinity,
-          width: double.infinity,
-        ),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Theme.of(context).primaryColor,
-              Theme.of(context).primaryColorDark
-            ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 1.0),
-            stops: [0.0, 1.0],
-            tileMode: TileMode.clamp,
           ),
         ),
       ),

@@ -1,9 +1,9 @@
 enum ColorType {
-  RED,
-  ORANGE,
-  YELLOW,
-  GREEN,
-  BLUE,
-  DUSK,
-  PURPLE,
+  red,
+  orange,
+  yellow,
+  green,
+  blue,
+  dusk,
+  purple,
 }

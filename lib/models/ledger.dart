@@ -1,18 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/types/color.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import './ledger_item.dart' show LedgerItem;
 
 final List<ColorType> colorItems = [
-  ColorType.RED,
-  ColorType.ORANGE,
-  ColorType.YELLOW,
-  ColorType.GREEN,
-  ColorType.BLUE,
-  ColorType.DUSK,
-  ColorType.PURPLE,
+  ColorType.red,
+  ColorType.orange,
+  ColorType.yellow,
+  ColorType.green,
+  ColorType.blue,
+  ColorType.dusk,
+  ColorType.purple,
 ];
 
 class Ledger {
@@ -93,10 +93,6 @@ class Ledger {
 
   @override
   String toString() {
-    return 'title: $title, color: ${color.toString()}, ' +
-        'description: $description, people: $people, ownerId: $ownerId, ' +
-        'adminIds: $adminIds, ' +
-        'items: ${items.toString()}, currency: ${currency.toString()}, ' +
-        'createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt';
+    return 'title: $title, color: ${color.toString()}, description: $description, people: $people, ownerId: $ownerId, adminIds: $adminIds, items: ${items.toString()}, currency: ${currency.toString()}, createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt';
   }
 }

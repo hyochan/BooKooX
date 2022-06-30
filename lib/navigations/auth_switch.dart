@@ -12,12 +12,14 @@ import 'package:wecount/utils/localization.dart';
 class AuthSwitch extends StatelessWidget {
   static const String name = '/auth_switch';
 
+  const AuthSwitch({Key? key}) : super(key: key);
+
   Widget renderMainLedger(User user) {
     final DatabaseService db = DatabaseService();
 
     return StreamProvider<List<Ledger>>.value(
       value: db.streamMyLedgers(user),
-      initialData: [],
+      initialData: const [],
       child: Consumer<List<Ledger>>(
         builder: (context, ledgers, child) {
           return FutureBuilder(
@@ -25,7 +27,7 @@ class AuthSwitch extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (ledgers.isEmpty) {
-                  return MainEmpty();
+                  return const MainEmpty();
                 }
 
                 if (snapshot.hasData) {
@@ -35,7 +37,7 @@ class AuthSwitch extends StatelessWidget {
                   });
                 }
 
-                return HomeTab();
+                return const HomeTab();
               }
 
               return Scaffold(
@@ -44,7 +46,8 @@ class AuthSwitch extends StatelessWidget {
                     semanticsLabel: t('LOADING'),
                     backgroundColor: Theme.of(context).primaryColor,
                     strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 ),
               );
@@ -63,6 +66,6 @@ class AuthSwitch extends StatelessWidget {
       return renderMainLedger(user);
     }
 
-    return Tutorial();
+    return const Tutorial();
   }
 }

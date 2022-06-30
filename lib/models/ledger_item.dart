@@ -48,7 +48,7 @@ class LedgerItem {
 
   @override
   String toString() {
-    return this.toMap().toString();
+    return toMap().toString();
   }
 
   /// specific function for condense() at homeStatistic
@@ -58,14 +58,17 @@ class LedgerItem {
   /// that means this is basically same with making new LedgerItem but less code
   LedgerItem createRoughCopy() {
     return LedgerItem(
-      price: this.price,
+      price: price,
       category: Category(
-        iconId: this.category!.iconId,
-        label: this.category!.label,
-        type: this.category!.type,
+        iconId: category!.iconId,
+        label: category!.label,
+        type: category!.type,
       ),
-      selectedDate: DateTime(this.selectedDate!.year, this.selectedDate!.month,
-          this.selectedDate!.day),
+      selectedDate: DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+      ),
     );
   }
 }

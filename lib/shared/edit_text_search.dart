@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class EditTextSearch extends StatelessWidget {
   const EditTextSearch({
+    Key? key,
     this.controller,
     this.txtLabel,
     this.txtHint,
@@ -25,71 +26,71 @@ class EditTextSearch extends StatelessWidget {
     this.textInputAction,
     this.keyboardType = TextInputType.text,
     this.maxLength,
-  });
+  }) : super(key: key);
 
   final TextEditingController? controller;
-  final txtLabel;
-  final txtHint;
-  final txtHintStyle;
-  final decoration;
+  final String? txtLabel;
+  final String? txtHint;
+  final TextStyle? txtHintStyle;
+  final Decoration? decoration;
   final ValueChanged<String>? onChanged;
-  final onSubmit;
-  final secure;
-  final txtStyle;
-  final borderRadius;
-  final margin;
-  final padding;
-  final underline;
-  final background;
-  final enabled;
-  final height;
-  final width;
-  final textInputAction;
-  final keyboardType;
+  final void Function(String)? onSubmit;
+  final bool secure;
+  final TextStyle txtStyle;
+  final double borderRadius;
+  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry padding;
+  final bool underline;
+  final Color background;
+  final bool enabled;
+  final double? height;
+  final double width;
+  final TextInputAction? textInputAction;
+  final TextInputType keyboardType;
   final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
-    var inputDecoration;
-    if (this.underline) {
+    InputDecoration inputDecoration;
+    if (underline) {
       inputDecoration = InputDecoration(
-        hintText: this.txtHint,
-        labelText: this.txtLabel,
-        hintStyle: this.txtHintStyle,
+        hintText: txtHint,
+        labelText: txtLabel,
+        hintStyle: txtHintStyle,
       );
     } else {
       inputDecoration = InputDecoration(
-        hintText: this.txtHint,
-        labelText: this.txtLabel,
-        hintStyle: this.txtHintStyle,
+        hintText: txtHint,
+        labelText: txtLabel,
+        hintStyle: txtHintStyle,
         border: InputBorder.none,
       );
     }
     return Stack(
+      alignment: Alignment.center,
       children: <Widget>[
         Container(
-          margin: this.margin,
-          height: this.height,
-          width: this.width,
-          decoration: this.decoration,
+          margin: margin,
+          height: height,
+          width: width,
+          decoration: decoration,
         ),
         Container(
-          margin: this.padding,
+          margin: padding,
           child: TextField(
-            maxLength: this.maxLength,
-            onSubmitted: this.onSubmit,
-            keyboardType: this.keyboardType,
+            maxLength: maxLength,
+            onSubmitted: onSubmit,
+            keyboardType: keyboardType,
 //            textInputAction: this.textInputAction != null ? this.textInputAction : TextInputAction.done,
-            enabled: this.enabled,
-            controller: this.controller,
-            style: this.txtStyle,
-            onChanged: this.onChanged,
+            enabled: enabled,
+            controller: controller,
+            style: txtStyle,
+            onChanged: onChanged,
             decoration: inputDecoration,
             autocorrect: false,
           ),
         ),
       ],
-      alignment: Alignment.center,
     );
   }
 }

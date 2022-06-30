@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:flutter\_localizations/flutter\_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +44,7 @@ import './screens/tutorial.dart' show Tutorial;
 
 void main() async {
   await _initFire();
-  runApp(Wecount());
+  runApp(const Wecount());
   _fcmListeners();
 }
 
@@ -101,6 +101,8 @@ Locale _setupLocale(
 class Wecount extends StatelessWidget {
   static const supportedLocales = ['en', 'ko'];
 
+  const Wecount({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -119,39 +121,40 @@ class Wecount extends StatelessWidget {
         darkTheme: Themes.dark,
         themeMode: ThemeMode.system,
         routes: {
-          AuthSwitch.name: (BuildContext context) => AuthSwitch(),
-          Splash.name: (BuildContext context) => Splash(),
-          Tutorial.name: (BuildContext context) => Tutorial(),
-          Intro.name: (BuildContext context) => Intro(),
-          SignIn.name: (BuildContext context) => SignIn(),
-          SignUp.name: (BuildContext context) => SignUp(),
-          FindPw.name: (BuildContext context) => FindPw(),
-          MainEmpty.name: (BuildContext context) => MainEmpty(),
-          HomeTab.name: (BuildContext context) => HomeTab(),
-          Ledgers.name: (BuildContext context) => Ledgers(),
-          LedgerEdit.name: (BuildContext context) => LedgerEdit(),
-          LedgerView.name: (BuildContext context) => LedgerView(),
-          Terms.name: (BuildContext context) => Terms(),
-          ProfileMy.name: (BuildContext context) => ProfileMy(),
-          Setting.name: (BuildContext context) => Setting(),
+          AuthSwitch.name: (BuildContext context) => const AuthSwitch(),
+          Splash.name: (BuildContext context) => const Splash(),
+          Tutorial.name: (BuildContext context) => const Tutorial(),
+          Intro.name: (BuildContext context) => const Intro(),
+          SignIn.name: (BuildContext context) => const SignIn(),
+          SignUp.name: (BuildContext context) => const SignUp(),
+          FindPw.name: (BuildContext context) => const FindPw(),
+          MainEmpty.name: (BuildContext context) => const MainEmpty(),
+          HomeTab.name: (BuildContext context) => const HomeTab(),
+          Ledgers.name: (BuildContext context) => const Ledgers(),
+          LedgerEdit.name: (BuildContext context) => const LedgerEdit(),
+          LedgerView.name: (BuildContext context) => const LedgerView(),
+          Terms.name: (BuildContext context) => const Terms(),
+          ProfileMy.name: (BuildContext context) => const ProfileMy(),
+          Setting.name: (BuildContext context) => const Setting(),
           SettingAnnouncement.name: (BuildContext context) =>
-              SettingAnnouncement(),
-          SettingOpinion.name: (BuildContext context) => SettingOpinion(),
-          SettingFAQ.name: (BuildContext context) => SettingFAQ(),
+              const SettingAnnouncement(),
+          SettingOpinion.name: (BuildContext context) => const SettingOpinion(),
+          SettingFAQ.name: (BuildContext context) => const SettingFAQ(),
           SettingNotification.name: (BuildContext context) =>
-              SettingNotification(),
-          LedgerItemEdit.name: (BuildContext context) => LedgerItemEdit(),
-          SettingCurrency.name: (BuildContext context) => SettingCurrency(),
-          SettingExcel.name: (BuildContext context) => SettingExcel(),
-          LockRegister.name: (BuildContext context) => LockRegister(),
-          LockAuth.name: (BuildContext context) => LockAuth(),
-          LineGraph.name: (BuildContext context) => LineGraph(),
+              const SettingNotification(),
+          LedgerItemEdit.name: (BuildContext context) => const LedgerItemEdit(),
+          SettingCurrency.name: (BuildContext context) =>
+              const SettingCurrency(),
+          SettingExcel.name: (BuildContext context) => const SettingExcel(),
+          LockRegister.name: (BuildContext context) => const LockRegister(),
+          LockAuth.name: (BuildContext context) => const LockAuth(),
+          LineGraph.name: (BuildContext context) => const LineGraph(),
         },
         supportedLocales: const [
           Locale('en', 'US'),
           Locale('ko', 'KR'),
         ],
-        localizationsDelegates: [
+        localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
@@ -159,7 +162,7 @@ class Wecount extends StatelessWidget {
         ],
         localeResolutionCallback: _setupLocale,
         title: appName,
-        home: AuthSwitch(),
+        home: const AuthSwitch(),
       ),
     );
   }

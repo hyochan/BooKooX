@@ -11,14 +11,13 @@ import 'package:wecount/shared/date_selector.dart' show DateSelector;
 import 'package:wecount/shared/home_header.dart' show renderHomeAppBar;
 import 'package:wecount/shared/home_list_item.dart';
 import 'package:wecount/types/color.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/localization.dart';
 
 import '../../utils/colors.dart';
 
 class HomeStatistic extends StatelessWidget {
-  HomeStatistic({
+  const HomeStatistic({
     Key? key,
     this.title = '대학 하계 MT',
   }) : super(key: key);
@@ -28,23 +27,23 @@ class HomeStatistic extends StatelessWidget {
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.DUSK;
+        : ColorType.dusk;
 
     return Scaffold(
       appBar: renderHomeAppBar(
         context: context,
-        title: this.title,
+        title: title,
         color: getColor(color),
         fontColor: Colors.white,
         actions: [
-          Container(
+          SizedBox(
             width: 56.0,
             child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
+              padding: const EdgeInsets.all(0.0),
+              shape: const CircleBorder(),
               onPressed: () => General.instance
                   .navigateScreenNamed(context, '/ledger_item_edit'),
-              child: Icon(
+              child: const Icon(
                 Icons.add,
                 color: Colors.white,
               ),
@@ -53,11 +52,9 @@ class HomeStatistic extends StatelessWidget {
         ],
       ),
       backgroundColor: Theme.of(context).backgroundColor,
-      body: SafeArea(
-        child: Container(
-          child: Center(
-            child: Content(),
-          ),
+      body: const SafeArea(
+        child: Center(
+          child: Content(),
         ),
       ),
     );
@@ -65,10 +62,10 @@ class HomeStatistic extends StatelessWidget {
 }
 
 class Content extends StatefulWidget {
-  Content({Key? key}) : super(key: key);
+  const Content({Key? key}) : super(key: key);
 
   @override
-  _ContentState createState() => _ContentState();
+  State<Content> createState() => _ContentState();
 }
 
 class _ContentState extends State<Content> {
@@ -78,8 +75,8 @@ class _ContentState extends State<Content> {
   /// State
   DateTime _date = DateTime.now();
   List<LedgerItem> _condensedLedgerList = [];
-  Map<String, double>? _dataMapIncome = Map();
-  Map<String, double>? _dataMapExpense = Map();
+  Map<String, double>? _dataMapIncome = {};
+  Map<String, double>? _dataMapExpense = {};
   int? _selectedChart;
 
   List<Color> colorList = [
@@ -98,8 +95,8 @@ class _ContentState extends State<Content> {
     Future.delayed(Duration.zero, () {
       _ledgerList = createHomeStatisticMock();
 
-      calculateAndRender(this._date.month.toString(), _ledgerList);
-      this.setState(() => this._selectedChart = 1);
+      calculateAndRender(_date.month.toString(), _ledgerList);
+      setState(() => _selectedChart = 1);
     });
   }
 
@@ -111,10 +108,10 @@ class _ContentState extends State<Content> {
     var result = splitLedgers(condensedLedgerList);
     // ledgerList.addAll(normalIncomeList(localization, 10));
 
-    this.setState(() {
-      this._condensedLedgerList = condensedLedgerList;
-      this._dataMapIncome = result['income'];
-      this._dataMapExpense = result['expense'];
+    setState(() {
+      _condensedLedgerList = condensedLedgerList;
+      _dataMapIncome = result['income'];
+      _dataMapExpense = result['expense'];
     });
   }
 
@@ -122,26 +119,26 @@ class _ContentState extends State<Content> {
   Widget build(BuildContext context) {
     /// Month select Widget -> select month, set _date and calculate
     void onDatePressed() async {
-      int year = this._date.year;
+      int year = _date.year;
       int prevDate = year - 100;
       int lastDate = year + 10;
       DateTime? pickDate = await showMonthPicker(
         context: context,
-        initialDate: this._date,
+        initialDate: _date,
         firstDate: DateTime(prevDate),
         lastDate: DateTime(lastDate),
       );
       if (pickDate != null) {
-        this.setState(() => this._date = pickDate);
-        calculateAndRender(this._date.month.toString(), _ledgerList);
+        setState(() => _date = pickDate);
+        calculateAndRender(_date.month.toString(), _ledgerList);
       }
     }
 
     Map<String, double> dataMap =
-        this._selectedChart == 1 ? this._dataMapIncome! : this._dataMapExpense!;
+        _selectedChart == 1 ? _dataMapIncome! : _dataMapExpense!;
 
     /// PieChart throws error when `_dataMap` is empty
-    var chartWidget = dataMap.length > 0
+    var chartWidget = dataMap.isNotEmpty
         ? PieChart(
             dataMap: dataMap,
             centerTextStyle: TextStyle(
@@ -149,7 +146,7 @@ class _ContentState extends State<Content> {
               fontSize: 14,
               color: Theme.of(context).textTheme.headline1!.color,
             ),
-            animationDuration: Duration(milliseconds: 800),
+            animationDuration: const Duration(milliseconds: 800),
             chartLegendSpacing: 32.0,
             chartRadius: MediaQuery.of(context).size.width / 2.7,
             // showChartValuesInPercentage: true,
@@ -160,26 +157,24 @@ class _ContentState extends State<Content> {
             // showLegends: true,
             // decimalPlaces: 1,
           )
-        : Container(
-            child: Flex(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(20),
-                ),
-                Text(
-                  t('NO_DATA'),
-                  style: TextStyle(),
-                ),
-              ],
-              direction: Axis.vertical,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-            ),
+        : Flex(
+            direction: Axis.vertical,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(20),
+              ),
+              Text(
+                t('NO_DATA'),
+                style: const TextStyle(),
+              ),
+            ],
           );
 
     var bottomListWidget = ListView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       itemCount: _condensedLedgerList.length,
       itemBuilder: (BuildContext context, int index) {
@@ -190,7 +185,7 @@ class _ContentState extends State<Content> {
     return SafeArea(
       top: false,
       child: Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 5.0,
           bottom: 16.0,
           left: 16.0,
@@ -205,16 +200,16 @@ class _ContentState extends State<Content> {
             ),
             ButtonGroup(
               onButtonOnePressed: () {
-                this.setState(() {
-                  this._selectedChart = 1;
+                setState(() {
+                  _selectedChart = 1;
                 });
               },
               onButtonTwoPressed: () {
-                this.setState(() {
-                  this._selectedChart = 2;
+                setState(() {
+                  _selectedChart = 2;
                 });
               },
-              selected: this._selectedChart,
+              selected: _selectedChart,
             ),
             chartWidget,
             bottomListWidget,
@@ -226,11 +221,11 @@ class _ContentState extends State<Content> {
 }
 
 class ButtonGroup extends StatelessWidget {
-  final selected;
+  final int? selected;
   final Function onButtonOnePressed;
   final Function onButtonTwoPressed;
 
-  ButtonGroup(
+  const ButtonGroup(
       {Key? key,
       required this.selected,
       required this.onButtonOnePressed,
@@ -240,13 +235,13 @@ class ButtonGroup extends StatelessWidget {
   final width = 300;
   final double buttonHeight = 30;
   final selectedColorText = Colors.white;
-  final Radius borderRadius = Radius.circular(5.0);
+  final Radius borderRadius = const Radius.circular(5.0);
 
   @override
   Widget build(BuildContext context) {
     Color selectedColor = Theme.of(context).primaryColor;
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       height: 40,
       width: double.infinity,
       child: Row(
@@ -255,20 +250,20 @@ class ButtonGroup extends StatelessWidget {
           Expanded(
             child: ButtonTheme(
               height: buttonHeight,
+              // ignore: deprecated_member_use
               child: RaisedButton(
-                color: this.selected == 1 ? selectedColor : Colors.white,
-                onPressed: this.onButtonOnePressed as void Function()?,
-                child: Text(
-                  t("INCOME"),
-                  style: TextStyle(
-                    color:
-                        this.selected == 1 ? selectedColorText : Colors.black,
-                  ),
-                ),
+                color: selected == 1 ? selectedColor : Colors.white,
+                onPressed: onButtonOnePressed as void Function()?,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topLeft: borderRadius, bottomLeft: borderRadius),
                   side: BorderSide(color: Theme.of(context).primaryColor),
+                ),
+                child: Text(
+                  t("INCOME"),
+                  style: TextStyle(
+                    color: selected == 1 ? selectedColorText : Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -276,20 +271,20 @@ class ButtonGroup extends StatelessWidget {
           Expanded(
             child: ButtonTheme(
               height: buttonHeight,
+              // ignore: deprecated_member_use
               child: RaisedButton(
-                color: this.selected == 2 ? selectedColor : Colors.white,
-                onPressed: this.onButtonTwoPressed as void Function()?,
-                child: Text(
-                  t("CONSUME"),
-                  style: TextStyle(
-                    color:
-                        this.selected == 2 ? selectedColorText : Colors.black,
-                  ),
-                ),
+                color: selected == 2 ? selectedColor : Colors.white,
+                onPressed: onButtonTwoPressed as void Function()?,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topRight: borderRadius, bottomRight: borderRadius),
                   side: BorderSide(color: Theme.of(context).primaryColor),
+                ),
+                child: Text(
+                  t("CONSUME"),
+                  style: TextStyle(
+                    color: selected == 2 ? selectedColorText : Colors.black,
+                  ),
                 ),
               ),
             ),

@@ -3,10 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image/image.dart' as Im;
+import 'package:image/image.dart' as i;
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/shared/dialog_spinner.dart';
 import 'package:wecount/utils/localization.dart';
+
+import 'logger.dart';
 
 class General {
   static final General instance = General();
@@ -49,7 +51,7 @@ class General {
     Get.dialog(
       DialogSpinner(
         textStyle: textStyle,
-        text: text != null ? text : t('LOADING'),
+        text: text ?? t('LOADING'),
       ),
     );
   }
@@ -61,12 +63,12 @@ class General {
     required Widget content,
     Function? onPress,
   }) {
-    TextStyle _btnTextStyle = TextStyle(
+    TextStyle btnTextStyle = TextStyle(
       color: Theme.of(context).textTheme.headline1!.color,
       fontSize: 16,
     );
 
-    showDialog<Null>(
+    showDialog<void>(
       context: context,
       barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
@@ -74,10 +76,11 @@ class General {
           title: title,
           content: content,
           actions: <Widget>[
+            // ignore: deprecated_member_use
             FlatButton(
               child: Text(
                 t('OK'),
-                style: _btnTextStyle,
+                style: btnTextStyle,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -98,11 +101,11 @@ class General {
     Function? okPressed,
     Function? cancelPressed,
   }) {
-    TextStyle _btnTextStyle = TextStyle(
+    TextStyle btnTextStyle = TextStyle(
       color: Theme.of(context).textTheme.headline1!.color,
       fontSize: 16,
     );
-    showDialog<Null>(
+    showDialog<void>(
       context: context,
       barrierDismissible: barrierDismissible, // user must tap button!
       builder: (BuildContext context) {
@@ -110,18 +113,20 @@ class General {
           title: title,
           content: content,
           actions: <Widget>[
+            // ignore: deprecated_member_use
             FlatButton(
+              onPressed: okPressed as void Function()?,
               child: Text(
                 t('OK'),
-                style: _btnTextStyle,
+                style: btnTextStyle,
               ),
-              onPressed: okPressed as void Function()?,
             ),
+            // ignore: deprecated_member_use
             FlatButton(
               onPressed: cancelPressed as void Function()?,
               child: Text(
                 t('CANCEL'),
-                style: _btnTextStyle,
+                style: btnTextStyle,
               ),
             )
           ],
@@ -139,7 +144,7 @@ class General {
           title: Text(t('MEMBERSHIP_CHANGE')),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
-              return Container(
+              return SizedBox(
                 height: 200,
                 child: Column(
                   children: <Widget>[
@@ -174,7 +179,7 @@ class General {
   void showSnackBar(BuildContext context, String str, String btnStr) {
     var snackBar = SnackBar(
       content: Text(str),
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
       action: SnackBarAction(
         label: btnStr,
         onPressed: () {
@@ -182,6 +187,7 @@ class General {
         },
       ),
     );
+    // ignore: deprecated_member_use
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
@@ -191,37 +197,36 @@ class General {
         context: context,
         builder: (builder) {
           return Container(
-            color: Color.fromRGBO(240, 240, 240, 1.0),
+            color: const Color.fromRGBO(240, 240, 240, 1.0),
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 var datum =
                     '${dates[index].year}/${dates[index].month}/${dates[index].day}';
-                return Container(
-                  child: FlatButton(
-                    onPressed: () {
-                      // callback(datum);
-                      Navigator.of(context).pop();
-                    },
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          height: 64.0,
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Center(
-                            child: Text(
-                              datum,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: "AppleSDGothicNeo",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 18.0,
-                              ),
+                // ignore: deprecated_member_use
+                return FlatButton(
+                  onPressed: () {
+                    // callback(datum);
+                    Navigator.of(context).pop();
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        height: 64.0,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Center(
+                          child: Text(
+                            datum,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "AppleSDGothicNeo",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18.0,
                             ),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 );
               },
@@ -245,7 +250,7 @@ class General {
           : await picker.pickImage(source: ImageSource.gallery);
       return imgFile;
     } catch (err) {
-      print('chooseImage err $err');
+      logger.d('chooseImage err $err');
       return null;
     } finally {
       Navigator.pop(context);
@@ -253,8 +258,8 @@ class General {
   }
 
   File compressImage(File img, {int size = 500}) {
-    Im.Image image = Im.decodeImage(img.readAsBytesSync())!;
-    Im.Image smallerImage = Im.copyResize(image, width: size, height: size);
+    i.Image image = i.decodeImage(img.readAsBytesSync())!;
+    i.Image smallerImage = i.copyResize(image, width: size, height: size);
     return smallerImage as File;
   }
 }

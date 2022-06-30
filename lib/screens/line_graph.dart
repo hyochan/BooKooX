@@ -11,6 +11,7 @@ import '../utils/localization.dart';
 
 double getPriceSum(List<LedgerItem> items) {
   double sum = 0;
+  // ignore: avoid_function_literals_in_foreach_calls
   items.forEach((item) {
     sum += item.price!.abs();
   });
@@ -21,7 +22,7 @@ double getPriceSum(List<LedgerItem> items) {
 class LineGraph extends StatefulWidget {
   static const String name = '/line_graph';
 
-  LineGraph({
+  const LineGraph({
     Key? key,
     this.title = '',
     this.year = '2019',
@@ -30,7 +31,7 @@ class LineGraph extends StatefulWidget {
   final String year;
 
   @override
-  _LineGraphState createState() => _LineGraphState();
+  State<LineGraph> createState() => _LineGraphState();
 }
 
 class _LineGraphState extends State<LineGraph> {
@@ -43,10 +44,10 @@ class _LineGraphState extends State<LineGraph> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      this.setState(() {
-        this._items = createMockCafeList();
-        this._selectedItems = this._items;
-        this._priceSum = getPriceSum(this._items);
+      setState(() {
+        _items = createMockCafeList();
+        _selectedItems = _items;
+        _priceSum = getPriceSum(_items);
       });
     });
   }
@@ -55,16 +56,17 @@ class _LineGraphState extends State<LineGraph> {
   /// set bottom list to show selected month, total expenditure and its list
   void handleClickGraph({required int month, required double sumOfPrice}) {
     List<LedgerItem> itemsOfThisMonth = [];
-    this._items.forEach((item) {
+    // ignore: avoid_function_literals_in_foreach_calls
+    _items.forEach((item) {
       if (item.selectedDate!.month == month) {
         itemsOfThisMonth.add(item);
       }
     });
 
-    this.setState(() {
-      this._selectedMonth = month;
-      this._selectedItems = itemsOfThisMonth;
-      this._priceSum = sumOfPrice;
+    setState(() {
+      _selectedMonth = month;
+      _selectedItems = itemsOfThisMonth;
+      _priceSum = sumOfPrice;
     });
   }
 
@@ -92,20 +94,19 @@ class _LineGraphState extends State<LineGraph> {
                 ),
               ),
             ),
-            this._items.length != 0
-                ? LineGraphChart(
-                    items: this._items, onSelectMonth: this.handleClickGraph)
+            _items.isNotEmpty
+                ? LineGraphChart(items: _items, onSelectMonth: handleClickGraph)
                 : Container(),
-            this._selectedMonth != 0
+            _selectedMonth != 0
                 ? BottomListTitle(
                     date: DateFormat('yMMM').format(
-                        DateTime(int.parse(widget.year), this._selectedMonth)),
-                    price: this._priceSum)
+                        DateTime(int.parse(widget.year), _selectedMonth)),
+                    price: _priceSum)
                 : BottomListTitle(
                     date: DateFormat('y')
                         .format(DateTime(int.parse(widget.year))),
-                    price: this._priceSum),
-            Divider(
+                    price: _priceSum),
+            const Divider(
               color: Colors.grey,
               height: 1,
               indent: 40,
@@ -113,11 +114,12 @@ class _LineGraphState extends State<LineGraph> {
             ),
             ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
-              itemCount: this._selectedItems.length,
+              physics: const NeverScrollableScrollPhysics(),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
+              itemCount: _selectedItems.length,
               itemBuilder: (context, index) {
-                final item = this._selectedItems[index];
+                final item = _selectedItems[index];
                 return bottomItemWidget(
                   date: DateFormat('yyyy-MM-dd').format(item.selectedDate!),
                   price: item.price!.abs(),
@@ -135,7 +137,7 @@ Widget headerAlign({required Widget child}) {
   return Align(
     alignment: Alignment.centerLeft,
     child: Container(
-      padding: EdgeInsets.only(left: 30),
+      padding: const EdgeInsets.only(left: 30),
       child: child,
     ),
   );
@@ -148,14 +150,13 @@ class BottomListTitle extends StatelessWidget {
   final FontWeight fontWeight = FontWeight.w500;
 
   BottomListTitle({Key? key, required this.date, required price})
-      : this.formattedPrice =
-            NumberFormat.simpleCurrency().format(price ?? 0.0),
+      : formattedPrice = NumberFormat.simpleCurrency().format(price ?? 0.0),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
       child: ListTile(
         leading: Text(
           date.toString(),

@@ -19,10 +19,10 @@ import 'package:provider/provider.dart' show Provider;
 class Ledgers extends StatefulWidget {
   static const String name = '/ledgers';
 
-  Ledgers({Key? key}) : super(key: key);
+  const Ledgers({Key? key}) : super(key: key);
 
   @override
-  _LedgersState createState() => _LedgersState();
+  State<Ledgers> createState() => _LedgersState();
 }
 
 class _LedgersState extends State<Ledgers> {
@@ -49,7 +49,7 @@ class _LedgersState extends State<Ledgers> {
         MaterialPageRoute(
           builder: (BuildContext context) => item.ownerId != user.uid
               ? LedgerView(ledger: item)
-              : LedgerEdit(ledger: item, mode: LedgerEditMode.UPDATE),
+              : LedgerEdit(ledger: item, mode: LedgerEditMode.update),
         ),
       );
     }
@@ -64,11 +64,11 @@ class _LedgersState extends State<Ledgers> {
         context: context,
         brightness: Theme.of(context).brightness,
         actions: [
-          Container(
+          SizedBox(
             width: 56.0,
             child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
+              padding: const EdgeInsets.all(0.0),
+              shape: const CircleBorder(),
               onPressed: onSettingPressed,
               child: Icon(
                 Icons.settings,
@@ -92,9 +92,7 @@ class _LedgersState extends State<Ledgers> {
                   return ProfileListItem(
                     email: profile.email ?? '',
                     displayName: profile.displayName ?? '',
-                    imgStr: profile.thumbURL != null
-                        ? profile.thumbURL
-                        : profile.photoURL,
+                    imgStr: profile.thumbURL ?? profile.photoURL,
                     onTap: onProfilePressed,
                   );
                 }),
@@ -124,27 +122,27 @@ class _LedgersState extends State<Ledgers> {
                 return Container();
               },
             ),
-            Divider(
+            const Divider(
               color: Color.fromARGB(255, 220, 226, 235),
               height: 1,
             ),
-            Container(
+            SizedBox(
               height: 68.0,
               child: TextButton(
                 onPressed: onAddLedgerPressed,
                 // padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Row(
                   children: <Widget>[
-                    Icon(
+                    const Icon(
                       Icons.add,
                       color: mediumGrayColor,
                       size: 24.0,
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 20.0),
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
                         t('ADD_LEDGER'),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: mediumGrayColor,
                           fontSize: 20.0,
                         ),

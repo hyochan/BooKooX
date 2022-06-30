@@ -3,50 +3,55 @@ import 'package:wecount/models/category.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatefulWidget {
-  CategoryItem({
-    this.key,
+  const CategoryItem({
+    Key? key,
     required this.category,
     this.onSelectPressed,
     this.onDeletePressed,
-  });
-  final Key? key;
+  }) : super(key: key);
+
   final Category category;
   final Function? onDeletePressed;
   final Function? onSelectPressed;
 
   @override
-  _CategoryItemState createState() => _CategoryItemState(category);
+  State<CategoryItem> createState() => _CategoryItemState();
 }
 
 class _CategoryItemState extends State<CategoryItem> {
-  _CategoryItemState(this.category);
-  Category category;
+  late Category _category;
+
+  @override
+  void initState() {
+    _category = widget.category;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10, left: 8),
+      margin: const EdgeInsets.only(top: 10, bottom: 10, left: 8),
       child: InkWell(
         onTap: () {
           widget.onSelectPressed!();
         },
         onLongPress: () => setState(() {
-          category.showDelete = !category.showDelete;
+          _category.showDelete = !_category.showDelete;
         }),
         child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
                 Image(
-                  image: category.getIconImage()!,
+                  image: _category.getIconImage()!,
                   width: 72,
                   height: 72,
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 8),
+                  margin: const EdgeInsets.only(top: 8),
                   width: 80,
                   child: AutoSizeText(
-                    category.label ?? '',
+                    _category.label ?? '',
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.headline1!.color,
@@ -60,9 +65,9 @@ class _CategoryItemState extends State<CategoryItem> {
             Positioned(
               right: 0,
               top: 0,
-              child: category.showDelete
+              child: _category.showDelete
                   ? Container(
-                      padding: EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(2),
                       child: InkWell(
                         onTap: widget.onDeletePressed as void Function()?,
                         child: ClipOval(

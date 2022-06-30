@@ -14,10 +14,10 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 class FindPw extends StatefulWidget {
   static const String name = '/find_pw';
 
-  FindPw({Key? key}) : super(key: key);
+  const FindPw({Key? key}) : super(key: key);
 
   @override
-  _FindPwState createState() => _FindPwState();
+  State<FindPw> createState() => _FindPwState();
 }
 
 class _FindPwState extends State<FindPw> {
@@ -39,6 +39,7 @@ class _FindPwState extends State<FindPw> {
 
     try {
       await _auth.sendPasswordResetEmail(email: _email);
+      // ignore: use_build_context_synchronously
       General.instance.showSingleDialog(
         context,
         title: Text(t('SUCCESS')),
@@ -66,9 +67,9 @@ class _FindPwState extends State<FindPw> {
 
     Widget emailField() {
       return EditText(
-        key: Key('email'),
+        key: const Key('email'),
         errorText: _errorEmail,
-        margin: EdgeInsets.only(top: 68.0),
+        margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
         textLabel: t('EMAIL'),
         textHint: t('EMAIL_HINT'),
@@ -90,10 +91,10 @@ class _FindPwState extends State<FindPw> {
 
     Widget sendButton() {
       return Button(
-        key: Key('sendButton'),
+        key: const Key('sendButton'),
         onPress: _findPw,
-        margin: EdgeInsets.only(top: 28.0, bottom: 8.0),
-        textStyle: TextStyle(
+        margin: const EdgeInsets.only(top: 28.0, bottom: 8.0),
+        textStyle: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
         ),
@@ -109,7 +110,6 @@ class _FindPwState extends State<FindPw> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        brightness: Theme.of(context).brightness,
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(

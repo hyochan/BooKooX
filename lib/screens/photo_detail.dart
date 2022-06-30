@@ -9,7 +9,7 @@ import 'package:wecount/models/photo.dart';
 import '../utils/localization.dart';
 
 class PhotoDetail extends StatefulWidget {
-  PhotoDetail({
+  const PhotoDetail({
     Key? key,
     this.photo,
     this.photoUrl,
@@ -18,6 +18,7 @@ class PhotoDetail extends StatefulWidget {
     this.onPressShare,
     this.onPressDownload,
   }) : super(key: key);
+
   final Photo? photo;
   final String? photoUrl;
   final bool canShare;
@@ -26,10 +27,10 @@ class PhotoDetail extends StatefulWidget {
   final Function? onPressDownload;
 
   @override
-  _State createState() => _State();
+  State<PhotoDetail> createState() => _PhotoDetail();
 }
 
-class _State extends State<PhotoDetail> {
+class _PhotoDetail extends State<PhotoDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +45,7 @@ class _State extends State<PhotoDetail> {
                       ? FileImage(File(widget.photo!.file!.path))
                       : (widget.photo != null && widget.photo!.url != null
                               ? NetworkImage(widget.photo!.url!)
-                              : AssetImage('res/icons/icMask.png'))
+                              : const AssetImage('res/icons/icMask.png'))
                           as ImageProvider<Object>?,
               minScale: PhotoViewComputedScale.contained * 0.8,
               maxScale: 4.0,
@@ -55,12 +56,12 @@ class _State extends State<PhotoDetail> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: 60.0,
                     height: 60.0,
                     child: RawMaterialButton(
-                      padding: EdgeInsets.all(0.0),
-                      shape: CircleBorder(),
+                      padding: const EdgeInsets.all(0.0),
+                      shape: const CircleBorder(),
                       onPressed: () => Navigator.of(context).pop(),
                       child: Icon(
                         Icons.close,
@@ -74,7 +75,7 @@ class _State extends State<PhotoDetail> {
             ),
             Positioned(
               bottom: 0.0,
-              child: Container(
+              child: SizedBox(
                 height: 56,
                 width: MediaQuery.of(context).size.width,
                 child: Row(
@@ -83,15 +84,15 @@ class _State extends State<PhotoDetail> {
                       : MainAxisAlignment.center,
                   children: <Widget>[
                     widget.canShare
-                        ? Container(
+                        ? SizedBox(
                             width: 60.0,
                             height: 60.0,
                             child: RawMaterialButton(
-                              padding: EdgeInsets.all(0.0),
-                              shape: CircleBorder(),
+                              padding: const EdgeInsets.all(0.0),
+                              shape: const CircleBorder(),
                               onPressed:
                                   widget.onPressDownload as void Function()?,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.file_download,
                                 color: Colors.white,
                               ),
@@ -99,15 +100,15 @@ class _State extends State<PhotoDetail> {
                           )
                         : Container(),
                     widget.canShare
-                        ? Container(
+                        ? SizedBox(
                             width: 60.0,
                             height: 60.0,
                             child: RawMaterialButton(
-                              padding: EdgeInsets.all(0.0),
-                              shape: CircleBorder(),
+                              padding: const EdgeInsets.all(0.0),
+                              shape: const CircleBorder(),
                               onPressed:
                                   widget.onPressShare as void Function()?,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.share,
                                 color: Colors.white,
                               ),
@@ -115,15 +116,15 @@ class _State extends State<PhotoDetail> {
                           )
                         : Container(),
                     widget.onPressDelete != null
-                        ? Container(
+                        ? SizedBox(
                             width: 60.0,
                             height: 60.0,
                             child: RawMaterialButton(
-                              padding: EdgeInsets.all(0.0),
-                              shape: CircleBorder(),
+                              padding: const EdgeInsets.all(0.0),
+                              shape: const CircleBorder(),
                               onPressed:
                                   widget.onPressDelete as void Function()?,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.delete,
                                 color: Colors.white,
                               ),

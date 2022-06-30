@@ -19,21 +19,27 @@ class LedgerView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LedgerViewState createState() => _LedgerViewState(ledger);
+  State<LedgerView> createState() => _LedgerViewState();
 }
 
 class _LedgerViewState extends State<LedgerView> {
   late Ledger _ledger;
 
-  _LedgerViewState(Ledger? ledger) {
-    if (ledger != null) {
-      _ledger = ledger;
-      return;
+  @override
+  initState() {
+    _ledger = _setLedger();
+    super.initState();
+  }
+
+  _setLedger() {
+    if (widget.ledger != null) {
+      return widget.ledger!;
     }
-    _ledger = Ledger(
+
+    return Ledger(
       title: 'ledger test',
-      currency: Currency(currency: '\￦', locale: 'KRW'),
-      color: ColorType.DUSK,
+      currency: Currency(currency: '￦', locale: 'KRW'),
+      color: ColorType.dusk,
     );
   }
 
@@ -50,7 +56,7 @@ class _LedgerViewState extends State<LedgerView> {
         child: ListView(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 40, left: 40, right: 40),
+              margin: const EdgeInsets.only(top: 40, left: 40, right: 40),
               child: TextField(
                 enabled: false,
                 maxLines: 2,
@@ -62,19 +68,20 @@ class _LedgerViewState extends State<LedgerView> {
                   hintMaxLines: 2,
                   border: InputBorder.none,
                   hintText: t('LEDGER_NAME_HINT'),
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontSize: 28.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
                   ),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 28.0,
                   color: Colors.white,
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 24, left: 40, right: 40, bottom: 20),
+              margin: const EdgeInsets.only(
+                  top: 24, left: 40, right: 40, bottom: 20),
               height: 160,
               child: TextField(
                 enabled: false,
@@ -87,30 +94,30 @@ class _LedgerViewState extends State<LedgerView> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: t('LEDGER_DESCRIPTION_HINT'),
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     fontSize: 16.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
                   ),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16.0,
                   color: Colors.white,
                 ),
               ),
             ),
             MaterialButton(
-              padding: EdgeInsets.all(0.0),
+              padding: const EdgeInsets.all(0.0),
               onPressed: null,
               child: Container(
                 height: 80.0,
                 width: double.infinity,
-                padding: EdgeInsets.only(left: 40.0, right: 28.0),
+                padding: const EdgeInsets.only(left: 40.0, right: 28.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
                       t('CURRENCY'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
@@ -119,17 +126,15 @@ class _LedgerViewState extends State<LedgerView> {
                       children: <Widget>[
                         Text(
                           '${_ledger.currency.locale} | ${_ledger.currency.currency}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                           ),
                         ),
-                        Container(
-                          child: Icon(
-                            Icons.chevron_right,
-                            size: 16,
-                            color: Color.fromRGBO(255, 255, 255, 0.7),
-                          ),
+                        const Icon(
+                          Icons.chevron_right,
+                          size: 16,
+                          color: Color.fromRGBO(255, 255, 255, 0.7),
                         ),
                       ],
                     ),
@@ -137,27 +142,25 @@ class _LedgerViewState extends State<LedgerView> {
                 ),
               ),
             ),
-            Divider(color: Colors.white70),
+            const Divider(color: Colors.white70),
             Container(
               height: 80.0,
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 40.0),
+              padding: const EdgeInsets.only(left: 40.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    child: Text(
-                      t('COLOR'),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
+                  Text(
+                    t('COLOR'),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
                     ),
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.only(right: 32),
+                      padding: const EdgeInsets.only(right: 32),
                       child: ListView.builder(
                         reverse: true,
                         scrollDirection: Axis.horizontal,
@@ -177,8 +180,8 @@ class _LedgerViewState extends State<LedgerView> {
                 ],
               ),
             ),
-            Divider(color: Colors.white70),
-            MemberHorizontalList(),
+            const Divider(color: Colors.white70),
+            const MemberHorizontalList(),
           ],
         ),
       ),
@@ -187,7 +190,7 @@ class _LedgerViewState extends State<LedgerView> {
 }
 
 class ColorItem extends StatelessWidget {
-  ColorItem({
+  const ColorItem({
     Key? key,
     this.color,
     this.selected,
@@ -220,7 +223,7 @@ class ColorItem extends StatelessWidget {
           ),
         ),
         selected == true
-            ? Icon(
+            ? const Icon(
                 Icons.check,
                 color: Colors.white,
                 size: 16,

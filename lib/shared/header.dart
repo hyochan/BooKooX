@@ -14,12 +14,13 @@ AppBar renderHeaderClose({
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
+    // ignore: deprecated_member_use
     brightness: brightness,
-    leading: Container(
+    leading: SizedBox(
       width: 56.0,
       child: RawMaterialButton(
-        padding: EdgeInsets.all(0.0),
-        shape: CircleBorder(),
+        padding: const EdgeInsets.all(0.0),
+        shape: const CircleBorder(),
         onPressed: () => Navigator.of(context).pop(),
         child: Icon(
           Icons.close,
@@ -49,8 +50,8 @@ AppBar renderHeaderBack({
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
     leading: RawMaterialButton(
-      padding: EdgeInsets.all(0.0),
-      shape: CircleBorder(),
+      padding: const EdgeInsets.all(0.0),
+      shape: const CircleBorder(),
       onPressed: () => Navigator.of(context).pop(),
       child: Icon(
         Icons.arrow_back,

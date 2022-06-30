@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum Membership {
-  Owner,
-  Admin,
-  Guest,
+  owner,
+  admin,
+  guest,
 }
 
 class User {
@@ -55,17 +55,17 @@ class User {
       statusMsg: data['statusMsg'] ?? '',
       createdAt: data['createdAt'] ?? Timestamp.now(),
       updatedAt: data['createdAt'] ?? Timestamp.now(),
-      deletedAt: data['createdAt'] ?? null,
+      deletedAt: data['createdAt'],
     );
   }
 
   void changeMemberShip(int val) {
-    if (Membership.Owner.index == val) {
-      membership = Membership.Owner;
-    } else if (Membership.Admin.index == val) {
-      membership = Membership.Admin;
+    if (Membership.owner.index == val) {
+      membership = Membership.owner;
+    } else if (Membership.admin.index == val) {
+      membership = Membership.admin;
     } else {
-      membership = Membership.Guest;
+      membership = Membership.guest;
     }
   }
 }

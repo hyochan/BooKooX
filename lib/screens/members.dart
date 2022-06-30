@@ -11,13 +11,13 @@ import 'package:wecount/utils/localization.dart';
 
 class Members extends StatefulWidget {
   final Ledger? ledger;
-  Members({
+  const Members({
     Key? key,
     this.ledger,
   }) : super(key: key);
 
   @override
-  _MembersState createState() => _MembersState();
+  State<Members> createState() => _MembersState();
 }
 
 class _MembersState extends State<Members> {
@@ -33,7 +33,7 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
-        membership: Membership.Owner,
+        membership: Membership.owner,
       ),
     ),
     MemberItem(
@@ -41,7 +41,7 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
-        membership: Membership.Admin,
+        membership: Membership.admin,
       ),
     ),
     MemberItem(
@@ -49,7 +49,7 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
-        membership: Membership.Admin,
+        membership: Membership.admin,
       ),
     ),
     MemberItem(
@@ -57,7 +57,7 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
-        membership: Membership.Guest,
+        membership: Membership.guest,
       ),
     ),
     MemberItem(
@@ -65,7 +65,7 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
-        membership: Membership.Guest,
+        membership: Membership.guest,
       ),
     ),
     MemberItem(
@@ -73,7 +73,7 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
-        membership: Membership.Guest,
+        membership: Membership.guest,
       ),
     ),
     MemberItem(
@@ -81,7 +81,7 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
-        membership: Membership.Guest,
+        membership: Membership.guest,
       ),
     ),
     MemberItem(
@@ -89,7 +89,7 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
-        membership: Membership.Guest,
+        membership: Membership.guest,
       ),
     ),
     MemberItem(
@@ -97,7 +97,7 @@ class _MembersState extends State<Members> {
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
-        membership: Membership.Guest,
+        membership: Membership.guest,
       ),
     ),
   ];
@@ -116,11 +116,11 @@ class _MembersState extends State<Members> {
         context: context,
         brightness: Theme.of(context).brightness,
         actions: [
-          Container(
+          SizedBox(
             width: 56,
             child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
+              padding: const EdgeInsets.all(0.0),
+              shape: const CircleBorder(),
               onPressed: () {
                 setState(() {
                   _isSearchMode = !_isSearchMode;
@@ -145,11 +145,11 @@ class _MembersState extends State<Members> {
           if (item is HeadingItem) {
             return Container(
               height: 80,
-              padding: EdgeInsets.symmetric(horizontal: 40),
-              alignment: Alignment(-1, 0),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              alignment: const Alignment(-1, 0),
               child: _isSearchMode
                   ? EditText(
-                      key: Key('member'),
+                      key: const Key('member'),
                       textInputAction: TextInputAction.next,
                       textHint: t('SEARCH_USER_HINT'),
                       onChanged: (String str) {

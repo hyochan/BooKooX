@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../utils/colors.dart';
 
-final EdgeInsets _titlePadding =
+const EdgeInsets _titlePadding =
     EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
 
 class HomeHeaderExpanded extends StatelessWidget {
-  HomeHeaderExpanded({
+  const HomeHeaderExpanded({
     Key? key,
     this.title = '',
     this.actions,
@@ -27,16 +27,16 @@ class HomeHeaderExpanded extends StatelessWidget {
       floating: false,
       pinned: true,
       elevation: 1.0,
-      actions: this.actions,
+      actions: actions,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
         titlePadding: _titlePadding,
         title: SafeArea(
           right: false,
           child: Container(
-            margin: EdgeInsets.only(left: 3),
+            margin: const EdgeInsets.only(left: 3),
             child: Text(
-              this.title,
+              title,
               style: TextStyle(
                 color: fontColor ?? Colors.white,
                 fontSize: 16.0,
@@ -45,7 +45,7 @@ class HomeHeaderExpanded extends StatelessWidget {
           ),
         ),
         background: Container(
-          color: this.color != null ? color : getColor(colorItems[4]),
+          color: color ?? getColor(colorItems[4]),
         ),
       ),
     );

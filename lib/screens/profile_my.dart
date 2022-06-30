@@ -1,6 +1,7 @@
+import 'package:get/get.dart';
 import 'package:wecount/models/user.dart' show User;
 import 'package:wecount/services/database.dart';
-import 'package:firebase_auth/firebase_auth.dart' as FireAuth show User;
+import 'package:firebase_auth/firebase_auth.dart' as firebase show User;
 import 'package:flutter/material.dart';
 
 import 'package:wecount/shared/header.dart' show renderHeaderClose;
@@ -15,8 +16,10 @@ import '../utils/localization.dart';
 class ProfileMy extends StatefulWidget {
   static const String name = '/profile_my';
 
+  const ProfileMy({Key? key}) : super(key: key);
+
   @override
-  _ProfileMyState createState() => _ProfileMyState();
+  State<ProfileMy> createState() => _ProfileMyState();
 }
 
 class _ProfileMyState extends State<ProfileMy> {
@@ -31,13 +34,12 @@ class _ProfileMyState extends State<ProfileMy> {
       imgFile: _imgFile,
     );
 
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
+    Get.back();
   }
 
   @override
   Widget build(BuildContext context) {
-    var _user = Provider.of<FireAuth.User>(context);
+    var user = Provider.of<firebase.User>(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -51,14 +53,14 @@ class _ProfileMyState extends State<ProfileMy> {
               semanticLabel: t('UPDATE'),
             ),
             color: Theme.of(context).textTheme.headline1!.color,
-            padding: EdgeInsets.all(0.0),
+            padding: const EdgeInsets.all(0.0),
             onPressed: _onUpdateProfile,
           ),
         ],
       ),
       body: SafeArea(
           child: StreamBuilder(
-        stream: DatabaseService().streamUser(_user.uid),
+        stream: DatabaseService().streamUser(user.uid),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) return Container();
 
@@ -74,17 +76,15 @@ class _ProfileMyState extends State<ProfileMy> {
           );
 
           return ListView(
-            padding: EdgeInsets.symmetric(horizontal: 40.0),
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(top: 24, bottom: 8),
+                margin: const EdgeInsets.only(top: 24, bottom: 8),
                 child: Row(
                   children: <Widget>[
                     ProfileImageCam(
                       imgFile: _imgFile,
-                      imgStr: _profile!.thumbURL != null
-                          ? _profile!.thumbURL
-                          : _profile!.photoURL,
+                      imgStr: _profile!.thumbURL ?? _profile!.photoURL,
                       selectCamera: () async {
                         var file = await General.instance
                             .chooseImage(context: context, type: 'camera');
@@ -109,7 +109,7 @@ class _ProfileMyState extends State<ProfileMy> {
                 ),
                 enabled: false,
                 iconData: Icons.email,
-                margin: EdgeInsets.only(top: 24.0),
+                margin: const EdgeInsets.only(top: 24.0),
                 hintText: t('EMAIL'),
                 focusedColor: Theme.of(context).textTheme.headline1!.color,
                 enabledColor: Theme.of(context).textTheme.headline2!.color,
@@ -121,7 +121,7 @@ class _ProfileMyState extends State<ProfileMy> {
                 onChangeText: (String str) => _profile!.displayName = str,
                 semanticLabel: t('NICKNAME'),
                 iconData: Icons.person_outline,
-                margin: EdgeInsets.only(top: 8.0),
+                margin: const EdgeInsets.only(top: 8.0),
                 hintText: t('NICKNAME'),
                 focusedColor: Theme.of(context).textTheme.headline1!.color,
                 enabledColor: Theme.of(context).textTheme.headline2!.color,
@@ -132,14 +132,14 @@ class _ProfileMyState extends State<ProfileMy> {
                 ),
                 onChangeText: (String str) => _profile!.phoneNumber = str,
                 iconData: Icons.phone,
-                margin: EdgeInsets.only(top: 8.0),
+                margin: const EdgeInsets.only(top: 8.0),
                 hintText: t('PHONE'),
                 focusedColor: Theme.of(context).textTheme.headline1!.color,
                 enabledColor: Theme.of(context).textTheme.headline2!.color,
               ),
               Container(
-                margin: EdgeInsets.only(top: 32.0, bottom: 12.0),
-                child: Divider(
+                margin: const EdgeInsets.only(top: 32.0, bottom: 12.0),
+                child: const Divider(
                   height: 1.0,
                 ),
               ),

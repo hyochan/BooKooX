@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/setting.dart';
-
 import 'package:wecount/shared/button.dart' show Button;
-import 'package:wecount/utils/general.dart';
 
 import '../shared/home_header.dart' show renderHomeAppBar;
 import '../utils/localization.dart';
@@ -12,14 +10,14 @@ import '../utils/localization.dart';
 class MainEmpty extends StatefulWidget {
   static const String name = '/main_empty';
 
-  MainEmpty({
+  const MainEmpty({
     Key? key,
     this.title = '',
   }) : super(key: key);
   final String title;
 
   @override
-  _MainEmptyState createState() => _MainEmptyState();
+  State<MainEmpty> createState() => _MainEmptyState();
 }
 
 class _MainEmptyState extends State<MainEmpty> {
@@ -31,13 +29,13 @@ class _MainEmptyState extends State<MainEmpty> {
         context: context,
         title: '',
         actions: [
-          Container(
+          SizedBox(
             width: 56.0,
             child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
-              onPressed: () => Get.to(() => Setting()),
-              child: Icon(
+              padding: const EdgeInsets.all(0.0),
+              shape: const CircleBorder(),
+              onPressed: () => Get.to(() => const Setting()),
+              child: const Icon(
                 Icons.settings,
                 color: Colors.white,
               ),
@@ -58,7 +56,7 @@ class _MainEmptyState extends State<MainEmpty> {
               size: 80,
             ),
             Container(
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 left: 40,
                 right: 40,
                 top: 22,
@@ -85,7 +83,7 @@ class _MainEmptyState extends State<MainEmpty> {
                   style: BorderStyle.solid,
                 ),
               ),
-              onPress: () => Get.to(() => LedgerEdit()),
+              onPress: () => Get.to(() => const LedgerEdit()),
               text: t('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,

@@ -5,13 +5,12 @@ import 'package:wecount/shared/edit_text_search.dart' show EditTextSearch;
 import '../utils/localization.dart';
 
 class HomeHeaderSearch extends StatefulWidget {
-  HomeHeaderSearch({
+  const HomeHeaderSearch({
     Key? key,
     this.margin,
     this.showSearchInput = false,
     this.textEditingController,
     this.actions,
-    this.onClose,
     this.onSubmit,
     this.color,
   }) : super(key: key);
@@ -19,12 +18,11 @@ class HomeHeaderSearch extends StatefulWidget {
   final bool showSearchInput;
   final TextEditingController? textEditingController;
   final List<Widget>? actions;
-  final Function? onClose;
-  final Function? onSubmit;
+  final Function(String)? onSubmit;
   final Color? color;
 
   @override
-  _HomeHeaderSearchState createState() => _HomeHeaderSearchState();
+  State<HomeHeaderSearch> createState() => _HomeHeaderSearchState();
 }
 
 class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
@@ -50,19 +48,19 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
       background: Colors.transparent,
       txtHint: t('PLZ_SEARCH'),
       underline: false,
-      txtHintStyle: TextStyle(
+      txtHintStyle: const TextStyle(
           color: Color.fromRGBO(255, 255, 255, 0.5),
           fontWeight: FontWeight.w400,
           fontFamily: "AppleSDGothicNeo",
           fontStyle: FontStyle.normal,
           fontSize: 16.0),
-      padding: EdgeInsets.only(left: 40.0, right: 44.0),
+      padding: const EdgeInsets.only(left: 40.0, right: 44.0),
       borderRadius: 40.0,
       decoration: BoxDecoration(
         border: Border.all(width: 1.0, color: Colors.white),
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
       ),
-      txtStyle: TextStyle(
+      txtStyle: const TextStyle(
           color: Colors.white,
           fontFamily: "AppleSDGothicNeo",
           fontStyle: FontStyle.normal,
@@ -79,21 +77,24 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
         child: Stack(
           children: <Widget>[
             textInput,
-            Positioned(
-              child: Container(
+            const Positioned(
+              left: 12.0,
+              top: 12.0,
+              child: SizedBox(
+                width: 16.0,
+                height: 16.0,
                 child: Icon(
                   Icons.search,
                   color: Colors.white,
                 ),
-                width: 16.0,
-                height: 16.0,
               ),
-              left: 12.0,
-              top: 12.0,
             ),
             _showClose == true
                 ? Positioned(
-                    child: Container(
+                    right: 8.0,
+                    child: SizedBox(
+                      width: 40.0,
+                      height: 40.0,
                       child: RawMaterialButton(
                         onPressed: () {
                           setState(() {
@@ -101,14 +102,11 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
                             _showClose = false;
                           });
                         },
-                        shape: CircleBorder(),
-                        child: Icon(Icons.close, color: Colors.white),
-                        padding: EdgeInsets.all(0.0),
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(0.0),
+                        child: const Icon(Icons.close, color: Colors.white),
                       ),
-                      width: 40.0,
-                      height: 40.0,
                     ),
-                    right: 8.0,
                   )
                 : Container(height: 40.0),
           ],

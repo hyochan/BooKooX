@@ -1,18 +1,18 @@
-import 'package:flutter_config/flutter_config.dart';
-import 'package:intl/intl.dart';
-import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart' as LocationManager;
-import 'package:google_maps_webservice/places.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+// ignore: depend_on_referenced_packages
+import 'package:google_maps_webservice/places.dart';
+import 'package:intl/intl.dart';
+import 'package:location/location.dart' as manager;
 import 'package:wecount/utils/logger.dart';
 
 class LocationService {
   Future<LatLng?> getUserLocation() async {
-    LocationManager.LocationData? currentLocation;
-    final location = LocationManager.Location();
+    manager.LocationData? currentLocation;
+    final location = manager.Location();
     try {
       currentLocation = await location.getLocation();
       final lat = currentLocation.latitude!;
@@ -27,14 +27,14 @@ class LocationService {
 }
 
 class GooglePlaceService {
-  static GooglePlaceService _instance = GooglePlaceService();
+  static final GooglePlaceService _instance = GooglePlaceService();
   static GooglePlaceService get instance => _instance;
 
   Future<Map<String, dynamic>> showGooglePlaceSearch(
     BuildContext context, {
     String country = 'us',
   }) async {
-    Map<String, dynamic> location = Map();
+    Map<String, dynamic> location = {};
 
     final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -75,14 +75,14 @@ class GooglePlaceService {
           location['lat'] = first.latitude;
           location['lng'] = first.longitude;
         } catch (err) {
-          print('catch: ${err.toString()}');
+          logger.d('catch: ${err.toString()}');
         }
       }
     }
     return location;
   }
 
-  Future<Null> _displayPrediction(Prediction? p, ScaffoldState? scaffold,
+  Future<void> _displayPrediction(Prediction? p, ScaffoldState? scaffold,
       Function(double, double) callback) async {
     // GoogleMapsPlaces _places = GoogleMapsPlaces();
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wecount/screens/intro.dart';
 
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/colors.dart';
 
 import '../utils/localization.dart';
@@ -10,23 +10,25 @@ import '../utils/localization.dart';
 class Tutorial extends StatefulWidget {
   static const String name = '/tutorial';
 
+  const Tutorial({Key? key}) : super(key: key);
+
   @override
-  _TutorialState createState() => _TutorialState();
+  State<Tutorial> createState() => _TutorialState();
 }
 
 class _TutorialState extends State<Tutorial> {
   final int pageCnt = 2;
   int _currentPage = 0;
-  var _pageController = PageController();
+  final _pageController = PageController();
 
   void onNextPressed() {
     if (_currentPage == pageCnt) {
-      Get.to(() => Intro());
+      Get.to(() => const Intro());
       return;
     }
 
     _pageController.nextPage(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,
     );
   }
@@ -42,21 +44,21 @@ class _TutorialState extends State<Tutorial> {
         child: ListView(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 148),
+              margin: const EdgeInsets.only(top: 148),
               child: Image(
                 image: page == 0
-                    ? Asset.Icons.tutorial1
+                    ? asset.Icons.tutorial1
                     : page == 1
-                        ? Asset.Icons.tutorial2
+                        ? asset.Icons.tutorial2
                         : page == 2
-                            ? Asset.Icons.tutorial3
-                            : Asset.Icons.tutorial1,
+                            ? asset.Icons.tutorial3
+                            : asset.Icons.tutorial1,
                 width: 200,
                 height: 160,
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 56),
+              margin: const EdgeInsets.only(top: 56),
               child: Text(
                 page == 0
                     ? t('RECORD_IT')
@@ -65,7 +67,7 @@ class _TutorialState extends State<Tutorial> {
                         : page == 2
                             ? t('TAKE_CARE')
                             : t('RECORD_IT'),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 28,
                   color: Colors.white,
                 ),
@@ -73,7 +75,7 @@ class _TutorialState extends State<Tutorial> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 20),
               child: Text(
                 page == 0
                     ? t('TUTORIAL_1_DETAIL')
@@ -82,7 +84,7 @@ class _TutorialState extends State<Tutorial> {
                         : page == 2
                             ? t('TUTORIAL_3_DETAIL')
                             : t('TUTORIAL_1_DETAIL'),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   height: 1.3,
                   color: Colors.white,
@@ -102,7 +104,7 @@ class _TutorialState extends State<Tutorial> {
     }) {
       return Container(
         key: key,
-        margin: EdgeInsets.only(left: 8),
+        margin: const EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
           color: page == currentPage ? Colors.white : mainColor,
           borderRadius: BorderRadius.circular(4),
@@ -120,23 +122,21 @@ class _TutorialState extends State<Tutorial> {
       Key? key,
       required currentPage,
     }) {
-      return Container(
-        child: Row(
-          children: <Widget>[
-            renderIndicator(
-              currentPage: currentPage,
-              page: 0,
-            ),
-            renderIndicator(
-              currentPage: currentPage,
-              page: 1,
-            ),
-            renderIndicator(
-              currentPage: currentPage,
-              page: 2,
-            ),
-          ],
-        ),
+      return Row(
+        children: <Widget>[
+          renderIndicator(
+            currentPage: currentPage,
+            page: 0,
+          ),
+          renderIndicator(
+            currentPage: currentPage,
+            page: 1,
+          ),
+          renderIndicator(
+            currentPage: currentPage,
+            page: 2,
+          ),
+        ],
       );
     }
 
@@ -144,7 +144,7 @@ class _TutorialState extends State<Tutorial> {
       backgroundColor: mainColor,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           color: mainColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,7 +167,7 @@ class _TutorialState extends State<Tutorial> {
               ),
               Container(
                 height: 56,
-                margin: EdgeInsets.only(bottom: 20),
+                margin: const EdgeInsets.only(bottom: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -176,7 +176,7 @@ class _TutorialState extends State<Tutorial> {
                       onPressed: onNextPressed,
                       child: Text(
                         t('NEXT'),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           color: greenColor,
                         ),

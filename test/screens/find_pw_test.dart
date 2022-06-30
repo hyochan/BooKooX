@@ -6,11 +6,12 @@ import '../test_utils.dart' show TestUtils;
 
 void main() {
   testWidgets("Widget", (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: FindPw()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const FindPw()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
-//     print(findByText.evaluate());
+//     logger.d(findByText.evaluate());
     expect(findByText.evaluate().isEmpty, false);
 
     expect(find.text('FIND_PASSWORD'), findsOneWidget);
@@ -19,10 +20,11 @@ void main() {
   });
   testWidgets("Show [errorEmail] text when email address is not valid form",
       (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: FindPw()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const FindPw()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(Key('email'));
+    Finder emailField = find.byKey(const Key('email'));
     await tester.enterText(emailField, 'aa@aa');
 
     await tester.tap(find.text('SEND_EMAIL'));

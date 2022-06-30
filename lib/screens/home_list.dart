@@ -15,19 +15,19 @@ import '../utils/colors.dart';
 import '../utils/localization.dart';
 
 class HomeList extends StatefulWidget {
-  HomeList({
+  const HomeList({
     Key? key,
   }) : super(key: key);
 
   @override
-  _HomeListState createState() => _HomeListState();
+  State<HomeList> createState() => _HomeListState();
 }
 
 class _HomeListState extends State<HomeList> {
   TextEditingController textEditingController = TextEditingController();
 
-  var _data = [];
-  var _listData = [];
+  final _data = [];
+  final _listData = [];
 
   // List<List<LedgerItem>> _ledgerItems = [[]];
   @override
@@ -38,7 +38,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -12000,
           category: Category(
-              iconId: 8, label: t('EXERCISE'), type: CategoryType.CONSUME),
+              iconId: 8, label: t('EXERCISE'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 10),
         ),
       );
@@ -46,7 +46,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: 300000,
           category: Category(
-              iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.CONSUME),
+              iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 10),
         ),
       );
@@ -55,9 +55,9 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -32000,
           category: Category(
-              iconId: 4, label: t('DATING'), type: CategoryType.CONSUME),
+              iconId: 4, label: t('DATING'), type: CategoryType.consume),
           memo: 'who1 gave me',
-          writer: User(uid: 'who1@gmail.com', displayName: 'engela lee'),
+          writer: User(uid: 'who1@gmail.com', displayName: 'dooboolab'),
           selectedDate: DateTime(2019, 9, 8),
         ),
       );
@@ -65,7 +65,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -3100,
           category:
-              Category(iconId: 0, label: t('CAFE'), type: CategoryType.CONSUME),
+              Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 8),
         ),
       );
@@ -73,7 +73,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: 300000,
           category: Category(
-              iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.CONSUME),
+              iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 8),
         ),
       );
@@ -81,7 +81,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -3100,
           category:
-              Category(iconId: 0, label: t('CAFE'), type: CategoryType.CONSUME),
+              Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 8),
         ),
       );
@@ -89,7 +89,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -3100,
           category:
-              Category(iconId: 0, label: t('CAFE'), type: CategoryType.CONSUME),
+              Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 8),
         ),
       );
@@ -97,7 +97,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -3100,
           category:
-              Category(iconId: 0, label: t('CAFE'), type: CategoryType.CONSUME),
+              Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 8),
         ),
       );
@@ -105,7 +105,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -12000,
           category: Category(
-              iconId: 12, label: t('PRESENT'), type: CategoryType.CONSUME),
+              iconId: 12, label: t('PRESENT'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 6),
         ),
       );
@@ -114,7 +114,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -32000,
           category: Category(
-              iconId: 4, label: t('DATING'), type: CategoryType.CONSUME),
+              iconId: 4, label: t('DATING'), type: CategoryType.consume),
           memo: 'who1 gave me',
           writer: User(uid: 'who1@gmail.com', displayName: '이범주'),
           selectedDate: DateTime(2019, 9, 6),
@@ -124,7 +124,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -3100,
           category:
-              Category(iconId: 0, label: t('CAFE'), type: CategoryType.CONSUME),
+              Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 6),
         ),
       );
@@ -132,7 +132,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -3100,
           category:
-              Category(iconId: 0, label: t('CAFE'), type: CategoryType.CONSUME),
+              Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 6),
         ),
       );
@@ -140,7 +140,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -12000,
           category: Category(
-              iconId: 12, label: t('PRESENT'), type: CategoryType.CONSUME),
+              iconId: 12, label: t('PRESENT'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 6),
         ),
       );
@@ -149,9 +149,9 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -32000,
           category: Category(
-              iconId: 4, label: t('DATING'), type: CategoryType.CONSUME),
+              iconId: 4, label: t('DATING'), type: CategoryType.consume),
           memo: 'who1 gave me',
-          writer: User(uid: 'who1@gmail.com', displayName: 'mizcom'),
+          writer: User(uid: 'who1@gmail.com', displayName: 'dooboolab'),
           selectedDate: DateTime(2019, 9, 6),
         ),
       );
@@ -159,7 +159,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -3100,
           category:
-              Category(iconId: 0, label: t('CAFE'), type: CategoryType.CONSUME),
+              Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 4),
         ),
       );
@@ -167,7 +167,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -2100,
           category:
-              Category(iconId: 0, label: t('CAFE'), type: CategoryType.CONSUME),
+              Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 4),
         ),
       );
@@ -175,7 +175,7 @@ class _HomeListState extends State<HomeList> {
         LedgerItem(
           price: -12000,
           category: Category(
-              iconId: 12, label: t('PRESENT'), type: CategoryType.CONSUME),
+              iconId: 12, label: t('PRESENT'), type: CategoryType.consume),
           selectedDate: DateTime(2019, 9, 4),
         ),
       );
@@ -191,7 +191,7 @@ class _HomeListState extends State<HomeList> {
       for (var i = 0; i < _data.length; i++) {
         if (prevDate != _data[i].selectedDate) {
           // 다르면 모은 데이터를 저장하고, 모음 리셋
-          if (temp.length > 0) {
+          if (temp.isNotEmpty) {
             _listData.add({
               'date': prevDate,
               'ledgerItems': temp,
@@ -203,7 +203,7 @@ class _HomeListState extends State<HomeList> {
         temp.add(_data[i]); // 데이터 임시 모음
         // _listData.add(_data[i]);
       }
-      if (temp.length > 0) {
+      if (temp.isNotEmpty) {
         _listData.add({
           'date': prevDate,
           'ledgerItems': temp,
@@ -216,7 +216,7 @@ class _HomeListState extends State<HomeList> {
     String headerString = DateFormat('yyyy-MM-dd (E)').format(date);
     return Container(
       height: 60.0,
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         top: 16.0,
         left: 10.0,
       ),
@@ -254,10 +254,7 @@ class _HomeListState extends State<HomeList> {
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.DUSK;
-
-    Function onAddLedgerList = () =>
-        General.instance.navigateScreenNamed(context, '/ledger_item_edit');
+        : ColorType.dusk;
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -266,16 +263,17 @@ class _HomeListState extends State<HomeList> {
         titleSpacing: 0.0,
         title: HomeHeaderSearch(
           color: getColor(color),
-          margin: EdgeInsets.only(left: 20.0),
+          margin: const EdgeInsets.only(left: 20.0),
           textEditingController: textEditingController,
           actions: <Widget>[
-            Container(
+            SizedBox(
               width: 56.0,
               child: RawMaterialButton(
-                padding: EdgeInsets.all(0.0),
-                shape: CircleBorder(),
-                onPressed: onAddLedgerList as void Function()?,
-                child: Icon(
+                padding: const EdgeInsets.all(0.0),
+                shape: const CircleBorder(),
+                onPressed: () => General.instance
+                    .navigateScreenNamed(context, '/ledger_item_edit'),
+                child: const Icon(
                   Icons.add,
                   color: Colors.white,
                 ),
@@ -286,7 +284,7 @@ class _HomeListState extends State<HomeList> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CustomScrollView(
             slivers: _renderList(context),
           ),
