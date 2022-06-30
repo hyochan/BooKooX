@@ -700,10 +700,10 @@ class S {
     );
   }
 
-  /// `Please send us your comments about BooKoo.`
+  /// `Please send us your comments about Wecount.`
   String get SHARE_OPINION_HINT {
     return Intl.message(
-      'Please send us your comments about BooKoo.',
+      'Please send us your comments about Wecount.',
       name: 'SHARE_OPINION_HINT',
       desc: '',
       args: [],
@@ -760,10 +760,10 @@ class S {
     );
   }
 
-  /// `BooKoo Promises`
+  /// `Wecount Promises`
   String get ANNOUNCEMENT_1 {
     return Intl.message(
-      'BooKoo Promises',
+      'Wecount Promises',
       name: 'ANNOUNCEMENT_1',
       desc: '',
       args: [],
@@ -790,20 +790,20 @@ class S {
     );
   }
 
-  /// `BooKoo is released on apple app store and android playstore. Thank you for all your supports.\n`
+  /// `Wecount is released on apple app store and android playstore. Thank you for all your supports.\n`
   String get ANNOUNCEMENT_TXT_2 {
     return Intl.message(
-      'BooKoo is released on apple app store and android playstore. Thank you for all your supports.\n',
+      'Wecount is released on apple app store and android playstore. Thank you for all your supports.\n',
       name: 'ANNOUNCEMENT_TXT_2',
       desc: '',
       args: [],
     );
   }
 
-  /// `How do I withdraw from BooKoo?`
+  /// `How do I withdraw from Wecount?`
   String get FAQ_1 {
     return Intl.message(
-      'How do I withdraw from BooKoo?',
+      'How do I withdraw from Wecount?',
       name: 'FAQ_1',
       desc: '',
       args: [],
@@ -840,10 +840,10 @@ class S {
     );
   }
 
-  /// `What do BooKoo earn?`
+  /// `What do Wecount earn?`
   String get FAQ_3 {
     return Intl.message(
-      'What do BooKoo earn?',
+      'What do Wecount earn?',
       name: 'FAQ_3',
       desc: '',
       args: [],
@@ -940,10 +940,10 @@ class S {
     );
   }
 
-  /// `Where can I send my upgrade request for BooKoo?`
+  /// `Where can I send my upgrade request for Wecount?`
   String get FAQ_8 {
     return Intl.message(
-      'Where can I send my upgrade request for BooKoo?',
+      'Where can I send my upgrade request for Wecount?',
       name: 'FAQ_8',
       desc: '',
       args: [],
@@ -980,20 +980,20 @@ class S {
     );
   }
 
-  /// `How is BooKoo different from other ledger app?`
+  /// `How is Wecount different from other ledger app?`
   String get FAQ_10 {
     return Intl.message(
-      'How is BooKoo different from other ledger app?',
+      'How is Wecount different from other ledger app?',
       name: 'FAQ_10',
       desc: '',
       args: [],
     );
   }
 
-  /// `Basically, BooKoo is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with BooKoo but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n`
+  /// `Basically, Wecount is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with Wecount but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n`
   String get FAQ_TXT_10 {
     return Intl.message(
-      'Basically, BooKoo is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with BooKoo but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n',
+      'Basically, Wecount is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with Wecount but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n',
       name: 'FAQ_TXT_10',
       desc: '',
       args: [],
@@ -1010,10 +1010,10 @@ class S {
     );
   }
 
-  /// `Firstly, we found out that there are many troubles when someone manage other people"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, BooKoo is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n`
+  /// `Firstly, we found out that there are many troubles when someone manage other people"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, Wecount is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n`
   String get FAQ_TXT_11 {
     return Intl.message(
-      'Firstly, we found out that there are many troubles when someone manage other people"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, BooKoo is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n',
+      'Firstly, we found out that there are many troubles when someone manage other people"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, Wecount is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n',
       name: 'FAQ_TXT_11',
       desc: '',
       args: [],
@@ -1835,6 +1835,26 @@ class S {
     return Intl.message(
       'You should transfer ownership before leaving your ledger.',
       name: 'SHOULD_TRANSFER_OWNERSHIP',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Isn't the member you're looking for a Wecount user?`
+  String get NO_WECOUNT_USER {
+    return Intl.message(
+      'Isn\'t the member you\'re looking for a Wecount user?',
+      name: 'NO_WECOUNT_USER',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invite`
+  String get INVITE {
+    return Intl.message(
+      'Invite',
+      name: 'INVITE',
       desc: '',
       args: [],
     );

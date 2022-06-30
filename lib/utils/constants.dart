@@ -1,1 +1,1 @@
-const appName = 'WeCount';
+const appName = 'Wecount';

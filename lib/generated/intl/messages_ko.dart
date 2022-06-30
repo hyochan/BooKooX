@@ -26,12 +26,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("가계부에 리스트 추가시"),
         "ADD_LEDGER": MessageLookupByLibrary.simpleMessage("가계부 추가"),
         "ANNOUNCEMENT": MessageLookupByLibrary.simpleMessage("공지사항"),
-        "ANNOUNCEMENT_1": MessageLookupByLibrary.simpleMessage("BooKoo의 약속"),
-        "ANNOUNCEMENT_2": MessageLookupByLibrary.simpleMessage("BooKoo 출시 알림"),
+        "ANNOUNCEMENT_1": MessageLookupByLibrary.simpleMessage("Wecount의 약속"),
+        "ANNOUNCEMENT_2": MessageLookupByLibrary.simpleMessage("Wecount 출시 알림"),
         "ANNOUNCEMENT_TXT_1": MessageLookupByLibrary.simpleMessage(
-            "BooKoo는 지속적인 유지보수와 업데이트를 약속드리겠습니다. 고객들의 목소리를 성심 성의껏 듣겠습니다.\n"),
+            "Wecount는 지속적인 유지보수와 업데이트를 약속드리겠습니다. 고객들의 목소리를 성심 성의껏 듣겠습니다.\n"),
         "ANNOUNCEMENT_TXT_2": MessageLookupByLibrary.simpleMessage(
-            "BooKoo가 앱 스토어에 정식 출시되었습니다. 성원에 감사드립니다.\n"),
+            "Wecount가 앱 스토어에 정식 출시되었습니다. 성원에 감사드립니다.\n"),
         "AWARD": MessageLookupByLibrary.simpleMessage("상금"),
         "BABY": MessageLookupByLibrary.simpleMessage("유아용품"),
         "BACK": MessageLookupByLibrary.simpleMessage("뒤로가기"),
@@ -101,9 +101,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "FAQ_1": MessageLookupByLibrary.simpleMessage("회원 탈퇴는 어떻게 하나요?"),
         "FAQ_10": MessageLookupByLibrary.simpleMessage("다른 가계부 앱과 어떻게 다른가요?"),
         "FAQ_11":
-            MessageLookupByLibrary.simpleMessage("왜 BooKoo를 만들어야 겠다고 생각했나요?"),
+            MessageLookupByLibrary.simpleMessage("왜 Wecount를 만들어야 겠다고 생각했나요?"),
         "FAQ_2": MessageLookupByLibrary.simpleMessage("가계부 생성은 어떻게 하나요?"),
-        "FAQ_3": MessageLookupByLibrary.simpleMessage("BooKoo는 얻는게 뭔가요?"),
+        "FAQ_3": MessageLookupByLibrary.simpleMessage("Wecount는 얻는게 뭔가요?"),
         "FAQ_4":
             MessageLookupByLibrary.simpleMessage("가계부와 가계부 아이템은 어떻게 다른가요?"),
         "FAQ_5": MessageLookupByLibrary.simpleMessage("가계부 아이템은 어떻게 생성하나요?"),
@@ -116,7 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "FAQ_TXT_1": MessageLookupByLibrary.simpleMessage(
             "회원이 중요한 정보들을 다른 사람들과 공유를 하고 있을 수 있으므로 탈퇴는 철저히 저희 쪽에 사유와 함께 의사를 알려주셔야 가능하십니다. dooboolab@gmail.com으로 메일을 보내주세요.\n"),
         "FAQ_TXT_10": MessageLookupByLibrary.simpleMessage(
-            "저희 가계부는 소셜 형태의 서비스를 이루고 있습니다. 현재 개인화되어 있는 가계부는 많지만 여럿이서 함께 공유하며 쓰는 가계부는 없습니다. BooKoo는 혼자서도 쓸 수 있지만 여러 사람들과도 같이 공유를 할 수 있습니다. 또한, 한가지 가계부 뿐만 아니라 여러 가계부를 함께 관리할 수 있는 장점이 있습니다.\n"),
+            "저희 가계부는 소셜 형태의 서비스를 이루고 있습니다. 현재 개인화되어 있는 가계부는 많지만 여럿이서 함께 공유하며 쓰는 가계부는 없습니다. Wecount는 혼자서도 쓸 수 있지만 여러 사람들과도 같이 공유를 할 수 있습니다. 또한, 한가지 가계부 뿐만 아니라 여러 가계부를 함께 관리할 수 있는 장점이 있습니다.\n"),
         "FAQ_TXT_11": MessageLookupByLibrary.simpleMessage(
             "대학교 때 어느 모임의 총무가 투명하게 가계부를 공유하지 않아서 문제를 야기했던 적이 있었습니다. 그리고 그 문제는 비일비재하게 발생합니다. 많이들 가계부는 혼자 쓰는 거라고 하는데 그렇지 않습니다. 커플이나 가족, 모임단위 같은 더 많은 공동체가 필요한 경우도 많습니다. 사실 저희 앱은 가계부를 공유하고 싶은 사용자보다는 공유받기를 원하는 사용자의 수요가 더 많다는 것을 사전 조사에서 알 수 있었습니다. 저희는 저희가 필요해서 직접 이 서비스를 기획했습니다. 여럿이서 투명하게 가계부를 사용함과 동시에 편의기능은 꾸준히 추가될 것 입니다. 기대해주세요!\n"),
         "FAQ_TXT_2": MessageLookupByLibrary.simpleMessage(
@@ -128,7 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "FAQ_TXT_5": MessageLookupByLibrary.simpleMessage(
             "우선 생성된 가계부가 있어야합니다. 그리고 메인화면에서 오른쪽 상단에 [+]버튼을 누릅니다. 왼쪽 페이지와 오른쪽 페이지로 나뉘는데 왼쪽은 지출, 오늘쪽은 수입 아이템을 기록하는 화면입니다. 다른 정보들을 입력할 수도 있지만 필수 항목은 카테고리와 금액입니다. 정보를 다 입력한 후에는 [완료]를 누릅니다.\n"),
         "FAQ_TXT_6": MessageLookupByLibrary.simpleMessage(
-            "초대할 회원의 이메일 주소를 여쭤보세요. 그리고 대시보드에서 본인이 소유한 가계부의 [더보기] 버튼을 눌러서 상세 페이지로 이동하세요. 회원들이 표시되는 가장 오른쪽에 있는 [+]버튼을 클릭하세요. 초대하고 싶은 회원들의 이메일을 입력하고 띄워쓰기를 하면 계속 입력 가능하세요. 다 쓰셨으면 초대를 눌러주세요. BooKoo에 가입이 되어 있는 회원들을 앱으로 바로 회원가입이 됩니다.\n"),
+            "초대할 회원의 이메일 주소를 여쭤보세요. 그리고 대시보드에서 본인이 소유한 가계부의 [더보기] 버튼을 눌러서 상세 페이지로 이동하세요. 회원들이 표시되는 가장 오른쪽에 있는 [+]버튼을 클릭하세요. 초대하고 싶은 회원들의 이메일을 입력하고 띄워쓰기를 하면 계속 입력 가능하세요. 다 쓰셨으면 초대를 눌러주세요. Wecount에 가입이 되어 있는 회원들을 앱으로 바로 회원가입이 됩니다.\n"),
         "FAQ_TXT_7": MessageLookupByLibrary.simpleMessage(
             "네. 가계부 특성상 예민한 정보가 있을 수 있어 소유자만 회원을 관리할 수 있도록 설정했습니다.\n"),
         "FAQ_TXT_8": MessageLookupByLibrary.simpleMessage(
@@ -150,6 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "INCOME": MessageLookupByLibrary.simpleMessage("수입"),
         "INSURANCE": MessageLookupByLibrary.simpleMessage("보험"),
         "INTRO": MessageLookupByLibrary.simpleMessage("앱을 만들어봐요!"),
+        "INVITE": MessageLookupByLibrary.simpleMessage("초대하기"),
         "LEAVE": MessageLookupByLibrary.simpleMessage("나가기"),
         "LEDGER_DESCRIPTION_HINT":
             MessageLookupByLibrary.simpleMessage("가계부에 대한 설명을 입력해주세요."),
@@ -182,6 +183,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("가계부가 없습니다.\n가계부를 추가해주세요."),
         "NO_VALID_EMAIL":
             MessageLookupByLibrary.simpleMessage("올바른 이메일 주소가 아닙니다"),
+        "NO_WECOUNT_USER":
+            MessageLookupByLibrary.simpleMessage("찾으시려는 멤버가 Wecount 유저가 아닌가요?"),
         "OK": MessageLookupByLibrary.simpleMessage("확인"),
         "PASSWORD": MessageLookupByLibrary.simpleMessage("비밀번호"),
         "PASSWORD_CONFIRM": MessageLookupByLibrary.simpleMessage("비밀번호 확인"),
@@ -225,7 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "회원가입을 완료하지 못했습니다. 인터넷 연결을 확인하신 후 잠시 후 다시 시도해주세요. 또는 계정이 이미 존재할 수 있습니다."),
         "SIGN_UP_ERROR_TITLE": MessageLookupByLibrary.simpleMessage("회원가입 실패"),
         "SIGN_UP_SUCCESS_CONTENT": MessageLookupByLibrary.simpleMessage(
-            "WeCount에 회원가입을 해주셔서 감사드립니다. 이메일함을 확인하여 이메일 주소를 인증해주세요."),
+            "Wecount에 회원가입을 해주셔서 감사드립니다. 이메일함을 확인하여 이메일 주소를 인증해주세요."),
         "SIGN_UP_SUCCESS_TITLE":
             MessageLookupByLibrary.simpleMessage("회원가입 완료"),
         "SLEEP": MessageLookupByLibrary.simpleMessage("숙박"),

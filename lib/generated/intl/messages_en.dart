@@ -27,12 +27,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADD_LEDGER": MessageLookupByLibrary.simpleMessage("Add Ledger"),
         "ANNOUNCEMENT": MessageLookupByLibrary.simpleMessage("Announcement"),
         "ANNOUNCEMENT_1":
-            MessageLookupByLibrary.simpleMessage("BooKoo Promises"),
+            MessageLookupByLibrary.simpleMessage("Wecount Promises"),
         "ANNOUNCEMENT_2": MessageLookupByLibrary.simpleMessage("Release note"),
         "ANNOUNCEMENT_TXT_1": MessageLookupByLibrary.simpleMessage(
             "We will always update our app to support better experience to users. We will listen to you as much as we can.\n"),
         "ANNOUNCEMENT_TXT_2": MessageLookupByLibrary.simpleMessage(
-            "BooKoo is released on apple app store and android playstore. Thank you for all your supports.\n"),
+            "Wecount is released on apple app store and android playstore. Thank you for all your supports.\n"),
         "AWARD": MessageLookupByLibrary.simpleMessage("Award"),
         "BABY": MessageLookupByLibrary.simpleMessage("Baby"),
         "BACK": MessageLookupByLibrary.simpleMessage("Back"),
@@ -103,14 +103,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "EXTRA": MessageLookupByLibrary.simpleMessage("Extra"),
         "FAQ": MessageLookupByLibrary.simpleMessage("FAQ"),
         "FAQ_1": MessageLookupByLibrary.simpleMessage(
-            "How do I withdraw from BooKoo?"),
+            "How do I withdraw from Wecount?"),
         "FAQ_10": MessageLookupByLibrary.simpleMessage(
-            "How is BooKoo different from other ledger app?"),
+            "How is Wecount different from other ledger app?"),
         "FAQ_11": MessageLookupByLibrary.simpleMessage(
             "Why did you think you need to make Wecount?"),
         "FAQ_2":
             MessageLookupByLibrary.simpleMessage("How do I create ledger?"),
-        "FAQ_3": MessageLookupByLibrary.simpleMessage("What do BooKoo earn?"),
+        "FAQ_3": MessageLookupByLibrary.simpleMessage("What do Wecount earn?"),
         "FAQ_4": MessageLookupByLibrary.simpleMessage(
             "What is different from ledger and ledger item?"),
         "FAQ_5": MessageLookupByLibrary.simpleMessage(
@@ -120,15 +120,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "FAQ_7": MessageLookupByLibrary.simpleMessage(
             "Can owner of ledger only invite member?"),
         "FAQ_8": MessageLookupByLibrary.simpleMessage(
-            "Where can I send my upgrade request for BooKoo?"),
+            "Where can I send my upgrade request for Wecount?"),
         "FAQ_9": MessageLookupByLibrary.simpleMessage(
             "Can I use this app in other devices?"),
         "FAQ_TXT_1": MessageLookupByLibrary.simpleMessage(
             "Since we can have some information that may be sensitive to users, we decided to confirm the withdrawal before it is actually done. Send us an email which is dooboolab@gmail.com. We will throughly review your withdrawals and send you email back when it is done.\n"),
         "FAQ_TXT_10": MessageLookupByLibrary.simpleMessage(
-            "Basically, BooKoo is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with BooKoo but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n"),
+            "Basically, Wecount is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with Wecount but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n"),
         "FAQ_TXT_11": MessageLookupByLibrary.simpleMessage(
-            "Firstly, we found out that there are many troubles when someone manage other people\"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, BooKoo is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n"),
+            "Firstly, we found out that there are many troubles when someone manage other people\"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, Wecount is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n"),
         "FAQ_TXT_2": MessageLookupByLibrary.simpleMessage(
             "First, click on the hamburger button which is placed at the top left corner of Main page and open the dashboard. Then click on Add Ledger at the bottom of the dashboard. Then write the title and description and choose the color. Finally click on [Done] button to actually create one.\n"),
         "FAQ_TXT_3": MessageLookupByLibrary.simpleMessage(
@@ -162,6 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "INCOME": MessageLookupByLibrary.simpleMessage("Income"),
         "INSURANCE": MessageLookupByLibrary.simpleMessage("Insurance"),
         "INTRO": MessageLookupByLibrary.simpleMessage("Create App!"),
+        "INVITE": MessageLookupByLibrary.simpleMessage("Invite"),
         "LEAVE": MessageLookupByLibrary.simpleMessage("Leave"),
         "LEDGER_DESCRIPTION_HINT": MessageLookupByLibrary.simpleMessage(
             "Please write description of ledger"),
@@ -198,6 +199,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Not a valid email address"),
         "NO_VALID_PASSWORD": MessageLookupByLibrary.simpleMessage(
             "Password should be alphanumeric with more than 5 letters"),
+        "NO_WECOUNT_USER": MessageLookupByLibrary.simpleMessage(
+            "Isn\'t the member you\'re looking for a Wecount user?"),
         "OK": MessageLookupByLibrary.simpleMessage("Ok"),
         "PASSWORD": MessageLookupByLibrary.simpleMessage("Password"),
         "PASSWORD_CONFIRM":
@@ -233,7 +236,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "SHARE_IT": MessageLookupByLibrary.simpleMessage("Share it"),
         "SHARE_OPINION": MessageLookupByLibrary.simpleMessage("Share opinion"),
         "SHARE_OPINION_HINT": MessageLookupByLibrary.simpleMessage(
-            "Please send us your comments about BooKoo."),
+            "Please send us your comments about Wecount."),
         "SHOULD_TRANSFER_OWNERSHIP": MessageLookupByLibrary.simpleMessage(
             "You should transfer ownership before leaving your ledger."),
         "SHOW_ALL": MessageLookupByLibrary.simpleMessage("Show All"),
