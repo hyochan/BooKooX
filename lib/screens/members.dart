@@ -111,19 +111,16 @@ class _MembersState extends State<Members> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderClose(
         context: context,
-        brightness: Theme.of(context).brightness,
         actions: [
           SizedBox(
             width: 56,
-            child: RawMaterialButton(
-              padding: const EdgeInsets.all(0.0),
-              shape: const CircleBorder(),
-              onPressed: () {
+            child: InkWell(
+              onTap: () {
                 setState(() {
                   _isSearchMode = !_isSearchMode;
+
                   if (!_isSearchMode) {
                     _filteredMembers = _fakeMembers;
                   }
@@ -131,7 +128,6 @@ class _MembersState extends State<Members> {
               },
               child: Icon(
                 Icons.search,
-                color: Theme.of(context).textTheme.headline1!.color,
                 semanticLabel: t('SEARCH'),
               ),
             ),

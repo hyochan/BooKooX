@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../utils/localization.dart';
 
@@ -9,30 +10,22 @@ AppBar renderHeaderClose({
   required BuildContext context,
   Brightness? brightness,
   bool? centerTitle,
-  Widget? bottom,
+  PreferredSizeWidget? bottom,
 }) {
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
-    // ignore: deprecated_member_use
-    brightness: brightness,
-    leading: SizedBox(
-      width: 56.0,
-      child: RawMaterialButton(
-        padding: const EdgeInsets.all(0.0),
-        shape: const CircleBorder(),
-        onPressed: () => Navigator.of(context).pop(),
-        child: Icon(
-          Icons.close,
-          color: Theme.of(context).textTheme.headline1!.color,
-          semanticLabel: t('CLOSE'),
-        ),
+    leading: InkWell(
+      onTap: () => Get.back(),
+      child: Icon(
+        Icons.close,
+        semanticLabel: t('CLOSE'),
       ),
     ),
     elevation: 0.0,
     actions: actions,
-    titleSpacing: 0.0,
-    bottom: bottom as PreferredSizeWidget?,
+    titleSpacing: 0,
+    bottom: bottom,
     // title: title,
   );
 }
@@ -49,10 +42,8 @@ AppBar renderHeaderBack({
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
-    leading: RawMaterialButton(
-      padding: const EdgeInsets.all(0.0),
-      shape: const CircleBorder(),
-      onPressed: () => Navigator.of(context).pop(),
+    leading: InkWell(
+      onTap: () => Get.back(),
       child: Icon(
         Icons.arrow_back,
         color: iconColor,

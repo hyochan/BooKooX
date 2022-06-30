@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wecount/models/user.dart';
+import 'package:wecount/screens/search_user.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
@@ -85,26 +87,23 @@ class MemberHorizontalList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children: <Widget>[
               showAddBtn == true
-                  ? Material(
-                      clipBehavior: Clip.hardEdge,
-                      color: Colors.transparent,
-                      child: Container(
-                        width: 48,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 1.0,
-                            color: Colors.white,
-                          ),
+                  ? Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          width: 1.0,
+                          color: Colors.white,
                         ),
-                        child: InkWell(
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                          onTap: () {},
+                      ),
+                      child: InkWell(
+                        customBorder: const CircleBorder(),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
                         ),
+                        onTap: () => Get.to(() => const SearchUser()),
                       ),
                     )
                   : const Empty(),

@@ -12,9 +12,7 @@ class MainEmpty extends StatefulWidget {
 
   const MainEmpty({
     Key? key,
-    this.title = '',
   }) : super(key: key);
-  final String title;
 
   @override
   State<MainEmpty> createState() => _MainEmptyState();
@@ -27,7 +25,6 @@ class _MainEmptyState extends State<MainEmpty> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHomeAppBar(
         context: context,
-        title: '',
         actions: [
           SizedBox(
             width: 56.0,

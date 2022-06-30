@@ -23,9 +23,7 @@ class LedgerItemEdit extends StatefulWidget {
 
   const LedgerItemEdit({
     Key? key,
-    this.title = '',
   }) : super(key: key);
-  final String title;
 
   @override
   State<LedgerItemEdit> createState() => _LedgerItemEditState();

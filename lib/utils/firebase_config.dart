@@ -3,24 +3,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:wecount/utils/logger.dart';
 
 import '../firebase_options.dart';
 
 class FirebaseConfig {
   static initializeApp() async {
     await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
     if (shouldUseEmulator()) {
+      String internalIP = getInternalIP();
+
       FirebaseFirestore.instance.settings = Settings(
-        host: '$getInternalIP():8080',
+        host: '$internalIP:8080',
         sslEnabled: false,
         persistenceEnabled: false,
       );
-      await FirebaseAuth.instance.useAuthEmulator(getInternalIP(), 9099);
+      await FirebaseAuth.instance.useAuthEmulator(internalIP, 9099);
       await FirebaseStorage.instance.useStorageEmulator(
-        getInternalIP(),
+        internalIP,
         9199,
       );
     }

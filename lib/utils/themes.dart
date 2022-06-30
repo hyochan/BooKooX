@@ -42,9 +42,15 @@ class Themes {
     backgroundColor: lightColor,
     bottomAppBarColor: lightDimColor,
     disabledColor: warmGrayColor,
+    iconTheme: const IconThemeData(
+      color: Colors.black,
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: mainColor,
       systemOverlayStyle: lightModeStatusBarColor,
+      iconTheme: IconThemeData(
+        color: Colors.black,
+      ),
     ),
     dialogBackgroundColor: lightColor,
     textTheme: const TextTheme(

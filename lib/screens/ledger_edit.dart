@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
-import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/empty.dart';
 import 'package:wecount/screens/members.dart';
 import 'package:wecount/screens/setting_currency.dart';
@@ -42,7 +40,7 @@ class LedgerEdit extends StatefulWidget {
 class _LedgerEditState extends State<LedgerEdit> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late Ledger _ledger;
-  final double paddingHorizontal = 25;
+  final double _paddingHorizontal = 25;
 
   bool _isLoading = false;
 
@@ -61,9 +59,10 @@ class _LedgerEditState extends State<LedgerEdit> {
         adminIds: [],
         memberIds: [],
       );
-    } else {
-      _ledger = widget.ledger!;
+      return;
     }
+
+    _ledger = widget.ledger!;
   }
 
   void _onPressCurrency() async {
@@ -110,25 +109,6 @@ class _LedgerEditState extends State<LedgerEdit> {
     }
   }
 
-  void _leaveLedger() async {
-    bool hasLeft = await DatabaseService().requestLeaveLedger(_ledger.id);
-
-    if (hasLeft) {
-      Ledger? ledger = await DatabaseService().fetchSelectedLedger();
-      // ignore: use_build_context_synchronously
-      Provider.of<CurrentLedger>(context, listen: false).setLedger(ledger);
-
-      Get.back();
-    }
-
-    // ignore: use_build_context_synchronously
-    General.instance.showSingleDialog(
-      context,
-      title: Text(t('ERROR')),
-      content: Text(t('SHOULD_TRANSFER_OWNERSHIP')),
-    );
-  }
-
   String? _validateFiled(String inputString) {
     if (inputString.isEmpty) {
       return Intl.message('EMPTY_WARNING');
@@ -142,13 +122,14 @@ class _LedgerEditState extends State<LedgerEdit> {
     return Scaffold(
       backgroundColor: getColor(_ledger.color),
       appBar: renderHeaderBack(
+        iconColor: Colors.white,
         context: context,
         brightness: Brightness.dark,
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 16),
             child: TextButton(
-              onPressed: _leaveLedger,
+              onPressed: () => Get.back(),
               child: Text(
                 t('LEAVE'),
                 semanticsLabel: t('LEAVE'),
@@ -173,7 +154,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                     top: 20,
                   ),
                   padding: EdgeInsets.symmetric(
-                    horizontal: paddingHorizontal,
+                    horizontal: _paddingHorizontal,
                   ),
                   child: TextFormField(
                     maxLines: 1,
@@ -201,7 +182,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: paddingHorizontal,
+                    horizontal: _paddingHorizontal,
                   ),
                   child: TextFormField(
                     maxLines: 7,
@@ -232,7 +213,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                   child: Container(
                     height: 80,
                     padding: EdgeInsets.symmetric(
-                      horizontal: paddingHorizontal,
+                      horizontal: _paddingHorizontal,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -269,7 +250,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                 Container(
                   height: 80,
                   padding: EdgeInsets.symmetric(
-                    horizontal: paddingHorizontal,
+                    horizontal: _paddingHorizontal,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -307,7 +288,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                 const Divider(color: Colors.white70),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: paddingHorizontal,
+                    horizontal: _paddingHorizontal,
                   ),
                   child: MemberHorizontalList(
                     showAddBtn: true,

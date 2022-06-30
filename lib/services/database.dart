@@ -100,11 +100,13 @@ class DatabaseService {
       await _deleteLedgerItems(ledgerId);
       await _deleteLedger(ledgerId);
       await _deleteLedgerFromUser(ledgerId, user);
+
       return true;
     }
 
     if (!hasOwnerPermission) {
       await _deleteLedgerFromUser(ledgerId, user!);
+
       return true;
     }
 
