@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
+import 'package:wecount/screens/empty.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 
 import '../utils/localization.dart';
@@ -23,8 +24,8 @@ class MemberItem implements ListItem {
 
 class MemberListItem extends StatelessWidget {
   final User user;
-  final Function? onPressMember;
-  final Function? onPressAuth;
+  final void Function()? onPressMember;
+  final void Function()? onPressAuth;
 
   const MemberListItem({
     Key? key,
@@ -33,31 +34,35 @@ class MemberListItem extends StatelessWidget {
     this.onPressAuth,
   }) : super(key: key);
 
+  String _getMembership(Membership userMembership) {
+    if (userMembership == Membership.owner) {
+      return t('MEMBER_OWNER');
+    }
+    if (userMembership == Membership.admin) {
+      return t('MEMBER_ADMIN');
+    }
+
+    return t('MEMBER_GUEST');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 80,
-      alignment: const Alignment(-1, 0),
       child: Row(
         children: <Widget>[
           Expanded(
-            // ignore: deprecated_member_use
-            child: FlatButton(
-              onPressed: onPressMember as void Function()?,
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: TextButton(
+              onPressed: onPressMember,
               child: Row(
                 children: <Widget>[
                   Stack(
                     alignment: AlignmentDirectional.center,
                     children: <Widget>[
-                      SizedBox(
+                      Image(
+                        image: asset.Icons.icMask,
                         width: 52,
                         height: 52,
-                        child: Image(
-                          image: asset.Icons.icMask,
-                          width: 40,
-                          height: 40,
-                        ),
                       ),
                       user.membership == Membership.owner
                           ? Positioned(
@@ -71,7 +76,7 @@ class MemberListItem extends StatelessWidget {
                                 height: 20,
                               ),
                             )
-                          : Container(),
+                          : const Empty(),
                     ],
                   ),
                   Expanded(
@@ -111,27 +116,18 @@ class MemberListItem extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            alignment: const Alignment(0, 0),
-            width: 80,
-            height: double.infinity,
-            // ignore: deprecated_member_use
-            child: FlatButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: onPressAuth as void Function()?,
-              child: Text(
-                user.membership == Membership.owner
-                    ? t('MEMBER_OWNER')
-                    : user.membership == Membership.admin
-                        ? t('MEMBER_ADMIN')
-                        : t('MEMBER_GUEST'),
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(context).textTheme.headline1!.color,
-                ),
-              ),
-            ),
-          ),
+          user.membership != null
+              ? TextButton(
+                  onPressed: onPressAuth,
+                  child: Text(
+                    _getMembership(user.membership!),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).textTheme.headline1!.color,
+                    ),
+                  ),
+                )
+              : const Empty(),
         ],
       ),
     );

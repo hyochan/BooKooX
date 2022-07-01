@@ -1,16 +1,17 @@
-import 'package:wecount/shared/edit_text.dart';
 import 'package:flutter/material.dart';
-
-import 'package:wecount/screens/profile_peer.dart';
-import 'package:wecount/utils/general.dart';
-import 'package:wecount/shared/member_list_item.dart';
-import 'package:wecount/shared/header.dart';
-import 'package:wecount/models/user.dart';
 import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/user.dart';
+import 'package:wecount/screens/empty.dart';
+import 'package:wecount/screens/profile_peer.dart';
+import 'package:wecount/shared/edit_text.dart';
+import 'package:wecount/shared/header.dart';
+import 'package:wecount/shared/member_list_item.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 
 class Members extends StatefulWidget {
   final Ledger? ledger;
+
   const Members({
     Key? key,
     this.ledger,
@@ -139,10 +140,11 @@ class _MembersState extends State<Members> {
         itemBuilder: (context, index) {
           final item = _filteredMembers[index];
           if (item is HeadingItem) {
-            return Container(
-              height: 80,
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              alignment: const Alignment(-1, 0),
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 30,
+              ),
               child: _isSearchMode
                   ? EditText(
                       key: const Key('member'),
@@ -175,29 +177,32 @@ class _MembersState extends State<Members> {
                     ),
             );
           } else if (item is MemberItem) {
-            return MemberListItem(
-              user: item.user,
-              onPressAuth: () {
-                General.instance.showMembershipDialog(context, (int? val) {
-                  setState(() {
-                    item.user.changeMemberShip(val!);
-                  });
-                  Navigator.of(context).pop();
-                }, item.user.membership!.index);
-              },
-              onPressMember: () {
-                General.instance.navigateScreen(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => ProfilePeer(
-                      user: item.user,
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: MemberListItem(
+                user: item.user,
+                onPressAuth: () {
+                  General.instance.showMembershipDialog(context, (int? val) {
+                    setState(() {
+                      item.user.changeMemberShip(val!);
+                    });
+                    Navigator.of(context).pop();
+                  }, item.user.membership!.index);
+                },
+                onPressMember: () {
+                  General.instance.navigateScreen(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ProfilePeer(
+                        user: item.user,
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           }
-          return Container();
+          return const Empty();
         },
       ),
     );
