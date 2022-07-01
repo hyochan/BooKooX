@@ -70,10 +70,10 @@ class S {
     );
   }
 
-  /// `this field cannot be empty.`
+  /// `This field cannot be empty.`
   String get EMPTY_WARNING {
     return Intl.message(
-      'this field cannot be empty.',
+      'This field cannot be empty.',
       name: 'EMPTY_WARNING',
       desc: '',
       args: [],
@@ -1855,6 +1855,16 @@ class S {
     return Intl.message(
       'Invite',
       name: 'INVITE',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This member has already been added.`
+  String get ALREADY_MEMBER_WARNING {
+    return Intl.message(
+      'This member has already been added.',
+      name: 'ALREADY_MEMBER_WARNING',
       desc: '',
       args: [],
     );

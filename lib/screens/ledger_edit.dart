@@ -286,11 +286,12 @@ class _LedgerEditState extends State<LedgerEdit> {
                   ),
                 ),
                 const Divider(color: Colors.white70),
-                Padding(
+                Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: _paddingHorizontal,
                   ),
                   child: MemberHorizontalList(
+                    backgroundColor: getColor(_ledger.color),
                     showAddBtn: true,
                     memberIds:
                         widget.ledger != null ? widget.ledger!.memberIds : [],
@@ -355,7 +356,7 @@ class ColorItem extends StatelessWidget {
 
   final ColorType? color;
   final bool? selected;
-  final Function? onTap;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -367,7 +368,7 @@ class ColorItem extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             color: getColor(color),
             child: InkWell(
-              onTap: onTap as void Function()?,
+              onTap: onTap,
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.white),

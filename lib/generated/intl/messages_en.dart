@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDING_LEDGER_ITEM":
             MessageLookupByLibrary.simpleMessage("Adding ledger item"),
         "ADD_LEDGER": MessageLookupByLibrary.simpleMessage("Add Ledger"),
+        "ALREADY_MEMBER_WARNING": MessageLookupByLibrary.simpleMessage(
+            "This member has already been added."),
         "ANNOUNCEMENT": MessageLookupByLibrary.simpleMessage("Announcement"),
         "ANNOUNCEMENT_1":
             MessageLookupByLibrary.simpleMessage("Wecount Promises"),
@@ -80,7 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "EMAIL_NOT_VERIFIED": MessageLookupByLibrary.simpleMessage(
             "Your email is not verified. Please check your inbox and verify your email address."),
         "EMPTY_WARNING":
-            MessageLookupByLibrary.simpleMessage("this field cannot be empty."),
+            MessageLookupByLibrary.simpleMessage("This field cannot be empty."),
         "ERROR": MessageLookupByLibrary.simpleMessage("Error"),
         "ERROR_CATEGORY_ICON":
             MessageLookupByLibrary.simpleMessage("Please select icon."),

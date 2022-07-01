@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/screens/empty.dart';
@@ -141,10 +142,7 @@ class _MembersState extends State<Members> {
           final item = _filteredMembers[index];
           if (item is HeadingItem) {
             return Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20,
-                horizontal: 30,
-              ),
+              padding: const EdgeInsets.all(20),
               child: _isSearchMode
                   ? EditText(
                       key: const Key('member'),
@@ -186,7 +184,7 @@ class _MembersState extends State<Members> {
                     setState(() {
                       item.user.changeMemberShip(val!);
                     });
-                    Navigator.of(context).pop();
+                    Get.back();
                   }, item.user.membership!.index);
                 },
                 onPressMember: () {

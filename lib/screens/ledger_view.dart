@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:wecount/shared/member_horizontal_list.dart';
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
-import 'package:wecount/utils/localization.dart';
+import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/shared/member_horizontal_list.dart';
 import 'package:wecount/types/color.dart';
+import 'package:wecount/utils/localization.dart';
 
 import '../utils/colors.dart';
 
@@ -13,6 +12,7 @@ class LedgerView extends StatefulWidget {
   static const String name = '/ledger_view';
 
   final Ledger? ledger;
+
   const LedgerView({
     Key? key,
     this.ledger,
@@ -181,7 +181,9 @@ class _LedgerViewState extends State<LedgerView> {
               ),
             ),
             const Divider(color: Colors.white70),
-            const MemberHorizontalList(),
+            MemberHorizontalList(
+              backgroundColor: getColor(_ledger.color),
+            ),
           ],
         ),
       ),

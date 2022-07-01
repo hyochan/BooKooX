@@ -53,6 +53,9 @@ class MemberListItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+              ),
               onPressed: onPressMember,
               child: Row(
                 children: <Widget>[

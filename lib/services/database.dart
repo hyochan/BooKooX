@@ -254,14 +254,19 @@ class DatabaseService {
   }
 
   Future<List<m.User>> searchUsers(String query) async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
     List<QuerySnapshot> res = await Future.wait([
       _userRef
           .orderBy("displayName")
           .startAt([query]).endAt(["$query\uf8ff"]).get(),
       _userRef.orderBy("email").startAt([query]).endAt(["$query\uf8ff"]).get(),
     ]);
-    var docs = [...res[0].docs, ...res[1].docs];
 
-    return docs.map((doc) => doc.data() as m.User).toList();
+    var docs = [...res[0].docs, ...res[1].docs];
+    List<m.User> users = docs.map((doc) => doc.data() as m.User).toList();
+    users.removeWhere((user) => user.uid == userId);
+
+    return users;
   }
 }

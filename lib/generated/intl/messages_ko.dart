@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ADDING_LEDGER_ITEM":
             MessageLookupByLibrary.simpleMessage("가계부에 리스트 추가시"),
         "ADD_LEDGER": MessageLookupByLibrary.simpleMessage("가계부 추가"),
+        "ALREADY_MEMBER_WARNING":
+            MessageLookupByLibrary.simpleMessage("이미 추가된 멤버 입니다."),
         "ANNOUNCEMENT": MessageLookupByLibrary.simpleMessage("공지사항"),
         "ANNOUNCEMENT_1": MessageLookupByLibrary.simpleMessage("Wecount의 약속"),
         "ANNOUNCEMENT_2": MessageLookupByLibrary.simpleMessage("Wecount 출시 알림"),

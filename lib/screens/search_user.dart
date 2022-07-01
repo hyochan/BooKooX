@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/shared/header.dart';
 import 'package:wecount/shared/loading_indicator.dart';
+import 'package:wecount/shared/member_list_item.dart';
 import 'package:wecount/shared/search_text_filed.dart';
 
 import '../models/user.dart';
@@ -25,6 +27,10 @@ class _SearchUserState extends State<SearchUser> {
         );
     setState(() => _isLoading = false);
   }
+
+  void _addMember(User user) => Get.back(
+        result: user,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +75,12 @@ class _SearchUserState extends State<SearchUser> {
                                     itemCount: _users.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      return Text(_users[index].displayName!);
+                                      return MemberListItem(
+                                        user: _users[index],
+                                        onPressMember: () => _addMember(
+                                          _users[index],
+                                        ),
+                                      );
                                     },
                                   ),
                                 )
