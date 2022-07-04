@@ -21,20 +21,8 @@ class DatabaseService {
             toFirestore: (user, _) => user.toJson(),
           );
 
-  Future<bool> requestCreateNewLedger(Ledger? ledger) async {
+  Future<bool> requestCreateNewLedger(Ledger ledger) async {
     User? user = FirebaseAuth.instance.currentUser;
-
-    if (user == null) {
-      logger.d('user is not sign-in');
-      return false;
-    }
-
-    ledger!.ownerId = user.uid;
-    ledger.adminIds = [];
-
-    ledger.members = [
-      m.User(uid: user.uid),
-    ];
 
     DocumentReference ref =
         await FirebaseFirestore.instance.collection('ledgers').add({
@@ -46,14 +34,12 @@ class DatabaseService {
       'currency': ledger.currency.currency,
       'currencyLocale': ledger.currency.locale,
       'currencySymbol': ledger.currency.symbol,
-      'members': FieldValue.arrayUnion(
-        ledger.members!.map((el) => el.uid).toList(),
-      ),
+      'memberIds': ledger.memberIds,
     });
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(user.uid)
+        .doc(user!.uid)
         .collection('ledgers')
         .doc(ref.id)
         .set({
@@ -190,7 +176,7 @@ class DatabaseService {
 
   Stream<List<Ledger>> streamLedgersWithMembership(User user) {
     var ref =
-        _db.collection('ledgers').where('members', arrayContains: user.uid);
+        _db.collection('ledgers').where('memberIds', arrayContains: user.uid);
 
     return ref.snapshots().map(
         (list) => list.docs.map((doc) => Ledger.fromFirestore(doc)).toList());

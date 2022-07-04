@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -92,11 +93,10 @@ class _LedgerEditState extends State<LedgerEdit> {
           _ledger.description == '' ? null : _ledger.description;
 
       try {
-        final DatabaseService db = DatabaseService();
-
         if (widget.mode == LedgerEditMode.add) {
-          await db.requestCreateNewLedger(_ledger);
+          await createNewLedger();
         } else if (widget.mode == LedgerEditMode.update) {
+          final DatabaseService db = DatabaseService();
           await db.requestUpdateLedger(_ledger);
         }
 
@@ -106,6 +106,22 @@ class _LedgerEditState extends State<LedgerEdit> {
       } finally {
         setState(() => _isLoading = false);
       }
+    }
+  }
+
+  Future<void> createNewLedger() async {
+    final DatabaseService db = DatabaseService();
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      _ledger.ownerId = user.uid;
+      _ledger.adminIds = [];
+      _ledger.memberIds = [
+        ..._ledger.memberIds,
+        user.uid,
+      ];
+
+      await db.requestCreateNewLedger(_ledger);
     }
   }
 
@@ -293,13 +309,15 @@ class _LedgerEditState extends State<LedgerEdit> {
                   child: MemberHorizontalList(
                     backgroundColor: getColor(_ledger.color),
                     showAddBtn: true,
-                    memberIds:
-                        widget.ledger != null ? widget.ledger!.memberIds : [],
+                    memberIds: _ledger.memberIds,
                     onSeeAllPressed: () => Get.to(
                       () => Members(
                         ledger: widget.ledger,
                       ),
                     ),
+                    onMemberChanged: (List<String> memberIds) {
+                      setState(() => _ledger.memberIds = memberIds);
+                    },
                   ),
                 ),
                 const SizedBox(

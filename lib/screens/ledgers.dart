@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _LedgersState extends State<Ledgers> {
     }
 
     void onLedgerPressed(Ledger item) {
-      Navigator.of(context).pop();
+      Get.back();
       DatabaseService().requestSelectLedger(item.id);
       Provider.of<CurrentLedger>(context, listen: false).setLedger(item);
     }

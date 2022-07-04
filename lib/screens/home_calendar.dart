@@ -3,6 +3,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
+import 'package:get/get.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:provider/provider.dart';
 import 'package:wecount/mocks/home_calendar.mock.dart';
@@ -15,7 +16,6 @@ import 'package:wecount/shared/home_header.dart' show HomeHeaderExpanded;
 import 'package:wecount/shared/home_list_item.dart';
 import 'package:wecount/types/color.dart';
 import 'package:wecount/utils/colors.dart';
-import 'package:wecount/utils/general.dart';
 
 class HomeCalendar extends StatefulWidget {
   const HomeCalendar({
@@ -48,8 +48,9 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: const EdgeInsets.all(0.0),
                   shape: const CircleBorder(),
-                  onPressed: () => General.instance
-                      .navigateScreenNamed(context, Ledgers.name),
+                  onPressed: () => Get.to(
+                    () => const Ledgers(),
+                  ),
                   child: const Icon(
                     Icons.book,
                     color: Colors.white,
@@ -61,8 +62,9 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: const EdgeInsets.all(0.0),
                   shape: const CircleBorder(),
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed(LedgerItemEdit.name),
+                  onPressed: () => Get.to(
+                    () => const LedgerItemEdit(),
+                  ),
                   child: const Icon(
                     Icons.add,
                     color: Colors.white,

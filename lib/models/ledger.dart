@@ -70,7 +70,7 @@ class Ledger {
         symbol: data['currencySymbol'],
       ),
       description: data['description'] ?? '',
-      people: List.from(data['members'] ?? []).length,
+      people: List.from(data['memberIds'] ?? []).length,
       ownerId: data['ownerId'] ?? '',
       adminIds: List.from(data['admins'] ?? []),
       memberIds: List.from(data['members'] ?? []),

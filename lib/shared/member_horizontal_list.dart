@@ -11,11 +11,12 @@ import 'package:wecount/utils/localization.dart';
 import '../screens/empty.dart';
 import '../utils/alert.dart';
 
-class MemberHorizontalList extends StatefulWidget {
+class MemberHorizontalList extends StatelessWidget {
   final bool? showAddBtn;
   final void Function()? onSeeAllPressed;
   final Color backgroundColor;
   final List<String> memberIds;
+  final dynamic Function(List<String> memberIds)? onMemberChanged;
 
   const MemberHorizontalList({
     Key? key,
@@ -23,20 +24,8 @@ class MemberHorizontalList extends StatefulWidget {
     this.onSeeAllPressed,
     required this.backgroundColor,
     this.memberIds = const [],
+    this.onMemberChanged,
   }) : super(key: key);
-
-  @override
-  State<MemberHorizontalList> createState() => _MemberHorizontalListState();
-}
-
-class _MemberHorizontalListState extends State<MemberHorizontalList> {
-  List<String> _memberIds = [];
-
-  @override
-  void initState() {
-    _memberIds = widget.memberIds;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +46,7 @@ class _MemberHorizontalListState extends State<MemberHorizontalList> {
               ),
             ),
             TextButton(
-              onPressed: widget.onSeeAllPressed,
+              onPressed: onSeeAllPressed,
               child: Text(
                 t('SEE_ALL'),
                 semanticsLabel: t('SEE_ALL'),
@@ -73,13 +62,12 @@ class _MemberHorizontalListState extends State<MemberHorizontalList> {
         ),
         Row(
           children: [
-            _memberIds.isEmpty
+            memberIds.isEmpty
                 ? const Empty()
                 : Stack(
-                    children: _memberIds.take(4).mapIndexed((index, memberId) {
+                    children: memberIds.take(4).mapIndexed((index, memberId) {
                       if (index > 0) {
-                        memberIconLeftMargin +=
-                            _memberIds.length <= 3 ? 52 : 37;
+                        memberIconLeftMargin += memberIds.length <= 3 ? 52 : 37;
                       }
 
                       return Container(
@@ -87,7 +75,7 @@ class _MemberHorizontalListState extends State<MemberHorizontalList> {
                         height: 55,
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                          color: widget.backgroundColor,
+                          color: backgroundColor,
                           shape: BoxShape.circle,
                         ),
                         margin: EdgeInsets.only(
@@ -121,9 +109,9 @@ class _MemberHorizontalListState extends State<MemberHorizontalList> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "+ ${_memberIds.length}",
+                                    "+ ${memberIds.length}",
                                     style: TextStyle(
-                                      color: widget.backgroundColor,
+                                      color: backgroundColor,
                                     ),
                                   ),
                                 ),
@@ -131,7 +119,7 @@ class _MemberHorizontalListState extends State<MemberHorizontalList> {
                       );
                     }).toList(),
                   ),
-            widget.showAddBtn == true
+            showAddBtn == true
                 ? Expanded(
                     child: Align(
                       alignment: Alignment.centerLeft,
@@ -155,16 +143,19 @@ class _MemberHorizontalListState extends State<MemberHorizontalList> {
                             User? user = await Get.to(() => const SearchUser());
 
                             if (user != null) {
-                              if (_memberIds.contains(user.uid!)) {
+                              if (memberIds.contains(user.uid!)) {
                                 return alert(
                                   t('ALREADY_MEMBER_WARNING'),
                                   colorText: Colors.white,
                                 );
                               }
 
-                              setState(
-                                () => _memberIds.add(user.uid!),
-                              );
+                              if (onMemberChanged != null) {
+                                onMemberChanged!([
+                                  ...memberIds,
+                                  user.uid!,
+                                ]);
+                              }
                             }
                           },
                         ),
