@@ -9,8 +9,6 @@ import flutter_config
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    UIApplication.shared.isStatusBarHidden = false
-
     GeneratedPluginRegistrant.register(with: self)
     GMSServices.provideAPIKey(FlutterConfigPlugin.env(for: "GEO_API_KEY"))
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
