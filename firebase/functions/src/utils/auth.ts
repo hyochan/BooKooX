@@ -18,11 +18,21 @@ const init = async () => {
   }
 
   // eslint-disable-next-line no-extra-boolean-cast
-  if (Boolean(process.env.SHOULD_USE_EMULATOR ?? false)) {
+  if (shouldUseEmulator()) {
     admin.firestore().settings({ host: 'localhost:8080', ssl: false })
   }
 
   return admin
+}
+
+const shouldUseEmulator = (): boolean => {
+  const envShouldUseEmulator = process.env.SHOULD_USE_EMULATOR?.toLowerCase()
+
+  if (envShouldUseEmulator === 'true') {
+    return true
+  }
+
+  return false
 }
 
 export default init
