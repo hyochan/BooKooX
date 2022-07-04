@@ -98,7 +98,7 @@ class _LedgersState extends State<Ledgers> {
                   );
                 }),
             StreamBuilder(
-              stream: DatabaseService().streamLedgersWithMembership(user),
+              stream: DatabaseService().streamLedgersWithMembership(),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Ledger>> snapshot) {
                 if (snapshot.data != null) {

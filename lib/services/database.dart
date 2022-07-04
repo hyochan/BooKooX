@@ -20,6 +20,7 @@ class DatabaseService {
             ),
             toFirestore: (user, _) => user.toJson(),
           );
+  get _currentUser => FirebaseAuth.instance.currentUser;
 
   Future<bool> requestCreateNewLedger(Ledger ledger) async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -50,9 +51,7 @@ class DatabaseService {
   }
 
   Future<bool> requestUpdateLedger(Ledger? ledger) async {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    if (user == null) {
+    if (_currentUser == null) {
       logger.d('user is not sign-in');
       return false;
     }
@@ -70,9 +69,10 @@ class DatabaseService {
   }
 
   Future<void> requestSelectLedger(String? ledgerId) async {
-    User user = FirebaseAuth.instance.currentUser!;
-
-    return FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(_currentUser.uid)
+        .set({
       'selectedLedger': ledgerId,
     }, SetOptions(merge: true));
   }
@@ -84,22 +84,22 @@ class DatabaseService {
   }
 
   Future<bool> requestLeaveLedger(String? ledgerId) async {
-    User? user = FirebaseAuth.instance.currentUser;
     Ledger ledger = await _getLedger(ledgerId);
 
-    bool hasOwnerPermission = user != null && ledger.ownerId == user.uid;
+    bool hasOwnerPermission =
+        _currentUser != null && ledger.ownerId == _currentUser.uid;
     bool hasMoreThanOneUser = ledger.memberIds.length > 1;
 
     if (hasOwnerPermission && !hasMoreThanOneUser) {
       await _deleteLedgerItems(ledgerId);
       await _deleteLedger(ledgerId);
-      await _deleteLedgerFromUser(ledgerId, user);
+      await _deleteLedgerFromUser(ledgerId);
 
       return true;
     }
 
     if (!hasOwnerPermission) {
-      await _deleteLedgerFromUser(ledgerId, user!);
+      await _deleteLedgerFromUser(ledgerId);
 
       return true;
     }
@@ -118,9 +118,9 @@ class DatabaseService {
   Future<void> _deleteLedger(String? ledgerId) =>
       _db.collection('ledgers').doc(ledgerId).delete();
 
-  Future<void> _deleteLedgerFromUser(String? ledgerId, User user) => _db
+  Future<void> _deleteLedgerFromUser(String? ledgerId) => _db
       .collection('users')
-      .doc(user.uid)
+      .doc(_currentUser.uid)
       .collection('ledgers')
       .doc(ledgerId)
       .delete();
@@ -129,9 +129,7 @@ class DatabaseService {
     m.User? profile, {
     XFile? imgFile,
   }) async {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    if (user == null) {
+    if (_currentUser == null) {
       logger.d('user is not sign-in');
 
       return false;
@@ -153,8 +151,8 @@ class DatabaseService {
         metaData: 'profile',
       );
 
-      user.updatePhotoURL(profile.thumbURL);
-      user.updateDisplayName(profile.displayName);
+      _currentUser.updatePhotoURL(profile.thumbURL);
+      _currentUser.updateDisplayName(profile.displayName);
 
       await FirebaseFirestore.instance
           .collection('users')
@@ -174,9 +172,10 @@ class DatabaseService {
     return true;
   }
 
-  Stream<List<Ledger>> streamLedgersWithMembership(User user) {
-    var ref =
-        _db.collection('ledgers').where('memberIds', arrayContains: user.uid);
+  Stream<List<Ledger>> streamLedgersWithMembership() {
+    var ref = _db
+        .collection('ledgers')
+        .where('memberIds', arrayContains: _currentUser.uid);
 
     return ref.snapshots().map(
         (list) => list.docs.map((doc) => Ledger.fromFirestore(doc)).toList());
@@ -215,18 +214,37 @@ class DatabaseService {
     });
   }
 
-  Future<DocumentSnapshot> fetchMe(User user) {
-    return _db.collection('users').doc(user.uid).get();
+  Future<void> createUser(User user, String? googleIdToken) async {
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+      'id': user.uid,
+      'email': user.email,
+      'displayName': user.displayName,
+      'name': user.displayName,
+      'googleIdToken': googleIdToken,
+      'createdAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
+      'deletedAt': null,
+    });
+  }
+
+  Future<DocumentSnapshot> fetchMe() async {
+    DocumentSnapshot me =
+        await _db.collection('users').doc(_currentUser.uid).get();
+
+    if (!me.exists) {
+      await FirebaseAuth.instance.signOut();
+    }
+
+    return me;
   }
 
   Future<Ledger?> fetchSelectedLedger() async {
-    User? user = FirebaseAuth.instance.currentUser!;
-    DocumentSnapshot me = await DatabaseService().fetchMe(user);
+    DocumentSnapshot me = await DatabaseService().fetchMe();
 
     if (DBHelper.instance.isExistFiled(me, 'selectedLedger')) {
       var ledgers = await _db
           .collection('users')
-          .doc(user.uid)
+          .doc(_currentUser.uid)
           .collection('ledgers')
           .get();
 
@@ -239,9 +257,14 @@ class DatabaseService {
     return null;
   }
 
-  Future<List<m.User>> searchUsers(String query) async {
-    String userId = FirebaseAuth.instance.currentUser!.uid;
+  List<m.User> _removeMe(List<m.User> users) {
+    List<m.User> copyUsers = [...users];
+    copyUsers.removeWhere((user) => user.uid == _currentUser.uid);
 
+    return copyUsers;
+  }
+
+  Future<List<m.User>> searchUsers(String query) async {
     List<QuerySnapshot> res = await Future.wait([
       _userRef
           .orderBy("displayName")
@@ -251,8 +274,7 @@ class DatabaseService {
 
     var docs = [...res[0].docs, ...res[1].docs];
     List<m.User> users = docs.map((doc) => doc.data() as m.User).toList();
-    users.removeWhere((user) => user.uid == userId);
 
-    return users;
+    return _removeMe(users);
   }
 }

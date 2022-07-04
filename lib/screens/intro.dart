@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/screens/sign_in.dart';
 import 'package:wecount/screens/sign_up.dart';
+import 'package:wecount/services/database.dart';
 import 'package:wecount/shared/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/colors.dart';
@@ -50,15 +51,7 @@ class Intro extends StatelessWidget {
         await FirebaseAuth.instance.signInWithCredential(credential);
     User user = auth.user!;
 
-    await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-      'email': user.email,
-      'displayName': user.displayName,
-      'name': user.displayName,
-      'googleId': googleAuth.idToken,
-      'createdAt': FieldValue.serverTimestamp(),
-      'updatedAt': FieldValue.serverTimestamp(),
-      'deletedAt': null,
-    });
+    DatabaseService().createUser(user, googleAuth.idToken);
   }
 
   @override
