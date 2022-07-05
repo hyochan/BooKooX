@@ -41,7 +41,7 @@ class _LedgersState extends State<Ledgers> {
     void onLedgerPressed(Ledger item) {
       Get.back();
       DatabaseService().requestSelectLedger(item.id);
-      Provider.of<CurrentLedger>(context, listen: false).setLedger(item);
+      Provider.of<CurrentLedger>(context, listen: false).ledger = item;
     }
 
     void onLedgerMorePressed(Ledger item) {

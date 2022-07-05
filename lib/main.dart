@@ -112,7 +112,7 @@ class Wecount extends StatelessWidget {
           initialData: null,
         ),
         ChangeNotifierProvider(
-          create: (context) => CurrentLedger(null),
+          create: (_) => CurrentLedger(null),
         ),
       ],
       child: GetMaterialApp(

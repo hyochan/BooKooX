@@ -25,8 +25,8 @@ class HomeStatistic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger()!.color
+    var color = Provider.of<CurrentLedger>(context).ledger != null
+        ? Provider.of<CurrentLedger>(context).ledger!.color
         : ColorType.dusk;
 
     return Scaffold(

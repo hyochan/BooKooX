@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/screens/empty.dart';
@@ -14,6 +15,7 @@ import 'package:wecount/types/color.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/logger.dart';
 
+import '../providers/current_ledger.dart';
 import '../utils/colors.dart';
 import '../utils/localization.dart';
 
@@ -98,6 +100,10 @@ class _LedgerEditState extends State<LedgerEdit> {
         } else if (widget.mode == LedgerEditMode.update) {
           final DatabaseService db = DatabaseService();
           await db.requestUpdateLedger(_ledger);
+        }
+
+        if (mounted) {
+          Provider.of<CurrentLedger>(context, listen: false).ledger = _ledger;
         }
 
         Get.back();

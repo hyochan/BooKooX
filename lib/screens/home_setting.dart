@@ -26,8 +26,8 @@ class HomeSetting extends StatefulWidget {
 class _HomeSettingState extends State<HomeSetting> {
   @override
   Widget build(BuildContext context) {
-    var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger()!.color
+    var color = Provider.of<CurrentLedger>(context).ledger != null
+        ? Provider.of<CurrentLedger>(context).ledger!.color
         : ColorType.dusk;
 
     final List<ListItem> items = [

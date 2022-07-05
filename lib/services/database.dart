@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/models/user.dart' as m;
+import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/services/storage.dart';
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/logger.dart';
@@ -181,7 +183,7 @@ class DatabaseService {
         (list) => list.docs.map((doc) => Ledger.fromFirestore(doc)).toList());
   }
 
-  Stream<Ledger> streamLedger(String? id) {
+  Stream<Ledger?> streamLedger(String? id) {
     return _db
         .collection('ledgers')
         .doc(id)
@@ -195,14 +197,6 @@ class DatabaseService {
         .doc(id)
         .snapshots()
         .map((snap) => m.User.fromJson(snap.data(), id));
-  }
-
-  /// Used from [auth_switch] to detect the initial widget.
-  Stream<List<Ledger>> streamMyLedgers(User user) {
-    var ref = _db.collection('users').doc(user.uid).collection('ledgers');
-
-    return ref.snapshots().map(
-        (list) => list.docs.map((doc) => Ledger.fromFirestore(doc)).toList());
   }
 
   Future<void> createLedger(Ledger ledger) {
@@ -227,31 +221,39 @@ class DatabaseService {
     });
   }
 
-  Future<DocumentSnapshot> fetchMe() async {
+  Future<DocumentSnapshot?> fetchMe() async {
     DocumentSnapshot me =
         await _db.collection('users').doc(_currentUser.uid).get();
 
     if (!me.exists) {
       await FirebaseAuth.instance.signOut();
+
+      return Get.offAll(() => const AuthSwitch());
     }
 
     return me;
   }
 
   Future<Ledger?> fetchSelectedLedger() async {
-    DocumentSnapshot me = await DatabaseService().fetchMe();
+    DocumentSnapshot? me = await DatabaseService().fetchMe();
 
-    if (DBHelper.instance.isExistFiled(me, 'selectedLedger')) {
+    if (me != null) {
+      if (DBHelper.instance.isExistFiled(me, 'selectedLedger')) {
+        return await streamLedger(me['selectedLedger']).first;
+      }
+
       var ledgers = await _db
           .collection('users')
           .doc(_currentUser.uid)
           .collection('ledgers')
           .get();
 
-      var firstLedgerId = ledgers.docs[0].data()['id'];
-      var ledger = await streamLedger(firstLedgerId).first;
+      if (ledgers.size != 0) {
+        String firstLedgerId = ledgers.docs[0].data()['id'];
+        var ledger = await streamLedger(firstLedgerId).first;
 
-      return ledger;
+        return ledger;
+      }
     }
 
     return null;

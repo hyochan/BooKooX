@@ -5,9 +5,6 @@ class CurrentLedger with ChangeNotifier {
   Ledger? _ledger;
   String? _title;
 
-  Ledger? getLedger() => _ledger;
-  String? getTitle() => _title;
-
   CurrentLedger(Ledger? ledger) {
     _ledger = ledger;
 
@@ -16,12 +13,16 @@ class CurrentLedger with ChangeNotifier {
     }
   }
 
-  void setLedger(Ledger? ledger) {
+  Ledger? get ledger => _ledger;
+  String? get title => _title;
+
+  set ledger(ledger) {
     _ledger = ledger;
 
     if (ledger != null) {
       _title = ledger.title;
     }
+
     notifyListeners();
   }
 }

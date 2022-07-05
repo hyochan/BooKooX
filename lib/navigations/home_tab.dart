@@ -22,7 +22,7 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    String title = Provider.of<CurrentLedger>(context).getTitle() ?? '';
+    String title = Provider.of<CurrentLedger>(context).title ?? '';
 
     return Scaffold(
       body: Stack(

@@ -31,8 +31,8 @@ class HomeCalendar extends StatefulWidget {
 class _HomeCalendarState extends State<HomeCalendar> {
   @override
   Widget build(BuildContext context) {
-    var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger()!.color
+    var color = Provider.of<CurrentLedger>(context).ledger != null
+        ? Provider.of<CurrentLedger>(context).ledger!.color
         : ColorType.dusk;
 
     return Scaffold(
@@ -130,9 +130,15 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.delayed(Duration.zero, () {
       List<LedgerItem> ledgerList = createCalendarLedgerItemMock();
       EventList<Event>? markedDateMap = EventList(events: {});
+
       for (var ledger in ledgerList) {
-        markedDateMap.add(ledger.selectedDate!,
-            Event(date: ledger.selectedDate!, title: ledger.category!.label));
+        markedDateMap.add(
+          ledger.selectedDate!,
+          Event(
+            date: ledger.selectedDate!,
+            title: ledger.category!.label,
+          ),
+        );
       }
 
       setState(() {
@@ -144,8 +150,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger()!.color
+    var color = Provider.of<CurrentLedger>(context).ledger != null
+        ? Provider.of<CurrentLedger>(context).ledger!.color
         : ColorType.dusk;
 
     void onDatePressed() async {
