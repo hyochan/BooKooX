@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wecount/models/ledger_item.dart';
-import 'package:wecount/models/user.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart' show General;
 
 class HomeListItem extends StatelessWidget {
-  final LedgerItem? ledgerItem;
+  final LedgerItemModel? ledgerItem;
 
   const HomeListItem({
     Key? key,
@@ -16,7 +16,7 @@ class HomeListItem extends StatelessWidget {
 
   List<Widget> buildLabelArea(
     String label, {
-    User? writer,
+    UserModel? writer,
     required BuildContext context,
   }) {
     List<Widget> labelArea = [];
@@ -49,7 +49,7 @@ class HomeListItem extends StatelessWidget {
 
     AssetImage image = ledgerItem!.category!.getIconImage()!;
     String label = ledgerItem!.category!.label!;
-    User? writer = ledgerItem!.writer;
+    UserModel? writer = ledgerItem!.writer;
     bool isPlus = ledgerItem!.price! > 0;
     String priceFormatted = formatCurrency.format(ledgerItem!.price ?? 0.0);
     String priceToShow =

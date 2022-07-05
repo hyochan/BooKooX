@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/models/ledger_item.dart';
-import 'package:wecount/models/photo.dart';
+import 'package:wecount/models/photo_model.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart' show General;
@@ -88,15 +88,15 @@ class Gallery extends StatefulWidget {
 
   final EdgeInsets? margin;
   final bool showAll;
-  final List<Photo> pictures;
-  final LedgerItem ledgerItem;
+  final List<PhotoModel> pictures;
+  final LedgerItemModel ledgerItem;
 
   @override
   State<Gallery> createState() => _GalleryState();
 }
 
 class _GalleryState extends State<Gallery> {
-  late List<Photo> _pictures;
+  late List<PhotoModel> _pictures;
 
   @override
   void initState() {
@@ -157,7 +157,7 @@ class _GalleryState extends State<Gallery> {
             width: double.infinity,
             margin: const EdgeInsets.only(bottom: 32),
             child: Wrap(
-              children: _pictures.map((Photo photo) {
+              children: _pictures.map((PhotoModel photo) {
                 if (photo.isAddBtn == true) {
                   return Container(
                     padding: const EdgeInsets.only(right: 4, bottom: 6),
@@ -180,7 +180,7 @@ class _GalleryState extends State<Gallery> {
                         }
 
                         if (imgFile != null) {
-                          Photo photo = Photo(file: imgFile);
+                          PhotoModel photo = PhotoModel(file: imgFile);
                           setState(() {
                             _pictures.add(photo);
                           });
@@ -233,7 +233,7 @@ class _GalleryState extends State<Gallery> {
                                     photo: photo,
                                     onPressDelete: () {
                                       int index = _pictures.indexWhere(
-                                          (Photo compare) =>
+                                          (PhotoModel compare) =>
                                               compare.file == photo.file);
                                       _pictures.removeAt(index);
                                       widget.ledgerItem.picture = _pictures;

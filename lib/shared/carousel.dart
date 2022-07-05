@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:wecount/models/photo.dart' show Photo;
+import 'package:wecount/models/photo_model.dart' show PhotoModel;
 
 class Carousel extends StatefulWidget {
   final int currentPage;
-  final List<Photo> picture;
+  final List<PhotoModel> picture;
   final double height;
   final double viewportFraction;
   final Function(int)? onPressed;

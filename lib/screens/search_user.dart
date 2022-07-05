@@ -6,7 +6,7 @@ import 'package:wecount/shared/loading_indicator.dart';
 import 'package:wecount/shared/member_list_item.dart';
 import 'package:wecount/shared/search_text_filed.dart';
 
-import '../models/user.dart';
+import '../models/user_model.dart';
 import '../utils/localization.dart';
 
 class SearchUser extends StatefulWidget {
@@ -18,7 +18,7 @@ class SearchUser extends StatefulWidget {
 
 class _SearchUserState extends State<SearchUser> {
   bool _isLoading = false;
-  List<User> _users = [];
+  List<UserModel> _users = [];
 
   Future<void> _onSearchTextChanged(String searchText) async {
     setState(() => _isLoading = true);
@@ -28,7 +28,7 @@ class _SearchUserState extends State<SearchUser> {
     setState(() => _isLoading = false);
   }
 
-  void _addMember(User user) => Get.back(
+  void _addMember(UserModel user) => Get.back(
         result: user,
       );
 

@@ -4,7 +4,7 @@ import 'package:photo_view/photo_view.dart'
     show PhotoView, PhotoViewComputedScale;
 import 'package:flutter/material.dart';
 
-import 'package:wecount/models/photo.dart';
+import 'package:wecount/models/photo_model.dart';
 
 import '../utils/localization.dart';
 
@@ -19,7 +19,7 @@ class PhotoDetail extends StatefulWidget {
     this.onPressDownload,
   }) : super(key: key);
 
-  final Photo? photo;
+  final PhotoModel? photo;
   final String? photoUrl;
   final bool canShare;
   final Function? onPressDelete;

@@ -5,8 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wecount/models/ledger.dart';
-import 'package:wecount/models/user.dart' as m;
+import 'package:wecount/models/ledger_model.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/services/storage.dart';
 import 'package:wecount/utils/db_helper.dart';
@@ -14,9 +14,9 @@ import 'package:wecount/utils/logger.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final CollectionReference<m.User> _userRef =
-      FirebaseFirestore.instance.collection('users').withConverter<m.User>(
-            fromFirestore: (snapshot, _) => m.User.fromJson(
+  final CollectionReference<UserModel> _userRef =
+      FirebaseFirestore.instance.collection('users').withConverter<UserModel>(
+            fromFirestore: (snapshot, _) => UserModel.fromJson(
               snapshot.data(),
               snapshot.id,
             ),
@@ -24,9 +24,7 @@ class DatabaseService {
           );
   get _currentUser => FirebaseAuth.instance.currentUser;
 
-  Future<bool> requestCreateNewLedger(Ledger ledger) async {
-    User? user = FirebaseAuth.instance.currentUser;
-
+  Future<bool> requestCreateNewLedger(LedgerModel ledger) async {
     DocumentReference ref =
         await FirebaseFirestore.instance.collection('ledgers').add({
       'title': ledger.title,
@@ -40,19 +38,16 @@ class DatabaseService {
       'memberIds': ledger.memberIds,
     });
 
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uid)
-        .collection('ledgers')
-        .doc(ref.id)
-        .set({
+    await _userRef.doc(_currentUser.uid).collection('ledgers').doc(ref.id).set({
       'id': ref.id,
     });
+
+    await _userRef.doc(_currentUser.uid).update({'selectedLedgerId': ref.id});
 
     return true;
   }
 
-  Future<bool> requestUpdateLedger(Ledger? ledger) async {
+  Future<bool> requestUpdateLedger(LedgerModel? ledger) async {
     if (_currentUser == null) {
       logger.d('user is not sign-in');
       return false;
@@ -79,14 +74,14 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future<Ledger> _getLedger(String? ledgerId) async {
+  Future<LedgerModel> _getLedger(String? ledgerId) async {
     var snap = await _db.collection('ledgers').doc(ledgerId).get();
 
-    return Ledger.fromJson(snap.data());
+    return LedgerModel.fromJson(snap.data());
   }
 
   Future<bool> requestLeaveLedger(String? ledgerId) async {
-    Ledger ledger = await _getLedger(ledgerId);
+    LedgerModel ledger = await _getLedger(ledgerId);
 
     bool hasOwnerPermission =
         _currentUser != null && ledger.ownerId == _currentUser.uid;
@@ -128,7 +123,7 @@ class DatabaseService {
       .delete();
 
   Future<bool> requestUpdateProfile(
-    m.User? profile, {
+    UserModel? profile, {
     XFile? imgFile,
   }) async {
     if (_currentUser == null) {
@@ -174,32 +169,32 @@ class DatabaseService {
     return true;
   }
 
-  Stream<List<Ledger>> streamLedgersWithMembership() {
+  Stream<List<LedgerModel>> streamLedgersWithMembership() {
     var ref = _db
         .collection('ledgers')
         .where('memberIds', arrayContains: _currentUser.uid);
 
-    return ref.snapshots().map(
-        (list) => list.docs.map((doc) => Ledger.fromFirestore(doc)).toList());
+    return ref.snapshots().map((list) =>
+        list.docs.map((doc) => LedgerModel.fromFirestore(doc)).toList());
   }
 
-  Stream<Ledger?> streamLedger(String? id) {
+  Stream<LedgerModel?> streamLedger(String? id) {
     return _db
         .collection('ledgers')
         .doc(id)
         .snapshots()
-        .map((snap) => Ledger.fromJson(snap.data()));
+        .map((snap) => LedgerModel.fromJson(snap.data()));
   }
 
-  Stream<m.User> streamUser(String id) {
+  Stream<UserModel> streamUser(String id) {
     return _db
         .collection('users')
         .doc(id)
         .snapshots()
-        .map((snap) => m.User.fromJson(snap.data(), id));
+        .map((snap) => UserModel.fromJson(snap.data(), id));
   }
 
-  Future<void> createLedger(Ledger ledger) {
+  Future<void> createLedger(LedgerModel ledger) {
     return _db.collection('ledgers').add({
       'title': ledger.title,
       'color': ledger.color,
@@ -234,7 +229,7 @@ class DatabaseService {
     return me;
   }
 
-  Future<Ledger?> fetchSelectedLedger() async {
+  Future<LedgerModel?> fetchSelectedLedger() async {
     DocumentSnapshot? me = await DatabaseService().fetchMe();
 
     if (me != null) {
@@ -259,14 +254,14 @@ class DatabaseService {
     return null;
   }
 
-  List<m.User> _removeMe(List<m.User> users) {
-    List<m.User> copyUsers = [...users];
+  List<UserModel> _removeMe(List<UserModel> users) {
+    List<UserModel> copyUsers = [...users];
     copyUsers.removeWhere((user) => user.uid == _currentUser.uid);
 
     return copyUsers;
   }
 
-  Future<List<m.User>> searchUsers(String query) async {
+  Future<List<UserModel>> searchUsers(String query) async {
     List<QuerySnapshot> res = await Future.wait([
       _userRef
           .orderBy("displayName")
@@ -275,7 +270,7 @@ class DatabaseService {
     ]);
 
     var docs = [...res[0].docs, ...res[1].docs];
-    List<m.User> users = docs.map((doc) => doc.data() as m.User).toList();
+    List<UserModel> users = docs.map((doc) => doc.data() as UserModel).toList();
 
     return _removeMe(users);
   }

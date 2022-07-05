@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/currency_model.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/shared/header.dart' show renderHeaderBack;
 import 'package:wecount/shared/member_horizontal_list.dart';
 import 'package:wecount/types/color.dart';
@@ -11,7 +11,7 @@ import '../utils/colors.dart';
 class LedgerView extends StatefulWidget {
   static const String name = '/ledger_view';
 
-  final Ledger? ledger;
+  final LedgerModel? ledger;
 
   const LedgerView({
     Key? key,
@@ -23,7 +23,7 @@ class LedgerView extends StatefulWidget {
 }
 
 class _LedgerViewState extends State<LedgerView> {
-  late Ledger _ledger;
+  late LedgerModel _ledger;
 
   @override
   initState() {
@@ -36,9 +36,9 @@ class _LedgerViewState extends State<LedgerView> {
       return widget.ledger!;
     }
 
-    return Ledger(
+    return LedgerModel(
       title: 'ledger test',
-      currency: Currency(currency: '￦', locale: 'KRW'),
+      currency: CurrencyModel(currency: '￦', locale: 'KRW'),
       color: ColorType.dusk,
     );
   }

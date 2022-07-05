@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/models/user.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/empty.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 
@@ -17,13 +17,13 @@ class HeadingItem implements ListItem {
 }
 
 class MemberItem implements ListItem {
-  final User user;
+  final UserModel user;
 
   MemberItem(this.user);
 }
 
 class MemberListItem extends StatelessWidget {
-  final User user;
+  final UserModel user;
   final void Function()? onPressMember;
   final void Function()? onPressAuth;
 

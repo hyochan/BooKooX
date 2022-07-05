@@ -1,10 +1,10 @@
-import 'package:wecount/models/category.dart';
+import 'package:wecount/models/category_model.dart';
 import 'package:wecount/models/ledger_item.dart';
 
 import '../utils/localization.dart';
 
-List<LedgerItem> createMockCafeList() {
-  List<LedgerItem> ledgerList = [];
+List<LedgerItemModel> createMockCafeList() {
+  List<LedgerItemModel> ledgerList = [];
   var currentMonth = DateTime.now().month;
 
   /// should show
@@ -47,7 +47,7 @@ List<LedgerItem> createMockCafeList() {
 
 cafe(month, day) {
   return [
-    LedgerItem(
+    LedgerItemModel(
       price: -12000,
       category:
           Category(iconId: 8, label: t('CAFE'), type: CategoryType.consume),

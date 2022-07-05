@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
-import 'package:wecount/models/category.dart';
+import 'package:wecount/models/category_model.dart';
 
 final List<Category> initialCategory = [
   Category(iconId: 0, label: 'CAFE', type: CategoryType.consume),

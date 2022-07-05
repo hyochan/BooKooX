@@ -70,11 +70,11 @@ class Content extends StatefulWidget {
 
 class _ContentState extends State<Content> {
   /// From parent
-  late List<LedgerItem> _ledgerList;
+  late List<LedgerItemModel> _ledgerList;
 
   /// State
   DateTime _date = DateTime.now();
-  List<LedgerItem> _condensedLedgerList = [];
+  List<LedgerItemModel> _condensedLedgerList = [];
   Map<String, double>? _dataMapIncome = {};
   Map<String, double>? _dataMapExpense = {};
   int? _selectedChart;
@@ -100,7 +100,7 @@ class _ContentState extends State<Content> {
     });
   }
 
-  void calculateAndRender(String month, List<LedgerItem> ledgerList) {
+  void calculateAndRender(String month, List<LedgerItemModel> ledgerList) {
     var ledgerListOfSelectedMonth = ledgerListByMonth(month, ledgerList);
 
     /// sum up same category into one. but before that I can make ui first

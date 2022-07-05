@@ -1,10 +1,10 @@
-class Currency {
+class CurrencyModel {
   String? currency;
   String? locale;
   String? symbol;
   bool? selected = false;
 
-  Currency({
+  CurrencyModel({
     this.locale,
     this.currency,
     this.symbol,
@@ -17,284 +17,284 @@ class Currency {
   }
 }
 
-final List<Currency> currencies = [
-  Currency(
+final List<CurrencyModel> currencies = [
+  CurrencyModel(
     locale: 'es',
     currency: 'ARS',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'hy',
     currency: 'AMD',
     symbol: '؋',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'bs',
     currency: 'BAM',
     symbol: 'KM',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'bg',
     currency: 'BGN',
     symbol: 'лв',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'ms-bn',
     currency: 'BRN',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'es-bo',
     currency: 'BOB',
     symbol: '\$b',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'pt-br',
     currency: 'BRL',
     symbol: 'R\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'be',
     currency: 'BYN',
     symbol: 'Br',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'en-bz',
     currency: 'BZD',
     symbol: 'BZ\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'en-ca',
     currency: 'CAD',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'es-cl',
     currency: 'CLP',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'zh',
     currency: 'CNY',
     symbol: '¥',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'es-co',
     currency: 'COP',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'es-cr',
     currency: 'CRC',
     symbol: '₡',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'cs',
     currency: 'CZK',
     symbol: 'Kč',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'es-do',
     currency: 'DOP',
     symbol: 'RD\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'ar-eg',
     currency: 'EGP',
     symbol: '£',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'fr',
     currency: 'EUR',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'el',
     currency: 'GRD',
     symbol: 'GRD',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'es-gt',
     currency: 'GTQ',
     symbol: 'Q',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'es-hn',
     currency: 'HNL',
     symbol: 'L',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'zh-hk',
     currency: 'HKD',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'hr',
     currency: 'HRK',
     symbol: 'kn',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'hu',
     currency: 'HUF',
     symbol: 'Ft',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'id',
     currency: 'IDR',
     symbol: 'Rp',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'is',
     currency: 'IND',
     symbol: '₹',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'bn',
     currency: 'ISK',
     symbol: 'kr',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'it-it',
     currency: 'ITL',
     symbol: 'ITL',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'ja',
     currency: 'JPY',
     symbol: '¥',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'ko',
     currency: 'KRW',
     symbol: '₩',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'es-mx',
     currency: 'MXN',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'ms-my',
     currency: 'MYR',
     symbol: 'RM',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'no-no',
     currency: 'NOK',
     symbol: 'kr',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'ne',
     currency: 'NPR',
     symbol: 'Rs',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'en-ph',
     currency: 'PHP',
     symbol: '₱',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'ru',
     currency: 'RUB',
     symbol: 'руб',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'ro',
     currency: 'RON',
     symbol: 'lei',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'sv-se',
     currency: 'SEK',
     symbol: 'kr',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'so',
     currency: 'SOS',
     symbol: 'S',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'ar-sy',
     currency: 'SYP',
     symbol: '£',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'es-sv',
     currency: 'SVC',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'zh-tw',
     currency: 'TWD',
     symbol: 'NT\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'tr',
     currency: 'TRY',
     symbol: '₺',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'uz-uz',
     currency: 'UZS',
     symbol: 'UZS',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'en-us',
     currency: 'USD',
     symbol: '\$',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'vi',
     currency: 'VND',
     symbol: 'R',
     selected: false,
   ),
-  Currency(
+  CurrencyModel(
     locale: 'en-za',
     currency: 'ZAR',
     symbol: 'VND',

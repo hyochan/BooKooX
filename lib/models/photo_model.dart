@@ -1,11 +1,11 @@
 import 'package:image_picker/image_picker.dart';
 
-class Photo {
+class PhotoModel {
   XFile? file;
   String? url;
   bool? isAddBtn;
 
-  Photo({
+  PhotoModel({
     this.file,
     this.url,
     this.isAddBtn,

@@ -1,4 +1,4 @@
-import 'package:wecount/models/currency.dart';
+import 'package:wecount/models/currency_model.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/header.dart' show renderHeaderBack;
@@ -23,7 +23,7 @@ class SettingCurrency extends StatefulWidget {
 }
 
 class _SettingCurrencyState extends State<SettingCurrency> {
-  void onSettingCurrency(Currency selectedCurrency) {
+  void onSettingCurrency(CurrencyModel selectedCurrency) {
     logger.d('on setting currency ${selectedCurrency.toString()}');
     Navigator.pop(context, selectedCurrency);
   }
@@ -36,7 +36,7 @@ class _SettingCurrencyState extends State<SettingCurrency> {
               trailing: el.currency == widget.selectedCurrency
                   ? const Icon(Icons.check)
                   : const Text(''),
-              onTap: () => onSettingCurrency(Currency(
+              onTap: () => onSettingCurrency(CurrencyModel(
                 locale: el.locale,
                 currency: el.currency,
                 symbol: el.symbol,

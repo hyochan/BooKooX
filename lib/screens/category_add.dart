@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:wecount/models/category.dart';
+import 'package:wecount/models/category_model.dart';
 import 'package:wecount/shared/edit_text_box.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/db_helper.dart';

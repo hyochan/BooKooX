@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wecount/models/ledger.dart';
-import 'package:wecount/models/user.dart';
+import 'package:wecount/models/ledger_model.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/empty.dart';
 import 'package:wecount/screens/profile_peer.dart';
 import 'package:wecount/shared/edit_text.dart';
@@ -11,7 +11,7 @@ import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 
 class Members extends StatefulWidget {
-  final Ledger? ledger;
+  final LedgerModel? ledger;
 
   const Members({
     Key? key,
@@ -31,7 +31,7 @@ class _MembersState extends State<Members> {
       numOfPeople: 4,
     ),
     MemberItem(
-      User(
+      UserModel(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
@@ -39,7 +39,7 @@ class _MembersState extends State<Members> {
       ),
     ),
     MemberItem(
-      User(
+      UserModel(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
@@ -47,7 +47,7 @@ class _MembersState extends State<Members> {
       ),
     ),
     MemberItem(
-      User(
+      UserModel(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
@@ -55,7 +55,7 @@ class _MembersState extends State<Members> {
       ),
     ),
     MemberItem(
-      User(
+      UserModel(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
@@ -63,7 +63,7 @@ class _MembersState extends State<Members> {
       ),
     ),
     MemberItem(
-      User(
+      UserModel(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
@@ -71,7 +71,7 @@ class _MembersState extends State<Members> {
       ),
     ),
     MemberItem(
-      User(
+      UserModel(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
@@ -79,7 +79,7 @@ class _MembersState extends State<Members> {
       ),
     ),
     MemberItem(
-      User(
+      UserModel(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
@@ -87,7 +87,7 @@ class _MembersState extends State<Members> {
       ),
     ),
     MemberItem(
-      User(
+      UserModel(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',
@@ -95,7 +95,7 @@ class _MembersState extends State<Members> {
       ),
     ),
     MemberItem(
-      User(
+      UserModel(
         displayName: 'displayName',
         email: 'email@email.com',
         thumbURL: 'url',

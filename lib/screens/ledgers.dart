@@ -11,7 +11,7 @@ import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/ledger_view.dart';
 import 'package:wecount/shared/profile_list_item.dart' show ProfileListItem;
 import 'package:wecount/shared/ledger_list_item.dart' show LedgerListItem;
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/general.dart';
@@ -38,13 +38,13 @@ class _LedgersState extends State<Ledgers> {
       General.instance.navigateScreenNamed(context, ProfileMy.name);
     }
 
-    void onLedgerPressed(Ledger item) {
+    void onLedgerPressed(LedgerModel item) {
       Get.back();
       DatabaseService().requestSelectLedger(item.id);
       Provider.of<CurrentLedger>(context, listen: false).ledger = item;
     }
 
-    void onLedgerMorePressed(Ledger item) {
+    void onLedgerMorePressed(LedgerModel item) {
       General.instance.navigateScreen(
         context,
         MaterialPageRoute(
@@ -99,8 +99,8 @@ class _LedgersState extends State<Ledgers> {
                 }),
             StreamBuilder(
               stream: DatabaseService().streamLedgersWithMembership(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<Ledger>> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<LedgerModel>> snapshot) {
                 if (snapshot.data != null) {
                   return Expanded(
                     child: ListView.builder(

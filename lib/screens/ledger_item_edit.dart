@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:wecount/models/category.dart';
-import 'package:wecount/models/ledger_item.dart' show LedgerItem;
-import 'package:wecount/models/photo.dart' show Photo;
+import 'package:wecount/models/category_model.dart';
+import 'package:wecount/models/ledger_item.dart' show LedgerItemModel;
+import 'package:wecount/models/photo_model.dart' show PhotoModel;
 import 'package:wecount/screens/category_add.dart';
 import 'package:wecount/screens/location_view.dart';
 import 'package:wecount/shared/category_list.dart';
@@ -42,8 +42,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     text: '0',
   );
 
-  final LedgerItem _ledgerItemIncome = LedgerItem();
-  final LedgerItem _ledgerItemConsume = LedgerItem();
+  final LedgerItemModel _ledgerItemIncome = LedgerItemModel();
+  final LedgerItemModel _ledgerItemConsume = LedgerItemModel();
   TabController? _tabController;
   List<Category> categories = [];
 
@@ -428,7 +428,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                     ),
               Gallery(
                 margin: const EdgeInsets.only(top: 26),
-                pictures: [Photo(isAddBtn: true)],
+                pictures: [PhotoModel(isAddBtn: true)],
                 ledgerItem: _ledgerItemConsume,
               ),
             ],
@@ -581,7 +581,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                     ),
               Gallery(
                 margin: const EdgeInsets.only(top: 26),
-                pictures: [Photo(isAddBtn: true)],
+                pictures: [PhotoModel(isAddBtn: true)],
                 ledgerItem: _ledgerItemIncome,
               ),
             ],

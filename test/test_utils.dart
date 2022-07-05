@@ -3,8 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:wecount/generated/l10n.dart';
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/currency_model.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/navigations/home_tab.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/find_pw.dart' show FindPw;
@@ -66,11 +66,11 @@ class TestUtils {
       ),
     );
 
-    var ledger = Ledger(
+    var ledger = LedgerModel(
         id: '1234',
         title: 'dooboolab',
         color: ColorType.dusk,
-        currency: Currency());
+        currency: CurrencyModel());
 
     return MultiProvider(
       providers: [

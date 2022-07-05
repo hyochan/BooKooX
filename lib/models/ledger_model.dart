@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/user.dart';
+import 'package:wecount/models/currency_model.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/types/color.dart';
 
-import './ledger_item.dart' show LedgerItem;
+import './ledger_item.dart' show LedgerItemModel;
 
 final List<ColorType> colorItems = [
   ColorType.red,
@@ -15,7 +15,7 @@ final List<ColorType> colorItems = [
   ColorType.purple,
 ];
 
-class Ledger {
+class LedgerModel {
   String? id;
   String title;
   ColorType color;
@@ -23,15 +23,15 @@ class Ledger {
   int? people;
   String? ownerId;
   List<String> adminIds;
-  List<LedgerItem>? items;
-  Currency currency;
+  List<LedgerItemModel>? items;
+  CurrencyModel currency;
   List<String> memberIds;
-  List<User>? members;
+  List<UserModel>? members;
   DateTime? createdAt;
   DateTime? updatedAt;
   DateTime? deletedAt;
 
-  Ledger({
+  LedgerModel({
     this.id,
     required this.title,
     required this.color,
@@ -44,7 +44,7 @@ class Ledger {
     /// We've separated people to only fetch the length of the members
     this.people,
 
-    /// Contain the full [User] data of members including photoURL
+    /// Contain the full [UserModel] data of members including photoURL
     ///
     /// members will be fetched when needed
     this.members,
@@ -57,14 +57,14 @@ class Ledger {
     this.deletedAt,
   });
 
-  factory Ledger.fromFirestore(DocumentSnapshot doc) {
+  factory LedgerModel.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<dynamic, dynamic>;
 
-    return Ledger(
+    return LedgerModel(
       id: doc.id,
       title: data['title'] ?? '',
       color: colorItems[data['color'] ?? 5],
-      currency: Currency(
+      currency: CurrencyModel(
         currency: data['currency'],
         locale: data['currencyLocale'],
         symbol: data['currencySymbol'],
@@ -77,18 +77,38 @@ class Ledger {
     );
   }
 
-  factory Ledger.fromJson(Map? data) {
+  factory LedgerModel.fromJson(Map? data) {
     data = data ?? {};
-    return Ledger(
+
+    return LedgerModel(
       title: data['title'] ?? '',
       color: colorItems[data['color'] ?? 5],
-      currency: Currency(
+      currency: CurrencyModel(
         currency: data['currencyCode'],
         locale: data['currency'],
       ),
       ownerId: data['ownerId'] ?? '',
       description: data['description'] ?? '',
     );
+  }
+
+  Map<String, Object?> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'color': color,
+      'description': description,
+      'people': people,
+      'ownerId': ownerId,
+      'adminIds': adminIds,
+      'items': items,
+      'currency': currency,
+      'memberIds': memberIds,
+      'members': members,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'deletedAt': deletedAt,
+    };
   }
 
   @override

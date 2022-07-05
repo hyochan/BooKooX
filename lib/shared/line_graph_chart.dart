@@ -14,7 +14,7 @@ typedef SelectMonthToShow = void Function(
 const chartScale = 10000;
 
 class LineGraphChart extends StatefulWidget {
-  final List<LedgerItem> items;
+  final List<LedgerItemModel> items;
   final SelectMonthToShow? onSelectMonth;
   const LineGraphChart({
     Key? key,
@@ -212,7 +212,7 @@ class ChartValues {
   }
 }
 
-Map<String, double> mapValues(List<LedgerItem> items) {
+Map<String, double> mapValues(List<LedgerItemModel> items) {
   /// shape of { 'month': price, 'month': price, ... }
   Map<String, double> returnVal = {
     '1': 0,
@@ -229,7 +229,7 @@ Map<String, double> mapValues(List<LedgerItem> items) {
     '12': 0,
   };
 
-  for (LedgerItem item in items) {
+  for (LedgerItemModel item in items) {
     returnVal[item.selectedDate!.month.toString()] =
         item.price!.abs() + returnVal[item.selectedDate!.month.toString()]!;
   }

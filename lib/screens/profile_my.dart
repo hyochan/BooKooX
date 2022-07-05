@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:wecount/models/user.dart' show User;
+import 'package:wecount/models/user_model.dart' show UserModel;
 import 'package:wecount/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase show User;
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class ProfileMy extends StatefulWidget {
 
 class _ProfileMyState extends State<ProfileMy> {
   XFile? _imgFile;
-  User? _profile;
+  UserModel? _profile;
 
   Future<void> _onUpdateProfile() async {
     General.instance.showSpinnerDialog();
@@ -65,7 +65,7 @@ class _ProfileMyState extends State<ProfileMy> {
           if (!snapshot.hasData) return Container();
 
           var user = snapshot.data;
-          _profile = User(
+          _profile = UserModel(
             email: user.email ?? '',
             displayName: user.displayName ?? '',
             phoneNumber: user.phoneNumber ?? '',

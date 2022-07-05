@@ -1,4 +1,4 @@
-import 'package:wecount/models/user.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +7,7 @@ import 'package:wecount/shared/edit_text_box.dart' show EditTextBox;
 import 'package:wecount/utils/general.dart';
 
 class ProfilePeer extends StatefulWidget {
-  final User user;
+  final UserModel user;
 
   const ProfilePeer({
     Key? key,

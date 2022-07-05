@@ -1,22 +1,22 @@
-import 'package:wecount/models/category.dart' show Category;
-import 'package:wecount/models/photo.dart';
-import 'package:wecount/models/user.dart' show User;
+import 'package:wecount/models/category_model.dart' show Category;
+import 'package:wecount/models/photo_model.dart';
+import 'package:wecount/models/user_model.dart' show UserModel;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class LedgerItem {
+class LedgerItemModel {
   double? price;
   Category? category;
   String? memo;
-  User? writer;
+  UserModel? writer;
   DateTime? selectedDate;
-  List<Photo>? picture;
+  List<PhotoModel>? picture;
   LatLng? latlng;
   String? address;
   DateTime? createdAt;
   DateTime? updatedAt;
   DateTime? deletedAt;
 
-  LedgerItem({
+  LedgerItemModel({
     this.price,
     this.category,
     this.memo,
@@ -56,8 +56,8 @@ class LedgerItem {
   /// this copy those properties that is being used. other properties not specified here is not being used
   /// this is being used to reduce boilerplate when creating new Ledger with same property values
   /// that means this is basically same with making new LedgerItem but less code
-  LedgerItem createRoughCopy() {
-    return LedgerItem(
+  LedgerItemModel createRoughCopy() {
+    return LedgerItemModel(
       price: price,
       category: Category(
         iconId: category!.iconId,

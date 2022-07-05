@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 enum Membership {
   owner,
@@ -6,7 +7,7 @@ enum Membership {
   guest,
 }
 
-class User {
+class UserModel {
   String? uid;
   String? email;
   String? displayName;
@@ -14,6 +15,7 @@ class User {
   String? photoURL;
   String? phoneNumber;
   String? statusMsg;
+  String? selectedLedgerId;
   bool? showEmailAddress;
   bool? showPhoneNumber;
   Membership? membership;
@@ -21,7 +23,7 @@ class User {
   Timestamp? updatedAt;
   Timestamp? deletedAt;
 
-  User({
+  UserModel({
     this.uid,
     this.email,
     this.displayName,
@@ -29,6 +31,7 @@ class User {
     this.photoURL,
     this.phoneNumber,
     this.statusMsg,
+    this.selectedLedgerId,
     this.showEmailAddress,
     this.showPhoneNumber,
 
@@ -41,9 +44,10 @@ class User {
     this.deletedAt,
   });
 
-  factory User.fromJson(Map? data, String id) {
+  factory UserModel.fromJson(Map? data, String id) {
     data = data ?? {};
-    return User(
+
+    return UserModel(
       uid: id,
       email: data['email'] ?? '',
       displayName: data['displayName'] ?? '',
@@ -53,6 +57,7 @@ class User {
       phoneNumber: data['phoneNumber'] ?? '',
       showPhoneNumber: data['showPhoneNumber'] ?? false,
       statusMsg: data['statusMsg'] ?? '',
+      selectedLedgerId: data['selectedLedgerId'],
       createdAt: data['createdAt'] ?? Timestamp.now(),
       updatedAt: data['createdAt'] ?? Timestamp.now(),
       deletedAt: data['createdAt'],
@@ -69,11 +74,14 @@ class User {
       'phoneNumber': phoneNumber,
       'showPhoneNumber': showPhoneNumber,
       'statusMsg': statusMsg,
+      'selectedLedgerId': selectedLedgerId,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
       'deletedAt': deletedAt,
     };
   }
+
+  static bool isSignIn() => FirebaseAuth.instance.currentUser != null;
 
   void changeMemberShip(int val) {
     if (Membership.owner.index == val) {

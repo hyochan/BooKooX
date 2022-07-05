@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:wecount/models/category.dart';
+import 'package:wecount/models/category_model.dart';
 import 'package:wecount/shared/category_item.dart';
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';

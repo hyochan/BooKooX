@@ -9,7 +9,7 @@ import 'package:intl/intl.dart' show DateFormat, NumberFormat;
 
 import '../utils/localization.dart';
 
-double getPriceSum(List<LedgerItem> items) {
+double getPriceSum(List<LedgerItemModel> items) {
   double sum = 0;
   // ignore: avoid_function_literals_in_foreach_calls
   items.forEach((item) {
@@ -37,8 +37,8 @@ class LineGraph extends StatefulWidget {
 class _LineGraphState extends State<LineGraph> {
   int _selectedMonth = 0;
   double _priceSum = 0;
-  List<LedgerItem> _items = [];
-  List<LedgerItem> _selectedItems = [];
+  List<LedgerItemModel> _items = [];
+  List<LedgerItemModel> _selectedItems = [];
 
   @override
   void initState() {
@@ -55,7 +55,7 @@ class _LineGraphState extends State<LineGraph> {
   /// on click the month on graph
   /// set bottom list to show selected month, total expenditure and its list
   void handleClickGraph({required int month, required double sumOfPrice}) {
-    List<LedgerItem> itemsOfThisMonth = [];
+    List<LedgerItemModel> itemsOfThisMonth = [];
     // ignore: avoid_function_literals_in_foreach_calls
     _items.forEach((item) {
       if (item.selectedDate!.month == month) {

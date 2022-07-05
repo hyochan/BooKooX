@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/currency_model.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/screens/empty.dart';
 import 'package:wecount/screens/members.dart';
 import 'package:wecount/screens/setting_currency.dart';
@@ -27,7 +27,7 @@ enum LedgerEditMode {
 class LedgerEdit extends StatefulWidget {
   static const String name = '/ledger_edit';
 
-  final Ledger? ledger;
+  final LedgerModel? ledger;
   final LedgerEditMode mode;
 
   const LedgerEdit({
@@ -42,7 +42,7 @@ class LedgerEdit extends StatefulWidget {
 
 class _LedgerEditState extends State<LedgerEdit> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late Ledger _ledger;
+  late LedgerModel _ledger;
   final double _paddingHorizontal = 25;
 
   bool _isLoading = false;
@@ -55,7 +55,7 @@ class _LedgerEditState extends State<LedgerEdit> {
 
   void _setLedger() {
     if (widget.ledger == null) {
-      _ledger = Ledger(
+      _ledger = LedgerModel(
         title: '',
         currency: currencies[29],
         color: ColorType.dusk,

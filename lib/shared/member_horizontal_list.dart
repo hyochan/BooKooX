@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wecount/models/user.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/search_user.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/shared/network_image_loader.dart';
@@ -86,7 +86,7 @@ class MemberHorizontalList extends StatelessWidget {
                             ? StreamBuilder(
                                 stream: DatabaseService().streamUser(memberId),
                                 builder: (BuildContext context,
-                                    AsyncSnapshot<User> snapshot) {
+                                    AsyncSnapshot<UserModel> snapshot) {
                                   return NetworkImageLoader(
                                     imageURL: snapshot.data?.thumbURL ??
                                         snapshot.data?.photoURL,
@@ -140,7 +140,8 @@ class MemberHorizontalList extends StatelessWidget {
                             color: Colors.white,
                           ),
                           onTap: () async {
-                            User? user = await Get.to(() => const SearchUser());
+                            UserModel? user =
+                                await Get.to(() => const SearchUser());
 
                             if (user != null) {
                               if (memberIds.contains(user.uid!)) {

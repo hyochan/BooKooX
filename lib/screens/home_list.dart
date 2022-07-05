@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:wecount/models/category.dart';
+import 'package:wecount/models/category_model.dart';
 import 'package:wecount/models/ledger_item.dart';
-import 'package:wecount/models/user.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/shared/home_header_search.dart' show HomeHeaderSearch;
 import 'package:wecount/shared/home_list_item.dart';
@@ -35,7 +35,7 @@ class _HomeListState extends State<HomeList> {
     super.initState();
     Future.delayed(Duration.zero, () {
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -12000,
           category: Category(
               iconId: 8, label: t('EXERCISE'), type: CategoryType.consume),
@@ -43,7 +43,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: 300000,
           category: Category(
               iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.consume),
@@ -52,17 +52,17 @@ class _HomeListState extends State<HomeList> {
       );
 
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -32000,
           category: Category(
               iconId: 4, label: t('DATING'), type: CategoryType.consume),
           memo: 'who1 gave me',
-          writer: User(uid: 'who1@gmail.com', displayName: 'dooboolab'),
+          writer: UserModel(uid: 'who1@gmail.com', displayName: 'dooboolab'),
           selectedDate: DateTime(2019, 9, 8),
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -3100,
           category:
               Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
@@ -70,7 +70,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: 300000,
           category: Category(
               iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.consume),
@@ -78,7 +78,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -3100,
           category:
               Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
@@ -86,7 +86,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -3100,
           category:
               Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
@@ -94,7 +94,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -3100,
           category:
               Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
@@ -102,7 +102,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -12000,
           category: Category(
               iconId: 12, label: t('PRESENT'), type: CategoryType.consume),
@@ -111,17 +111,17 @@ class _HomeListState extends State<HomeList> {
       );
 
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -32000,
           category: Category(
               iconId: 4, label: t('DATING'), type: CategoryType.consume),
           memo: 'who1 gave me',
-          writer: User(uid: 'who1@gmail.com', displayName: '이범주'),
+          writer: UserModel(uid: 'who1@gmail.com', displayName: '이범주'),
           selectedDate: DateTime(2019, 9, 6),
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -3100,
           category:
               Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
@@ -129,7 +129,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -3100,
           category:
               Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
@@ -137,7 +137,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -12000,
           category: Category(
               iconId: 12, label: t('PRESENT'), type: CategoryType.consume),
@@ -146,17 +146,17 @@ class _HomeListState extends State<HomeList> {
       );
 
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -32000,
           category: Category(
               iconId: 4, label: t('DATING'), type: CategoryType.consume),
           memo: 'who1 gave me',
-          writer: User(uid: 'who1@gmail.com', displayName: 'dooboolab'),
+          writer: UserModel(uid: 'who1@gmail.com', displayName: 'dooboolab'),
           selectedDate: DateTime(2019, 9, 6),
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -3100,
           category:
               Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
@@ -164,7 +164,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -2100,
           category:
               Category(iconId: 0, label: t('CAFE'), type: CategoryType.consume),
@@ -172,7 +172,7 @@ class _HomeListState extends State<HomeList> {
         ),
       );
       _data.add(
-        LedgerItem(
+        LedgerItemModel(
           price: -12000,
           category: Category(
               iconId: 12, label: t('PRESENT'), type: CategoryType.consume),
