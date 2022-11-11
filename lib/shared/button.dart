@@ -42,9 +42,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       key: this.key,
-      child: FlatButton(
-        shape: shapeBorder,
-        padding: EdgeInsets.all(0.0),
+      child: TextButton(
         child: isLoading
             ? CircularProgressIndicator(
                 semanticsLabel: Localization.of(context)!.trans('LOADING'),

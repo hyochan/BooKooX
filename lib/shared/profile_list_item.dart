@@ -29,9 +29,8 @@ class ProfileListItem extends StatelessWidget {
               ? Material(
                   clipBehavior: Clip.hardEdge,
                   color: Colors.transparent,
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: this.onTap as void Function()?,
-                    padding: EdgeInsets.all(0.0),
                     child: ClipOval(
                       child: FadeInImage.assetNetwork(
                           width: 80.0,

@@ -31,9 +31,8 @@ class SettingListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return TextButton(
       onPressed: item.onPressed as void Function()?,
-      padding: EdgeInsets.symmetric(horizontal: 40),
       child: Container(
         height: 72,
         child: Row(

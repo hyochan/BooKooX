@@ -44,9 +44,8 @@ class MemberListItem extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: FlatButton(
+            child: TextButton(
               onPressed: this.onPressMember as void Function()?,
-              padding: EdgeInsets.symmetric(horizontal: 40),
               child: Row(
                 children: <Widget>[
                   Stack(
@@ -117,8 +116,7 @@ class MemberListItem extends StatelessWidget {
             alignment: Alignment(0, 0),
             width: 80,
             height: double.infinity,
-            child: FlatButton(
-              padding: EdgeInsets.all(0),
+            child: TextButton(
               onPressed: this.onPressAuth as void Function()?,
               child: Text(
                 user.membership == Membership.Owner

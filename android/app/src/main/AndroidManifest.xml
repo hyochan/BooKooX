@@ -9,7 +9,7 @@
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
   <application android:name="${applicationName}" android:label="wecount" android:icon="@mipmap/launcher_icon">
-    <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/geo_api_key"/>
+    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAg6X2S4WjIgl_Zkhiz5ZHYW8q-s4fzgRA"/>
     <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
       <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user

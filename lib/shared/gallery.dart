@@ -141,7 +141,7 @@ class _GalleryState extends State<Gallery> {
                 ),
               ),
               widget.showAll
-                  ? FlatButton(
+                  ? TextButton(
                       onPressed: onPressShowAll,
                       child: Text(
                         _localization.trans('SHOW_ALL')!,

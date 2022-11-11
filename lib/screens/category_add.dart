@@ -182,7 +182,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(left: 40),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: onCancelPressed,
                       child: Text(
                         _localization.trans('CANCEL')!,
@@ -195,7 +195,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 20),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: onDonePressed,
                       child: Text(
                         _localization.trans('DONE')!,

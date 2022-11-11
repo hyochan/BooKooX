@@ -170,9 +170,8 @@ class _SettingState extends State<Setting> {
                     return Container(
                       height: 72,
                       margin: EdgeInsets.only(bottom: 40),
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: item.onPressed as void Function()?,
-                        padding: EdgeInsets.symmetric(horizontal: 40),
                         child: Row(
                           children: <Widget>[
                             Text(

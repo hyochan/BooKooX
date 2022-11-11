@@ -249,8 +249,7 @@ class _SignInState extends State<SignIn> {
     }
 
     Widget renderFindPw() {
-      return FlatButton(
-        padding: EdgeInsets.all(8),
+      return TextButton(
         onPressed: () =>
             General.instance.navigateScreenNamed(context, FindPw.name),
         child: RichText(

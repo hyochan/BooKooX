@@ -54,10 +54,9 @@ class _ProfilePeerState extends State<ProfilePeer> {
                     child: Material(
                       clipBehavior: Clip.hardEdge,
                       color: Colors.transparent,
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: () =>
                             showImage('https://picsum.photos/250?image=9'),
-                        padding: EdgeInsets.all(0.0),
                         child: ClipOval(
                           child: FadeInImage.assetNetwork(
                             fit: BoxFit.cover,

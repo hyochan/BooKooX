@@ -314,12 +314,7 @@ class _LedgerEditState extends State<LedgerEdit> {
               child: SizedBox(
                 // width: 120,
                 height: 60,
-                child: FlatButton(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(26.0),
-                  ),
+                child: TextButton(
                   onPressed: _pressDone,
                   child: _isLoading
                       ? Container(

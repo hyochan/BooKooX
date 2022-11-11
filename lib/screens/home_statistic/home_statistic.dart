@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/shared/home_header.dart' show renderHomeAppBar;
 import 'package:pie_chart/pie_chart.dart' show PieChart;
-import 'package:month_picker_dialog/month_picker_dialog.dart';
+// import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:provider/provider.dart';
@@ -128,16 +128,16 @@ class _ContentState extends State<Content> {
       int year = this._date.year;
       int prevDate = year - 100;
       int lastDate = year + 10;
-      DateTime? pickDate = await showMonthPicker(
-        context: context,
-        initialDate: this._date,
-        firstDate: DateTime(prevDate),
-        lastDate: DateTime(lastDate),
-      );
-      if (pickDate != null) {
-        this.setState(() => this._date = pickDate);
-        calculateAndRender(this._date.month.toString(), _ledgerList);
-      }
+      // DateTime? pickDate = await showMonthPicker(
+      //   context: context,
+      //   initialDate: this._date,
+      //   firstDate: DateTime(prevDate),
+      //   lastDate: DateTime(lastDate),
+      // );
+      // if (pickDate != null) {
+      //   this.setState(() => this._date = pickDate);
+      //   calculateAndRender(this._date.month.toString(), _ledgerList);
+      // }
     }
 
     Map<String, double> dataMap =
@@ -259,8 +259,7 @@ class ButtonGroup extends StatelessWidget {
           Expanded(
             child: ButtonTheme(
               height: buttonHeight,
-              child: RaisedButton(
-                color: this.selected == 1 ? selectedColor : Colors.white,
+              child: ElevatedButton(
                 onPressed: this.onButtonOnePressed as void Function()?,
                 child: Text(
                   localization.trans("INCOME")!,
@@ -269,19 +268,13 @@ class ButtonGroup extends StatelessWidget {
                         this.selected == 1 ? selectedColorText : Colors.black,
                   ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: borderRadius, bottomLeft: borderRadius),
-                  side: BorderSide(color: Theme.of(context).primaryColor),
-                ),
               ),
             ),
           ),
           Expanded(
             child: ButtonTheme(
               height: buttonHeight,
-              child: RaisedButton(
-                color: this.selected == 2 ? selectedColor : Colors.white,
+              child: ElevatedButton(
                 onPressed: this.onButtonTwoPressed as void Function()?,
                 child: Text(
                   localization.trans("CONSUME")!,
@@ -289,11 +282,6 @@ class ButtonGroup extends StatelessWidget {
                     color:
                         this.selected == 2 ? selectedColorText : Colors.black,
                   ),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topRight: borderRadius, bottomRight: borderRadius),
-                  side: BorderSide(color: Theme.of(context).primaryColor),
                 ),
               ),
             ),

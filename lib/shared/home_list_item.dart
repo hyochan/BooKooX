@@ -60,8 +60,7 @@ class HomeListItem extends StatelessWidget {
     String _priceToShow = (_isPlus ? '+ ' : '- ') +
         _priceFormatted.toString().replaceAll('-', '');
 
-    return FlatButton(
-      padding: EdgeInsets.all(0),
+    return TextButton(
       onPressed: () =>
           General.instance.navigateScreenNamed(context, LineGraph.name),
       child: Container(

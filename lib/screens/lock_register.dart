@@ -87,7 +87,7 @@ class _LockRegisterState extends State<LockRegister> {
         iconColor: Theme.of(context).textTheme.headline1!.color,
         brightness: Theme.of(context).brightness,
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text(
               _localization.trans('DONE')!,
               style: TextStyle(
@@ -95,7 +95,6 @@ class _LockRegisterState extends State<LockRegister> {
               ),
             ),
             onPressed: addLockPinToSF,
-            shape: CircleBorder(),
           ),
         ],
       ),

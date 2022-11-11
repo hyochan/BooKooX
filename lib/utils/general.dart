@@ -79,7 +79,7 @@ class General {
           title: title,
           content: content,
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(
                 Localization.of(context)!.trans('OK')!,
                 style: _btnTextStyle,
@@ -115,14 +115,14 @@ class General {
           title: title,
           content: content,
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(
                 Localization.of(context)!.trans('OK')!,
                 style: _btnTextStyle,
               ),
               onPressed: okPressed as void Function()?,
             ),
-            FlatButton(
+            TextButton(
               onPressed: cancelPressed as void Function()?,
               child: Text(
                 Localization.of(context)!.trans('CANCEL')!,
@@ -188,7 +188,7 @@ class General {
         },
       ),
     );
-    Scaffold.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void showDatePicker(
@@ -203,7 +203,7 @@ class General {
                 var datum =
                     '${dates[index].year}/${dates[index].month}/${dates[index].day}';
                 return Container(
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: () {
                       // callback(datum);
                       Navigator.of(context).pop();

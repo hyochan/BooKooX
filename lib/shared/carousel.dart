@@ -109,8 +109,7 @@ class _CarouselState extends State<Carousel> {
                 height: widget.height,
                 child: ButtonTheme(
                   minWidth: double.infinity,
-                  child: FlatButton(
-                    padding: EdgeInsets.all(0.0),
+                  child: TextButton(
                     onPressed: () => widget.onPressed!(index),
                     child: Row(
                       children: <Widget>[
