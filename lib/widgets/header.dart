@@ -15,7 +15,7 @@ AppBar renderHeaderClose({
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
-    brightness: brightness,
+    systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
     leading: Container(
       width: 56.0,
       child: RawMaterialButton(
@@ -24,7 +24,7 @@ AppBar renderHeaderClose({
         onPressed: () => Navigator.of(context).pop(),
         child: Icon(
           Icons.close,
-          color: Theme.of(context).textTheme.headline1!.color,
+          color: Theme.of(context).textTheme.displayLarge!.color,
           semanticLabel: _localization.trans('CLOSE'),
         ),
       ),
@@ -50,7 +50,7 @@ AppBar renderHeaderBack({
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
-    brightness: brightness,
+    systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
     leading: RawMaterialButton(
       padding: EdgeInsets.all(0.0),
       shape: CircleBorder(),

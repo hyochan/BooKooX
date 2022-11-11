@@ -31,7 +31,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                   children: <Widget>[
                     Icon(
                       Icons.camera,
-                      color: Theme.of(context).textTheme.headline1!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 8),
@@ -39,7 +39,8 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                         _localization!.trans('CAMERA')!,
                         style: TextStyle(
                           fontSize: 16,
-                          color: Theme.of(context).textTheme.headline1!.color,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                         ),
                       ),
                     ),
@@ -57,7 +58,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                   children: <Widget>[
                     Icon(
                       Icons.photo,
-                      color: Theme.of(context).textTheme.headline1!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 8),
@@ -65,7 +66,8 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                         _localization.trans('GALLERY')!,
                         style: TextStyle(
                           fontSize: 16,
-                          color: Theme.of(context).textTheme.headline1!.color,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                         ),
                       ),
                     ),
@@ -133,7 +135,7 @@ class _GalleryState extends State<Gallery> {
                     Text(
                       _localization.trans('PICTURE')!,
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.headline1!.color,
+                        color: Theme.of(context).textTheme.displayLarge!.color,
                         fontSize: 16,
                       ),
                     ),
@@ -146,7 +148,8 @@ class _GalleryState extends State<Gallery> {
                       child: Text(
                         _localization.trans('SHOW_ALL')!,
                         style: TextStyle(
-                          color: Theme.of(context).textTheme.headline1!.color,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                           fontSize: 16,
                           decoration: TextDecoration.underline,
                         ),
@@ -194,7 +197,8 @@ class _GalleryState extends State<Gallery> {
                         height: 72,
                         child: Icon(
                           Icons.add,
-                          color: Theme.of(context).textTheme.headline1!.color,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(

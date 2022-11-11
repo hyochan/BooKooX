@@ -2,8 +2,8 @@ import 'package:wecount/models/user.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:flutter/material.dart';
 
-import 'package:wecount/shared/header.dart' show renderHeaderClose;
-import 'package:wecount/shared/edit_text_box.dart' show EditTextBox;
+import 'package:wecount/widgets/header.dart' show renderHeaderClose;
+import 'package:wecount/widgets/edit_text_box.dart' show EditTextBox;
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 
@@ -74,8 +74,8 @@ class _ProfilePeerState extends State<ProfilePeer> {
               controller: TextEditingController(text: 'hello'),
               iconData: Icons.person_outline,
               margin: EdgeInsets.only(top: 24.0),
-              focusedColor: Theme.of(context).textTheme.headline1!.color,
-              enabledColor: Theme.of(context).textTheme.headline2!.color,
+              focusedColor: Theme.of(context).textTheme.displayLarge!.color,
+              enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               enabled: false,
               borderStyle: BorderStyle.none,
               borderWidth: 0,
@@ -83,8 +83,8 @@ class _ProfilePeerState extends State<ProfilePeer> {
             EditTextBox(
               iconData: Icons.email,
               margin: EdgeInsets.only(top: 8.0),
-              focusedColor: Theme.of(context).textTheme.headline1!.color,
-              enabledColor: Theme.of(context).textTheme.headline2!.color,
+              focusedColor: Theme.of(context).textTheme.displayLarge!.color,
+              enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               enabled: false,
               borderStyle: BorderStyle.none,
               borderWidth: 0,
@@ -92,8 +92,8 @@ class _ProfilePeerState extends State<ProfilePeer> {
             EditTextBox(
               iconData: Icons.phone,
               margin: EdgeInsets.only(top: 8.0),
-              focusedColor: Theme.of(context).textTheme.headline1!.color,
-              enabledColor: Theme.of(context).textTheme.headline2!.color,
+              focusedColor: Theme.of(context).textTheme.displayLarge!.color,
+              enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               enabled: false,
               borderStyle: BorderStyle.none,
               borderWidth: 0,

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/setting.dart';
 
-import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 
-import '../shared/home_header.dart' show renderHomeAppBar;
+import '../widgets/home_header.dart' show renderHomeAppBar;
 
 class MainEmpty extends StatefulWidget {
   static const String name = '/main_empty';
@@ -68,7 +68,7 @@ class _MainEmptyState extends State<MainEmpty> {
               child: Text(
                 _localization.trans('NO_LEDGER_DESCRIPTION')!,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.headline1!.color,
+                  color: Theme.of(context).textTheme.displayLarge!.color,
                   fontSize: 20,
                 ),
                 textAlign: TextAlign.center,
@@ -81,7 +81,7 @@ class _MainEmptyState extends State<MainEmpty> {
               shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32),
                 side: BorderSide(
-                  color: Theme.of(context).textTheme.headline2!.color!,
+                  color: Theme.of(context).textTheme.displayMedium!.color!,
                   width: 1,
                   style: BorderStyle.solid,
                 ),
@@ -90,7 +90,7 @@ class _MainEmptyState extends State<MainEmpty> {
               text: _localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,
-                color: Theme.of(context).textTheme.headline2!.color,
+                color: Theme.of(context).textTheme.displayMedium!.color,
               ),
             ),
           ],

@@ -9,9 +9,9 @@ import 'package:wecount/screens/setting_notification.dart';
 import 'package:wecount/screens/setting_opinion.dart';
 import 'package:wecount/screens/tutorial.dart';
 
-import 'package:wecount/shared/setting_list_item.dart'
+import 'package:wecount/widgets/setting_list_item.dart'
     show ListItem, LogoutItem, SettingItem, SettingListItem;
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/localization.dart' show Localization;

@@ -17,7 +17,7 @@ class _TermsState extends State<Terms> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        brightness: Theme.of(context).brightness,
+        systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         iconTheme: IconThemeData(
           color: Theme.of(context).primaryColor,
         ),

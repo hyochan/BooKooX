@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:wecount/shared/edit_text.dart' show EditText;
+import 'package:wecount/widgets/edit_text.dart' show EditText;
 import 'package:wecount/utils/general.dart' show General;
-import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/validator.dart' show Validator;
 
@@ -59,7 +59,7 @@ class _FindPwState extends State<FindPw> {
         _localization!.trans('FIND_PASSWORD')!,
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.headline1!.color,
+          color: Theme.of(context).textTheme.displayLarge!.color,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -108,11 +108,11 @@ class _FindPwState extends State<FindPw> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        brightness: Theme.of(context).brightness,
+        systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         elevation: 0.0,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         iconTheme: IconThemeData(
           color: Theme.of(context).primaryIconTheme.color,
         ),

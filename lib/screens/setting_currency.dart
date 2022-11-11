@@ -2,8 +2,8 @@ import 'package:wecount/models/currency.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/localization.dart' show Localization;
-import '../shared/header.dart' show renderHeaderBack;
-import '../shared/setting_list_item.dart'
+import '../widgets/header.dart' show renderHeaderBack;
+import '../widgets/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
 
 class SettingCurrency extends StatefulWidget {
@@ -56,7 +56,7 @@ class _SettingCurrencyState extends State<SettingCurrency> {
           _localization.trans('CURRENCY')!,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.headline1!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
           ),
         ),
       ),

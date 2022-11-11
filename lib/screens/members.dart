@@ -1,10 +1,10 @@
-import 'package:wecount/shared/edit_text.dart';
+import 'package:wecount/widgets/edit_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/screens/profile_peer.dart';
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/shared/member_list_item.dart';
-import 'package:wecount/shared/header.dart';
+import 'package:wecount/widgets/member_list_item.dart';
+import 'package:wecount/widgets/header.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
@@ -130,7 +130,7 @@ class _MembersState extends State<Members> {
               },
               child: Icon(
                 Icons.search,
-                color: Theme.of(context).textTheme.headline1!.color,
+                color: Theme.of(context).textTheme.displayLarge!.color,
                 semanticLabel: _localization.trans('SEARCH'),
               ),
             ),
@@ -172,7 +172,7 @@ class _MembersState extends State<Members> {
                   : Text(
                       '${_localization.trans('MEMBER')} ${item.numOfPeople}',
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.headline1!.color,
+                        color: Theme.of(context).textTheme.displayLarge!.color,
                         fontSize: 28,
                       ),
                     ),

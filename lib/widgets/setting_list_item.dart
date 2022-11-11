@@ -52,7 +52,7 @@ class SettingListItem extends StatelessWidget {
                     item.title!,
                     style: TextStyle(
                       fontSize: 20,
-                      color: Theme.of(context).textTheme.headline1!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                     ),
                   )),
                   item.optionalWidget ?? Container(),

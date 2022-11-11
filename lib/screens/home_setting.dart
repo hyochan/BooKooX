@@ -9,9 +9,9 @@ import '../utils/general.dart' show General;
 import '../utils/asset.dart' as Asset;
 import '../utils/localization.dart' show Localization;
 
-import '../shared/setting_list_item.dart'
+import '../widgets/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
-import '../shared/home_header.dart' show renderHomeAppBar;
+import '../widgets/home_header.dart' show renderHomeAppBar;
 
 class HomeSetting extends StatefulWidget {
   HomeSetting({

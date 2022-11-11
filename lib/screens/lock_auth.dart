@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
-import 'package:wecount/shared/pin_keyboard.dart' show PinKeyboard;
+import 'package:wecount/widgets/header.dart' show renderHeaderBack;
+import 'package:wecount/widgets/pin_keyboard.dart' show PinKeyboard;
 
 import 'package:wecount/utils/localization.dart' show Localization;
 
@@ -147,7 +147,7 @@ class _LockAuthState extends State<LockAuth> {
               _localization!.trans('LOCK_HINT')!,
               style: TextStyle(
                   fontSize: 24,
-                  color: Theme.of(context).textTheme.headline2!.color),
+                  color: Theme.of(context).textTheme.displayMedium!.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -165,7 +165,7 @@ class _LockAuthState extends State<LockAuth> {
               child: Text(
                 _localization!.trans('FINGERPRINT_LOGIN')!,
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.headline2!.color),
+                    color: Theme.of(context).textTheme.displayMedium!.color),
               ),
               onPressed: _hasFingerPrintSupport ? _authenticateMe : null,
               // shape: RoundedRectangleBorder(
@@ -247,13 +247,13 @@ class _LockAuthState extends State<LockAuth> {
           digit != null ? digit.toString() : "",
           style: TextStyle(
             fontSize: 30,
-            color: Theme.of(context).textTheme.headline1!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
           ),
         ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: Theme.of(context).textTheme.headline1!.color!,
+              color: Theme.of(context).textTheme.displayLarge!.color!,
               width: 2,
             ),
           ),

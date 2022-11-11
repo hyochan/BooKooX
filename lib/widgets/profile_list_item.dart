@@ -67,7 +67,7 @@ class ProfileListItem extends StatelessWidget {
                   child: Text(
                     displayName!,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.headline1!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                       fontSize: 20.0,
                     ),
                   ),

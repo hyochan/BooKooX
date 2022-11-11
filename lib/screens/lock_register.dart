@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
-import 'package:wecount/shared/pin_keyboard.dart' show PinKeyboard;
+import 'package:wecount/widgets/header.dart' show renderHeaderBack;
+import 'package:wecount/widgets/pin_keyboard.dart' show PinKeyboard;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class LockRegister extends StatefulWidget {
@@ -84,14 +84,14 @@ class _LockRegisterState extends State<LockRegister> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Theme.of(context).textTheme.headline1!.color,
+        iconColor: Theme.of(context).textTheme.displayLarge!.color,
         brightness: Theme.of(context).brightness,
         actions: <Widget>[
           TextButton(
             child: Text(
               _localization.trans('DONE')!,
               style: TextStyle(
-                color: Theme.of(context).textTheme.headline1!.color,
+                color: Theme.of(context).textTheme.displayLarge!.color,
               ),
             ),
             onPressed: addLockPinToSF,
@@ -109,7 +109,7 @@ class _LockRegisterState extends State<LockRegister> {
               _localization.trans('LOCK_HINT')!,
               style: TextStyle(
                   fontSize: 24,
-                  color: Theme.of(context).textTheme.headline1!.color),
+                  color: Theme.of(context).textTheme.displayLarge!.color),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
@@ -190,13 +190,13 @@ class _LockRegisterState extends State<LockRegister> {
           digit != null ? digit.toString() : "",
           style: TextStyle(
             fontSize: 30,
-            color: Theme.of(context).textTheme.headline1!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
           ),
         ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: Theme.of(context).textTheme.headline1!.color!,
+              color: Theme.of(context).textTheme.displayLarge!.color!,
               width: 2,
             ),
           ),

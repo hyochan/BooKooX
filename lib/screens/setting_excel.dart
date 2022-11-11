@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../utils/localization.dart' show Localization;
-import '../shared/header.dart' show renderHeaderBack;
-import '../shared/button.dart' show Button;
+import '../widgets/header.dart' show renderHeaderBack;
+import '../widgets/button.dart' show Button;
 import '../utils/asset.dart' as Asset;
 
 class SettingExcel extends StatelessWidget {
@@ -26,7 +26,7 @@ class SettingExcel extends StatelessWidget {
           _localization.trans('EXPORT_EXCEL')!,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.headline1!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
           ),
         ),
       ),

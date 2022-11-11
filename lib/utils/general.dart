@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Im;
 
-import 'package:wecount/shared/dialog_spinner.dart';
+import 'package:wecount/widgets/dialog_spinner.dart';
 import 'package:wecount/utils/localization.dart';
 
 class General {
@@ -67,7 +67,7 @@ class General {
     Function? onPress,
   }) {
     TextStyle _btnTextStyle = TextStyle(
-      color: Theme.of(context).textTheme.headline1!.color,
+      color: Theme.of(context).textTheme.displayLarge!.color,
       fontSize: 16,
     );
 
@@ -104,7 +104,7 @@ class General {
     Function? cancelPressed,
   }) {
     TextStyle _btnTextStyle = TextStyle(
-      color: Theme.of(context).textTheme.headline1!.color,
+      color: Theme.of(context).textTheme.displayLarge!.color,
       fontSize: 16,
     );
     showDialog<Null>(

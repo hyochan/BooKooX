@@ -1,10 +1,10 @@
 import 'package:wecount/mocks/line_graph.mock.dart';
 import 'package:wecount/models/ledger_item.dart';
-import 'package:wecount/shared/line_graph_chart.dart';
+import 'package:wecount/widgets/line_graph_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/localization.dart' show Localization;
-import '../shared/header.dart' show renderHeaderBack;
+import '../widgets/header.dart' show renderHeaderBack;
 
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
 
@@ -81,7 +81,7 @@ class _LineGraphState extends State<LineGraph> {
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).textTheme.headline1!.color,
+        iconColor: Theme.of(context).textTheme.displayLarge!.color,
         brightness: Theme.of(context).brightness,
       ),
       body: SafeArea(
@@ -92,7 +92,7 @@ class _LineGraphState extends State<LineGraph> {
                 _localization.trans('CAFE')!,
                 style: TextStyle(
                   fontSize: 30,
-                  color: Theme.of(context).textTheme.headline1!.color,
+                  color: Theme.of(context).textTheme.displayLarge!.color,
                 ),
               ),
             ),

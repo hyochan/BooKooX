@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
-import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/widgets/header.dart' show renderHeaderBack;
+import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/asset.dart' as Asset;
 
@@ -26,7 +26,7 @@ class SettingOpinion extends StatelessWidget {
           _localization.trans('SHARE_OPINION')!,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.headline1!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
           ),
         ),
       ),

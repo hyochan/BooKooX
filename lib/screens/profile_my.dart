@@ -3,9 +3,9 @@ import 'package:wecount/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FireAuth show User;
 import 'package:flutter/material.dart';
 
-import 'package:wecount/shared/header.dart' show renderHeaderClose;
-import 'package:wecount/shared/edit_text_box.dart' show EditTextBox;
-import 'package:wecount/shared/profile_image_cam.dart';
+import 'package:wecount/widgets/header.dart' show renderHeaderClose;
+import 'package:wecount/widgets/edit_text_box.dart' show EditTextBox;
+import 'package:wecount/widgets/profile_image_cam.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:image_picker/image_picker.dart';
@@ -50,7 +50,7 @@ class _ProfileMyState extends State<ProfileMy> {
               Icons.save_alt,
               semanticLabel: _localization.trans('UPDATE'),
             ),
-            color: Theme.of(context).textTheme.headline1!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
             padding: EdgeInsets.all(0.0),
             onPressed: _onUpdateProfile,
           ),
@@ -111,8 +111,8 @@ class _ProfileMyState extends State<ProfileMy> {
                 iconData: Icons.email,
                 margin: EdgeInsets.only(top: 24.0),
                 hintText: _localization.trans('EMAIL'),
-                focusedColor: Theme.of(context).textTheme.headline1!.color,
-                enabledColor: Theme.of(context).textTheme.headline2!.color,
+                focusedColor: Theme.of(context).textTheme.displayLarge!.color,
+                enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               ),
               EditTextBox(
                 controller: TextEditingController(
@@ -123,8 +123,8 @@ class _ProfileMyState extends State<ProfileMy> {
                 iconData: Icons.person_outline,
                 margin: EdgeInsets.only(top: 8.0),
                 hintText: _localization.trans('NICKNAME'),
-                focusedColor: Theme.of(context).textTheme.headline1!.color,
-                enabledColor: Theme.of(context).textTheme.headline2!.color,
+                focusedColor: Theme.of(context).textTheme.displayLarge!.color,
+                enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               ),
               EditTextBox(
                 controller: TextEditingController(
@@ -134,8 +134,8 @@ class _ProfileMyState extends State<ProfileMy> {
                 iconData: Icons.phone,
                 margin: EdgeInsets.only(top: 8.0),
                 hintText: _localization.trans('PHONE'),
-                focusedColor: Theme.of(context).textTheme.headline1!.color,
-                enabledColor: Theme.of(context).textTheme.headline2!.color,
+                focusedColor: Theme.of(context).textTheme.displayLarge!.color,
+                enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               ),
               Container(
                 margin: EdgeInsets.only(top: 32.0, bottom: 12.0),

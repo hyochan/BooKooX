@@ -1,17 +1,17 @@
 import 'package:wecount/mocks/home_statistic.mock.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/providers/current_ledger.dart';
-import 'package:wecount/shared/date_selector.dart' show DateSelector;
+import 'package:wecount/widgets/date_selector.dart' show DateSelector;
 import 'package:wecount/screens/home_statistic/functions.dart';
 
-import 'package:wecount/shared/home_list_item.dart';
+import 'package:wecount/widgets/home_list_item.dart';
 import 'package:wecount/types/color.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/utils/general.dart' show General;
-import 'package:wecount/shared/home_header.dart' show renderHomeAppBar;
+import 'package:wecount/widgets/home_header.dart' show renderHomeAppBar;
 import 'package:pie_chart/pie_chart.dart' show PieChart;
 // import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:intl/intl.dart' show DateFormat;
@@ -150,7 +150,7 @@ class _ContentState extends State<Content> {
             centerTextStyle: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
-              color: Theme.of(context).textTheme.headline1!.color,
+              color: Theme.of(context).textTheme.displayLarge!.color,
             ),
             animationDuration: Duration(milliseconds: 800),
             chartLegendSpacing: 32.0,
@@ -158,7 +158,7 @@ class _ContentState extends State<Content> {
             // showChartValuesInPercentage: true,
             // showChartValues: true,
             // showChartValuesOutside: false,
-            // chartValueStyle: Theme.of(context).textTheme.headline1,
+            // chartValueStyle: Theme.of(context).textTheme.displayLarge,
             colorList: colorList,
             // showLegends: true,
             // decimalPlaces: 1,

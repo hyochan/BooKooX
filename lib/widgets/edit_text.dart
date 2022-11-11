@@ -59,7 +59,7 @@ class EditText extends StatelessWidget {
   Widget build(BuildContext context) {
     InputBorder _underlineBorderFocused = UnderlineInputBorder(
       borderSide: BorderSide(
-        color: Theme.of(context).textTheme.headline1!.color!,
+        color: Theme.of(context).textTheme.displayLarge!.color!,
         width: 1.0,
       ),
     );

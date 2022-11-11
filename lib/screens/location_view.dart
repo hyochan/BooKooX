@@ -1,7 +1,7 @@
 import 'package:geocoding/geocoding.dart'
     show Placemark, placemarkFromCoordinates;
-import 'package:wecount/shared/header.dart';
-import 'package:wecount/shared/loading_indicator.dart';
+import 'package:wecount/widgets/header.dart';
+import 'package:wecount/widgets/loading_indicator.dart';
 import 'package:wecount/utils/service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -124,7 +124,7 @@ class _LocationViewState extends State<LocationView> {
                     onPressed: () => getPlace(),
                     child: Icon(
                       Icons.search,
-                      color: Theme.of(context).textTheme.headline1!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                     ),
                   ),
                 ),
@@ -151,7 +151,7 @@ class _LocationViewState extends State<LocationView> {
                     },
                     child: Icon(
                       Icons.check,
-                      color: Theme.of(context).textTheme.headline1!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                     ),
                   ),
                 ),

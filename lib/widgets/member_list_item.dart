@@ -87,8 +87,10 @@ class MemberListItem extends StatelessWidget {
                             maxLines: 1,
                             style: TextStyle(
                               fontSize: 18,
-                              color:
-                                  Theme.of(context).textTheme.headline1!.color,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
                             ),
                           ),
                           Container(
@@ -99,7 +101,7 @@ class MemberListItem extends StatelessWidget {
                                 fontSize: 14,
                                 color: Theme.of(context)
                                     .textTheme
-                                    .headline1!
+                                    .displayLarge!
                                     .color,
                               ),
                             ),
@@ -126,7 +128,7 @@ class MemberListItem extends StatelessWidget {
                         : _localization!.trans('MEMBER_GUEST')!,
                 style: TextStyle(
                   fontSize: 12,
-                  color: Theme.of(context).textTheme.headline1!.color,
+                  color: Theme.of(context).textTheme.displayLarge!.color,
                 ),
               ),
             ),

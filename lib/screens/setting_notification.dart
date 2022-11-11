@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:wecount/shared/header.dart';
+import 'package:wecount/widgets/header.dart';
 import 'package:wecount/utils/localization.dart';
 
 class SettingNotification extends StatefulWidget {
@@ -39,7 +39,7 @@ class _SettingNotificationState extends State<SettingNotification> {
           _localization.trans('NOTIFICATION')!,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.headline1!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
           ),
         ),
       ),
@@ -55,7 +55,7 @@ class _SettingNotificationState extends State<SettingNotification> {
                     _localization.trans('ADDING_LEDGER_ITEM')!,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.headline1!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                     ),
                   ),
                 ),
@@ -82,7 +82,7 @@ class _SettingNotificationState extends State<SettingNotification> {
                     _localization.trans('UPDATING_LEDGER_ITEM')!,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.headline1!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                     ),
                   ),
                 ),

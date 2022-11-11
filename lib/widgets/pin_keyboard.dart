@@ -31,7 +31,7 @@ class PinKeyboard extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: 30.0,
-                color: Theme.of(context).textTheme.headline2!.color,
+                color: Theme.of(context).textTheme.displayMedium!.color,
               ),
             ),
           ),
@@ -154,7 +154,7 @@ class PinKeyboard extends StatelessWidget {
                   pinKeyboardActionButton(
                       label: Icon(
                         Icons.backspace,
-                        color: Theme.of(context).textTheme.headline2!.color,
+                        color: Theme.of(context).textTheme.displayMedium!.color,
                       ),
                       onPressed: () {
                         onDeletePressed!();
