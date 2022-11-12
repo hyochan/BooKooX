@@ -26,7 +26,7 @@ class HomeListItem extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
-            color: Theme.of(context).textTheme.headline1!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
             fontSize: 16.0,
           ),
         ),
@@ -38,7 +38,7 @@ class HomeListItem extends StatelessWidget {
           child: Text(
             writer.displayName!,
             style: TextStyle(
-              color: Theme.of(context).textTheme.headline2!.color,
+              color: Theme.of(context).textTheme.displayMedium!.color,
               fontSize: 12.0,
             ),
           ),
@@ -60,8 +60,7 @@ class HomeListItem extends StatelessWidget {
     String _priceToShow = (_isPlus ? '+ ' : '- ') +
         _priceFormatted.toString().replaceAll('-', '');
 
-    return FlatButton(
-      padding: EdgeInsets.all(0),
+    return TextButton(
       onPressed: () =>
           General.instance.navigateScreenNamed(context, LineGraph.name),
       child: Container(
@@ -99,7 +98,7 @@ class HomeListItem extends StatelessWidget {
                     textAlign: TextAlign.end,
                     style: TextStyle(
                         color: _isPlus
-                            ? Theme.of(context).textTheme.headline1!.color
+                            ? Theme.of(context).textTheme.displayLarge!.color
                             : Asset.Colors.carnation),
                   ),
                 ),

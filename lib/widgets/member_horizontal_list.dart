@@ -71,9 +71,8 @@ class MemberHorizontalList extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: this.onSeeAllPressed as void Function()?,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     child: Text(
                       _localization.trans('SEE_ALL')!,
                       semanticsLabel: _localization.trans('SEE_ALL'),

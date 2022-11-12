@@ -1,7 +1,7 @@
 import 'package:wecount/models/category.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:wecount/shared/category_list.dart' show CategoryList;
+import 'package:wecount/widgets/category_list.dart' show CategoryList;
 import '../test_utils.dart' show TestUtils;
 
 void main() {

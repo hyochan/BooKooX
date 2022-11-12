@@ -65,11 +65,11 @@ class _HomeTabState extends State<HomeTab> {
         type: BottomNavigationBarType.shifting,
         currentIndex: _index,
         onTap: (int index) => setState(() => this._index = index),
-        selectedItemColor: Theme.of(context).textTheme.headline1!.color,
-        unselectedItemColor: Theme.of(context).textTheme.headline1!.color,
+        selectedItemColor: Theme.of(context).textTheme.displayLarge!.color,
+        unselectedItemColor: Theme.of(context).textTheme.displayLarge!.color,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).bottomAppBarColor,
+            backgroundColor: Theme.of(context).bottomAppBarTheme.color,
             icon: Icon(
               Icons.calendar_today,
               size: 20.0,
@@ -77,7 +77,7 @@ class _HomeTabState extends State<HomeTab> {
             label: 'Monthly',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).bottomAppBarColor,
+            backgroundColor: Theme.of(context).bottomAppBarTheme.color,
             icon: Icon(
               Icons.list,
               size: 20.0,
@@ -85,7 +85,7 @@ class _HomeTabState extends State<HomeTab> {
             label: 'List',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).bottomAppBarColor,
+            backgroundColor: Theme.of(context).bottomAppBarTheme.color,
             icon: Icon(
               Icons.graphic_eq,
               size: 20.0,
@@ -93,7 +93,7 @@ class _HomeTabState extends State<HomeTab> {
             label: 'Statistic',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).bottomAppBarColor,
+            backgroundColor: Theme.of(context).bottomAppBarTheme.color,
             icon: Icon(
               Icons.settings,
               size: 20.0,

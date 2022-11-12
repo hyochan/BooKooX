@@ -3,10 +3,10 @@ import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
 
-import 'package:wecount/shared/home_header_search.dart' show HomeHeaderSearch;
+import 'package:wecount/widgets/home_header_search.dart' show HomeHeaderSearch;
 import 'package:wecount/models/category.dart';
 import 'package:wecount/models/ledger_item.dart';
-import 'package:wecount/shared/home_list_item.dart';
+import 'package:wecount/widgets/home_list_item.dart';
 
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
@@ -264,7 +264,7 @@ class _HomeListState extends State<HomeList> {
         headerString,
         style: TextStyle(
           fontSize: 16,
-          color: Theme.of(context).textTheme.headline2!.color,
+          color: Theme.of(context).textTheme.displayMedium!.color,
         ),
       ),
     );

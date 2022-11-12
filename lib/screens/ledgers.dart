@@ -5,11 +5,11 @@ import 'package:wecount/screens/profile_my.dart';
 import 'package:wecount/screens/setting.dart';
 
 import 'package:wecount/services/database.dart' show DatabaseService;
-import 'package:wecount/shared/header.dart' show renderHeaderClose;
+import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/ledger_view.dart';
-import 'package:wecount/shared/profile_list_item.dart' show ProfileListItem;
-import 'package:wecount/shared/ledger_list_item.dart' show LedgerListItem;
+import 'package:wecount/widgets/profile_list_item.dart' show ProfileListItem;
+import 'package:wecount/widgets/ledger_list_item.dart' show LedgerListItem;
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;

@@ -70,7 +70,7 @@ AppBar renderHomeAppBar({
       title: Text(
         title,
         style: TextStyle(
-          color: fontColor ?? Theme.of(context).textTheme.headline1!.color,
+          color: fontColor ?? Theme.of(context).textTheme.displayLarge!.color,
           fontSize: 16.0,
         ),
       ),

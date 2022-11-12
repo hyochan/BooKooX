@@ -6,10 +6,10 @@ import 'package:wecount/models/ledger_item.dart' show LedgerItem;
 import 'package:wecount/models/photo.dart' show Photo;
 import 'package:wecount/screens/category_add.dart';
 import 'package:wecount/screens/location_view.dart';
-import 'package:wecount/shared/category_list.dart';
-import 'package:wecount/shared/gallery.dart' show Gallery;
-import 'package:wecount/shared/header.dart';
-import 'package:wecount/shared/header.dart' show renderHeaderClose;
+import 'package:wecount/widgets/category_list.dart';
+import 'package:wecount/widgets/gallery.dart' show Gallery;
+import 'package:wecount/widgets/header.dart';
+import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
@@ -191,7 +191,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       '${_localization!.trans('CATEGORY')}',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Theme.of(context).textTheme.headline1!.color,
+                        color: Theme.of(context).textTheme.displayLarge!.color,
                       ),
                     ),
                     IconButton(
@@ -250,8 +250,11 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       ? Icon(
                           icon,
                           color: active
-                              ? Theme.of(context).textTheme.headline1!.color
-                              : Theme.of(context).textTheme.headline2!.color,
+                              ? Theme.of(context).textTheme.displayLarge!.color
+                              : Theme.of(context)
+                                  .textTheme
+                                  .displayMedium!
+                                  .color,
                         )
                       : Image(
                           image: image,
@@ -270,10 +273,13 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                             text,
                             style: TextStyle(
                               color: active == true
-                                  ? Theme.of(context).textTheme.headline1!.color
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .displayLarge!
+                                      .color
                                   : Theme.of(context)
                                       .textTheme
-                                      .headline2!
+                                      .displayMedium!
                                       .color,
                               fontSize: 16,
                             ),
@@ -498,7 +504,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                       child: Text('+ ',
                           style: TextStyle(
                             fontSize: 28,
-                            color: Theme.of(context).textTheme.headline1!.color,
+                            color:
+                                Theme.of(context).textTheme.displayLarge!.color,
                           )),
                     ),
                     Expanded(
@@ -623,7 +630,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
               onPressed: onLedgerItemEditPressed,
               child: Icon(
                 Icons.add_box,
-                color: Theme.of(context).textTheme.headline1!.color,
+                color: Theme.of(context).textTheme.displayLarge!.color,
               ),
             ),
           ),
@@ -643,13 +650,13 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
                   borderSide: BorderSide(
-                      color: Theme.of(context).textTheme.headline1!.color!,
+                      color: Theme.of(context).textTheme.displayLarge!.color!,
                       width: 4.0),
                   insets: EdgeInsets.symmetric(horizontal: 8),
                   // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
                 ),
                 indicatorColor: Theme.of(context).backgroundColor,
-                labelColor: Theme.of(context).textTheme.headline1!.color,
+                labelColor: Theme.of(context).textTheme.displayLarge!.color,
                 labelStyle: TextStyle(
                   fontSize: 20,
                 ),

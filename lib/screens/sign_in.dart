@@ -5,8 +5,8 @@ import 'package:wecount/navigations/home_tab.dart';
 import 'package:wecount/screens/find_pw.dart';
 import 'package:wecount/screens/main_empty.dart';
 
-import 'package:wecount/shared/button.dart' show Button;
-import 'package:wecount/shared/edit_text.dart' show EditText;
+import 'package:wecount/widgets/button.dart' show Button;
+import 'package:wecount/widgets/edit_text.dart' show EditText;
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/validator.dart' show Validator;
@@ -166,7 +166,7 @@ class _SignInState extends State<SignIn> {
         _localization!.trans('SIGN_IN')!,
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.headline1!.color,
+          color: Theme.of(context).textTheme.displayLarge!.color,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -249,8 +249,7 @@ class _SignInState extends State<SignIn> {
     }
 
     Widget renderFindPw() {
-      return FlatButton(
-        padding: EdgeInsets.all(8),
+      return TextButton(
         onPressed: () =>
             General.instance.navigateScreenNamed(context, FindPw.name),
         child: RichText(
@@ -280,7 +279,7 @@ class _SignInState extends State<SignIn> {
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(
-          color: Theme.of(context).textTheme.headline1!.color,
+          color: Theme.of(context).textTheme.displayLarge!.color,
         ),
       ),
       body: GestureDetector(

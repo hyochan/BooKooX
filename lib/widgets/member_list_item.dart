@@ -44,9 +44,8 @@ class MemberListItem extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: FlatButton(
+            child: TextButton(
               onPressed: this.onPressMember as void Function()?,
-              padding: EdgeInsets.symmetric(horizontal: 40),
               child: Row(
                 children: <Widget>[
                   Stack(
@@ -88,8 +87,10 @@ class MemberListItem extends StatelessWidget {
                             maxLines: 1,
                             style: TextStyle(
                               fontSize: 18,
-                              color:
-                                  Theme.of(context).textTheme.headline1!.color,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
                             ),
                           ),
                           Container(
@@ -100,7 +101,7 @@ class MemberListItem extends StatelessWidget {
                                 fontSize: 14,
                                 color: Theme.of(context)
                                     .textTheme
-                                    .headline1!
+                                    .displayLarge!
                                     .color,
                               ),
                             ),
@@ -117,8 +118,7 @@ class MemberListItem extends StatelessWidget {
             alignment: Alignment(0, 0),
             width: 80,
             height: double.infinity,
-            child: FlatButton(
-              padding: EdgeInsets.all(0),
+            child: TextButton(
               onPressed: this.onPressAuth as void Function()?,
               child: Text(
                 user.membership == Membership.Owner
@@ -128,7 +128,7 @@ class MemberListItem extends StatelessWidget {
                         : _localization!.trans('MEMBER_GUEST')!,
                 style: TextStyle(
                   fontSize: 12,
-                  color: Theme.of(context).textTheme.headline1!.color,
+                  color: Theme.of(context).textTheme.displayLarge!.color,
                 ),
               ),
             ),

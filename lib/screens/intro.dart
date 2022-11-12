@@ -7,7 +7,7 @@ import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/screens/sign_in.dart';
 import 'package:wecount/screens/sign_up.dart';
 
-import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/localization.dart' show Localization;

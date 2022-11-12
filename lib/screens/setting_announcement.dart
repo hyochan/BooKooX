@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 // One entry in the multilevel list displayed by this app.
@@ -58,7 +58,7 @@ class SettingAnnouncement extends StatelessWidget {
           _localization.trans('ANNOUNCEMENT')!,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.headline1!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
           ),
         ),
       ),

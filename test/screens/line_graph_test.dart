@@ -1,5 +1,5 @@
 import 'package:wecount/screens/line_graph.dart' show LineGraph;
-import 'package:wecount/shared/line_graph_chart.dart';
+import 'package:wecount/widgets/line_graph_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../test_utils.dart' show TestUtils;

@@ -2,9 +2,9 @@ import 'package:wecount/providers/current_ledger.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/screens/setting_currency.dart';
 import 'package:wecount/screens/members.dart';
-import 'package:wecount/shared/member_horizontal_list.dart';
+import 'package:wecount/widgets/member_horizontal_list.dart';
 import 'package:wecount/services/database.dart' show DatabaseService;
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
@@ -314,11 +314,13 @@ class _LedgerEditState extends State<LedgerEdit> {
               child: SizedBox(
                 // width: 120,
                 height: 60,
-                child: FlatButton(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(26.0),
+                child: TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(26.0),
+                      ),
+                    ),
                   ),
                   onPressed: _pressDone,
                   child: _isLoading

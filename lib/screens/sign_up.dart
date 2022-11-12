@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:wecount/utils/general.dart' show General;
-import 'package:wecount/shared/edit_text.dart' show EditText;
-import 'package:wecount/shared/button.dart' show Button;
+import 'package:wecount/widgets/edit_text.dart' show EditText;
+import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/validator.dart' show Validator;
 import 'package:wecount/utils/asset.dart' as Asset;
@@ -102,8 +102,16 @@ class _SignUpState extends State<SignUp> {
 
         return General.instance.showSingleDialog(
           context,
-          title: Text(_localization!.trans('SIGN_UP_SUCCESS_TITLE')!),
-          content: Text(_localization!.trans('SIGN_UP_SUCCESS_CONTENT')!),
+          title: Text(
+            _localization!.trans('SIGN_UP_SUCCESS_TITLE')!,
+            style: TextStyle(
+                color: Theme.of(context).dialogTheme.titleTextStyle!.color),
+          ),
+          content: Text(
+            _localization!.trans('SIGN_UP_SUCCESS_CONTENT')!,
+            style: TextStyle(
+                color: Theme.of(context).dialogTheme.contentTextStyle!.color),
+          ),
           onPress: () {
             _auth.signOut();
             Navigator.of(context).pop();
@@ -115,8 +123,16 @@ class _SignUpState extends State<SignUp> {
     } catch (err) {
       General.instance.showSingleDialog(
         context,
-        title: Text(_localization!.trans('SIGN_UP_ERROR_TITLE')!),
-        content: Text(_localization!.trans('SIGN_UP_ERROR_CONTENT')!),
+        title: Text(
+          _localization!.trans('SIGN_UP_ERROR_TITLE')!,
+          style: TextStyle(
+              color: Theme.of(context).dialogTheme.titleTextStyle!.color),
+        ),
+        content: Text(
+          _localization!.trans('SIGN_UP_ERROR_CONTENT')!,
+          style: TextStyle(
+              color: Theme.of(context).dialogTheme.contentTextStyle!.color),
+        ),
       );
     } finally {
       setState(() => _isRegistering = false);
@@ -132,7 +148,7 @@ class _SignUpState extends State<SignUp> {
         _localization!.trans('SIGN_UP')!,
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.headline1!.color,
+          color: Theme.of(context).textTheme.displayLarge!.color,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -145,6 +161,8 @@ class _SignUpState extends State<SignUp> {
         textInputAction: TextInputAction.next,
         textLabel: _localization!.trans('EMAIL'),
         textHint: _localization!.trans('EMAIL_HINT'),
+        textStyle: TextStyle(
+            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: _isValidEmail,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
@@ -170,6 +188,8 @@ class _SignUpState extends State<SignUp> {
         textLabel: _localization!.trans('PASSWORD'),
         textHint: _localization!.trans('PASSWORD_HINT'),
         isSecret: true,
+        textStyle: TextStyle(
+            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: _isValidPassword,
         onChanged: (String str) {
           if (Validator.instance.validatePassword(str)) {
@@ -195,6 +215,8 @@ class _SignUpState extends State<SignUp> {
         textLabel: _localization!.trans('PASSWORD_CONFIRM'),
         textHint: _localization!.trans('PASSWORD_CONFIRM_HINT'),
         isSecret: true,
+        textStyle: TextStyle(
+            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: _passwordConfirm != null &&
             _passwordConfirm != '' &&
             _passwordConfirm == _password,
@@ -216,6 +238,8 @@ class _SignUpState extends State<SignUp> {
         textInputAction: TextInputAction.next,
         textLabel: _localization!.trans('DISPLAY_NAME'),
         textHint: _localization!.trans('DISPLAY_NAME_HINT'),
+        textStyle: TextStyle(
+            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: _isValidDisplayName,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
@@ -240,6 +264,8 @@ class _SignUpState extends State<SignUp> {
         textInputAction: TextInputAction.next,
         textLabel: _localization!.trans('NAME'),
         textHint: _localization!.trans('NAME_HINT'),
+        textStyle: TextStyle(
+            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: _isValidName,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
@@ -276,17 +302,16 @@ class _SignUpState extends State<SignUp> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        brightness: Theme.of(context).brightness,
+        systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         elevation: 0.0,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         iconTheme: IconThemeData(
-          color: Theme.of(context).textTheme.headline1!.color,
+          color: Theme.of(context).textTheme.displayLarge!.color,
         ),
       ),
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: CustomScrollView(
           slivers: <Widget>[
             SliverPadding(

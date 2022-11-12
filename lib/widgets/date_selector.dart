@@ -10,7 +10,7 @@ class DateSelector extends StatelessWidget {
       margin: EdgeInsets.only(left: 3, top: 32, bottom: 20),
       child: Row(
         children: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: this.onDatePressed as void Function()?,
             child: Row(
               children: <Widget>[

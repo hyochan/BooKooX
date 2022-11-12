@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:wecount/shared/member_horizontal_list.dart';
-import 'package:wecount/shared/header.dart' show renderHeaderBack;
+import 'package:wecount/widgets/member_horizontal_list.dart';
+import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';

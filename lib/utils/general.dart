@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Im;
 
-import 'package:wecount/shared/dialog_spinner.dart';
+import 'package:wecount/widgets/dialog_spinner.dart';
 import 'package:wecount/utils/localization.dart';
 
 class General {
@@ -67,7 +67,7 @@ class General {
     Function? onPress,
   }) {
     TextStyle _btnTextStyle = TextStyle(
-      color: Theme.of(context).textTheme.headline1!.color,
+      color: Theme.of(context).textTheme.displayLarge!.color,
       fontSize: 16,
     );
 
@@ -79,7 +79,7 @@ class General {
           title: title,
           content: content,
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(
                 Localization.of(context)!.trans('OK')!,
                 style: _btnTextStyle,
@@ -104,7 +104,7 @@ class General {
     Function? cancelPressed,
   }) {
     TextStyle _btnTextStyle = TextStyle(
-      color: Theme.of(context).textTheme.headline1!.color,
+      color: Theme.of(context).textTheme.displayLarge!.color,
       fontSize: 16,
     );
     showDialog<Null>(
@@ -115,14 +115,14 @@ class General {
           title: title,
           content: content,
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(
                 Localization.of(context)!.trans('OK')!,
                 style: _btnTextStyle,
               ),
               onPressed: okPressed as void Function()?,
             ),
-            FlatButton(
+            TextButton(
               onPressed: cancelPressed as void Function()?,
               child: Text(
                 Localization.of(context)!.trans('CANCEL')!,
@@ -188,7 +188,7 @@ class General {
         },
       ),
     );
-    Scaffold.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void showDatePicker(
@@ -203,7 +203,7 @@ class General {
                 var datum =
                     '${dates[index].year}/${dates[index].month}/${dates[index].day}';
                 return Container(
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: () {
                       // callback(datum);
                       Navigator.of(context).pop();

@@ -131,9 +131,8 @@ class LedgerListItem extends StatelessWidget {
               ),
             ),
           ),
-          FlatButton(
+          TextButton(
             onPressed: onMorePressed as void Function()?,
-            padding: EdgeInsets.all(0),
             child: Container(
               height: double.infinity,
               child: Center(

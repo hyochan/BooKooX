@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wecount/models/category.dart';
-import 'package:wecount/shared/edit_text_box.dart';
+import 'package:wecount/widgets/edit_text_box.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
@@ -131,7 +131,8 @@ class _CategoryAddState extends State<CategoryAdd> {
                         _localization.trans('CATEGORY_ADD')!,
                         style: TextStyle(
                           fontSize: 28,
-                          color: Theme.of(context).textTheme.headline1!.color,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                         ),
                       ),
                     ),
@@ -182,26 +183,28 @@ class _CategoryAddState extends State<CategoryAdd> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(left: 40),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: onCancelPressed,
                       child: Text(
                         _localization.trans('CANCEL')!,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Theme.of(context).textTheme.headline1!.color,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                         ),
                       ),
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 20),
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: onDonePressed,
                       child: Text(
                         _localization.trans('DONE')!,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Theme.of(context).textTheme.headline1!.color,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                         ),
                       ),
                     ),

@@ -1,5 +1,5 @@
 import 'package:wecount/models/category.dart';
-import 'package:wecount/shared/category_item.dart';
+import 'package:wecount/widgets/category_item.dart';
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
