@@ -315,6 +315,13 @@ class _LedgerEditState extends State<LedgerEdit> {
                 // width: 120,
                 height: 60,
                 child: TextButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(26.0),
+                      ),
+                    ),
+                  ),
                   onPressed: _pressDone,
                   child: _isLoading
                       ? Container(

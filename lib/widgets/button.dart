@@ -35,7 +35,7 @@ class Button extends StatelessWidget {
   final double borderRadius;
   final Color? borderColor;
   final TextStyle textStyle;
-  final ShapeBorder? shapeBorder;
+  final MaterialStatePropertyAll<OutlinedBorder>? shapeBorder;
   final bool isLoading;
 
   @override
@@ -43,6 +43,12 @@ class Button extends StatelessWidget {
     return Container(
       key: this.key,
       child: TextButton(
+        style: ButtonStyle(
+          shape: shapeBorder,
+          padding: MaterialStateProperty.all(
+            EdgeInsets.all(0.0),
+          ),
+        ),
         child: isLoading
             ? CircularProgressIndicator(
                 semanticsLabel: Localization.of(context)!.trans('LOADING'),
