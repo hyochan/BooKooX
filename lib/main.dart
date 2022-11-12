@@ -8,6 +8,7 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'firebase_options.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/utils/constatns.dart';
 import 'package:wecount/utils/routes.dart';
@@ -25,7 +26,7 @@ void main() async {
 Future<void> _initFire() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
 void checkIOSPermission() {
@@ -70,7 +71,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: Themes.light,
         darkTheme: Themes.dark,
-        themeMode: ThemeMode.light,
         routes: routes,
         supportedLocales: [
           const Locale('en', 'US'),
