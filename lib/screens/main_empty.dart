@@ -26,7 +26,7 @@ class _MainEmptyState extends State<MainEmpty> {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHomeAppBar(
         context: context,
         title: '',
@@ -47,7 +47,7 @@ class _MainEmptyState extends State<MainEmpty> {
         ],
       ),
       body: Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -78,12 +78,14 @@ class _MainEmptyState extends State<MainEmpty> {
               backgroundColor: Colors.transparent,
               width: 160,
               height: 56,
-              shapeBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(32),
-                side: BorderSide(
-                  color: Theme.of(context).textTheme.displayMedium!.color!,
-                  width: 1,
-                  style: BorderStyle.solid,
+              shapeBorder: MaterialStatePropertyAll<OutlinedBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32),
+                  side: BorderSide(
+                    color: Theme.of(context).textTheme.displayMedium!.color!,
+                    width: 1,
+                    style: BorderStyle.solid,
+                  ),
                 ),
               ),
               onPress: () => Navigator.of(context).pushNamed(LedgerEdit.name),

@@ -64,7 +64,7 @@ class _HomeSettingState extends State<HomeSetting> {
         color: Asset.Colors.getColor(color),
         fontColor: Colors.white,
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Column(
           children: <Widget>[

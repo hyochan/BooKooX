@@ -16,7 +16,7 @@ class SettingOpinion extends StatelessWidget {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,

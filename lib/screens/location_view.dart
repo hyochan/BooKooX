@@ -110,7 +110,7 @@ class _LocationViewState extends State<LocationView> {
     return _center == null
         ? const LoadingIndicator()
         : Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             appBar: renderHeaderClose(
               context: context,
               brightness: Theme.of(context).brightness,

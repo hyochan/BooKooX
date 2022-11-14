@@ -60,7 +60,7 @@ class _LedgersState extends State<Ledgers> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,

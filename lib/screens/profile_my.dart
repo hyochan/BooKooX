@@ -40,7 +40,7 @@ class _ProfileMyState extends State<ProfileMy> {
     var _user = Provider.of<FireAuth.User>(context);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,

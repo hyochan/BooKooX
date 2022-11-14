@@ -73,7 +73,7 @@ class _CategoryItemState extends State<CategoryItem> {
                                 Theme.of(context).textTheme.displayLarge!.color,
                             child: Icon(
                               Icons.close,
-                              color: Theme.of(context).backgroundColor,
+                              color: Theme.of(context).colorScheme.background,
                               size: 18,
                             ),
                           ),

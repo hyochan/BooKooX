@@ -274,10 +274,10 @@ class _SignInState extends State<SignIn> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         iconTheme: IconThemeData(
           color: Theme.of(context).textTheme.displayLarge!.color,
         ),
