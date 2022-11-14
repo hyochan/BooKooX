@@ -46,7 +46,7 @@ class _SettingCurrencyState extends State<SettingCurrency> {
         .toList();
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,

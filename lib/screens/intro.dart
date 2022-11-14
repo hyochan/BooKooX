@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/screens/sign_in.dart';
 import 'package:wecount/screens/sign_up.dart';
+import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as Asset;
@@ -39,7 +40,6 @@ class Intro extends StatelessWidget {
       UserCredential auth =
           await FirebaseAuth.instance.signInWithCredential(credential);
       User user = auth.user!;
-
       await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
         'email': user.email,
         'displayName': user.displayName,
@@ -49,7 +49,7 @@ class Intro extends StatelessWidget {
         'updatedAt': FieldValue.serverTimestamp(),
         'deletedAt': null,
       });
-
+      print("here");
       _googleSignIn.signOut();
       Navigator.pushReplacementNamed(context, AuthSwitch.name);
     }

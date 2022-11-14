@@ -53,7 +53,7 @@ class HomeStatistic extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Container(
           child: Center(

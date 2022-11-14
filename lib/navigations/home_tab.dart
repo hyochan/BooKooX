@@ -25,6 +25,7 @@ class _HomeTabState extends State<HomeTab> {
     String _title = Provider.of<CurrentLedger>(context).getTitle() ?? '';
 
     return Scaffold(
+      // appBar: AppBar(),
       body: Stack(
         children: <Widget>[
           Offstage(

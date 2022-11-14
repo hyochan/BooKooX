@@ -38,7 +38,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
         : ColorType.DUSK;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: CustomScrollView(
         slivers: <Widget>[
           HomeHeaderExpanded(

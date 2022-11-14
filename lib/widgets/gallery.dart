@@ -76,7 +76,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
               ),
             ),
           ],
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
         );
       });
 }

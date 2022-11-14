@@ -636,7 +636,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -655,7 +655,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   insets: EdgeInsets.symmetric(horizontal: 8),
                   // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
                 ),
-                indicatorColor: Theme.of(context).backgroundColor,
+                indicatorColor: Theme.of(context).colorScheme.background,
                 labelColor: Theme.of(context).textTheme.displayLarge!.color,
                 labelStyle: TextStyle(
                   fontSize: 20,

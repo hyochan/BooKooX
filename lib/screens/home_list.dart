@@ -1,7 +1,10 @@
+import 'package:flat_list/flat_list.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
+import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/home_header_search.dart' show HomeHeaderSearch;
 import 'package:wecount/models/category.dart';
@@ -298,17 +301,19 @@ class _HomeListState extends State<HomeList> {
         General.instance.navigateScreenNamed(context, '/ledger_item_edit');
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        toolbarHeight: 100,
         automaticallyImplyLeading: false,
         titleSpacing: 0.0,
+        backgroundColor: Asset.Colors.getColor(color),
         title: HomeHeaderSearch(
           color: Asset.Colors.getColor(color),
           margin: EdgeInsets.only(left: 20.0),
           textEditingController: textEditingController,
           actions: <Widget>[
             Container(
-              width: 56.0,
+              width: 50.0,
               child: RawMaterialButton(
                 padding: EdgeInsets.all(0.0),
                 shape: CircleBorder(),
@@ -325,8 +330,25 @@ class _HomeListState extends State<HomeList> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: CustomScrollView(
-            slivers: _renderList(context),
+          child: FlatList(
+            data: _listData,
+            buildItem: (item, index) {
+              var section = _listData[index];
+              var headerDate = section['date'];
+              var ledgerItems = section['ledgerItems'];
+              return Column(
+                children: [
+                  _renderListHeader(headerDate),
+                  ...ledgerItems
+                      .map<Widget>(
+                        (val) => HomeListItem(
+                          ledgerItem: val,
+                        ),
+                      )
+                      .toList()
+                ],
+              );
+            },
           ),
         ),
       ),

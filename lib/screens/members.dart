@@ -110,7 +110,7 @@ class _MembersState extends State<Members> {
     var _localization = Localization.of(context)!;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,

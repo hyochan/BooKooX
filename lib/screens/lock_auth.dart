@@ -129,7 +129,7 @@ class _LockAuthState extends State<LockAuth> {
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         context: context,
         iconColor: Theme.of(context).iconTheme.color,

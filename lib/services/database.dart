@@ -8,6 +8,7 @@ import 'package:wecount/models/ledger.dart';
 import 'package:wecount/models/user.dart' as UserM;
 import 'package:wecount/services/storage.dart';
 import 'package:wecount/utils/db_helper.dart';
+import 'package:wecount/utils/logger.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
