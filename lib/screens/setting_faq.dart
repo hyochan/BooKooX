@@ -32,7 +32,7 @@ class EntryItem extends StatelessWidget {
 }
 
 class SettingFAQ extends StatelessWidget {
-  static const String name = '/setting_faq';
+  static const String name = '/setting-faq';
 
   @override
   Widget build(BuildContext context) {

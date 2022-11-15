@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
         theme: Themes.light,
         darkTheme: Themes.dark,
         routes: routes,
+        onGenerateRoute: onGenerateRoute,
         supportedLocales: [
           const Locale('en', 'US'),
           const Locale('ko', 'KR'),

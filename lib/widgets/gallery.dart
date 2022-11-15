@@ -7,8 +7,8 @@ import 'package:wecount/screens/photo_detail.dart';
 import 'package:wecount/models/photo.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/localization.dart' show Localization;
-import 'package:wecount/utils/general.dart' show General;
 import 'package:image_picker/image_picker.dart';
+import 'package:wecount/utils/navigation.dart';
 
 enum PhotoOption { Camera, Gallery }
 
@@ -173,12 +173,12 @@ class _GalleryState extends State<Gallery> {
                         XFile? imgFile;
                         switch (photoOption) {
                           case PhotoOption.Camera:
-                            imgFile = await General.instance
-                                .chooseImage(context: context, type: 'camera');
+                            imgFile = await navigation.chooseImage(
+                                context: context, type: 'camera');
                             break;
                           case PhotoOption.Gallery:
-                            imgFile = await General.instance
-                                .chooseImage(context: context, type: 'gallery');
+                            imgFile = await navigation.chooseImage(
+                                context: context, type: 'gallery');
                             break;
                           default:
                             break;
@@ -231,21 +231,19 @@ class _GalleryState extends State<Gallery> {
                             color: Colors.transparent,
                             child: InkWell(
                               splashColor: Asset.Colors.paleGray,
-                              onTap: () => General.instance.navigateScreen(
+                              onTap: () => navigation.navigate(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      PhotoDetail(
-                                    photo: photo,
-                                    onPressDelete: () {
-                                      int index = _pictures.indexWhere(
-                                          (Photo compare) =>
-                                              compare.file == photo.file);
-                                      _pictures.removeAt(index);
-                                      widget.ledgerItem.picture = _pictures;
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
+                                'photo-detail',
+                                arguments: PhotoDetailArguments(
+                                  photo: photo,
+                                  onPressDelete: () {
+                                    int index = _pictures.indexWhere(
+                                        (Photo compare) =>
+                                            compare.file == photo.file);
+                                    _pictures.removeAt(index);
+                                    widget.ledgerItem.picture = _pictures;
+                                    Navigator.of(context).pop();
+                                  },
                                 ),
                               ),
                             ),

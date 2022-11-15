@@ -11,7 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LockAuth extends StatefulWidget {
-  static const String name = '/lock_auth';
+  static const String name = '/lock-auth';
 
   @override
   _LockAuthState createState() => _LockAuthState();

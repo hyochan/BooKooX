@@ -8,6 +8,14 @@ import '../widgets/header.dart' show renderHeaderBack;
 
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
 
+class LineGraphArguments {
+  final String title;
+  final String year;
+  final double? price;
+
+  LineGraphArguments(this.title, this.year, this.price);
+}
+
 double getPriceSum(List<LedgerItem> items) {
   double sum = 0;
   items.forEach((item) {
@@ -18,15 +26,13 @@ double getPriceSum(List<LedgerItem> items) {
 
 /// main
 class LineGraph extends StatefulWidget {
-  static const String name = '/line_graph';
+  static const String name = '/line-graph';
 
-  LineGraph({
-    Key? key,
-    this.title = '',
-    this.year = '2019',
-  }) : super(key: key);
+  LineGraph({Key? key, this.title = '', this.year = '2019', this.price = 0.0})
+      : super(key: key);
   final String title;
   final String year;
+  final double price;
 
   @override
   _LineGraphState createState() => _LineGraphState();
@@ -89,7 +95,8 @@ class _LineGraphState extends State<LineGraph> {
           children: <Widget>[
             headerAlign(
               child: Text(
-                _localization.trans('CAFE')!,
+                '${widget.title}',
+                // _localization.trans('CAFE')!,
                 style: TextStyle(
                   fontSize: 30,
                   color: Theme.of(context).textTheme.displayLarge!.color,
@@ -108,7 +115,7 @@ class _LineGraphState extends State<LineGraph> {
                 : BottomListTitle(
                     date: DateFormat('y')
                         .format(DateTime(int.parse(widget.year))),
-                    price: this._priceSum),
+                    price: widget.price),
             Divider(
               color: Colors.grey,
               height: 1,

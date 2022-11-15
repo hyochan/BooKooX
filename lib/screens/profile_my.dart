@@ -2,17 +2,17 @@ import 'package:wecount/models/user.dart' show User;
 import 'package:wecount/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FireAuth show User;
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/widgets/edit_text_box.dart' show EditTextBox;
 import 'package:wecount/widgets/profile_image_cam.dart';
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ProfileMy extends StatefulWidget {
-  static const String name = '/profile_my';
+  static const String name = '/profile-my';
 
   @override
   _ProfileMyState createState() => _ProfileMyState();
@@ -23,7 +23,7 @@ class _ProfileMyState extends State<ProfileMy> {
   User? _profile;
 
   Future<void> _onUpdateProfile() async {
-    General.instance.showDialogSpinner(context);
+    navigation.showDialogSpinner(context);
 
     await DatabaseService().requestUpdateProfile(
       _profile,
@@ -86,15 +86,15 @@ class _ProfileMyState extends State<ProfileMy> {
                           ? _profile!.thumbURL
                           : _profile!.photoURL,
                       selectCamera: () async {
-                        var file = await General.instance
-                            .chooseImage(context: context, type: 'camera');
+                        var file = await navigation.chooseImage(
+                            context: context, type: 'camera');
                         if (file != null) {
                           setState(() => _imgFile = file);
                         }
                       },
                       selectGallery: () async {
-                        var file = await General.instance
-                            .chooseImage(context: context, type: 'gallery');
+                        var file = await navigation.chooseImage(
+                            context: context, type: 'gallery');
                         if (file != null) {
                           setState(() => _imgFile = file);
                         }

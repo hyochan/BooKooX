@@ -3,6 +3,7 @@ import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/ledger_item_edit.dart';
 import 'package:wecount/screens/ledgers.dart';
+import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/date_selector.dart' show DateSelector;
 import 'package:wecount/widgets/home_list_item.dart';
 import 'package:wecount/types/color.dart';
@@ -10,7 +11,6 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/widgets/home_header.dart' show HomeHeaderExpanded;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
@@ -50,8 +50,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
-                  onPressed: () => General.instance
-                      .navigateScreenNamed(context, Ledgers.name),
+                  onPressed: () => navigation.push(context, Ledgers.name),
                   child: Icon(
                     Icons.book,
                     color: Colors.white,

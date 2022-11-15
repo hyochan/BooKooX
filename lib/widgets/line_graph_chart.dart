@@ -168,7 +168,7 @@ class _LineGraphChartState extends State<LineGraphChart> {
           spots: _spots,
           isCurved: false,
           // colors: gradientColors,
-          color: gradientColors.single,
+          color: gradientColors.first,
           barWidth: 5,
           isStrokeCapRound: true,
           dotData: FlDotData(
@@ -178,7 +178,7 @@ class _LineGraphChartState extends State<LineGraphChart> {
             show: true,
             // colors:
             //     gradientColors.map((color) => color.withOpacity(0.3)).toList(),
-            color: gradientColors.single,
+            color: gradientColors.first,
           ),
         ),
       ],

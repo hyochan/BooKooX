@@ -8,11 +8,11 @@ import 'package:wecount/screens/setting_faq.dart';
 import 'package:wecount/screens/setting_notification.dart';
 import 'package:wecount/screens/setting_opinion.dart';
 import 'package:wecount/screens/tutorial.dart';
+import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/setting_list_item.dart'
     show ListItem, LogoutItem, SettingItem, SettingListItem;
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
-import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/localization.dart' show Localization;
 
@@ -62,7 +62,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockRegister(BuildContext context) async {
-    await General.instance.navigateScreenNamed(context, LockRegister.name);
+    await navigation.push(context, LockRegister.name);
 
     setState(() {
       readLockPinFromSF();
@@ -70,8 +70,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockAuth(BuildContext context) async {
-    final result =
-        await General.instance.navigateScreenNamed(context, LockAuth.name);
+    final result = await navigation.push(context, LockAuth.name);
 
     setState(() {
       if (_lockSwitch == true && result == false) {
@@ -92,8 +91,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('ANNOUNCEMENT'),
-        onPressed: () => General.instance
-            .navigateScreenNamed(context, SettingAnnouncement.name),
+        onPressed: () => navigation.push(context, SettingAnnouncement.name),
       ),
       SettingItem(
         Icon(
@@ -102,8 +100,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('SHARE_OPINION'),
-        onPressed: () =>
-            General.instance.navigateScreenNamed(context, SettingOpinion.name),
+        onPressed: () => navigation.push(context, SettingOpinion.name),
       ),
       SettingItem(
         Icon(
@@ -112,8 +109,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('FAQ'),
-        onPressed: () =>
-            General.instance.navigateScreenNamed(context, SettingFAQ.name),
+        onPressed: () => navigation.push(context, SettingFAQ.name),
       ),
       SettingItem(
         Icon(
@@ -122,8 +118,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('NOTIFICATION'),
-        onPressed: () => General.instance
-            .navigateScreenNamed(context, SettingNotification.name),
+        onPressed: () => navigation.push(context, SettingNotification.name),
       ),
       SettingItem(
         Icon(
@@ -145,8 +140,7 @@ class _SettingState extends State<Setting> {
           _auth.signOut();
 
           /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-          General.instance
-              .navigateScreenNamed(context, Tutorial.name, reset: true);
+          navigation.push(context, Tutorial.name, reset: true);
         },
       ),
     ];

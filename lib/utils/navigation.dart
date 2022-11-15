@@ -1,43 +1,71 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Im;
 
 import 'package:wecount/widgets/dialog_spinner.dart';
 import 'package:wecount/utils/localization.dart';
 
-class General {
-  static final General instance = General();
+typedef NavigationArguments<T> = T;
 
-  TextSelection setCursorAtTheEnd(TextEditingController textController) {
-    /// Flutter currently reset the cursor. Always place the cursor at the end.
-    TextSelection cursorPos = textController.selection;
-    cursorPos = TextSelection.fromPosition(
-      TextPosition(offset: textController.text.length),
-    );
-    textController.selection = cursorPos;
+class _Navigation {
+  static final _Navigation _singleton = _Navigation._internal();
 
-    return cursorPos;
+  factory _Navigation() {
+    return _singleton;
   }
 
-  Future<dynamic> navigateScreenNamed(BuildContext context, String routeName,
-      {bool reset = false}) {
+  _Navigation._internal();
+
+  Future<dynamic> push(BuildContext context, String routeName,
+      {bool reset = false, NavigationArguments? arguments}) {
     if (reset) {
       return Navigator.pushNamedAndRemoveUntil(
         context,
-        routeName,
-        ModalRoute.withName(routeName),
+        '/$routeName',
+        ModalRoute.withName('/$routeName'),
+        arguments: arguments,
       );
     }
-    return Navigator.of(context).pushNamed(routeName);
+
+    return Navigator.of(context).pushNamed('/$routeName', arguments: arguments);
   }
 
-  Future<dynamic> navigateScreen(
-      BuildContext context, MaterialPageRoute pageRoute) {
-    return Navigator.push(
+  Future navigate(
+    BuildContext context,
+    String routeName, {
+    bool reset = false,
+    NavigationArguments? arguments,
+  }) {
+    if (reset) {
+      return Navigator.of(context).pushNamedAndRemoveUntil(
+        '/$routeName',
+        (route) =>
+            route.isCurrent && route.settings.name == routeName ? false : true,
+        arguments: arguments,
+      );
+    }
+
+    return Navigator.of(context).pushNamed('/$routeName', arguments: arguments);
+  }
+
+  void pop<T extends String>(
+    BuildContext context, {
+    String params = '',
+  }) {
+    return Navigator.pop(context, params);
+  }
+
+  void popUtil(
+    BuildContext context,
+    String routeName,
+  ) {
+    return Navigator.popUntil(
       context,
-      pageRoute,
+      (route) {
+        return route.settings.name == '/$routeName';
+      },
     );
   }
 
@@ -241,7 +269,7 @@ class General {
     required BuildContext context,
     String? type,
   }) async {
-    General.instance.showDialogSpinner(context,
+    _Navigation._singleton.showDialogSpinner(context,
         text: Localization.of(context)!.trans('LOADING'));
 
     ImagePicker picker = ImagePicker();
@@ -265,3 +293,5 @@ class General {
     return smallerImage as File;
   }
 }
+
+var navigation = _Navigation();

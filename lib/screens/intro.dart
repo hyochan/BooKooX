@@ -7,10 +7,10 @@ import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/screens/sign_in.dart';
 import 'package:wecount/screens/sign_up.dart';
 import 'package:wecount/utils/logger.dart';
+import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as Asset;
-import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,7 +23,7 @@ class Intro extends StatelessWidget {
       scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
     );
 
-    General.instance.showDialogSpinner(
+    navigation.showDialogSpinner(
       context,
       text: Localization.of(context)!.trans('SIGNING_IN_WITH_GOOGLE'),
     );
@@ -67,8 +67,7 @@ class Intro extends StatelessWidget {
 
     Widget renderSignInBtn() {
       return Button(
-        onPress: () =>
-            General.instance.navigateScreenNamed(context, SignIn.name),
+        onPress: () => navigation.push(context, SignIn.name),
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
@@ -85,8 +84,7 @@ class Intro extends StatelessWidget {
       return Container(
         margin: EdgeInsets.symmetric(vertical: 2.0),
         child: TextButton(
-          onPressed: () =>
-              General.instance.navigateScreenNamed(context, SignUp.name),
+          onPressed: () => navigation.push(context, SignUp.name),
           child: RichText(
             text: TextSpan(
               children: <TextSpan>[

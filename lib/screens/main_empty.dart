@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/setting.dart';
+import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 
 import '../widgets/home_header.dart' show renderHomeAppBar;
 
 class MainEmpty extends StatefulWidget {
-  static const String name = '/main_empty';
+  static const String name = '/main-empty';
 
   MainEmpty({
     Key? key,
@@ -36,8 +36,7 @@ class _MainEmptyState extends State<MainEmpty> {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () =>
-                  General.instance.navigateScreenNamed(context, Setting.name),
+              onPressed: () => navigation.push(context, Setting.name),
               child: Icon(
                 Icons.settings,
                 color: Colors.white,

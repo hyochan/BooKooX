@@ -7,7 +7,27 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/photo.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 
+class PhotoDetailArguments {
+  final Photo? photo;
+  final String? photoUrl;
+  final bool canShare;
+  final Function? onPressDelete;
+  final Function? onPressShare;
+  final Function? onPressDownload;
+
+  PhotoDetailArguments({
+    this.photo,
+    this.photoUrl,
+    this.canShare = false,
+    this.onPressDelete,
+    this.onPressShare,
+    this.onPressDownload,
+  });
+}
+
 class PhotoDetail extends StatefulWidget {
+  static const String name = '/photo-detail';
+
   PhotoDetail({
     Key? key,
     this.photo,

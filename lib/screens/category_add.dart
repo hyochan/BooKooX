@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wecount/models/category.dart';
+import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/edit_text_box.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/db_helper.dart';
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 
 class CategoryAdd extends StatefulWidget {
@@ -36,7 +36,7 @@ class _CategoryAddState extends State<CategoryAdd> {
         return;
       }
       if (_selectedIconIndex == null) {
-        General.instance.showSingleDialog(
+        navigation.showSingleDialog(
           context,
           title: Text(_localization.trans('ERROR')!),
           content: Text(_localization.trans('ERROR_CATEGORY_ICON')!),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wecount/screens/tutorial.dart';
 
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/navigation.dart';
 
 class Splash extends StatefulWidget {
   static const String name = '/splash';
@@ -26,7 +26,7 @@ class _SplashState extends State<Splash> {
     _navigationTimer = Timer(Duration(milliseconds: 1500), () {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
           overlays: SystemUiOverlay.values);
-      General.instance.navigateScreenNamed(context, initialRoute, reset: true);
+      navigation.push(context, initialRoute, reset: true);
     });
   }
 

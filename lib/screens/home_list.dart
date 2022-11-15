@@ -1,17 +1,14 @@
-import 'package:flat_list/flat_list.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
-import 'package:wecount/utils/logger.dart';
+import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/home_header_search.dart' show HomeHeaderSearch;
 import 'package:wecount/models/category.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/widgets/home_list_item.dart';
 
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:intl/intl.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
@@ -297,8 +294,8 @@ class _HomeListState extends State<HomeList> {
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
 
-    Function onAddLedgerList = () =>
-        General.instance.navigateScreenNamed(context, '/ledger_item_edit');
+    Function onAddLedgerList =
+        () => navigation.push(context, 'ledger_item_edit');
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -329,28 +326,10 @@ class _HomeListState extends State<HomeList> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: FlatList(
-            data: _listData,
-            buildItem: (item, index) {
-              var section = _listData[index];
-              var headerDate = section['date'];
-              var ledgerItems = section['ledgerItems'];
-              return Column(
-                children: [
-                  _renderListHeader(headerDate),
-                  ...ledgerItems
-                      .map<Widget>(
-                        (val) => HomeListItem(
-                          ledgerItem: val,
-                        ),
-                      )
-                      .toList()
-                ],
-              );
-            },
-          ),
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: CustomScrollView(
+              slivers: _renderList(context),
+            )),
       ),
     );
   }

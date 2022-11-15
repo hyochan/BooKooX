@@ -5,7 +5,7 @@ import 'package:wecount/widgets/header.dart';
 import 'package:wecount/utils/localization.dart';
 
 class SettingNotification extends StatefulWidget {
-  static const String name = '/setting_notification';
+  static const String name = '/setting-notification';
 
   @override
   _SettingNotificationState createState() => _SettingNotificationState();

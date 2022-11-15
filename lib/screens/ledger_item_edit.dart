@@ -6,18 +6,18 @@ import 'package:wecount/models/ledger_item.dart' show LedgerItem;
 import 'package:wecount/models/photo.dart' show Photo;
 import 'package:wecount/screens/category_add.dart';
 import 'package:wecount/screens/location_view.dart';
+import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/category_list.dart';
 import 'package:wecount/widgets/gallery.dart' show Gallery;
 import 'package:wecount/widgets/header.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/db_helper.dart';
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/logger.dart';
 
 class LedgerItemEdit extends StatefulWidget {
-  static const String name = '/ledger_item_edit';
+  static const String name = '/ledger-item-edit';
 
   LedgerItemEdit({
     Key? key,
@@ -111,12 +111,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     void onLocationPressed({
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
-      Map<String, dynamic>? result = await (General.instance.navigateScreen(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => LocationView(),
-        ),
-      ));
+      Map<String, dynamic>? result =
+          await (navigation.navigate(context, 'location-view'));
 
       if (result == null) return;
 

@@ -4,8 +4,8 @@ import 'package:wecount/screens/setting_excel.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wecount/utils/navigation.dart';
 
-import '../utils/general.dart' show General;
 import '../utils/asset.dart' as Asset;
 import '../utils/localization.dart' show Localization;
 
@@ -41,8 +41,7 @@ class _HomeSettingState extends State<HomeSetting> {
           color: Asset.Colors.cloudyBlue,
           size: 24.0,
         ),
-        onTap: () =>
-            General.instance.navigateScreenNamed(context, SettingCurrency.name),
+        onTap: () => navigation.push(context, SettingCurrency.name),
       ),
       TileItem(
         title: _localization.trans('EXPORT_EXCEL'),
@@ -52,8 +51,7 @@ class _HomeSettingState extends State<HomeSetting> {
           color: Asset.Colors.cloudyBlue,
           size: 24.0,
         ),
-        onTap: () =>
-            General.instance.navigateScreenNamed(context, SettingExcel.name),
+        onTap: () => navigation.push(context, SettingExcel.name),
       ),
     ];
 

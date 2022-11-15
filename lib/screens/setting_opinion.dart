@@ -6,7 +6,7 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/asset.dart' as Asset;
 
 class SettingOpinion extends StatelessWidget {
-  static const String name = '/setting_opinion';
+  static const String name = '/setting-opinion';
 
   void onSendOpinion() {
     print('on send opinion');

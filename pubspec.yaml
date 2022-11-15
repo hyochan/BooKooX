@@ -14,7 +14,10 @@ description: The social ledger app.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <4.0.0"
+  sdk: ">=2.17.6 <4.0.0"
+
+dependency_overrides:
+  firebase_core_platform_interface: 4.5.1
   
 dependencies:
   flutter:

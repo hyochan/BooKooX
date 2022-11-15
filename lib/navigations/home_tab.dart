@@ -9,7 +9,7 @@ import 'package:wecount/screens/home_statistic/home_statistic.dart'
 import 'package:wecount/screens/home_setting.dart' show HomeSetting;
 
 class HomeTab extends StatefulWidget {
-  static const String name = '/home_tab';
+  static const String name = '/home-tab';
 
   HomeTab({Key? key}) : super(key: key);
 

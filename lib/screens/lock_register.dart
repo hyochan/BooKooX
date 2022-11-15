@@ -7,7 +7,7 @@ import 'package:wecount/widgets/pin_keyboard.dart' show PinKeyboard;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class LockRegister extends StatefulWidget {
-  static const String name = '/lock_register';
+  static const String name = '/lock-register';
 
   @override
   _LockRegisterState createState() => _LockRegisterState();

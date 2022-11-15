@@ -2,10 +2,10 @@ import 'package:wecount/providers/current_ledger.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/screens/setting_currency.dart';
 import 'package:wecount/screens/members.dart';
+import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/member_horizontal_list.dart';
 import 'package:wecount/services/database.dart' show DatabaseService;
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/models/currency.dart';
@@ -13,13 +13,20 @@ import 'package:wecount/models/ledger.dart';
 import 'package:wecount/types/color.dart';
 import 'package:provider/provider.dart';
 
+class LedgerEditArguments {
+  final Ledger? ledger;
+  final LedgerEditMode mode;
+
+  LedgerEditArguments({this.ledger, this.mode = LedgerEditMode.ADD});
+}
+
 enum LedgerEditMode {
   ADD,
   UPDATE,
 }
 
 class LedgerEdit extends StatefulWidget {
-  static const String name = '/ledger_edit';
+  static const String name = '/ledger-edit';
 
   final Ledger? ledger;
   final LedgerEditMode mode;
@@ -53,12 +60,11 @@ class _LedgerEditState extends State<LedgerEdit> {
   }
 
   void _onPressCurrency() async {
-    var _result = await General.instance.navigateScreen(
+    var _result = await navigation.navigate(
       context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => SettingCurrency(
-          selectedCurrency: _ledger!.currency.currency,
-        ),
+      'setting-currency',
+      arguments: SettingCurrencyArguments(
+        selectedCurrency: _ledger!.currency.currency,
       ),
     );
 
@@ -120,7 +126,7 @@ class _LedgerEditState extends State<LedgerEdit> {
 
     var _localization = Localization.of(context)!;
 
-    General.instance.showSingleDialog(
+    navigation.showSingleDialog(
       context,
       title: Text(_localization.trans('ERROR')!),
       content: Text(_localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
@@ -297,13 +303,10 @@ class _LedgerEditState extends State<LedgerEdit> {
                   showAddBtn: true,
                   memberIds:
                       widget.ledger != null ? widget.ledger!.memberIds : [],
-                  onSeeAllPressed: () => General.instance.navigateScreen(
+                  onSeeAllPressed: () => navigation.navigate(
                     context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => Members(
-                        ledger: widget.ledger,
-                      ),
-                    ),
+                    'members',
+                    arguments: MembersArguments(ledger: widget.ledger),
                   ),
                 ),
               ],
