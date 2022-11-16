@@ -295,7 +295,7 @@ class _HomeListState extends State<HomeList> {
         : ColorType.DUSK;
 
     Function onAddLedgerList =
-        () => navigation.push(context, 'ledger_item_edit');
+        () => navigation.push(context, 'ledger-item-edit');
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -326,10 +326,11 @@ class _HomeListState extends State<HomeList> {
       ),
       body: SafeArea(
         child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: CustomScrollView(
-              slivers: _renderList(context),
-            )),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: CustomScrollView(
+            slivers: _renderList(context),
+          ),
+        ),
       ),
     );
   }

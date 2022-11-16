@@ -43,7 +43,7 @@ class HomeStatistic extends StatelessWidget {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () => navigation.push(context, 'ledger_item_edit'),
+              onPressed: () => navigation.push(context, 'ledger-item-edit'),
               child: Icon(
                 Icons.add,
                 color: Colors.white,

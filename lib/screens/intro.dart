@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/screens/sign_in.dart';
 import 'package:wecount/screens/sign_up.dart';
-import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
@@ -49,7 +48,6 @@ class Intro extends StatelessWidget {
         'updatedAt': FieldValue.serverTimestamp(),
         'deletedAt': null,
       });
-      print("here");
       _googleSignIn.signOut();
       Navigator.pushReplacementNamed(context, AuthSwitch.name);
     }

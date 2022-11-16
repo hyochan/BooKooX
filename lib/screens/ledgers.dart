@@ -55,7 +55,7 @@ class _LedgersState extends State<Ledgers> {
     }
 
     void onAddLedgerPressed() {
-      navigation.push(context, '/ledger_edit');
+      navigation.push(context, '/ledger-edit');
     }
 
     return Scaffold(
