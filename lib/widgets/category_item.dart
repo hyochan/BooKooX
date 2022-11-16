@@ -1,8 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/category.dart';
 import 'package:flutter/material.dart';
 
-class CategoryItem extends StatefulWidget {
+class CategoryItem extends HookWidget {
   CategoryItem({
     this.key,
     required this.category,
@@ -15,24 +16,16 @@ class CategoryItem extends StatefulWidget {
   final Function? onSelectPressed;
 
   @override
-  _CategoryItemState createState() => _CategoryItemState(category);
-}
-
-class _CategoryItemState extends State<CategoryItem> {
-  _CategoryItemState(this.category);
-  Category category;
-
-  @override
   Widget build(BuildContext context) {
+    var category = useState<Category>(this.category).value;
+
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 10, left: 8),
       child: InkWell(
         onTap: () {
-          widget.onSelectPressed!();
+          onSelectPressed!();
         },
-        onLongPress: () => setState(() {
-          category.showDelete = !category.showDelete;
-        }),
+        onLongPress: () => category.showDelete = !category.showDelete,
         child: Stack(
           children: <Widget>[
             Column(
@@ -64,7 +57,7 @@ class _CategoryItemState extends State<CategoryItem> {
                   ? Container(
                       padding: EdgeInsets.all(2),
                       child: InkWell(
-                        onTap: widget.onDeletePressed as void Function()?,
+                        onTap: onDeletePressed as void Function()?,
                         child: ClipOval(
                           child: Container(
                             width: 24,

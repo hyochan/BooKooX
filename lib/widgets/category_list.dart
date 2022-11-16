@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/category.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/category_item.dart';
@@ -6,22 +7,16 @@ import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class CategoryList extends StatefulWidget {
+class CategoryList extends HookWidget {
   CategoryList({
     required this.categories,
   });
   final List<Category> categories;
 
   @override
-  _CategoryListState createState() => _CategoryListState(categories);
-}
-
-class _CategoryListState extends State<CategoryList> {
-  List<Category> categories;
-  _CategoryListState(this.categories);
-
-  @override
   Widget build(BuildContext context) {
+    var categories = useState<List<Category>>(this.categories).value;
+
     var _localization = Localization.of(context);
     return SafeArea(
       child: SingleChildScrollView(
@@ -50,9 +45,7 @@ class _CategoryListState extends State<CategoryList> {
                       fontSize: 16.0,
                     );
                   } finally {
-                    this.setState(() {
-                      categories.remove(category);
-                    });
+                    categories.remove(category);
                     Fluttertoast.showToast(
                       msg: _localization.trans('CATEGORY_DELETED')!,
                       toastLength: Toast.LENGTH_SHORT,

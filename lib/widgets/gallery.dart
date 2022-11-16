@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +83,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
       });
 }
 
-class Gallery extends StatefulWidget {
+class Gallery extends HookWidget {
   Gallery({
     this.margin,
     this.showAll = false,
@@ -96,26 +97,19 @@ class Gallery extends StatefulWidget {
   final LedgerItem ledgerItem;
 
   @override
-  _GalleryState createState() => _GalleryState();
-}
-
-class _GalleryState extends State<Gallery> {
-  late List<Photo> _pictures;
-
-  @override
-  void initState() {
-    _pictures = widget.pictures;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var _pictures = useState<List<Photo>>([]).value;
+
+    useEffect(() {
+      _pictures = pictures;
+    }, []);
+
     var _localization = Localization.of(context)!;
 
     void onPressShowAll() {}
 
     return Container(
-      margin: widget.margin,
+      margin: margin,
       child: Column(
         children: <Widget>[
           Row(
@@ -143,7 +137,7 @@ class _GalleryState extends State<Gallery> {
                   ],
                 ),
               ),
-              widget.showAll
+              showAll
                   ? TextButton(
                       onPressed: onPressShowAll,
                       child: Text(
@@ -187,10 +181,8 @@ class _GalleryState extends State<Gallery> {
 
                         if (imgFile != null) {
                           Photo photo = Photo(file: imgFile);
-                          setState(() {
-                            _pictures.add(photo);
-                          });
-                          widget.ledgerItem.picture = _pictures;
+                          _pictures.add(photo);
+                          ledgerItem.picture = _pictures;
                         }
                       },
                       child: Container(
@@ -242,7 +234,7 @@ class _GalleryState extends State<Gallery> {
                                         (Photo compare) =>
                                             compare.file == photo.file);
                                     _pictures.removeAt(index);
-                                    widget.ledgerItem.picture = _pictures;
+                                    ledgerItem.picture = _pictures;
                                     Navigator.of(context).pop();
                                   },
                                 ),

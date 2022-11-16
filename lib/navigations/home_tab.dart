@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 
 import 'package:wecount/providers/current_ledger.dart';
@@ -8,18 +9,13 @@ import 'package:wecount/screens/home_statistic/home_statistic.dart'
     show HomeStatistic;
 import 'package:wecount/screens/home_setting.dart' show HomeSetting;
 
-class HomeTab extends StatefulWidget {
+class HomeTab extends HookWidget {
   const HomeTab({Key? key}) : super(key: key);
 
   @override
-  _HomeTabState createState() => _HomeTabState();
-}
-
-class _HomeTabState extends State<HomeTab> {
-  int _index = 0;
-
-  @override
   Widget build(BuildContext context) {
+    var _index = useState<int>(0);
+
     String _title = Provider.of<CurrentLedger>(context).getTitle() ?? '';
 
     return Scaffold(
@@ -27,32 +23,32 @@ class _HomeTabState extends State<HomeTab> {
       body: Stack(
         children: <Widget>[
           Offstage(
-            offstage: _index != 0,
+            offstage: _index.value != 0,
             child: TickerMode(
-              enabled: _index == 0,
+              enabled: _index.value == 0,
               child: HomeCalendar(
                 title: _title,
               ),
             ),
           ),
           Offstage(
-            offstage: _index != 1,
+            offstage: _index.value != 1,
             child: TickerMode(
-              enabled: _index == 1,
+              enabled: _index.value == 1,
               child: HomeList(),
             ),
           ),
           Offstage(
-            offstage: _index != 2,
+            offstage: _index.value != 2,
             child: TickerMode(
-              enabled: _index == 2,
+              enabled: _index.value == 2,
               child: HomeStatistic(title: _title),
             ),
           ),
           Offstage(
-            offstage: _index != 3,
+            offstage: _index.value != 3,
             child: TickerMode(
-              enabled: _index == 3,
+              enabled: _index.value == 3,
               child: HomeSetting(
                 title: _title,
               ),
@@ -62,8 +58,8 @@ class _HomeTabState extends State<HomeTab> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
-        currentIndex: _index,
-        onTap: (int index) => setState(() => this._index = index),
+        currentIndex: _index.value,
+        onTap: (int index) => _index.value = index,
         selectedItemColor: Theme.of(context).textTheme.displayLarge!.color,
         unselectedItemColor: Theme.of(context).textTheme.displayLarge!.color,
         items: <BottomNavigationBarItem>[

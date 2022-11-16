@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/screens/setting_currency.dart';
@@ -26,7 +27,7 @@ enum LedgerEditMode {
   UPDATE,
 }
 
-class LedgerEdit extends StatefulWidget {
+class LedgerEdit extends HookWidget {
   final Ledger? ledger;
   final LedgerEditMode mode;
 
@@ -37,107 +38,105 @@ class LedgerEdit extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LedgerEditState createState() => _LedgerEditState(this.ledger, this.mode);
-}
-
-class _LedgerEditState extends State<LedgerEdit> {
-  Ledger? _ledger;
-  bool _isLoading = false;
-
-  _LedgerEditState(Ledger? ledger, LedgerEditMode mode) {
-    if (ledger == null) {
-      _ledger = Ledger(
-        title: '',
-        currency: currencies[29],
-        color: ColorType.DUSK,
-        adminIds: [],
-        memberIds: [],
-      );
-      return;
-    }
-    _ledger = ledger;
-  }
-
-  void _onPressCurrency() async {
-    var _result = await navigation.navigate(
-      context,
-      AppRoute.settingCurrency.path,
-      arguments: SettingCurrencyArguments(
-        selectedCurrency: _ledger!.currency.currency,
-      ),
-    );
-
-    if (_result == null) return;
-
-    setState(() => _ledger!.currency = _result);
-  }
-
-  void _selectColor(ColorType item) {
-    setState(() => _ledger!.color = item);
-  }
-
-  void _pressDone() async {
-    final _db = DatabaseService();
-
-    setState(() => _isLoading = true);
-
-    if (_ledger!.title.isEmpty) {
-      print('title is null');
-      return;
-    }
-
-    if (_ledger!.description == null || _ledger!.description!.isEmpty) {
-      print('description is null');
-      return;
-    }
-
-    if (widget.mode == LedgerEditMode.ADD) {
-      try {
-        await _db.requestCreateNewLedger(_ledger);
-      } catch (err) {
-        print('err: $err');
-      } finally {
-        setState(() => _isLoading = false);
-      }
-
-      Navigator.of(context).pop();
-    } else if (widget.mode == LedgerEditMode.UPDATE) {
-      try {
-        await _db.requestUpdateLedger(_ledger);
-      } catch (err) {
-        print('err: $err');
-      } finally {
-        setState(() => _isLoading = false);
-      }
-
-      Navigator.of(context).pop();
-    }
-  }
-
-  void _leaveLedger() async {
-    bool hasLeft = await DatabaseService().requestLeaveLedger(_ledger!.id);
-
-    if (hasLeft) {
-      var ledger = await DatabaseService().fetchSelectedLedger();
-      Provider.of<CurrentLedger>(context, listen: false).setLedger(ledger);
-      Navigator.of(context).pop();
-    }
-
-    var _localization = Localization.of(context)!;
-
-    navigation.showSingleDialog(
-      context,
-      title: Text(_localization.trans('ERROR')!),
-      content: Text(_localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var _ledger = useState<Ledger?>(null);
+    var _isLoading = useState<bool>(false);
+
+    useEffect(() {
+      if (ledger == null) {
+        _ledger.value = Ledger(
+          title: '',
+          currency: currencies[29],
+          color: ColorType.DUSK,
+          adminIds: [],
+          memberIds: [],
+        );
+        return;
+      }
+      _ledger.value = ledger;
+      return null;
+    }, []);
+
+    void _onPressCurrency() async {
+      var _result = await navigation.navigate(
+        context,
+        AppRoute.settingCurrency.path,
+        arguments: SettingCurrencyArguments(
+          selectedCurrency: _ledger.value!.currency.currency,
+        ),
+      );
+
+      if (_result == null) return;
+
+      _ledger.value!.currency = _result;
+    }
+
+    void _selectColor(ColorType item) {
+      _ledger.value!.color = item;
+    }
+
+    void _pressDone() async {
+      final _db = DatabaseService();
+
+      _isLoading.value = true;
+
+      if (_ledger.value!.title.isEmpty) {
+        print('title is null');
+        return;
+      }
+
+      if (_ledger.value!.description == null ||
+          _ledger.value!.description!.isEmpty) {
+        print('description is null');
+        return;
+      }
+
+      if (mode == LedgerEditMode.ADD) {
+        try {
+          await _db.requestCreateNewLedger(_ledger.value);
+        } catch (err) {
+          print('err: $err');
+        } finally {
+          _isLoading.value = false;
+        }
+
+        Navigator.of(context).pop();
+      } else if (mode == LedgerEditMode.UPDATE) {
+        try {
+          await _db.requestUpdateLedger(_ledger.value);
+        } catch (err) {
+          print('err: $err');
+        } finally {
+          _isLoading.value = false;
+        }
+
+        Navigator.of(context).pop();
+      }
+    }
+
+    void _leaveLedger() async {
+      bool hasLeft =
+          await DatabaseService().requestLeaveLedger(_ledger.value!.id);
+
+      if (hasLeft) {
+        var ledger = await DatabaseService().fetchSelectedLedger();
+        Provider.of<CurrentLedger>(context, listen: false).setLedger(ledger);
+        Navigator.of(context).pop();
+      }
+
+      var _localization = Localization.of(context)!;
+
+      navigation.showSingleDialog(
+        context,
+        title: Text(_localization.trans('ERROR')!),
+        content: Text(_localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
+      );
+    }
+
     var _localization = Localization.of(context)!;
 
     return Scaffold(
-      backgroundColor: Asset.Colors.getColor(_ledger!.color),
+      backgroundColor: Asset.Colors.getColor(_ledger.value!.color),
       appBar: renderHeaderBack(
         context: context,
         brightness: Brightness.dark,
@@ -172,9 +171,10 @@ class _LedgerEditState extends State<LedgerEdit> {
                   child: TextField(
                     maxLines: 1,
                     onChanged: (String txt) {
-                      _ledger!.title = txt;
+                      _ledger.value!.title = txt;
                     },
-                    controller: TextEditingController(text: _ledger!.title),
+                    controller:
+                        TextEditingController(text: _ledger.value!.title),
                     decoration: InputDecoration(
                       hintMaxLines: 2,
                       border: InputBorder.none,
@@ -197,10 +197,10 @@ class _LedgerEditState extends State<LedgerEdit> {
                   child: TextField(
                     maxLines: 8,
                     onChanged: (String txt) {
-                      _ledger!.description = txt;
+                      _ledger.value!.description = txt;
                     },
                     controller:
-                        TextEditingController(text: _ledger!.description),
+                        TextEditingController(text: _ledger.value!.description),
                     textAlignVertical: TextAlignVertical.top,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -236,7 +236,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                         Row(
                           children: <Widget>[
                             Text(
-                              '${_ledger!.currency.currency} | ${_ledger!.currency.symbol}',
+                              '${_ledger.value!.currency.currency} | ${_ledger.value!.currency.symbol}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -284,7 +284,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                             itemBuilder: (context, index) {
                               final item =
                                   colorItems[colorItems.length - index - 1];
-                              bool selected = item == _ledger!.color;
+                              bool selected = item == _ledger.value!.color;
                               return ColorItem(
                                 color: item,
                                 onTap: () => _selectColor(item),
@@ -300,12 +300,11 @@ class _LedgerEditState extends State<LedgerEdit> {
                 Divider(color: Colors.white70),
                 MemberHorizontalList(
                   showAddBtn: true,
-                  memberIds:
-                      widget.ledger != null ? widget.ledger!.memberIds : [],
+                  memberIds: ledger != null ? ledger!.memberIds : [],
                   onSeeAllPressed: () => navigation.navigate(
                     context,
                     AppRoute.members.path,
-                    arguments: MembersArguments(ledger: widget.ledger),
+                    arguments: MembersArguments(ledger: ledger),
                   ),
                 ),
               ],
@@ -325,7 +324,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                     ),
                   ),
                   onPressed: _pressDone,
-                  child: _isLoading
+                  child: _isLoading.value
                       ? Container(
                           width: 28,
                           height: 28,
@@ -339,11 +338,11 @@ class _LedgerEditState extends State<LedgerEdit> {
                           ),
                         )
                       : Text(
-                          widget.ledger == null
+                          ledger == null
                               ? _localization.trans('DONE')!
                               : _localization.trans('UPDATE')!,
                           style: TextStyle(
-                            color: Asset.Colors.getColor(_ledger!.color),
+                            color: Asset.Colors.getColor(_ledger.value!.color),
                             fontSize: 16.0,
                           ),
                         ),
