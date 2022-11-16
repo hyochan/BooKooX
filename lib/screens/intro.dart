@@ -65,7 +65,7 @@ class Intro extends StatelessWidget {
 
     Widget renderSignInBtn() {
       return Button(
-        onPress: () => navigation.push(context, SignIn.name),
+        onPress: () => navigation.push(context, 'sign-in'),
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
@@ -82,7 +82,7 @@ class Intro extends StatelessWidget {
       return Container(
         margin: EdgeInsets.symmetric(vertical: 2.0),
         child: TextButton(
-          onPressed: () => navigation.push(context, SignUp.name),
+          onPressed: () => navigation.push(context, 'sign-up'),
           child: RichText(
             text: TextSpan(
               children: <TextSpan>[

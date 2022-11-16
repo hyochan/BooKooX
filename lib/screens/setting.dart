@@ -62,7 +62,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockRegister(BuildContext context) async {
-    await navigation.push(context, LockRegister.name);
+    await navigation.push(context, "lock-register");
 
     setState(() {
       readLockPinFromSF();
@@ -70,7 +70,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockAuth(BuildContext context) async {
-    final result = await navigation.push(context, LockAuth.name);
+    final result = await navigation.push(context, "lock-auth");
 
     setState(() {
       if (_lockSwitch == true && result == false) {
@@ -91,7 +91,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('ANNOUNCEMENT'),
-        onPressed: () => navigation.push(context, SettingAnnouncement.name),
+        onPressed: () => navigation.push(context, "setting-announcement"),
       ),
       SettingItem(
         Icon(
@@ -100,7 +100,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('SHARE_OPINION'),
-        onPressed: () => navigation.push(context, SettingOpinion.name),
+        onPressed: () => navigation.push(context, "setting-opinion"),
       ),
       SettingItem(
         Icon(
@@ -109,7 +109,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('FAQ'),
-        onPressed: () => navigation.push(context, SettingFAQ.name),
+        onPressed: () => navigation.push(context, "setting-faq"),
       ),
       SettingItem(
         Icon(
@@ -118,7 +118,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('NOTIFICATION'),
-        onPressed: () => navigation.push(context, SettingNotification.name),
+        onPressed: () => navigation.push(context, "setting-notification"),
       ),
       SettingItem(
         Icon(
@@ -140,7 +140,7 @@ class _SettingState extends State<Setting> {
           _auth.signOut();
 
           /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-          navigation.push(context, Tutorial.name, reset: true);
+          navigation.push(context, 'tutorial', reset: true);
         },
       ),
     ];

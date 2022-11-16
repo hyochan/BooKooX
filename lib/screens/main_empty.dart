@@ -36,7 +36,7 @@ class _MainEmptyState extends State<MainEmpty> {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () => navigation.push(context, Setting.name),
+              onPressed: () => navigation.push(context, 'setting'),
               child: Icon(
                 Icons.settings,
                 color: Colors.white,
@@ -87,7 +87,7 @@ class _MainEmptyState extends State<MainEmpty> {
                   ),
                 ),
               ),
-              onPress: () => Navigator.of(context).pushNamed(LedgerEdit.name),
+              onPress: () => Navigator.of(context).pushNamed("ledger-edit"),
               text: _localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,

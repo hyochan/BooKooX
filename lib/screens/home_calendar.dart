@@ -50,7 +50,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
-                  onPressed: () => navigation.push(context, Ledgers.name),
+                  onPressed: () => navigation.push(context, 'ledgers'),
                   child: Icon(
                     Icons.book,
                     color: Colors.white,
@@ -63,7 +63,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
                   onPressed: () =>
-                      Navigator.of(context).pushNamed(LedgerItemEdit.name),
+                      Navigator.of(context).pushNamed("/ledger-item-edit"),
                   child: Icon(
                     Icons.add,
                     color: Colors.white,

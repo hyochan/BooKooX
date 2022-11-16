@@ -31,11 +31,11 @@ class _LedgersState extends State<Ledgers> {
     User? user = FirebaseAuth.instance.currentUser!;
     var _localization = Localization.of(context)!;
     void onSettingPressed() {
-      navigation.push(context, Setting.name);
+      navigation.push(context, 'setting');
     }
 
     void onProfilePressed() {
-      navigation.push(context, ProfileMy.name);
+      navigation.push(context, 'profile-my');
     }
 
     void onLedgerPressed(Ledger item) {

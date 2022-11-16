@@ -41,7 +41,7 @@ class _HomeSettingState extends State<HomeSetting> {
           color: Asset.Colors.cloudyBlue,
           size: 24.0,
         ),
-        onTap: () => navigation.push(context, SettingCurrency.name),
+        onTap: () => navigation.push(context, "setting_currency"),
       ),
       TileItem(
         title: _localization.trans('EXPORT_EXCEL'),
@@ -51,7 +51,7 @@ class _HomeSettingState extends State<HomeSetting> {
           color: Asset.Colors.cloudyBlue,
           size: 24.0,
         ),
-        onTap: () => navigation.push(context, SettingExcel.name),
+        onTap: () => navigation.push(context, "setting-excel"),
       ),
     ];
 

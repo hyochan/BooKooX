@@ -19,7 +19,7 @@ class _TutorialState extends State<Tutorial> {
   );
   void onNextPressed() {
     if (_currentPage == pageCnt) {
-      Navigator.pushNamedAndRemoveUntil(context, Intro.name, (_) => false);
+      Navigator.pushNamedAndRemoveUntil(context, 'intro', (_) => false);
       return;
     }
     _pageController.nextPage(
