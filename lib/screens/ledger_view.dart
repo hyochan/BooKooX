@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:wecount/widgets/member_horizontal_list.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
@@ -14,38 +15,34 @@ class LedgerViewArguments {
   LedgerViewArguments({this.ledger});
 }
 
-class LedgerView extends StatefulWidget {
-  final Ledger? ledger;
+class LedgerView extends HookWidget {
   const LedgerView({
     Key? key,
     this.ledger,
   }) : super(key: key);
-
-  @override
-  _LedgerViewState createState() => _LedgerViewState(ledger);
-}
-
-class _LedgerViewState extends State<LedgerView> {
-  late Ledger _ledger;
-
-  _LedgerViewState(Ledger? ledger) {
-    if (ledger != null) {
-      _ledger = ledger;
-      return;
-    }
-    _ledger = Ledger(
-      title: 'ledger test',
-      currency: Currency(currency: '\￦', locale: 'KRW'),
-      color: ColorType.DUSK,
-    );
-  }
+  final Ledger? ledger;
 
   @override
   Widget build(BuildContext context) {
+    var _ledger = useState<Ledger?>(null);
+
+    useEffect(() {
+      if (ledger != null) {
+        _ledger.value = ledger;
+        return;
+      }
+      _ledger.value = Ledger(
+        title: 'ledger test',
+        currency: Currency(currency: '\￦', locale: 'KRW'),
+        color: ColorType.DUSK,
+      );
+      return null;
+    }, []);
+
     var _localization = Localization.of(context)!;
 
     return Scaffold(
-      backgroundColor: Asset.Colors.getColor(_ledger.color),
+      backgroundColor: Asset.Colors.getColor(_ledger.value!.color),
       appBar: renderHeaderBack(
         context: context,
         iconColor: Colors.white,
@@ -60,9 +57,9 @@ class _LedgerViewState extends State<LedgerView> {
                 enabled: false,
                 maxLines: 2,
                 onChanged: (String txt) {
-                  _ledger.title = txt;
+                  _ledger.value!.title = txt;
                 },
-                controller: TextEditingController(text: _ledger.title),
+                controller: TextEditingController(text: _ledger.value!.title),
                 decoration: InputDecoration(
                   hintMaxLines: 2,
                   border: InputBorder.none,
@@ -84,9 +81,10 @@ class _LedgerViewState extends State<LedgerView> {
               child: TextField(
                 enabled: false,
                 maxLines: 8,
-                controller: TextEditingController(text: _ledger.description),
+                controller:
+                    TextEditingController(text: _ledger.value!.description),
                 onChanged: (String txt) {
-                  _ledger.description = txt;
+                  _ledger.value!.description = txt;
                 },
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(
@@ -123,7 +121,7 @@ class _LedgerViewState extends State<LedgerView> {
                     Row(
                       children: <Widget>[
                         Text(
-                          '${_ledger.currency.locale} | ${_ledger.currency.currency}',
+                          '${_ledger.value!.currency.locale} | ${_ledger.value!.currency.currency}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -170,7 +168,7 @@ class _LedgerViewState extends State<LedgerView> {
                         itemExtent: 32,
                         itemBuilder: (context, index) {
                           final item = colorItems[index];
-                          bool selected = item == _ledger.color;
+                          bool selected = item == _ledger.value!.color;
                           return ColorItem(
                             color: item,
                             selected: selected,

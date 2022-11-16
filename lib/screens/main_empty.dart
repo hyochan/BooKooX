@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
@@ -7,18 +8,13 @@ import 'package:wecount/utils/localization.dart' show Localization;
 
 import '../widgets/home_header.dart' show renderHomeAppBar;
 
-class MainEmpty extends StatefulWidget {
+class MainEmpty extends HookWidget {
   const MainEmpty({
     Key? key,
     this.title = '',
   }) : super(key: key);
   final String title;
 
-  @override
-  _MainEmptyState createState() => _MainEmptyState();
-}
-
-class _MainEmptyState extends State<MainEmpty> {
   @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context)!;

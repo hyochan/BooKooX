@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:photo_view/photo_view.dart'
     show PhotoView, PhotoViewComputedScale;
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class PhotoDetailArguments {
   });
 }
 
-class PhotoDetail extends StatefulWidget {
+class PhotoDetail extends HookWidget {
   const PhotoDetail({
     Key? key,
     this.photo,
@@ -43,11 +44,6 @@ class PhotoDetail extends StatefulWidget {
   final Function? onPressDownload;
 
   @override
-  _State createState() => _State();
-}
-
-class _State extends State<PhotoDetail> {
-  @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context)!;
     return Scaffold(
@@ -56,12 +52,12 @@ class _State extends State<PhotoDetail> {
         child: Stack(
           children: <Widget>[
             PhotoView(
-              imageProvider: widget.photoUrl != null
-                  ? NetworkImage(widget.photoUrl!)
-                  : widget.photo != null && widget.photo!.file != null
-                      ? FileImage(File(widget.photo!.file!.path))
-                      : (widget.photo != null && widget.photo!.url != null
-                              ? NetworkImage(widget.photo!.url!)
+              imageProvider: photoUrl != null
+                  ? NetworkImage(photoUrl!)
+                  : photo != null && photo!.file != null
+                      ? FileImage(File(photo!.file!.path))
+                      : (photo != null && photo!.url != null
+                              ? NetworkImage(photo!.url!)
                               : AssetImage('res/icons/icMask.png'))
                           as ImageProvider<Object>?,
               minScale: PhotoViewComputedScale.contained * 0.8,
@@ -96,19 +92,18 @@ class _State extends State<PhotoDetail> {
                 height: 56,
                 width: MediaQuery.of(context).size.width,
                 child: Row(
-                  mainAxisAlignment: widget.canShare
+                  mainAxisAlignment: canShare
                       ? MainAxisAlignment.spaceAround
                       : MainAxisAlignment.center,
                   children: <Widget>[
-                    widget.canShare
+                    canShare
                         ? Container(
                             width: 60.0,
                             height: 60.0,
                             child: RawMaterialButton(
                               padding: EdgeInsets.all(0.0),
                               shape: CircleBorder(),
-                              onPressed:
-                                  widget.onPressDownload as void Function()?,
+                              onPressed: onPressDownload as void Function()?,
                               child: Icon(
                                 Icons.file_download,
                                 color: Colors.white,
@@ -116,15 +111,14 @@ class _State extends State<PhotoDetail> {
                             ),
                           )
                         : Container(),
-                    widget.canShare
+                    canShare
                         ? Container(
                             width: 60.0,
                             height: 60.0,
                             child: RawMaterialButton(
                               padding: EdgeInsets.all(0.0),
                               shape: CircleBorder(),
-                              onPressed:
-                                  widget.onPressShare as void Function()?,
+                              onPressed: onPressShare as void Function()?,
                               child: Icon(
                                 Icons.share,
                                 color: Colors.white,
@@ -132,15 +126,14 @@ class _State extends State<PhotoDetail> {
                             ),
                           )
                         : Container(),
-                    widget.onPressDelete != null
+                    onPressDelete != null
                         ? Container(
                             width: 60.0,
                             height: 60.0,
                             child: RawMaterialButton(
                               padding: EdgeInsets.all(0.0),
                               shape: CircleBorder(),
-                              onPressed:
-                                  widget.onPressDelete as void Function()?,
+                              onPressed: onPressDelete as void Function()?,
                               child: Icon(
                                 Icons.delete,
                                 color: Colors.white,

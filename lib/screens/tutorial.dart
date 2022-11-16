@@ -1,36 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/screens/intro.dart';
 
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/routes.dart';
 
-class Tutorial extends StatefulWidget {
+class Tutorial extends HookWidget {
   const Tutorial({Key? key}) : super(key: key);
 
   @override
-  _TutorialState createState() => _TutorialState();
-}
-
-class _TutorialState extends State<Tutorial> {
-  final int pageCnt = 2; // 3
-  int _currentPage = 0;
-  var _pageController = PageController(
-    initialPage: 0,
-  );
-  void onNextPressed() {
-    if (_currentPage == pageCnt) {
-      Navigator.pushNamedAndRemoveUntil(
-          context, AppRoute.intro.fullPath, (_) => false);
-      return;
-    }
-    _pageController.nextPage(
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeIn,
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final int pageCnt = 2; // 3
+    var _currentPage = useState<int>(0).value;
+    var _pageController = PageController(
+      initialPage: 0,
+    );
+    void onNextPressed() {
+      if (_currentPage == pageCnt) {
+        Navigator.pushNamedAndRemoveUntil(context, 'intro', (_) => false);
+        return;
+      }
+      _pageController.nextPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    }
+
     var _localization = Localization.of(context)!;
 
     Widget renderPage({
@@ -152,9 +148,7 @@ class _TutorialState extends State<Tutorial> {
               Expanded(
                 child: PageView(
                   onPageChanged: (int page) {
-                    setState(() {
-                      _currentPage = page;
-                    });
+                    _currentPage = page;
                   },
                   controller: _pageController,
                   scrollDirection: Axis.horizontal,

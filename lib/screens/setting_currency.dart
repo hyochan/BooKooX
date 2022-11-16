@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class SettingCurrencyArguments {
   SettingCurrencyArguments({this.title = '', this.selectedCurrency});
 }
 
-class SettingCurrency extends StatefulWidget {
+class SettingCurrency extends HookWidget {
   const SettingCurrency({
     Key? key,
     this.title = '',
@@ -23,23 +24,18 @@ class SettingCurrency extends StatefulWidget {
   final String? selectedCurrency;
 
   @override
-  _SettingCurrencyState createState() => _SettingCurrencyState();
-}
-
-class _SettingCurrencyState extends State<SettingCurrency> {
-  void onSettingCurrency(Currency selectedCurrency) {
-    print('on setting currency ${selectedCurrency.toString()}');
-    Navigator.pop(context, selectedCurrency);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    void onSettingCurrency(Currency selectedCurrency) {
+      print('on setting currency ${selectedCurrency.toString()}');
+      Navigator.pop(context, selectedCurrency);
+    }
+
     var _localization = Localization.of(context)!;
 
     final List<ListItem> _items = currencies
         .map((el) => TileItem(
               title: '${el.currency} | ${el.symbol}',
-              trailing: el.currency == widget.selectedCurrency
+              trailing: el.currency == selectedCurrency
                   ? Icon(Icons.check)
                   : Text(''),
               onTap: () => onSettingCurrency(Currency(

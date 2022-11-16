@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/edit_text.dart' show EditText;
@@ -9,47 +10,42 @@ import 'package:wecount/utils/validator.dart' show Validator;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-class FindPw extends StatefulWidget {
+class FindPw extends HookWidget {
   const FindPw({Key? key}) : super(key: key);
 
   @override
-  _FindPwState createState() => _FindPwState();
-}
-
-class _FindPwState extends State<FindPw> {
-  Localization? _localization;
-  String _email = '';
-  String? _errorEmail;
-
-  bool _isValidEmail = false;
-  bool _isSendingEmail = false;
-
-  void _findPw() async {
-    bool isEmail = Validator.instance.validateEmail(_email);
-
-    if (!isEmail) {
-      setState(() => _errorEmail = _localization!.trans('NO_VALID_EMAIL'));
-      return;
-    }
-
-    setState(() => _isSendingEmail = true);
-
-    try {
-      await _auth.sendPasswordResetEmail(email: _email);
-      navigation.showSingleDialog(
-        context,
-        title: Text(_localization!.trans('SUCCESS')!),
-        content: Text(_localization!.trans('PASSWORD_RESET_LINK_SENT')!),
-      );
-    } catch (err) {
-      print('error occured: ${err.toString()}');
-    } finally {
-      setState(() => _isSendingEmail = false);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Localization? _localization;
+    var _email = useState<String>("");
+    var _errorEmail = useState<String?>("");
+
+    var _isValidEmail = useState<bool>(false);
+    var _isSendingEmail = useState<bool>(false);
+
+    void _findPw() async {
+      bool isEmail = Validator.instance.validateEmail(_email.value);
+
+      if (!isEmail) {
+        _errorEmail.value = _localization!.trans('NO_VALID_EMAIL');
+        return;
+      }
+
+      _isSendingEmail.value = true;
+
+      try {
+        await _auth.sendPasswordResetEmail(email: _email.value);
+        navigation.showSingleDialog(
+          context,
+          title: Text(_localization!.trans('SUCCESS')!),
+          content: Text(_localization!.trans('PASSWORD_RESET_LINK_SENT')!),
+        );
+      } catch (err) {
+        print('error occured: ${err.toString()}');
+      } finally {
+        _isSendingEmail.value = false;
+      }
+    }
+
     _localization = Localization.of(context);
 
     Widget findPwText() {
@@ -66,22 +62,20 @@ class _FindPwState extends State<FindPw> {
     Widget emailField() {
       return EditText(
         key: Key('email'),
-        errorText: _errorEmail,
+        errorText: _errorEmail.value,
         margin: EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
         textLabel: _localization!.trans('EMAIL'),
         textHint: _localization!.trans('EMAIL_HINT'),
-        hasChecked: _isValidEmail,
+        hasChecked: _isValidEmail.value,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
-            setState(() {
-              _isValidEmail = true;
-              _errorEmail = null;
-            });
+            _isValidEmail.value = true;
+            _errorEmail.value = null;
           } else {
-            setState(() => _isValidEmail = false);
+            _isValidEmail.value = false;
           }
-          _email = str;
+          _email.value = str;
         },
         onSubmitted: (String str) => _findPw(),
       );
@@ -96,7 +90,7 @@ class _FindPwState extends State<FindPw> {
           color: Colors.white,
           fontSize: 16.0,
         ),
-        isLoading: _isSendingEmail,
+        isLoading: _isSendingEmail.value,
         borderColor: Theme.of(context).primaryIconTheme.color,
         backgroundColor: Theme.of(context).primaryColor,
         text: _localization!.trans('SEND_EMAIL'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
@@ -12,144 +13,139 @@ import 'package:wecount/utils/validator.dart' show Validator;
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-class SignIn extends StatefulWidget {
+class SignIn extends HookWidget {
   const SignIn({Key? key}) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
-}
+  Widget build(BuildContext context) {
+    Localization? _localization;
+    var _scrollController = useScrollController();
 
-class _SignInState extends State<SignIn> {
-  Localization? _localization;
-  ScrollController _scrollController = ScrollController();
+    var _email = useState<String>("").value;
+    var _password = useState<String?>(null).value;
 
-  late String _email;
-  String? _password;
+    var _isValidEmail = useState<bool>(false).value;
+    var _isValidPassword = useState<bool>(false).value;
 
-  bool _isValidEmail = false;
-  bool _isValidPassword = false;
+    var _errorEmail = useState<String?>('').value;
+    var _errorPassword = useState<String?>('').value;
 
-  String? _errorEmail;
-  String? _errorPassword;
+    var _isSigningIn = useState<bool>(false).value;
+    var _isResendingEmail = useState<bool>(false).value;
 
-  bool _isSigningIn = false;
-  bool _isResendingEmail = false;
+    void _signIn() async {
+      if (_auth.currentUser != null) {
+        _auth.signOut();
+      }
 
-  void _signIn() async {
-    if (_auth.currentUser != null) {
-      _auth.signOut();
-    }
-
-    if (!_isValidEmail) {
-      setState(() => _errorEmail = _localization!.trans('NO_VALID_EMAIL'));
-      return;
-    }
-
-    if (!_isValidPassword) {
-      setState(() => _errorPassword = _localization!.trans('PASSWORD_HINT'));
-      return;
-    }
-
-    setState(() => _isSigningIn = true);
-
-    UserCredential auth;
-    try {
-      auth = await _auth.signInWithEmailAndPassword(
-          email: _email, password: _password!);
-
-      /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-      if (auth.user != null && auth.user!.emailVerified) {
-        var snapshots = await _firestore
-            .collection('users')
-            .doc(auth.user!.uid)
-            .collection('ledgers')
-            .get();
-
-        var ledgers = snapshots.docs;
-
-        if (ledgers.length == 0) {
-          navigation.push(context, AppRoute.mainEmpty.path, reset: true);
-          return;
-        }
-
-        navigation.push(context, AppRoute.homeTab.path, reset: true);
+      if (!_isValidEmail) {
+        _errorEmail = _localization!.trans('NO_VALID_EMAIL');
         return;
       }
-    } catch (err) {
-      setState(() => _isSigningIn = false);
-      switch (err) {
-        // case 'ERROR_INVALID_EMAIL':
-        //   setState(() => _errorEmail = _localization!.trans(err.currency));
-        //   break;
-        // case 'ERROR_WRONG_PASSWORD':
-        //   setState(() => _errorPassword = _localization!.trans(err.currency));
-        //   break;
-        case 'ERROR_USER_NOT_FOUND':
-        case 'ERROR_USER_DISABLED':
-        case 'ERROR_TOO_MANY_REQUESTS':
-        case 'ERROR_OPERATION_NOT_ALLOWED':
-          // General.instance.showSingleDialog(
-          //   context,
-          //   title: Text(_localization!.trans('ERROR')!),
-          //   content: Text(_localization!.trans(err.currency)!),
-          // );
-          break;
-      }
-      return;
-    }
 
-    if (auth.user != null && !auth.user!.emailVerified) {
-      navigation.showSingleDialog(
-        context,
-        title: Text(_localization!.trans('ERROR')!),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(_localization!.trans('EMAIL_NOT_VERIFIED')!),
-            Container(
-              margin: EdgeInsets.only(top: 32, bottom: 24),
-              child: Text(
-                _email,
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Theme.of(context).secondaryHeaderColor,
+      if (!_isValidPassword) {
+        _errorPassword = _localization!.trans('PASSWORD_HINT');
+        return;
+      }
+
+      _isSigningIn = true;
+
+      UserCredential auth;
+      try {
+        auth = await _auth.signInWithEmailAndPassword(
+            email: _email, password: _password!);
+
+        /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
+        if (auth.user != null && auth.user!.emailVerified) {
+          var snapshots = await _firestore
+              .collection('users')
+              .doc(auth.user!.uid)
+              .collection('ledgers')
+              .get();
+
+          var ledgers = snapshots.docs;
+
+          if (ledgers.length == 0) {
+            navigation.push(context, AppRoute.mainEmpty.path, reset: true);
+            return;
+          }
+
+          navigation.push(context, AppRoute.homeTab.path, reset: true);
+          return;
+        }
+      } catch (err) {
+        _isSigningIn = false;
+        switch (err) {
+          // case 'ERROR_INVALID_EMAIL':
+          //   setState(() => _errorEmail = _localization!.trans(err.currency));
+          //   break;
+          // case 'ERROR_WRONG_PASSWORD':
+          //   setState(() => _errorPassword = _localization!.trans(err.currency));
+          //   break;
+          case 'ERROR_USER_NOT_FOUND':
+          case 'ERROR_USER_DISABLED':
+          case 'ERROR_TOO_MANY_REQUESTS':
+          case 'ERROR_OPERATION_NOT_ALLOWED':
+            // General.instance.showSingleDialog(
+            //   context,
+            //   title: Text(_localization!.trans('ERROR')!),
+            //   content: Text(_localization!.trans(err.currency)!),
+            // );
+            break;
+        }
+        return;
+      }
+
+      if (auth.user != null && !auth.user!.emailVerified) {
+        navigation.showSingleDialog(
+          context,
+          title: Text(_localization!.trans('ERROR')!),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(_localization!.trans('EMAIL_NOT_VERIFIED')!),
+              Container(
+                margin: EdgeInsets.only(top: 32, bottom: 24),
+                child: Text(
+                  _email,
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Theme.of(context).secondaryHeaderColor,
+                  ),
                 ),
               ),
-            ),
-            Button(
-              height: 40,
-              isLoading: _isResendingEmail,
-              onPress: () async {
-                setState(() => _isResendingEmail = true);
-                try {
-                  await auth.user!.sendEmailVerification();
-                } catch (err) {
-                  // print('unknown error occurred. ${err.message}');
-                } finally {
-                  setState(() => _isResendingEmail = false);
-                }
-              },
-              text: _localization!.trans('RESEND_EMAIL'),
-              textStyle: TextStyle(
-                color: Theme.of(context).accentColor,
-                fontSize: 16,
+              Button(
+                height: 40,
+                isLoading: _isResendingEmail,
+                onPress: () async {
+                  _isResendingEmail = true;
+                  try {
+                    await auth.user!.sendEmailVerification();
+                  } catch (err) {
+                    // print('unknown error occurred. ${err.message}');
+                  } finally {
+                    _isResendingEmail = false;
+                  }
+                },
+                text: _localization!.trans('RESEND_EMAIL'),
+                textStyle: TextStyle(
+                  color: Theme.of(context).accentColor,
+                  fontSize: 16,
+                ),
               ),
-            ),
-          ],
-        ),
-        onPress: () => _auth.signOut(),
-      );
+            ],
+          ),
+          onPress: () => _auth.signOut(),
+        );
+      }
     }
-  }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+    useEffect(() {
+      return () {
+        _scrollController.dispose();
+      };
+    }, []);
 
-  @override
-  Widget build(BuildContext context) {
     _localization = Localization.of(context);
     _scrollController = ScrollController(
       initialScrollOffset: 0.0,
@@ -177,16 +173,12 @@ class _SignInState extends State<SignIn> {
         hintStyle: TextStyle(color: Theme.of(context).hintColor),
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
-            this.setState(() {
-              _isValidEmail = true;
-              _errorEmail = null;
-              _email = str;
-            });
+            _isValidEmail = true;
+            _errorEmail = null;
+            _email = str;
           } else {
-            this.setState(() {
-              _isValidEmail = false;
-              _email = str;
-            });
+            _isValidEmail = false;
+            _email = str;
           }
         },
         errorText: _errorEmail,
@@ -207,16 +199,12 @@ class _SignInState extends State<SignIn> {
         hasChecked: isValidPassword,
         onChanged: (String str) {
           if (isValidPassword) {
-            this.setState(() {
-              _isValidPassword = true;
-              _errorPassword = null;
-              _password = str;
-            });
+            _isValidPassword = true;
+            _errorPassword = null;
+            _password = str;
           } else {
-            this.setState(() {
-              _isValidPassword = false;
-              _password = str;
-            });
+            _isValidPassword = false;
+            _password = str;
           }
         },
         errorText: _errorPassword,

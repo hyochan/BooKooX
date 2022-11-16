@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/mocks/line_graph.mock.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/widgets/line_graph_chart.dart';
@@ -25,7 +26,7 @@ double getPriceSum(List<LedgerItem> items) {
 }
 
 /// main
-class LineGraph extends StatefulWidget {
+class LineGraph extends HookWidget {
   const LineGraph(
       {Key? key, this.title = '', this.year = '2019', this.price = 0.0})
       : super(key: key);
@@ -34,49 +35,38 @@ class LineGraph extends StatefulWidget {
   final double price;
 
   @override
-  _LineGraphState createState() => _LineGraphState();
-}
-
-class _LineGraphState extends State<LineGraph> {
-  int _selectedMonth = 0;
-  double _priceSum = 0;
-  List<LedgerItem> _items = [];
-  List<LedgerItem> _selectedItems = [];
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () {
-      var _localization = Localization.of(context);
-
-      // this._items = createCafeList(_localization);
-      this.setState(() {
-        this._items = createMockCafeList(_localization!);
-        this._selectedItems = this._items;
-        this._priceSum = getPriceSum(this._items);
-      });
-    });
-  }
-
-  /// on click the month on graph
-  /// set bottom list to show selected month, total expenditure and its list
-  void handleClickGraph({required int month, required double sumOfPrice}) {
-    List<LedgerItem> itemsOfThisMonth = [];
-    this._items.forEach((item) {
-      if (item.selectedDate!.month == month) {
-        itemsOfThisMonth.add(item);
-      }
-    });
-
-    this.setState(() {
-      this._selectedMonth = month;
-      this._selectedItems = itemsOfThisMonth;
-      this._priceSum = sumOfPrice;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var _selectedMonth = useState<int>(0);
+    var _priceSum = useState<double>(0);
+    var _items = useState<List<LedgerItem>>([]);
+    var _selectedItems = useState<List<LedgerItem>>([]);
+
+    useEffect(() {
+      Future.delayed(Duration.zero, () {
+        var _localization = Localization.of(context);
+        // this._items = createCafeList(_localization);
+        _items.value = createMockCafeList(_localization!);
+        _selectedItems.value = _items.value;
+        _priceSum.value = getPriceSum(_items.value);
+      });
+      return null;
+    }, []);
+
+    /// on click the month on graph
+    /// set bottom list to show selected month, total expenditure and its list
+    void handleClickGraph({required int month, required double sumOfPrice}) {
+      List<LedgerItem> itemsOfThisMonth = [];
+      _items.value.forEach((item) {
+        if (item.selectedDate!.month == month) {
+          itemsOfThisMonth.add(item);
+        }
+      });
+
+      _selectedMonth.value = month;
+      _selectedItems.value = itemsOfThisMonth;
+      _priceSum.value = sumOfPrice;
+    }
+
     var _localization = Localization.of(context)!;
 
     /// Render
@@ -94,7 +84,7 @@ class _LineGraphState extends State<LineGraph> {
           children: <Widget>[
             headerAlign(
               child: Text(
-                '${widget.title}',
+                title,
                 // _localization.trans('CAFE')!,
                 style: TextStyle(
                   fontSize: 30,
@@ -102,19 +92,18 @@ class _LineGraphState extends State<LineGraph> {
                 ),
               ),
             ),
-            this._items.length != 0
+            _items.value.length != 0
                 ? LineGraphChart(
-                    items: this._items, onSelectMonth: this.handleClickGraph)
+                    items: _items.value, onSelectMonth: handleClickGraph)
                 : Container(),
-            this._selectedMonth != 0
+            _selectedMonth.value != 0
                 ? BottomListTitle(
                     date: DateFormat('yMMM').format(
-                        DateTime(int.parse(widget.year), this._selectedMonth)),
-                    price: this._priceSum)
+                        DateTime(int.parse(year), _selectedMonth.value)),
+                    price: _priceSum)
                 : BottomListTitle(
-                    date: DateFormat('y')
-                        .format(DateTime(int.parse(widget.year))),
-                    price: widget.price),
+                    date: DateFormat('y').format(DateTime(int.parse(year))),
+                    price: price),
             Divider(
               color: Colors.grey,
               height: 1,
@@ -125,9 +114,9 @@ class _LineGraphState extends State<LineGraph> {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
-              itemCount: this._selectedItems.length,
+              itemCount: _selectedItems.value.length,
               itemBuilder: (context, index) {
-                final item = this._selectedItems[index];
+                final item = _selectedItems.value[index];
                 return bottomItemWidget(
                   date: DateFormat('yyyy-MM-dd').format(item.selectedDate!),
                   price: item.price!.abs(),

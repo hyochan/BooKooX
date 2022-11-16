@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +13,13 @@ import '../widgets/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
 import '../widgets/home_header.dart' show renderHomeAppBar;
 
-class HomeSetting extends StatefulWidget {
+class HomeSetting extends HookWidget {
   HomeSetting({
     Key? key,
     this.title = '',
   }) : super(key: key);
   final String title;
 
-  @override
-  _HomeSettingState createState() => _HomeSettingState();
-}
-
-class _HomeSettingState extends State<HomeSetting> {
   @override
   Widget build(BuildContext context) {
     var _localization = Localization.of(context)!;
@@ -57,7 +53,7 @@ class _HomeSettingState extends State<HomeSetting> {
     return Scaffold(
       appBar: renderHomeAppBar(
         context: context,
-        title: widget.title,
+        title: title,
         color: Asset.Colors.getColor(color),
         fontColor: Colors.white,
       ),

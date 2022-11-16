@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wecount/models/category.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -7,7 +8,7 @@ import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/localization.dart';
 
-class CategoryAdd extends StatefulWidget {
+class CategoryAdd extends HookWidget {
   final CategoryType categoryType;
   final int? lastId;
   CategoryAdd({
@@ -16,23 +17,15 @@ class CategoryAdd extends StatefulWidget {
   });
 
   @override
-  _CategoryAddState createState() => _CategoryAddState();
-}
-
-class _CategoryAddState extends State<CategoryAdd> {
-  int? _selectedIconIndex;
-  TextEditingController _textController = TextEditingController();
-  String? _errorText;
-
-  @override
   Widget build(BuildContext context) {
+    final _textController = useTextEditingController();
+    var _selectedIconIndex = useState<int?>(0);
+    var _errorText = useState<String?>("");
     var _localization = Localization.of(context)!;
 
     void onDonePressed() async {
       if (_textController.text == '') {
-        setState(() {
-          _errorText = _localization.trans('ERROR_CATEGORY_NAME');
-        });
+        _errorText.value = _localization.trans('ERROR_CATEGORY_NAME');
         return;
       }
       if (_selectedIconIndex == null) {
@@ -44,10 +37,10 @@ class _CategoryAddState extends State<CategoryAdd> {
         return;
       }
       Category category = Category(
-        id: widget.lastId! + 1,
-        iconId: _selectedIconIndex,
+        id: lastId! + 1,
+        iconId: _selectedIconIndex.value,
         label: _textController.text,
-        type: widget.categoryType,
+        type: categoryType,
       );
 
       try {
@@ -85,9 +78,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                           padding: EdgeInsets.only(left: 8, bottom: 8),
                           child: InkWell(
                             onTap: () {
-                              setState(() {
-                                _selectedIconIndex = i;
-                              });
+                              _selectedIconIndex.value = i;
                             },
                             child: Opacity(
                               opacity: i == _selectedIconIndex ? 1.0 : 0.4,
@@ -144,7 +135,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                         right: 24,
                       ),
                       hintText: _localization.trans('CATEGORY_ADD_HINT'),
-                      errorText: _errorText,
+                      errorText: _errorText.value,
                     ),
                     Container(
                       child: Row(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 
-class EditTextBox extends StatefulWidget {
+class EditTextBox extends HookWidget {
   const EditTextBox({
     this.key,
     this.enabled = true,
@@ -54,57 +55,52 @@ class EditTextBox extends StatefulWidget {
   final BorderStyle borderStyle;
 
   @override
-  _EditTextBoxState createState() => _EditTextBoxState();
-}
-
-class _EditTextBoxState extends State<EditTextBox> {
-  FocusNode _focus = FocusNode();
-
-  @override
   Widget build(BuildContext context) {
+    FocusNode _focus = FocusNode();
+
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
-        widget.iconData != null
+        iconData != null
             ? Positioned(
                 left: 12,
                 bottom: 0,
-                top: widget.margin.top,
+                top: margin.top,
                 child: Container(
                   child: Icon(
-                    widget.iconData,
-                    color: widget.enabledColor,
-                    semanticLabel: widget.semanticLabel,
-                    size: widget.iconSize,
+                    iconData,
+                    color: enabledColor,
+                    semanticLabel: semanticLabel,
+                    size: iconSize,
                   ),
                 ),
               )
             : Container(),
         Container(
           child: TextField(
-            enabled: widget.enabled,
-            controller: widget.controller,
-            style: widget.textStyle ??
+            enabled: enabled,
+            controller: controller,
+            style: textStyle ??
                 TextStyle(
                     color: Theme.of(context).textTheme.displayLarge!.color),
-            cursorColor: widget.focusedColor,
-            onChanged: widget.onChangeText as void Function(String)?,
-            maxLength: widget.maxLength,
+            cursorColor: focusedColor,
+            onChanged: onChangeText as void Function(String)?,
+            maxLength: maxLength,
             focusNode: _focus,
-            maxLines: widget.maxLines,
+            maxLines: maxLines,
             decoration: InputDecoration(
               alignLabelWithHint: true,
-              labelText: widget.labelText,
-              labelStyle: widget.labelStyle,
-              focusColor: widget.focusedColor,
-              hintText: widget.hintText,
-              hintStyle: widget.hintStyle ??
+              labelText: labelText,
+              labelStyle: labelStyle,
+              focusColor: focusedColor,
+              hintText: hintText,
+              hintStyle: hintStyle ??
                   TextStyle(
                       color: Theme.of(context).textTheme.displaySmall!.color),
-              errorText: widget.errorText,
-              errorStyle: widget.errorStyle,
+              errorText: errorText,
+              errorStyle: errorStyle,
               contentPadding: EdgeInsets.only(
-                left: widget.iconData != null ? 48 : 16,
+                left: iconData != null ? 48 : 16,
                 top: 22,
                 bottom: 22,
                 right: 16,
@@ -112,47 +108,47 @@ class _EditTextBoxState extends State<EditTextBox> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: widget.focusedColor!,
-                  width: widget.borderWidth,
-                  style: widget.borderStyle,
+                  color: focusedColor!,
+                  width: borderWidth,
+                  style: borderStyle,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: widget.enabledColor!,
-                  width: widget.borderWidth,
-                  style: widget.borderStyle,
+                  color: enabledColor!,
+                  width: borderWidth,
+                  style: borderStyle,
                 ),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: widget.disabledColor,
-                  width: widget.borderWidth,
-                  style: widget.borderStyle,
+                  color: disabledColor,
+                  width: borderWidth,
+                  style: borderStyle,
                 ),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: widget.errorStyle.color!,
-                  width: widget.borderWidth,
-                  style: widget.borderStyle,
+                  color: errorStyle.color!,
+                  width: borderWidth,
+                  style: borderStyle,
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: widget.errorStyle.color!,
-                  width: widget.borderWidth,
-                  style: widget.borderStyle,
+                  color: errorStyle.color!,
+                  width: borderWidth,
+                  style: borderStyle,
                 ),
               ),
             ),
             autocorrect: false,
           ),
-          margin: widget.margin,
+          margin: margin,
         ),
       ],
     );

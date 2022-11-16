@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:wecount/widgets/edit_text_search.dart' show EditTextSearch;
 import 'package:wecount/utils/localization.dart' show Localization;
 
-class HomeHeaderSearch extends StatefulWidget {
+class HomeHeaderSearch extends HookWidget {
   HomeHeaderSearch(
       {Key? key,
       this.margin,
@@ -25,24 +26,17 @@ class HomeHeaderSearch extends StatefulWidget {
   final Function onPressDelete;
 
   @override
-  _HomeHeaderSearchState createState() => _HomeHeaderSearchState();
-}
-
-class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
-  var searchText = "";
-
-  @override
   Widget build(BuildContext context) {
+    var searchText = useState<String>("");
+
     var localization = Localization.of(context)!;
     var textInput = EditTextSearch(
-      controller: widget.textEditingController,
+      controller: textEditingController,
       textInputAction: TextInputAction.search,
       onChanged: (text) {
-        setState(() {
-          searchText = text;
-        });
+        searchText.value = text;
       },
-      onSubmit: widget.onSubmit,
+      onSubmit: onSubmit,
       background: Colors.transparent,
       txtHint: localization.trans('PLZ_SEARCH'),
       underline: false,
@@ -79,13 +73,11 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
         left: 32.0,
         top: 12.0,
       ),
-      searchText != ""
+      searchText.value != ""
           ? Positioned(
               child: Container(
                 child: RawMaterialButton(
-                  onPressed: () {
-                    widget.onPressDelete();
-                  },
+                  onPressed: () => onPressDelete(),
                   shape: CircleBorder(),
                   child: Icon(Icons.close, color: Colors.white),
                   padding: EdgeInsets.all(0.0),
@@ -100,9 +92,7 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
                 child: RawMaterialButton(
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
-                  onPressed: () {
-                    widget.onPressAdd();
-                  },
+                  onPressed: () => onPressAdd(),
                   child: Icon(
                     Icons.add,
                     color: Colors.white,

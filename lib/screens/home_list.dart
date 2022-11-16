@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
@@ -17,280 +18,275 @@ import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:provider/provider.dart';
 
-class HomeList extends StatefulWidget {
+class HomeList extends HookWidget {
   HomeList({
     Key? key,
   }) : super(key: key);
 
   @override
-  _HomeListState createState() => _HomeListState();
-}
+  Widget build(BuildContext context) {
+    final textEditingController = useTextEditingController();
 
-class _HomeListState extends State<HomeList> {
-  TextEditingController textEditingController = TextEditingController();
+    var _data = [];
+    var _listData = useState([]);
 
-  var _data = [];
-  var _listData = [];
-
-  // List<List<LedgerItem>> _ledgerItems = [[]];
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () {
-      var _localization = Localization.of(context)!;
-
-      _data.add(
-        LedgerItem(
-          price: -12000,
-          category: Category(
-              iconId: 8,
-              label: _localization.trans('EXERCISE'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 10),
+    Widget _renderListHeader(DateTime date) {
+      String headerString = DateFormat('yyyy-MM-dd (E)').format(date);
+      return Container(
+        color: Colors.white,
+        height: 60.0,
+        padding: EdgeInsets.only(
+          top: 16.0,
+          left: 10.0,
         ),
-      );
-      _data.add(
-        LedgerItem(
-          price: 300000,
-          category: Category(
-              iconId: 18,
-              label: _localization.trans('WALLET_MONEY'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 10),
-        ),
-      );
-
-      _data.add(
-        LedgerItem(
-          price: -32000,
-          category: Category(
-              iconId: 4,
-              label: _localization.trans('DATING'),
-              type: CategoryType.CONSUME),
-          memo: 'who1 gave me',
-          writer: User(uid: 'who1@gmail.com', displayName: 'engela lee'),
-          selectedDate: DateTime(2019, 9, 8),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: 300000,
-          category: Category(
-              iconId: 18,
-              label: _localization.trans('WALLET_MONEY'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 8),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -12000,
-          category: Category(
-              iconId: 12,
-              label: _localization.trans('PRESENT'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 6),
-        ),
-      );
-
-      _data.add(
-        LedgerItem(
-          price: -32000,
-          category: Category(
-              iconId: 4,
-              label: _localization.trans('DATING'),
-              type: CategoryType.CONSUME),
-          memo: 'who1 gave me',
-          writer: User(uid: 'who1@gmail.com', displayName: '이범주'),
-          selectedDate: DateTime(2019, 9, 6),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 6),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 6),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -12000,
-          category: Category(
-              iconId: 12,
-              label: _localization.trans('PRESENT'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 6),
-        ),
-      );
-
-      _data.add(
-        LedgerItem(
-          price: -32000,
-          category: Category(
-              iconId: 4,
-              label: _localization.trans('DATING'),
-              type: CategoryType.CONSUME),
-          memo: 'who1 gave me',
-          writer: User(uid: 'who1@gmail.com', displayName: 'mizcom'),
-          selectedDate: DateTime(2019, 9, 6),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -3100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 4),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -2100,
-          category: Category(
-              iconId: 0,
-              label: _localization.trans('CAFE'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 4),
-        ),
-      );
-      _data.add(
-        LedgerItem(
-          price: -12000,
-          category: Category(
-              iconId: 12,
-              label: _localization.trans('PRESENT'),
-              type: CategoryType.CONSUME),
-          selectedDate: DateTime(2019, 9, 4),
-        ),
-      );
-
-      // sort data
-      _data.sort((a, b) {
-        return a.selectedDate.compareTo(b.selectedDate);
-      });
-
-      // insert Date row as Header
-      DateTime? prevDate;
-      var temp = [];
-      for (var i = 0; i < _data.length; i++) {
-        if (prevDate != _data[i].selectedDate) {
-          // 다르면 모은 데이터를 저장하고, 모음 리셋
-          if (temp.length > 0) {
-            _listData.add({
-              'date': prevDate,
-              'ledgerItems': temp,
-            });
-          }
-          prevDate = _data[i].selectedDate;
-          temp = [];
-        }
-        temp.add(_data[i]); // 데이터 임시 모음
-        // _listData.add(_data[i]);
-      }
-      if (temp.length > 0) {
-        _listData.add({
-          'date': prevDate,
-          'ledgerItems': temp,
-        });
-      }
-    });
-  }
-
-  Widget _renderListHeader(DateTime date) {
-    String headerString = DateFormat('yyyy-MM-dd (E)').format(date);
-    return Container(
-      height: 60.0,
-      padding: EdgeInsets.only(
-        top: 16.0,
-        left: 10.0,
-      ),
-      // padding: EdgeInsets.symmetric(horizontal: 16.0),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        headerString,
-        style: TextStyle(
-          fontSize: 16,
-          color: Theme.of(context).textTheme.displayMedium!.color,
-        ),
-      ),
-    );
-  }
-
-  List<Widget> _renderList(BuildContext context) {
-    return List.generate(_listData.length, (index) {
-      var section = _listData[index];
-      var headerDate = section['date'];
-      var ledgerItems = section['ledgerItems'];
-      return SliverStickyHeader(
-        header: _renderListHeader(headerDate),
-        sliver: SliverList(
-          key: Key(index.toString()),
-          delegate: SliverChildBuilderDelegate(
-            (context, i) => HomeListItem(ledgerItem: ledgerItems[i]),
-            childCount: ledgerItems.length,
+        // padding: EdgeInsets.symmetric(horizontal: 16.0),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          headerString,
+          style: TextStyle(
+            fontSize: 16,
+            color: Theme.of(context).textTheme.displayMedium!.color,
           ),
         ),
       );
-    });
-  }
+    }
 
-  @override
-  Widget build(BuildContext context) {
+    List<Widget> _renderList(BuildContext context) {
+      return List.generate(_listData.value.length, (index) {
+        var section = _listData.value[index];
+        var headerDate = section['date'];
+        var ledgerItems = section['ledgerItems'];
+        return SliverStickyHeader(
+          header: _renderListHeader(headerDate),
+          sliver: SliverList(
+            key: Key(index.toString()),
+            delegate: SliverChildBuilderDelegate(
+              (context, i) => HomeListItem(ledgerItem: ledgerItems[i]),
+              childCount: ledgerItems.length,
+            ),
+          ),
+        );
+      });
+    }
+
+    // List<List<LedgerItem>> _ledgerItems = [[]];
+    useEffect(() {
+      Future.delayed(Duration.zero, () {
+        var _localization = Localization.of(context)!;
+
+        _data.add(
+          LedgerItem(
+            price: -12000,
+            category: Category(
+                iconId: 8,
+                label: _localization.trans('EXERCISE'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 10),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: 300000,
+            category: Category(
+                iconId: 18,
+                label: _localization.trans('WALLET_MONEY'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 10),
+          ),
+        );
+
+        _data.add(
+          LedgerItem(
+            price: -32000,
+            category: Category(
+                iconId: 4,
+                label: _localization.trans('DATING'),
+                type: CategoryType.CONSUME),
+            memo: 'who1 gave me',
+            writer: User(uid: 'who1@gmail.com', displayName: 'engela lee'),
+            selectedDate: DateTime(2019, 9, 8),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -3100,
+            category: Category(
+                iconId: 0,
+                label: _localization.trans('CAFE'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 8),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: 300000,
+            category: Category(
+                iconId: 18,
+                label: _localization.trans('WALLET_MONEY'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 8),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -3100,
+            category: Category(
+                iconId: 0,
+                label: _localization.trans('CAFE'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 8),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -3100,
+            category: Category(
+                iconId: 0,
+                label: _localization.trans('CAFE'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 8),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -3100,
+            category: Category(
+                iconId: 0,
+                label: _localization.trans('CAFE'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 8),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -12000,
+            category: Category(
+                iconId: 12,
+                label: _localization.trans('PRESENT'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 6),
+          ),
+        );
+
+        _data.add(
+          LedgerItem(
+            price: -32000,
+            category: Category(
+                iconId: 4,
+                label: _localization.trans('DATING'),
+                type: CategoryType.CONSUME),
+            memo: 'who1 gave me',
+            writer: User(uid: 'who1@gmail.com', displayName: '이범주'),
+            selectedDate: DateTime(2019, 9, 6),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -3100,
+            category: Category(
+                iconId: 0,
+                label: _localization.trans('CAFE'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 6),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -3100,
+            category: Category(
+                iconId: 0,
+                label: _localization.trans('CAFE'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 6),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -12000,
+            category: Category(
+                iconId: 12,
+                label: _localization.trans('PRESENT'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 6),
+          ),
+        );
+
+        _data.add(
+          LedgerItem(
+            price: -32000,
+            category: Category(
+                iconId: 4,
+                label: _localization.trans('DATING'),
+                type: CategoryType.CONSUME),
+            memo: 'who1 gave me',
+            writer: User(uid: 'who1@gmail.com', displayName: 'mizcom'),
+            selectedDate: DateTime(2019, 9, 6),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -3100,
+            category: Category(
+                iconId: 0,
+                label: _localization.trans('CAFE'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 4),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -2100,
+            category: Category(
+                iconId: 0,
+                label: _localization.trans('CAFE'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 4),
+          ),
+        );
+        _data.add(
+          LedgerItem(
+            price: -12000,
+            category: Category(
+                iconId: 12,
+                label: _localization.trans('PRESENT'),
+                type: CategoryType.CONSUME),
+            selectedDate: DateTime(2019, 9, 4),
+          ),
+        );
+
+        // sort data
+        _data.sort((a, b) {
+          return a.selectedDate.compareTo(b.selectedDate);
+        });
+
+        // insert Date row as Header
+        DateTime? prevDate;
+        var temp = [];
+        for (var i = 0; i < _data.length; i++) {
+          if (prevDate != _data[i].selectedDate) {
+            // 다르면 모은 데이터를 저장하고, 모음 리셋
+            if (temp.length > 0) {
+              _listData.value.add({
+                'date': prevDate,
+                'ledgerItems': temp,
+              });
+            }
+            prevDate = _data[i].selectedDate;
+            temp = [];
+          }
+          temp.add(_data[i]); // 데이터 임시 모음
+          // _listData.add(_data[i]);
+        }
+        if (temp.length > 0) {
+          _listData.value.add({
+            'date': prevDate,
+            'ledgerItems': temp,
+          });
+        }
+      });
+      return null;
+    }, []);
+
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
