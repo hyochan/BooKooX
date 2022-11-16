@@ -128,14 +128,21 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
   }
 
   if (settings.name == LedgerEdit.name) {
-    final LedgerEditArguments args = settings.arguments as LedgerEditArguments;
+    if (settings.arguments == null) {
+      return MaterialPageRoute(builder: (context) {
+        return LedgerEdit();
+      });
+    } else {
+      final LedgerEditArguments args =
+          settings.arguments as LedgerEditArguments;
 
-    return MaterialPageRoute(builder: (context) {
-      return LedgerEdit(
-        ledger: args.ledger,
-        mode: args.mode,
-      );
-    });
+      return MaterialPageRoute(builder: (context) {
+        return LedgerEdit(
+          ledger: args.ledger,
+          mode: args.mode,
+        );
+      });
+    }
   }
 
   throw 'Route not found: ${settings.name}';
