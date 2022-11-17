@@ -15,13 +15,13 @@ class CategoryList extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var categories = useState<List<Category>>(this.categories).value;
+    var categories = useState<List<Category>>(this.categories);
 
     var _localization = Localization.of(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: Wrap(
-          children: categories.map((Category category) {
+          children: categories.value.map((Category category) {
             return CategoryItem(
               key: Key(category.id.toString()),
               category: category,
@@ -45,7 +45,7 @@ class CategoryList extends HookWidget {
                       fontSize: 16.0,
                     );
                   } finally {
-                    categories.remove(category);
+                    categories.value.remove(category);
                     Fluttertoast.showToast(
                       msg: _localization.trans('CATEGORY_DELETED')!,
                       toastLength: Toast.LENGTH_SHORT,

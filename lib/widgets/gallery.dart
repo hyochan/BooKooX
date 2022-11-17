@@ -98,10 +98,10 @@ class Gallery extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _pictures = useState<List<Photo>>([]).value;
+    var _pictures = useState<List<Photo>>([]);
 
     useEffect(() {
-      _pictures = pictures;
+      _pictures.value = pictures;
     }, []);
 
     var _localization = Localization.of(context)!;
@@ -157,7 +157,7 @@ class Gallery extends HookWidget {
             width: double.infinity,
             margin: EdgeInsets.only(bottom: 32),
             child: Wrap(
-              children: _pictures.map((Photo photo) {
+              children: _pictures.value.map((Photo photo) {
                 if (photo.isAddBtn == true) {
                   return Container(
                     padding: EdgeInsets.only(right: 4, bottom: 6),
@@ -181,8 +181,8 @@ class Gallery extends HookWidget {
 
                         if (imgFile != null) {
                           Photo photo = Photo(file: imgFile);
-                          _pictures.add(photo);
-                          ledgerItem.picture = _pictures;
+                          _pictures.value.add(photo);
+                          ledgerItem.picture = _pictures.value;
                         }
                       },
                       child: Container(
@@ -230,11 +230,11 @@ class Gallery extends HookWidget {
                                 arguments: PhotoDetailArguments(
                                   photo: photo,
                                   onPressDelete: () {
-                                    int index = _pictures.indexWhere(
+                                    int index = _pictures.value.indexWhere(
                                         (Photo compare) =>
                                             compare.file == photo.file);
-                                    _pictures.removeAt(index);
-                                    ledgerItem.picture = _pictures;
+                                    _pictures.value.removeAt(index);
+                                    ledgerItem.picture = _pictures.value;
                                     Navigator.of(context).pop();
                                   },
                                 ),

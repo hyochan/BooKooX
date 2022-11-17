@@ -17,7 +17,7 @@ class CategoryItem extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var category = useState<Category>(this.category).value;
+    var category = useState<Category>(this.category);
 
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 10, left: 8),
@@ -25,13 +25,14 @@ class CategoryItem extends HookWidget {
         onTap: () {
           onSelectPressed!();
         },
-        onLongPress: () => category.showDelete = !category.showDelete,
+        onLongPress: () =>
+            category.value.showDelete = !category.value.showDelete,
         child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
                 Image(
-                  image: category.getIconImage()!,
+                  image: category.value.getIconImage()!,
                   width: 72,
                   height: 72,
                 ),
@@ -39,7 +40,7 @@ class CategoryItem extends HookWidget {
                   margin: EdgeInsets.only(top: 8),
                   width: 80,
                   child: AutoSizeText(
-                    category.label ?? '',
+                    category.value.label ?? '',
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.displayLarge!.color,
@@ -53,7 +54,7 @@ class CategoryItem extends HookWidget {
             Positioned(
               right: 0,
               top: 0,
-              child: category.showDelete
+              child: category.value.showDelete
                   ? Container(
                       padding: EdgeInsets.all(2),
                       child: InkWell(

@@ -77,10 +77,10 @@ class Content extends HookWidget {
 
     /// State
     DateTime _date = DateTime.now();
-    Map<String, double>? _dataMapIncome = Map();
-    Map<String, double>? _dataMapExpense = Map();
-    var _condensedLedgerList = useState<List<LedgerItem>>([]).value;
-    var _selectedChart = useState<int?>(null).value;
+    var _dataMapIncome = useState<Map<String, double>?>(Map());
+    var _dataMapExpense = useState<Map<String, double>?>(Map());
+    var _condensedLedgerList = useState<List<LedgerItem>>([]);
+    var _selectedChart = useState<int?>(null);
 
     List<Color> colorList = [
       Asset.Colors.blue,
@@ -100,9 +100,9 @@ class Content extends HookWidget {
       var result = splitLedgers(condensedLedgerList);
       // ledgerList.addAll(normalIncomeList(localization, 10));
 
-      _condensedLedgerList = condensedLedgerList;
-      _dataMapIncome = result['income'];
-      _dataMapExpense = result['expense'];
+      _condensedLedgerList.value = condensedLedgerList;
+      _dataMapIncome.value = result['income'];
+      _dataMapExpense.value = result['expense'];
     }
 
     ;
@@ -114,7 +114,7 @@ class Content extends HookWidget {
         _ledgerList = createHomeStatisticMock(Localization.of(context)!);
 
         calculateAndRender(_date.month.toString(), _ledgerList);
-        _selectedChart = 1;
+        _selectedChart.value = 1;
       });
       return null;
     }, []);
@@ -136,8 +136,9 @@ class Content extends HookWidget {
       // }
     }
 
-    Map<String, double> dataMap =
-        _selectedChart == 1 ? _dataMapIncome! : _dataMapExpense!;
+    Map<String, double> dataMap = _selectedChart.value == 1
+        ? _dataMapIncome.value!
+        : _dataMapExpense.value!;
 
     /// PieChart throws error when `_dataMap` is empty
     var chartWidget = dataMap.length > 0
@@ -167,7 +168,7 @@ class Content extends HookWidget {
                 ),
                 Text(
                   localization!.trans('NO_DATA')!,
-                  style: TextStyle(),
+                  style: TextStyle(color: Colors.black),
                 ),
               ],
               direction: Axis.vertical,
@@ -180,9 +181,9 @@ class Content extends HookWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      itemCount: _condensedLedgerList.length,
+      itemCount: _condensedLedgerList.value.length,
       itemBuilder: (BuildContext context, int index) {
-        return HomeListItem(ledgerItem: _condensedLedgerList[index]);
+        return HomeListItem(ledgerItem: _condensedLedgerList.value[index]);
       },
     );
 
@@ -204,10 +205,10 @@ class Content extends HookWidget {
             ),
             ButtonGroup(
               onButtonOnePressed: () {
-                _selectedChart = 1;
+                _selectedChart.value = 1;
               },
               onButtonTwoPressed: () {
-                _selectedChart = 2;
+                _selectedChart.value = 2;
               },
               selected: _selectedChart,
             ),

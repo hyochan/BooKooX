@@ -12,7 +12,7 @@ class Tutorial extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final int pageCnt = 2; // 3
-    var _currentPage = useState<int>(0).value;
+    var _currentPage = useState<int>(0);
     var _pageController = PageController(
       initialPage: 0,
     );
@@ -148,7 +148,7 @@ class Tutorial extends HookWidget {
               Expanded(
                 child: PageView(
                   onPageChanged: (int page) {
-                    _currentPage = page;
+                    _currentPage.value = page;
                   },
                   controller: _pageController,
                   scrollDirection: Axis.horizontal,
