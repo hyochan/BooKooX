@@ -25,7 +25,7 @@ class Carousel extends HookWidget {
     final List<Photo> picture;
     final double? height;
     final double? viewportFraction;
-    var currentPage = useState<int?>(null).value;
+    var currentPage = useState<int?>(null);
 
     PageController? _controller;
 
@@ -114,7 +114,7 @@ class Carousel extends HookWidget {
 
     useEffect(() {
       _controller = PageController(
-        initialPage: currentPage!,
+        initialPage: currentPage.value!,
         keepPage: false,
         viewportFraction: this.viewportFraction!,
 
@@ -130,7 +130,7 @@ class Carousel extends HookWidget {
       child: PageView.builder(
         itemCount: this.picture.length,
         onPageChanged: (value) {
-          currentPage = value;
+          currentPage.value = value;
         },
         controller: _controller,
         itemBuilder: (context, index) {

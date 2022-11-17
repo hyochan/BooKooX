@@ -26,17 +26,17 @@ class SignUp extends HookWidget {
     String? _displayName;
     String? _name;
 
-    var _errorEmail = useState<String?>(null).value;
-    var _errorPassword = useState<String?>(null).value;
-    var _errorPasswordConfirm = useState<String?>(null).value;
-    var _errorDisplayName = useState<String?>(null).value;
-    var _errorName = useState<String?>(null).value;
+    var _errorEmail = useState<String?>(null);
+    var _errorPassword = useState<String?>(null);
+    var _errorPasswordConfirm = useState<String?>(null);
+    var _errorDisplayName = useState<String?>(null);
+    var _errorName = useState<String?>(null);
 
-    var _isValidEmail = useState<bool>(false).value;
-    var _isValidPassword = useState<bool>(false).value;
-    var _isValidDisplayName = useState<bool>(false).value;
-    var _isValidName = useState<bool>(false).value;
-    var _isRegistering = useState<bool>(false).value;
+    var _isValidEmail = useState<bool>(false);
+    var _isValidPassword = useState<bool>(false);
+    var _isValidDisplayName = useState<bool>(false);
+    var _isValidName = useState<bool>(false);
+    var _isRegistering = useState<bool>(false);
 
     void _signUp() async {
       if (_email == null ||
@@ -47,32 +47,33 @@ class SignUp extends HookWidget {
         return;
       }
 
-      if (!_isValidEmail) {
-        _errorEmail = _localization!.trans('NO_VALID_EMAIL');
+      if (!_isValidEmail.value) {
+        _errorEmail.value = _localization!.trans('NO_VALID_EMAIL');
         return;
       }
 
-      if (!_isValidPassword) {
-        _errorPassword = _localization!.trans('PASSWORD_HINT');
+      if (!_isValidPassword.value) {
+        _errorPassword.value = _localization!.trans('PASSWORD_HINT');
         return;
       }
 
       if (_passwordConfirm != _password) {
-        _errorPasswordConfirm = _localization!.trans('PASSWORD_CONFIRM_HINT');
+        _errorPasswordConfirm.value =
+            _localization!.trans('PASSWORD_CONFIRM_HINT');
         return;
       }
 
-      if (!_isValidDisplayName) {
-        _errorDisplayName = _localization!.trans('DISPLAY_NAME_HINT');
+      if (!_isValidDisplayName.value) {
+        _errorDisplayName.value = _localization!.trans('DISPLAY_NAME_HINT');
         return;
       }
 
-      if (!_isValidName) {
-        _errorName = _localization!.trans('NAME_HINT');
+      if (!_isValidName.value) {
+        _errorName.value = _localization!.trans('NAME_HINT');
         return;
       }
 
-      _isRegistering = true;
+      _isRegistering.value = true;
 
       try {
         final User? user = (await _auth.createUserWithEmailAndPassword(
@@ -129,7 +130,7 @@ class SignUp extends HookWidget {
           ),
         );
       } finally {
-        _isRegistering = false;
+        _isRegistering.value = false;
       }
     }
 
@@ -155,17 +156,17 @@ class SignUp extends HookWidget {
         textHint: _localization!.trans('EMAIL_HINT'),
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidEmail,
+        hasChecked: _isValidEmail.value,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
-            _isValidEmail = true;
-            _errorEmail = null;
+            _isValidEmail.value = true;
+            _errorEmail.value = null;
           } else {
-            _isValidEmail = false;
+            _isValidEmail.value = false;
           }
           _email = str;
         },
-        errorText: _errorEmail,
+        errorText: _errorEmail.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -180,17 +181,17 @@ class SignUp extends HookWidget {
         isSecret: true,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidPassword,
+        hasChecked: _isValidPassword.value,
         onChanged: (String str) {
           if (Validator.instance.validatePassword(str)) {
-            _isValidPassword = true;
-            _errorPassword = null;
+            _isValidPassword.value = true;
+            _errorPassword.value = null;
           } else {
-            _isValidPassword = false;
+            _isValidPassword.value = false;
           }
           _password = str;
         },
-        errorText: _errorPassword,
+        errorText: _errorPassword.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -211,11 +212,11 @@ class SignUp extends HookWidget {
         onChanged: (String str) {
           _passwordConfirm = str;
           if (str == _password) {
-            _errorPasswordConfirm = null;
+            _errorPasswordConfirm.value = null;
           }
           ;
         },
-        errorText: _errorPasswordConfirm,
+        errorText: _errorPasswordConfirm.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -229,17 +230,17 @@ class SignUp extends HookWidget {
         textHint: _localization!.trans('DISPLAY_NAME_HINT'),
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidDisplayName,
+        hasChecked: _isValidDisplayName.value,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
-            _isValidDisplayName = true;
-            _errorDisplayName = null;
+            _isValidDisplayName.value = true;
+            _errorDisplayName.value = null;
           } else {
-            _isValidDisplayName = false;
+            _isValidDisplayName.value = false;
           }
           _displayName = str;
         },
-        errorText: _errorDisplayName,
+        errorText: _errorDisplayName.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -253,17 +254,17 @@ class SignUp extends HookWidget {
         textHint: _localization!.trans('NAME_HINT'),
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidName,
+        hasChecked: _isValidName.value,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
-            _isValidName = true;
-            _errorName = null;
+            _isValidName.value = true;
+            _errorName.value = null;
           } else {
-            _isValidName = false;
+            _isValidName.value = false;
           }
           _name = str;
         },
-        errorText: _errorName,
+        errorText: _errorName.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -271,7 +272,7 @@ class SignUp extends HookWidget {
     Widget renderSignUpButton() {
       return Button(
         key: Key('button-sign-up'),
-        isLoading: _isRegistering,
+        isLoading: _isRegistering.value,
         onPress: () => _signUp(),
         margin: EdgeInsets.only(top: 36.0, bottom: 48.0),
         textStyle: TextStyle(
