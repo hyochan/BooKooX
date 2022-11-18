@@ -18,13 +18,13 @@ class ProfileMy extends HookWidget {
   @override
   Widget build(BuildContext context) {
     var _imgFile = useState<XFile?>(null);
-    var _profile = useState<User?>(null);
+    User? _profile;
 
     Future<void> _onUpdateProfile() async {
       navigation.showDialogSpinner(context);
 
       await DatabaseService().requestUpdateProfile(
-        _profile.value,
+        _profile,
         imgFile: _imgFile.value,
       );
 
@@ -59,7 +59,7 @@ class ProfileMy extends HookWidget {
           if (!snapshot.hasData) return Container();
 
           var user = snapshot.data;
-          _profile.value = User(
+          _profile = User(
             email: user.email ?? '',
             displayName: user.displayName ?? '',
             phoneNumber: user.phoneNumber ?? '',
@@ -78,9 +78,9 @@ class ProfileMy extends HookWidget {
                   children: <Widget>[
                     ProfileImageCam(
                       imgFile: _imgFile.value,
-                      imgStr: _profile.value!.thumbURL != null
-                          ? _profile.value!.thumbURL
-                          : _profile.value!.photoURL,
+                      imgStr: _profile?.thumbURL != null
+                          ? _profile!.thumbURL
+                          : _profile?.photoURL,
                       selectCamera: () async {
                         var file = await navigation.chooseImage(
                             context: context, type: 'camera');
@@ -114,7 +114,7 @@ class ProfileMy extends HookWidget {
                 controller: TextEditingController(
                   text: user.displayName,
                 ),
-                onChangeText: (String str) => _profile.value!.displayName = str,
+                onChangeText: (String str) => _profile?.displayName = str,
                 semanticLabel: _localization.trans('NICKNAME'),
                 iconData: Icons.person_outline,
                 margin: EdgeInsets.only(top: 8.0),
@@ -126,7 +126,7 @@ class ProfileMy extends HookWidget {
                 controller: TextEditingController(
                   text: user.phoneNumber,
                 ),
-                onChangeText: (String str) => _profile.value!.phoneNumber = str,
+                onChangeText: (String str) => _profile?.phoneNumber = str,
                 iconData: Icons.phone,
                 margin: EdgeInsets.only(top: 8.0),
                 hintText: _localization.trans('PHONE'),
@@ -143,7 +143,7 @@ class ProfileMy extends HookWidget {
                 controller: TextEditingController(
                   text: user.statusMsg,
                 ),
-                onChangeText: (String str) => _profile.value!.statusMsg = str,
+                onChangeText: (String str) => _profile?.statusMsg = str,
                 labelText: _localization.trans('STATUS_MESSAGE'),
                 hintText: _localization.trans('STATUS_MESSAGE_HINT'),
                 maxLines: 5,

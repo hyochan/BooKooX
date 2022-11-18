@@ -64,7 +64,7 @@ class SettingNotification extends HookWidget {
                     value: _addLedgerSwitch.value,
                     onChanged: _onChangeAddingLedgerSwitch,
                     activeTrackColor: Theme.of(context).primaryColor,
-                    activeColor: Theme.of(context).accentColor,
+                    activeColor: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ],
