@@ -33,6 +33,11 @@ class Themes {
         bodySmall: TextStyle(color: Asset.Colors.light),
         bodyLarge: TextStyle(color: Asset.Colors.dark),
         bodyMedium: TextStyle(color: Asset.Colors.dark),
+        labelLarge: TextStyle(color: Asset.Colors.dark),
+        labelSmall: TextStyle(color: Asset.Colors.dark),
+        titleLarge: TextStyle(color: Asset.Colors.dark),
+        titleMedium: TextStyle(color: Asset.Colors.dark),
+        titleSmall: TextStyle(color: Asset.Colors.dark),
       ),
       colorScheme: ColorScheme.fromSwatch().copyWith(
         secondary: Asset.Colors.greenBlue,
@@ -70,6 +75,11 @@ class Themes {
         bodySmall: TextStyle(color: Asset.Colors.dark),
         bodyLarge: TextStyle(color: Asset.Colors.light),
         bodyMedium: TextStyle(color: Asset.Colors.light),
+        labelLarge: TextStyle(color: Asset.Colors.light),
+        labelSmall: TextStyle(color: Asset.Colors.light),
+        titleLarge: TextStyle(color: Asset.Colors.light),
+        titleMedium: TextStyle(color: Asset.Colors.light),
+        titleSmall: TextStyle(color: Asset.Colors.light),
       ),
       colorScheme: ColorScheme.fromSwatch().copyWith(
         secondary: Asset.Colors.greenBlue,

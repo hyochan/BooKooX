@@ -83,7 +83,6 @@ class Ledgers extends HookWidget {
                   if (!snapshot.hasData) return Container();
 
                   var profile = snapshot.data;
-
                   return ProfileListItem(
                     email: profile.email ?? '',
                     displayName: profile.displayName ?? '',

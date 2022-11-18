@@ -17,8 +17,8 @@ class Tutorial extends HookWidget {
       initialPage: 0,
     );
     void onNextPressed() {
-      if (_currentPage == pageCnt) {
-        Navigator.pushNamedAndRemoveUntil(context, 'intro', (_) => false);
+      if (_currentPage.value == pageCnt) {
+        Navigator.pushNamedAndRemoveUntil(context, '/intro', (_) => false);
         return;
       }
       _pageController.nextPage(
