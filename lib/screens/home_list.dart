@@ -30,45 +30,6 @@ class HomeList extends HookWidget {
     var _data = [];
     var _listData = useState([]);
 
-    Widget _renderListHeader(DateTime date) {
-      String headerString = DateFormat('yyyy-MM-dd (E)').format(date);
-      return Container(
-        color: Colors.white,
-        height: 60.0,
-        padding: EdgeInsets.only(
-          top: 16.0,
-          left: 10.0,
-        ),
-        // padding: EdgeInsets.symmetric(horizontal: 16.0),
-        alignment: Alignment.centerLeft,
-        child: Text(
-          headerString,
-          style: TextStyle(
-            fontSize: 16,
-            color: Theme.of(context).textTheme.displayMedium!.color,
-          ),
-        ),
-      );
-    }
-
-    List<Widget> _renderList(BuildContext context) {
-      return List.generate(_listData.value.length, (index) {
-        var section = _listData.value[index];
-        var headerDate = section['date'];
-        var ledgerItems = section['ledgerItems'];
-        return SliverStickyHeader(
-          header: _renderListHeader(headerDate),
-          sliver: SliverList(
-            key: Key(index.toString()),
-            delegate: SliverChildBuilderDelegate(
-              (context, i) => HomeListItem(ledgerItem: ledgerItems[i]),
-              childCount: ledgerItems.length,
-            ),
-          ),
-        );
-      });
-    }
-
     // List<List<LedgerItem>> _ledgerItems = [[]];
     useEffect(() {
       Future.delayed(Duration.zero, () {
@@ -253,7 +214,6 @@ class HomeList extends HookWidget {
             selectedDate: DateTime(2019, 9, 4),
           ),
         );
-
         // sort data
         _data.sort((a, b) {
           return a.selectedDate.compareTo(b.selectedDate);
@@ -286,6 +246,45 @@ class HomeList extends HookWidget {
       });
       return null;
     }, []);
+
+    Widget _renderListHeader(DateTime date) {
+      String headerString = DateFormat('yyyy-MM-dd (E)').format(date);
+      return Container(
+        height: 60.0,
+        color: Colors.white,
+        padding: EdgeInsets.only(
+          top: 16.0,
+          left: 10.0,
+        ),
+        // padding: EdgeInsets.symmetric(horizontal: 16.0),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          headerString,
+          style: TextStyle(
+            fontSize: 16,
+            color: Theme.of(context).textTheme.displayMedium!.color,
+          ),
+        ),
+      );
+    }
+
+    List<Widget> _renderList(BuildContext context) {
+      return List.generate(_listData.value.length, (index) {
+        var section = _listData.value[index];
+        var headerDate = section['date'];
+        var ledgerItems = section['ledgerItems'];
+        return SliverStickyHeader(
+          header: _renderListHeader(headerDate),
+          sliver: SliverList(
+            key: Key(index.toString()),
+            delegate: SliverChildBuilderDelegate(
+              (context, i) => HomeListItem(ledgerItem: ledgerItems[i]),
+              childCount: ledgerItems.length,
+            ),
+          ),
+        );
+      });
+    }
 
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color

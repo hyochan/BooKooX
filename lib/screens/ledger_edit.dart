@@ -41,6 +41,7 @@ class LedgerEdit extends HookWidget {
   Widget build(BuildContext context) {
     var _ledger = useState<Ledger?>(null);
     var _isLoading = useState<bool>(false);
+    var color = useState<ColorType?>(null);
 
     useEffect(() {
       if (ledger == null) {
@@ -72,6 +73,7 @@ class LedgerEdit extends HookWidget {
     }
 
     void _selectColor(ColorType item) {
+      color.value = item;
       _ledger.value!.color = item;
     }
 
@@ -342,7 +344,8 @@ class LedgerEdit extends HookWidget {
                               ? _localization.trans('DONE')!
                               : _localization.trans('UPDATE')!,
                           style: TextStyle(
-                            color: Asset.Colors.getColor(_ledger.value!.color),
+                            color: Colors.black,
+                            // color: Asset.Colors.getColor(_ledger.value!.color),
                             fontSize: 16.0,
                           ),
                         ),

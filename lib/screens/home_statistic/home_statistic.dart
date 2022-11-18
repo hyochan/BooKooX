@@ -168,7 +168,7 @@ class Content extends HookWidget {
                 ),
                 Text(
                   localization!.trans('NO_DATA')!,
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(),
                 ),
               ],
               direction: Axis.vertical,
@@ -210,7 +210,7 @@ class Content extends HookWidget {
               onButtonTwoPressed: () {
                 _selectedChart.value = 2;
               },
-              selected: _selectedChart,
+              selected: _selectedChart.value,
             ),
             chartWidget,
             bottomListWidget,
