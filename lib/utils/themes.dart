@@ -31,6 +31,8 @@ class Themes {
         displayMedium: TextStyle(color: Asset.Colors.mediumGray),
         displaySmall: TextStyle(color: Asset.Colors.paleGray),
         bodySmall: TextStyle(color: Asset.Colors.light),
+        bodyLarge: TextStyle(color: Asset.Colors.dark),
+        bodyMedium: TextStyle(color: Asset.Colors.dark),
       ),
       colorScheme: ColorScheme.fromSwatch().copyWith(
         secondary: Asset.Colors.greenBlue,
@@ -66,6 +68,8 @@ class Themes {
         displayMedium: TextStyle(color: Asset.Colors.paleGray),
         displaySmall: TextStyle(color: Asset.Colors.mediumGray),
         bodySmall: TextStyle(color: Asset.Colors.dark),
+        bodyLarge: TextStyle(color: Asset.Colors.light),
+        bodyMedium: TextStyle(color: Asset.Colors.light),
       ),
       colorScheme: ColorScheme.fromSwatch().copyWith(
         secondary: Asset.Colors.greenBlue,
