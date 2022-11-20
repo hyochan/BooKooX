@@ -8,7 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class LocationView extends StatefulWidget {
-  static const name = '/location-view';
+  const LocationView({Key? key}) : super(key: key);
 
   @override
   _LocationViewState createState() => _LocationViewState();

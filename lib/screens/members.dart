@@ -1,4 +1,5 @@
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/edit_text.dart';
 import 'package:flutter/material.dart';
 
@@ -16,10 +17,8 @@ class MembersArguments {
 }
 
 class Members extends StatefulWidget {
-  static const String name = '/members';
-
   final Ledger? ledger;
-  Members({Key? key, this.ledger}) : super(key: key);
+  const Members({Key? key, this.ledger}) : super(key: key);
 
   @override
   _MembersState createState() => _MembersState();
@@ -197,7 +196,7 @@ class _MembersState extends State<Members> {
                 }, item.user.membership!.index);
               },
               onPressMember: () {
-                navigation.navigate(context, 'profile-peer',
+                navigation.navigate(context, AppRoute.profilePeer.fullPath,
                     arguments: ProfilePeerArguments(
                       user: item.user,
                     ));

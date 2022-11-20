@@ -3,6 +3,7 @@ import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/home_header_search.dart' show HomeHeaderSearch;
 import 'package:wecount/models/category.dart';
@@ -295,7 +296,7 @@ class _HomeListState extends State<HomeList> {
         : ColorType.DUSK;
 
     Function onAddLedgerList =
-        () => navigation.push(context, 'ledger-item-edit');
+        () => navigation.push(context, AppRoute.ledgerItemEdit.fullPath);
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:wecount/screens/intro.dart';
 
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/routes.dart';
 
 class Tutorial extends StatefulWidget {
-  static const String name = '/tutorial';
+  const Tutorial({Key? key}) : super(key: key);
 
   @override
   _TutorialState createState() => _TutorialState();
@@ -19,7 +19,8 @@ class _TutorialState extends State<Tutorial> {
   );
   void onNextPressed() {
     if (_currentPage == pageCnt) {
-      Navigator.pushNamedAndRemoveUntil(context, 'intro', (_) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, AppRoute.intro.fullPath, (_) => false);
       return;
     }
     _pageController.nextPage(

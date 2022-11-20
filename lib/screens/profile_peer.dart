@@ -2,6 +2,7 @@ import 'package:wecount/models/user.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/widgets/edit_text_box.dart' show EditTextBox;
@@ -14,10 +15,8 @@ class ProfilePeerArguments {
 }
 
 class ProfilePeer extends StatefulWidget {
-  static const String name = '/profile-peer';
   final User user;
-
-  ProfilePeer({
+  const ProfilePeer({
     required this.user,
   });
 
@@ -29,7 +28,7 @@ class _ProfilePeerState extends State<ProfilePeer> {
   void showImage(String photoUrl) async {
     await navigation.navigate(
       context,
-      'photo-detail',
+      AppRoute.photoDetail.fullPath,
       arguments: PhotoDetailArguments(
         photoUrl: photoUrl,
       ),

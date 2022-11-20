@@ -14,9 +14,7 @@ class SettingCurrencyArguments {
 }
 
 class SettingCurrency extends StatefulWidget {
-  static const String name = '/setting_currency';
-
-  SettingCurrency({
+  const SettingCurrency({
     Key? key,
     this.title = '',
     this.selectedCurrency = '',

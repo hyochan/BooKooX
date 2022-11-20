@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wecount/screens/setting_currency.dart';
 import 'package:wecount/screens/members.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/member_horizontal_list.dart';
 import 'package:wecount/services/database.dart' show DatabaseService;
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
@@ -26,12 +27,10 @@ enum LedgerEditMode {
 }
 
 class LedgerEdit extends StatefulWidget {
-  static const String name = '/ledger-edit';
-
   final Ledger? ledger;
   final LedgerEditMode mode;
 
-  LedgerEdit({
+  const LedgerEdit({
     Key? key,
     this.ledger,
     this.mode = LedgerEditMode.ADD,
@@ -62,7 +61,7 @@ class _LedgerEditState extends State<LedgerEdit> {
   void _onPressCurrency() async {
     var _result = await navigation.navigate(
       context,
-      'setting-currency',
+      AppRoute.settingCurrency.fullPath,
       arguments: SettingCurrencyArguments(
         selectedCurrency: _ledger!.currency.currency,
       ),
@@ -305,7 +304,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                       widget.ledger != null ? widget.ledger!.memberIds : [],
                   onSeeAllPressed: () => navigation.navigate(
                     context,
-                    'members',
+                    AppRoute.members.fullPath,
                     arguments: MembersArguments(ledger: widget.ledger),
                   ),
                 ),

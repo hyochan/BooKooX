@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wecount/navigations/auth_switch.dart';
-import 'package:wecount/screens/sign_in.dart';
-import 'package:wecount/screens/sign_up.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as Asset;
@@ -15,7 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Intro extends StatelessWidget {
-  static const String name = '/intro';
+  const Intro({Key? key}) : super(key: key);
 
   Future<void> _googleLogin(BuildContext context) async {
     final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -49,7 +47,7 @@ class Intro extends StatelessWidget {
         'deletedAt': null,
       });
       _googleSignIn.signOut();
-      Navigator.pushReplacementNamed(context, AuthSwitch.name);
+      Navigator.pushReplacementNamed(context, AppRoute.authSwitch.fullPath);
     }
   }
 
@@ -65,7 +63,7 @@ class Intro extends StatelessWidget {
 
     Widget renderSignInBtn() {
       return Button(
-        onPress: () => navigation.push(context, 'sign-in'),
+        onPress: () => navigation.push(context, AppRoute.signIn.fullPath),
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
@@ -82,7 +80,7 @@ class Intro extends StatelessWidget {
       return Container(
         margin: EdgeInsets.symmetric(vertical: 2.0),
         child: TextButton(
-          onPressed: () => navigation.push(context, 'sign-up'),
+          onPressed: () => navigation.push(context, AppRoute.signUp.fullPath),
           child: RichText(
             text: TextSpan(
               children: <TextSpan>[

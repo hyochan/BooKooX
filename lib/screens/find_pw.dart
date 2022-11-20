@@ -10,9 +10,7 @@ import 'package:wecount/utils/validator.dart' show Validator;
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class FindPw extends StatefulWidget {
-  static const String name = '/find-pw';
-
-  FindPw({Key? key}) : super(key: key);
+  const FindPw({Key? key}) : super(key: key);
 
   @override
   _FindPwState createState() => _FindPwState();

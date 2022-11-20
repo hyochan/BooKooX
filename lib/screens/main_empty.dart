@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wecount/screens/ledger_edit.dart';
-import 'package:wecount/screens/setting.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart' show Localization;
@@ -9,9 +8,7 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import '../widgets/home_header.dart' show renderHomeAppBar;
 
 class MainEmpty extends StatefulWidget {
-  static const String name = '/main-empty';
-
-  MainEmpty({
+  const MainEmpty({
     Key? key,
     this.title = '',
   }) : super(key: key);
@@ -36,7 +33,8 @@ class _MainEmptyState extends State<MainEmpty> {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () => navigation.push(context, 'setting'),
+              onPressed: () =>
+                  navigation.push(context, AppRoute.setting.fullPath),
               child: Icon(
                 Icons.settings,
                 color: Colors.white,
@@ -87,7 +85,8 @@ class _MainEmptyState extends State<MainEmpty> {
                   ),
                 ),
               ),
-              onPress: () => Navigator.of(context).pushNamed("ledger-edit"),
+              onPress: () =>
+                  Navigator.of(context).pushNamed(AppRoute.ledgerEdit.fullPath),
               text: _localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,

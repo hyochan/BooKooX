@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wecount/navigations/home_tab.dart';
-import 'package:wecount/screens/find_pw.dart';
-import 'package:wecount/screens/main_empty.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/widgets/edit_text.dart' show EditText;
@@ -15,9 +13,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class SignIn extends StatefulWidget {
-  static const String name = '/sign-in';
-
-  SignIn({Key? key}) : super(key: key);
+  const SignIn({Key? key}) : super(key: key);
 
   @override
   _SignInState createState() => _SignInState();
@@ -72,11 +68,11 @@ class _SignInState extends State<SignIn> {
         var ledgers = snapshots.docs;
 
         if (ledgers.length == 0) {
-          navigation.push(context, 'main-empty', reset: true);
+          navigation.push(context, AppRoute.mainEmpty.fullPath, reset: true);
           return;
         }
 
-        navigation.push(context, 'home-tab', reset: true);
+        navigation.push(context, AppRoute.homeTab.fullPath, reset: true);
         return;
       }
     } catch (err) {
@@ -248,7 +244,7 @@ class _SignInState extends State<SignIn> {
 
     Widget renderFindPw() {
       return TextButton(
-        onPressed: () => navigation.push(context, 'find-pw'),
+        onPressed: () => navigation.push(context, AppRoute.findPw.fullPath),
         child: RichText(
           text: TextSpan(
             text: '${_localization!.trans('DID_YOU_FORGOT_PASSWORD')}?',

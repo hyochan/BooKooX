@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/navigations/auth_switch.dart';
 import 'package:wecount/navigations/home_tab.dart';
@@ -29,34 +30,96 @@ import 'package:wecount/screens/splash.dart';
 import 'package:wecount/screens/terms.dart';
 import 'package:wecount/screens/tutorial.dart';
 
+enum AppRoute {
+  authSwitch,
+  splash,
+  tutorial,
+  intro,
+  signIn,
+  signUp,
+  findPw,
+  mainEmpty,
+  homeTab,
+  ledgers,
+  terms,
+  profileMy,
+  setting,
+  settingAnnouncement,
+  settingOpinion,
+  settingFAQ,
+  settingNotification,
+  ledgerItemEdit,
+  settingExcel,
+  lockRegister,
+  lockAuth,
+  locationView,
+  photoDetail,
+  lineGraph,
+  members,
+  settingCurrency,
+  profilePeer,
+  ledgerView,
+  ledgerEdit,
+}
+
+extension RouteName on AppRoute {
+  String get name => describeEnum(this);
+
+  bool get isRoot => this == AppRoute.authSwitch;
+
+  /// Convert to `lower-snake-case` format.
+  String get path {
+    if (isRoot) return '';
+
+    RegExp exp = RegExp(r'(?<=[a-z])[A-Z]');
+    String result = name
+        .replaceAllMapped(exp, (Match m) => ('-${m.group(0)}'))
+        .toLowerCase();
+    return result;
+  }
+
+  /// Convert to `lower-snake-case` format with `/`.
+  String get fullPath {
+    if (isRoot) return '/';
+
+    RegExp exp = RegExp(r'(?<=[a-z])[A-Z]');
+    String result = name
+        .replaceAllMapped(exp, (Match m) => ('-${m.group(0)}'))
+        .toLowerCase();
+    return '/$result';
+  }
+}
+
 final routes = {
-  AuthSwitch.name: (context) => AuthSwitch(),
-  Splash.name: (context) => Splash(),
-  Tutorial.name: (context) => Tutorial(),
-  Intro.name: (context) => Intro(),
-  SignIn.name: (context) => SignIn(),
-  SignUp.name: (context) => SignUp(),
-  FindPw.name: (context) => FindPw(),
-  MainEmpty.name: (context) => MainEmpty(),
-  HomeTab.name: (context) => HomeTab(),
-  Ledgers.name: (context) => Ledgers(),
-  Terms.name: (context) => Terms(),
-  ProfileMy.name: (context) => ProfileMy(),
-  Setting.name: (context) => Setting(),
-  SettingAnnouncement.name: (context) => SettingAnnouncement(),
-  SettingOpinion.name: (context) => SettingOpinion(),
-  SettingFAQ.name: (context) => SettingFAQ(),
-  SettingNotification.name: (context) => SettingNotification(),
-  LedgerItemEdit.name: (context) => LedgerItemEdit(),
-  SettingExcel.name: (context) => SettingExcel(),
-  LockRegister.name: (context) => LockRegister(),
-  LockAuth.name: (context) => LockAuth(),
-  LocationView.name: (context) => LocationView()
+  AppRoute.authSwitch.fullPath: (context) => const AuthSwitch(),
+  AppRoute.splash.fullPath: (context) => const Splash(),
+  AppRoute.tutorial.fullPath: (context) => const Tutorial(),
+  AppRoute.intro.fullPath: (context) => const Intro(),
+  AppRoute.signIn.fullPath: (context) => const SignIn(),
+  AppRoute.signUp.fullPath: (context) => const SignIn(),
+  AppRoute.findPw.fullPath: (context) => const FindPw(),
+  AppRoute.mainEmpty.fullPath: (context) => const MainEmpty(),
+  AppRoute.homeTab.fullPath: (context) => const HomeTab(),
+  AppRoute.ledgers.fullPath: (context) => const Ledgers(),
+  AppRoute.terms.fullPath: (context) => const Terms(),
+  AppRoute.profileMy.fullPath: (context) => const ProfileMy(),
+  AppRoute.setting.fullPath: (context) => const Setting(),
+  AppRoute.settingAnnouncement.fullPath: (context) =>
+      const SettingAnnouncement(),
+  AppRoute.settingOpinion.fullPath: (context) => const SettingOpinion(),
+  AppRoute.settingFAQ.fullPath: (context) => const SettingFAQ(),
+  AppRoute.settingNotification.fullPath: (context) =>
+      const SettingNotification(),
+  AppRoute.ledgerItemEdit.fullPath: (context) => const LedgerItemEdit(),
+  AppRoute.settingExcel.fullPath: (context) => const SettingExcel(),
+  AppRoute.lockRegister.fullPath: (context) => const LockRegister(),
+  AppRoute.lockAuth.fullPath: (context) => const LockAuth(),
+  AppRoute.locationView.fullPath: (context) => const LocationView()
 };
 
 MaterialPageRoute onGenerateRoute(RouteSettings settings) {
   // If you push the PassArguments route
-  if (settings.name == PhotoDetail.name) {
+  if (settings.name == AppRoute.photoDetail.fullPath) {
     final PhotoDetailArguments args =
         settings.arguments as PhotoDetailArguments;
 
@@ -72,7 +135,7 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
     });
   }
 
-  if (settings.name == LineGraph.name) {
+  if (settings.name == AppRoute.lineGraph.fullPath) {
     final LineGraphArguments args = settings.arguments as LineGraphArguments;
 
     return MaterialPageRoute(builder: (context) {
@@ -84,7 +147,7 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
     });
   }
 
-  if (settings.name == Members.name) {
+  if (settings.name == AppRoute.members.fullPath) {
     final MembersArguments args = settings.arguments as MembersArguments;
 
     return MaterialPageRoute(builder: (context) {
@@ -94,7 +157,7 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
     });
   }
 
-  if (settings.name == SettingCurrency.name) {
+  if (settings.name == AppRoute.settingCurrency.fullPath) {
     final SettingCurrencyArguments args =
         settings.arguments as SettingCurrencyArguments;
 
@@ -106,7 +169,7 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
     });
   }
 
-  if (settings.name == ProfilePeer.name) {
+  if (settings.name == AppRoute.profilePeer.fullPath) {
     final ProfilePeerArguments args =
         settings.arguments as ProfilePeerArguments;
 
@@ -117,7 +180,7 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
     });
   }
 
-  if (settings.name == LedgerView.name) {
+  if (settings.name == AppRoute.ledgerView.fullPath) {
     final LedgerViewArguments args = settings.arguments as LedgerViewArguments;
 
     return MaterialPageRoute(builder: (context) {
@@ -127,7 +190,7 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
     });
   }
 
-  if (settings.name == LedgerEdit.name) {
+  if (settings.name == AppRoute.ledgerEdit.fullPath) {
     if (settings.arguments == null) {
       return MaterialPageRoute(builder: (context) {
         return LedgerEdit();

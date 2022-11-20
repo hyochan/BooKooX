@@ -2,6 +2,7 @@ import 'package:wecount/mocks/home_statistic.mock.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/date_selector.dart' show DateSelector;
 import 'package:wecount/screens/home_statistic/functions.dart';
 
@@ -43,7 +44,8 @@ class HomeStatistic extends StatelessWidget {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () => navigation.push(context, 'ledger-item-edit'),
+              onPressed: () =>
+                  navigation.push(context, AppRoute.ledgerItemEdit.fullPath),
               child: Icon(
                 Icons.add,
                 color: Colors.white,

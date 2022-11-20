@@ -1,11 +1,10 @@
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/screens/profile_my.dart';
-import 'package:wecount/screens/setting.dart';
 
 import 'package:wecount/services/database.dart' show DatabaseService;
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/ledger_view.dart';
@@ -17,9 +16,7 @@ import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:provider/provider.dart' show Provider;
 
 class Ledgers extends StatefulWidget {
-  static const String name = '/ledgers';
-
-  Ledgers({Key? key}) : super(key: key);
+  const Ledgers({Key? key}) : super(key: key);
 
   @override
   _LedgersState createState() => _LedgersState();
@@ -31,11 +28,11 @@ class _LedgersState extends State<Ledgers> {
     User? user = FirebaseAuth.instance.currentUser!;
     var _localization = Localization.of(context)!;
     void onSettingPressed() {
-      navigation.push(context, 'setting');
+      navigation.push(context, AppRoute.setting.fullPath);
     }
 
     void onProfilePressed() {
-      navigation.push(context, 'profile-my');
+      navigation.push(context, AppRoute.profileMy.fullPath);
     }
 
     void onLedgerPressed(Ledger item) {
@@ -47,7 +44,9 @@ class _LedgersState extends State<Ledgers> {
     void onLedgerMorePressed(Ledger item) {
       navigation.navigate(
         context,
-        item.ownerId != user.uid ? 'ledger-view' : 'ledger-edit',
+        item.ownerId != user.uid
+            ? AppRoute.ledgerView.fullPath
+            : AppRoute.ledgerEdit.fullPath,
         arguments: item.ownerId != user.uid
             ? LedgerViewArguments(ledger: item)
             : LedgerEditArguments(ledger: item, mode: LedgerEditMode.UPDATE),
@@ -55,7 +54,7 @@ class _LedgersState extends State<Ledgers> {
     }
 
     void onAddLedgerPressed() {
-      navigation.push(context, '/ledger-edit');
+      navigation.push(context, AppRoute.ledgerEdit.fullPath);
     }
 
     return Scaffold(

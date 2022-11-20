@@ -15,8 +15,6 @@ class LedgerViewArguments {
 }
 
 class LedgerView extends StatefulWidget {
-  static const String name = '/ledger-view';
-
   final Ledger? ledger;
   const LedgerView({
     Key? key,

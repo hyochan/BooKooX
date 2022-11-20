@@ -19,7 +19,7 @@ import './utils/localization.dart';
 
 void main() async {
   await _initFire();
-  runApp(MyApp());
+  runApp(const MyApp());
   _fcmListeners();
 }
 
@@ -55,6 +55,7 @@ void _fcmListeners() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   static const supportedLocales = ['en', 'ko'];
 
   @override
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        initialRoute: AppRoute.authSwitch.fullPath,
         theme: Themes.light,
         darkTheme: Themes.dark,
         routes: routes,
@@ -98,7 +100,7 @@ class MyApp extends StatelessWidget {
           return supportedLocales.first;
         },
         title: appName,
-        home: AuthSwitch(),
+        // home: AuthSwitch(),
       ),
     );
   }

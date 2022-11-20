@@ -9,6 +9,7 @@ import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 enum PhotoOption { Camera, Gallery }
 
@@ -233,7 +234,7 @@ class _GalleryState extends State<Gallery> {
                               splashColor: Asset.Colors.paleGray,
                               onTap: () => navigation.navigate(
                                 context,
-                                'photo-detail',
+                                AppRoute.photoDetail.fullPath,
                                 arguments: PhotoDetailArguments(
                                   photo: photo,
                                   onPressDelete: () {

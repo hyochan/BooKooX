@@ -4,6 +4,7 @@ import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/ledger_item_edit.dart';
 import 'package:wecount/screens/ledgers.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/date_selector.dart' show DateSelector;
 import 'package:wecount/widgets/home_list_item.dart';
 import 'package:wecount/types/color.dart';
@@ -50,7 +51,8 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
-                  onPressed: () => navigation.push(context, 'ledgers'),
+                  onPressed: () =>
+                      navigation.push(context, AppRoute.ledgers.fullPath),
                   child: Icon(
                     Icons.book,
                     color: Colors.white,
@@ -62,8 +64,8 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed("/ledger-item-edit"),
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(AppRoute.ledgerItemEdit.fullPath),
                   child: Icon(
                     Icons.add,
                     color: Colors.white,

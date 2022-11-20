@@ -5,6 +5,7 @@ import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import '../utils/asset.dart' as Asset;
 import '../utils/localization.dart' show Localization;
@@ -41,7 +42,8 @@ class _HomeSettingState extends State<HomeSetting> {
           color: Asset.Colors.cloudyBlue,
           size: 24.0,
         ),
-        onTap: () => navigation.push(context, "setting_currency"),
+        onTap: () =>
+            navigation.push(context, AppRoute.settingCurrency.fullPath),
       ),
       TileItem(
         title: _localization.trans('EXPORT_EXCEL'),
@@ -51,7 +53,7 @@ class _HomeSettingState extends State<HomeSetting> {
           color: Asset.Colors.cloudyBlue,
           size: 24.0,
         ),
-        onTap: () => navigation.push(context, "setting-excel"),
+        onTap: () => navigation.push(context, AppRoute.settingExcel.fullPath),
       ),
     ];
 

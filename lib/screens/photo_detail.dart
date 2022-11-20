@@ -26,9 +26,7 @@ class PhotoDetailArguments {
 }
 
 class PhotoDetail extends StatefulWidget {
-  static const String name = '/photo-detail';
-
-  PhotoDetail({
+  const PhotoDetail({
     Key? key,
     this.photo,
     this.photoUrl,

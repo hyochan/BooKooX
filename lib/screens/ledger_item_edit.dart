@@ -5,8 +5,8 @@ import 'package:wecount/models/category.dart';
 import 'package:wecount/models/ledger_item.dart' show LedgerItem;
 import 'package:wecount/models/photo.dart' show Photo;
 import 'package:wecount/screens/category_add.dart';
-import 'package:wecount/screens/location_view.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/category_list.dart';
 import 'package:wecount/widgets/gallery.dart' show Gallery;
 import 'package:wecount/widgets/header.dart';
@@ -17,9 +17,7 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/logger.dart';
 
 class LedgerItemEdit extends StatefulWidget {
-  static const String name = '/ledger-item-edit';
-
-  LedgerItemEdit({
+  const LedgerItemEdit({
     Key? key,
     this.title = '',
   }) : super(key: key);
@@ -112,7 +110,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
       Map<String, dynamic>? result =
-          await (navigation.navigate(context, 'location-view'));
+          await (navigation.navigate(context, AppRoute.locationView.fullPath));
 
       if (result == null) return;
 

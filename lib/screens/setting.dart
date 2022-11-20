@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:wecount/screens/lock_auth.dart';
-import 'package:wecount/screens/lock_register.dart';
-import 'package:wecount/screens/setting_announcement.dart';
-import 'package:wecount/screens/setting_faq.dart';
-import 'package:wecount/screens/setting_notification.dart';
-import 'package:wecount/screens/setting_opinion.dart';
-import 'package:wecount/screens/tutorial.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/setting_list_item.dart'
     show ListItem, LogoutItem, SettingItem, SettingListItem;
@@ -19,7 +13,7 @@ import 'package:wecount/utils/localization.dart' show Localization;
 FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Setting extends StatefulWidget {
-  static const String name = '/setting';
+  const Setting({Key? key}) : super(key: key);
 
   @override
   _SettingState createState() => _SettingState();
@@ -62,7 +56,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockRegister(BuildContext context) async {
-    await navigation.push(context, "lock-register");
+    await navigation.push(context, AppRoute.lockRegister.fullPath);
 
     setState(() {
       readLockPinFromSF();
@@ -70,7 +64,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockAuth(BuildContext context) async {
-    final result = await navigation.push(context, "lock-auth");
+    final result = await navigation.push(context, AppRoute.lockAuth.fullPath);
 
     setState(() {
       if (_lockSwitch == true && result == false) {
@@ -91,7 +85,8 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('ANNOUNCEMENT'),
-        onPressed: () => navigation.push(context, "setting-announcement"),
+        onPressed: () =>
+            navigation.push(context, AppRoute.settingAnnouncement.fullPath),
       ),
       SettingItem(
         Icon(
@@ -100,7 +95,8 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('SHARE_OPINION'),
-        onPressed: () => navigation.push(context, "setting-opinion"),
+        onPressed: () =>
+            navigation.push(context, AppRoute.settingOpinion.fullPath),
       ),
       SettingItem(
         Icon(
@@ -109,7 +105,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('FAQ'),
-        onPressed: () => navigation.push(context, "setting-faq"),
+        onPressed: () => navigation.push(context, AppRoute.settingFAQ.fullPath),
       ),
       SettingItem(
         Icon(
@@ -118,7 +114,8 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('NOTIFICATION'),
-        onPressed: () => navigation.push(context, "setting-notification"),
+        onPressed: () =>
+            navigation.push(context, AppRoute.settingNotification.fullPath),
       ),
       SettingItem(
         Icon(
@@ -140,7 +137,7 @@ class _SettingState extends State<Setting> {
           _auth.signOut();
 
           /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-          navigation.push(context, 'tutorial', reset: true);
+          navigation.push(context, AppRoute.tutorial.fullPath, reset: true);
         },
       ),
     ];

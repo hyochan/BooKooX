@@ -26,9 +26,8 @@ double getPriceSum(List<LedgerItem> items) {
 
 /// main
 class LineGraph extends StatefulWidget {
-  static const String name = '/line-graph';
-
-  LineGraph({Key? key, this.title = '', this.year = '2019', this.price = 0.0})
+  const LineGraph(
+      {Key? key, this.title = '', this.year = '2019', this.price = 0.0})
       : super(key: key);
   final String title;
   final String year;

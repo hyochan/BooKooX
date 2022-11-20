@@ -6,7 +6,7 @@ import '../widgets/button.dart' show Button;
 import '../utils/asset.dart' as Asset;
 
 class SettingExcel extends StatelessWidget {
-  static const String name = '/setting-excel';
+  const SettingExcel({Key? key}) : super(key: key);
 
   void onExportExcel() {
     print('on send excel');

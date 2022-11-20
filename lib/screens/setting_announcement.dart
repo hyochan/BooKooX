@@ -32,7 +32,7 @@ class EntryItem extends StatelessWidget {
 }
 
 class SettingAnnouncement extends StatelessWidget {
-  static const String name = '/setting-announcement';
+  const SettingAnnouncement({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
