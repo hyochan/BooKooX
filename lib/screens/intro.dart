@@ -47,7 +47,7 @@ class Intro extends StatelessWidget {
         'deletedAt': null,
       });
       _googleSignIn.signOut();
-      Navigator.pushReplacementNamed(context, AppRoute.authSwitch.fullPath);
+      Navigator.pushReplacementNamed(context, AppRoute.authSwitch.path);
     }
   }
 
@@ -63,7 +63,7 @@ class Intro extends StatelessWidget {
 
     Widget renderSignInBtn() {
       return Button(
-        onPress: () => navigation.push(context, AppRoute.signIn.fullPath),
+        onPress: () => navigation.push(context, AppRoute.signIn.path),
         margin: EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
@@ -80,7 +80,7 @@ class Intro extends StatelessWidget {
       return Container(
         margin: EdgeInsets.symmetric(vertical: 2.0),
         child: TextButton(
-          onPressed: () => navigation.push(context, AppRoute.signUp.fullPath),
+          onPressed: () => navigation.push(context, AppRoute.signUp.path),
           child: RichText(
             text: TextSpan(
               children: <TextSpan>[

@@ -234,7 +234,7 @@ class _GalleryState extends State<Gallery> {
                               splashColor: Asset.Colors.paleGray,
                               onTap: () => navigation.navigate(
                                 context,
-                                AppRoute.photoDetail.fullPath,
+                                AppRoute.photoDetail.path,
                                 arguments: PhotoDetailArguments(
                                   photo: photo,
                                   onPressDelete: () {

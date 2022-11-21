@@ -45,7 +45,7 @@ class HomeStatistic extends StatelessWidget {
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
               onPressed: () =>
-                  navigation.push(context, AppRoute.ledgerItemEdit.fullPath),
+                  navigation.push(context, AppRoute.ledgerItemEdit.path),
               child: Icon(
                 Icons.add,
                 color: Colors.white,

@@ -23,7 +23,7 @@ import 'package:provider/provider.dart';
 class HomeCalendar extends StatefulWidget {
   HomeCalendar({
     Key? key,
-    this.title = '2017 Bookoo',
+    this.title = '2022 WeCount',
   }) : super(key: key);
   final String title;
 
@@ -52,7 +52,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
                   onPressed: () =>
-                      navigation.push(context, AppRoute.ledgers.fullPath),
+                      navigation.push(context, AppRoute.ledgers.path),
                   child: Icon(
                     Icons.book,
                     color: Colors.white,

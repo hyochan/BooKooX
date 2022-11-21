@@ -61,7 +61,7 @@ class _LedgerEditState extends State<LedgerEdit> {
   void _onPressCurrency() async {
     var _result = await navigation.navigate(
       context,
-      AppRoute.settingCurrency.fullPath,
+      AppRoute.settingCurrency.path,
       arguments: SettingCurrencyArguments(
         selectedCurrency: _ledger!.currency.currency,
       ),
@@ -304,7 +304,7 @@ class _LedgerEditState extends State<LedgerEdit> {
                       widget.ledger != null ? widget.ledger!.memberIds : [],
                   onSeeAllPressed: () => navigation.navigate(
                     context,
-                    AppRoute.members.fullPath,
+                    AppRoute.members.path,
                     arguments: MembersArguments(ledger: widget.ledger),
                   ),
                 ),

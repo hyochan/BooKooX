@@ -110,7 +110,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
       Map<String, dynamic>? result =
-          await (navigation.navigate(context, AppRoute.locationView.fullPath));
+          await (navigation.navigate(context, AppRoute.locationView.path));
 
       if (result == null) return;
 

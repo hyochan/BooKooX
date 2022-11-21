@@ -14,7 +14,6 @@ import 'package:wecount/utils/constatns.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/utils/themes.dart';
 
-import './navigations/auth_switch.dart' show AuthSwitch;
 import './utils/localization.dart';
 
 void main() async {
@@ -70,21 +69,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoute.authSwitch.fullPath,
         theme: Themes.light,
         darkTheme: Themes.dark,
-        routes: routes,
-        onGenerateRoute: onGenerateRoute,
-        supportedLocales: [
-          const Locale('en', 'US'),
-          const Locale('ko', 'KR'),
-        ],
-        localizationsDelegates: [
-          const LocalizationDelegate(supportedLocales: ['en', 'ko']),
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
         localeResolutionCallback:
             (Locale? locale, Iterable<Locale> supportedLocales) {
           if (locale == null) {
@@ -99,8 +85,20 @@ class MyApp extends StatelessWidget {
           }
           return supportedLocales.first;
         },
+        localizationsDelegates: [
+          const LocalizationDelegate(supportedLocales: ['en', 'ko']),
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en', 'US'),
+          const Locale('ko', 'KR'),
+        ],
+        initialRoute: AppRoute.authSwitch.fullPath,
+        routes: routes,
+        onGenerateRoute: onGenerateRoute,
         title: appName,
-        // home: AuthSwitch(),
       ),
     );
   }

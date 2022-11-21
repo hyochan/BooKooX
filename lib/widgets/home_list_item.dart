@@ -63,7 +63,7 @@ class HomeListItem extends StatelessWidget {
         _priceFormatted.toString().replaceAll('-', '');
 
     return TextButton(
-      onPressed: () => navigation.push(context, AppRoute.lineGraph.fullPath,
+      onPressed: () => navigation.push(context, AppRoute.lineGraph.path,
           arguments: LineGraphArguments(_label, '2022', ledgerItem!.price)),
       child: Container(
         height: 60,

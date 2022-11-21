@@ -96,7 +96,7 @@ final routes = {
   AppRoute.tutorial.fullPath: (context) => const Tutorial(),
   AppRoute.intro.fullPath: (context) => const Intro(),
   AppRoute.signIn.fullPath: (context) => const SignIn(),
-  AppRoute.signUp.fullPath: (context) => const SignIn(),
+  AppRoute.signUp.fullPath: (context) => const SignUp(),
   AppRoute.findPw.fullPath: (context) => const FindPw(),
   AppRoute.mainEmpty.fullPath: (context) => const MainEmpty(),
   AppRoute.homeTab.fullPath: (context) => const HomeTab(),
@@ -114,7 +114,8 @@ final routes = {
   AppRoute.settingExcel.fullPath: (context) => const SettingExcel(),
   AppRoute.lockRegister.fullPath: (context) => const LockRegister(),
   AppRoute.lockAuth.fullPath: (context) => const LockAuth(),
-  AppRoute.locationView.fullPath: (context) => const LocationView()
+  AppRoute.locationView.fullPath: (context) => const LocationView(),
+  AppRoute.ledgerEdit.fullPath: (context) => const LedgerEdit()
 };
 
 MaterialPageRoute onGenerateRoute(RouteSettings settings) {
@@ -191,21 +192,14 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
   }
 
   if (settings.name == AppRoute.ledgerEdit.fullPath) {
-    if (settings.arguments == null) {
-      return MaterialPageRoute(builder: (context) {
-        return LedgerEdit();
-      });
-    } else {
-      final LedgerEditArguments args =
-          settings.arguments as LedgerEditArguments;
+    final LedgerEditArguments args = settings.arguments as LedgerEditArguments;
 
-      return MaterialPageRoute(builder: (context) {
-        return LedgerEdit(
-          ledger: args.ledger,
-          mode: args.mode,
-        );
-      });
-    }
+    return MaterialPageRoute(builder: (context) {
+      return LedgerEdit(
+        ledger: args.ledger,
+        mode: args.mode,
+      );
+    });
   }
 
   throw 'Route not found: ${settings.name}';

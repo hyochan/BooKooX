@@ -23,13 +23,13 @@ class _Navigation {
     if (reset) {
       return Navigator.pushNamedAndRemoveUntil(
         context,
-        '$routeName',
-        ModalRoute.withName('$routeName'),
+        '/$routeName',
+        ModalRoute.withName('/$routeName'),
         arguments: arguments,
       );
     }
 
-    return Navigator.of(context).pushNamed('$routeName', arguments: arguments);
+    return Navigator.of(context).pushNamed('/$routeName', arguments: arguments);
   }
 
   Future navigate(
@@ -40,14 +40,14 @@ class _Navigation {
   }) {
     if (reset) {
       return Navigator.of(context).pushNamedAndRemoveUntil(
-        '$routeName',
+        '/$routeName',
         (route) =>
             route.isCurrent && route.settings.name == routeName ? false : true,
         arguments: arguments,
       );
     }
 
-    return Navigator.of(context).pushNamed('$routeName', arguments: arguments);
+    return Navigator.of(context).pushNamed('/$routeName', arguments: arguments);
   }
 
   void pop<T extends String>(
@@ -64,7 +64,7 @@ class _Navigation {
     return Navigator.popUntil(
       context,
       (route) {
-        return route.settings.name == '$routeName';
+        return route.settings.name == '/$routeName';
       },
     );
   }

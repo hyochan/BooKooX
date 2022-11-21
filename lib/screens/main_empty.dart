@@ -33,8 +33,7 @@ class _MainEmptyState extends State<MainEmpty> {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () =>
-                  navigation.push(context, AppRoute.setting.fullPath),
+              onPressed: () => navigation.push(context, AppRoute.setting.path),
               child: Icon(
                 Icons.settings,
                 color: Colors.white,

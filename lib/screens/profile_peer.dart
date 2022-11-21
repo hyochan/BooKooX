@@ -28,7 +28,7 @@ class _ProfilePeerState extends State<ProfilePeer> {
   void showImage(String photoUrl) async {
     await navigation.navigate(
       context,
-      AppRoute.photoDetail.fullPath,
+      AppRoute.photoDetail.path,
       arguments: PhotoDetailArguments(
         photoUrl: photoUrl,
       ),

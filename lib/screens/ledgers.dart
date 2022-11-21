@@ -28,11 +28,11 @@ class _LedgersState extends State<Ledgers> {
     User? user = FirebaseAuth.instance.currentUser!;
     var _localization = Localization.of(context)!;
     void onSettingPressed() {
-      navigation.push(context, AppRoute.setting.fullPath);
+      navigation.push(context, AppRoute.setting.path);
     }
 
     void onProfilePressed() {
-      navigation.push(context, AppRoute.profileMy.fullPath);
+      navigation.push(context, AppRoute.profileMy.path);
     }
 
     void onLedgerPressed(Ledger item) {
@@ -45,8 +45,8 @@ class _LedgersState extends State<Ledgers> {
       navigation.navigate(
         context,
         item.ownerId != user.uid
-            ? AppRoute.ledgerView.fullPath
-            : AppRoute.ledgerEdit.fullPath,
+            ? AppRoute.ledgerView.path
+            : AppRoute.ledgerEdit.path,
         arguments: item.ownerId != user.uid
             ? LedgerViewArguments(ledger: item)
             : LedgerEditArguments(ledger: item, mode: LedgerEditMode.UPDATE),
@@ -54,7 +54,7 @@ class _LedgersState extends State<Ledgers> {
     }
 
     void onAddLedgerPressed() {
-      navigation.push(context, AppRoute.ledgerEdit.fullPath);
+      navigation.push(context, AppRoute.ledgerEdit.path);
     }
 
     return Scaffold(

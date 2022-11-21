@@ -196,7 +196,7 @@ class _MembersState extends State<Members> {
                 }, item.user.membership!.index);
               },
               onPressMember: () {
-                navigation.navigate(context, AppRoute.profilePeer.fullPath,
+                navigation.navigate(context, AppRoute.profilePeer.path,
                     arguments: ProfilePeerArguments(
                       user: item.user,
                     ));

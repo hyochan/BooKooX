@@ -19,7 +19,7 @@ class _SplashState extends State<Splash> {
   Timer? _timer;
 
   Future<void> navigateRoute() async {
-    String initialRoute = AppRoute.tutorial.fullPath;
+    String initialRoute = AppRoute.tutorial.path;
 
     _navigationTimer = Timer(Duration(milliseconds: 1500), () {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,

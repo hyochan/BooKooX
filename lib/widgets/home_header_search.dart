@@ -4,30 +4,32 @@ import 'package:wecount/widgets/edit_text_search.dart' show EditTextSearch;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class HomeHeaderSearch extends StatefulWidget {
-  HomeHeaderSearch({
-    Key? key,
-    this.margin,
-    this.showSearchInput = false,
-    this.textEditingController,
-    this.actions,
-    this.onClose,
-    this.onSubmit,
-    this.color,
-  }) : super(key: key);
+  HomeHeaderSearch(
+      {Key? key,
+      this.margin,
+      this.showSearchInput = false,
+      this.textEditingController,
+      this.onClose,
+      this.onSubmit,
+      this.color,
+      required this.onPressAdd,
+      required this.onPressDelete})
+      : super(key: key);
   final EdgeInsets? margin;
   final bool showSearchInput;
   final TextEditingController? textEditingController;
-  final List<Widget>? actions;
   final Function? onClose;
   final Function? onSubmit;
   final Color? color;
+  final Function onPressAdd;
+  final Function onPressDelete;
 
   @override
   _HomeHeaderSearchState createState() => _HomeHeaderSearchState();
 }
 
 class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
-  bool _showClose = false;
+  var searchText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +38,9 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
       controller: widget.textEditingController,
       textInputAction: TextInputAction.search,
       onChanged: (text) {
-        if (text == '') {
-          setState(() {
-            _showClose = false;
-          });
-        } else {
-          setState(() {
-            _showClose = true;
-          });
-        }
+        setState(() {
+          searchText = text;
+        });
       },
       onSubmit: widget.onSubmit,
       background: Colors.transparent,
@@ -83,15 +79,12 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
         left: 32.0,
         top: 12.0,
       ),
-      _showClose == true
+      searchText != ""
           ? Positioned(
               child: Container(
                 child: RawMaterialButton(
                   onPressed: () {
-                    setState(() {
-                      widget.textEditingController!.clear();
-                      _showClose = false;
-                    });
+                    widget.onPressDelete();
                   },
                   shape: CircleBorder(),
                   child: Icon(Icons.close, color: Colors.white),
@@ -102,8 +95,19 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
               right: 0.0,
             )
           : Positioned(
-              child: Row(
-                children: widget.actions!,
+              child: Container(
+                width: 50.0,
+                child: RawMaterialButton(
+                  padding: EdgeInsets.all(0.0),
+                  shape: CircleBorder(),
+                  onPressed: () {
+                    widget.onPressAdd();
+                  },
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                ),
               ),
               right: 0.0,
             ),

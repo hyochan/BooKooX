@@ -56,7 +56,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockRegister(BuildContext context) async {
-    await navigation.push(context, AppRoute.lockRegister.fullPath);
+    await navigation.push(context, AppRoute.lockRegister.path);
 
     setState(() {
       readLockPinFromSF();
@@ -64,7 +64,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockAuth(BuildContext context) async {
-    final result = await navigation.push(context, AppRoute.lockAuth.fullPath);
+    final result = await navigation.push(context, AppRoute.lockAuth.path);
 
     setState(() {
       if (_lockSwitch == true && result == false) {
@@ -86,7 +86,7 @@ class _SettingState extends State<Setting> {
         ),
         _localization.trans('ANNOUNCEMENT'),
         onPressed: () =>
-            navigation.push(context, AppRoute.settingAnnouncement.fullPath),
+            navigation.push(context, AppRoute.settingAnnouncement.path),
       ),
       SettingItem(
         Icon(
@@ -95,8 +95,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('SHARE_OPINION'),
-        onPressed: () =>
-            navigation.push(context, AppRoute.settingOpinion.fullPath),
+        onPressed: () => navigation.push(context, AppRoute.settingOpinion.path),
       ),
       SettingItem(
         Icon(
@@ -105,7 +104,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('FAQ'),
-        onPressed: () => navigation.push(context, AppRoute.settingFAQ.fullPath),
+        onPressed: () => navigation.push(context, AppRoute.settingFAQ.path),
       ),
       SettingItem(
         Icon(
@@ -115,7 +114,7 @@ class _SettingState extends State<Setting> {
         ),
         _localization.trans('NOTIFICATION'),
         onPressed: () =>
-            navigation.push(context, AppRoute.settingNotification.fullPath),
+            navigation.push(context, AppRoute.settingNotification.path),
       ),
       SettingItem(
         Icon(
@@ -137,7 +136,7 @@ class _SettingState extends State<Setting> {
           _auth.signOut();
 
           /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-          navigation.push(context, AppRoute.tutorial.fullPath, reset: true);
+          navigation.push(context, AppRoute.tutorial.path, reset: true);
         },
       ),
     ];

@@ -68,11 +68,11 @@ class _SignInState extends State<SignIn> {
         var ledgers = snapshots.docs;
 
         if (ledgers.length == 0) {
-          navigation.push(context, AppRoute.mainEmpty.fullPath, reset: true);
+          navigation.push(context, AppRoute.mainEmpty.path, reset: true);
           return;
         }
 
-        navigation.push(context, AppRoute.homeTab.fullPath, reset: true);
+        navigation.push(context, AppRoute.homeTab.path, reset: true);
         return;
       }
     } catch (err) {
@@ -244,7 +244,7 @@ class _SignInState extends State<SignIn> {
 
     Widget renderFindPw() {
       return TextButton(
-        onPressed: () => navigation.push(context, AppRoute.findPw.fullPath),
+        onPressed: () => navigation.push(context, AppRoute.findPw.path),
         child: RichText(
           text: TextSpan(
             text: '${_localization!.trans('DID_YOU_FORGOT_PASSWORD')}?',

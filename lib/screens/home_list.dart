@@ -295,9 +295,6 @@ class _HomeListState extends State<HomeList> {
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
 
-    Function onAddLedgerList =
-        () => navigation.push(context, AppRoute.ledgerItemEdit.fullPath);
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -306,23 +303,12 @@ class _HomeListState extends State<HomeList> {
         titleSpacing: 0.0,
         backgroundColor: Asset.Colors.getColor(color),
         title: HomeHeaderSearch(
+          onPressAdd: () =>
+              navigation.push(context, AppRoute.ledgerItemEdit.path),
+          onPressDelete: () => textEditingController.clear(),
           color: Asset.Colors.getColor(color),
           margin: EdgeInsets.only(left: 20.0),
           textEditingController: textEditingController,
-          actions: <Widget>[
-            Container(
-              width: 50.0,
-              child: RawMaterialButton(
-                padding: EdgeInsets.all(0.0),
-                shape: CircleBorder(),
-                onPressed: onAddLedgerList as void Function()?,
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
         ),
       ),
       body: SafeArea(
