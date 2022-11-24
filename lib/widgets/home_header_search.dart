@@ -4,30 +4,32 @@ import 'package:wecount/widgets/edit_text_search.dart' show EditTextSearch;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class HomeHeaderSearch extends StatefulWidget {
-  HomeHeaderSearch({
-    Key? key,
-    this.margin,
-    this.showSearchInput = false,
-    this.textEditingController,
-    this.actions,
-    this.onClose,
-    this.onSubmit,
-    this.color,
-  }) : super(key: key);
+  HomeHeaderSearch(
+      {Key? key,
+      this.margin,
+      this.showSearchInput = false,
+      this.textEditingController,
+      this.onClose,
+      this.onSubmit,
+      this.color,
+      required this.onPressAdd,
+      required this.onPressDelete})
+      : super(key: key);
   final EdgeInsets? margin;
   final bool showSearchInput;
   final TextEditingController? textEditingController;
-  final List<Widget>? actions;
   final Function? onClose;
   final Function? onSubmit;
   final Color? color;
+  final Function onPressAdd;
+  final Function onPressDelete;
 
   @override
   _HomeHeaderSearchState createState() => _HomeHeaderSearchState();
 }
 
 class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
-  bool _showClose = false;
+  var searchText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +38,9 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
       controller: widget.textEditingController,
       textInputAction: TextInputAction.search,
       onChanged: (text) {
-        if (text == '') {
-          setState(() {
-            _showClose = false;
-          });
-        } else {
-          setState(() {
-            _showClose = true;
-          });
-        }
+        setState(() {
+          searchText = text;
+        });
       },
       onSubmit: widget.onSubmit,
       background: Colors.transparent,
@@ -69,51 +65,52 @@ class _HomeHeaderSearchState extends State<HomeHeaderSearch> {
           fontSize: 16.0),
       height: 40.0,
     );
-    return AppBar(
-      elevation: 0.0,
-      titleSpacing: 0.0,
-      backgroundColor: widget.color,
-      actions: widget.actions,
-      title: Container(
-        margin: widget.margin,
-        child: Stack(
-          children: <Widget>[
-            textInput,
-            Positioned(
-              child: Container(
-                child: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                width: 16.0,
-                height: 16.0,
-              ),
-              left: 12.0,
-              top: 12.0,
-            ),
-            _showClose == true
-                ? Positioned(
-                    child: Container(
-                      child: RawMaterialButton(
-                        onPressed: () {
-                          setState(() {
-                            widget.textEditingController!.clear();
-                            _showClose = false;
-                          });
-                        },
-                        shape: CircleBorder(),
-                        child: Icon(Icons.close, color: Colors.white),
-                        padding: EdgeInsets.all(0.0),
-                      ),
-                      width: 40.0,
-                      height: 40.0,
-                    ),
-                    right: 8.0,
-                  )
-                : Container(height: 40.0),
-          ],
+    return Stack(children: [
+      Container(margin: EdgeInsets.only(left: 20, right: 50), child: textInput),
+      Positioned(
+        child: Container(
+          child: Icon(
+            Icons.search,
+            color: Colors.white,
+          ),
+          width: 16.0,
+          height: 16.0,
         ),
+        left: 32.0,
+        top: 12.0,
       ),
-    );
+      searchText != ""
+          ? Positioned(
+              child: Container(
+                child: RawMaterialButton(
+                  onPressed: () {
+                    widget.onPressDelete();
+                  },
+                  shape: CircleBorder(),
+                  child: Icon(Icons.close, color: Colors.white),
+                  padding: EdgeInsets.all(0.0),
+                ),
+                width: 50.0,
+              ),
+              right: 0.0,
+            )
+          : Positioned(
+              child: Container(
+                width: 50.0,
+                child: RawMaterialButton(
+                  padding: EdgeInsets.all(0.0),
+                  shape: CircleBorder(),
+                  onPressed: () {
+                    widget.onPressAdd();
+                  },
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              right: 0.0,
+            ),
+    ]);
   }
 }

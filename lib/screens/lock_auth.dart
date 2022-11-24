@@ -11,7 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LockAuth extends StatefulWidget {
-  static const String name = '/lock_auth';
+  const LockAuth({Key? key}) : super(key: key);
 
   @override
   _LockAuthState createState() => _LockAuthState();
@@ -129,7 +129,7 @@ class _LockAuthState extends State<LockAuth> {
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         context: context,
         iconColor: Theme.of(context).iconTheme.color,

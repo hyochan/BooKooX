@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Terms extends StatefulWidget {
-  static const String name = '/terms';
-
-  Terms({Key? key}) : super(key: key);
+  const Terms({Key? key}) : super(key: key);
 
   @override
   _TermsState createState() => _TermsState();

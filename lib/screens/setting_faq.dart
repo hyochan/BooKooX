@@ -32,7 +32,7 @@ class EntryItem extends StatelessWidget {
 }
 
 class SettingFAQ extends StatelessWidget {
-  static const String name = '/setting_faq';
+  const SettingFAQ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class SettingFAQ extends StatelessWidget {
       ),
     ];
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,

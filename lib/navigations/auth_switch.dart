@@ -10,7 +10,7 @@ import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/localization.dart';
 
 class AuthSwitch extends StatelessWidget {
-  static const String name = '/auth_switch';
+  const AuthSwitch({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

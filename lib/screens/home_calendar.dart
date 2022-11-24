@@ -3,6 +3,8 @@ import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/ledger_item_edit.dart';
 import 'package:wecount/screens/ledgers.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/date_selector.dart' show DateSelector;
 import 'package:wecount/widgets/home_list_item.dart';
 import 'package:wecount/types/color.dart';
@@ -10,7 +12,6 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/widgets/home_header.dart' show HomeHeaderExpanded;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
@@ -22,7 +23,7 @@ import 'package:provider/provider.dart';
 class HomeCalendar extends StatefulWidget {
   HomeCalendar({
     Key? key,
-    this.title = '2017 Bookoo',
+    this.title = '2022 WeCount',
   }) : super(key: key);
   final String title;
 
@@ -38,7 +39,7 @@ class _HomeCalendarState extends State<HomeCalendar> {
         : ColorType.DUSK;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: CustomScrollView(
         slivers: <Widget>[
           HomeHeaderExpanded(
@@ -50,8 +51,8 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
-                  onPressed: () => General.instance
-                      .navigateScreenNamed(context, Ledgers.name),
+                  onPressed: () =>
+                      navigation.push(context, AppRoute.ledgers.path),
                   child: Icon(
                     Icons.book,
                     color: Colors.white,
@@ -63,8 +64,8 @@ class _HomeCalendarState extends State<HomeCalendar> {
                 child: RawMaterialButton(
                   padding: EdgeInsets.all(0.0),
                   shape: CircleBorder(),
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed(LedgerItemEdit.name),
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(AppRoute.ledgerItemEdit.fullPath),
                   child: Icon(
                     Icons.add,
                     color: Colors.white,

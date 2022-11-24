@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/edit_text.dart' show EditText;
-import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/validator.dart' show Validator;
@@ -10,9 +10,7 @@ import 'package:wecount/utils/validator.dart' show Validator;
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class FindPw extends StatefulWidget {
-  static const String name = '/find_pw';
-
-  FindPw({Key? key}) : super(key: key);
+  const FindPw({Key? key}) : super(key: key);
 
   @override
   _FindPwState createState() => _FindPwState();
@@ -38,7 +36,7 @@ class _FindPwState extends State<FindPw> {
 
     try {
       await _auth.sendPasswordResetEmail(email: _email);
-      General.instance.showSingleDialog(
+      navigation.showSingleDialog(
         context,
         title: Text(_localization!.trans('SUCCESS')!),
         content: Text(_localization!.trans('PASSWORD_RESET_LINK_SENT')!),

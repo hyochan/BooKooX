@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wecount/screens/tutorial.dart';
 
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 class Splash extends StatefulWidget {
-  static const String name = '/splash';
-
-  Splash({Key? key}) : super(key: key);
+  const Splash({Key? key}) : super(key: key);
 
   @override
   _SplashState createState() => _SplashState();
@@ -21,12 +19,12 @@ class _SplashState extends State<Splash> {
   Timer? _timer;
 
   Future<void> navigateRoute() async {
-    String initialRoute = Tutorial.name;
+    String initialRoute = AppRoute.tutorial.path;
 
     _navigationTimer = Timer(Duration(milliseconds: 1500), () {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
           overlays: SystemUiOverlay.values);
-      General.instance.navigateScreenNamed(context, initialRoute, reset: true);
+      navigation.push(context, initialRoute, reset: true);
     });
   }
 

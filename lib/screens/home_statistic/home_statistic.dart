@@ -1,6 +1,8 @@
 import 'package:wecount/mocks/home_statistic.mock.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/providers/current_ledger.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/date_selector.dart' show DateSelector;
 import 'package:wecount/screens/home_statistic/functions.dart';
 
@@ -10,7 +12,6 @@ import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/widgets/home_header.dart' show renderHomeAppBar;
 import 'package:pie_chart/pie_chart.dart' show PieChart;
 // import 'package:month_picker_dialog/month_picker_dialog.dart';
@@ -43,8 +44,8 @@ class HomeStatistic extends StatelessWidget {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () => General.instance
-                  .navigateScreenNamed(context, '/ledger_item_edit'),
+              onPressed: () =>
+                  navigation.push(context, AppRoute.ledgerItemEdit.path),
               child: Icon(
                 Icons.add,
                 color: Colors.white,
@@ -53,7 +54,7 @@ class HomeStatistic extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Container(
           child: Center(

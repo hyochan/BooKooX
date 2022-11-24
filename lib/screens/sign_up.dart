@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:wecount/utils/navigation.dart';
 
-import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/widgets/edit_text.dart' show EditText;
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart' show Localization;
@@ -13,9 +13,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class SignUp extends StatefulWidget {
-  static const String name = '/sign_up';
-
-  SignUp({Key? key}) : super(key: key);
+  const SignUp({Key? key}) : super(key: key);
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -100,7 +98,7 @@ class _SignUpState extends State<SignUp> {
 
         user.updateDisplayName(_displayName);
 
-        return General.instance.showSingleDialog(
+        return navigation.showSingleDialog(
           context,
           title: Text(
             _localization!.trans('SIGN_UP_SUCCESS_TITLE')!,
@@ -121,7 +119,7 @@ class _SignUpState extends State<SignUp> {
 
       throw Error();
     } catch (err) {
-      General.instance.showSingleDialog(
+      navigation.showSingleDialog(
         context,
         title: Text(
           _localization!.trans('SIGN_UP_ERROR_TITLE')!,

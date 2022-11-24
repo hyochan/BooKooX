@@ -1,17 +1,24 @@
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/edit_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/screens/profile_peer.dart';
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/widgets/member_list_item.dart';
 import 'package:wecount/widgets/header.dart';
 import 'package:wecount/models/user.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
 
+class MembersArguments {
+  final Ledger? ledger;
+
+  MembersArguments({this.ledger});
+}
+
 class Members extends StatefulWidget {
   final Ledger? ledger;
-  Members({Key? key, this.ledger}) : super(key: key);
+  const Members({Key? key, this.ledger}) : super(key: key);
 
   @override
   _MembersState createState() => _MembersState();
@@ -110,7 +117,7 @@ class _MembersState extends State<Members> {
     var _localization = Localization.of(context)!;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,
@@ -181,7 +188,7 @@ class _MembersState extends State<Members> {
             return MemberListItem(
               user: item.user,
               onPressAuth: () {
-                General.instance.showMembershipDialog(context, (int? val) {
+                navigation.showMembershipDialog(context, (int? val) {
                   setState(() {
                     item.user.changeMemberShip(val!);
                   });
@@ -189,12 +196,9 @@ class _MembersState extends State<Members> {
                 }, item.user.membership!.index);
               },
               onPressMember: () {
-                General.instance.navigateScreen(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => ProfilePeer(
-                        user: item.user,
-                      ),
+                navigation.navigate(context, AppRoute.profilePeer.path,
+                    arguments: ProfilePeerArguments(
+                      user: item.user,
                     ));
               },
             );

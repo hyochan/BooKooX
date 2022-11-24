@@ -8,6 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class LocationView extends StatefulWidget {
+  const LocationView({Key? key}) : super(key: key);
+
   @override
   _LocationViewState createState() => _LocationViewState();
 }
@@ -110,7 +112,7 @@ class _LocationViewState extends State<LocationView> {
     return _center == null
         ? const LoadingIndicator()
         : Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             appBar: renderHeaderClose(
               context: context,
               brightness: Theme.of(context).brightness,

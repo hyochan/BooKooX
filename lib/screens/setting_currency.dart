@@ -6,10 +6,15 @@ import '../widgets/header.dart' show renderHeaderBack;
 import '../widgets/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
 
-class SettingCurrency extends StatefulWidget {
-  static const String name = '/setting_currency';
+class SettingCurrencyArguments {
+  final String title;
+  final String? selectedCurrency;
 
-  SettingCurrency({
+  SettingCurrencyArguments({this.title = '', this.selectedCurrency});
+}
+
+class SettingCurrency extends StatefulWidget {
+  const SettingCurrency({
     Key? key,
     this.title = '',
     this.selectedCurrency = '',
@@ -46,7 +51,7 @@ class _SettingCurrencyState extends State<SettingCurrency> {
         .toList();
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,

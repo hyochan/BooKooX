@@ -25,6 +25,7 @@ import 'package:wecount/screens/sign_up.dart' show SignUp;
 import 'package:wecount/screens/find_pw.dart' show FindPw;
 import 'package:wecount/screens/terms.dart' show Terms;
 import 'package:provider/provider.dart';
+import 'package:wecount/utils/routes.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -44,24 +45,25 @@ class TestUtils {
         home: child,
         navigatorObservers: <NavigatorObserver>[observer],
         routes: {
-          Splash.name: (BuildContext context) => Splash(),
-          Tutorial.name: (BuildContext context) => Tutorial(),
-          Intro.name: (BuildContext context) => Intro(),
-          SignIn.name: (BuildContext context) => SignIn(),
-          SignUp.name: (BuildContext context) => SignUp(),
-          FindPw.name: (BuildContext context) => FindPw(),
-          MainEmpty.name: (BuildContext context) => MainEmpty(),
-          HomeTab.name: (BuildContext context) => HomeTab(),
-          Ledgers.name: (BuildContext context) => Ledgers(),
-          LedgerEdit.name: (BuildContext context) => LedgerEdit(),
-          Terms.name: (BuildContext context) => Terms(),
-          ProfileMy.name: (BuildContext context) => ProfileMy(),
-          Setting.name: (BuildContext context) => Setting(),
-          SettingAnnouncement.name: (BuildContext context) =>
+          AppRoute.splash.fullPath: (BuildContext context) => Splash(),
+          AppRoute.tutorial.fullPath: (BuildContext context) => Tutorial(),
+          AppRoute.intro.fullPath: (BuildContext context) => Intro(),
+          AppRoute.signIn.fullPath: (BuildContext context) => SignIn(),
+          AppRoute.signUp.fullPath: (BuildContext context) => SignUp(),
+          AppRoute.findPw.fullPath: (BuildContext context) => FindPw(),
+          AppRoute.mainEmpty.fullPath: (BuildContext context) => MainEmpty(),
+          AppRoute.homeTab.fullPath: (BuildContext context) => HomeTab(),
+          AppRoute.ledgers.fullPath: (BuildContext context) => Ledgers(),
+          AppRoute.ledgerEdit.fullPath: (BuildContext context) => LedgerEdit(),
+          AppRoute.terms.fullPath: (BuildContext context) => Terms(),
+          AppRoute.profileMy.fullPath: (BuildContext context) => ProfileMy(),
+          AppRoute.setting.fullPath: (BuildContext context) => Setting(),
+          AppRoute.settingAnnouncement.fullPath: (BuildContext context) =>
               SettingAnnouncement(),
-          SettingOpinion.name: (BuildContext context) => SettingOpinion(),
-          SettingFAQ.name: (BuildContext context) => SettingFAQ(),
-          SettingNotification.name: (BuildContext context) =>
+          AppRoute.settingOpinion.fullPath: (BuildContext context) =>
+              SettingOpinion(),
+          AppRoute.settingFAQ.fullPath: (BuildContext context) => SettingFAQ(),
+          AppRoute.settingNotification.fullPath: (BuildContext context) =>
               SettingNotification(),
         },
       ),

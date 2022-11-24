@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:wecount/screens/ledger_edit.dart';
-import 'package:wecount/screens/setting.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 
 import '../widgets/home_header.dart' show renderHomeAppBar;
 
 class MainEmpty extends StatefulWidget {
-  static const String name = '/main_empty';
-
-  MainEmpty({
+  const MainEmpty({
     Key? key,
     this.title = '',
   }) : super(key: key);
@@ -26,7 +23,7 @@ class _MainEmptyState extends State<MainEmpty> {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHomeAppBar(
         context: context,
         title: '',
@@ -36,8 +33,7 @@ class _MainEmptyState extends State<MainEmpty> {
             child: RawMaterialButton(
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
-              onPressed: () =>
-                  General.instance.navigateScreenNamed(context, Setting.name),
+              onPressed: () => navigation.push(context, AppRoute.setting.path),
               child: Icon(
                 Icons.settings,
                 color: Colors.white,
@@ -47,7 +43,7 @@ class _MainEmptyState extends State<MainEmpty> {
         ],
       ),
       body: Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -78,15 +74,18 @@ class _MainEmptyState extends State<MainEmpty> {
               backgroundColor: Colors.transparent,
               width: 160,
               height: 56,
-              shapeBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(32),
-                side: BorderSide(
-                  color: Theme.of(context).textTheme.displayMedium!.color!,
-                  width: 1,
-                  style: BorderStyle.solid,
+              shapeBorder: MaterialStatePropertyAll<OutlinedBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32),
+                  side: BorderSide(
+                    color: Theme.of(context).textTheme.displayMedium!.color!,
+                    width: 1,
+                    style: BorderStyle.solid,
+                  ),
                 ),
               ),
-              onPress: () => Navigator.of(context).pushNamed(LedgerEdit.name),
+              onPress: () =>
+                  Navigator.of(context).pushNamed(AppRoute.ledgerEdit.fullPath),
               text: _localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,

@@ -164,9 +164,11 @@ class DBHelper {
     return db.delete('categories', where: "iconId = ?", whereArgs: [iconId]);
   }
 
-  bool isExistFiled(DocumentSnapshot doc, String filedName) {
-    Map data = doc.data() as Map;
-
-    return data[filedName] != null;
+  bool isExistFiled(doc, String filedName) {
+    if (doc.data() != null) {
+      Map data = doc.data();
+      return data[filedName] != null;
+    }
+    return false;
   }
 }

@@ -8,9 +8,13 @@ import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/types/color.dart';
 
-class LedgerView extends StatefulWidget {
-  static const String name = '/ledger_view';
+class LedgerViewArguments {
+  final Ledger? ledger;
 
+  LedgerViewArguments({this.ledger});
+}
+
+class LedgerView extends StatefulWidget {
   final Ledger? ledger;
   const LedgerView({
     Key? key,

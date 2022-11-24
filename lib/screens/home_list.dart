@@ -2,13 +2,14 @@ import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/models/user.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/home_header_search.dart' show HomeHeaderSearch;
 import 'package:wecount/models/category.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/widgets/home_list_item.dart';
 
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:intl/intl.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
@@ -294,32 +295,20 @@ class _HomeListState extends State<HomeList> {
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
         : ColorType.DUSK;
 
-    Function onAddLedgerList = () =>
-        General.instance.navigateScreenNamed(context, '/ledger_item_edit');
-
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        toolbarHeight: 100,
         automaticallyImplyLeading: false,
         titleSpacing: 0.0,
+        backgroundColor: Asset.Colors.getColor(color),
         title: HomeHeaderSearch(
+          onPressAdd: () =>
+              navigation.push(context, AppRoute.ledgerItemEdit.path),
+          onPressDelete: () => textEditingController.clear(),
           color: Asset.Colors.getColor(color),
           margin: EdgeInsets.only(left: 20.0),
           textEditingController: textEditingController,
-          actions: <Widget>[
-            Container(
-              width: 56.0,
-              child: RawMaterialButton(
-                padding: EdgeInsets.all(0.0),
-                shape: CircleBorder(),
-                onPressed: onAddLedgerList as void Function()?,
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
         ),
       ),
       body: SafeArea(

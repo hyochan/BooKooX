@@ -6,7 +6,7 @@ import '../widgets/button.dart' show Button;
 import '../utils/asset.dart' as Asset;
 
 class SettingExcel extends StatelessWidget {
-  static const String name = '/setting_excel';
+  const SettingExcel({Key? key}) : super(key: key);
 
   void onExportExcel() {
     print('on send excel');
@@ -16,7 +16,7 @@ class SettingExcel extends StatelessWidget {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,

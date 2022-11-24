@@ -5,21 +5,19 @@ import 'package:wecount/models/category.dart';
 import 'package:wecount/models/ledger_item.dart' show LedgerItem;
 import 'package:wecount/models/photo.dart' show Photo;
 import 'package:wecount/screens/category_add.dart';
-import 'package:wecount/screens/location_view.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/category_list.dart';
 import 'package:wecount/widgets/gallery.dart' show Gallery;
 import 'package:wecount/widgets/header.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/db_helper.dart';
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/logger.dart';
 
 class LedgerItemEdit extends StatefulWidget {
-  static const String name = '/ledger_item_edit';
-
-  LedgerItemEdit({
+  const LedgerItemEdit({
     Key? key,
     this.title = '',
   }) : super(key: key);
@@ -111,12 +109,8 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
     void onLocationPressed({
       CategoryType categoryType = CategoryType.CONSUME,
     }) async {
-      Map<String, dynamic>? result = await (General.instance.navigateScreen(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => LocationView(),
-        ),
-      ));
+      Map<String, dynamic>? result =
+          await (navigation.navigate(context, AppRoute.locationView.path));
 
       if (result == null) return;
 
@@ -636,7 +630,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -655,7 +649,7 @@ class _LedgerItemEditState extends State<LedgerItemEdit>
                   insets: EdgeInsets.symmetric(horizontal: 8),
                   // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
                 ),
-                indicatorColor: Theme.of(context).backgroundColor,
+                indicatorColor: Theme.of(context).colorScheme.background,
                 labelColor: Theme.of(context).textTheme.displayLarge!.color,
                 labelStyle: TextStyle(
                   fontSize: 20,

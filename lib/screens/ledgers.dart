@@ -1,10 +1,10 @@
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/screens/profile_my.dart';
-import 'package:wecount/screens/setting.dart';
 
 import 'package:wecount/services/database.dart' show DatabaseService;
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/ledger_view.dart';
@@ -13,13 +13,10 @@ import 'package:wecount/widgets/ledger_list_item.dart' show LedgerListItem;
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
-import 'package:wecount/utils/general.dart';
 import 'package:provider/provider.dart' show Provider;
 
 class Ledgers extends StatefulWidget {
-  static const String name = '/ledgers';
-
-  Ledgers({Key? key}) : super(key: key);
+  const Ledgers({Key? key}) : super(key: key);
 
   @override
   _LedgersState createState() => _LedgersState();
@@ -31,11 +28,11 @@ class _LedgersState extends State<Ledgers> {
     User? user = FirebaseAuth.instance.currentUser!;
     var _localization = Localization.of(context)!;
     void onSettingPressed() {
-      General.instance.navigateScreenNamed(context, Setting.name);
+      navigation.push(context, AppRoute.setting.path);
     }
 
     void onProfilePressed() {
-      General.instance.navigateScreenNamed(context, ProfileMy.name);
+      navigation.push(context, AppRoute.profileMy.path);
     }
 
     void onLedgerPressed(Ledger item) {
@@ -45,22 +42,23 @@ class _LedgersState extends State<Ledgers> {
     }
 
     void onLedgerMorePressed(Ledger item) {
-      General.instance.navigateScreen(
+      navigation.navigate(
         context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => item.ownerId != user.uid
-              ? LedgerView(ledger: item)
-              : LedgerEdit(ledger: item, mode: LedgerEditMode.UPDATE),
-        ),
+        item.ownerId != user.uid
+            ? AppRoute.ledgerView.path
+            : AppRoute.ledgerEdit.path,
+        arguments: item.ownerId != user.uid
+            ? LedgerViewArguments(ledger: item)
+            : LedgerEditArguments(ledger: item, mode: LedgerEditMode.UPDATE),
       );
     }
 
     void onAddLedgerPressed() {
-      General.instance.navigateScreenNamed(context, '/ledger_edit');
+      navigation.push(context, AppRoute.ledgerEdit.path);
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,

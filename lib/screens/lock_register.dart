@@ -7,7 +7,7 @@ import 'package:wecount/widgets/pin_keyboard.dart' show PinKeyboard;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class LockRegister extends StatefulWidget {
-  static const String name = '/lock_register';
+  const LockRegister({Key? key}) : super(key: key);
 
   @override
   _LockRegisterState createState() => _LockRegisterState();
@@ -81,7 +81,7 @@ class _LockRegisterState extends State<LockRegister> {
     _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         context: context,
         iconColor: Theme.of(context).textTheme.displayLarge!.color,

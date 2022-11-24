@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wecount/navigations/home_tab.dart';
-import 'package:wecount/screens/find_pw.dart';
-import 'package:wecount/screens/main_empty.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/widgets/edit_text.dart' show EditText;
-import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/validator.dart' show Validator;
 
@@ -15,9 +13,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class SignIn extends StatefulWidget {
-  static const String name = '/sign_in';
-
-  SignIn({Key? key}) : super(key: key);
+  const SignIn({Key? key}) : super(key: key);
 
   @override
   _SignInState createState() => _SignInState();
@@ -72,13 +68,11 @@ class _SignInState extends State<SignIn> {
         var ledgers = snapshots.docs;
 
         if (ledgers.length == 0) {
-          General.instance
-              .navigateScreenNamed(context, MainEmpty.name, reset: true);
+          navigation.push(context, AppRoute.mainEmpty.path, reset: true);
           return;
         }
 
-        General.instance
-            .navigateScreenNamed(context, HomeTab.name, reset: true);
+        navigation.push(context, AppRoute.homeTab.path, reset: true);
         return;
       }
     } catch (err) {
@@ -105,7 +99,7 @@ class _SignInState extends State<SignIn> {
     }
 
     if (auth.user != null && !auth.user!.emailVerified) {
-      General.instance.showSingleDialog(
+      navigation.showSingleDialog(
         context,
         title: Text(_localization!.trans('ERROR')!),
         content: Column(
@@ -250,8 +244,7 @@ class _SignInState extends State<SignIn> {
 
     Widget renderFindPw() {
       return TextButton(
-        onPressed: () =>
-            General.instance.navigateScreenNamed(context, FindPw.name),
+        onPressed: () => navigation.push(context, AppRoute.findPw.path),
         child: RichText(
           text: TextSpan(
             text: '${_localization!.trans('DID_YOU_FORGOT_PASSWORD')}?',
@@ -274,10 +267,10 @@ class _SignInState extends State<SignIn> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         iconTheme: IconThemeData(
           color: Theme.of(context).textTheme.displayLarge!.color,
         ),

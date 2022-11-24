@@ -1,11 +1,10 @@
 import 'package:wecount/providers/current_ledger.dart';
-import 'package:wecount/screens/setting_currency.dart';
-import 'package:wecount/screens/setting_excel.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
-import '../utils/general.dart' show General;
 import '../utils/asset.dart' as Asset;
 import '../utils/localization.dart' show Localization;
 
@@ -41,8 +40,7 @@ class _HomeSettingState extends State<HomeSetting> {
           color: Asset.Colors.cloudyBlue,
           size: 24.0,
         ),
-        onTap: () =>
-            General.instance.navigateScreenNamed(context, SettingCurrency.name),
+        onTap: () => navigation.push(context, AppRoute.settingCurrency.path),
       ),
       TileItem(
         title: _localization.trans('EXPORT_EXCEL'),
@@ -52,8 +50,7 @@ class _HomeSettingState extends State<HomeSetting> {
           color: Asset.Colors.cloudyBlue,
           size: 24.0,
         ),
-        onTap: () =>
-            General.instance.navigateScreenNamed(context, SettingExcel.name),
+        onTap: () => navigation.push(context, AppRoute.settingExcel.path),
       ),
     ];
 
@@ -64,7 +61,7 @@ class _HomeSettingState extends State<HomeSetting> {
         color: Asset.Colors.getColor(color),
         fontColor: Colors.white,
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Column(
           children: <Widget>[

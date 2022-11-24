@@ -6,7 +6,7 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/asset.dart' as Asset;
 
 class SettingOpinion extends StatelessWidget {
-  static const String name = '/setting_opinion';
+  const SettingOpinion({Key? key}) : super(key: key);
 
   void onSendOpinion() {
     print('on send opinion');
@@ -16,7 +16,7 @@ class SettingOpinion extends StatelessWidget {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,

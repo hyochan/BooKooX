@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:wecount/screens/lock_auth.dart';
-import 'package:wecount/screens/lock_register.dart';
-import 'package:wecount/screens/setting_announcement.dart';
-import 'package:wecount/screens/setting_faq.dart';
-import 'package:wecount/screens/setting_notification.dart';
-import 'package:wecount/screens/setting_opinion.dart';
-import 'package:wecount/screens/tutorial.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/setting_list_item.dart'
     show ListItem, LogoutItem, SettingItem, SettingListItem;
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
-import 'package:wecount/utils/general.dart' show General;
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Setting extends StatefulWidget {
-  static const String name = '/setting';
+  const Setting({Key? key}) : super(key: key);
 
   @override
   _SettingState createState() => _SettingState();
@@ -62,7 +56,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockRegister(BuildContext context) async {
-    await General.instance.navigateScreenNamed(context, LockRegister.name);
+    await navigation.push(context, AppRoute.lockRegister.path);
 
     setState(() {
       readLockPinFromSF();
@@ -70,8 +64,7 @@ class _SettingState extends State<Setting> {
   }
 
   void _awaitLockAuth(BuildContext context) async {
-    final result =
-        await General.instance.navigateScreenNamed(context, LockAuth.name);
+    final result = await navigation.push(context, AppRoute.lockAuth.path);
 
     setState(() {
       if (_lockSwitch == true && result == false) {
@@ -92,8 +85,8 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('ANNOUNCEMENT'),
-        onPressed: () => General.instance
-            .navigateScreenNamed(context, SettingAnnouncement.name),
+        onPressed: () =>
+            navigation.push(context, AppRoute.settingAnnouncement.path),
       ),
       SettingItem(
         Icon(
@@ -102,8 +95,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('SHARE_OPINION'),
-        onPressed: () =>
-            General.instance.navigateScreenNamed(context, SettingOpinion.name),
+        onPressed: () => navigation.push(context, AppRoute.settingOpinion.path),
       ),
       SettingItem(
         Icon(
@@ -112,8 +104,7 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('FAQ'),
-        onPressed: () =>
-            General.instance.navigateScreenNamed(context, SettingFAQ.name),
+        onPressed: () => navigation.push(context, AppRoute.settingFAQ.path),
       ),
       SettingItem(
         Icon(
@@ -122,8 +113,8 @@ class _SettingState extends State<Setting> {
           size: 24,
         ),
         _localization.trans('NOTIFICATION'),
-        onPressed: () => General.instance
-            .navigateScreenNamed(context, SettingNotification.name),
+        onPressed: () =>
+            navigation.push(context, AppRoute.settingNotification.path),
       ),
       SettingItem(
         Icon(
@@ -145,14 +136,13 @@ class _SettingState extends State<Setting> {
           _auth.signOut();
 
           /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-          General.instance
-              .navigateScreenNamed(context, Tutorial.name, reset: true);
+          navigation.push(context, AppRoute.tutorial.path, reset: true);
         },
       ),
     ];
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         context: context,
         iconColor: Theme.of(context).iconTheme.color,

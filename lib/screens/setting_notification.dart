@@ -5,7 +5,7 @@ import 'package:wecount/widgets/header.dart';
 import 'package:wecount/utils/localization.dart';
 
 class SettingNotification extends StatefulWidget {
-  static const String name = '/setting_notification';
+  const SettingNotification({Key? key}) : super(key: key);
 
   @override
   _SettingNotificationState createState() => _SettingNotificationState();
@@ -29,7 +29,7 @@ class _SettingNotificationState extends State<SettingNotification> {
   Widget build(BuildContext context) {
     var _localization = Localization.of(context)!;
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,

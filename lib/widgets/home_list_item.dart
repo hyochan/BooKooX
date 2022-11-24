@@ -4,7 +4,9 @@ import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:intl/intl.dart';
 import 'package:wecount/models/user.dart';
-import 'package:wecount/utils/general.dart' show General;
+import 'package:wecount/utils/logger.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/routes.dart';
 
 class HomeListItem extends StatelessWidget {
   final LedgerItem? ledgerItem;
@@ -61,8 +63,8 @@ class HomeListItem extends StatelessWidget {
         _priceFormatted.toString().replaceAll('-', '');
 
     return TextButton(
-      onPressed: () =>
-          General.instance.navigateScreenNamed(context, LineGraph.name),
+      onPressed: () => navigation.push(context, AppRoute.lineGraph.path,
+          arguments: LineGraphArguments(_label, '2022', ledgerItem!.price)),
       child: Container(
         height: 60,
         child: Row(

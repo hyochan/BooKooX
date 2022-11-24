@@ -1,7 +1,7 @@
 import 'package:wecount/models/category.dart';
+import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/category_item.dart';
 import 'package:wecount/utils/db_helper.dart';
-import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -34,7 +34,7 @@ class _CategoryListState extends State<CategoryList> {
                 Navigator.pop(context, category);
               },
               onDeletePressed: () {
-                General.instance.showConfirmDialog(context,
+                navigation.showConfirmDialog(context,
                     title: Text(_localization!.trans('DELETE')!),
                     content: Text(_localization.trans('DELETE_ASK')!),
                     okPressed: () async {
