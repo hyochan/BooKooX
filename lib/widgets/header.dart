@@ -11,21 +11,21 @@ AppBar renderHeaderClose({
   bool? centerTitle,
   Widget? bottom,
 }) {
-  var _localization = Localization.of(context)!;
+  var localization = Localization.of(context)!;
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
     systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
-    leading: Container(
+    leading: SizedBox(
       width: 56.0,
       child: RawMaterialButton(
-        padding: EdgeInsets.all(0.0),
-        shape: CircleBorder(),
+        padding: const EdgeInsets.all(0.0),
+        shape: const CircleBorder(),
         onPressed: () => Navigator.of(context).pop(),
         child: Icon(
           Icons.close,
           color: Theme.of(context).textTheme.displayLarge!.color,
-          semanticLabel: _localization.trans('CLOSE'),
+          semanticLabel: localization.trans('CLOSE'),
         ),
       ),
     ),
@@ -46,19 +46,19 @@ AppBar renderHeaderBack({
   Color? iconColor,
   bool? centerTitle,
 }) {
-  var _localization = Localization.of(context)!;
+  var localization = Localization.of(context)!;
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
     systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
     leading: RawMaterialButton(
-      padding: EdgeInsets.all(0.0),
-      shape: CircleBorder(),
+      padding: const EdgeInsets.all(0.0),
+      shape: const CircleBorder(),
       onPressed: () => Navigator.of(context).pop(),
       child: Icon(
         Icons.arrow_back,
         color: iconColor,
-        semanticLabel: _localization.trans('BACK'),
+        semanticLabel: localization.trans('BACK'),
       ),
     ),
     elevation: 0.0,

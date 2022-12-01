@@ -14,7 +14,7 @@ class SettingOpinion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
+    var localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
@@ -23,7 +23,7 @@ class SettingOpinion extends StatelessWidget {
         brightness: Theme.of(context).brightness,
         iconColor: Theme.of(context).iconTheme.color,
         title: Text(
-          _localization.trans('SHARE_OPINION')!,
+          localization.trans('SHARE_OPINION')!,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,
@@ -35,33 +35,31 @@ class SettingOpinion extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20),
                 child: TextField(
                   maxLines: 10,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     height: 1.2,
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: _localization.trans('SHARE_OPINION_HINT'),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 24),
+                    hintText: localization.trans('SHARE_OPINION_HINT'),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                   ),
                 ),
               ),
             ),
-            Container(
-              child: Button(
-                onPress: onSendOpinion,
-                text: _localization.trans('SEND'),
-                margin: EdgeInsets.all(0),
-                height: 56,
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-                backgroundColor: Asset.Colors.main,
+            Button(
+              onPress: onSendOpinion,
+              text: localization.trans('SEND'),
+              margin: const EdgeInsets.all(0),
+              height: 56,
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
               ),
+              backgroundColor: Asset.Colors.main,
             )
           ],
         ),

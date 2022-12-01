@@ -1,5 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/models/category.dart';
+import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/category_item.dart';
 import 'package:wecount/utils/db_helper.dart';
@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CategoryList extends HookWidget {
-  CategoryList({
+  const CategoryList({
+    super.key,
     required this.categories,
   });
   final List<Category> categories;
@@ -17,7 +18,7 @@ class CategoryList extends HookWidget {
   Widget build(BuildContext context) {
     var categories = useState<List<Category>>(this.categories);
 
-    var _localization = Localization.of(context);
+    var localization = Localization.of(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: Wrap(
@@ -30,15 +31,15 @@ class CategoryList extends HookWidget {
               },
               onDeletePressed: () {
                 navigation.showConfirmDialog(context,
-                    title: Text(_localization!.trans('DELETE')!),
-                    content: Text(_localization.trans('DELETE_ASK')!),
+                    title: Text(localization!.trans('DELETE')!),
+                    content: Text(localization.trans('DELETE_ASK')!),
                     okPressed: () async {
                   try {
                     await DBHelper.instance
                         .deleteCategory(context, category.iconId);
                   } catch (err) {
                     Fluttertoast.showToast(
-                      msg: _localization.trans('CATEGORY_DELETE_ERROR')!,
+                      msg: localization.trans('CATEGORY_DELETE_ERROR')!,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,
@@ -47,7 +48,7 @@ class CategoryList extends HookWidget {
                   } finally {
                     categories.value.remove(category);
                     Fluttertoast.showToast(
-                      msg: _localization.trans('CATEGORY_DELETED')!,
+                      msg: localization.trans('CATEGORY_DELETED')!,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,

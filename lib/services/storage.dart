@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 
 class FireStorageService {
-  static FireStorageService _instance = FireStorageService();
+  static final FireStorageService _instance = FireStorageService();
   static FireStorageService get instance => _instance;
 
   Future<String> uploadImage({

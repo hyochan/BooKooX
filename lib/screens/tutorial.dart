@@ -11,23 +11,23 @@ class Tutorial extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int pageCnt = 2; // 3
-    var _currentPage = useState<int>(0);
-    var _pageController = PageController(
+    const int pageCnt = 2; // 3
+    var currentPage = useState<int>(0);
+    var pageController = PageController(
       initialPage: 0,
     );
     void onNextPressed() {
-      if (_currentPage.value == pageCnt) {
+      if (currentPage.value == pageCnt) {
         Navigator.pushNamedAndRemoveUntil(context, '/intro', (_) => false);
         return;
       }
-      _pageController.nextPage(
-        duration: Duration(milliseconds: 300),
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
       );
     }
 
-    var _localization = Localization.of(context)!;
+    var localization = Localization.of(context)!;
 
     Widget renderPage({
       Key? key,
@@ -38,7 +38,7 @@ class Tutorial extends HookWidget {
         child: ListView(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 148),
+              margin: const EdgeInsets.only(top: 148),
               child: Image(
                 image: page == 0
                     ? Asset.Icons.tutorial1
@@ -52,16 +52,16 @@ class Tutorial extends HookWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 56),
+              margin: const EdgeInsets.only(top: 56),
               child: Text(
                 page == 0
-                    ? _localization.trans('RECORD_IT')!
+                    ? localization.trans('RECORD_IT')!
                     : page == 1
-                        ? _localization.trans('SHARE_IT')!
+                        ? localization.trans('SHARE_IT')!
                         : page == 2
-                            ? _localization.trans('TAKE_CARE')!
-                            : _localization.trans('RECORD_IT')!,
-                style: TextStyle(
+                            ? localization.trans('TAKE_CARE')!
+                            : localization.trans('RECORD_IT')!,
+                style: const TextStyle(
                   fontSize: 28,
                   color: Colors.white,
                 ),
@@ -69,16 +69,16 @@ class Tutorial extends HookWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 20),
               child: Text(
                 page == 0
-                    ? _localization.trans('TUTORIAL_1_DETAIL')!
+                    ? localization.trans('TUTORIAL_1_DETAIL')!
                     : page == 1
-                        ? _localization.trans('TUTORIAL_2_DETAIL')!
+                        ? localization.trans('TUTORIAL_2_DETAIL')!
                         : page == 2
-                            ? _localization.trans('TUTORIAL_3_DETAIL')!
-                            : _localization.trans('TUTORIAL_1_DETAIL')!,
-                style: TextStyle(
+                            ? localization.trans('TUTORIAL_3_DETAIL')!
+                            : localization.trans('TUTORIAL_1_DETAIL')!,
+                style: const TextStyle(
                   fontSize: 16,
                   height: 1.3,
                   color: Colors.white,
@@ -98,7 +98,7 @@ class Tutorial extends HookWidget {
     }) {
       return Container(
         key: key,
-        margin: EdgeInsets.only(left: 8),
+        margin: const EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
           color: page == currentPage ? Colors.white : Asset.Colors.main,
           borderRadius: BorderRadius.circular(4),
@@ -140,7 +140,7 @@ class Tutorial extends HookWidget {
       backgroundColor: Asset.Colors.main,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           color: Asset.Colors.main,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,9 +148,9 @@ class Tutorial extends HookWidget {
               Expanded(
                 child: PageView(
                   onPageChanged: (int page) {
-                    _currentPage.value = page;
+                    currentPage.value = page;
                   },
-                  controller: _pageController,
+                  controller: pageController,
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
                     renderPage(page: 0),
@@ -161,16 +161,16 @@ class Tutorial extends HookWidget {
               ),
               Container(
                 height: 56,
-                margin: EdgeInsets.only(bottom: 20),
+                margin: const EdgeInsets.only(bottom: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    renderIndicatorGroup(currentPage: _currentPage),
+                    renderIndicatorGroup(currentPage: currentPage),
                     TextButton(
                       onPressed: onNextPressed,
                       child: Text(
-                        _localization.trans('NEXT')!,
-                        style: TextStyle(
+                        localization.trans('NEXT')!,
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Asset.Colors.green,
                         ),

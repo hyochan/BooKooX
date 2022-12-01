@@ -14,13 +14,13 @@ class LocationView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     late GoogleMapController mapController;
-    var _center = useState<LatLng?>(null);
-    var _markerSet = useState<Set<Marker>>({});
+    var center = useState<LatLng?>(null);
+    var markerSet = useState<Set<Marker>>({});
     Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
-    late String _countryCode;
+    late String countryCode;
 
-    void _setMarker(LatLng latLng) {
-      MarkerId markerId = MarkerId('myMarker');
+    void setMarker(LatLng latLng) {
+      MarkerId markerId = const MarkerId('myMarker');
 
       // creating a new MARKER
       final Marker marker = Marker(
@@ -30,7 +30,7 @@ class LocationView extends HookWidget {
 
       markers[markerId] = marker;
 
-      _markerSet.value = Set<Marker>.of(markers.values);
+      markerSet.value = Set<Marker>.of(markers.values);
     }
 
     /// Get current location with `location` plugin.
@@ -59,17 +59,17 @@ class LocationView extends HookWidget {
       if (error == null) {
         final LatLng latLng =
             LatLng(currentLocation.latitude, currentLocation.longitude);
-        _setMarker(latLng);
+        setMarker(latLng);
 
-        _center.value = latLng;
+        center.value = latLng;
         return;
       }
 
-      _center.value = LatLng(0, 0);
+      center.value = LatLng(0, 0);
     }
 
     useEffect(() {
-      _countryCode = WidgetsBinding.instance.window.locale.countryCode!;
+      countryCode = WidgetsBinding.instance.window.locale.countryCode!;
       getCurrentLocation();
       return null;
     }, []);
@@ -82,14 +82,14 @@ class LocationView extends HookWidget {
     void getPlace() async {
       var location = await GooglePlaceService.instance.showGooglePlaceSearch(
         context,
-        country: _countryCode,
+        country: countryCode,
       );
 
       if (location['lat'] != null && location['lng'] != null) {
         var latLng = LatLng(location['lat'], location['lng']);
-        _setMarker(latLng);
+        setMarker(latLng);
 
-        _center.value = latLng;
+        center.value = latLng;
 
         CameraUpdate cameraUpdate = CameraUpdate.newLatLng(latLng);
         mapController.moveCamera(cameraUpdate);
@@ -100,9 +100,9 @@ class LocationView extends HookWidget {
       mapController = controller;
     }
 
-    void _onCameraMoved(CameraPosition pos) => _setMarker(pos.target);
+    void _onCameraMoved(CameraPosition pos) => setMarker(pos.target);
 
-    return _center == null
+    return center.value == null
         ? const LoadingIndicator()
         : Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,
@@ -111,11 +111,11 @@ class LocationView extends HookWidget {
               brightness: Theme.of(context).brightness,
               actions: [
                 /// The button that calls `getPlace` method when pressed.
-                Container(
+                SizedBox(
                   width: 56.0,
                   child: RawMaterialButton(
-                    padding: EdgeInsets.all(0.0),
-                    shape: CircleBorder(),
+                    padding: const EdgeInsets.all(0.0),
+                    shape: const CircleBorder(),
                     onPressed: () => getPlace(),
                     child: Icon(
                       Icons.search,
@@ -127,21 +127,21 @@ class LocationView extends HookWidget {
                 /// The button that `findAddressesFromCoordinates` when pressed.
                 ///
                 /// returns `address` and `latlng` and pop current [Screen].
-                Container(
+                SizedBox(
                   width: 56.0,
                   child: RawMaterialButton(
-                    padding: EdgeInsets.all(0.0),
-                    shape: CircleBorder(),
+                    padding: const EdgeInsets.all(20.0),
+                    shape: const CircleBorder(),
                     onPressed: () async {
+                      print("print");
                       List<Placemark> addresses =
                           await placemarkFromCoordinates(
-                        _center.value!.latitude,
-                        _center.value!.longitude,
+                        center.value!.latitude,
+                        center.value!.longitude,
                       );
-                      Map<String, dynamic> result = Map();
+                      Map<String, dynamic> result = {};
                       result['address'] = addresses.first.street;
-                      result['latlng'] = _center;
-
+                      result['latlng'] = center;
                       Navigator.pop(context, result);
                     },
                     child: Icon(
@@ -155,10 +155,10 @@ class LocationView extends HookWidget {
             body: GoogleMap(
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
-                target: _center.value!,
+                target: center.value!,
                 zoom: 11.0,
               ),
-              markers: _markerSet.value,
+              markers: markerSet.value,
               onCameraMove: _onCameraMoved,
             ),
           );

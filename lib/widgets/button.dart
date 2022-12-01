@@ -3,7 +3,7 @@ import 'package:wecount/utils/localization.dart';
 
 class Button extends StatelessWidget {
   const Button({
-    this.key,
+    super.key,
     this.text = '',
     this.image,
     this.width,
@@ -22,7 +22,7 @@ class Button extends StatelessWidget {
     this.isLoading = false,
   });
 
-  final Key? key;
+  @override
   final String? text;
   final Image? image;
   final double? width;
@@ -41,31 +41,40 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      key: this.key,
+      key: key,
+      decoration: BoxDecoration(
+        border: Border.all(width: borderWidth, color: borderColor!),
+        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+        color: backgroundColor,
+      ),
+      margin: margin,
+      height: height,
+      width: width ?? MediaQuery.of(context).size.width,
       child: TextButton(
         style: ButtonStyle(
           shape: shapeBorder,
           padding: MaterialStateProperty.all(
-            EdgeInsets.all(0.0),
+            const EdgeInsets.all(0.0),
           ),
         ),
+        onPressed: !isLoading ? onPress : null,
         child: isLoading
             ? CircularProgressIndicator(
                 semanticsLabel: Localization.of(context)!.trans('LOADING'),
                 backgroundColor: Theme.of(context).primaryColor,
                 strokeWidth: 3,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
               )
             : Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
                   Positioned(
+                    left: imageMarginLeft,
                     child: Container(child: image),
-                    left: this.imageMarginLeft,
                   ),
                   Container(
                     margin:
-                        this.image == null ? null : EdgeInsets.only(left: 12),
+                        image == null ? null : const EdgeInsets.only(left: 12),
                     child: Center(
                       child: Text(
                         text!,
@@ -75,16 +84,7 @@ class Button extends StatelessWidget {
                   ),
                 ],
               ),
-        onPressed: !isLoading ? onPress : null,
       ),
-      decoration: BoxDecoration(
-        border: Border.all(width: borderWidth, color: borderColor!),
-        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-        color: backgroundColor,
-      ),
-      margin: margin,
-      height: height,
-      width: width != null ? width : MediaQuery.of(context).size.width,
     );
   }
 }

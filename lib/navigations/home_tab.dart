@@ -14,43 +14,42 @@ class HomeTab extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _index = useState<int>(0);
+    var index = useState<int>(0);
 
-    String _title = Provider.of<CurrentLedger>(context).getTitle() ?? '';
-
+    String title = Provider.of<CurrentLedger>(context).getTitle() ?? '';
     return Scaffold(
       // appBar: AppBar(),
       body: Stack(
         children: <Widget>[
           Offstage(
-            offstage: _index.value != 0,
+            offstage: index.value != 0,
             child: TickerMode(
-              enabled: _index.value == 0,
+              enabled: index.value == 0,
               child: HomeCalendar(
-                title: _title,
+                title: title,
               ),
             ),
           ),
           Offstage(
-            offstage: _index.value != 1,
+            offstage: index.value != 1,
             child: TickerMode(
-              enabled: _index.value == 1,
-              child: HomeList(),
+              enabled: index.value == 1,
+              child: const HomeList(),
             ),
           ),
           Offstage(
-            offstage: _index.value != 2,
+            offstage: index.value != 2,
             child: TickerMode(
-              enabled: _index.value == 2,
-              child: HomeStatistic(title: _title),
+              enabled: index.value == 2,
+              child: HomeStatistic(title: title),
             ),
           ),
           Offstage(
-            offstage: _index.value != 3,
+            offstage: index.value != 3,
             child: TickerMode(
-              enabled: _index.value == 3,
+              enabled: index.value == 3,
               child: HomeSetting(
-                title: _title,
+                title: title,
               ),
             ),
           ),
@@ -58,14 +57,14 @@ class HomeTab extends HookWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
-        currentIndex: _index.value,
-        onTap: (int index) => _index.value = index,
+        currentIndex: index.value,
+        onTap: (int tapIndex) => index.value = tapIndex,
         selectedItemColor: Theme.of(context).textTheme.displayLarge!.color,
         unselectedItemColor: Theme.of(context).textTheme.displayLarge!.color,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarTheme.color,
-            icon: Icon(
+            icon: const Icon(
               Icons.calendar_today,
               size: 20.0,
             ),
@@ -73,7 +72,7 @@ class HomeTab extends HookWidget {
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarTheme.color,
-            icon: Icon(
+            icon: const Icon(
               Icons.list,
               size: 20.0,
             ),
@@ -81,7 +80,7 @@ class HomeTab extends HookWidget {
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarTheme.color,
-            icon: Icon(
+            icon: const Icon(
               Icons.graphic_eq,
               size: 20.0,
             ),
@@ -89,7 +88,7 @@ class HomeTab extends HookWidget {
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).bottomAppBarTheme.color,
-            icon: Icon(
+            icon: const Icon(
               Icons.settings,
               size: 20.0,
             ),

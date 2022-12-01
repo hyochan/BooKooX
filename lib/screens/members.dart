@@ -1,4 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/edit_text.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:wecount/screens/profile_peer.dart';
 import 'package:wecount/widgets/member_list_item.dart';
 import 'package:wecount/widgets/header.dart';
-import 'package:wecount/models/user.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
 
@@ -23,15 +23,15 @@ class Members extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _isSearchMode = useState<bool>(false);
-    var _filteredMembers = useState<List<ListItem>>([]);
+    var isSearchMode = useState<bool>(false);
+    var filteredMembers = useState<List<ListItem>>([]);
 
-    final List<ListItem> _fakeMembers = [
+    final List<ListItem> fakeMembers = [
       HeadingItem(
         numOfPeople: 4,
       ),
       MemberItem(
-        User(
+        const UserModel(
           displayName: 'displayName',
           email: 'email@email.com',
           thumbURL: 'url',
@@ -39,7 +39,7 @@ class Members extends HookWidget {
         ),
       ),
       MemberItem(
-        User(
+        const UserModel(
           displayName: 'displayName',
           email: 'email@email.com',
           thumbURL: 'url',
@@ -47,7 +47,7 @@ class Members extends HookWidget {
         ),
       ),
       MemberItem(
-        User(
+        const UserModel(
           displayName: 'displayName',
           email: 'email@email.com',
           thumbURL: 'url',
@@ -55,7 +55,7 @@ class Members extends HookWidget {
         ),
       ),
       MemberItem(
-        User(
+        const UserModel(
           displayName: 'displayName',
           email: 'email@email.com',
           thumbURL: 'url',
@@ -63,7 +63,7 @@ class Members extends HookWidget {
         ),
       ),
       MemberItem(
-        User(
+        const UserModel(
           displayName: 'displayName',
           email: 'email@email.com',
           thumbURL: 'url',
@@ -71,7 +71,7 @@ class Members extends HookWidget {
         ),
       ),
       MemberItem(
-        User(
+        const UserModel(
           displayName: 'displayName',
           email: 'email@email.com',
           thumbURL: 'url',
@@ -79,7 +79,7 @@ class Members extends HookWidget {
         ),
       ),
       MemberItem(
-        User(
+        const UserModel(
           displayName: 'displayName',
           email: 'email@email.com',
           thumbURL: 'url',
@@ -87,7 +87,7 @@ class Members extends HookWidget {
         ),
       ),
       MemberItem(
-        User(
+        const UserModel(
           displayName: 'displayName',
           email: 'email@email.com',
           thumbURL: 'url',
@@ -95,7 +95,7 @@ class Members extends HookWidget {
         ),
       ),
       MemberItem(
-        User(
+        const UserModel(
           displayName: 'displayName',
           email: 'email@email.com',
           thumbURL: 'url',
@@ -105,10 +105,10 @@ class Members extends HookWidget {
     ];
 
     useEffect(() {
-      _filteredMembers.value = _fakeMembers;
+      filteredMembers.value = fakeMembers;
       return null;
     }, []);
-    var _localization = Localization.of(context)!;
+    var localization = Localization.of(context)!;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -116,49 +116,49 @@ class Members extends HookWidget {
         context: context,
         brightness: Theme.of(context).brightness,
         actions: [
-          Container(
+          SizedBox(
             width: 56,
             child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
+              padding: const EdgeInsets.all(0.0),
+              shape: const CircleBorder(),
               onPressed: () {
-                _isSearchMode.value = !_isSearchMode.value;
-                if (!_isSearchMode.value) {
-                  _filteredMembers.value = _fakeMembers;
+                isSearchMode.value = !isSearchMode.value;
+                if (!isSearchMode.value) {
+                  filteredMembers.value = fakeMembers;
                 }
               },
               child: Icon(
                 Icons.search,
                 color: Theme.of(context).textTheme.displayLarge!.color,
-                semanticLabel: _localization.trans('SEARCH'),
+                semanticLabel: localization.trans('SEARCH'),
               ),
             ),
           ),
         ],
       ),
       body: ListView.builder(
-        itemCount: _filteredMembers.value.length,
+        itemCount: filteredMembers.value.length,
         itemBuilder: (context, index) {
-          final item = _filteredMembers.value[index];
+          final item = filteredMembers.value[index];
           if (item is HeadingItem) {
             return Container(
               height: 80,
-              padding: EdgeInsets.symmetric(horizontal: 40),
-              alignment: Alignment(-1, 0),
-              child: _isSearchMode.value
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              alignment: const Alignment(-1, 0),
+              child: isSearchMode.value
                   ? EditText(
-                      key: Key('member'),
+                      key: const Key('member'),
                       textInputAction: TextInputAction.next,
-                      textHint: _localization.trans('SEARCH_USER_HINT'),
+                      textHint: localization.trans('SEARCH_USER_HINT'),
                       onChanged: (String str) {
-                        _filteredMembers.value = _fakeMembers.where((list) {
+                        filteredMembers.value = fakeMembers.where((list) {
                           if (list is HeadingItem) {
                             return true;
                           } else if (list is MemberItem) {
                             return list.user.email!
                                     .toLowerCase()
                                     .contains(str) ||
-                                list.user.displayName!
+                                list.user.displayName
                                     .toLowerCase()
                                     .contains(str);
                           }
@@ -167,7 +167,7 @@ class Members extends HookWidget {
                       },
                     )
                   : Text(
-                      '${_localization.trans('MEMBER')} ${item.numOfPeople}',
+                      '${localization.trans('MEMBER')} ${item.numOfPeople}',
                       style: TextStyle(
                         color: Theme.of(context).textTheme.displayLarge!.color,
                         fontSize: 28,
@@ -179,7 +179,7 @@ class Members extends HookWidget {
               user: item.user,
               onPressAuth: () {
                 navigation.showMembershipDialog(context, (int? val) {
-                  item.user.changeMemberShip(val!);
+                  // item.user.changeMemberShip(val!);
                   Navigator.of(context).pop();
                 }, item.user.membership!.index);
               },

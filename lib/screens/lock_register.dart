@@ -12,34 +12,34 @@ class LockRegister extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    late Size _screenSize;
+    late Size screenSize;
 
-    var _currentDigit = useState<int?>(null);
+    var currentDigit = useState<int?>(null);
 
-    var _firstDigit = useState<int?>(null);
-    var _secondDigit = useState<int?>(null);
-    var _thirdDigit = useState<int?>(null);
-    var _fourthDigit = useState<int?>(null);
+    var firstDigit = useState<int?>(null);
+    var secondDigit = useState<int?>(null);
+    var thirdDigit = useState<int?>(null);
+    var fourthDigit = useState<int?>(null);
 
-    String? _pin = '';
+    String? pin = '';
 
     readLockPinFromSF() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
       if (prefs.containsKey('LOCK_PIN')) {
-        _pin = prefs.getString('LOCK_PIN');
-        print(_pin);
+        pin = prefs.getString('LOCK_PIN');
+        print(pin);
       }
     }
 
     addLockPinToSF() async {
-      if (_pin!.length != 4) {
+      if (pin!.length != 4) {
         return;
       } else {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString('LOCK_PIN', _pin!);
+        prefs.setString('LOCK_PIN', pin!);
         Navigator.of(context).pop();
-        print(_pin);
+        print(pin);
       }
     }
 
@@ -67,38 +67,38 @@ class LockRegister extends HookWidget {
       };
     }, []);
 
-    var _localization = Localization.of(context)!;
-    _screenSize = MediaQuery.of(context).size;
+    var localization = Localization.of(context)!;
+    screenSize = MediaQuery.of(context).size;
 
     void _setCurrentDigit(int i) {
-      _currentDigit.value = i;
-      if (_firstDigit.value == null) {
-        _firstDigit.value = _currentDigit.value;
-      } else if (_secondDigit.value == null) {
-        _secondDigit.value = _currentDigit.value;
-      } else if (_thirdDigit.value == null) {
-        _thirdDigit.value = _currentDigit.value;
-      } else if (_fourthDigit.value == null) {
-        _fourthDigit.value = _currentDigit.value;
+      currentDigit.value = i;
+      if (firstDigit.value == null) {
+        firstDigit.value = currentDigit.value;
+      } else if (secondDigit.value == null) {
+        secondDigit.value = currentDigit.value;
+      } else if (thirdDigit.value == null) {
+        thirdDigit.value = currentDigit.value;
+      } else if (fourthDigit.value == null) {
+        fourthDigit.value = currentDigit.value;
 
-        _pin = _firstDigit.toString() +
-            _secondDigit.toString() +
-            _thirdDigit.toString() +
-            _fourthDigit.toString();
+        pin = firstDigit.toString() +
+            secondDigit.toString() +
+            thirdDigit.toString() +
+            fourthDigit.toString();
 
-        print(_pin);
+        print(pin);
       }
     }
 
     void _deleteCurrentDigit() {
-      if (_fourthDigit.value != null) {
-        _fourthDigit.value = null;
-      } else if (_thirdDigit.value != null) {
-        _thirdDigit.value = null;
-      } else if (_secondDigit.value != null) {
-        _secondDigit.value = null;
-      } else if (_firstDigit.value != null) {
-        _firstDigit.value = null;
+      if (fourthDigit.value != null) {
+        fourthDigit.value = null;
+      } else if (thirdDigit.value != null) {
+        thirdDigit.value = null;
+      } else if (secondDigit.value != null) {
+        secondDigit.value = null;
+      } else if (firstDigit.value != null) {
+        firstDigit.value = null;
       }
     }
 
@@ -107,19 +107,19 @@ class LockRegister extends HookWidget {
           width: 50,
           height: 45,
           alignment: Alignment.center,
-          child: Text(
-            digit != null ? digit.toString() : "",
-            style: TextStyle(
-              fontSize: 30,
-              color: Theme.of(context).textTheme.displayLarge!.color,
-            ),
-          ),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
                 color: Theme.of(context).textTheme.displayLarge!.color!,
                 width: 2,
               ),
+            ),
+          ),
+          child: Text(
+            digit != null ? digit.toString() : "",
+            style: TextStyle(
+              fontSize: 30,
+              color: Theme.of(context).textTheme.displayLarge!.color,
             ),
           ));
     }
@@ -132,13 +132,13 @@ class LockRegister extends HookWidget {
         brightness: Theme.of(context).brightness,
         actions: <Widget>[
           TextButton(
+            onPressed: addLockPinToSF,
             child: Text(
-              _localization.trans('DONE')!,
+              localization.trans('DONE')!,
               style: TextStyle(
                 color: Theme.of(context).textTheme.displayLarge!.color,
               ),
             ),
-            onPressed: addLockPinToSF,
           ),
         ],
       ),
@@ -146,24 +146,24 @@ class LockRegister extends HookWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Text(
-              _localization.trans('LOCK_HINT')!,
+              localization.trans('LOCK_HINT')!,
               style: TextStyle(
                   fontSize: 24,
                   color: Theme.of(context).textTheme.displayLarge!.color),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _pinTextField(_firstDigit.value),
-                  _pinTextField(_secondDigit.value),
-                  _pinTextField(_thirdDigit.value),
-                  _pinTextField(_fourthDigit.value),
+                  _pinTextField(firstDigit.value),
+                  _pinTextField(secondDigit.value),
+                  _pinTextField(thirdDigit.value),
+                  _pinTextField(fourthDigit.value),
                 ],
               ),
             ),
@@ -175,11 +175,11 @@ class LockRegister extends HookWidget {
             //     borderRadius: BorderRadius.circular(30),
             //   ),
             // ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             PinKeyboard(
-              keyboardHeight: _screenSize.height / 3.0,
+              keyboardHeight: screenSize.height / 3.0,
               onButtonPressed: _setCurrentDigit,
               onDeletePressed: _deleteCurrentDigit,
             ),

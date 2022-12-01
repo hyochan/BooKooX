@@ -1,6 +1,6 @@
-import 'package:wecount/models/category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:wecount/models/ledger_item.dart';
 
 import 'package:wecount/screens/category_add.dart' show CategoryAdd;
 import '../test_utils.dart' show TestUtils;
@@ -9,7 +9,8 @@ void main() {
   testWidgets("Widget", (WidgetTester tester) async {
     await tester.pumpWidget(
       TestUtils.makeTestableWidget(
-        child: CategoryAdd(lastId: 100, categoryType: CategoryType.CONSUME),
+        child:
+            const CategoryAdd(lastId: 100, categoryType: CategoryType.CONSUME),
       ),
     );
     await tester.pumpAndSettle();

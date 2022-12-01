@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:photo_view/photo_view.dart'
     show PhotoView, PhotoViewComputedScale;
 import 'package:flutter/material.dart';
+import 'package:wecount/models/ledger_item.dart';
 
-import 'package:wecount/models/photo.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class PhotoDetailArguments {
@@ -45,7 +45,7 @@ class PhotoDetail extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
+    var localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -58,7 +58,7 @@ class PhotoDetail extends HookWidget {
                       ? FileImage(File(photo!.file!.path))
                       : (photo != null && photo!.url != null
                               ? NetworkImage(photo!.url!)
-                              : AssetImage('res/icons/icMask.png'))
+                              : const AssetImage('res/icons/icMask.png'))
                           as ImageProvider<Object>?,
               minScale: PhotoViewComputedScale.contained * 0.8,
               maxScale: 4.0,
@@ -69,17 +69,17 @@ class PhotoDetail extends HookWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: 60.0,
                     height: 60.0,
                     child: RawMaterialButton(
-                      padding: EdgeInsets.all(0.0),
-                      shape: CircleBorder(),
+                      padding: const EdgeInsets.all(0.0),
+                      shape: const CircleBorder(),
                       onPressed: () => Navigator.of(context).pop(),
                       child: Icon(
                         Icons.close,
                         color: Colors.white,
-                        semanticLabel: _localization.trans('BACK'),
+                        semanticLabel: localization.trans('BACK'),
                       ),
                     ),
                   ),
@@ -88,7 +88,7 @@ class PhotoDetail extends HookWidget {
             ),
             Positioned(
               bottom: 0.0,
-              child: Container(
+              child: SizedBox(
                 height: 56,
                 width: MediaQuery.of(context).size.width,
                 child: Row(
@@ -97,14 +97,14 @@ class PhotoDetail extends HookWidget {
                       : MainAxisAlignment.center,
                   children: <Widget>[
                     canShare
-                        ? Container(
+                        ? SizedBox(
                             width: 60.0,
                             height: 60.0,
                             child: RawMaterialButton(
-                              padding: EdgeInsets.all(0.0),
-                              shape: CircleBorder(),
+                              padding: const EdgeInsets.all(0.0),
+                              shape: const CircleBorder(),
                               onPressed: onPressDownload as void Function()?,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.file_download,
                                 color: Colors.white,
                               ),
@@ -112,14 +112,14 @@ class PhotoDetail extends HookWidget {
                           )
                         : Container(),
                     canShare
-                        ? Container(
+                        ? SizedBox(
                             width: 60.0,
                             height: 60.0,
                             child: RawMaterialButton(
-                              padding: EdgeInsets.all(0.0),
-                              shape: CircleBorder(),
+                              padding: const EdgeInsets.all(0.0),
+                              shape: const CircleBorder(),
                               onPressed: onPressShare as void Function()?,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.share,
                                 color: Colors.white,
                               ),
@@ -127,14 +127,14 @@ class PhotoDetail extends HookWidget {
                           )
                         : Container(),
                     onPressDelete != null
-                        ? Container(
+                        ? SizedBox(
                             width: 60.0,
                             height: 60.0,
                             child: RawMaterialButton(
-                              padding: EdgeInsets.all(0.0),
-                              shape: CircleBorder(),
+                              padding: const EdgeInsets.all(0.0),
+                              shape: const CircleBorder(),
                               onPressed: onPressDelete as void Function()?,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.delete,
                                 color: Colors.white,
                               ),

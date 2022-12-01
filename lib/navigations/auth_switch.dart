@@ -14,13 +14,13 @@ class AuthSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _db = DatabaseService();
+    final db = DatabaseService();
     var user = Provider.of<User?>(context);
 
     Widget renderMainLedger() {
       return StreamProvider<List<Ledger>>.value(
-        value: _db.streamMyLedgers(user!),
-        initialData: [],
+        value: db.streamMyLedgers(user!),
+        initialData: const [],
         child: Consumer<List<Ledger>>(
           builder: (context, ledgers, child) {
             return FutureBuilder(
@@ -28,7 +28,7 @@ class AuthSwitch extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (ledgers.isEmpty) {
-                    return MainEmpty();
+                    return const MainEmpty();
                   }
                   if (snapshot.hasData) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -37,7 +37,7 @@ class AuthSwitch extends StatelessWidget {
                     });
                   }
 
-                  return HomeTab();
+                  return const HomeTab();
                 }
 
                 return Scaffold(
@@ -47,7 +47,8 @@ class AuthSwitch extends StatelessWidget {
                           Localization.of(context)!.trans('LOADING'),
                       backgroundColor: Theme.of(context).primaryColor,
                       strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(Colors.white),
                     ),
                   ),
                 );
@@ -62,6 +63,6 @@ class AuthSwitch extends StatelessWidget {
       return renderMainLedger();
     }
 
-    return Tutorial();
+    return const Tutorial();
   }
 }

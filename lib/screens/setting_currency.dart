@@ -30,14 +30,14 @@ class SettingCurrency extends HookWidget {
       Navigator.pop(context, selectedCurrency);
     }
 
-    var _localization = Localization.of(context)!;
+    var localization = Localization.of(context)!;
 
-    final List<ListItem> _items = currencies
+    final List<ListItem> items = currencies
         .map((el) => TileItem(
               title: '${el.currency} | ${el.symbol}',
               trailing: el.currency == selectedCurrency
-                  ? Icon(Icons.check)
-                  : Text(''),
+                  ? const Icon(Icons.check)
+                  : const Text(''),
               onTap: () => onSettingCurrency(Currency(
                 locale: el.locale,
                 currency: el.currency,
@@ -54,7 +54,7 @@ class SettingCurrency extends HookWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          _localization.trans('CURRENCY')!,
+          localization.trans('CURRENCY')!,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,
@@ -66,15 +66,15 @@ class SettingCurrency extends HookWidget {
           children: <Widget>[
             Expanded(
               child: ListView.separated(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
-                  separatorBuilder: (context, index) => Divider(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 40.0, vertical: 16.0),
+                  separatorBuilder: (context, index) => const Divider(
                         color: Colors.grey,
                         height: 1,
                       ),
-                  itemCount: _items.length,
+                  itemCount: items.length,
                   itemBuilder: (context, index) {
-                    final item = _items[index];
+                    final item = items[index];
                     return SettingTileItem(item as TileItem);
                   }),
             ),

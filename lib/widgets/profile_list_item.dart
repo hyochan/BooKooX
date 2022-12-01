@@ -3,14 +3,14 @@ import 'package:wecount/utils/asset.dart' as Asset;
 
 class ProfileListItem extends StatelessWidget {
   const ProfileListItem({
-    this.key,
+    super.key,
     this.imgStr,
     this.displayName,
     this.email,
     this.onTap,
   });
 
-  final Key? key;
+  @override
   final String? imgStr;
   final String? displayName;
   final String? email;
@@ -19,8 +19,8 @@ class ProfileListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 28.0),
-      padding: EdgeInsets.only(left: 24.0, right: 20.0, top: 24.0),
+      margin: const EdgeInsets.only(bottom: 28.0),
+      padding: const EdgeInsets.only(left: 24.0, right: 20.0, top: 24.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -30,14 +30,14 @@ class ProfileListItem extends StatelessWidget {
                   clipBehavior: Clip.hardEdge,
                   color: Colors.transparent,
                   child: TextButton(
-                    onPressed: this.onTap as void Function()?,
+                    onPressed: onTap as void Function()?,
                     child: ClipOval(
                       child: FadeInImage.assetNetwork(
                           width: 80.0,
                           height: 80.0,
                           fit: BoxFit.cover,
                           placeholder: 'res/icons/icMask.png',
-                          image: this.imgStr!),
+                          image: imgStr!),
                     ),
                   ),
                 )
@@ -51,19 +51,19 @@ class ProfileListItem extends StatelessWidget {
                       width: 80.0,
                       height: 80.0,
                       child: InkWell(
-                        onTap: this.onTap as void Function()?,
+                        onTap: onTap as void Function()?,
                       ),
                     ),
                   ),
                 ),
           Container(
-            margin: EdgeInsets.only(left: 20.0),
+            margin: const EdgeInsets.only(left: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(bottom: 8.0),
+                  margin: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
                     displayName!,
                     style: TextStyle(
@@ -72,13 +72,11 @@ class ProfileListItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  child: Text(
-                    email!,
-                    style: TextStyle(
-                      color: Theme.of(context).hintColor,
-                      fontSize: 14.0,
-                    ),
+                Text(
+                  email!,
+                  style: TextStyle(
+                    color: Theme.of(context).hintColor,
+                    fontSize: 14.0,
                   ),
                 ),
               ],

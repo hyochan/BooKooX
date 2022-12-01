@@ -1,61 +1,34 @@
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/user.dart';
-import 'package:wecount/types/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:wecount/models/currency.dart';
+import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/utils/converter.dart';
+import 'package:wecount/types/color.dart';
+import 'package:wecount/utils/logger.dart';
 
-import './ledger_item.dart' show LedgerItem;
+part "ledger.freezed.dart";
+part "ledger.g.dart";
 
-final List<ColorType> colorItems = [
-  ColorType.RED,
-  ColorType.ORANGE,
-  ColorType.YELLOW,
-  ColorType.GREEN,
-  ColorType.BLUE,
-  ColorType.DUSK,
-  ColorType.PURPLE,
-];
+@freezed
+class Ledger with _$Ledger {
+  const Ledger._();
+  factory Ledger(
+      {String? id,
+      required String title,
+      required ColorType color,
+      String? description,
+      int? people,
+      String? ownerId,
+      @Default([]) List<String> adminIds,
+      List<LedgerItem>? items,
+      required Currency currency,
+      @Default([]) List<String> memberIds,
+      List<String>? members,
+      @ServerTimestampConverter() createdAt,
+      @ServerTimestampConverter() updatedAt,
+      @ServerTimestampConverter() deletedAt}) = _Ledger;
 
-class Ledger {
-  String? id;
-  String title;
-  ColorType color;
-  String? description;
-  int? people;
-  String? ownerId;
-  List<String> adminIds;
-  List<LedgerItem>? items;
-  Currency currency;
-  List<String> memberIds;
-  List<User>? members;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  DateTime? deletedAt;
-
-  Ledger({
-    this.id,
-    required this.title,
-    required this.color,
-    required this.currency,
-    this.description,
-
-    /// Contain only the [int] number of members
-    ///
-    /// Since we don't need to render all member's data in first-hand
-    /// We've separated people to only fetch the length of the members
-    this.people,
-
-    /// Contain the full [User] data of members including photoURL
-    ///
-    /// members will be fetched when needed
-    this.members,
-    this.ownerId,
-    this.adminIds = const [],
-    this.memberIds = const [],
-    this.createdAt,
-    this.updatedAt,
-    this.items,
-    this.deletedAt,
-  });
+  factory Ledger.fromJson(Map<String, dynamic> json) => _$LedgerFromJson(json);
 
   factory Ledger.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<dynamic, dynamic>;
@@ -90,13 +63,14 @@ class Ledger {
       description: data['description'] ?? '',
     );
   }
-
-  @override
-  String toString() {
-    return 'title: $title, color: ${color.toString()}, ' +
-        'description: $description, people: $people, ownerId: $ownerId, ' +
-        'adminIds: $adminIds, ' +
-        'items: ${items.toString()}, currency: ${currency.toString()}, ' +
-        'createdAt: $createdAt, updatedAt: $updatedAt, deletedAt: $deletedAt';
-  }
 }
+
+final List<ColorType> colorItems = [
+  ColorType.RED,
+  ColorType.ORANGE,
+  ColorType.YELLOW,
+  ColorType.GREEN,
+  ColorType.BLUE,
+  ColorType.DUSK,
+  ColorType.PURPLE,
+];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class EditTextSearch extends StatelessWidget {
   const EditTextSearch({
+    super.key,
     this.controller,
     this.txtLabel,
     this.txtHint,
@@ -50,22 +51,23 @@ class EditTextSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var inputDecoration;
-    if (this.underline) {
+    InputDecoration inputDecoration;
+    if (underline) {
       inputDecoration = InputDecoration(
-        hintText: this.txtHint,
-        labelText: this.txtLabel,
-        hintStyle: this.txtHintStyle,
+        hintText: txtHint,
+        labelText: txtLabel,
+        hintStyle: txtHintStyle,
       );
     } else {
       inputDecoration = InputDecoration(
-        hintText: this.txtHint,
-        labelText: this.txtLabel,
-        hintStyle: this.txtHintStyle,
+        hintText: txtHint,
+        labelText: txtLabel,
+        hintStyle: txtHintStyle,
         border: InputBorder.none,
       );
     }
     return Stack(
+      alignment: Alignment.center,
       children: <Widget>[
         Container(
           margin: this.margin,
@@ -89,7 +91,6 @@ class EditTextSearch extends StatelessWidget {
           ),
         ),
       ],
-      alignment: Alignment.center,
     );
   }
 }

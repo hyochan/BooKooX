@@ -1,9 +1,11 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/services/database.dart' show DatabaseService;
+import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
@@ -59,11 +61,11 @@ class Ledgers extends HookWidget {
         context: context,
         brightness: Theme.of(context).brightness,
         actions: [
-          Container(
+          SizedBox(
             width: 56.0,
             child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
+              padding: const EdgeInsets.all(0.0),
+              shape: const CircleBorder(),
               onPressed: onSettingPressed,
               child: Icon(
                 Icons.settings,
@@ -79,16 +81,15 @@ class Ledgers extends HookWidget {
           children: <Widget>[
             StreamBuilder(
                 stream: DatabaseService().streamUser(user.uid),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (!snapshot.hasData) return Container();
+                builder:
+                    (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+                  if (!snapshot.hasData) return const SizedBox();
 
                   var profile = snapshot.data;
                   return ProfileListItem(
-                    email: profile.email ?? '',
-                    displayName: profile.displayName ?? '',
-                    imgStr: profile.thumbURL != null
-                        ? profile.thumbURL
-                        : profile.photoURL,
+                    email: profile?.email ?? '',
+                    displayName: profile?.displayName ?? '',
+                    imgStr: profile?.thumbURL ?? profile?.photoURL,
                     onTap: onProfilePressed,
                   );
                 }),
@@ -115,30 +116,29 @@ class Ledgers extends HookWidget {
                     ),
                   );
                 }
-                return Container();
+                return const SizedBox();
               },
             ),
-            Divider(
+            const Divider(
               color: Color.fromARGB(255, 220, 226, 235),
               height: 1,
             ),
-            Container(
+            SizedBox(
               height: 68.0,
               child: TextButton(
                 onPressed: onAddLedgerPressed,
-                // padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                 child: Row(
                   children: <Widget>[
-                    Icon(
+                    const Icon(
                       Icons.add,
                       color: Asset.Colors.mediumGray,
                       size: 24.0,
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 20.0),
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
                         _localization.trans('ADD_LEDGER')!,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Asset.Colors.mediumGray,
                           fontSize: 20.0,
                         ),

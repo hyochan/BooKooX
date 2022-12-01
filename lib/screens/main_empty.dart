@@ -17,20 +17,20 @@ class MainEmpty extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
+    var localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHomeAppBar(
         context: context,
         title: '',
         actions: [
-          Container(
+          SizedBox(
             width: 56.0,
             child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
+              padding: const EdgeInsets.all(0.0),
+              shape: const CircleBorder(),
               onPressed: () => navigation.push(context, AppRoute.setting.path),
-              child: Icon(
+              child: const Icon(
                 Icons.settings,
                 color: Colors.white,
               ),
@@ -51,14 +51,14 @@ class MainEmpty extends HookWidget {
               size: 80,
             ),
             Container(
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 left: 40,
                 right: 40,
                 top: 22,
                 bottom: 32,
               ),
               child: Text(
-                _localization.trans('NO_LEDGER_DESCRIPTION')!,
+                localization.trans('NO_LEDGER_DESCRIPTION')!,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.displayLarge!.color,
                   fontSize: 20,
@@ -82,7 +82,7 @@ class MainEmpty extends HookWidget {
               ),
               onPress: () =>
                   Navigator.of(context).pushNamed(AppRoute.ledgerEdit.fullPath),
-              text: _localization.trans('ADD_LEDGER'),
+              text: localization.trans('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,
                 color: Theme.of(context).textTheme.displayMedium!.color,
