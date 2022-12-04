@@ -44,8 +44,8 @@ class Ledgers extends HookWidget {
       Provider.of<CurrentLedger>(context, listen: false).setLedger(item);
     }
 
-    void onLedgerMorePressed(Ledger item) {
-      navigation.navigate(
+    void onLedgerMorePressed(Ledger item) async {
+      String ref = await navigation.navigate(
         context,
         item.ownerId != user.uid
             ? AppRoute.ledgerView.path
@@ -54,6 +54,11 @@ class Ledgers extends HookWidget {
             ? LedgerViewArguments(ledger: item)
             : LedgerEditArguments(ledger: item, mode: LedgerEditMode.UPDATE),
       );
+
+      if (ref != "") {
+        ledgersList.value =
+            await LedgerRepository.instance.getLedgersWithMembership(user);
+      }
     }
 
     void onAddLedgerPressed() async {

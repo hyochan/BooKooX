@@ -130,7 +130,7 @@ class LedgerEdit extends HookWidget {
           loading.value = false;
         }
         if (context.mounted) {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(editLedger.value?.id);
         }
       }
     }
