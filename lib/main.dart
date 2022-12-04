@@ -49,7 +49,6 @@ void _fcmListeners() {
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('pushToken', token!);
-    print('token: $token');
   });
 }
 

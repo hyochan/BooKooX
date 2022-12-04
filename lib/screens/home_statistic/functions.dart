@@ -6,7 +6,7 @@ List<LedgerItem> ledgerListByMonth(
 ) {
   List<LedgerItem> ledgersOut = [];
   // print('get ledgers by month of ' + month);
-  ledgersIn.forEach((ledger) {
+  for (var ledger in ledgersIn) {
     // print('item ' +
     //     ledger.category.toString() +
     //     ' price: ' +
@@ -16,7 +16,7 @@ List<LedgerItem> ledgerListByMonth(
       // print('added');
       ledgersOut.add(ledger);
     }
-  });
+  }
 
   // print('ledger quantity by Month: ' + ledgersOut.length.toString());
   return ledgersOut;
@@ -24,8 +24,8 @@ List<LedgerItem> ledgerListByMonth(
 
 List<LedgerItem> condense(List<LedgerItem> ledgerList) {
   // print('ledgerList');
-  Map<String?, LedgerItem> mappedLedgerList = Map();
-  ledgerList.forEach((item) {
+  Map<String?, LedgerItem> mappedLedgerList = {};
+  for (var item in ledgerList) {
     // print('item ' +
     //     item.category.toString() +
     //     ' price: ' +
@@ -36,10 +36,10 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
         // existingItem.price += item.price!;
         return existingItem;
       },
-      ifAbsent: () => item.createRoughCopy(),
+      ifAbsent: () => LedgerItem.createRoughCopy(item),
     );
     // print('Map ' + mappedLedgerList.length.toString());
-  });
+  }
 
   List<LedgerItem> result = [];
   // print('mapped result length : ${mappedLedgerList.length}');
@@ -51,16 +51,16 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
 }
 
 Map<String, Map<String, double>> splitLedgers(List<LedgerItem> ledgerList) {
-  Map<String, double> income = Map();
-  Map<String, double> expense = Map();
+  Map<String, double> income = {};
+  Map<String, double> expense = {};
 
   /// map ledgerList to dataMap
-  ledgerList.forEach((ledger) {
+  for (var ledger in ledgerList) {
     if (ledger.price! > 0) {
-      income.putIfAbsent(ledger.category!.label!, () => ledger.price!);
+      income.putIfAbsent(ledger.category!.label, () => ledger.price!);
     } else {
-      expense.putIfAbsent(ledger.category!.label!, () => ledger.price!);
+      expense.putIfAbsent(ledger.category!.label, () => ledger.price!);
     }
-  });
+  }
   return {'income': income, 'expense': expense};
 }

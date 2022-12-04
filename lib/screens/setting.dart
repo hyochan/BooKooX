@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
@@ -120,10 +121,18 @@ class Setting extends HookWidget {
       LogoutItem(
         localization.trans('LOGOUT'),
         onPressed: () {
-          _auth.signOut();
+          General.instance.showConfirmDialog(
+            context,
+            title: Text(localization.trans('NOTIFICATION')!),
+            content: Text(localization.trans('SIGN_OUT_ASK')!),
+            cancelPressed: () => Navigator.of(context).pop(),
+            okPressed: () {
+              _auth.signOut();
 
-          /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-          navigation.push(context, AppRoute.tutorial.path, reset: true);
+              /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
+              navigation.push(context, AppRoute.tutorial.path, reset: true);
+            },
+          );
         },
       ),
     ];

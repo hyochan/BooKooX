@@ -1,6 +1,7 @@
 {
   "LOADING": "Loading...",
   "SIGN_IN": "Sign in",
+  "SIGN_OUT_ASK": "Are you sure you want to sign out?",
   "ERROR_INVALID_EMAIL": "Your email is invalid. Please check your email address.",
   "ERROR_WRONG_PASSWORD": "Password is incorrect. Please check your password.",
   "ERROR_USER_NOT_FOUND": "User is not found. Please sign up beforehand.",

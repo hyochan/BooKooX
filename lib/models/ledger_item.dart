@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:wecount/models/photo.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/utils/converter.dart';
 import 'package:wecount/utils/localization.dart';
@@ -15,7 +16,7 @@ class LedgerItem with _$LedgerItem {
     Category? category,
     String? memo,
     UserModel? writer,
-    DateTime? selectedDate,
+    @ServerTimestampConverter() DateTime? selectedDate,
     List<Photo>? picture,
     String? latlng,
     String? address,
@@ -27,16 +28,16 @@ class LedgerItem with _$LedgerItem {
   factory LedgerItem.fromJson(Map<String, dynamic> json) =>
       _$LedgerItemFromJson(json);
 
-  LedgerItem createRoughCopy() {
+  factory LedgerItem.createRoughCopy(LedgerItem data) {
     return LedgerItem(
-      price: price,
+      price: data.price,
       category: Category(
-        iconId: category!.iconId,
-        label: category!.label,
-        type: category!.type,
+        iconId: data.category!.iconId,
+        label: data.category!.label,
+        type: data.category!.type,
       ),
-      selectedDate:
-          DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day),
+      selectedDate: DateTime(data.selectedDate!.year, data.selectedDate!.month,
+          data.selectedDate!.day),
     );
   }
 }
@@ -76,18 +77,6 @@ class Category with _$Category {
   AssetImage? getIconImage() {
     return iconMaps[iconId!];
   }
-}
-
-@freezed
-class Photo with _$Photo {
-  const Photo._();
-  factory Photo({
-    dynamic file,
-    String? url,
-    bool? isAddBtn,
-  }) = _Photo;
-
-  factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
 }
 
 enum CategoryType {

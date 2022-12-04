@@ -115,7 +115,7 @@ final routes = {
   AppRoute.lockRegister.fullPath: (context) => const LockRegister(),
   AppRoute.lockAuth.fullPath: (context) => const LockAuth(),
   AppRoute.locationView.fullPath: (context) => const LocationView(),
-  AppRoute.ledgerEdit.fullPath: (context) => const LedgerEdit(),
+  // AppRoute.ledgerEdit.fullPath: (context) => const LedgerEdit(),
   AppRoute.settingCurrency.fullPath: (context) => const SettingCurrency()
 };
 
@@ -184,7 +184,6 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
 
   if (settings.name == AppRoute.ledgerView.fullPath) {
     final LedgerViewArguments args = settings.arguments as LedgerViewArguments;
-
     return MaterialPageRoute(builder: (context) {
       return LedgerView(
         ledger: args.ledger,
@@ -193,8 +192,12 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
   }
 
   if (settings.name == AppRoute.ledgerEdit.fullPath) {
+    if (settings.arguments == null) {
+      return MaterialPageRoute(builder: (context) {
+        return const LedgerEdit();
+      });
+    }
     final LedgerEditArguments args = settings.arguments as LedgerEditArguments;
-
     return MaterialPageRoute(builder: (context) {
       return LedgerEdit(
         ledger: args.ledger,

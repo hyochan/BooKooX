@@ -24,6 +24,7 @@ mixin _$LedgerItem {
   Category? get category => throw _privateConstructorUsedError;
   String? get memo => throw _privateConstructorUsedError;
   UserModel? get writer => throw _privateConstructorUsedError;
+  @ServerTimestampConverter()
   DateTime? get selectedDate => throw _privateConstructorUsedError;
   List<Photo>? get picture => throw _privateConstructorUsedError;
   String? get latlng => throw _privateConstructorUsedError;
@@ -52,7 +53,7 @@ abstract class $LedgerItemCopyWith<$Res> {
       Category? category,
       String? memo,
       UserModel? writer,
-      DateTime? selectedDate,
+      @ServerTimestampConverter() DateTime? selectedDate,
       List<Photo>? picture,
       String? latlng,
       String? address,
@@ -175,7 +176,7 @@ abstract class _$$_LedgerItemCopyWith<$Res>
       Category? category,
       String? memo,
       UserModel? writer,
-      DateTime? selectedDate,
+      @ServerTimestampConverter() DateTime? selectedDate,
       List<Photo>? picture,
       String? latlng,
       String? address,
@@ -269,7 +270,7 @@ class _$_LedgerItem extends _LedgerItem {
       this.category,
       this.memo,
       this.writer,
-      this.selectedDate,
+      @ServerTimestampConverter() this.selectedDate,
       final List<Photo>? picture,
       this.latlng,
       this.address,
@@ -291,6 +292,7 @@ class _$_LedgerItem extends _LedgerItem {
   @override
   final UserModel? writer;
   @override
+  @ServerTimestampConverter()
   final DateTime? selectedDate;
   final List<Photo>? _picture;
   @override
@@ -379,7 +381,7 @@ abstract class _LedgerItem extends LedgerItem {
       final Category? category,
       final String? memo,
       final UserModel? writer,
-      final DateTime? selectedDate,
+      @ServerTimestampConverter() final DateTime? selectedDate,
       final List<Photo>? picture,
       final String? latlng,
       final String? address,
@@ -400,6 +402,7 @@ abstract class _LedgerItem extends LedgerItem {
   @override
   UserModel? get writer;
   @override
+  @ServerTimestampConverter()
   DateTime? get selectedDate;
   @override
   List<Photo>? get picture;
@@ -641,170 +644,5 @@ abstract class _Category extends Category {
   @override
   @JsonKey(ignore: true)
   _$$_CategoryCopyWith<_$_Category> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Photo _$PhotoFromJson(Map<String, dynamic> json) {
-  return _Photo.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Photo {
-  dynamic get file => throw _privateConstructorUsedError;
-  String? get url => throw _privateConstructorUsedError;
-  bool? get isAddBtn => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PhotoCopyWith<Photo> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PhotoCopyWith<$Res> {
-  factory $PhotoCopyWith(Photo value, $Res Function(Photo) then) =
-      _$PhotoCopyWithImpl<$Res, Photo>;
-  @useResult
-  $Res call({dynamic file, String? url, bool? isAddBtn});
-}
-
-/// @nodoc
-class _$PhotoCopyWithImpl<$Res, $Val extends Photo>
-    implements $PhotoCopyWith<$Res> {
-  _$PhotoCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? file = null,
-    Object? url = freezed,
-    Object? isAddBtn = freezed,
-  }) {
-    return _then(_value.copyWith(
-      file: null == file
-          ? _value.file
-          : file // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      url: freezed == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isAddBtn: freezed == isAddBtn
-          ? _value.isAddBtn
-          : isAddBtn // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_PhotoCopyWith<$Res> implements $PhotoCopyWith<$Res> {
-  factory _$$_PhotoCopyWith(_$_Photo value, $Res Function(_$_Photo) then) =
-      __$$_PhotoCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({dynamic file, String? url, bool? isAddBtn});
-}
-
-/// @nodoc
-class __$$_PhotoCopyWithImpl<$Res> extends _$PhotoCopyWithImpl<$Res, _$_Photo>
-    implements _$$_PhotoCopyWith<$Res> {
-  __$$_PhotoCopyWithImpl(_$_Photo _value, $Res Function(_$_Photo) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? file = null,
-    Object? url = freezed,
-    Object? isAddBtn = freezed,
-  }) {
-    return _then(_$_Photo(
-      file: null == file
-          ? _value.file
-          : file // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      url: freezed == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isAddBtn: freezed == isAddBtn
-          ? _value.isAddBtn
-          : isAddBtn // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_Photo extends _Photo {
-  _$_Photo({this.file, this.url, this.isAddBtn}) : super._();
-
-  factory _$_Photo.fromJson(Map<String, dynamic> json) =>
-      _$$_PhotoFromJson(json);
-
-  @override
-  final dynamic file;
-  @override
-  final String? url;
-  @override
-  final bool? isAddBtn;
-
-  @override
-  String toString() {
-    return 'Photo(file: $file, url: $url, isAddBtn: $isAddBtn)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Photo &&
-            const DeepCollectionEquality().equals(other.file, file) &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.isAddBtn, isAddBtn) ||
-                other.isAddBtn == isAddBtn));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(file), url, isAddBtn);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_PhotoCopyWith<_$_Photo> get copyWith =>
-      __$$_PhotoCopyWithImpl<_$_Photo>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_PhotoToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Photo extends Photo {
-  factory _Photo(
-      {final dynamic file, final String? url, final bool? isAddBtn}) = _$_Photo;
-  _Photo._() : super._();
-
-  factory _Photo.fromJson(Map<String, dynamic> json) = _$_Photo.fromJson;
-
-  @override
-  dynamic get file;
-  @override
-  String? get url;
-  @override
-  bool? get isAddBtn;
-  @override
-  @JsonKey(ignore: true)
-  _$$_PhotoCopyWith<_$_Photo> get copyWith =>
       throw _privateConstructorUsedError;
 }

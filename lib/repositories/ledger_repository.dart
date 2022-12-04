@@ -1,39 +1,54 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:wecount/models/ledger.dart';
 import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/photo.dart';
 import 'package:wecount/models/user_model.dart';
+import 'package:wecount/utils/firebase_config.dart';
 
 abstract class ILedgerRepository {
-  Future<List<LedgerItem>> getMany({
-    double? price,
-    Category? category,
-    String? memo,
-    UserModel? writer,
-    DateTime? selectedDate,
-    List<Photo>? picture,
-    String? latlng,
-    String? address,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    DateTime? deletedAt,
-  });
+  Future<List<LedgerItem>?> getLedgerItems();
+  Future<List<Ledger>> getLedgersWithMembership(User user);
 }
 
 class LedgerRepository implements ILedgerRepository {
   static final LedgerRepository instance = LedgerRepository();
 
   @override
-  Future<List<LedgerItem>> getMany({
-    double? price,
-    Category? category,
-    String? memo,
-    UserModel? writer,
-    DateTime? selectedDate,
-    List<Photo>? picture,
-    String? latlng,
-    String? address,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    DateTime? deletedAt,
-  }) async {
-    return Future.delayed(Duration.zero);
+  Future<List<LedgerItem>?> getLedgerItems() async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      return null;
+    }
+    var userSnap = await FirestoreConfig.userColRef.doc(user.uid).get();
+
+    if (!userSnap.exists) return null;
+
+    var selectedLedger = userSnap.data()!['selectedLedger'];
+
+    var ref = FirestoreConfig.ledgerColRef
+        .doc(selectedLedger)
+        .collection('ledgerItems');
+
+    var query = ref.withConverter<LedgerItem>(
+        fromFirestore: (snapshot, _) =>
+            LedgerItem.fromJson(snapshot.data() ?? {}),
+        toFirestore: (ledgerItem, _) => ledgerItem.toJson());
+
+    var snap = await query.get();
+    return snap.docs.map((e) => e.data()).toList();
+  }
+
+  @override
+  Future<List<Ledger>> getLedgersWithMembership(User user) async {
+    var ref =
+        FirestoreConfig.ledgerColRef.where('members', arrayContains: user.uid);
+
+    var query = ref.withConverter<Ledger>(
+        fromFirestore: (snapshot, _) => Ledger.fromFirestore(snapshot),
+        toFirestore: (ledger, _) => ledger.toJson());
+
+    var snap = await query.get();
+
+    return snap.docs.map((e) => e.data()).toList();
   }
 }

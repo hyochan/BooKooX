@@ -9,38 +9,37 @@ import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/services/storage.dart';
 import 'package:wecount/utils/db_helper.dart';
+import 'package:wecount/utils/firebase_config.dart';
 import 'package:wecount/utils/logger.dart';
 
 class DatabaseService {
-  final FirebaseFirestore db = FirebaseFirestore.instance;
-
-  Future<bool> requestCreateNewLedger(Ledger? ledger) async {
+  Future<String> requestCreateNewLedger(Ledger? ledger) async {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
       print('user is not sign-in');
-      return false;
+      return "";
     }
 
     ledger =
         ledger!.copyWith(ownerId: user.uid, adminIds: [], members: [user.uid]);
-    DocumentReference ref =
-        await FirebaseFirestore.instance.collection('ledgers').add({
-      'title': ledger.title,
-      'color': ledger.color.index,
-      'description': ledger.description,
-      'ownerId': ledger.ownerId,
-      'adminIds': FieldValue.arrayUnion(ledger.adminIds),
-      'currency': ledger.currency.currency,
-      'currencyLocale': ledger.currency.locale,
-      'currencySymbol': ledger.currency.symbol,
-      'members': FieldValue.arrayUnion(
-        ledger.members!,
-      ),
-    });
+    DocumentReference ref = await FirestoreConfig.ledgerColRef.add(
+      {
+        'title': ledger.title,
+        'color': ledger.color.index,
+        'description': ledger.description,
+        'ownerId': ledger.ownerId,
+        'adminIds': FieldValue.arrayUnion(ledger.adminIds),
+        'currency': ledger.currency.currency,
+        'currencyLocale': ledger.currency.locale,
+        'currencySymbol': ledger.currency.symbol,
+        'members': FieldValue.arrayUnion(
+          ledger.members!,
+        ),
+      },
+    );
 
-    await FirebaseFirestore.instance
-        .collection('users')
+    await FirestoreConfig.userColRef
         .doc(user.uid)
         .collection('ledgers')
         .doc(ref.id)
@@ -51,7 +50,11 @@ class DatabaseService {
             ),
         );
 
-    return true;
+    await FirestoreConfig.userColRef.doc(user.uid).set({
+      'selectedLedger': ref.id,
+    }, SetOptions(merge: true));
+
+    return ref.id;
   }
 
   Future<bool> requestUpdateLedger(Ledger? ledger) async {
@@ -62,7 +65,7 @@ class DatabaseService {
       return false;
     }
 
-    await FirebaseFirestore.instance.collection('ledgers').doc(ledger!.id).set({
+    await FirestoreConfig.ledgerColRef.doc(ledger!.id).set({
       'title': ledger.title,
       'color': ledger.color.index,
       'description': ledger.description,
@@ -71,13 +74,24 @@ class DatabaseService {
       'currencySymbol': ledger.currency.symbol,
     }, SetOptions(merge: true));
 
+    await FirestoreConfig.userColRef
+        .doc(user.uid)
+        .collection('ledgers')
+        .doc(ledger.id)
+        .set(
+          ledger.toJson()
+            ..addAll(
+              {'id': ledger.id, 'currency': ledger.currency.toJson()},
+            ),
+        );
+
     return true;
   }
 
   Future<void> requestSelectLedger(String? ledgerId) async {
     User user = FirebaseAuth.instance.currentUser!;
 
-    return FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+    return FirestoreConfig.userColRef.doc(user.uid).set({
       'selectedLedger': ledgerId,
     }, SetOptions(merge: true));
   }
@@ -86,7 +100,7 @@ class DatabaseService {
     User? user = FirebaseAuth.instance.currentUser;
 
     getLedger(String? ledgerId) async {
-      var snap = await db.collection('ledgers').doc(ledgerId).get();
+      var snap = await FirestoreConfig.ledgerColRef.doc(ledgerId).get();
       return Ledger.fromMap(snap.data());
     }
 
@@ -96,8 +110,7 @@ class DatabaseService {
     bool hasMoreThanOneUser = ledger.memberIds.length > 1;
 
     deleteLedgerItem(String? ledgerId) async {
-      var snapItems = await db
-          .collection('ledgers')
+      var snapItems = await FirestoreConfig.ledgerColRef
           .doc(ledgerId)
           .collection('items')
           .get();
@@ -107,10 +120,9 @@ class DatabaseService {
     }
 
     deleteLedger(String? ledgerId) =>
-        db.collection('ledgers').doc(ledgerId).delete();
+        FirestoreConfig.ledgerColRef.doc(ledgerId).delete();
 
-    deleteLedgerFromUser(String? ledgerId) => db
-        .collection('users')
+    deleteLedgerFromUser(String? ledgerId) => FirestoreConfig.userColRef
         .doc(user!.uid)
         .collection('ledgers')
         .doc(ledgerId)
@@ -138,25 +150,15 @@ class DatabaseService {
       return false;
     }
 
-    var writer = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .get();
-
-    DocumentReference ref = await FirebaseFirestore.instance
-        .collection("ledgers")
+    var writer = await FirestoreConfig.userColRef.doc(user.uid).get();
+    print('selectedDate: ${ledgerItem.selectedDate}');
+    DocumentReference ref = await FirestoreConfig.ledgerColRef
         .doc(writer.data()!['selectedLedger'])
         .collection("ledgerItems")
         .add(
       {
         'price': ledgerItem.price,
-        'category': {
-          'id': ledgerItem.category?.id,
-          'iconId': ledgerItem.category?.iconId,
-          'label': ledgerItem.category?.label,
-          'type': '${ledgerItem.category?.type}',
-          'showDelete': ledgerItem.category?.showDelete,
-        },
+        'category': ledgerItem.category?.toJson(),
         'memo': ledgerItem.memo,
         'writer': writer.data(),
         'selectedDate': ledgerItem.selectedDate,
@@ -169,8 +171,7 @@ class DatabaseService {
       },
     );
 
-    await FirebaseFirestore.instance
-        .collection('users')
+    await FirestoreConfig.userColRef
         .doc(user.uid)
         .collection('ledgers')
         .doc(writer.data()!['selectedLedger'])
@@ -183,7 +184,8 @@ class DatabaseService {
                 'ref': ref,
                 'writer': writer.data(),
                 'createdAt': DateTime.now(),
-                'category': ledgerItem.category?.toJson()
+                'category': ledgerItem.category?.toJson(),
+                'selectedDate': ledgerItem.selectedDate,
               },
             ),
         );
@@ -193,8 +195,7 @@ class DatabaseService {
 
   Stream<List<LedgerItem>> streamGetMyLedgerItems(
       String userId, String selectedledger) {
-    var ref = db
-        .collection("users")
+    var ref = FirestoreConfig.userColRef
         .doc(userId)
         .collection('ledgers')
         .doc(selectedledger)
@@ -219,13 +220,9 @@ class DatabaseService {
       return [];
     }
 
-    var writer = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .get();
+    var writer = await FirestoreConfig.userColRef.doc(user.uid).get();
 
-    var userLedgerItemRef = FirebaseFirestore.instance
-        .collection("users")
+    var userLedgerItemRef = FirestoreConfig.userColRef
         .doc(user.uid)
         .collection('ledgers')
         .doc(writer.data()!['selectedLedger'])
@@ -279,16 +276,13 @@ class DatabaseService {
       user.updatePhotoURL(profile?.thumbURL);
       user.updateDisplayName(profile?.displayName);
 
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(profile?.uid)
-          .set({
+      await FirestoreConfig.userColRef.doc(profile?.uid).set({
         'photoURL': profile?.photoURL,
         'thumbURL': profile?.thumbURL,
       }, SetOptions(merge: true));
     }
 
-    await FirebaseFirestore.instance.collection('users').doc(profile?.uid).set({
+    await FirestoreConfig.userColRef.doc(profile?.uid).set({
       'displayName': profile?.displayName,
       'phoneNumber': profile?.phoneNumber,
       'statusMsg': profile?.statusMsg,
@@ -297,25 +291,15 @@ class DatabaseService {
     return true;
   }
 
-  Stream<List<Ledger>> streamLedgersWithMembership(User user) {
-    var ref =
-        db.collection('ledgers').where('members', arrayContains: user.uid);
-
-    return ref.snapshots().map(
-        (list) => list.docs.map((doc) => Ledger.fromFirestore(doc)).toList());
-  }
-
   Stream<Ledger> streamLedger(String? id) {
-    return db
-        .collection('ledgers')
+    return FirestoreConfig.ledgerColRef
         .doc(id)
         .snapshots()
         .map((snap) => Ledger.fromMap(snap.data()));
   }
 
   Stream<UserModel> streamUser(String id) {
-    return db
-        .collection('users')
+    return FirestoreConfig.userColRef
         .doc(id)
         .snapshots()
         .map((snap) => UserModel.fromMap(snap.data(), id));
@@ -323,7 +307,7 @@ class DatabaseService {
 
   /// Used from [auth_switch] to detect the initial widget.
   Stream<List<Ledger>> streamMyLedgers(User user) {
-    var ref = db.collection('users').doc(user.uid).collection('ledgers');
+    var ref = FirestoreConfig.userColRef.doc(user.uid).collection('ledgers');
 
     var query = ref.withConverter<Ledger>(
         fromFirestore: (snapshot, _) => Ledger.fromJson(snapshot.data() ?? {}),
@@ -335,7 +319,7 @@ class DatabaseService {
   }
 
   Future<void> createLedger(Ledger ledger) {
-    return db.collection('ledgers').add(
+    return FirestoreConfig.ledgerColRef.add(
       {
         'title': ledger.title,
         'color': ledger.color,
@@ -346,7 +330,7 @@ class DatabaseService {
   }
 
   Future<DocumentSnapshot> fetchMe(User user) {
-    return db.collection('users').doc(user.uid).get();
+    return FirestoreConfig.userColRef.doc(user.uid).get();
   }
 
   Future<Ledger?> fetchSelectedLedger() async {
@@ -354,8 +338,7 @@ class DatabaseService {
     DocumentSnapshot me = await DatabaseService().fetchMe(user);
 
     if (DBHelper.instance.isExistFiled(me, 'selectedLedger')) {
-      var ledgers = await db
-          .collection('users')
+      var ledgers = await FirestoreConfig.userColRef
           .doc(user.uid)
           .collection('ledgers')
           .get();

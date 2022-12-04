@@ -1,5 +1,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/category_item.dart';
 import 'package:wecount/utils/db_helper.dart';
@@ -30,7 +31,7 @@ class CategoryList extends HookWidget {
                 Navigator.pop(context, category);
               },
               onDeletePressed: () {
-                navigation.showConfirmDialog(context,
+                General.instance.showConfirmDialog(context,
                     title: Text(localization!.trans('DELETE')!),
                     content: Text(localization.trans('DELETE_ASK')!),
                     okPressed: () async {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
 import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/photo.dart';
 import 'package:wecount/screens/category_add.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -18,9 +19,9 @@ import 'package:wecount/utils/logger.dart';
 
 class LedgerItemEdit extends HookWidget {
   const LedgerItemEdit({
-    Key? key,
+    super.key,
     this.title = '',
-  }) : super(key: key);
+  });
   final String title;
 
   @override
@@ -168,7 +169,7 @@ class LedgerItemEdit extends HookWidget {
           },
         );
         if (result != null) {
-          categories.value.add(result);
+          categories.value = [...categories.value, result];
         }
       }
 
@@ -205,7 +206,7 @@ class LedgerItemEdit extends HookWidget {
                 ),
               ),
               Divider(height: 1, color: Theme.of(context).dividerColor),
-              Container(height: 8),
+              const SizedBox(height: 8),
               Expanded(
                 child: CategoryList(categories: categories.value),
               ),
@@ -362,9 +363,16 @@ class LedgerItemEdit extends HookWidget {
                       )),
                   Expanded(
                     child: TextField(
+                      onTap: () {
+                        priceTextEditingController1.text =
+                            ledgerItemConsume.value.price != null
+                                ? ledgerItemConsume.value.price.toString()
+                                : "";
+                      },
                       textInputAction: TextInputAction.done,
                       onChanged: (String value) {
                         String inputPrice = value.trim();
+
                         if (inputPrice == "") {
                           ledgerItemConsume.value =
                               ledgerItemConsume.value.copyWith(price: 0);
@@ -381,9 +389,10 @@ class LedgerItemEdit extends HookWidget {
                       keyboardType:
                           const TextInputType.numberWithOptions(decimal: true),
                       decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: '0',
-                          hintStyle: TextStyle(color: Asset.Colors.carnation)),
+                        border: InputBorder.none,
+                        hintText: '0',
+                        hintStyle: TextStyle(color: Asset.Colors.carnation),
+                      ),
                       style: const TextStyle(
                         fontSize: 28,
                         color: Asset.Colors.carnation,
@@ -394,7 +403,7 @@ class LedgerItemEdit extends HookWidget {
               ),
 
               /// CATEGORY
-              ledgerItemConsume.value.category == null
+              ledgerItemConsume.value.category!.label == ""
                   ? renderBox(
                       margin: const EdgeInsets.only(top: 52),
                       icon: Icons.category,
@@ -450,7 +459,7 @@ class LedgerItemEdit extends HookWidget {
                     ),
               Gallery(
                 margin: const EdgeInsets.only(top: 26),
-                pictures: [Photo().copyWith(isAddBtn: true)],
+                pictureProps: [Photo().copyWith(isAddBtn: true)],
                 ledgerItem: ledgerItemConsume.value,
               ),
             ],
@@ -508,6 +517,12 @@ class LedgerItemEdit extends HookWidget {
                       )),
                   Expanded(
                     child: TextField(
+                      onTap: () {
+                        priceTextEditingController2.text =
+                            ledgerItemIncome.value.price != null
+                                ? ledgerItemIncome.value.price.toString()
+                                : "";
+                      },
                       textInputAction: TextInputAction.done,
                       onChanged: (String value) {
                         String inputPrice = value.trim();
@@ -541,7 +556,7 @@ class LedgerItemEdit extends HookWidget {
               ),
 
               /// CATEGORY
-              ledgerItemIncome.value.category == null
+              ledgerItemIncome.value.category!.label == ""
                   ? renderBox(
                       margin: const EdgeInsets.only(top: 52),
                       icon: Icons.category,
@@ -601,7 +616,7 @@ class LedgerItemEdit extends HookWidget {
                     ),
               Gallery(
                 margin: const EdgeInsets.only(top: 26),
-                pictures: [Photo(isAddBtn: true)],
+                pictureProps: [Photo(isAddBtn: true)],
                 ledgerItem: ledgerItemIncome.value,
               ),
             ],
@@ -650,7 +665,6 @@ class LedgerItemEdit extends HookWidget {
                               Theme.of(context).textTheme.displayLarge!.color!,
                           width: 4.0),
                       insets: const EdgeInsets.symmetric(horizontal: 8),
-                      // insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
                     ),
                     indicatorColor: Theme.of(context).colorScheme.background,
                     labelColor: Theme.of(context).textTheme.displayLarge!.color,
@@ -658,7 +672,6 @@ class LedgerItemEdit extends HookWidget {
                       fontSize: 20,
                     ),
                     labelPadding: const EdgeInsets.symmetric(horizontal: 8),
-                    // indicatorPadding: EdgeInsets.symmetric(horizontal: 10),
                     tabs: choices.map((String choice) {
                       return Tab(
                         text: localization!.trans(choice),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
@@ -98,7 +99,7 @@ class SignIn extends HookWidget {
       }
 
       if (auth.user != null && !auth.user!.emailVerified && context.mounted) {
-        navigation.showSingleDialog(
+        General.instance.showSingleDialog(
           context,
           title: Text(localization!.trans('ERROR')!),
           onPress: () => _auth.signOut(),

@@ -1,6 +1,7 @@
 {
   "LOADING": "로딩중...",
   "SIGN_IN": "로그인",
+  "CHECK_SIGN_OUT": "로그아웃 하시겠습니까?",
   "ERROR_INVALID_EMAIL": "이메일 주소가 올바르지 않습니다. 이메일 주소를 확인해주세요.",
   "ERROR_WRONG_PASSWORD": "비밀번호가 일치하지 않습니다. 비밀번호를 확인해주세요.",
   "ERROR_USER_NOT_FOUND": "회원이 존재하지 않습니다. 회원가입부터 해주세요.",

@@ -82,12 +82,10 @@ class DBHelper {
         await db.execute(
           "CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, type INTEGER, iconId INTEGER, label TEXT)",
         );
-        initialCategory.forEach(
-          (category) {
-            db.insert('categories', category.toMapInitial(context),
-                conflictAlgorithm: ConflictAlgorithm.abort);
-          },
-        );
+        for (var category in initialCategory) {
+          db.insert('categories', category.toMapInitial(context),
+              conflictAlgorithm: ConflictAlgorithm.abort);
+        }
       },
       version: 5,
     );

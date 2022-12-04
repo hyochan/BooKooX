@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/providers/current_ledger.dart';
+import 'package:wecount/repositories/ledger_repository.dart';
+import 'package:wecount/repositories/user_repository.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
@@ -32,50 +34,16 @@ class ListType {
 
 class HomeList extends HookWidget {
   const HomeList({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     var user = FirebaseAuth.instance.currentUser!;
     final textEditingController = useTextEditingController();
     var listData = useState<List<ListType>>([]);
+    var data = [];
 
-    // useEffect(() {
-    //   Future.delayed(Duration.zero, () async {
-    //     var localization = Localization.of(context)!;
-
-    //     final getLedgerts = await DatabaseService().getMyLedgerItmes();
-    //     getLedgerts.sort((a, b) {
-    //       return a.selectedDate!.compareTo(b.selectedDate!);
-    //     });
-    //     // insert Date row as Header
-    //     DateTime? prevDate;
-    //     List<LedgerItem> temp = [];
-    //     // todo for in
-    //     for (var i = 0; i < getLedgerts.length; i++) {
-    //       if (prevDate != getLedgerts[i].selectedDate) {
-    //         // 다르면 모은 데이터를 저장하고, 모음 리셋
-    //         if (temp.isNotEmpty) {
-    //           listData.value = [
-    //             ...listData.value,
-    //             ListType(date: prevDate!, ledgerItems: temp)
-    //           ];
-    //         }
-    //         prevDate = getLedgerts[i].selectedDate;
-    //         temp = [];
-    //       }
-    //       temp.add(getLedgerts[i]); // 데이터 임시 모음
-    //     }
-    //     if (temp.isNotEmpty) {
-    //       listData.value = [
-    //         ...listData.value,
-    //         ListType(date: prevDate!, ledgerItems: temp)
-    //       ];
-    //     }
-    //   });
-    //   return null;
-    // }, []);
     Widget renderListHeader(DateTime date) {
       String headerString = DateFormat('yyyy-MM-dd (E)').format(date);
       return Container(
@@ -104,7 +72,6 @@ class HomeList extends HookWidget {
           ListType section = itemList[index];
           DateTime headerDate = section.date;
           var ledgerItems = section.ledgerItems;
-
           return SliverStickyHeader(
             header: renderListHeader(headerDate),
             sliver: SliverList(
@@ -138,56 +105,53 @@ class HomeList extends HookWidget {
         ),
       ),
       body: SafeArea(
-          child: StreamBuilder(
-        stream: DatabaseService().streamUser(user.uid),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) return const SizedBox();
-          UserModel item = snapshot.data;
-          return StreamBuilder(
-            stream: DatabaseService()
-                .streamGetMyLedgerItems(user.uid, item.selectedLedger ?? ''),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (!snapshot.hasData) return const SizedBox();
+        child: FutureBuilder(
+          future: UserRepository.instance.getMe(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (!snapshot.hasData) return const SizedBox();
+            UserModel item = snapshot.data;
+            return item.selectedLedger == null
+                ? const SizedBox()
+                : FutureBuilder(
+                    future: LedgerRepository.instance.getLedgerItems(),
+                    builder: (context, AsyncSnapshot ledgerSnapShot) {
+                      if (!ledgerSnapShot.hasData) return const SizedBox();
+                      List<LedgerItem> getLedgers = ledgerSnapShot.data;
+                      List<ListType> itemList = [];
+                      getLedgers.sort((a, b) {
+                        return a.selectedDate!.compareTo(b.selectedDate!);
+                      });
+                      // insert Date row as Header
+                      DateTime? prevDate;
+                      List<LedgerItem> temp = [];
+                      for (var i = 0; i < getLedgers.length; i++) {
+                        if (prevDate != getLedgers[i].selectedDate) {
+                          // 다르면 모은 데이터를 저장하고, 모음 리셋
+                          if (temp.isNotEmpty) {
+                            itemList.add(
+                                ListType(date: prevDate!, ledgerItems: temp));
+                          }
+                          prevDate = getLedgers[i].selectedDate;
+                          temp = [];
+                        }
+                        temp.add(getLedgers[i]); // 데이터 임시 모음
+                      }
 
-              List<LedgerItem> getLedgers = snapshot.data;
-              List<ListType> itemList = [];
-              getLedgers.sort((a, b) {
-                return a.selectedDate!.compareTo(b.selectedDate!);
-              });
-              // insert Date row as Header
-              DateTime? prevDate;
-              List<LedgerItem> temp = [];
-              // todo for in
-              for (var i = 0; i < getLedgers.length; i++) {
-                if (prevDate != getLedgers[i].selectedDate) {
-                  // 다르면 모은 데이터를 저장하고, 모음 리셋
-                  if (temp.isNotEmpty) {
-                    itemList = [
-                      ...itemList,
-                      ListType(date: prevDate!, ledgerItems: temp)
-                    ];
-                  }
-                  prevDate = getLedgers[i].selectedDate;
-                  temp = [];
-                }
-                temp.add(getLedgers[i]); // 데이터 임시 모음
-              }
-              if (temp.isNotEmpty) {
-                itemList = [
-                  ...itemList,
-                  ListType(date: prevDate!, ledgerItems: temp)
-                ];
-              }
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomScrollView(
-                  slivers: renderList(context, itemList),
-                ),
-              );
-            },
-          );
-        },
-      )),
+                      if (temp.isNotEmpty) {
+                        itemList
+                            .add(ListType(date: prevDate!, ledgerItems: temp));
+                      }
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: CustomScrollView(
+                          slivers: renderList(context, itemList),
+                        ),
+                      );
+                    },
+                  );
+          },
+        ),
+      ),
     );
   }
 }

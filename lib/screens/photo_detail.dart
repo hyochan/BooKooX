@@ -5,6 +5,7 @@ import 'package:photo_view/photo_view.dart'
     show PhotoView, PhotoViewComputedScale;
 import 'package:flutter/material.dart';
 import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/photo.dart';
 
 import 'package:wecount/utils/localization.dart' show Localization;
 
@@ -140,7 +141,7 @@ class PhotoDetail extends HookWidget {
                               ),
                             ),
                           )
-                        : Container(),
+                        : const SizedBox(),
                   ],
                 ),
               ),

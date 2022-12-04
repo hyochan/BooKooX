@@ -25,9 +25,9 @@ class Localization {
     String data =
         await rootBundle.loadString('res/langs/${locale.languageCode}.json');
 
-    Map<String, dynamic> _result = json.decode(data);
-    _sentences = Map();
-    _result.forEach((String key, dynamic value) {
+    Map<String, dynamic> result = json.decode(data);
+    _sentences = {};
+    result.forEach((String key, dynamic value) {
       _sentences[key] = value.toString();
     });
     return Localization(locale);
@@ -39,7 +39,7 @@ class Localization {
     if (key == null) {
       return '...';
     }
-    return this._sentences[key];
+    return _sentences[key];
   }
 }
 
