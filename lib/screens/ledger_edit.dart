@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/providers/current_ledger.dart';
@@ -79,17 +80,6 @@ class LedgerEdit extends HookWidget {
       editLedger.value = editLedger.value!.copyWith(color: item);
     }
 
-    void pressDelete() async {
-      var localization = Localization.of(context)!;
-      General.instance.showConfirmDialog(context,
-          title: Text(localization.trans('NOTIFICATION')!),
-          content: Text(localization.trans('DELETE_ASK')!),
-          cancelPressed: () => Navigator.of(context).pop(),
-          okPressed: () {
-            //todo delete ledger
-          });
-    }
-
     void pressDone() async {
       final db = DatabaseService();
 
@@ -136,26 +126,41 @@ class LedgerEdit extends HookWidget {
     }
 
     void leaveLedger() async {
-      bool hasLeft =
-          await DatabaseService().requestLeaveLedger(editLedger.value!.id);
+      User? user = FirebaseAuth.instance.currentUser;
+      bool hasOwnerPermission =
+          user != null && editLedger.value?.ownerId == user.uid;
+      bool hasMoreThanOneUser = editLedger.value!.memberIds.length > 1;
 
-      if (hasLeft) {
-        var ledger = await DatabaseService().fetchSelectedLedger();
-        if (context.mounted) {
-          Provider.of<CurrentLedger>(context, listen: false).setLedger(ledger);
-          Navigator.of(context).pop();
-        }
-      }
-
-      if (context.mounted) {
+      if (hasOwnerPermission && !hasMoreThanOneUser) {
         var localization = Localization.of(context)!;
 
-        General.instance.showSingleDialog(
+        General.instance.showConfirmDialog(
           context,
-          title: Text(localization.trans('ERROR')!),
-          content: Text(localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
+          title: Text(localization.trans('NOTIFICATION')!),
+          content: Text(localization.trans('LEAVE_ASK')!),
+          cancelPressed: () => Navigator.of(context).pop(),
+          okPressed: () async {
+            bool hasLeft = await DatabaseService()
+                .requestLeaveLedger(editLedger.value!.id);
+            var ledger = await DatabaseService().fetchSelectedLedger();
+            if (context.mounted) {
+              Provider.of<CurrentLedger>(context, listen: false)
+                  .setLedger(ledger);
+              Navigator.of(context).pop();
+              Navigator.of(context).pop(editLedger.value!.id);
+            }
+          },
         );
+        return;
       }
+
+      var localization = Localization.of(context)!;
+
+      General.instance.showSingleDialog(
+        context,
+        title: Text(localization.trans('ERROR')!),
+        content: Text(localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
+      );
     }
 
     var localization = Localization.of(context)!;
@@ -166,23 +171,25 @@ class LedgerEdit extends HookWidget {
         context: context,
         brightness: Brightness.dark,
         actions: [
-          Container(
-            width: 56.0,
-            margin: const EdgeInsets.only(right: 16),
-            child: RawMaterialButton(
-              padding: const EdgeInsets.all(0.0),
-              onPressed: leaveLedger,
-              child: Text(
-                localization.trans('LEAVE')!,
-                semanticsLabel: localization.trans('LEAVE'),
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 18,
-                  decoration: TextDecoration.underline,
+          ledger == null
+              ? const SizedBox()
+              : Container(
+                  width: 56.0,
+                  margin: const EdgeInsets.only(right: 16),
+                  child: RawMaterialButton(
+                    padding: const EdgeInsets.all(0.0),
+                    onPressed: leaveLedger,
+                    child: Text(
+                      localization.trans('LEAVE')!,
+                      semanticsLabel: localization.trans('LEAVE'),
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 18,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
         ],
       ),
       body: SafeArea(
@@ -328,33 +335,6 @@ class LedgerEdit extends HookWidget {
                 ),
               ],
             ),
-            ledger == null
-                ? const SizedBox()
-                : Positioned(
-                    bottom: 24,
-                    left: 24,
-                    child: SizedBox(
-                      height: 60,
-                      child: TextButton(
-                        style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(26.0),
-                            ),
-                          ),
-                        ),
-                        onPressed: pressDelete,
-                        child: Text(
-                          localization.trans('DELETE')!,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
             Positioned(
               bottom: 24,
               right: 24,
@@ -371,24 +351,37 @@ class LedgerEdit extends HookWidget {
                   onPressed: pressDone,
                   child: loading.value
                       ? SizedBox(
-                          width: 28,
-                          height: 28,
-                          child: CircularProgressIndicator(
-                            semanticsLabel:
-                                Localization.of(context)!.trans('LOADING'),
-                            backgroundColor: Theme.of(context).primaryColor,
-                            strokeWidth: 2,
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                                Colors.white),
+                          height: 52,
+                          width: 80,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              semanticsLabel:
+                                  Localization.of(context)!.trans('LOADING'),
+                              backgroundColor: Theme.of(context).primaryColor,
+                              strokeWidth: 2,
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.white),
+                            ),
                           ),
                         )
-                      : Text(
-                          ledger == null
-                              ? localization.trans('DONE')!
-                              : localization.trans('UPDATE')!,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16.0,
+                      : Container(
+                          height: 52,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(26),
+                          ),
+                          child: Center(
+                            child: Text(
+                              ledger == null
+                                  ? localization.trans('DONE')!
+                                  : localization.trans('UPDATE')!,
+                              style: TextStyle(
+                                color: Asset.Colors.getColor(
+                                    editLedger.value!.color),
+                                fontSize: 16.0,
+                              ),
+                            ),
                           ),
                         ),
                 ),

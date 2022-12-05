@@ -29,10 +29,12 @@ class LedgerRepository implements ILedgerRepository {
         .doc(selectedLedger)
         .collection('ledgerItems');
 
-    var query = ref.withConverter<LedgerItem>(
-        fromFirestore: (snapshot, _) =>
-            LedgerItem.fromJson(snapshot.data() ?? {}),
-        toFirestore: (ledgerItem, _) => ledgerItem.toJson());
+    var query = ref
+        .withConverter<LedgerItem>(
+            fromFirestore: (snapshot, _) =>
+                LedgerItem.fromJson(snapshot.data() ?? {}),
+            toFirestore: (ledgerItem, _) => ledgerItem.toJson())
+        .orderBy('selectedDate', descending: false);
 
     var snap = await query.get();
     return snap.docs.map((e) => e.data()).toList();
@@ -40,8 +42,9 @@ class LedgerRepository implements ILedgerRepository {
 
   @override
   Future<List<Ledger>> getLedgersWithMembership(User user) async {
-    var ref =
-        FirestoreConfig.ledgerColRef.where('members', arrayContains: user.uid);
+    var ref = FirestoreConfig.ledgerColRef
+        .where('members', arrayContains: user.uid)
+        .orderBy('createdAt', descending: false);
 
     var query = ref.withConverter<Ledger>(
         fromFirestore: (snapshot, _) => Ledger.fromFirestore(snapshot),

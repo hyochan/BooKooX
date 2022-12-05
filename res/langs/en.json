@@ -160,6 +160,7 @@
   "CATEGORY_DELETE_ERROR": "There was an error while deleting category. Please try again.",
   "DELETE": "Delete",
   "DELETE_ASK": "Are you sure you want to delete?",
+  "LEAVE_ASK": "Are you sure you want to leave?",
   "ERROR_CATEGORY_NAME": "Please write category name.",
   "ERROR_CATEGORY_ICON": "Please select icon.",
   "EXPORT_EXCEL": "Export",

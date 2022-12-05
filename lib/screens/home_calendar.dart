@@ -148,10 +148,11 @@ class MyHomePage extends HookWidget {
                 Event(
                     date: ledger.selectedDate!, title: ledger.category!.label));
           }
-
-          ledgerList0.value = ledgerList;
-          markedDateMap0.value = markedDateMap;
-          ledgerListOfSelectedDate.value = [];
+          if (context.mounted) {
+            ledgerList0.value = ledgerList;
+            markedDateMap0.value = markedDateMap;
+            ledgerListOfSelectedDate.value = [];
+          }
           for (var item in ledgerList) {
             if (item.selectedDate?.day == DateTime.now().day) {
               ledgerListOfSelectedDate.value = [

@@ -21,8 +21,12 @@ class DatabaseService {
       return "";
     }
 
-    ledger =
-        ledger!.copyWith(ownerId: user.uid, adminIds: [], members: [user.uid]);
+    ledger = ledger!.copyWith(
+        ownerId: user.uid,
+        adminIds: [],
+        members: [user.uid],
+        createdAt: DateTime.now());
+
     DocumentReference ref = await FirestoreConfig.ledgerColRef.add(
       {
         'title': ledger.title,
@@ -33,6 +37,7 @@ class DatabaseService {
         'currency': ledger.currency.currency,
         'currencyLocale': ledger.currency.locale,
         'currencySymbol': ledger.currency.symbol,
+        'createdAt': ledger.createdAt,
         'members': FieldValue.arrayUnion(
           ledger.members!,
         ),
@@ -107,12 +112,11 @@ class DatabaseService {
     Ledger ledger = await getLedger(ledgerId);
 
     bool hasOwnerPermission = user != null && ledger.ownerId == user.uid;
-    bool hasMoreThanOneUser = ledger.memberIds.length > 1;
 
     deleteLedgerItem(String? ledgerId) async {
       var snapItems = await FirestoreConfig.ledgerColRef
           .doc(ledgerId)
-          .collection('items')
+          .collection('ledgerItems')
           .get();
       for (DocumentSnapshot doc in snapItems.docs) {
         doc.reference.delete();
@@ -128,19 +132,15 @@ class DatabaseService {
         .doc(ledgerId)
         .delete();
 
-    if (hasOwnerPermission && !hasMoreThanOneUser) {
-      await deleteLedgerItem(ledgerId);
-      await deleteLedger(ledgerId);
-      await deleteLedgerFromUser(ledgerId);
-      return true;
-    }
-
     if (!hasOwnerPermission) {
       await deleteLedgerFromUser(ledgerId);
       return true;
     }
 
-    return false;
+    await deleteLedgerItem(ledgerId);
+    await deleteLedger(ledgerId);
+    await deleteLedgerFromUser(ledgerId);
+    return true;
   }
 
   Future<bool> requestCreateLedgerItem(LedgerItem ledgerItem) async {
@@ -151,7 +151,6 @@ class DatabaseService {
     }
 
     var writer = await FirestoreConfig.userColRef.doc(user.uid).get();
-    print('selectedDate: ${ledgerItem.selectedDate}');
     DocumentReference ref = await FirestoreConfig.ledgerColRef
         .doc(writer.data()!['selectedLedger'])
         .collection("ledgerItems")
@@ -170,25 +169,6 @@ class DatabaseService {
         'deletedAt': ledgerItem.deletedAt,
       },
     );
-
-    await FirestoreConfig.userColRef
-        .doc(user.uid)
-        .collection('ledgers')
-        .doc(writer.data()!['selectedLedger'])
-        .collection("ledgerItems")
-        .doc(ref.id)
-        .set(
-          ledgerItem.toJson()
-            ..addAll(
-              {
-                'ref': ref,
-                'writer': writer.data(),
-                'createdAt': DateTime.now(),
-                'category': ledgerItem.category?.toJson(),
-                'selectedDate': ledgerItem.selectedDate,
-              },
-            ),
-        );
 
     return true;
   }

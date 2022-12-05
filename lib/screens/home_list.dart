@@ -118,9 +118,7 @@ class HomeList extends HookWidget {
                       if (!ledgerSnapShot.hasData) return const SizedBox();
                       List<LedgerItem> getLedgers = ledgerSnapShot.data;
                       List<ListType> itemList = [];
-                      getLedgers.sort((a, b) {
-                        return a.selectedDate!.compareTo(b.selectedDate!);
-                      });
+
                       // insert Date row as Header
                       DateTime? prevDate;
                       List<LedgerItem> temp = [];

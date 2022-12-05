@@ -19,6 +19,7 @@ class EntryItem extends StatelessWidget {
   Widget _buildTiles(Entry root) {
     if (root.children.isEmpty) return ListTile(title: Text(root.title!));
     return ExpansionTile(
+      tilePadding: const EdgeInsets.symmetric(horizontal: 20),
       key: PageStorageKey<Entry>(root),
       title: Text(root.title ?? ''),
       children: root.children.map(_buildTiles).toList(),
@@ -32,7 +33,7 @@ class EntryItem extends StatelessWidget {
 }
 
 class SettingFAQ extends StatelessWidget {
-  const SettingFAQ({Key? key}) : super(key: key);
+  const SettingFAQ({super.key});
 
   @override
   Widget build(BuildContext context) {
