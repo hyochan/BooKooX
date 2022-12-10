@@ -17,32 +17,32 @@ class LedgerViewArguments {
 
 class LedgerView extends HookWidget {
   const LedgerView({
-    Key? key,
+    super.key,
     this.ledger,
-  }) : super(key: key);
+  });
   final Ledger? ledger;
 
   @override
   Widget build(BuildContext context) {
-    var _ledger = useState<Ledger?>(null);
+    var viewLedger = useState<Ledger?>(null);
 
     useEffect(() {
       if (ledger != null) {
-        _ledger.value = ledger;
+        viewLedger.value = ledger;
         return;
       }
-      _ledger.value = Ledger(
+      viewLedger.value = Ledger(
         title: 'ledger test',
-        currency: Currency(currency: '\￦', locale: 'KRW'),
+        currency: Currency(currency: '￦', locale: 'KRW'),
         color: ColorType.DUSK,
       );
       return null;
     }, []);
 
-    var _localization = Localization.of(context)!;
+    var localization = Localization.of(context)!;
 
     return Scaffold(
-      backgroundColor: Asset.Colors.getColor(_ledger.value!.color),
+      backgroundColor: Asset.Colors.getColor(viewLedger.value!.color),
       appBar: renderHeaderBack(
         context: context,
         iconColor: Colors.white,
@@ -52,68 +52,71 @@ class LedgerView extends HookWidget {
         child: ListView(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 40, left: 40, right: 40),
+              margin: const EdgeInsets.only(top: 40, left: 40, right: 40),
               child: TextField(
                 enabled: false,
                 maxLines: 2,
                 onChanged: (String txt) {
-                  _ledger.value = _ledger.value!.copyWith(title: txt);
+                  viewLedger.value = viewLedger.value!.copyWith(title: txt);
                 },
-                controller: TextEditingController(text: _ledger.value!.title),
+                controller:
+                    TextEditingController(text: viewLedger.value!.title),
                 decoration: InputDecoration(
                   hintMaxLines: 2,
                   border: InputBorder.none,
-                  hintText: _localization.trans('LEDGER_NAME_HINT'),
-                  hintStyle: TextStyle(
+                  hintText: localization.trans('LEDGER_NAME_HINT'),
+                  hintStyle: const TextStyle(
                     fontSize: 28.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
                   ),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 28.0,
                   color: Colors.white,
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 24, left: 40, right: 40, bottom: 20),
+              margin: const EdgeInsets.only(
+                  top: 24, left: 40, right: 40, bottom: 20),
               height: 160,
               child: TextField(
                 enabled: false,
                 maxLines: 8,
                 controller:
-                    TextEditingController(text: _ledger.value!.description),
+                    TextEditingController(text: viewLedger.value!.description),
                 onChanged: (String txt) {
-                  _ledger.value = _ledger.value!.copyWith(description: txt);
+                  viewLedger.value =
+                      viewLedger.value!.copyWith(description: txt);
                 },
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: _localization.trans('LEDGER_DESCRIPTION_HINT'),
-                  hintStyle: TextStyle(
+                  hintText: localization.trans('LEDGER_DESCRIPTION_HINT'),
+                  hintStyle: const TextStyle(
                     fontSize: 16.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
                   ),
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16.0,
                   color: Colors.white,
                 ),
               ),
             ),
             MaterialButton(
-              padding: EdgeInsets.all(0.0),
+              padding: const EdgeInsets.all(0.0),
               onPressed: null,
               child: Container(
                 height: 80.0,
                 width: double.infinity,
-                padding: EdgeInsets.only(left: 40.0, right: 28.0),
+                padding: const EdgeInsets.only(left: 40.0, right: 28.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      _localization.trans('CURRENCY')!,
-                      style: TextStyle(
+                      localization.trans('CURRENCY')!,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
@@ -121,18 +124,16 @@ class LedgerView extends HookWidget {
                     Row(
                       children: <Widget>[
                         Text(
-                          '${_ledger.value!.currency.locale} | ${_ledger.value!.currency.currency}',
-                          style: TextStyle(
+                          '${viewLedger.value!.currency.locale} | ${viewLedger.value!.currency.currency}',
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                           ),
                         ),
-                        Container(
-                          child: Icon(
-                            Icons.chevron_right,
-                            size: 16,
-                            color: Color.fromRGBO(255, 255, 255, 0.7),
-                          ),
+                        const Icon(
+                          Icons.chevron_right,
+                          size: 16,
+                          color: Color.fromRGBO(255, 255, 255, 0.7),
                         ),
                       ],
                     ),
@@ -140,27 +141,25 @@ class LedgerView extends HookWidget {
                 ),
               ),
             ),
-            Divider(color: Colors.white70),
+            const Divider(color: Colors.white70),
             Container(
               height: 80.0,
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 40.0),
+              padding: const EdgeInsets.only(left: 40.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    child: Text(
-                      _localization.trans('COLOR')!,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
+                  Text(
+                    localization.trans('COLOR')!,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
                     ),
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.only(right: 32),
+                      padding: const EdgeInsets.only(right: 32),
                       child: ListView.builder(
                         reverse: true,
                         scrollDirection: Axis.horizontal,
@@ -168,7 +167,7 @@ class LedgerView extends HookWidget {
                         itemExtent: 32,
                         itemBuilder: (context, index) {
                           final item = colorItems[index];
-                          bool selected = item == _ledger.value!.color;
+                          bool selected = item == viewLedger.value!.color;
                           return ColorItem(
                             color: item,
                             selected: selected,
@@ -180,8 +179,8 @@ class LedgerView extends HookWidget {
                 ],
               ),
             ),
-            Divider(color: Colors.white70),
-            MemberHorizontalList(),
+            const Divider(color: Colors.white70),
+            const MemberHorizontalList(),
           ],
         ),
       ),
@@ -190,7 +189,7 @@ class LedgerView extends HookWidget {
 }
 
 class ColorItem extends StatelessWidget {
-  ColorItem({
+  const ColorItem({
     Key? key,
     this.color,
     this.selected,
@@ -223,7 +222,7 @@ class ColorItem extends StatelessWidget {
           ),
         ),
         selected == true
-            ? Icon(
+            ? const Icon(
                 Icons.check,
                 color: Colors.white,
                 size: 16,

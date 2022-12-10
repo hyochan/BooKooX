@@ -1,8 +1,10 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/user_model.dart';
+import 'package:wecount/repositories/user_repository.dart';
 import 'package:wecount/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FireAuth show User;
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
@@ -13,27 +15,29 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ProfileMy extends HookWidget {
-  const ProfileMy({Key? key}) : super(key: key);
+  const ProfileMy({super.key});
 
   @override
   Widget build(BuildContext context) {
     var imgFile = useState<XFile?>(null);
     UserModel? profile;
 
-    Future<void> _onUpdateProfile() async {
-      navigation.showDialogSpinner(context);
+    Future<void> onUpdateProfile() async {
+      General.instance.showDialogSpinner(context);
 
       await DatabaseService().requestUpdateProfile(
         profile,
         imgFile: imgFile.value,
       );
 
-      Navigator.of(context).pop();
-      Navigator.of(context).pop();
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      }
     }
 
     var localization = Localization.of(context)!;
-    var user0 = Provider.of<FireAuth.User>(context);
+    // var user0 = Provider.of<FireAuth.User>(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -48,15 +52,15 @@ class ProfileMy extends HookWidget {
             ),
             color: Theme.of(context).textTheme.displayLarge!.color,
             padding: const EdgeInsets.all(0.0),
-            onPressed: _onUpdateProfile,
+            onPressed: onUpdateProfile,
           ),
         ],
       ),
       body: SafeArea(
-          child: StreamBuilder(
-        stream: DatabaseService().streamUser(user0.uid),
+          child: FutureBuilder(
+        future: UserRepository.instance.getMe(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) return Container();
+          if (!snapshot.hasData) return const SizedBox();
 
           UserModel user = snapshot.data;
           profile = UserModel(
@@ -82,15 +86,15 @@ class ProfileMy extends HookWidget {
                           ? profile!.thumbURL
                           : profile?.photoURL,
                       selectCamera: () async {
-                        var file = await navigation.chooseImage(
-                            context: context, type: 'camera');
+                        var file = await General.instance
+                            .chooseImage(context: context, type: 'camera');
                         if (file != null) {
                           imgFile.value = file;
                         }
                       },
                       selectGallery: () async {
-                        var file = await navigation.chooseImage(
-                            context: context, type: 'gallery');
+                        var file = await General.instance
+                            .chooseImage(context: context, type: 'gallery');
                         if (file != null) {
                           imgFile.value = file;
                         }

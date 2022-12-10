@@ -1,4 +1,5 @@
 import 'package:wecount/models/user_model.dart';
+import 'package:wecount/repositories/user_repository.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
@@ -21,29 +22,33 @@ class MemberHorizontalList extends StatelessWidget {
     var localization = Localization.of(context)!;
 
     List<Widget> memberWidgets = memberIds.map((memberId) {
-      return StreamBuilder(
-        stream: DatabaseService().streamUser(memberId),
-        builder: (BuildContext context, AsyncSnapshot<UserModel> snapshot) {
+      return FutureBuilder(
+        future: UserRepository.instance.getOne(memberId),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
           return Container(
             margin: const EdgeInsets.only(left: 8),
             child: Material(
-                clipBehavior: Clip.hardEdge,
-                color: Colors.transparent,
-                child: Ink.image(
-                  image: (!snapshot.hasData ||
-                          (snapshot.data!.photoURL == null &&
-                              snapshot.data!.thumbURL == null)
-                      ? Asset.Icons.icMask
-                      : NetworkImage(snapshot.data!.thumbURL != null
-                          ? snapshot.data!.thumbURL!
-                          : snapshot.data!.photoURL!)) as ImageProvider<Object>,
-                  fit: BoxFit.cover,
-                  width: 48.0,
-                  height: 48.0,
-                  child: InkWell(
-                    onTap: () {},
-                  ),
-                )),
+              shape: const CircleBorder(),
+              clipBehavior: Clip.hardEdge,
+              color: Colors.transparent,
+              child: Ink.image(
+                image: (!snapshot.hasData ||
+                        (snapshot.data!.photoURL == null &&
+                            snapshot.data!.thumbURL == null)
+                    ? Asset.Icons.icMask
+                    : NetworkImage(snapshot.data!.thumbURL != null
+                        ? snapshot.data!.thumbURL!
+                        : snapshot.data!.photoURL!)) as ImageProvider<Object>,
+                fit: BoxFit.cover,
+                width: 48.0,
+                height: 48.0,
+                child: InkWell(
+                  onTap: () {
+                    print("profile click");
+                  },
+                ),
+              ),
+            ),
           );
         },
       );
@@ -96,6 +101,7 @@ class MemberHorizontalList extends StatelessWidget {
                     ? Container(
                         margin: const EdgeInsets.only(left: 8),
                         child: Material(
+                          shape: const CircleBorder(),
                           clipBehavior: Clip.hardEdge,
                           color: Colors.transparent,
                           child: Container(
@@ -113,12 +119,14 @@ class MemberHorizontalList extends StatelessWidget {
                                 Icons.add,
                                 color: Colors.white,
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                print("add member");
+                              },
                             ),
                           ),
                         ),
                       )
-                    : Container(),
+                    : const SizedBox(),
                 Row(
                   children: memberWidgets,
                 ),

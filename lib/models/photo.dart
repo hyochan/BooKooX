@@ -1,13 +1,16 @@
-import 'package:image_picker/image_picker.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Photo {
-  XFile? file;
-  String? url;
-  bool? isAddBtn;
+part "photo.freezed.dart";
+part "photo.g.dart";
 
-  Photo({
-    this.file,
-    this.url,
-    this.isAddBtn,
-  });
+@freezed
+class Photo with _$Photo {
+  const Photo._();
+  factory Photo({
+    dynamic file,
+    String? url,
+    bool? isAddBtn,
+  }) = _Photo;
+
+  factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
 }

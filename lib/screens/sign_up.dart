@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/edit_text.dart' show EditText;
@@ -94,29 +95,31 @@ class SignUp extends HookWidget {
           });
 
           user.updateDisplayName(displayName);
-
-          return navigation.showSingleDialog(
-            context,
-            title: Text(
-              localization!.trans('SIGN_UP_SUCCESS_TITLE')!,
-              style: TextStyle(
-                  color: Theme.of(context).dialogTheme.titleTextStyle!.color),
-            ),
-            content: Text(
-              localization.trans('SIGN_UP_SUCCESS_CONTENT')!,
-              style: TextStyle(
-                  color: Theme.of(context).dialogTheme.contentTextStyle!.color),
-            ),
-            onPress: () {
-              _auth.signOut();
-              Navigator.of(context).pop();
-            },
-          );
+          if (context.mounted) {
+            return General.instance.showSingleDialog(
+              context,
+              title: Text(
+                localization!.trans('SIGN_UP_SUCCESS_TITLE')!,
+                style: TextStyle(
+                    color: Theme.of(context).dialogTheme.titleTextStyle!.color),
+              ),
+              content: Text(
+                localization.trans('SIGN_UP_SUCCESS_CONTENT')!,
+                style: TextStyle(
+                    color:
+                        Theme.of(context).dialogTheme.contentTextStyle!.color),
+              ),
+              onPress: () {
+                _auth.signOut();
+                Navigator.of(context).pop();
+              },
+            );
+          }
         }
 
         throw Error();
       } catch (err) {
-        navigation.showSingleDialog(
+        General.instance.showSingleDialog(
           context,
           title: Text(
             localization!.trans('SIGN_UP_ERROR_TITLE')!,

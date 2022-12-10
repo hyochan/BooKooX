@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/setting_currency.dart';
 import 'package:wecount/screens/members.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
@@ -33,16 +35,17 @@ class LedgerEdit extends HookWidget {
   final LedgerEditMode mode;
 
   const LedgerEdit({
-    Key? key,
+    super.key,
     this.ledger,
     this.mode = LedgerEditMode.ADD,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     var editLedger = useState<Ledger?>(null);
-    var isLoading = useState<bool>(false);
-    var color = useState<ColorType?>(null);
+    var loading = useState<bool>(false);
+    var titleController = useTextEditingController(text: ledger?.title);
+    var descController = useTextEditingController(text: ledger?.description);
 
     useEffect(() {
       if (ledger == null) {
@@ -74,36 +77,39 @@ class LedgerEdit extends HookWidget {
     }
 
     void selectColor(ColorType item) {
-      color.value = item;
       editLedger.value = editLedger.value!.copyWith(color: item);
     }
 
     void pressDone() async {
       final db = DatabaseService();
 
-      isLoading.value = true;
+      loading.value = true;
 
       if (editLedger.value!.title.isEmpty) {
         print('title is null');
+        loading.value = false;
         return;
       }
 
       if (editLedger.value!.description == null ||
           editLedger.value!.description!.isEmpty) {
         print('description is null');
+        loading.value = false;
         return;
       }
 
       if (mode == LedgerEditMode.ADD) {
+        String? refId = "";
         try {
-          await db.requestCreateNewLedger(editLedger.value);
+          refId = await db.requestCreateNewLedger(editLedger.value);
+          editLedger.value = editLedger.value?.copyWith(id: refId);
         } catch (err) {
           print('err: $err');
         } finally {
-          isLoading.value = false;
+          loading.value = false;
         }
         if (context.mounted) {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(editLedger.value);
         }
       } else if (mode == LedgerEditMode.UPDATE) {
         try {
@@ -111,35 +117,50 @@ class LedgerEdit extends HookWidget {
         } catch (err) {
           print('err: $err');
         } finally {
-          isLoading.value = false;
+          loading.value = false;
         }
         if (context.mounted) {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(editLedger.value?.id);
         }
       }
     }
 
     void leaveLedger() async {
-      bool hasLeft =
-          await DatabaseService().requestLeaveLedger(editLedger.value!.id);
+      User? user = FirebaseAuth.instance.currentUser;
+      bool hasOwnerPermission =
+          user != null && editLedger.value?.ownerId == user.uid;
+      bool hasMoreThanOneUser = editLedger.value!.memberIds.length > 1;
 
-      if (hasLeft) {
-        var ledger = await DatabaseService().fetchSelectedLedger();
-        if (context.mounted) {
-          Provider.of<CurrentLedger>(context, listen: false).setLedger(ledger);
-          Navigator.of(context).pop();
-        }
-      }
-
-      if (context.mounted) {
+      if (hasOwnerPermission && !hasMoreThanOneUser) {
         var localization = Localization.of(context)!;
 
-        navigation.showSingleDialog(
+        General.instance.showConfirmDialog(
           context,
-          title: Text(localization.trans('ERROR')!),
-          content: Text(localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
+          title: Text(localization.trans('NOTIFICATION')!),
+          content: Text(localization.trans('LEAVE_ASK')!),
+          cancelPressed: () => Navigator.of(context).pop(),
+          okPressed: () async {
+            bool hasLeft = await DatabaseService()
+                .requestLeaveLedger(editLedger.value!.id);
+            var ledger = await DatabaseService().fetchSelectedLedger();
+            if (context.mounted) {
+              Provider.of<CurrentLedger>(context, listen: false)
+                  .setLedger(ledger);
+              Navigator.of(context).pop();
+              Navigator.of(context).pop(editLedger.value!.id);
+            }
+          },
         );
+        return;
       }
+
+      var localization = Localization.of(context)!;
+
+      General.instance.showSingleDialog(
+        context,
+        title: Text(localization.trans('ERROR')!),
+        content: Text(localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
+      );
     }
 
     var localization = Localization.of(context)!;
@@ -150,23 +171,25 @@ class LedgerEdit extends HookWidget {
         context: context,
         brightness: Brightness.dark,
         actions: [
-          Container(
-            width: 56.0,
-            margin: const EdgeInsets.only(right: 16),
-            child: RawMaterialButton(
-              padding: const EdgeInsets.all(0.0),
-              onPressed: leaveLedger,
-              child: Text(
-                localization.trans('LEAVE')!,
-                semanticsLabel: localization.trans('LEAVE'),
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 18,
-                  decoration: TextDecoration.underline,
+          ledger == null
+              ? const SizedBox()
+              : Container(
+                  width: 56.0,
+                  margin: const EdgeInsets.only(right: 16),
+                  child: RawMaterialButton(
+                    padding: const EdgeInsets.all(0.0),
+                    onPressed: leaveLedger,
+                    child: Text(
+                      localization.trans('LEAVE')!,
+                      semanticsLabel: localization.trans('LEAVE'),
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 18,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
         ],
       ),
       body: SafeArea(
@@ -177,12 +200,11 @@ class LedgerEdit extends HookWidget {
                 Container(
                   margin: const EdgeInsets.only(top: 40, left: 40, right: 40),
                   child: TextField(
+                    controller: titleController,
                     maxLines: 1,
                     onChanged: (String txt) {
                       editLedger.value = editLedger.value!.copyWith(title: txt);
                     },
-                    controller:
-                        TextEditingController(text: editLedger.value!.title),
                     decoration: InputDecoration(
                       hintMaxLines: 2,
                       border: InputBorder.none,
@@ -203,13 +225,12 @@ class LedgerEdit extends HookWidget {
                       top: 24, left: 40, right: 40, bottom: 20),
                   height: 160,
                   child: TextField(
+                    controller: descController,
                     maxLines: 8,
                     onChanged: (String txt) {
                       editLedger.value =
                           editLedger.value!.copyWith(description: txt);
                     },
-                    controller: TextEditingController(
-                        text: editLedger.value!.description),
                     textAlignVertical: TextAlignVertical.top,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -318,7 +339,6 @@ class LedgerEdit extends HookWidget {
               bottom: 24,
               right: 24,
               child: SizedBox(
-                // width: 120,
                 height: 60,
                 child: TextButton(
                   style: ButtonStyle(
@@ -329,26 +349,39 @@ class LedgerEdit extends HookWidget {
                     ),
                   ),
                   onPressed: pressDone,
-                  child: isLoading.value
+                  child: loading.value
                       ? SizedBox(
-                          width: 28,
-                          height: 28,
-                          child: CircularProgressIndicator(
-                            semanticsLabel:
-                                Localization.of(context)!.trans('LOADING'),
-                            backgroundColor: Theme.of(context).primaryColor,
-                            strokeWidth: 2,
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                                Colors.white),
+                          height: 52,
+                          width: 80,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              semanticsLabel:
+                                  Localization.of(context)!.trans('LOADING'),
+                              backgroundColor: Theme.of(context).primaryColor,
+                              strokeWidth: 2,
+                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.white),
+                            ),
                           ),
                         )
-                      : Text(
-                          ledger == null
-                              ? localization.trans('DONE')!
-                              : localization.trans('UPDATE')!,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16.0,
+                      : Container(
+                          height: 52,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(26),
+                          ),
+                          child: Center(
+                            child: Text(
+                              ledger == null
+                                  ? localization.trans('DONE')!
+                                  : localization.trans('UPDATE')!,
+                              style: TextStyle(
+                                color: Asset.Colors.getColor(
+                                    editLedger.value!.color),
+                                fontSize: 16.0,
+                              ),
+                            ),
                           ),
                         ),
                 ),

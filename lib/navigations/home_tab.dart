@@ -10,7 +10,7 @@ import 'package:wecount/screens/home_statistic/home_statistic.dart'
 import 'package:wecount/screens/home_setting.dart' show HomeSetting;
 
 class HomeTab extends HookWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  const HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,6 @@ class HomeTab extends HookWidget {
 
     String title = Provider.of<CurrentLedger>(context).getTitle() ?? '';
     return Scaffold(
-      // appBar: AppBar(),
       body: Stack(
         children: <Widget>[
           Offstage(

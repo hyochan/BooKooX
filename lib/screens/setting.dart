@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
@@ -111,6 +112,7 @@ class Setting extends HookWidget {
         ),
         localization.trans('LOCK'),
         optionalWidget: Switch(
+          inactiveTrackColor: Asset.Colors.main,
           value: lockSwitch.value,
           onChanged: _onChangeLock,
           activeTrackColor: Theme.of(context).primaryColor,
@@ -120,10 +122,18 @@ class Setting extends HookWidget {
       LogoutItem(
         localization.trans('LOGOUT'),
         onPressed: () {
-          _auth.signOut();
+          General.instance.showConfirmDialog(
+            context,
+            title: Text(localization.trans('NOTIFICATION')!),
+            content: Text(localization.trans('SIGN_OUT_ASK')!),
+            cancelPressed: () => Navigator.of(context).pop(),
+            okPressed: () {
+              _auth.signOut();
 
-          /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
-          navigation.push(context, AppRoute.tutorial.path, reset: true);
+              /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
+              navigation.push(context, AppRoute.tutorial.path, reset: true);
+            },
+          );
         },
       ),
     ];
@@ -139,32 +149,40 @@ class Setting extends HookWidget {
         child: Column(
           children: <Widget>[
             Expanded(
-              child: ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  final item = items[index];
-                  if (item is LogoutItem) {
-                    return Container(
-                      height: 72,
-                      margin: const EdgeInsets.only(bottom: 40),
-                      child: TextButton(
-                        onPressed: item.onPressed as void Function()?,
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              item.title!,
-                              style: const TextStyle(
-                                color: Asset.Colors.carnation,
-                                fontSize: 20,
-                              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    final item = items[index];
+                    if (item is LogoutItem) {
+                      return Container(
+                        height: 72,
+                        margin: const EdgeInsets.only(bottom: 40),
+                        child: TextButton(
+                          style: const ButtonStyle(
+                            padding: MaterialStatePropertyAll(
+                              EdgeInsets.all(0),
                             ),
-                          ],
+                          ),
+                          onPressed: item.onPressed as void Function()?,
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                item.title!,
+                                style: const TextStyle(
+                                  color: Asset.Colors.carnation,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }
-                  return SettingListItem(item as SettingItem);
-                },
+                      );
+                    }
+                    return SettingListItem(item as SettingItem);
+                  },
+                ),
               ),
             ),
             Container(

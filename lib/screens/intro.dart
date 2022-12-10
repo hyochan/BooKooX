@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:wecount/utils/firebase_config.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
@@ -16,16 +18,16 @@ class Intro extends StatelessWidget {
   const Intro({Key? key}) : super(key: key);
 
   Future<void> _googleLogin(BuildContext context) async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn(
+    final GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
     );
 
-    navigation.showDialogSpinner(
+    General.instance.showDialogSpinner(
       context,
       text: Localization.of(context)!.trans('SIGNING_IN_WITH_GOOGLE'),
     );
 
-    GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
     if (googleUser != null) {
       GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -37,7 +39,7 @@ class Intro extends StatelessWidget {
       UserCredential auth =
           await FirebaseAuth.instance.signInWithCredential(credential);
       User user = auth.user!;
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+      await FirestoreConfig.userColRef.doc(user.uid).set({
         'email': user.email,
         'displayName': user.displayName,
         'name': user.displayName,
@@ -46,8 +48,10 @@ class Intro extends StatelessWidget {
         'updatedAt': FieldValue.serverTimestamp(),
         'deletedAt': null,
       });
-      _googleSignIn.signOut();
-      Navigator.pushReplacementNamed(context, AppRoute.authSwitch.fullPath);
+      googleSignIn.signOut();
+      if (context.mounted) {
+        Navigator.pushReplacementNamed(context, AppRoute.authSwitch.fullPath);
+      }
     }
   }
 
@@ -55,8 +59,8 @@ class Intro extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarBrightness: Theme.of(context).brightness));
-    var _localization = Localization.of(context);
-    final TextStyle _signInWithTextStyle = TextStyle(
+    var localization = Localization.of(context);
+    const TextStyle signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
       fontSize: 16.0,
     );
@@ -64,13 +68,13 @@ class Intro extends StatelessWidget {
     Widget renderSignInBtn() {
       return Button(
         onPress: () => navigation.push(context, AppRoute.signIn.path),
-        margin: EdgeInsets.only(top: 198.0),
+        margin: const EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
           color: Theme.of(context).primaryColor,
         ),
         backgroundColor: Colors.white,
-        text: _localization!.trans('SIGN_IN'),
+        text: localization!.trans('SIGN_IN'),
         width: 240.0,
         height: 56.0,
       );
@@ -78,18 +82,18 @@ class Intro extends StatelessWidget {
 
     Widget renderDoNotHaveAccount() {
       return Container(
-        margin: EdgeInsets.symmetric(vertical: 2.0),
+        margin: const EdgeInsets.symmetric(vertical: 2.0),
         child: TextButton(
           onPressed: () => navigation.push(context, AppRoute.signUp.path),
           child: RichText(
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: _localization!.trans('DO_NOT_HAVE_ACCOUNT'),
+                  text: localization!.trans('DO_NOT_HAVE_ACCOUNT'),
                 ),
                 TextSpan(
-                  text: '  ' + _localization.trans('SIGN_UP')!,
-                  style: TextStyle(
+                  text: '  ${localization.trans('SIGN_UP')!}',
+                  style: const TextStyle(
                       color: Asset.Colors.green, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -102,29 +106,29 @@ class Intro extends StatelessWidget {
 
     Widget renderOrSignInWith() {
       return Container(
-        margin: EdgeInsets.only(top: 12.0),
+        margin: const EdgeInsets.only(top: 12.0),
         child: Flex(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           direction: Axis.horizontal,
-          children: <Widget>[
+          children: const <Widget>[
             Expanded(
               child: Text(
                 '----------------------',
-                style: _signInWithTextStyle,
+                style: signInWithTextStyle,
                 textAlign: TextAlign.center,
                 maxLines: 1,
               ),
             ),
             Text(
               ' or sign in with ',
-              style: _signInWithTextStyle,
+              style: signInWithTextStyle,
               textAlign: TextAlign.center,
               maxLines: 1,
             ),
             Expanded(
               child: Text(
                 '----------------------',
-                style: _signInWithTextStyle,
+                style: signInWithTextStyle,
                 textAlign: TextAlign.center,
                 maxLines: 1,
               ),
@@ -139,9 +143,9 @@ class Intro extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Button(
-            margin: EdgeInsets.only(top: 20.0),
+            margin: const EdgeInsets.only(top: 20.0),
             imageMarginLeft: 8,
-            textStyle: _signInWithTextStyle,
+            textStyle: signInWithTextStyle,
             borderColor: Colors.white,
             backgroundColor: Colors.transparent,
             text: 'Google',
@@ -169,18 +173,18 @@ class Intro extends StatelessWidget {
       );
 
       return Container(
-        margin: EdgeInsets.only(top: 16.0, bottom: 40.0),
+        margin: const EdgeInsets.only(top: 16.0, bottom: 40.0),
         child: RichText(
           text: TextSpan(
-            text: _localization!.trans('TERMS_1'),
-            style: _signInWithTextStyle.merge(
-              TextStyle(fontSize: 12, height: 1.3),
+            text: localization!.trans('TERMS_1'),
+            style: signInWithTextStyle.merge(
+              const TextStyle(fontSize: 12, height: 1.3),
             ),
             children: [
               TextSpan(
-                text: _localization.trans('TERMS_OF_USE'),
+                text: localization.trans('TERMS_OF_USE'),
                 style: clickableTextStyle,
-                semanticsLabel: _localization.trans('TERMS_OF_USE'),
+                semanticsLabel: localization.trans('TERMS_OF_USE'),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -189,13 +193,13 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: _localization.trans('TERMS_2'),
-                semanticsLabel: _localization.trans('TERMS_2'),
+                text: localization.trans('TERMS_2'),
+                semanticsLabel: localization.trans('TERMS_2'),
               ),
               TextSpan(
-                text: _localization.trans('PRIVACY_POLICY'),
+                text: localization.trans('PRIVACY_POLICY'),
                 style: clickableTextStyle,
-                semanticsLabel: _localization.trans('PRIVACY_POLICY'),
+                semanticsLabel: localization.trans('PRIVACY_POLICY'),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -204,8 +208,8 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: _localization.trans('TERMS_3'),
-                semanticsLabel: _localization.trans('TERMS_3'),
+                text: localization.trans('TERMS_3'),
+                semanticsLabel: localization.trans('TERMS_3'),
               ),
             ],
           ),
@@ -216,6 +220,22 @@ class Intro extends StatelessWidget {
 
     return Scaffold(
       body: Container(
+        constraints: const BoxConstraints.expand(
+          height: double.infinity,
+          width: double.infinity,
+        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Theme.of(context).primaryColor,
+              Theme.of(context).primaryColorDark
+            ],
+            begin: const FractionalOffset(0.0, 0.0),
+            end: const FractionalOffset(1.0, 1.0),
+            stops: const [0.0, 1.0],
+            tileMode: TileMode.clamp,
+          ),
+        ),
         child: SafeArea(
           child: CustomScrollView(
             slivers: <Widget>[
@@ -239,22 +259,6 @@ class Intro extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-        constraints: BoxConstraints.expand(
-          height: double.infinity,
-          width: double.infinity,
-        ),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Theme.of(context).primaryColor,
-              Theme.of(context).primaryColorDark
-            ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(1.0, 1.0),
-            stops: [0.0, 1.0],
-            tileMode: TileMode.clamp,
           ),
         ),
       ),

@@ -42,7 +42,7 @@ class LedgerListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context)!;
+    var localization = Localization.of(context)!;
     return SizedBox(
       height: 100.0,
       child: Row(
@@ -112,8 +112,8 @@ class LedgerListItem extends StatelessWidget {
                         ),
                         Text(
                           people! > 1
-                              ? '$people ${_localization.trans("PEOPLE")}'
-                              : '$people ${_localization.trans("PERSON")}',
+                              ? '$people ${localization.trans("PEOPLE")}'
+                              : '$people ${localization.trans("PERSON")}',
                           style: TextStyle(
                             color: Theme.of(context).hintColor,
                             fontSize: 14.0,
@@ -132,7 +132,7 @@ class LedgerListItem extends StatelessWidget {
               height: double.infinity,
               child: Center(
                 child: Text(
-                  _localization.trans('MORE')!,
+                  localization.trans('MORE')!,
                   style: const TextStyle(
                     color: Asset.Colors.green,
                   ),

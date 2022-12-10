@@ -1,6 +1,7 @@
 {
   "LOADING": "로딩중...",
   "SIGN_IN": "로그인",
+  "CHECK_SIGN_OUT": "로그아웃 하시겠습니까?",
   "ERROR_INVALID_EMAIL": "이메일 주소가 올바르지 않습니다. 이메일 주소를 확인해주세요.",
   "ERROR_WRONG_PASSWORD": "비밀번호가 일치하지 않습니다. 비밀번호를 확인해주세요.",
   "ERROR_USER_NOT_FOUND": "회원이 존재하지 않습니다. 회원가입부터 해주세요.",
@@ -159,6 +160,7 @@
   "CATEGORY_DELETE_ERROR": "카테고리를 지우는 도중 오류가 발생했습니다. 다시 시도해주세요.",
   "DELETE": "삭제",
   "DELETE_ASK": "정말로 삭제하시겠습니까?",
+  "LEAVE_ASK": "정말로 나가시겠습니까?",
   "ERROR_CATEGORY_NAME": "카테고리명을 입력해주세요.",
   "ERROR_CATEGORY_ICON": "아이콘을 선택해주세요.",
   "EXPORT_EXCEL": "내보내기",

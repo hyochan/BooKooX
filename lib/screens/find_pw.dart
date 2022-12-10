@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/edit_text.dart' show EditText;
@@ -34,11 +35,13 @@ class FindPw extends HookWidget {
 
       try {
         await _auth.sendPasswordResetEmail(email: email.value);
-        navigation.showSingleDialog(
-          context,
-          title: Text(localization!.trans('SUCCESS')!),
-          content: Text(localization.trans('PASSWORD_RESET_LINK_SENT')!),
-        );
+        if (context.mounted) {
+          General.instance.showSingleDialog(
+            context,
+            title: Text(localization!.trans('SUCCESS')!),
+            content: Text(localization.trans('PASSWORD_RESET_LINK_SENT')!),
+          );
+        }
       } catch (err) {
         print('error occured: ${err.toString()}');
       } finally {

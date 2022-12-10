@@ -32,6 +32,11 @@ class SettingListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      style: const ButtonStyle(
+        padding: MaterialStatePropertyAll(
+          EdgeInsets.all(0),
+        ),
+      ),
       onPressed: item.onPressed as void Function()?,
       child: SizedBox(
         height: 72,

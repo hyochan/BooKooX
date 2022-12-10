@@ -3,9 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:wecount/widgets/header.dart';
 import 'package:wecount/utils/localization.dart';
+import 'package:wecount/utils/asset.dart' as Asset;
 
 class SettingNotification extends HookWidget {
-  const SettingNotification({Key? key}) : super(key: key);
+  const SettingNotification({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +62,7 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
+                    inactiveTrackColor: Asset.Colors.main,
                     value: addLedgerSwitch.value,
                     onChanged: _onChangeAddingLedgerSwitch,
                     activeTrackColor: Theme.of(context).primaryColor,
@@ -88,6 +90,7 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
+                    inactiveTrackColor: Asset.Colors.main,
                     value: updateLedgerSwitch.value,
                     onChanged: _onChangeUpdateLedgerSwitch,
                     activeTrackColor: Theme.of(context).primaryColor,

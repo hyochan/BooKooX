@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/photo.dart';
 
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -88,21 +89,22 @@ class Gallery extends HookWidget {
     super.key,
     this.margin,
     this.showAll = false,
-    this.pictures = const [],
+    this.pictureProps = const [],
     required this.ledgerItem,
   });
 
   final EdgeInsets? margin;
   final bool showAll;
-  final List<Photo> pictures;
+  final List<Photo> pictureProps;
   LedgerItem ledgerItem;
 
   @override
   Widget build(BuildContext context) {
-    var _pictures = useState<List<Photo>>([]);
+    var pictures = useState<List<Photo>>([]);
 
     useEffect(() {
-      _pictures.value = pictures;
+      pictures.value = pictureProps;
+      return null;
     }, []);
 
     var localization = Localization.of(context)!;
@@ -158,7 +160,7 @@ class Gallery extends HookWidget {
             width: double.infinity,
             margin: const EdgeInsets.only(bottom: 32),
             child: Wrap(
-              children: _pictures.value.map((Photo photo) {
+              children: pictures.value.map((Photo photo) {
                 if (photo.isAddBtn == true) {
                   return Container(
                     padding: const EdgeInsets.only(right: 4, bottom: 6),
@@ -169,12 +171,12 @@ class Gallery extends HookWidget {
                         XFile? imgFile;
                         switch (photoOption) {
                           case PhotoOption.Camera:
-                            imgFile = await navigation.chooseImage(
-                                context: context, type: 'camera');
+                            imgFile = await General.instance
+                                .chooseImage(context: context, type: 'camera');
                             break;
                           case PhotoOption.Gallery:
-                            imgFile = await navigation.chooseImage(
-                                context: context, type: 'gallery');
+                            imgFile = await General.instance
+                                .chooseImage(context: context, type: 'gallery');
                             break;
                           default:
                             break;
@@ -182,9 +184,9 @@ class Gallery extends HookWidget {
 
                         if (imgFile != null) {
                           Photo photo = Photo(file: imgFile);
-                          _pictures.value.add(photo);
+                          pictures.value.add(photo);
                           ledgerItem =
-                              ledgerItem.copyWith(picture: _pictures.value);
+                              ledgerItem.copyWith(picture: pictures.value);
                         }
                       },
                       child: Container(
@@ -232,12 +234,12 @@ class Gallery extends HookWidget {
                                 arguments: PhotoDetailArguments(
                                   photo: photo,
                                   onPressDelete: () {
-                                    int index = _pictures.value.indexWhere(
+                                    int index = pictures.value.indexWhere(
                                         (Photo compare) =>
                                             compare.file == photo.file);
-                                    _pictures.value.removeAt(index);
+                                    pictures.value.removeAt(index);
                                     ledgerItem = ledgerItem.copyWith(
-                                        picture: _pictures.value);
+                                        picture: pictures.value);
                                     Navigator.of(context).pop();
                                   },
                                 ),

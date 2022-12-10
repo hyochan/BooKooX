@@ -16,9 +16,8 @@ _$_LedgerItem _$$_LedgerItemFromJson(Map<String, dynamic> json) =>
       writer: json['writer'] == null
           ? null
           : UserModel.fromJson(json['writer'] as Map<String, dynamic>),
-      selectedDate: json['selectedDate'] == null
-          ? null
-          : DateTime.parse(json['selectedDate'] as String),
+      selectedDate:
+          const ServerTimestampConverter().fromJson(json['selectedDate']),
       picture: (json['picture'] as List<dynamic>?)
           ?.map((e) => Photo.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -35,7 +34,8 @@ Map<String, dynamic> _$$_LedgerItemToJson(_$_LedgerItem instance) =>
       'category': instance.category,
       'memo': instance.memo,
       'writer': instance.writer,
-      'selectedDate': instance.selectedDate?.toIso8601String(),
+      'selectedDate': _$JsonConverterToJson<Object?, DateTime>(
+          instance.selectedDate, const ServerTimestampConverter().toJson),
       'picture': instance.picture,
       'latlng': instance.latlng,
       'address': instance.address,
@@ -74,15 +74,3 @@ const _$CategoryTypeEnumMap = {
   CategoryType.CONSUME: 'CONSUME',
   CategoryType.INCOME: 'INCOME',
 };
-
-_$_Photo _$$_PhotoFromJson(Map<String, dynamic> json) => _$_Photo(
-      file: json['file'],
-      url: json['url'] as String?,
-      isAddBtn: json['isAddBtn'] as bool?,
-    );
-
-Map<String, dynamic> _$$_PhotoToJson(_$_Photo instance) => <String, dynamic>{
-      'file': instance.file,
-      'url': instance.url,
-      'isAddBtn': instance.isAddBtn,
-    };

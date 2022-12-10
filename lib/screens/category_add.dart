@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/edit_text_box.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
@@ -30,7 +31,7 @@ class CategoryAdd extends HookWidget {
         return;
       }
       if (selectedIconIndex == null) {
-        navigation.showSingleDialog(
+        General.instance.showSingleDialog(
           context,
           title: Text(localization.trans('ERROR')!),
           content: Text(localization.trans('ERROR_CATEGORY_ICON')!),
