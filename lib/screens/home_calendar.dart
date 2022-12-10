@@ -10,7 +10,7 @@ import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/common/loading_indicator.dart';
 import 'package:wecount/widgets/date_selector.dart' show DateSelector;
 import 'package:wecount/widgets/home_list_item.dart';
-import 'package:wecount/types/color.dart';
+import 'package:wecount/widgets/colors.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as asset;

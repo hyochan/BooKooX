@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/utils/converter.dart';
-import 'package:wecount/types/color.dart';
+import 'package:wecount/widgets/colors.dart';
 import 'package:wecount/utils/logger.dart';
 
 part 'ledger.freezed.dart';

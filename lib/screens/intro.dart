@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wecount/types/color.dart';
+import 'package:wecount/widgets/colors.dart';
 
 import 'package:wecount/utils/firebase_config.dart';
 import 'package:wecount/utils/general.dart';

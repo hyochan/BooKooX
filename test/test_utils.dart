@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:wecount/types/color.dart';
+import 'package:wecount/widgets/colors.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/providers/current_ledger.dart';

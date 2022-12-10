@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wecount/types/color.dart';
+import 'package:wecount/widgets/colors.dart';
 
 class TitleTextStyle extends TextStyle {
   TitleTextStyle()

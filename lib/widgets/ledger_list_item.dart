@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/types/color.dart' show ColorType;
+import 'package:wecount/widgets/colors.dart' show ColorType;
 
 abstract class ListItem {}
 
