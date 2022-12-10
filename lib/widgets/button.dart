@@ -22,7 +22,7 @@ class Button extends StatelessWidget {
     this.isLoading = false,
   });
 
-  final String? text;
+  final String text;
   final Image? image;
   final double? width;
   final double imageMarginLeft;
@@ -32,7 +32,7 @@ class Button extends StatelessWidget {
   final EdgeInsets margin;
   final double borderWidth;
   final double borderRadius;
-  final Color? borderColor;
+  final Color borderColor;
   final TextStyle textStyle;
   final MaterialStatePropertyAll<OutlinedBorder>? shapeBorder;
   final bool isLoading;
@@ -42,7 +42,7 @@ class Button extends StatelessWidget {
     return Container(
       key: key,
       decoration: BoxDecoration(
-        border: Border.all(width: borderWidth, color: borderColor!),
+        border: Border.all(width: borderWidth, color: borderColor),
         borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         color: backgroundColor,
       ),
@@ -59,7 +59,7 @@ class Button extends StatelessWidget {
         onPressed: !isLoading ? onPress : null,
         child: isLoading
             ? CircularProgressIndicator(
-                semanticsLabel: Localization.of(context)!.trans('LOADING'),
+                semanticsLabel: localization(context).loading,
                 backgroundColor: Theme.of(context).primaryColor,
                 strokeWidth: 3,
                 valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
@@ -76,7 +76,7 @@ class Button extends StatelessWidget {
                         image == null ? null : const EdgeInsets.only(left: 12),
                     child: Center(
                       child: Text(
-                        text!,
+                        text,
                         style: textStyle,
                       ),
                     ),

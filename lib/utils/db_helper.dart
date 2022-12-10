@@ -5,68 +5,68 @@ import 'package:path/path.dart';
 import 'package:wecount/models/ledger_item.dart';
 
 final List<Category> initialCategory = [
-  Category(iconId: 0, label: 'CAFE', type: CategoryType.consume),
-  Category(iconId: 1, label: 'DRINK', type: CategoryType.consume),
-  Category(iconId: 2, label: 'SNACK', type: CategoryType.consume),
-  Category(iconId: 3, label: 'MEAL', type: CategoryType.consume),
-  Category(iconId: 4, label: 'DATING', type: CategoryType.consume),
-  Category(iconId: 5, label: 'MOVIE', type: CategoryType.consume),
-  Category(iconId: 6, label: 'PET', type: CategoryType.consume),
-  Category(iconId: 7, label: 'TRANSPORT', type: CategoryType.consume),
-  Category(iconId: 8, label: 'EXERCISE', type: CategoryType.consume),
-  Category(iconId: 9, label: 'WEAR', type: CategoryType.consume),
-  Category(iconId: 10, label: 'SLEEP', type: CategoryType.consume),
-  Category(iconId: 11, label: 'BABY', type: CategoryType.consume),
-  Category(iconId: 12, label: 'GIFT', type: CategoryType.consume),
-  Category(iconId: 13, label: 'ELECTRONIC', type: CategoryType.consume),
-  Category(iconId: 14, label: 'FURNITURE', type: CategoryType.consume),
-  Category(iconId: 15, label: 'TRAVEL', type: CategoryType.consume),
-  Category(iconId: 16, label: 'MOBILE_FEE', type: CategoryType.consume),
-  Category(iconId: 17, label: 'HOSPITAL', type: CategoryType.consume),
+  Category(iconId: 0, label: 'cafe', type: CategoryType.consume),
+  Category(iconId: 1, label: 'drink', type: CategoryType.consume),
+  Category(iconId: 2, label: 'snack', type: CategoryType.consume),
+  Category(iconId: 3, label: 'meal', type: CategoryType.consume),
+  Category(iconId: 4, label: 'dating', type: CategoryType.consume),
+  Category(iconId: 5, label: 'movie', type: CategoryType.consume),
+  Category(iconId: 6, label: 'pet', type: CategoryType.consume),
+  Category(iconId: 7, label: 'transport', type: CategoryType.consume),
+  Category(iconId: 8, label: 'exercise', type: CategoryType.consume),
+  Category(iconId: 9, label: 'wear', type: CategoryType.consume),
+  Category(iconId: 10, label: 'sleep', type: CategoryType.consume),
+  Category(iconId: 11, label: 'baby', type: CategoryType.consume),
+  Category(iconId: 12, label: 'gift', type: CategoryType.consume),
+  Category(iconId: 13, label: 'electronic', type: CategoryType.consume),
+  Category(iconId: 14, label: 'furniture', type: CategoryType.consume),
+  Category(iconId: 15, label: 'travel', type: CategoryType.consume),
+  Category(iconId: 16, label: 'mobileFee', type: CategoryType.consume),
+  Category(iconId: 17, label: 'hospital', type: CategoryType.consume),
   Category(
     iconId: 18,
-    label: 'WALLET_MONEY',
+    label: 'walletMoney',
     type: CategoryType.income,
   ),
   Category(
     iconId: 19,
-    label: 'SALARY',
+    label: 'salary',
     type: CategoryType.income,
   ),
   Category(
     iconId: 20,
-    label: 'BONUS',
+    label: 'bonus',
     type: CategoryType.income,
   ),
   Category(
     iconId: 21,
-    label: 'SELL_PRODUCT',
+    label: 'salesOfGood',
     type: CategoryType.income,
   ),
   Category(
     iconId: 22,
-    label: 'AWARD',
+    label: 'award',
     type: CategoryType.income,
   ),
   Category(
     iconId: 23,
-    label: 'PRESENT',
+    label: 'present',
     type: CategoryType.income,
   ),
   Category(
     iconId: 24,
-    label: 'EXTRA',
+    label: 'extra',
     type: CategoryType.income,
   ),
-  Category(iconId: 25, label: 'CAR', type: CategoryType.consume),
-  Category(iconId: 26, label: 'CULTURE', type: CategoryType.consume),
-  Category(iconId: 27, label: 'EDUCATION', type: CategoryType.consume),
-  Category(iconId: 28, label: 'ELECTRONIC', type: CategoryType.consume),
-  Category(iconId: 29, label: 'INSURANCE', type: CategoryType.consume),
-  Category(iconId: 30, label: 'MAINTENANCE', type: CategoryType.consume),
-  Category(iconId: 31, label: 'MEMBERSHIP', type: CategoryType.consume),
-  Category(iconId: 32, label: 'STUFFS', type: CategoryType.consume),
-  Category(iconId: 33, label: 'TAX', type: CategoryType.consume),
+  Category(iconId: 25, label: 'car', type: CategoryType.consume),
+  Category(iconId: 26, label: 'culture', type: CategoryType.consume),
+  Category(iconId: 27, label: 'education', type: CategoryType.consume),
+  Category(iconId: 28, label: 'electronic', type: CategoryType.consume),
+  Category(iconId: 29, label: 'insurance', type: CategoryType.consume),
+  Category(iconId: 30, label: 'maintenance', type: CategoryType.consume),
+  Category(iconId: 31, label: 'membership', type: CategoryType.consume),
+  Category(iconId: 32, label: 'stuffs', type: CategoryType.consume),
+  Category(iconId: 33, label: 'tax', type: CategoryType.consume),
 ];
 
 class DBHelper {
@@ -80,10 +80,10 @@ class DBHelper {
       path,
       onCreate: (db, version) async {
         await db.execute(
-          "CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, type INTEGER, iconId INTEGER, label TEXT)",
+          'CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, type INTEGER, iconId INTEGER, label TEXT)',
         );
         if (context.mounted) {
-          for (var category in initialCategory) {
+          for (final category in initialCategory) {
             db.insert('categories', category.toMapInitial(context),
                 conflictAlgorithm: ConflictAlgorithm.abort);
           }
@@ -161,7 +161,7 @@ class DBHelper {
   Future<int> deleteCategory(BuildContext context, int? iconId) async {
     final Database db = await initDB(context);
 
-    return db.delete('categories', where: "iconId = ?", whereArgs: [iconId]);
+    return db.delete('categories', where: 'iconId = ?', whereArgs: [iconId]);
   }
 
   bool isExistFiled(doc, String filedName) {

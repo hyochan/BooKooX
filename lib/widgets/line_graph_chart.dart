@@ -126,7 +126,7 @@ class LineGraphChart extends HookWidget {
             },
           ),
           touchCallback: (FlTouchEvent te, LineTouchResponse? res) {
-            for (var spot in res!.lineBarSpots!) {
+            for (final spot in res!.lineBarSpots!) {
               onSelectMonth!(
                   month: spot.x.toInt(), sumOfPrice: spot.y * chartScale);
             }
@@ -219,7 +219,7 @@ Map<String, double> mapValues(List<LedgerItem> items) {
     '12': 0,
   };
 
-  for (var item in items) {
+  for (final item in items) {
     returnVal[item.selectedDate!.month.toString()] =
         item.price!.abs() + returnVal[item.selectedDate!.month.toString()]!;
   }

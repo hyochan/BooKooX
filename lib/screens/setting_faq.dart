@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 // One entry in the multilevel list displayed by this app.
 class Entry {
@@ -37,51 +37,50 @@ class SettingFAQ extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context)!;
     final List<Entry> data = <Entry>[
       Entry(
-        localization.trans('FAQ_1'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_1'))],
+        localization(context).faq1,
+        <Entry>[Entry(localization(context).faqTxt1)],
       ),
       Entry(
-        localization.trans('FAQ_2'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_2'))],
+        localization(context).faq2,
+        <Entry>[Entry(localization(context).faqTxt2)],
       ),
       Entry(
-        localization.trans('FAQ_3'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_3'))],
+        localization(context).faq3,
+        <Entry>[Entry(localization(context).faqTxt3)],
       ),
       Entry(
-        localization.trans('FAQ_4'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_4'))],
+        localization(context).faq4,
+        <Entry>[Entry(localization(context).faqTxt4)],
       ),
       Entry(
-        localization.trans('FAQ_5'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_5'))],
+        localization(context).faq5,
+        <Entry>[Entry(localization(context).faqTxt5)],
       ),
       Entry(
-        localization.trans('FAQ_6'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_6'))],
+        localization(context).faq6,
+        <Entry>[Entry(localization(context).faqTxt6)],
       ),
       Entry(
-        localization.trans('FAQ_7'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_7'))],
+        localization(context).faq7,
+        <Entry>[Entry(localization(context).faqTxt7)],
       ),
       Entry(
-        localization.trans('FAQ_8'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_8'))],
+        localization(context).faq8,
+        <Entry>[Entry(localization(context).faqTxt8)],
       ),
       Entry(
-        localization.trans('FAQ_9'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_9'))],
+        localization(context).faq9,
+        <Entry>[Entry(localization(context).faqTxt9)],
       ),
       Entry(
-        localization.trans('FAQ_10'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_10'))],
+        localization(context).faq10,
+        <Entry>[Entry(localization(context).faqTxt10)],
       ),
       Entry(
-        localization.trans('FAQ_11'),
-        <Entry>[Entry(localization.trans('FAQ_TXT_11'))],
+        localization(context).faq11,
+        <Entry>[Entry(localization(context).faqTxt11)],
       ),
     ];
     return Scaffold(
@@ -92,7 +91,7 @@ class SettingFAQ extends StatelessWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          localization.trans('FAQ')!,
+          localization(context).faq,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,

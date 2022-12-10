@@ -8,7 +8,7 @@ import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/widgets/edit_text.dart' show EditText;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/validator.dart' show Validator;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -19,7 +19,6 @@ class SignIn extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Localization? localization;
     var scrollController = useScrollController();
 
     var email = useState('');
@@ -40,12 +39,12 @@ class SignIn extends HookWidget {
       }
 
       if (!isValidEmail.value) {
-        errorEmail.value = localization!.trans('NO_VALIDemail') as String;
+        errorEmail.value = localization(context).noValidEmail;
         return;
       }
 
       if (!isValidPassword.value) {
-        errorPassword.value = localization!.trans('PASSWORD_HINT') as String;
+        errorPassword.value = localization(context).passwordHint;
         return;
       }
 
@@ -79,19 +78,19 @@ class SignIn extends HookWidget {
         isSigningIn.value = false;
         switch (err) {
           // case 'ERROR_INVALIDemail':
-          //   setState(() => errorEmail = localization!.trans(err.currency));
+          //   setState(() => errorEmail = t(err.currency));
           //   break;
           // case 'ERROR_WRONGpassword':
-          //   setState(() => errorPassword = localization!.trans(err.currency));
+          //   setState(() => errorPassword = t(err.currency));
           //   break;
-          case 'ERROR_USER_NOT_FOUND':
-          case 'ERROR_USER_DISABLED':
-          case 'ERROR_TOO_MANY_REQUESTS':
-          case 'ERROR_OPERATION_NOT_ALLOWED':
+          case 'errorUserNotFound':
+          case 'errorUserDisabled':
+          case 'errorManyRequests':
+          case 'errorOperationNotAllowed':
             // General.instance.showSingleDialog(
             //   context,
-            //   title: Text(localization!.trans('ERROR')!),
-            //   content: Text(localization!.trans(err.currency)!),
+            //   title: Text(t('error')),
+            //   content: Text(t(err.currency)),
             // );
             break;
         }
@@ -101,12 +100,12 @@ class SignIn extends HookWidget {
       if (auth.user != null && !auth.user!.emailVerified && context.mounted) {
         General.instance.showSingleDialog(
           context,
-          title: Text(localization!.trans('ERROR')!),
+          title: Text(localization(context).error),
           onPress: () => _auth.signOut(),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(localization.trans('EMAIL_NOT_VERIFIED')!),
+              Text(localization(context).emailNotVerified),
               Container(
                 margin: const EdgeInsets.only(top: 32, bottom: 24),
                 child: Text(
@@ -130,7 +129,7 @@ class SignIn extends HookWidget {
                     isResendingEmail.value = false;
                   }
                 },
-                text: localization.trans('RESENDemail'),
+                text: localization(context).resendEmail,
                 textStyle: TextStyle(
                   color: Theme.of(context).colorScheme.secondary,
                   fontSize: 16,
@@ -148,14 +147,13 @@ class SignIn extends HookWidget {
       };
     }, []);
 
-    localization = Localization.of(context);
     scrollController = ScrollController(
       initialScrollOffset: 0.0,
     );
 
     Widget renderSignInText() {
       return Text(
-        localization!.trans('SIGN_IN')!,
+        localization(context).signIn,
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.displayLarge!.color,
@@ -169,8 +167,8 @@ class SignIn extends HookWidget {
         key: const Key('email'),
         margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization!.trans('EMAIL'),
-        textHint: localization.trans('EMAIL_HINT'),
+        textLabel: localization(context).email,
+        textHint: localization(context).emailHint,
         hasChecked: isValidEmail.value,
         hintStyle: TextStyle(color: Theme.of(context).hintColor),
         onChanged: (String str) {
@@ -195,8 +193,8 @@ class SignIn extends HookWidget {
         key: const Key('password'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization!.trans('PASSWORD'),
-        textHint: localization.trans('PASSWORD_HINT'),
+        textLabel: localization(context).password,
+        textHint: localization(context).passwordHint,
         isSecret: true,
         hasChecked: hasChecked,
         onChanged: (String str) {
@@ -226,7 +224,7 @@ class SignIn extends HookWidget {
         ),
         borderColor: Colors.white,
         backgroundColor: Theme.of(context).primaryColor,
-        text: localization!.trans('SIGN_IN'),
+        text: localization(context).signIn,
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );
@@ -237,14 +235,14 @@ class SignIn extends HookWidget {
         onPressed: () => navigation.push(context, AppRoute.findPw.path),
         child: RichText(
           text: TextSpan(
-            text: '${localization!.trans('DID_YOU_FORGOTpassword')}?',
+            text: '${localization(context).forgotPassword}?',
             style: const TextStyle(
               fontSize: 12.0,
               color: Color(0xff869ab7),
             ),
             children: <TextSpan>[
               TextSpan(
-                text: ' ${localization.trans('FINDpassword')!}',
+                text: ' ${localization(context).findPassword}',
                 style: const TextStyle(
                     color: Color(0xff1dd3a8), fontWeight: FontWeight.bold),
               ),

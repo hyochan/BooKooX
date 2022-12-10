@@ -5,8 +5,8 @@ import 'package:wecount/models/user_model.dart';
 import 'package:wecount/utils/converter.dart';
 import 'package:wecount/utils/localization.dart';
 
-part "ledger_item.freezed.dart";
-part "ledger_item.g.dart";
+part 'ledger_item.freezed.dart';
+part 'ledger_item.g.dart';
 
 @freezed
 class LedgerItem with _$LedgerItem {
@@ -60,7 +60,7 @@ class Category with _$Category {
   Map<String, dynamic> toMapInitial(BuildContext context) {
     return {
       'iconId': iconId,
-      'label': Localization.of(context)!.trans(label),
+      'label': t(label),
       'type': type!.index,
     };
   }

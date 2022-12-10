@@ -1,9 +1,9 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/currency.dart';
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/logger.dart';
 
-import '../utils/localization.dart' show Localization;
 import '../widgets/header.dart' show renderHeaderBack;
 import '../widgets/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
@@ -31,8 +31,6 @@ class SettingCurrency extends HookWidget {
       Navigator.pop(context, selectedCurrency);
     }
 
-    var localization = Localization.of(context)!;
-
     final List<ListItem> items = currencies
         .map((el) => TileItem(
               title: '${el.currency} | ${el.symbol}',
@@ -55,7 +53,7 @@ class SettingCurrency extends HookWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          localization.trans('CURRENCY')!,
+          localization(context).addLedger,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,

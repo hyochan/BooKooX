@@ -6,7 +6,7 @@ import 'package:wecount/utils/logger.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/widgets/pin_keyboard.dart' show PinKeyboard;
 
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,7 +26,6 @@ class LockAuth extends HookWidget {
     var thirdDigit = useState<int?>(null);
     var fourthDigit = useState<int?>(null);
 
-    Localization? localization;
     String? pin = '';
     String inputPin = '';
 
@@ -54,7 +53,7 @@ class LockAuth extends HookWidget {
           Navigator.pop(context, false);
         } else {
           Fluttertoast.showToast(
-            msg: localization!.trans('PIN_MISMATCH')!,
+            msg: localization(context).pinMismatch,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -104,7 +103,7 @@ class LockAuth extends HookWidget {
       try {
         authenticated = await localAuthentication.authenticate(
           localizedReason:
-              localization!.trans('FINGERPRINT_LOGIN')!, // message for dialog
+              localization(context).fingerprintLogin, // message for dialog
           options: const AuthenticationOptions(
             useErrorDialogs: true,
             stickyAuth: true,
@@ -122,7 +121,7 @@ class LockAuth extends HookWidget {
       }
     }
 
-    readLockPinFromSF() async {
+    Future<void> readLockPinFromSF() async {
       SharedPreferences preference = await SharedPreferences.getInstance();
 
       if (preference.containsKey('LOCK_PIN')) {
@@ -149,7 +148,6 @@ class LockAuth extends HookWidget {
       };
     }, []);
 
-    localization = Localization.of(context);
     screenSize = MediaQuery.of(context).size;
 
     void deleteCurrentDigit() {
@@ -178,7 +176,7 @@ class LockAuth extends HookWidget {
             ),
           ),
           child: Text(
-            digit != null ? digit.toString() : "",
+            digit != null ? digit.toString() : '',
             style: TextStyle(
               fontSize: 30,
               color: Theme.of(context).textTheme.displayLarge!.color,
@@ -200,7 +198,7 @@ class LockAuth extends HookWidget {
           children: <Widget>[
             const SizedBox(height: 40),
             Text(
-              localization!.trans('LOCK_HINT')!,
+              localization(context).lockHint,
               style: TextStyle(
                   fontSize: 24,
                   color: Theme.of(context).textTheme.displayMedium!.color),
@@ -220,7 +218,7 @@ class LockAuth extends HookWidget {
             OutlinedButton(
               onPressed: hasFingerPrintSupport.value ? authenticateMe : null,
               child: Text(
-                localization.trans('FINGERPRINT_LOGIN')!,
+                localization(context).fingerprintLogin,
                 style: TextStyle(
                     color: Theme.of(context).textTheme.displayMedium!.color),
               ),

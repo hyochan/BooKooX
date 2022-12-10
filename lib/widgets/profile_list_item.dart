@@ -36,7 +36,7 @@ class ProfileListItem extends StatelessWidget {
                           height: 80.0,
                           fit: BoxFit.cover,
                           placeholder: 'res/icons/icMask.png',
-                          image: imgPath!),
+                          image: imgPath ?? ''),
                     ),
                   ),
                 )

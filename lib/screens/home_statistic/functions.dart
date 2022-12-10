@@ -6,7 +6,7 @@ List<LedgerItem> ledgerListByMonth(
 ) {
   List<LedgerItem> ledgersOut = [];
   // print('get ledgers by month of ' + month);
-  for (var ledger in ledgersIn) {
+  for (final ledger in ledgersIn) {
     // print('item ' +
     //     ledger.category.toString() +
     //     ' price: ' +
@@ -25,7 +25,7 @@ List<LedgerItem> ledgerListByMonth(
 List<LedgerItem> condense(List<LedgerItem> ledgerList) {
   // print('ledgerList');
   Map<String?, LedgerItem> mappedLedgerList = {};
-  for (var item in ledgerList) {
+  for (final item in ledgerList) {
     // print('item ' +
     //     item.category.toString() +
     //     ' price: ' +
@@ -55,7 +55,7 @@ Map<String, Map<String, double>> splitLedgers(List<LedgerItem> ledgerList) {
   Map<String, double> expense = {};
 
   /// map ledgerList to dataMap
-  for (var ledger in ledgerList) {
+  for (final ledger in ledgerList) {
     if (ledger.price! > 0) {
       income.putIfAbsent(ledger.category!.label, () => ledger.price!);
     } else {

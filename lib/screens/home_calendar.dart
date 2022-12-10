@@ -11,7 +11,7 @@ import 'package:wecount/widgets/common/loading_indicator.dart';
 import 'package:wecount/widgets/date_selector.dart' show DateSelector;
 import 'package:wecount/widgets/home_list_item.dart';
 import 'package:wecount/types/color.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 
@@ -96,7 +96,7 @@ class MyHomePage extends HookWidget {
   Widget build(BuildContext context) {
     var currentDate = useState<DateTime?>(DateTime.now());
     var targetDate = useState<DateTime?>(DateTime.now());
-    var currentMonth = useState<String>("");
+    var currentMonth = useState<String>('');
 
     var markedDateMap0 = useState<EventList<Event>?>(null);
 
@@ -111,7 +111,7 @@ class MyHomePage extends HookWidget {
     ) async {
       ledgerListOfSelectedDate.value = [];
 
-      for (var item in ledgerList0.value) {
+      for (final item in ledgerList0.value) {
         if (item.selectedDate == date) {
           ledgerListOfSelectedDate.value = [
             ...ledgerListOfSelectedDate.value,
@@ -132,8 +132,6 @@ class MyHomePage extends HookWidget {
       Future.delayed(
         Duration.zero,
         () async {
-          var localization = Localization.of(context)!;
-
           List<LedgerItem>? ledgerList =
               await LedgerRepository.instance.getLedgerItems();
 
@@ -142,7 +140,7 @@ class MyHomePage extends HookWidget {
           }
 
           EventList<Event>? markedDateMap = EventList(events: {});
-          for (var ledger in ledgerList) {
+          for (final ledger in ledgerList) {
             markedDateMap.add(
                 ledger.selectedDate!,
                 Event(
@@ -153,7 +151,7 @@ class MyHomePage extends HookWidget {
             markedDateMap0.value = markedDateMap;
             ledgerListOfSelectedDate.value = [];
           }
-          for (var item in ledgerList) {
+          for (final item in ledgerList) {
             if (item.selectedDate?.day == DateTime.now().day) {
               ledgerListOfSelectedDate.value = [
                 ...ledgerListOfSelectedDate.value,

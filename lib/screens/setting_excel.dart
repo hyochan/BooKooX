@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/logger.dart';
 
-import '../utils/localization.dart' show Localization;
+import '../utils/localization.dart';
 import '../widgets/header.dart' show renderHeaderBack;
 import '../widgets/button.dart' show Button;
 import '../utils/asset.dart' as asset;
@@ -15,7 +15,6 @@ class SettingExcel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
@@ -24,7 +23,7 @@ class SettingExcel extends StatelessWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          localization.trans('EXPORT_EXCEL')!,
+          localization(context).exportExcel,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,
@@ -45,7 +44,7 @@ class SettingExcel extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: localization.trans('EMAIL_HINT'),
+                    hintText: localization(context).emailHint,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                   ),
                 ),
@@ -53,7 +52,7 @@ class SettingExcel extends StatelessWidget {
             ),
             Button(
               onPress: onExportExcel,
-              text: localization.trans('SEND'),
+              text: localization(context).send,
               margin: const EdgeInsets.all(0),
               height: 56,
               textStyle: const TextStyle(

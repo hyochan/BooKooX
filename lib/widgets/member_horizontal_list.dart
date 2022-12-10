@@ -1,10 +1,10 @@
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/repositories/user_repository.dart';
 import 'package:wecount/services/database.dart';
-import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/logger.dart';
 
 class MemberHorizontalList extends StatelessWidget {
@@ -20,8 +20,6 @@ class MemberHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context)!;
-
     List<Widget> memberWidgets = memberIds.map((memberId) {
       return FutureBuilder(
         future: UserRepository.instance.getOne(memberId),
@@ -45,7 +43,7 @@ class MemberHorizontalList extends StatelessWidget {
                 height: 48.0,
                 child: InkWell(
                   onTap: () {
-                    logger.d("profile click");
+                    logger.d('profile click');
                   },
                 ),
               ),
@@ -67,8 +65,8 @@ class MemberHorizontalList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  localization.trans('MEMBER')!,
-                  semanticsLabel: localization.trans('MEMBER'),
+                  localization(context).member,
+                  semanticsLabel: localization(context).member,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -78,8 +76,8 @@ class MemberHorizontalList extends StatelessWidget {
                 TextButton(
                   onPressed: onSeeAllPressed as void Function()?,
                   child: Text(
-                    localization.trans('SEE_ALL')!,
-                    semanticsLabel: localization.trans('SEE_ALL'),
+                    localization(context).seeAll,
+                    semanticsLabel: localization(context).seeAll,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -121,7 +119,7 @@ class MemberHorizontalList extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               onTap: () {
-                                logger.d("add member");
+                                logger.d('add member');
                               },
                             ),
                           ),

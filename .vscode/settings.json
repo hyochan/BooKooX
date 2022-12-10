@@ -4,9 +4,11 @@
     "autocorrect",
     "Firestore",
     "fluttertoast",
+    "fullscreen",
     "latlng",
     "RGBO",
+    "strictbounds",
     "unfocus",
-    "wecount"
+    "WeCount"
   ]
 }

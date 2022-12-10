@@ -17,7 +17,7 @@ class LoadingIndicator extends StatelessWidget {
         width: size,
         height: size,
         child: CircularProgressIndicator(
-          semanticsLabel: "로딩중...",
+          semanticsLabel: '로딩중...',
           backgroundColor: Theme.of(context).primaryColor,
           strokeWidth: strokeWidth,
           valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),

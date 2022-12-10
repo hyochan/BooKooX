@@ -39,8 +39,6 @@ class LedgerView extends HookWidget {
       return null;
     }, []);
 
-    var localization = Localization.of(context)!;
-
     return Scaffold(
       backgroundColor: asset.Colors.getColor(viewLedger.value!.color),
       appBar: renderHeaderBack(
@@ -64,7 +62,7 @@ class LedgerView extends HookWidget {
                 decoration: InputDecoration(
                   hintMaxLines: 2,
                   border: InputBorder.none,
-                  hintText: localization.trans('LEDGER_NAME_HINT'),
+                  hintText: localization(context).ledgerNameHint,
                   hintStyle: const TextStyle(
                     fontSize: 28.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -92,7 +90,7 @@ class LedgerView extends HookWidget {
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: localization.trans('LEDGER_DESCRIPTION_HINT'),
+                  hintText: localization(context).ledgerDescriptionHint,
                   hintStyle: const TextStyle(
                     fontSize: 16.0,
                     color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -115,7 +113,7 @@ class LedgerView extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      localization.trans('CURRENCY')!,
+                      localization(context).currency,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -151,7 +149,7 @@ class LedgerView extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    localization.trans('COLOR')!,
+                    localization(context).color,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,

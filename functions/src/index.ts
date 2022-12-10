@@ -5,12 +5,12 @@ import * as functions from 'firebase-functions';
 //
 export const privacyPolicy = functions.https.onRequest((_, response) => {
   response.redirect(
-    'https://dooboolab.com/privacyandpolicy',
+    'https://legacy.dooboolab.com/privacyandpolicy',
   );
 });
 
 export const termsOfService = functions.https.onRequest((_, response) => {
   response.redirect(
-    'https://dooboolab.com/termsofservice',
+    'https://legacy.dooboolab.com/termsofservice',
   );
 });

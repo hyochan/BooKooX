@@ -79,12 +79,6 @@ android/app/bin/.project
 .DS_Store
 coverage/
 
-# Firebase
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist
-lib/firebase_options.dart
-ios/firebase_app_id_file.json
-
 # Geo API key
 android/app/src/main/res/values/strings.xml
 
@@ -93,3 +87,19 @@ android/app/src/main/res/values/strings.xml
 **/ios/.envfile
 **/ios/Flutter/.last_build_id
 **/ios/..env
+
+# Generated
+lib/generated
+
+## Firebase
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+lib/firebase_options.dart
+ios/firebase_app_id_file.json
+
+## Freezed
+*.g.dart 
+*.freezed.dart
+
+## Translation
+missing-translation.txt

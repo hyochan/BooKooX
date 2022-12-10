@@ -5,22 +5,19 @@ import 'package:wecount/screens/sign_in.dart' show SignIn;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async {
+  testWidgets('Widget', (WidgetTester tester) async {
     await tester
         .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
-//     print(findByText.evaluate());
     expect(findByText.evaluate().isEmpty, false);
-
-    expect(find.text('SIGN_IN'), findsNWidgets(2));
-    expect(find.text('EMAIL'), findsOneWidget);
-    expect(find.text('EMAIL_HINT'), findsOneWidget);
-    expect(find.text('PASSWORD'), findsOneWidget);
-    expect(find.text('PASSWORD_HINT'), findsOneWidget);
+    expect(find.text('Sign in'), findsNWidgets(2));
+    expect(find.text('Email'), findsOneWidget);
+    expect(find.text('Password'), findsOneWidget);
   });
-  testWidgets("Show `errorEmail` text when email is not validated",
+
+  testWidgets('Show `errorEmail` text when email is not validated',
       (WidgetTester tester) async {
     await tester
         .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));
@@ -34,27 +31,27 @@ void main() {
 
     // ignore: todo
     // TODO: Should mock firebase in order to survive below codes
-
     // await tester.tap(signInBtn);
     // await tester.pumpAndSettle();
 
-    // expect(find.text('NO_VALID_EMAIL'), findsOneWidget);
+    // expect(find.text(t('noValidEmail')), findsOneWidget);
   });
-  testWidgets("Do not show [AlertDialog] when email is validated",
-      (WidgetTester tester) async {
-    await tester
-        .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));
-    await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(const Key('email'));
-    await tester.enterText(emailField, 'aa@aa.aa');
+  // testWidgets('Do not show [AlertDialog] when email is validated',
+  //     (WidgetTester tester) async {
+  //   await tester
+  //       .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));
+  //   await tester.pumpAndSettle();
 
-    Finder passwordField = find.byKey(const Key('password'));
-    await tester.enterText(passwordField, 'aaaaaa');
+  //   Finder emailField = find.byKey(const Key('email'));
+  //   await tester.enterText(emailField, 'aa@aa.aa');
 
-    await tester.tap(find.text('SIGN_IN').last);
-    await tester.pumpAndSettle();
+  //   Finder passwordField = find.byKey(const Key('password'));
+  //   await tester.enterText(passwordField, 'aaaaaa');
 
-    expect(find.byType(AlertDialog), findsNothing);
-  });
+  //   await tester.tap(find.text(t('signIn')).last);
+  //   await tester.pumpAndSettle();
+
+  //   expect(find.byType(AlertDialog), findsNothing);
+  // });
 }

@@ -7,7 +7,7 @@ import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/widgets/edit_text_box.dart' show EditTextBox;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 class ProfilePeerArguments {
   final UserModel user;
@@ -33,8 +33,6 @@ class ProfilePeer extends HookWidget {
         ),
       );
     }
-
-    Localization.of(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,

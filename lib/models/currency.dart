@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/models/user_model.dart';
 
-part "currency.freezed.dart";
-part "currency.g.dart";
+part 'currency.freezed.dart';
+part 'currency.g.dart';
 
 @freezed
 class Currency with _$Currency {

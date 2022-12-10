@@ -17,7 +17,6 @@ import 'package:wecount/widgets/home_header.dart' show renderHomeAppBar;
 import 'package:pie_chart/pie_chart.dart' show PieChart;
 // import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:intl/intl.dart' show DateFormat;
-import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:provider/provider.dart';
 
 class HomeStatistic extends StatelessWidget {
@@ -104,11 +103,9 @@ class Content extends HookWidget {
       dataMapExpense.value = result['expense'];
     }
 
-    var localization = Localization.of(context);
-
     useEffect(() {
       Future.delayed(Duration.zero, () {
-        ledgerItems = createHomeStatisticMock(Localization.of(context)!);
+        ledgerItems = createHomeStatisticMock();
 
         calculateAndRender(date.month.toString(), ledgerItems);
         selectedChart.value = 1;
@@ -165,7 +162,7 @@ class Content extends HookWidget {
                 padding: const EdgeInsets.all(20),
               ),
               Text(
-                localization!.trans('NO_DATA')!,
+                localization(context).noData,
                 style: const TextStyle(),
               ),
             ],
@@ -234,8 +231,8 @@ class ButtonGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color selectedColor = Theme.of(context).primaryColor;
-    var localization = Localization.of(context)!;
+    var selectedColor = Theme.of(context).primaryColor;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       height: 40,
@@ -249,7 +246,7 @@ class ButtonGroup extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onButtonOnePressed as void Function()?,
                 child: Text(
-                  localization.trans("INCOME")!,
+                  localization(context).income,
                   style: TextStyle(
                     color:
                         selectedIndex == 1 ? selectedColorText : Colors.black,
@@ -264,7 +261,7 @@ class ButtonGroup extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onButtonTwoPressed as void Function()?,
                 child: Text(
-                  localization.trans("CONSUME")!,
+                  localization(context).consume,
                   style: TextStyle(
                     color:
                         selectedIndex == 2 ? selectedColorText : Colors.black,

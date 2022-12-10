@@ -3,7 +3,7 @@ import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/widgets/button.dart' show Button;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 
 class SettingOpinion extends StatelessWidget {
@@ -15,7 +15,6 @@ class SettingOpinion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
@@ -24,7 +23,7 @@ class SettingOpinion extends StatelessWidget {
         brightness: Theme.of(context).brightness,
         iconColor: Theme.of(context).iconTheme.color,
         title: Text(
-          localization.trans('SHARE_OPINION')!,
+          localization(context).shareOpinion,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,
@@ -45,7 +44,7 @@ class SettingOpinion extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: localization.trans('SHARE_OPINION_HINT'),
+                    hintText: localization(context).shareOpinionHint,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                   ),
                 ),
@@ -53,7 +52,7 @@ class SettingOpinion extends StatelessWidget {
             ),
             Button(
               onPress: onSendOpinion,
-              text: localization.trans('SEND'),
+              text: localization(context).send,
               margin: const EdgeInsets.all(0),
               height: 56,
               textStyle: const TextStyle(

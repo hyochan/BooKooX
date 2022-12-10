@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/models/photo.dart';
 
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 class PhotoDetailArguments {
   final Photo? photo;
@@ -46,7 +46,6 @@ class PhotoDetail extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -80,7 +79,7 @@ class PhotoDetail extends HookWidget {
                       child: Icon(
                         Icons.close,
                         color: Colors.white,
-                        semanticLabel: localization.trans('BACK'),
+                        semanticLabel: localization(context).back,
                       ),
                     ),
                   ),

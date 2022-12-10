@@ -19,7 +19,6 @@ class CategoryList extends HookWidget {
   Widget build(BuildContext context) {
     var categories = useState<List<Category>>(this.categories);
 
-    var localization = Localization.of(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: Wrap(
@@ -32,15 +31,15 @@ class CategoryList extends HookWidget {
               },
               onDeletePressed: () {
                 General.instance.showConfirmDialog(context,
-                    title: Text(localization!.trans('DELETE')!),
-                    content: Text(localization.trans('DELETE_ASK')!),
+                    title: Text(localization(context).delete),
+                    content: Text(localization(context).deleteAsk),
                     okPressed: () async {
                   try {
                     await DBHelper.instance
                         .deleteCategory(context, category.iconId);
                   } catch (err) {
                     Fluttertoast.showToast(
-                      msg: localization.trans('CATEGORY_DELETE_ERROR')!,
+                      msg: localization(context).categoryDeleteError,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,
@@ -49,7 +48,7 @@ class CategoryList extends HookWidget {
                   } finally {
                     categories.value.remove(category);
                     Fluttertoast.showToast(
-                      msg: localization.trans('CATEGORY_DELETED')!,
+                      msg: localization(context).categoryDeleted,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,

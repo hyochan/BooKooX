@@ -70,19 +70,19 @@ class PinKeyboard extends StatelessWidget {
                 children: <Widget>[
                   pinKeyboardInputButton(
                       context: context,
-                      label: "1",
+                      label: '1',
                       onPressed: () {
                         onButtonPressed!(1);
                       }),
                   pinKeyboardInputButton(
                       context: context,
-                      label: "2",
+                      label: '2',
                       onPressed: () {
                         onButtonPressed!(2);
                       }),
                   pinKeyboardInputButton(
                       context: context,
-                      label: "3",
+                      label: '3',
                       onPressed: () {
                         onButtonPressed!(3);
                       }),
@@ -95,19 +95,19 @@ class PinKeyboard extends StatelessWidget {
                 children: <Widget>[
                   pinKeyboardInputButton(
                       context: context,
-                      label: "4",
+                      label: '4',
                       onPressed: () {
                         onButtonPressed!(4);
                       }),
                   pinKeyboardInputButton(
                       context: context,
-                      label: "5",
+                      label: '5',
                       onPressed: () {
                         onButtonPressed!(5);
                       }),
                   pinKeyboardInputButton(
                       context: context,
-                      label: "6",
+                      label: '6',
                       onPressed: () {
                         onButtonPressed!(6);
                       }),
@@ -120,19 +120,19 @@ class PinKeyboard extends StatelessWidget {
                 children: <Widget>[
                   pinKeyboardInputButton(
                       context: context,
-                      label: "7",
+                      label: '7',
                       onPressed: () {
                         onButtonPressed!(7);
                       }),
                   pinKeyboardInputButton(
                       context: context,
-                      label: "8",
+                      label: '8',
                       onPressed: () {
                         onButtonPressed!(8);
                       }),
                   pinKeyboardInputButton(
                       context: context,
-                      label: "9",
+                      label: '9',
                       onPressed: () {
                         onButtonPressed!(9);
                       }),
@@ -148,7 +148,7 @@ class PinKeyboard extends StatelessWidget {
                   ),
                   pinKeyboardInputButton(
                       context: context,
-                      label: "0",
+                      label: '0',
                       onPressed: () {
                         onButtonPressed!(0);
                       }),

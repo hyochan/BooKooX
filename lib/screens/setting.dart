@@ -11,7 +11,7 @@ import 'package:wecount/widgets/setting_list_item.dart'
     show ListItem, LogoutItem, SettingItem, SettingListItem;
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/asset.dart' as asset;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -23,7 +23,7 @@ class Setting extends HookWidget {
     var lockSwitch = useState<bool>(false);
     var pin = useState<String?>('');
 
-    readLockPinFromSF() async {
+    Future<void> readLockPinFromSF() async {
       SharedPreferences preference = await SharedPreferences.getInstance();
 
       if (preference.containsKey('LOCK_PIN')) {
@@ -34,7 +34,7 @@ class Setting extends HookWidget {
       }
     }
 
-    resetLockPinToSF() async {
+    Future<void> resetLockPinToSF() async {
       SharedPreferences preference = await SharedPreferences.getInstance();
       preference.remove('LOCK_PIN');
     }
@@ -65,7 +65,6 @@ class Setting extends HookWidget {
       }
     }
 
-    var localization = Localization.of(context)!;
     final List<ListItem> items = [
       SettingItem(
         const Icon(
@@ -73,7 +72,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        localization.trans('ANNOUNCEMENT'),
+        localization(context).announcement,
         onPressed: () =>
             navigation.push(context, AppRoute.settingAnnouncement.path),
       ),
@@ -83,7 +82,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        localization.trans('SHARE_OPINION'),
+        localization(context).shareOpinion,
         onPressed: () => navigation.push(context, AppRoute.settingOpinion.path),
       ),
       SettingItem(
@@ -92,7 +91,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        localization.trans('FAQ'),
+        localization(context).faq,
         onPressed: () => navigation.push(context, AppRoute.settingFAQ.path),
       ),
       SettingItem(
@@ -101,7 +100,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        localization.trans('NOTIFICATION'),
+        localization(context).notification,
         onPressed: () =>
             navigation.push(context, AppRoute.settingNotification.path),
       ),
@@ -111,7 +110,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        localization.trans('LOCK'),
+        localization(context).lock,
         optionalWidget: Switch(
           inactiveTrackColor: asset.Colors.main,
           value: lockSwitch.value,
@@ -121,12 +120,12 @@ class Setting extends HookWidget {
         ),
       ),
       LogoutItem(
-        localization.trans('LOGOUT'),
+        localization(context).logout,
         onPressed: () {
           General.instance.showConfirmDialog(
             context,
-            title: Text(localization.trans('NOTIFICATION')!),
-            content: Text(localization.trans('SIGN_OUT_ASK')!),
+            title: Text(localization(context).notification),
+            content: Text(localization(context).signOutAsk),
             cancelPressed: () => Navigator.of(context).pop(),
             okPressed: () {
               _auth.signOut();

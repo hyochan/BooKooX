@@ -8,7 +8,7 @@ import 'package:wecount/models/photo.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
@@ -16,8 +16,6 @@ import 'package:wecount/utils/routes.dart';
 enum PhotoOption { camera, gallery }
 
 Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
-  var localization = Localization.of(context);
-
   return await showDialog<PhotoOption>(
       context: context,
       barrierDismissible: true,
@@ -40,7 +38,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                     Container(
                       margin: const EdgeInsets.only(left: 8),
                       child: Text(
-                        localization!.trans('CAMERA')!,
+                        localization(context).camera,
                         style: TextStyle(
                           fontSize: 16,
                           color:
@@ -67,7 +65,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                     Container(
                       margin: const EdgeInsets.only(left: 8),
                       child: Text(
-                        localization.trans('GALLERY')!,
+                        localization(context).gallery,
                         style: TextStyle(
                           fontSize: 16,
                           color:
@@ -108,8 +106,6 @@ class Gallery extends HookWidget {
       return null;
     }, []);
 
-    var localization = Localization.of(context)!;
-
     void onPressShowAll() {}
 
     return Container(
@@ -132,7 +128,7 @@ class Gallery extends HookWidget {
                       ),
                     ),
                     Text(
-                      localization.trans('PICTURE')!,
+                      localization(context).picture,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.displayLarge!.color,
                         fontSize: 16,
@@ -145,7 +141,7 @@ class Gallery extends HookWidget {
                   ? TextButton(
                       onPressed: onPressShowAll,
                       child: Text(
-                        localization.trans('SHOW_ALL')!,
+                        localization(context).showAll,
                         style: TextStyle(
                           color:
                               Theme.of(context).textTheme.displayLarge!.color,
@@ -170,6 +166,7 @@ class Gallery extends HookWidget {
                         final PhotoOption? photoOption =
                             await _asyncPhotoSelect(context);
                         XFile? imgFile;
+                        if (context.mounted) {}
                         switch (photoOption) {
                           case PhotoOption.camera:
                             imgFile = await General.instance
@@ -183,7 +180,7 @@ class Gallery extends HookWidget {
                             break;
                         }
 
-                        if (imgFile != null) {
+                        if (context.mounted && imgFile != null) {
                           Photo photo = Photo(file: imgFile);
                           pictures.value.add(photo);
                           ledgerItemState.value =

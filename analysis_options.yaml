@@ -2,6 +2,10 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    - always_declare_return_types
+    - prefer_final_in_for_each
+    - prefer_single_quotes
+    - await_only_futures: true
 
 analyzer:
   strong-mode:
@@ -10,6 +14,7 @@ analyzer:
   exclude:
     - lib/**.freezed.dart
     - lib/**.g.dart
+    - lib/generated
   errors:
     invalid_annotation_target: ignore
     # TODO: Remove below rules after refactoring is done

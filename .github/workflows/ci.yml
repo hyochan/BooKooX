@@ -1,0 +1,135 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**/README.md"
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # if: ${{ github.repository == 'flutter-seoul/fluter_boilerplate' }}
+    name: flutter build
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env:
+      JAVA_VERSION: "11.0"
+      # FLUTTER_VERSION: "3.6.0"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "beta"
+          architecture: x64
+
+      - run: flutter --version
+
+      - name: COPY ENV
+        run: cp .env.sample .env && cp .env.sample dotenv
+
+      - name: Create firebase_options
+        run: |
+          touch lib/firebase_options.dart
+          echo "
+          import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
+          import 'package:flutter/foundation.dart'
+              show defaultTargetPlatform, kIsWeb, TargetPlatform;
+
+          class DefaultFirebaseOptions {
+            static FirebaseOptions get currentPlatform {
+              if (kIsWeb) {
+                return web;
+              }
+              switch (defaultTargetPlatform) {
+                case TargetPlatform.android:
+                  return android;
+                case TargetPlatform.iOS:
+                  return ios;
+                case TargetPlatform.macOS:
+                  throw UnsupportedError(
+                    'DefaultFirebaseOptions have not been configured for macos - '
+                    'you can reconfigure this by running the FlutterFire CLI again.',
+                  );
+                case TargetPlatform.windows:
+                  throw UnsupportedError(
+                    'DefaultFirebaseOptions have not been configured for windows - '
+                    'you can reconfigure this by running the FlutterFire CLI again.',
+                  );
+                case TargetPlatform.linux:
+                  throw UnsupportedError(
+                    'DefaultFirebaseOptions have not been configured for linux - '
+                    'you can reconfigure this by running the FlutterFire CLI again.',
+                  );
+                default:
+                  throw UnsupportedError(
+                    'DefaultFirebaseOptions are not supported for this platform.',
+                  );
+              }
+            }
+
+            static const FirebaseOptions web = FirebaseOptions(
+              apiKey: '',
+              appId: '',
+              messagingSenderId: '',
+              projectId: '',
+              storageBucket: '',
+              iosClientId: '',
+              iosBundleId: '',
+              measurementId: '',
+            );
+
+            static const FirebaseOptions android = FirebaseOptions(
+              apiKey: '',
+              appId: '',
+              messagingSenderId: '',
+              projectId: '',
+              storageBucket: '',
+            );
+
+            static const FirebaseOptions ios = FirebaseOptions(
+              apiKey: '',
+              appId: '',
+              messagingSenderId: '',
+              projectId: '',
+              storageBucket: '',
+              iosClientId: '',
+              iosBundleId: '',
+            );
+          }
+          " > lib/firebase_options.dart
+
+      - name: Get packages
+        run: flutter pub get
+
+      - name: Generate l10n
+        run: flutter gen-l10n
+
+      - name: Flutter analyze
+        run: flutter analyze
+
+      - name: Flutter test
+        run: flutter test
+
+      # Current not test directory
+      # - run: flutter test --coverage
+      # - run: sudo apt-get install -y lcov
+      # - run: lcov --remove coverage/lcov.info 'lib/generated/*' -o coverage/lcov.info
+
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     file: coverage/lcov.info

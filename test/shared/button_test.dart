@@ -5,7 +5,7 @@ import 'package:wecount/widgets/button.dart' show Button;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Button", (WidgetTester tester) async {
+  testWidgets('Button', (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(
         child: const Button(
       text: 'TextTest',
