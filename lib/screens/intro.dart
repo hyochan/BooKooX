@@ -88,7 +88,7 @@ class Intro extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: localization(context).intro,
+                  text: localization(context).doNotHaveAccount,
                 ),
                 TextSpan(
                   text: '  ${localization(context).signUp}',

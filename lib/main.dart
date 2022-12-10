@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
+
 import 'package:wecount/generated/l10n.dart' show S;
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/utils/constants.dart';
@@ -29,7 +31,9 @@ void main() async {
 
 Future<void> _initFire() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterConfig.loadEnvVariables();
+  if (!kIsWeb) {
+    await FlutterConfig.loadEnvVariables();
+  }
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 

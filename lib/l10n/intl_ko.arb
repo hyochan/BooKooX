@@ -6,7 +6,7 @@
   "terms2": " 및 ",
   "privacyPolicy": "개인정보 취급방침",
   "terms3": "에 동의하는 것으로 간주합니다.",
-  "doNoHaveAccount": "계정이 없으신가요",
+  "doNotHaveAccount": "계정이 없으신가요?",
   "@doNoHaveAccount": {
     "description": "비밀번호 없을 때 나오는 문구"
   },
@@ -48,7 +48,6 @@
   "noValidPassword": "비밀번호는 6자 이상의 알파벳 숫자 조합이어야 합니다",
   "ok": "확인",
   "cancel": "취소",
-  "intro": "앱을 만들어봐요!",
   "person": "명",
   "people": "명",
   "more": "더보기",

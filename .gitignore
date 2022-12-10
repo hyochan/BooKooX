@@ -83,6 +83,7 @@ coverage/
 android/app/src/main/res/values/strings.xml
 
 .env
+dotenv
 **/ios/Flutter/tmp.xcconfig
 **/ios/.envfile
 **/ios/Flutter/.last_build_id

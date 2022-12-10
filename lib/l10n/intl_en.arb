@@ -6,7 +6,7 @@
   "terms2": " and ",
   "privacyPolicy": "Privacy Policy",
   "terms3": ".",
-  "doNoHaveAccount": "Don't have an account?",
+  "doNotHaveAccount": "Don't have an account?",
   "@doNoHaveAccount": {
     "description": "Text when account is not registered"
   },
@@ -48,7 +48,6 @@
   "noValidPassword": "Password should be alphanumeric with more than 5 letters",
   "ok": "Ok",
   "cancel": "Cancel",
-  "intro": "Create App!",
   "person": "Person",
   "people": "People",
   "more": "more",
