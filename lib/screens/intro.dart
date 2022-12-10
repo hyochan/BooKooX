@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wecount/types/color.dart';
 
 import 'package:wecount/utils/firebase_config.dart';
 import 'package:wecount/utils/general.dart';
@@ -13,7 +14,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/widgets/button.dart' show Button;
+import 'package:wecount/widgets/button.dart' show Button, ButtonType;
 
 class Intro extends StatelessWidget {
   const Intro({Key? key}) : super(key: key);
@@ -150,20 +151,23 @@ class Intro extends StatelessWidget {
         children: <Widget>[
           Button(
             margin: const EdgeInsets.only(top: 20.0),
-            imageMarginLeft: 8,
             textStyle: signInWithTextStyle,
-            borderColor: Colors.white,
+            borderColor: AppColors.bg.border,
             backgroundColor: Colors.transparent,
+            buttonType: ButtonType.outline,
             text: 'Google',
             width: MediaQuery.of(context).size.width >
                     MediaQuery.of(context).size.height
                 ? MediaQuery.of(context).size.width - 224
                 : MediaQuery.of(context).size.width - 128,
             height: 52.0,
-            image: Image(
-              image: asset.Icons.icGoogle,
-              width: 24.0,
-              height: 24.0,
+            leftWidget: Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Image(
+                image: asset.Icons.icGoogle,
+                width: 24.0,
+                height: 24.0,
+              ),
             ),
             onPress: () => _googleLogin(context),
           ),

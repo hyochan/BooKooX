@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
-
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/widgets/edit_text.dart' show EditText;
 import 'package:wecount/utils/localization.dart';
@@ -51,6 +51,7 @@ class SignIn extends HookWidget {
       isSigningIn.value = true;
 
       UserCredential auth;
+
       try {
         auth = await _auth.signInWithEmailAndPassword(
             email: email.value, password: password.value);
@@ -118,7 +119,7 @@ class SignIn extends HookWidget {
               ),
               Button(
                 height: 40,
-                isLoading: isResendingEmail.value,
+                loading: isResendingEmail.value,
                 onPress: () async {
                   isResendingEmail.value = true;
                   try {
@@ -167,7 +168,7 @@ class SignIn extends HookWidget {
         key: const Key('email'),
         margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization(context).email,
+        label: localization(context).email,
         textHint: localization(context).emailHint,
         hasChecked: isValidEmail.value,
         hintStyle: TextStyle(color: Theme.of(context).hintColor),
@@ -193,7 +194,7 @@ class SignIn extends HookWidget {
         key: const Key('password'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization(context).password,
+        label: localization(context).password,
         textHint: localization(context).passwordHint,
         isSecret: true,
         hasChecked: hasChecked,
@@ -216,7 +217,8 @@ class SignIn extends HookWidget {
       return Button(
         key: const Key('sign-in-button'),
         onPress: signIn,
-        isLoading: isSigningIn.value,
+        disabled: !isValidEmail.value || !isValidPassword.value,
+        loading: isSigningIn.value,
         margin: const EdgeInsets.only(top: 28.0, bottom: 8.0),
         textStyle: const TextStyle(
           color: Colors.white,

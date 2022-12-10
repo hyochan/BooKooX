@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
-
 import 'package:wecount/widgets/edit_text.dart' show EditText;
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart';
@@ -151,7 +151,7 @@ class SignUp extends HookWidget {
         key: const Key('email'),
         margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization(context).email,
+        label: localization(context).email,
         textHint: localization(context).emailHint,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
@@ -176,7 +176,7 @@ class SignUp extends HookWidget {
         key: const Key('password'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization(context).password,
+        label: localization(context).password,
         textHint: localization(context).passwordHint,
         isSecret: true,
         textStyle: TextStyle(
@@ -201,11 +201,9 @@ class SignUp extends HookWidget {
         key: const Key('password-confirm'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization(context).passwordConfirm,
+        label: localization(context).passwordConfirm,
         textHint: localization(context).passwordConfirmHint,
         isSecret: true,
-        textStyle: TextStyle(
-            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: passwordConfirm.value.isNotEmpty &&
             passwordConfirm.value.isNotEmpty &&
             passwordConfirm.value == password.value,
@@ -225,10 +223,8 @@ class SignUp extends HookWidget {
         key: const Key('display-name'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization(context).displayName,
+        label: localization(context).displayName,
         textHint: localization(context).displayNameHint,
-        textStyle: TextStyle(
-            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: isValidDisplayName.value,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
@@ -249,10 +245,8 @@ class SignUp extends HookWidget {
         key: const Key('name'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization(context).name,
+        label: localization(context).name,
         textHint: localization(context).nameHint,
-        textStyle: TextStyle(
-            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: isValidName.value,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
@@ -271,7 +265,12 @@ class SignUp extends HookWidget {
     Widget renderSignUpButton() {
       return Button(
         text: localization(context).signUp,
-        isLoading: isRegistering.value,
+        loading: isRegistering.value,
+        disabled: !isValidEmail.value ||
+            !isValidPassword.value ||
+            password.value != passwordConfirm.value ||
+            !isValidDisplayName.value ||
+            !isValidName.value,
         onPress: () => signUp(),
         margin: const EdgeInsets.only(top: 36.0, bottom: 48.0),
         textStyle: const TextStyle(

@@ -69,16 +69,6 @@ class MainEmpty extends HookWidget {
               backgroundColor: Colors.transparent,
               width: 160,
               height: 56,
-              shapeBorder: MaterialStatePropertyAll<OutlinedBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32),
-                  side: BorderSide(
-                    color: Theme.of(context).textTheme.displayMedium!.color!,
-                    width: 1,
-                    style: BorderStyle.solid,
-                  ),
-                ),
-              ),
               onPress: () =>
                   Navigator.of(context).pushNamed(AppRoute.ledgerEdit.fullPath),
               text: localization(context).addLedger,

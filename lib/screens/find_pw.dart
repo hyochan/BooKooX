@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/logger.dart';
-import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/edit_text.dart' show EditText;
 import 'package:wecount/widgets/button.dart' show Button;
-import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/validator.dart' show Validator;
+import 'package:wecount/types/color.dart';
+import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/logger.dart';
+import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/utils/localization.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -35,6 +36,7 @@ class FindPw extends HookWidget {
 
       try {
         await _auth.sendPasswordResetEmail(email: email.value);
+
         if (context.mounted) {
           General.instance.showSingleDialog(
             context,
@@ -43,7 +45,7 @@ class FindPw extends HookWidget {
           );
         }
       } catch (err) {
-        logger.d('error occured: ${err.toString()}');
+        logger.d('error occurred: ${err.toString()}');
       } finally {
         isSendingEmail.value = false;
       }
@@ -66,7 +68,7 @@ class FindPw extends HookWidget {
         errorText: errorEmail.value,
         margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization(context).email,
+        label: localization(context).email,
         textHint: localization(context).emailHint,
         hasChecked: isValidEmail.value,
         onChanged: (String str) {
@@ -91,7 +93,7 @@ class FindPw extends HookWidget {
           color: Colors.white,
           fontSize: 16.0,
         ),
-        isLoading: isSendingEmail.value,
+        loading: isSendingEmail.value,
         borderColor:
             Theme.of(context).primaryIconTheme.color ?? Colors.blueGrey,
         backgroundColor: Theme.of(context).primaryColor,
@@ -102,15 +104,8 @@ class FindPw extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
-        elevation: 0.0,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).primaryIconTheme.color,
-        ),
-      ),
+      backgroundColor: AppColors.bg.defaultColor,
+      appBar: AppBar(elevation: 0.0),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: CustomScrollView(
