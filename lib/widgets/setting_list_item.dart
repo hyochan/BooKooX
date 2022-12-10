@@ -26,35 +26,34 @@ class LogoutItem implements ListItem {
 }
 
 class SettingListItem extends StatelessWidget {
-  SettingListItem(this.item);
+  const SettingListItem(this.item, {super.key});
   final SettingItem item;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: item.onPressed as void Function()?,
-      child: Container(
+      child: SizedBox(
         height: 72,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(right: 24),
+              margin: const EdgeInsets.only(right: 24),
               child: item.icon,
             ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                      child: Text(
+                  Text(
                     item.title!,
                     style: TextStyle(
                       fontSize: 20,
                       color: Theme.of(context).textTheme.displayLarge!.color,
                     ),
-                  )),
+                  ),
                   item.optionalWidget ?? Container(),
                 ],
               ),
@@ -83,7 +82,7 @@ class TileItem implements ListItem {
 }
 
 class SettingTileItem extends StatelessWidget {
-  SettingTileItem(this.item);
+  const SettingTileItem(this.item, {super.key});
   final TileItem item;
 
   @override
@@ -94,7 +93,7 @@ class SettingTileItem extends StatelessWidget {
         leading: item.leading,
         title: Text(
           item.title!,
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
         ),
         trailing: item.trailing,
       ),

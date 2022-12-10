@@ -1,5 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/models/user.dart';
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -10,14 +10,15 @@ import 'package:wecount/widgets/edit_text_box.dart' show EditTextBox;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class ProfilePeerArguments {
-  final User user;
+  final UserModel user;
 
   ProfilePeerArguments({required this.user});
 }
 
 class ProfilePeer extends HookWidget {
-  final User user;
+  final UserModel user;
   const ProfilePeer({
+    super.key,
     required this.user,
   });
 
@@ -43,13 +44,13 @@ class ProfilePeer extends HookWidget {
       ),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 40.0),
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 24, bottom: 8),
+              margin: const EdgeInsets.only(top: 24, bottom: 8),
               child: Row(
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: 88,
                     height: 88,
                     child: Material(
@@ -74,7 +75,7 @@ class ProfilePeer extends HookWidget {
             EditTextBox(
               controller: TextEditingController(text: 'hello'),
               iconData: Icons.person_outline,
-              margin: EdgeInsets.only(top: 24.0),
+              margin: const EdgeInsets.only(top: 24.0),
               focusedColor: Theme.of(context).textTheme.displayLarge!.color,
               enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               enabled: false,
@@ -83,7 +84,7 @@ class ProfilePeer extends HookWidget {
             ),
             EditTextBox(
               iconData: Icons.email,
-              margin: EdgeInsets.only(top: 8.0),
+              margin: const EdgeInsets.only(top: 8.0),
               focusedColor: Theme.of(context).textTheme.displayLarge!.color,
               enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               enabled: false,
@@ -92,7 +93,7 @@ class ProfilePeer extends HookWidget {
             ),
             EditTextBox(
               iconData: Icons.phone,
-              margin: EdgeInsets.only(top: 8.0),
+              margin: const EdgeInsets.only(top: 8.0),
               focusedColor: Theme.of(context).textTheme.displayLarge!.color,
               enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               enabled: false,
@@ -100,12 +101,12 @@ class ProfilePeer extends HookWidget {
               borderWidth: 0,
             ),
             Container(
-              margin: EdgeInsets.only(top: 32.0, bottom: 12.0),
-              child: Divider(
+              margin: const EdgeInsets.only(top: 32.0, bottom: 12.0),
+              child: const Divider(
                 height: 1.0,
               ),
             ),
-            EditTextBox(
+            const EditTextBox(
               maxLines: 5,
               enabled: false,
               borderWidth: 0,

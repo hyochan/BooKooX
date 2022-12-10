@@ -14,7 +14,7 @@ import 'package:wecount/screens/setting_opinion.dart';
 import 'package:wecount/screens/tutorial.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter\_localizations/flutter\_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wecount/utils/localization.dart' show LocalizationDelegate;
 
 import 'package:mockito/mockito.dart';
@@ -35,9 +35,9 @@ class TestUtils {
     observer = MockNavigatorObserver();
 
     var widget = MediaQuery(
-      data: MediaQueryData(),
+      data: const MediaQueryData(),
       child: MaterialApp(
-        localizationsDelegates: [
+        localizationsDelegates: const [
           LocalizationDelegate(isTest: true),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -45,26 +45,31 @@ class TestUtils {
         home: child,
         navigatorObservers: <NavigatorObserver>[observer],
         routes: {
-          AppRoute.splash.fullPath: (BuildContext context) => Splash(),
-          AppRoute.tutorial.fullPath: (BuildContext context) => Tutorial(),
-          AppRoute.intro.fullPath: (BuildContext context) => Intro(),
-          AppRoute.signIn.fullPath: (BuildContext context) => SignIn(),
-          AppRoute.signUp.fullPath: (BuildContext context) => SignUp(),
-          AppRoute.findPw.fullPath: (BuildContext context) => FindPw(),
-          AppRoute.mainEmpty.fullPath: (BuildContext context) => MainEmpty(),
-          AppRoute.homeTab.fullPath: (BuildContext context) => HomeTab(),
-          AppRoute.ledgers.fullPath: (BuildContext context) => Ledgers(),
-          AppRoute.ledgerEdit.fullPath: (BuildContext context) => LedgerEdit(),
-          AppRoute.terms.fullPath: (BuildContext context) => Terms(),
-          AppRoute.profileMy.fullPath: (BuildContext context) => ProfileMy(),
-          AppRoute.setting.fullPath: (BuildContext context) => Setting(),
+          AppRoute.splash.fullPath: (BuildContext context) => const Splash(),
+          AppRoute.tutorial.fullPath: (BuildContext context) =>
+              const Tutorial(),
+          AppRoute.intro.fullPath: (BuildContext context) => const Intro(),
+          AppRoute.signIn.fullPath: (BuildContext context) => const SignIn(),
+          AppRoute.signUp.fullPath: (BuildContext context) => const SignUp(),
+          AppRoute.findPw.fullPath: (BuildContext context) => const FindPw(),
+          AppRoute.mainEmpty.fullPath: (BuildContext context) =>
+              const MainEmpty(),
+          AppRoute.homeTab.fullPath: (BuildContext context) => const HomeTab(),
+          AppRoute.ledgers.fullPath: (BuildContext context) => const Ledgers(),
+          AppRoute.ledgerEdit.fullPath: (BuildContext context) =>
+              const LedgerEdit(),
+          AppRoute.terms.fullPath: (BuildContext context) => const Terms(),
+          AppRoute.profileMy.fullPath: (BuildContext context) =>
+              const ProfileMy(),
+          AppRoute.setting.fullPath: (BuildContext context) => const Setting(),
           AppRoute.settingAnnouncement.fullPath: (BuildContext context) =>
-              SettingAnnouncement(),
+              const SettingAnnouncement(),
           AppRoute.settingOpinion.fullPath: (BuildContext context) =>
-              SettingOpinion(),
-          AppRoute.settingFAQ.fullPath: (BuildContext context) => SettingFAQ(),
+              const SettingOpinion(),
+          AppRoute.settingFAQ.fullPath: (BuildContext context) =>
+              const SettingFAQ(),
           AppRoute.settingNotification.fullPath: (BuildContext context) =>
-              SettingNotification(),
+              const SettingNotification(),
         },
       ),
     );

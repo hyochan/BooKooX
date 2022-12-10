@@ -13,14 +13,14 @@ class Splash extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool _visible = false;
-    Timer? _navigationTimer;
-    Timer? _timer;
+    bool visible = false;
+    Timer? navigationTimer;
+    Timer? timer;
 
     Future<void> navigateRoute() async {
       String initialRoute = AppRoute.tutorial.path;
 
-      _navigationTimer = Timer(Duration(milliseconds: 1500), () {
+      navigationTimer = Timer(const Duration(milliseconds: 1500), () {
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
             overlays: SystemUiOverlay.values);
         navigation.push(context, initialRoute, reset: true);
@@ -28,18 +28,18 @@ class Splash extends HookWidget {
     }
 
     useEffect(() {
-      _timer = Timer(Duration(milliseconds: 1000), () {
-        _visible = true;
+      timer = Timer(const Duration(milliseconds: 1000), () {
+        visible = true;
       });
-      SystemChrome.setEnabledSystemUIOverlays([]);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
       navigateRoute();
       return () {
-        if (_timer != null) {
-          _timer!.cancel();
+        if (timer != null) {
+          timer!.cancel();
         }
-        if (_navigationTimer != null) {
-          _navigationTimer!.cancel();
+        if (navigationTimer != null) {
+          navigationTimer!.cancel();
         }
       };
     }, []);
@@ -55,10 +55,10 @@ class Splash extends HookWidget {
               color: Theme.of(context).primaryColor,
             ),
             AnimatedOpacity(
-              opacity: !_visible ? 0.0 : 1.0,
-              duration: Duration(milliseconds: 1000),
+              opacity: !visible ? 0.0 : 1.0,
+              duration: const Duration(milliseconds: 1000),
               child: Container(
-                margin: EdgeInsets.only(bottom: 60.0),
+                margin: const EdgeInsets.only(bottom: 60.0),
                 child: Center(
                   child: Image(
                       image: Asset.Icons.icWeCount, width: 200.0, height: 60.0),

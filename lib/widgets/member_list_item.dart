@@ -1,8 +1,8 @@
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'package:wecount/models/user.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 
 abstract class ListItem {}
@@ -16,19 +16,19 @@ class HeadingItem implements ListItem {
 }
 
 class MemberItem implements ListItem {
-  final User user;
+  final UserModel user;
 
   MemberItem(this.user);
 }
 
 class MemberListItem extends StatelessWidget {
-  final Key? key;
-  final User user;
+  @override
+  final UserModel user;
   final Function? onPressMember;
   final Function? onPressAuth;
 
   const MemberListItem({
-    this.key,
+    super.key,
     required this.user,
     this.onPressMember,
     this.onPressAuth,
@@ -36,22 +36,22 @@ class MemberListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _localization = Localization.of(context);
+    var localization = Localization.of(context);
 
     return Container(
       height: 80,
-      alignment: Alignment(-1, 0),
+      alignment: const Alignment(-1, 0),
       child: Row(
         children: <Widget>[
           Expanded(
             child: TextButton(
-              onPressed: this.onPressMember as void Function()?,
+              onPressed: onPressMember as void Function()?,
               child: Row(
                 children: <Widget>[
                   Stack(
                     alignment: AlignmentDirectional.center,
                     children: <Widget>[
-                      Container(
+                      SizedBox(
                         width: 52,
                         height: 52,
                         child: Image(
@@ -72,18 +72,18 @@ class MemberListItem extends StatelessWidget {
                                 height: 20,
                               ),
                             )
-                          : Container(),
+                          : const SizedBox(),
                     ],
                   ),
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.only(left: 20),
+                      margin: const EdgeInsets.only(left: 20),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           AutoSizeText(
-                            user.displayName!,
+                            user.displayName,
                             maxLines: 1,
                             style: TextStyle(
                               fontSize: 18,
@@ -94,7 +94,7 @@ class MemberListItem extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 4),
+                            margin: const EdgeInsets.only(top: 4),
                             child: AutoSizeText(
                               user.email!,
                               style: TextStyle(
@@ -115,17 +115,17 @@ class MemberListItem extends StatelessWidget {
             ),
           ),
           Container(
-            alignment: Alignment(0, 0),
+            alignment: const Alignment(0, 0),
             width: 80,
             height: double.infinity,
             child: TextButton(
-              onPressed: this.onPressAuth as void Function()?,
+              onPressed: onPressAuth as void Function()?,
               child: Text(
                 user.membership == Membership.Owner
-                    ? _localization!.trans('MEMBER_OWNER')!
+                    ? localization!.trans('MEMBER_OWNER')!
                     : user.membership == Membership.Admin
-                        ? _localization!.trans('MEMBER_ADMIN')!
-                        : _localization!.trans('MEMBER_GUEST')!,
+                        ? localization!.trans('MEMBER_ADMIN')!
+                        : localization!.trans('MEMBER_GUEST')!,
                 style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(context).textTheme.displayLarge!.color,

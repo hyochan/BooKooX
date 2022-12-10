@@ -18,17 +18,17 @@ class Setting extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _lockSwitch = useState<bool>(false);
-    var _pin = useState<String?>('');
+    var lockSwitch = useState<bool>(false);
+    var pin = useState<String?>('');
 
     readLockPinFromSF() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
       if (prefs.containsKey('LOCK_PIN')) {
-        _pin.value = prefs.getString('LOCK_PIN');
-        _lockSwitch.value = true;
+        pin.value = prefs.getString('LOCK_PIN');
+        lockSwitch.value = true;
 
-        print(_pin);
+        print(pin);
       }
     }
 
@@ -39,85 +39,86 @@ class Setting extends HookWidget {
 
     void _awaitLockRegister(BuildContext context) async {
       await navigation.push(context, AppRoute.lockRegister.path);
-      useEffect(() {
-        readLockPinFromSF();
-        return null;
-      }, []);
     }
+
+    useEffect(() {
+      readLockPinFromSF();
+      return null;
+    }, []);
 
     void _awaitLockAuth(BuildContext context) async {
       final result = await navigation.push(context, AppRoute.lockAuth.path);
 
-      if (_lockSwitch.value == true && result == false) {
-        _lockSwitch.value = false;
+      if (lockSwitch.value == true && result == false) {
+        lockSwitch.value = false;
         resetLockPinToSF();
       }
     }
 
     void _onChangeLock(bool value) {
-      if (_lockSwitch.value == false && value) {
+      if (lockSwitch.value == false && value) {
         _awaitLockRegister(context);
       } else {
         _awaitLockAuth(context);
       }
     }
 
-    var _localization = Localization.of(context)!;
-    final List<ListItem> _items = [
+    var localization = Localization.of(context)!;
+    final List<ListItem> items = [
       SettingItem(
-        Icon(
+        const Icon(
           Icons.announcement,
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('ANNOUNCEMENT'),
+        localization.trans('ANNOUNCEMENT'),
         onPressed: () =>
             navigation.push(context, AppRoute.settingAnnouncement.path),
       ),
       SettingItem(
-        Icon(
+        const Icon(
           Icons.message,
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('SHARE_OPINION'),
+        localization.trans('SHARE_OPINION'),
         onPressed: () => navigation.push(context, AppRoute.settingOpinion.path),
       ),
       SettingItem(
-        Icon(
+        const Icon(
           Icons.question_answer,
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('FAQ'),
+        localization.trans('FAQ'),
         onPressed: () => navigation.push(context, AppRoute.settingFAQ.path),
       ),
       SettingItem(
-        Icon(
+        const Icon(
           Icons.notifications,
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('NOTIFICATION'),
+        localization.trans('NOTIFICATION'),
         onPressed: () =>
             navigation.push(context, AppRoute.settingNotification.path),
       ),
       SettingItem(
-        Icon(
+        const Icon(
           Icons.lock,
           color: Asset.Colors.cloudyBlue,
           size: 24,
         ),
-        _localization.trans('LOCK'),
+        localization.trans('LOCK'),
         optionalWidget: Switch(
-          value: _lockSwitch.value,
+          value: lockSwitch.value,
           onChanged: _onChangeLock,
           activeTrackColor: Theme.of(context).primaryColor,
           activeColor: Theme.of(context).colorScheme.secondary,
         ),
       ),
       LogoutItem(
-        _localization.trans('LOGOUT'),
+        localization.trans('LOGOUT'),
         onPressed: () {
           _auth.signOut();
 
@@ -139,20 +140,20 @@ class Setting extends HookWidget {
           children: <Widget>[
             Expanded(
               child: ListView.builder(
-                itemCount: _items.length,
+                itemCount: items.length,
                 itemBuilder: (context, index) {
-                  final item = _items[index];
+                  final item = items[index];
                   if (item is LogoutItem) {
                     return Container(
                       height: 72,
-                      margin: EdgeInsets.only(bottom: 40),
+                      margin: const EdgeInsets.only(bottom: 40),
                       child: TextButton(
                         onPressed: item.onPressed as void Function()?,
                         child: Row(
                           children: <Widget>[
                             Text(
                               item.title!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Asset.Colors.carnation,
                                 fontSize: 20,
                               ),
@@ -167,9 +168,9 @@ class Setting extends HookWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
               child: Row(
-                children: <Widget>[
+                children: const <Widget>[
                   Text(
                     'Version ',
                     style: TextStyle(

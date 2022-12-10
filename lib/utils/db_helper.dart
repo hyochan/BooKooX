@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:wecount/models/category.dart';
+import 'package:wecount/models/ledger_item.dart';
 
 final List<Category> initialCategory = [
   Category(iconId: 0, label: 'CAFE', type: CategoryType.CONSUME),

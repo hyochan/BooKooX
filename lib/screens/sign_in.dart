@@ -11,53 +11,53 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/validator.dart' show Validator;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
 class SignIn extends HookWidget {
   const SignIn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Localization? _localization;
-    var _scrollController = useScrollController();
+    Localization? localization;
+    var scrollController = useScrollController();
 
-    var _email = useState<String>("");
-    var _password = useState<String?>(null);
+    var email = useState<String>("");
+    var password = useState<String?>(null);
 
-    var _isValidEmail = useState<bool>(false);
-    var _isValidPassword = useState<bool>(false);
+    var isValidEmail = useState<bool>(false);
+    var isValidPassword = useState<bool>(false);
 
-    var _errorEmail = useState<String?>('');
-    var _errorPassword = useState<String?>('');
+    var errorEmail = useState<String?>('');
+    var errorPassword = useState<String?>('');
 
-    var _isSigningIn = useState<bool>(false);
-    var _isResendingEmail = useState<bool>(false);
+    var isSigningIn = useState<bool>(false);
+    var isResendingEmail = useState<bool>(false);
 
-    void _signIn() async {
+    void signIn() async {
       if (_auth.currentUser != null) {
         _auth.signOut();
       }
 
-      if (!_isValidEmail.value) {
-        _errorEmail.value = _localization!.trans('NO_VALID_EMAIL');
+      if (!isValidEmail.value) {
+        errorEmail.value = localization!.trans('NO_VALIDemail');
         return;
       }
 
-      if (!_isValidPassword.value) {
-        _errorPassword.value = _localization!.trans('PASSWORD_HINT');
+      if (!isValidPassword.value) {
+        errorPassword.value = localization!.trans('PASSWORD_HINT');
         return;
       }
 
-      _isSigningIn.value = true;
+      isSigningIn.value = true;
 
       UserCredential auth;
       try {
         auth = await _auth.signInWithEmailAndPassword(
-            email: _email.value, password: _password.value!);
+            email: email.value, password: password.value!);
 
         /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
         if (auth.user != null && auth.user!.emailVerified) {
-          var snapshots = await _firestore
+          var snapshots = await fireStore
               .collection('users')
               .doc(auth.user!.uid)
               .collection('ledgers')
@@ -65,22 +65,23 @@ class SignIn extends HookWidget {
 
           var ledgers = snapshots.docs;
 
-          if (ledgers.length == 0) {
+          if (ledgers.isEmpty && context.mounted) {
             navigation.push(context, AppRoute.mainEmpty.path, reset: true);
             return;
           }
-
-          navigation.push(context, AppRoute.homeTab.path, reset: true);
+          if (context.mounted) {
+            navigation.push(context, AppRoute.homeTab.path, reset: true);
+          }
           return;
         }
       } catch (err) {
-        _isSigningIn.value = false;
+        isSigningIn.value = false;
         switch (err) {
-          // case 'ERROR_INVALID_EMAIL':
-          //   setState(() => _errorEmail = _localization!.trans(err.currency));
+          // case 'ERROR_INVALIDemail':
+          //   setState(() => errorEmail = localization!.trans(err.currency));
           //   break;
-          // case 'ERROR_WRONG_PASSWORD':
-          //   setState(() => _errorPassword = _localization!.trans(err.currency));
+          // case 'ERROR_WRONGpassword':
+          //   setState(() => errorPassword = localization!.trans(err.currency));
           //   break;
           case 'ERROR_USER_NOT_FOUND':
           case 'ERROR_USER_DISABLED':
@@ -88,26 +89,27 @@ class SignIn extends HookWidget {
           case 'ERROR_OPERATION_NOT_ALLOWED':
             // General.instance.showSingleDialog(
             //   context,
-            //   title: Text(_localization!.trans('ERROR')!),
-            //   content: Text(_localization!.trans(err.currency)!),
+            //   title: Text(localization!.trans('ERROR')!),
+            //   content: Text(localization!.trans(err.currency)!),
             // );
             break;
         }
         return;
       }
 
-      if (auth.user != null && !auth.user!.emailVerified) {
+      if (auth.user != null && !auth.user!.emailVerified && context.mounted) {
         navigation.showSingleDialog(
           context,
-          title: Text(_localization!.trans('ERROR')!),
+          title: Text(localization!.trans('ERROR')!),
+          onPress: () => _auth.signOut(),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(_localization!.trans('EMAIL_NOT_VERIFIED')!),
+              Text(localization.trans('EMAIL_NOT_VERIFIED')!),
               Container(
-                margin: EdgeInsets.only(top: 32, bottom: 24),
+                margin: const EdgeInsets.only(top: 32, bottom: 24),
                 child: Text(
-                  _email.value,
+                  email.value,
                   style: TextStyle(
                     fontSize: 24,
                     color: Theme.of(context).secondaryHeaderColor,
@@ -116,44 +118,43 @@ class SignIn extends HookWidget {
               ),
               Button(
                 height: 40,
-                isLoading: _isResendingEmail.value,
+                isLoading: isResendingEmail.value,
                 onPress: () async {
-                  _isResendingEmail.value = true;
+                  isResendingEmail.value = true;
                   try {
                     await auth.user!.sendEmailVerification();
                   } catch (err) {
                     // print('unknown error occurred. ${err.message}');
                   } finally {
-                    _isResendingEmail.value = false;
+                    isResendingEmail.value = false;
                   }
                 },
-                text: _localization!.trans('RESEND_EMAIL'),
+                text: localization.trans('RESENDemail'),
                 textStyle: TextStyle(
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                   fontSize: 16,
                 ),
               ),
             ],
           ),
-          onPress: () => _auth.signOut(),
         );
       }
     }
 
     useEffect(() {
       return () {
-        _scrollController.dispose();
+        scrollController.dispose();
       };
     }, []);
 
-    _localization = Localization.of(context);
-    _scrollController = ScrollController(
+    localization = Localization.of(context);
+    scrollController = ScrollController(
       initialScrollOffset: 0.0,
     );
 
     Widget renderSignInText() {
       return Text(
-        _localization!.trans('SIGN_IN')!,
+        localization!.trans('SIGN_IN')!,
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.displayLarge!.color,
@@ -164,67 +165,67 @@ class SignIn extends HookWidget {
 
     Widget renderEmailField() {
       return EditText(
-        key: Key('email'),
-        margin: EdgeInsets.only(top: 68.0),
+        key: const Key('email'),
+        margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('EMAIL'),
-        textHint: _localization!.trans('EMAIL_HINT'),
-        hasChecked: _isValidEmail.value,
+        textLabel: localization!.trans('EMAIL'),
+        textHint: localization.trans('EMAIL_HINT'),
+        hasChecked: isValidEmail.value,
         hintStyle: TextStyle(color: Theme.of(context).hintColor),
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
-            _isValidEmail.value = true;
-            _errorEmail.value = null;
-            _email.value = str;
+            isValidEmail.value = true;
+            errorEmail.value = null;
+            email.value = str;
           } else {
-            _isValidEmail.value = false;
-            _email.value = str;
+            isValidEmail.value = false;
+            email.value = str;
           }
         },
-        errorText: _errorEmail.value,
-        onSubmitted: (String str) => _signIn(),
+        errorText: errorEmail.value,
+        onSubmitted: (String str) => signIn(),
       );
     }
 
     Widget renderPasswordField() {
-      bool isValidPassword = _password != null && _password.value!.length > 0;
+      bool hasChecked = password.value != null && password.value!.isNotEmpty;
 
       return EditText(
-        key: Key('password'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('password'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('PASSWORD'),
-        textHint: _localization!.trans('PASSWORD_HINT'),
+        textLabel: localization!.trans('PASSWORD'),
+        textHint: localization.trans('PASSWORD_HINT'),
         isSecret: true,
-        hasChecked: isValidPassword,
+        hasChecked: hasChecked,
         onChanged: (String str) {
-          if (isValidPassword) {
-            _isValidPassword.value = true;
-            _errorPassword.value = null;
-            _password.value = str;
+          if (hasChecked) {
+            isValidPassword.value = true;
+            errorPassword.value = null;
+            password.value = str;
           } else {
-            _isValidPassword.value = false;
-            _password.value = str;
+            isValidPassword.value = false;
+            password.value = str;
           }
         },
-        errorText: _errorPassword.value,
-        onSubmitted: (String str) => _signIn(),
+        errorText: errorPassword.value,
+        onSubmitted: (String str) => signIn(),
       );
     }
 
     Widget renderSignInButton() {
       return Button(
-        key: Key('sign-in-button'),
-        onPress: _signIn,
-        isLoading: _isSigningIn.value,
-        margin: EdgeInsets.only(top: 28.0, bottom: 8.0),
-        textStyle: TextStyle(
+        key: const Key('sign-in-button'),
+        onPress: signIn,
+        isLoading: isSigningIn.value,
+        margin: const EdgeInsets.only(top: 28.0, bottom: 8.0),
+        textStyle: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
         ),
         borderColor: Colors.white,
         backgroundColor: Theme.of(context).primaryColor,
-        text: _localization!.trans('SIGN_IN'),
+        text: localization!.trans('SIGN_IN'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );
@@ -235,17 +236,16 @@ class SignIn extends HookWidget {
         onPressed: () => navigation.push(context, AppRoute.findPw.path),
         child: RichText(
           text: TextSpan(
-            text: '${_localization!.trans('DID_YOU_FORGOT_PASSWORD')}?',
-            style: TextStyle(
+            text: '${localization!.trans('DID_YOU_FORGOTpassword')}?',
+            style: const TextStyle(
               fontSize: 12.0,
-              color: const Color(0xff869ab7),
+              color: Color(0xff869ab7),
             ),
             children: <TextSpan>[
               TextSpan(
-                text: '  ' + _localization!.trans('FIND_PASSWORD')!,
-                style: TextStyle(
-                    color: const Color(0xff1dd3a8),
-                    fontWeight: FontWeight.bold),
+                text: ' ${localization.trans('FINDpassword')!}',
+                style: const TextStyle(
+                    color: Color(0xff1dd3a8), fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -266,7 +266,7 @@ class SignIn extends HookWidget {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: CustomScrollView(
-          controller: _scrollController,
+          controller: scrollController,
           slivers: <Widget>[
             SliverPadding(
               padding: const EdgeInsets.only(

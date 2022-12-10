@@ -5,23 +5,19 @@ import 'package:wecount/widgets/edit_text_search.dart' show EditTextSearch;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 class HomeHeaderSearch extends HookWidget {
-  HomeHeaderSearch(
+  const HomeHeaderSearch(
       {Key? key,
-      this.margin,
       this.showSearchInput = false,
       this.textEditingController,
       this.onClose,
       this.onSubmit,
-      this.color,
       required this.onPressAdd,
       required this.onPressDelete})
       : super(key: key);
-  final EdgeInsets? margin;
   final bool showSearchInput;
   final TextEditingController? textEditingController;
   final Function? onClose;
   final Function? onSubmit;
-  final Color? color;
   final Function onPressAdd;
   final Function onPressDelete;
 
@@ -40,19 +36,19 @@ class HomeHeaderSearch extends HookWidget {
       background: Colors.transparent,
       txtHint: localization.trans('PLZ_SEARCH'),
       underline: false,
-      txtHintStyle: TextStyle(
+      txtHintStyle: const TextStyle(
           color: Color.fromRGBO(255, 255, 255, 0.5),
           fontWeight: FontWeight.w400,
           fontFamily: "AppleSDGothicNeo",
           fontStyle: FontStyle.normal,
           fontSize: 16.0),
-      padding: EdgeInsets.only(left: 40.0, right: 44.0),
+      padding: const EdgeInsets.only(left: 40.0, right: 44.0),
       borderRadius: 40.0,
       decoration: BoxDecoration(
         border: Border.all(width: 1.0, color: Colors.white),
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
       ),
-      txtStyle: TextStyle(
+      txtStyle: const TextStyle(
           color: Colors.white,
           fontFamily: "AppleSDGothicNeo",
           fontStyle: FontStyle.normal,
@@ -60,46 +56,50 @@ class HomeHeaderSearch extends HookWidget {
       height: 40.0,
     );
     return Stack(children: [
-      Container(margin: EdgeInsets.only(left: 20, right: 50), child: textInput),
-      Positioned(
-        child: Container(
+      Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20), child: textInput),
+      const Positioned(
+        left: 32.0,
+        top: 12.0,
+        child: SizedBox(
+          width: 16.0,
+          height: 16.0,
           child: Icon(
             Icons.search,
             color: Colors.white,
           ),
-          width: 16.0,
-          height: 16.0,
         ),
-        left: 32.0,
-        top: 12.0,
       ),
       searchText.value != ""
           ? Positioned(
-              child: Container(
-                child: RawMaterialButton(
-                  onPressed: () => onPressDelete(),
-                  shape: CircleBorder(),
-                  child: Icon(Icons.close, color: Colors.white),
-                  padding: EdgeInsets.all(0.0),
-                ),
+              right: 17.0,
+              child: SizedBox(
                 width: 50.0,
+                child: RawMaterialButton(
+                  onPressed: () {
+                    onPressDelete();
+                    searchText.value = "";
+                  },
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(0.0),
+                  child: const Icon(Icons.close, color: Colors.white),
+                ),
               ),
-              right: 0.0,
             )
           : Positioned(
-              child: Container(
+              right: 17.0,
+              child: SizedBox(
                 width: 50.0,
                 child: RawMaterialButton(
-                  padding: EdgeInsets.all(0.0),
-                  shape: CircleBorder(),
+                  padding: const EdgeInsets.all(0.0),
+                  shape: const CircleBorder(),
                   onPressed: () => onPressAdd(),
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     color: Colors.white,
                   ),
                 ),
               ),
-              right: 0.0,
             ),
     ]);
   }

@@ -1,5 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/models/user.dart' show User;
+import 'package:wecount/models/user_model.dart';
 import 'package:wecount/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FireAuth show User;
 import 'package:flutter/material.dart';
@@ -17,23 +17,23 @@ class ProfileMy extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _imgFile = useState<XFile?>(null);
-    User? _profile;
+    var imgFile = useState<XFile?>(null);
+    UserModel? profile;
 
     Future<void> _onUpdateProfile() async {
       navigation.showDialogSpinner(context);
 
       await DatabaseService().requestUpdateProfile(
-        _profile,
-        imgFile: _imgFile.value,
+        profile,
+        imgFile: imgFile.value,
       );
 
       Navigator.of(context).pop();
       Navigator.of(context).pop();
     }
 
-    var _localization = Localization.of(context)!;
-    var _user = Provider.of<FireAuth.User>(context);
+    var localization = Localization.of(context)!;
+    var user0 = Provider.of<FireAuth.User>(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -44,55 +44,55 @@ class ProfileMy extends HookWidget {
           IconButton(
             icon: Icon(
               Icons.save_alt,
-              semanticLabel: _localization.trans('UPDATE'),
+              semanticLabel: localization.trans('UPDATE'),
             ),
             color: Theme.of(context).textTheme.displayLarge!.color,
-            padding: EdgeInsets.all(0.0),
+            padding: const EdgeInsets.all(0.0),
             onPressed: _onUpdateProfile,
           ),
         ],
       ),
       body: SafeArea(
           child: StreamBuilder(
-        stream: DatabaseService().streamUser(_user.uid),
+        stream: DatabaseService().streamUser(user0.uid),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) return Container();
 
-          var user = snapshot.data;
-          _profile = User(
-            email: user.email ?? '',
-            displayName: user.displayName ?? '',
-            phoneNumber: user.phoneNumber ?? '',
-            uid: user.uid,
-            statusMsg: user.statusMsg ?? '',
-            photoURL: user.photoURL,
-            thumbURL: user.thumbURL,
-          );
+          UserModel user = snapshot.data;
+          profile = UserModel(
+              email: user.email ?? '',
+              displayName: user.displayName,
+              phoneNumber: user.phoneNumber ?? '',
+              uid: user.uid,
+              statusMsg: user.statusMsg ?? '',
+              photoURL: user.photoURL,
+              thumbURL: user.thumbURL,
+              createdAt: user.createdAt);
 
           return ListView(
-            padding: EdgeInsets.symmetric(horizontal: 40.0),
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(top: 24, bottom: 8),
+                margin: const EdgeInsets.only(top: 24, bottom: 8),
                 child: Row(
                   children: <Widget>[
                     ProfileImageCam(
-                      imgFile: _imgFile.value,
-                      imgStr: _profile?.thumbURL != null
-                          ? _profile!.thumbURL
-                          : _profile?.photoURL,
+                      imgFile: imgFile.value,
+                      imgStr: profile?.thumbURL != null
+                          ? profile!.thumbURL
+                          : profile?.photoURL,
                       selectCamera: () async {
                         var file = await navigation.chooseImage(
                             context: context, type: 'camera');
                         if (file != null) {
-                          _imgFile.value = file;
+                          imgFile.value = file;
                         }
                       },
                       selectGallery: () async {
                         var file = await navigation.chooseImage(
                             context: context, type: 'gallery');
                         if (file != null) {
-                          _imgFile.value = file;
+                          imgFile.value = file;
                         }
                       },
                     ),
@@ -105,8 +105,8 @@ class ProfileMy extends HookWidget {
                 ),
                 enabled: false,
                 iconData: Icons.email,
-                margin: EdgeInsets.only(top: 24.0),
-                hintText: _localization.trans('EMAIL'),
+                margin: const EdgeInsets.only(top: 24.0),
+                hintText: localization.trans('EMAIL'),
                 focusedColor: Theme.of(context).textTheme.displayLarge!.color,
                 enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               ),
@@ -114,11 +114,12 @@ class ProfileMy extends HookWidget {
                 controller: TextEditingController(
                   text: user.displayName,
                 ),
-                onChangeText: (String str) => _profile?.displayName = str,
-                semanticLabel: _localization.trans('NICKNAME'),
+                onChangeText: (String str) =>
+                    profile = profile?.copyWith(displayName: str),
+                semanticLabel: localization.trans('NICKNAME'),
                 iconData: Icons.person_outline,
-                margin: EdgeInsets.only(top: 8.0),
-                hintText: _localization.trans('NICKNAME'),
+                margin: const EdgeInsets.only(top: 8.0),
+                hintText: localization.trans('NICKNAME'),
                 focusedColor: Theme.of(context).textTheme.displayLarge!.color,
                 enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               ),
@@ -126,16 +127,17 @@ class ProfileMy extends HookWidget {
                 controller: TextEditingController(
                   text: user.phoneNumber,
                 ),
-                onChangeText: (String str) => _profile?.phoneNumber = str,
+                onChangeText: (String str) =>
+                    profile = profile?.copyWith(phoneNumber: str),
                 iconData: Icons.phone,
-                margin: EdgeInsets.only(top: 8.0),
-                hintText: _localization.trans('PHONE'),
+                margin: const EdgeInsets.only(top: 8.0),
+                hintText: localization.trans('PHONE'),
                 focusedColor: Theme.of(context).textTheme.displayLarge!.color,
                 enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               ),
               Container(
-                margin: EdgeInsets.only(top: 32.0, bottom: 12.0),
-                child: Divider(
+                margin: const EdgeInsets.only(top: 32.0, bottom: 12.0),
+                child: const Divider(
                   height: 1.0,
                 ),
               ),
@@ -143,9 +145,10 @@ class ProfileMy extends HookWidget {
                 controller: TextEditingController(
                   text: user.statusMsg,
                 ),
-                onChangeText: (String str) => _profile?.statusMsg = str,
-                labelText: _localization.trans('STATUS_MESSAGE'),
-                hintText: _localization.trans('STATUS_MESSAGE_HINT'),
+                onChangeText: (String str) =>
+                    profile = profile?.copyWith(statusMsg: str),
+                labelText: localization.trans('STATUS_MESSAGE'),
+                hintText: localization.trans('STATUS_MESSAGE_HINT'),
                 maxLines: 5,
               ),
             ],

@@ -1,20 +1,21 @@
-class Currency {
-  String? currency;
-  String? locale;
-  String? symbol;
-  bool? selected = false;
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/user_model.dart';
 
-  Currency({
-    this.locale,
-    this.currency,
-    this.symbol,
-    this.selected,
-  });
+part "currency.freezed.dart";
+part "currency.g.dart";
 
-  @override
-  String toString() {
-    return 'currency: $currency, locale: $locale, symbol: $symbol';
-  }
+@freezed
+class Currency with _$Currency {
+  const Currency._();
+  factory Currency(
+      {String? currency,
+      String? locale,
+      String? symbol,
+      @Default(false) bool? selected}) = _Currency;
+
+  factory Currency.fromJson(Map<String, dynamic> json) =>
+      _$CurrencyFromJson(json);
 }
 
 final List<Currency> currencies = [

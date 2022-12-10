@@ -1,4 +1,3 @@
-import 'package:wecount/models/category.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/utils/localization.dart';
 
@@ -50,7 +49,7 @@ cafe(Localization localization, month, day) {
       price: -12000,
       category: Category(
           iconId: 8,
-          label: localization.trans('CAFE'),
+          label: localization.trans('CAFE')!,
           type: CategoryType.CONSUME),
       selectedDate: DateTime(2019, month, day),
     ),

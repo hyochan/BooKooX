@@ -6,7 +6,7 @@ final EdgeInsets _titlePadding =
     EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
 
 class HomeHeaderExpanded extends StatelessWidget {
-  HomeHeaderExpanded({
+  const HomeHeaderExpanded({
     Key? key,
     this.title = '',
     this.actions,
@@ -22,20 +22,20 @@ class HomeHeaderExpanded extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      pinned: true,
       expandedHeight: 136.0,
       floating: false,
-      pinned: true,
       elevation: 1.0,
-      actions: this.actions,
+      actions: actions,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
         titlePadding: _titlePadding,
         title: SafeArea(
           right: false,
           child: Container(
-            margin: EdgeInsets.only(left: 3),
+            margin: const EdgeInsets.only(left: 3),
             child: Text(
-              this.title,
+              title,
               style: TextStyle(
                 color: fontColor ?? Colors.white,
                 fontSize: 16.0,
@@ -44,8 +44,7 @@ class HomeHeaderExpanded extends StatelessWidget {
           ),
         ),
         background: Container(
-          color:
-              this.color != null ? color : Asset.Colors.getColor(colorItems[4]),
+          color: color ?? Asset.Colors.getColor(colorItems[4]),
         ),
       ),
     );

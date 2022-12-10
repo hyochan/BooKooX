@@ -1,16 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/models/category.dart';
 import 'package:flutter/material.dart';
+import 'package:wecount/models/ledger_item.dart';
 
 class CategoryItem extends HookWidget {
-  CategoryItem({
-    this.key,
+  const CategoryItem({
+    super.key,
     required this.category,
     this.onSelectPressed,
     this.onDeletePressed,
   });
-  final Key? key;
   final Category category;
   final Function? onDeletePressed;
   final Function? onSelectPressed;
@@ -20,13 +19,13 @@ class CategoryItem extends HookWidget {
     var category = useState<Category>(this.category);
 
     return Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10, left: 8),
+      margin: const EdgeInsets.only(top: 10, bottom: 10, left: 8),
       child: InkWell(
         onTap: () {
           onSelectPressed!();
         },
-        onLongPress: () =>
-            category.value.showDelete = !category.value.showDelete,
+        onLongPress: () => category.value =
+            category.value.copyWith(showDelete: !category.value.showDelete),
         child: Stack(
           children: <Widget>[
             Column(
@@ -37,7 +36,7 @@ class CategoryItem extends HookWidget {
                   height: 72,
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 8),
+                  margin: const EdgeInsets.only(top: 8),
                   width: 80,
                   child: AutoSizeText(
                     category.value.label ?? '',
@@ -56,7 +55,7 @@ class CategoryItem extends HookWidget {
               top: 0,
               child: category.value.showDelete
                   ? Container(
-                      padding: EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(2),
                       child: InkWell(
                         onTap: onDeletePressed as void Function()?,
                         child: ClipOval(
@@ -74,7 +73,7 @@ class CategoryItem extends HookWidget {
                         ),
                       ),
                     )
-                  : Container(),
+                  : const SizedBox(),
             ),
           ],
         ),

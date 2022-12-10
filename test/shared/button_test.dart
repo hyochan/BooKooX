@@ -7,7 +7,7 @@ import '../test_utils.dart' show TestUtils;
 void main() {
   testWidgets("Button", (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(
-        child: Button(
+        child: const Button(
       text: 'TextTest',
     )));
     await tester.pumpAndSettle();

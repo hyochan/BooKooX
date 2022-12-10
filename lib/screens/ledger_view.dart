@@ -57,7 +57,7 @@ class LedgerView extends HookWidget {
                 enabled: false,
                 maxLines: 2,
                 onChanged: (String txt) {
-                  _ledger.value!.title = txt;
+                  _ledger.value = _ledger.value!.copyWith(title: txt);
                 },
                 controller: TextEditingController(text: _ledger.value!.title),
                 decoration: InputDecoration(
@@ -84,7 +84,7 @@ class LedgerView extends HookWidget {
                 controller:
                     TextEditingController(text: _ledger.value!.description),
                 onChanged: (String txt) {
-                  _ledger.value!.description = txt;
+                  _ledger.value = _ledger.value!.copyWith(description: txt);
                 },
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(

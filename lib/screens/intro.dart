@@ -47,7 +47,7 @@ class Intro extends StatelessWidget {
         'deletedAt': null,
       });
       _googleSignIn.signOut();
-      Navigator.pushReplacementNamed(context, AppRoute.authSwitch.path);
+      Navigator.pushReplacementNamed(context, AppRoute.authSwitch.fullPath);
     }
   }
 

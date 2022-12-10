@@ -18,92 +18,92 @@ class SignUp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Localization? _localization;
+    Localization? localization;
 
-    String? _email;
-    String? _password;
-    String? _passwordConfirm;
-    String? _displayName;
-    String? _name;
+    String? email;
+    String? password;
+    String? passwordConfirm;
+    String? displayName;
+    String? name;
 
-    var _errorEmail = useState<String?>(null);
-    var _errorPassword = useState<String?>(null);
-    var _errorPasswordConfirm = useState<String?>(null);
-    var _errorDisplayName = useState<String?>(null);
-    var _errorName = useState<String?>(null);
+    var errorEmail = useState<String?>(null);
+    var errorPassword = useState<String?>(null);
+    var errorPasswordConfirm = useState<String?>(null);
+    var errorDisplayName = useState<String?>(null);
+    var errorName = useState<String?>(null);
 
-    var _isValidEmail = useState<bool>(false);
-    var _isValidPassword = useState<bool>(false);
-    var _isValidDisplayName = useState<bool>(false);
-    var _isValidName = useState<bool>(false);
-    var _isRegistering = useState<bool>(false);
+    var isValidEmail = useState<bool>(false);
+    var isValidPassword = useState<bool>(false);
+    var isValidDisplayName = useState<bool>(false);
+    var isValidName = useState<bool>(false);
+    var isRegistering = useState<bool>(false);
 
     void _signUp() async {
-      if (_email == null ||
-          _password == null ||
-          _passwordConfirm == null ||
-          _displayName == null ||
-          _name == null) {
+      if (email == null ||
+          password == null ||
+          passwordConfirm == null ||
+          displayName == null ||
+          name == null) {
         return;
       }
 
-      if (!_isValidEmail.value) {
-        _errorEmail.value = _localization!.trans('NO_VALID_EMAIL');
+      if (!isValidEmail.value) {
+        errorEmail.value = localization!.trans('NO_VALID_EMAIL');
         return;
       }
 
-      if (!_isValidPassword.value) {
-        _errorPassword.value = _localization!.trans('PASSWORD_HINT');
+      if (!isValidPassword.value) {
+        errorPassword.value = localization!.trans('PASSWORD_HINT');
         return;
       }
 
-      if (_passwordConfirm != _password) {
-        _errorPasswordConfirm.value =
-            _localization!.trans('PASSWORD_CONFIRM_HINT');
+      if (passwordConfirm != password) {
+        errorPasswordConfirm.value =
+            localization!.trans('PASSWORD_CONFIRM_HINT');
         return;
       }
 
-      if (!_isValidDisplayName.value) {
-        _errorDisplayName.value = _localization!.trans('DISPLAY_NAME_HINT');
+      if (!isValidDisplayName.value) {
+        errorDisplayName.value = localization!.trans('DISPLAY_NAME_HINT');
         return;
       }
 
-      if (!_isValidName.value) {
-        _errorName.value = _localization!.trans('NAME_HINT');
+      if (!isValidName.value) {
+        errorName.value = localization!.trans('NAME_HINT');
         return;
       }
 
-      _isRegistering.value = true;
+      isRegistering.value = true;
 
       try {
         final User? user = (await _auth.createUserWithEmailAndPassword(
-          email: _email!,
-          password: _password!,
+          email: email!,
+          password: password!,
         ))
             .user;
 
         if (user != null) {
           await user.sendEmailVerification();
           await firestore.collection('users').doc(user.uid).set({
-            'email': _email,
-            'displayName': _displayName,
-            'name': _name,
+            'email': email,
+            'displayName': displayName,
+            'name': name,
             'createdAt': FieldValue.serverTimestamp(),
             'updatedAt': FieldValue.serverTimestamp(),
             'deletedAt': null,
           });
 
-          user.updateDisplayName(_displayName);
+          user.updateDisplayName(displayName);
 
           return navigation.showSingleDialog(
             context,
             title: Text(
-              _localization!.trans('SIGN_UP_SUCCESS_TITLE')!,
+              localization!.trans('SIGN_UP_SUCCESS_TITLE')!,
               style: TextStyle(
                   color: Theme.of(context).dialogTheme.titleTextStyle!.color),
             ),
             content: Text(
-              _localization!.trans('SIGN_UP_SUCCESS_CONTENT')!,
+              localization.trans('SIGN_UP_SUCCESS_CONTENT')!,
               style: TextStyle(
                   color: Theme.of(context).dialogTheme.contentTextStyle!.color),
             ),
@@ -119,26 +119,26 @@ class SignUp extends HookWidget {
         navigation.showSingleDialog(
           context,
           title: Text(
-            _localization!.trans('SIGN_UP_ERROR_TITLE')!,
+            localization!.trans('SIGN_UP_ERROR_TITLE')!,
             style: TextStyle(
                 color: Theme.of(context).dialogTheme.titleTextStyle!.color),
           ),
           content: Text(
-            _localization!.trans('SIGN_UP_ERROR_CONTENT')!,
+            localization.trans('SIGN_UP_ERROR_CONTENT')!,
             style: TextStyle(
                 color: Theme.of(context).dialogTheme.contentTextStyle!.color),
           ),
         );
       } finally {
-        _isRegistering.value = false;
+        isRegistering.value = false;
       }
     }
 
-    _localization = Localization.of(context);
+    localization = Localization.of(context);
 
     Widget renderSignUpText() {
       return Text(
-        _localization!.trans('SIGN_UP')!,
+        localization!.trans('SIGN_UP')!,
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.displayLarge!.color,
@@ -149,139 +149,138 @@ class SignUp extends HookWidget {
 
     Widget renderEmailField() {
       return EditText(
-        key: Key('email'),
-        margin: EdgeInsets.only(top: 68.0),
+        key: const Key('email'),
+        margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('EMAIL'),
-        textHint: _localization!.trans('EMAIL_HINT'),
+        textLabel: localization!.trans('EMAIL'),
+        textHint: localization.trans('EMAIL_HINT'),
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidEmail.value,
+        hasChecked: isValidEmail.value,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
-            _isValidEmail.value = true;
-            _errorEmail.value = null;
+            isValidEmail.value = true;
+            errorEmail.value = null;
           } else {
-            _isValidEmail.value = false;
+            isValidEmail.value = false;
           }
-          _email = str;
+          email = str;
         },
-        errorText: _errorEmail.value,
+        errorText: errorEmail.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
 
     Widget renderPasswordField() {
       return EditText(
-        key: Key('password'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('password'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('PASSWORD'),
-        textHint: _localization!.trans('PASSWORD_HINT'),
+        textLabel: localization!.trans('PASSWORD'),
+        textHint: localization.trans('PASSWORD_HINT'),
         isSecret: true,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidPassword.value,
+        hasChecked: isValidPassword.value,
         onChanged: (String str) {
           if (Validator.instance.validatePassword(str)) {
-            _isValidPassword.value = true;
-            _errorPassword.value = null;
+            isValidPassword.value = true;
+            errorPassword.value = null;
           } else {
-            _isValidPassword.value = false;
+            isValidPassword.value = false;
           }
-          _password = str;
+          password = str;
         },
-        errorText: _errorPassword.value,
+        errorText: errorPassword.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
 
     Widget renderPasswordConfirmField() {
       return EditText(
-        key: Key('password-confirm'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('password-confirm'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('PASSWORD_CONFIRM'),
-        textHint: _localization!.trans('PASSWORD_CONFIRM_HINT'),
+        textLabel: localization!.trans('PASSWORD_CONFIRM'),
+        textHint: localization.trans('PASSWORD_CONFIRM_HINT'),
         isSecret: true,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _passwordConfirm != null &&
-            _passwordConfirm != '' &&
-            _passwordConfirm == _password,
+        hasChecked: passwordConfirm != null &&
+            passwordConfirm != '' &&
+            passwordConfirm == password,
         onChanged: (String str) {
-          _passwordConfirm = str;
-          if (str == _password) {
-            _errorPasswordConfirm.value = null;
+          passwordConfirm = str;
+          if (str == password) {
+            errorPasswordConfirm.value = null;
           }
-          ;
         },
-        errorText: _errorPasswordConfirm.value,
+        errorText: errorPasswordConfirm.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
 
     Widget renderDisplayNameField() {
       return EditText(
-        key: Key('display-name'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('display-name'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('DISPLAY_NAME'),
-        textHint: _localization!.trans('DISPLAY_NAME_HINT'),
+        textLabel: localization!.trans('DISPLAY_NAME'),
+        textHint: localization.trans('DISPLAY_NAME_HINT'),
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidDisplayName.value,
+        hasChecked: isValidDisplayName.value,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
-            _isValidDisplayName.value = true;
-            _errorDisplayName.value = null;
+            isValidDisplayName.value = true;
+            errorDisplayName.value = null;
           } else {
-            _isValidDisplayName.value = false;
+            isValidDisplayName.value = false;
           }
-          _displayName = str;
+          displayName = str;
         },
-        errorText: _errorDisplayName.value,
+        errorText: errorDisplayName.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
 
     Widget renderNameField() {
       return EditText(
-        key: Key('name'),
-        margin: EdgeInsets.only(top: 24.0),
+        key: const Key('name'),
+        margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('NAME'),
-        textHint: _localization!.trans('NAME_HINT'),
+        textLabel: localization!.trans('NAME'),
+        textHint: localization.trans('NAME_HINT'),
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidName.value,
+        hasChecked: isValidName.value,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
-            _isValidName.value = true;
-            _errorName.value = null;
+            isValidName.value = true;
+            errorName.value = null;
           } else {
-            _isValidName.value = false;
+            isValidName.value = false;
           }
-          _name = str;
+          name = str;
         },
-        errorText: _errorName.value,
+        errorText: errorName.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
 
     Widget renderSignUpButton() {
       return Button(
-        key: Key('button-sign-up'),
-        isLoading: _isRegistering.value,
+        key: const Key('button-sign-up'),
+        isLoading: isRegistering.value,
         onPress: () => _signUp(),
-        margin: EdgeInsets.only(top: 36.0, bottom: 48.0),
-        textStyle: TextStyle(
+        margin: const EdgeInsets.only(top: 36.0, bottom: 48.0),
+        textStyle: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
         ),
         borderColor: Colors.white,
         backgroundColor: Asset.Colors.main,
-        text: _localization!.trans('SIGN_UP'),
+        text: localization!.trans('SIGN_UP'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );

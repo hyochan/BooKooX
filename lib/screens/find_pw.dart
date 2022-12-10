@@ -15,42 +15,42 @@ class FindPw extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Localization? _localization;
-    var _email = useState<String>("");
-    var _errorEmail = useState<String?>("");
+    Localization? localization;
+    var email = useState<String>("");
+    var errorEmail = useState<String?>("");
 
-    var _isValidEmail = useState<bool>(false);
-    var _isSendingEmail = useState<bool>(false);
+    var isValidEmail = useState<bool>(false);
+    var isSendingEmail = useState<bool>(false);
 
     void _findPw() async {
-      bool isEmail = Validator.instance.validateEmail(_email.value);
+      bool isEmail = Validator.instance.validateEmail(email.value);
 
       if (!isEmail) {
-        _errorEmail.value = _localization!.trans('NO_VALID_EMAIL');
+        errorEmail.value = localization!.trans('NO_VALID_EMAIL');
         return;
       }
 
-      _isSendingEmail.value = true;
+      isSendingEmail.value = true;
 
       try {
-        await _auth.sendPasswordResetEmail(email: _email.value);
+        await _auth.sendPasswordResetEmail(email: email.value);
         navigation.showSingleDialog(
           context,
-          title: Text(_localization!.trans('SUCCESS')!),
-          content: Text(_localization!.trans('PASSWORD_RESET_LINK_SENT')!),
+          title: Text(localization!.trans('SUCCESS')!),
+          content: Text(localization.trans('PASSWORD_RESET_LINK_SENT')!),
         );
       } catch (err) {
         print('error occured: ${err.toString()}');
       } finally {
-        _isSendingEmail.value = false;
+        isSendingEmail.value = false;
       }
     }
 
-    _localization = Localization.of(context);
+    localization = Localization.of(context);
 
     Widget findPwText() {
       return Text(
-        _localization!.trans('FIND_PASSWORD')!,
+        localization!.trans('FIND_PASSWORD')!,
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.displayLarge!.color,
@@ -61,21 +61,21 @@ class FindPw extends HookWidget {
 
     Widget emailField() {
       return EditText(
-        key: Key('email'),
-        errorText: _errorEmail.value,
-        margin: EdgeInsets.only(top: 68.0),
+        key: const Key('email'),
+        errorText: errorEmail.value,
+        margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: _localization!.trans('EMAIL'),
-        textHint: _localization!.trans('EMAIL_HINT'),
-        hasChecked: _isValidEmail.value,
+        textLabel: localization!.trans('EMAIL'),
+        textHint: localization.trans('EMAIL_HINT'),
+        hasChecked: isValidEmail.value,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
-            _isValidEmail.value = true;
-            _errorEmail.value = null;
+            isValidEmail.value = true;
+            errorEmail.value = null;
           } else {
-            _isValidEmail.value = false;
+            isValidEmail.value = false;
           }
-          _email.value = str;
+          email.value = str;
         },
         onSubmitted: (String str) => _findPw(),
       );
@@ -83,17 +83,17 @@ class FindPw extends HookWidget {
 
     Widget sendButton() {
       return Button(
-        key: Key('sendButton'),
+        key: const Key('sendButton'),
         onPress: _findPw,
-        margin: EdgeInsets.only(top: 28.0, bottom: 8.0),
-        textStyle: TextStyle(
+        margin: const EdgeInsets.only(top: 28.0, bottom: 8.0),
+        textStyle: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
         ),
-        isLoading: _isSendingEmail.value,
+        isLoading: isSendingEmail.value,
         borderColor: Theme.of(context).primaryIconTheme.color,
         backgroundColor: Theme.of(context).primaryColor,
-        text: _localization!.trans('SEND_EMAIL'),
+        text: localization!.trans('SEND_EMAIL'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );

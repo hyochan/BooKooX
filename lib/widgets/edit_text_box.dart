@@ -4,7 +4,7 @@ import 'package:wecount/utils/asset.dart' as Asset;
 
 class EditTextBox extends HookWidget {
   const EditTextBox({
-    this.key,
+    super.key,
     this.enabled = true,
     this.focusedColor = const Color.fromARGB(255, 66, 77, 107),
     this.enabledColor = const Color.fromARGB(255, 220, 226, 235),
@@ -30,7 +30,7 @@ class EditTextBox extends HookWidget {
     this.borderWidth = 0.7,
     this.borderStyle = BorderStyle.solid,
   });
-  final Key? key;
+  @override
   final bool enabled;
   final TextEditingController? controller;
   final Color? focusedColor;
@@ -56,7 +56,7 @@ class EditTextBox extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    FocusNode _focus = FocusNode();
+    FocusNode focus = FocusNode();
 
     return Stack(
       alignment: Alignment.center,
@@ -77,6 +77,7 @@ class EditTextBox extends HookWidget {
               )
             : Container(),
         Container(
+          margin: margin,
           child: TextField(
             enabled: enabled,
             controller: controller,
@@ -86,7 +87,7 @@ class EditTextBox extends HookWidget {
             cursorColor: focusedColor,
             onChanged: onChangeText as void Function(String)?,
             maxLength: maxLength,
-            focusNode: _focus,
+            focusNode: focus,
             maxLines: maxLines,
             decoration: InputDecoration(
               alignLabelWithHint: true,
@@ -106,7 +107,7 @@ class EditTextBox extends HookWidget {
                 right: 16,
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: focusedColor!,
                   width: borderWidth,
@@ -114,7 +115,7 @@ class EditTextBox extends HookWidget {
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: enabledColor!,
                   width: borderWidth,
@@ -122,7 +123,7 @@ class EditTextBox extends HookWidget {
                 ),
               ),
               disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: disabledColor,
                   width: borderWidth,
@@ -130,7 +131,7 @@ class EditTextBox extends HookWidget {
                 ),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: errorStyle.color!,
                   width: borderWidth,
@@ -138,7 +139,7 @@ class EditTextBox extends HookWidget {
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.zero),
+                borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
                   color: errorStyle.color!,
                   width: borderWidth,
@@ -148,7 +149,6 @@ class EditTextBox extends HookWidget {
             ),
             autocorrect: false,
           ),
-          margin: margin,
         ),
       ],
     );

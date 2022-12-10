@@ -20,7 +20,7 @@ import 'package:intl/intl.dart' show DateFormat;
 import 'package:provider/provider.dart';
 
 class HomeCalendar extends HookWidget {
-  HomeCalendar({
+  const HomeCalendar({
     Key? key,
     this.title = '2022 WeCount',
   }) : super(key: key);
@@ -40,27 +40,27 @@ class HomeCalendar extends HookWidget {
             title: title,
             color: Asset.Colors.getColor(color),
             actions: [
-              Container(
+              SizedBox(
                 width: 56.0,
                 child: RawMaterialButton(
-                  padding: EdgeInsets.all(0.0),
-                  shape: CircleBorder(),
+                  padding: const EdgeInsets.all(0.0),
+                  shape: const CircleBorder(),
                   onPressed: () =>
                       navigation.push(context, AppRoute.ledgers.path),
-                  child: Icon(
+                  child: const Icon(
                     Icons.book,
                     color: Colors.white,
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 56.0,
                 child: RawMaterialButton(
-                  padding: EdgeInsets.all(0.0),
-                  shape: CircleBorder(),
+                  padding: const EdgeInsets.all(0.0),
+                  shape: const CircleBorder(),
                   onPressed: () => Navigator.of(context)
                       .pushNamed(AppRoute.ledgerItemEdit.fullPath),
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     color: Colors.white,
                   ),
@@ -70,7 +70,7 @@ class HomeCalendar extends HookWidget {
           ),
           SliverList(
             delegate: SliverChildListDelegate([
-              MyHomePage(),
+              const MyHomePage(),
             ]),
           )
         ],
@@ -80,54 +80,54 @@ class HomeCalendar extends HookWidget {
 }
 
 class MyHomePage extends HookWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var _currentDate = useState<DateTime?>(DateTime.now());
-    var _targetDate = useState<DateTime?>(DateTime.now());
-    var _currentMonth = useState<String>("");
+    var currentDate = useState<DateTime?>(DateTime.now());
+    var targetDate = useState<DateTime?>(DateTime.now());
+    var currentMonth = useState<String>("");
 
-    var _markedDateMap = useState<EventList<Event>?>(null);
+    var markedDateMap0 = useState<EventList<Event>?>(null);
 
     /// ledgerList from parents
-    var _ledgerList = useState<List<LedgerItem>>([]);
+    var ledgerList0 = useState<List<LedgerItem>>([]);
 
     /// for bottom list UI
-    List<LedgerItem> _ledgerListOfSelectedDate = [];
+    List<LedgerItem> ledgerListOfSelectedDate = [];
 
     void selectDate(
       DateTime date,
     ) {
-      _ledgerListOfSelectedDate.clear();
-      _ledgerList.value.forEach((item) {
+      ledgerListOfSelectedDate.clear();
+      ledgerList0.value.forEach((item) {
         if (item.selectedDate == date) {
-          _ledgerListOfSelectedDate.add(item);
+          ledgerListOfSelectedDate.add(item);
         }
       });
-      _currentDate.value = date;
-      _targetDate.value = DateTime(date.year, date.month);
-      _currentMonth.value = DateFormat.yMMM().format(date);
+      currentDate.value = date;
+      targetDate.value = DateTime(date.year, date.month);
+      currentMonth.value = DateFormat.yMMM().format(date);
     }
 
     useEffect(() {
-      _currentDate.value = DateTime.now();
-      _targetDate.value = DateTime.now();
-      _currentMonth.value = DateFormat.yMMM().format(_currentDate.value!);
+      currentDate.value = DateTime.now();
+      targetDate.value = DateTime.now();
+      currentMonth.value = DateFormat.yMMM().format(currentDate.value!);
 
       Future.delayed(Duration.zero, () {
-        var _localization = Localization.of(context)!;
+        var localization = Localization.of(context)!;
 
         List<LedgerItem> ledgerList =
-            createCalendarLedgerItemMock(_localization);
+            createCalendarLedgerItemMock(localization);
         EventList<Event>? markedDateMap = EventList(events: {});
-        ledgerList.forEach((ledger) {
+        for (var ledger in ledgerList) {
           markedDateMap.add(ledger.selectedDate!,
               Event(date: ledger.selectedDate!, title: ledger.category!.label));
-        });
+        }
 
-        _ledgerList.value = ledgerList;
-        _markedDateMap.value = markedDateMap;
+        ledgerList0.value = ledgerList;
+        markedDateMap0.value = markedDateMap;
       });
       return null;
     }, []);
@@ -137,12 +137,12 @@ class MyHomePage extends HookWidget {
         : ColorType.DUSK;
 
     void onDatePressed() async {
-      int year = _currentDate.value!.year;
+      int year = currentDate.value!.year;
       int prevDate = year - 100;
       int lastDate = year + 10;
       DateTime? pickDate = await showDatePicker(
         context: context,
-        initialDate: _currentDate.value!,
+        initialDate: currentDate.value!,
         firstDate: DateTime(prevDate),
         lastDate: DateTime(lastDate),
       );
@@ -154,39 +154,39 @@ class MyHomePage extends HookWidget {
     return SafeArea(
       top: false,
       child: Container(
-        margin: EdgeInsets.only(left: 5, right: 5),
+        margin: const EdgeInsets.only(left: 5, right: 5),
         child: Column(
           children: <Widget>[
             DateSelector(
-              date: _currentMonth.value,
+              date: currentMonth.value,
               onDatePressed: onDatePressed,
             ),
             renderCalendar(
                 context: context,
                 onCalendarChanged: (DateTime date) {
-                  _currentMonth.value = DateFormat.yMMM().format(date);
-                  _targetDate.value = date;
+                  currentMonth.value = DateFormat.yMMM().format(date);
+                  targetDate.value = date;
                 },
                 onDayPressed: (DateTime date, List<Event> events) {
                   selectDate(date);
                 },
-                markedDateMap: _markedDateMap.value,
-                currentDate: _currentDate.value,
-                targetDate: _targetDate.value,
+                markedDateMap: markedDateMap0.value,
+                currentDate: currentDate.value,
+                targetDate: targetDate.value,
                 color: Asset.Colors.getColor(color)),
-            Divider(
+            const Divider(
               color: Colors.grey,
               indent: 10,
               endIndent: 10,
             ),
             ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-              itemCount: _ledgerListOfSelectedDate.length,
+              itemCount: ledgerListOfSelectedDate.length,
               itemBuilder: (BuildContext context, int index) {
                 return HomeListItem(
-                    ledgerItem: _ledgerListOfSelectedDate[index]);
+                    ledgerItem: ledgerListOfSelectedDate[index]);
               },
             ),
           ],
@@ -210,7 +210,7 @@ Widget renderCalendar({
     onDayPressed: onDayPressed as dynamic Function(DateTime, List<Event>)?,
 
     /// make calendar to be scrollable together with its screen
-    customGridViewPhysics: NeverScrollableScrollPhysics(),
+    customGridViewPhysics: const NeverScrollableScrollPhysics(),
 
     /// marked Date
     markedDatesMap: markedDateMap,
@@ -218,13 +218,13 @@ Widget renderCalendar({
     markedDateIconMaxShown: 1,
     markedDateIconBuilder: (event) {
       return renderMarkedIcon(
-          color: Theme.of(context).accentColor, context: context);
+          color: Theme.of(context).colorScheme.secondary, context: context);
     },
 
     /// selected date
     selectedDayButtonColor: color,
     selectedDateTime: currentDate,
-    selectedDayTextStyle: TextStyle(
+    selectedDayTextStyle: const TextStyle(
       color: Colors.white,
     ),
 
@@ -251,7 +251,7 @@ Widget renderCalendar({
     ),
     todayButtonColor: Theme.of(context).hintColor,
     minSelectedDate: DateTime(1970, 1, 1),
-    maxSelectedDate: DateTime.now().add(Duration(days: 3650)),
+    maxSelectedDate: DateTime.now().add(const Duration(days: 3650)),
   );
 }
 
@@ -260,13 +260,13 @@ Widget renderMarkedIcon({required Color color, required BuildContext context}) {
     child: Stack(
       children: <Widget>[
         Positioned(
-          child: CustomPaint(painter: DrawCircle(color: color)),
           top: 7,
           right: MediaQuery.of(context).orientation == Orientation.portrait
               ? 0
               : 15,
           height: 5,
           width: 5,
+          child: CustomPaint(painter: DrawCircle(color: color)),
         )
       ],
     ),
@@ -284,7 +284,7 @@ class DrawCircle extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawCircle(Offset(0.0, 0.0), 3.0, _paint);
+    canvas.drawCircle(const Offset(0.0, 0.0), 3.0, _paint);
   }
 
   @override

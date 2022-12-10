@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:wecount/models/category.dart';
+import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/edit_text_box.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
@@ -11,35 +11,36 @@ import 'package:wecount/utils/localization.dart';
 class CategoryAdd extends HookWidget {
   final CategoryType categoryType;
   final int? lastId;
-  CategoryAdd({
+  const CategoryAdd({
+    Key? key,
     this.categoryType = CategoryType.CONSUME,
     required this.lastId,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _textController = useTextEditingController();
-    var _selectedIconIndex = useState<int?>(0);
-    var _errorText = useState<String?>("");
-    var _localization = Localization.of(context)!;
+    final textController = useTextEditingController();
+    var selectedIconIndex = useState<int?>(0);
+    var errorText = useState<String?>("");
+    var localization = Localization.of(context)!;
 
     void onDonePressed() async {
-      if (_textController.text == '') {
-        _errorText.value = _localization.trans('ERROR_CATEGORY_NAME');
+      if (textController.text == '') {
+        errorText.value = localization.trans('ERROR_CATEGORY_NAME');
         return;
       }
-      if (_selectedIconIndex == null) {
+      if (selectedIconIndex == null) {
         navigation.showSingleDialog(
           context,
-          title: Text(_localization.trans('ERROR')!),
-          content: Text(_localization.trans('ERROR_CATEGORY_ICON')!),
+          title: Text(localization.trans('ERROR')!),
+          content: Text(localization.trans('ERROR_CATEGORY_ICON')!),
         );
         return;
       }
       Category category = Category(
         id: lastId! + 1,
-        iconId: _selectedIconIndex.value,
-        label: _textController.text,
+        iconId: selectedIconIndex.value,
+        label: textController.text,
         type: categoryType,
       );
 
@@ -47,7 +48,7 @@ class CategoryAdd extends HookWidget {
         await DBHelper.instance.insertCategory(context, category);
       } catch (err) {
         Fluttertoast.showToast(
-          msg: _localization.trans('CATEGORY_ADD_ERROR')!,
+          msg: localization.trans('CATEGORY_ADD_ERROR')!,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -64,7 +65,7 @@ class CategoryAdd extends HookWidget {
 
     Widget renderIcons() {
       return Container(
-        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
         child: SingleChildScrollView(
           child: Center(
             child: Wrap(
@@ -75,13 +76,13 @@ class CategoryAdd extends HookWidget {
                       return MapEntry(
                         i,
                         Container(
-                          padding: EdgeInsets.only(left: 8, bottom: 8),
+                          padding: const EdgeInsets.only(left: 8, bottom: 8),
                           child: InkWell(
                             onTap: () {
-                              _selectedIconIndex.value = i;
+                              selectedIconIndex.value = i;
                             },
                             child: Opacity(
-                              opacity: i == _selectedIconIndex ? 1.0 : 0.4,
+                              opacity: i == selectedIconIndex ? 1.0 : 0.4,
                               child: Image(
                                 image: icon,
                                 width: 72,
@@ -102,82 +103,77 @@ class CategoryAdd extends HookWidget {
     }
 
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: <Widget>[
             Expanded(
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(
-                        left: 24,
-                        right: 24,
-                        top: 40,
-                        bottom: 24,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(
+                      left: 24,
+                      right: 24,
+                      top: 40,
+                      bottom: 24,
+                    ),
+                    child: Text(
+                      localization.trans('CATEGORY_ADD')!,
+                      style: TextStyle(
+                        fontSize: 28,
+                        color: Theme.of(context).textTheme.displayLarge!.color,
                       ),
-                      child: Text(
-                        _localization.trans('CATEGORY_ADD')!,
-                        style: TextStyle(
-                          fontSize: 28,
-                          color:
-                              Theme.of(context).textTheme.displayLarge!.color,
+                    ),
+                  ),
+                  EditTextBox(
+                    controller: textController,
+                    margin: const EdgeInsets.only(
+                      bottom: 16,
+                      left: 24,
+                      right: 24,
+                    ),
+                    hintText: localization.trans('CATEGORY_ADD_HINT'),
+                    errorText: errorText.value,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(
+                          left: 24,
+                          right: 8,
+                        ),
+                        child: const Icon(
+                          Icons.star,
+                          size: 20,
+                          color: Asset.Colors.mediumGray,
                         ),
                       ),
-                    ),
-                    EditTextBox(
-                      controller: _textController,
-                      margin: EdgeInsets.only(
-                        bottom: 16,
-                        left: 24,
-                        right: 24,
-                      ),
-                      hintText: _localization.trans('CATEGORY_ADD_HINT'),
-                      errorText: _errorText.value,
-                    ),
-                    Container(
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: 24,
-                              right: 8,
-                            ),
-                            child: Icon(
-                              Icons.star,
-                              size: 20,
-                              color: Asset.Colors.mediumGray,
-                            ),
-                          ),
-                          Text(
-                            _localization.trans('ICON_SELECT')!,
-                            style: TextStyle(
-                              color: Asset.Colors.mediumGray,
-                              fontSize: 16,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(child: renderIcons()),
-                  ],
-                ),
+                      Text(
+                        localization.trans('ICON_SELECT')!,
+                        style: const TextStyle(
+                          color: Asset.Colors.mediumGray,
+                          fontSize: 16,
+                        ),
+                      )
+                    ],
+                  ),
+                  Expanded(child: renderIcons()),
+                ],
               ),
             ),
             Container(
               height: 68,
-              padding: EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 40),
+                    margin: const EdgeInsets.only(left: 40),
                     child: TextButton(
                       onPressed: onCancelPressed,
                       child: Text(
-                        _localization.trans('CANCEL')!,
+                        localization.trans('CANCEL')!,
                         style: TextStyle(
                           fontSize: 20,
                           color:
@@ -187,11 +183,11 @@ class CategoryAdd extends HookWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 20),
+                    margin: const EdgeInsets.only(left: 20),
                     child: TextButton(
                       onPressed: onDonePressed,
                       child: Text(
-                        _localization.trans('DONE')!,
+                        localization.trans('DONE')!,
                         style: TextStyle(
                           fontSize: 20,
                           color:

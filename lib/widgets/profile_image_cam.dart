@@ -11,7 +11,8 @@ class ProfileImageCam extends StatelessWidget {
   final XFile? imgFile;
   final String? imgStr;
 
-  ProfileImageCam({
+  const ProfileImageCam({
+    super.key,
     this.selectGallery,
     this.selectCamera,
     this.imgFile,
@@ -23,13 +24,13 @@ class ProfileImageCam extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(0.0),
+          padding: const EdgeInsets.all(0.0),
           child: Stack(
             children: <Widget>[
-              Container(
+              SizedBox(
                 width: 88.0,
                 height: 88.0,
-                child: this.imgStr == null && this.imgFile == null
+                child: imgStr == null && imgFile == null
                     ? ClipOval(
                         child: Material(
                             clipBehavior: Clip.hardEdge,
@@ -40,30 +41,27 @@ class ProfileImageCam extends StatelessWidget {
                               width: 80.0,
                               height: 80.0,
                               child: InkWell(
-                                onTap: this.selectGallery as void Function()?,
+                                onTap: selectGallery as void Function()?,
                               ),
                             )))
-                    : this.imgFile != null
-                        ? Container(
-                            child: TextButton(
-                              onPressed: this.selectGallery as void Function()?,
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    FileImage(File(this.imgFile!.path)),
-                                radius: 80.0,
-                              ),
+                    : imgFile != null
+                        ? TextButton(
+                            onPressed: selectGallery as void Function()?,
+                            child: CircleAvatar(
+                              backgroundImage: FileImage(File(imgFile!.path)),
+                              radius: 80.0,
                             ),
                           )
                         : Material(
                             clipBehavior: Clip.hardEdge,
                             color: Colors.transparent,
                             child: TextButton(
-                              onPressed: this.selectGallery as void Function()?,
+                              onPressed: selectGallery as void Function()?,
                               child: ClipOval(
                                 child: FadeInImage.assetNetwork(
                                     fit: BoxFit.cover,
                                     placeholder: 'res/icons/icMask.png',
-                                    image: this.imgStr!),
+                                    image: imgStr!),
                               ),
                             ),
                           ),
@@ -75,8 +73,8 @@ class ProfileImageCam extends StatelessWidget {
                 height: 36.0,
                 child: ClipOval(
                   child: TextButton(
-                    onPressed: this.selectCamera as void Function()?,
-                    child: Icon(
+                    onPressed: selectCamera as void Function()?,
+                    child: const Icon(
                       Icons.camera,
                     ),
                   ),

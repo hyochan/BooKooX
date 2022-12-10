@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:flutter\_localizations/flutter\_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
@@ -85,15 +85,15 @@ class MyApp extends StatelessWidget {
           }
           return supportedLocales.first;
         },
-        localizationsDelegates: [
-          const LocalizationDelegate(supportedLocales: ['en', 'ko']),
+        localizationsDelegates: const [
+          LocalizationDelegate(supportedLocales: ['en', 'ko']),
           GlobalMaterialLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        supportedLocales: [
-          const Locale('en', 'US'),
-          const Locale('ko', 'KR'),
+        supportedLocales: const [
+          Locale('en', 'US'),
+          Locale('ko', 'KR'),
         ],
         initialRoute: AppRoute.authSwitch.fullPath,
         routes: routes,
