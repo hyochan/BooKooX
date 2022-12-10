@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:wecount/screens/sign_up.dart' show SignUp;
-import 'package:wecount/utils/localization.dart';
 import 'package:wecount/widgets/button.dart';
 import '../test_utils.dart' show TestUtils;
 
@@ -56,7 +55,7 @@ void main() {
     await tester.tap(find.text('Sign up').last, warnIfMissed: false);
     await tester.pumpAndSettle();
 
-    expect(find.text(t('passwordConfirmHint')), findsOneWidget);
+    expect(find.text('Please confirm password'), findsOneWidget);
   });
 
   testWidgets('Show [passwordConfirmError] text when password is not confirmed',
@@ -79,6 +78,6 @@ void main() {
     await tester.press(button);
     await tester.pumpAndSettle();
 
-    expect(find.text(t('passwordConfirmHint')), findsNWidgets(1));
+    expect(find.text('Please confirm password'), findsNWidgets(1));
   });
 }

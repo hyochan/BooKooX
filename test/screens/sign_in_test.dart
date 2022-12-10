@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:wecount/screens/sign_in.dart' show SignIn;
-import 'package:wecount/utils/localization.dart';
 import '../test_utils.dart' show TestUtils;
 
 void main() {
