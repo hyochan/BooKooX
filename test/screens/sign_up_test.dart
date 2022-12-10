@@ -13,13 +13,13 @@ void main() {
 
     var findByText = find.byType(Text);
     expect(findByText.evaluate().isEmpty, false);
-    expect(find.text(t('SIGN_UP')), findsNWidgets(2));
-    expect(find.text(t('EMAIL')), findsOneWidget);
-    expect(find.text(t('EMAIL_HINT')), findsOneWidget);
-    expect(find.text(t('PASSWORD')), findsOneWidget);
-    expect(find.text(t('PASSWORD_HINT')), findsOneWidget);
-    expect(find.text(t('PASSWORD_CONFIRM')), findsOneWidget);
-    expect(find.text(t('PASSWORD_CONFIRM_HINT')), findsOneWidget);
+    expect(find.text(t('signUp')), findsNWidgets(2));
+    expect(find.text(t('email')), findsOneWidget);
+    expect(find.text(t('emailHint')), findsOneWidget);
+    expect(find.text(t('password')), findsOneWidget);
+    expect(find.text(t('passwordHint')), findsOneWidget);
+    expect(find.text(t('passwordConfirm')), findsOneWidget);
+    expect(find.text(t('passwordConfirmHint')), findsOneWidget);
   });
 
   testWidgets('Show [emailError] text when email address is not a valid form',
@@ -37,10 +37,10 @@ void main() {
     // ignore: todo
     // TODO: Should mock firebase in order to survive below codes
 
-    // await tester.tap(find.text('SIGN_UP').last);
+    // await tester.tap(find.text('signUp').last);
     // await tester.pumpAndSettle();
 
-    // expect(find.text('NO_VALID_EMAIL'), findsOneWidget);
+    // expect(find.text('noValidEmail'), findsOneWidget);
   });
 
   testWidgets('Show [passwordError] text when password is not valid form',
@@ -55,10 +55,10 @@ void main() {
     Finder passwordField = find.byKey(const Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
-    await tester.tap(find.text(t('SIGN_UP')).last, warnIfMissed: false);
+    await tester.tap(find.text(t('signUp')).last, warnIfMissed: false);
     await tester.pumpAndSettle();
 
-    expect(find.text(t('PASSWORD_CONFIRM_HINT')), findsOneWidget);
+    expect(find.text(t('passwordConfirmHint')), findsOneWidget);
   });
 
   testWidgets('Show [passwordConfirmError] text when password is not confirmed',
@@ -76,9 +76,9 @@ void main() {
     Finder passwordConfirmField = find.byKey(const Key('password-confirm'));
     await tester.enterText(passwordConfirmField, 'aaaaaa');
 
-    await tester.tap(find.text(t('SIGN_UP')).last, warnIfMissed: false);
+    await tester.tap(find.text(t('signUp')).last, warnIfMissed: false);
     await tester.pumpAndSettle();
 
-    expect(find.text(t('PASSWORD_CONFIRM_HINT')), findsNWidgets(1));
+    expect(find.text(t('passwordConfirmHint')), findsNWidgets(1));
   });
 }

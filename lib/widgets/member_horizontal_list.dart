@@ -65,8 +65,8 @@ class MemberHorizontalList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  t('MEMBER'),
-                  semanticsLabel: t('MEMBER'),
+                  localization(context).member,
+                  semanticsLabel: localization(context).member,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -76,8 +76,8 @@ class MemberHorizontalList extends StatelessWidget {
                 TextButton(
                   onPressed: onSeeAllPressed as void Function()?,
                   child: Text(
-                    t('SEE_ALL'),
-                    semanticsLabel: t('SEE_ALL'),
+                    localization(context).seeAll,
+                    semanticsLabel: localization(context).seeAll,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,

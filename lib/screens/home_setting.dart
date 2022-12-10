@@ -7,7 +7,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
 import '../utils/asset.dart' as asset;
-import '../utils/localization.dart' show t;
+import '../utils/localization.dart' show localization, t;
 
 import '../widgets/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
@@ -28,7 +28,7 @@ class HomeSetting extends HookWidget {
 
     final List<ListItem> items = [
       TileItem(
-        title: t('CURRENCY'),
+        title: localization(context).currency,
         trailing: const Text('ARS | \$ '),
         leading: const Icon(
           Icons.account_balance,
@@ -38,7 +38,7 @@ class HomeSetting extends HookWidget {
         onTap: () => navigation.push(context, AppRoute.settingCurrency.path),
       ),
       TileItem(
-        title: t('EXPORT_EXCEL'),
+        title: localization(context).exportExcel,
         trailing: const Icon(Icons.arrow_forward),
         leading: const Icon(
           Icons.import_export,

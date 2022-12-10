@@ -23,7 +23,7 @@ class SettingExcel extends StatelessWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          t('EXPORT_EXCEL'),
+          localization(context).exportExcel,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,
@@ -44,7 +44,7 @@ class SettingExcel extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: t('EMAIL_HINT'),
+                    hintText: localization(context).emailHint,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                   ),
                 ),
@@ -52,7 +52,7 @@ class SettingExcel extends StatelessWidget {
             ),
             Button(
               onPress: onExportExcel,
-              text: t('SEND'),
+              text: localization(context).send,
               margin: const EdgeInsets.all(0),
               height: 56,
               textStyle: const TextStyle(

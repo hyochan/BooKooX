@@ -47,27 +47,27 @@ class SignUp extends HookWidget {
       }
 
       if (!isValidEmail.value) {
-        errorEmail.value = t('NO_VALID_EMAIL');
+        errorEmail.value = localization(context).noValidEmail;
         return;
       }
 
       if (!isValidPassword.value) {
-        errorPassword.value = t('PASSWORD_HINT');
+        errorPassword.value = localization(context).passwordHint;
         return;
       }
 
       if (passwordConfirm != password) {
-        errorPasswordConfirm.value = t('PASSWORD_CONFIRM_HINT');
+        errorPasswordConfirm.value = localization(context).passwordConfirmHint;
         return;
       }
 
       if (!isValidDisplayName.value) {
-        errorDisplayName.value = t('DISPLAY_NAME_HINT');
+        errorDisplayName.value = localization(context).displayNameHint;
         return;
       }
 
       if (!isValidName.value) {
-        errorName.value = t('NAME_HINT');
+        errorName.value = localization(context).nameHint;
         return;
       }
 
@@ -97,12 +97,12 @@ class SignUp extends HookWidget {
             return General.instance.showSingleDialog(
               context,
               title: Text(
-                t('SIGN_UP_SUCCESS_TITLE'),
+                localization(context).signUpSuccessTitle,
                 style: TextStyle(
                     color: Theme.of(context).dialogTheme.titleTextStyle!.color),
               ),
               content: Text(
-                t('SIGN_UP_SUCCESS_CONTENT'),
+                localization(context).signUpSuccessContent,
                 style: TextStyle(
                     color:
                         Theme.of(context).dialogTheme.contentTextStyle!.color),
@@ -120,12 +120,12 @@ class SignUp extends HookWidget {
         General.instance.showSingleDialog(
           context,
           title: Text(
-            t('SIGN_UP_ERROR_TITLE'),
+            localization(context).signUpErrorTitle,
             style: TextStyle(
                 color: Theme.of(context).dialogTheme.titleTextStyle!.color),
           ),
           content: Text(
-            t('SIGN_UP_ERROR_CONTENT'),
+            localization(context).signUpErrorContent,
             style: TextStyle(
                 color: Theme.of(context).dialogTheme.contentTextStyle!.color),
           ),
@@ -137,7 +137,7 @@ class SignUp extends HookWidget {
 
     Widget renderSignUpText() {
       return Text(
-        t('SIGN_UP'),
+        localization(context).signUp,
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.displayLarge!.color,
@@ -151,8 +151,8 @@ class SignUp extends HookWidget {
         key: const Key('email'),
         margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: t('EMAIL'),
-        textHint: t('EMAIL_HINT'),
+        textLabel: localization(context).email,
+        textHint: localization(context).emailHint,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: isValidEmail.value,
@@ -175,8 +175,8 @@ class SignUp extends HookWidget {
         key: const Key('password'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: t('PASSWORD'),
-        textHint: t('PASSWORD_HINT'),
+        textLabel: localization(context).password,
+        textHint: localization(context).passwordHint,
         isSecret: true,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
@@ -200,8 +200,8 @@ class SignUp extends HookWidget {
         key: const Key('password-confirm'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: t('PASSWORD_CONFIRM'),
-        textHint: t('PASSWORD_CONFIRM_HINT'),
+        textLabel: localization(context).passwordConfirm,
+        textHint: localization(context).passwordConfirmHint,
         isSecret: true,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
@@ -224,8 +224,8 @@ class SignUp extends HookWidget {
         key: const Key('display-name'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: t('DISPLAY_NAME'),
-        textHint: t('DISPLAY_NAME_HINT'),
+        textLabel: localization(context).displayName,
+        textHint: localization(context).displayNameHint,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: isValidDisplayName.value,
@@ -248,8 +248,8 @@ class SignUp extends HookWidget {
         key: const Key('name'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: t('NAME'),
-        textHint: t('NAME_HINT'),
+        textLabel: localization(context).name,
+        textHint: localization(context).nameHint,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
         hasChecked: isValidName.value,
@@ -279,7 +279,7 @@ class SignUp extends HookWidget {
         ),
         borderColor: Colors.white,
         backgroundColor: asset.Colors.main,
-        text: t('SIGN_UP'),
+        text: localization(context).signUp,
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );

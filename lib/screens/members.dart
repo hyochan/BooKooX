@@ -45,7 +45,7 @@ class Members extends HookWidget {
               child: Icon(
                 Icons.search,
                 color: Theme.of(context).textTheme.displayLarge!.color,
-                semanticLabel: t('SEARCH'),
+                semanticLabel: localization(context).search,
               ),
             ),
           ),
@@ -75,7 +75,7 @@ class Members extends HookWidget {
                           ? EditText(
                               key: const Key('member'),
                               textInputAction: TextInputAction.next,
-                              textHint: t('SEARCH_USER_HINT'),
+                              textHint: localization(context).searchUserHint,
                               onChanged: (String str) {
                                 members = snapshot.data.where((list) {
                                   if (list is HeadingItem) {
@@ -93,7 +93,7 @@ class Members extends HookWidget {
                               },
                             )
                           : Text(
-                              '${t('MEMBER')} ${item.numOfPeople}',
+                              '${localization(context).member} ${item.numOfPeople}',
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .textTheme

@@ -135,7 +135,7 @@ class LockRegister extends HookWidget {
           TextButton(
             onPressed: addLockPinToSF,
             child: Text(
-              t('DONE'),
+              localization(context).done,
               style: TextStyle(
                 color: Theme.of(context).textTheme.displayLarge!.color,
               ),
@@ -151,7 +151,7 @@ class LockRegister extends HookWidget {
               height: 40,
             ),
             Text(
-              t('LOCK_HINT'),
+              localization(context).lockHint,
               style: TextStyle(
                   fontSize: 24,
                   color: Theme.of(context).textTheme.displayLarge!.color),
@@ -170,7 +170,7 @@ class LockRegister extends HookWidget {
             ),
             // OutlineButton(
             //   child:
-            //   Text(_t('FINGERPRINT_SET')),
+            //   Text(_t('fingerprintSetup')),
             //   onPressed: () {} ,
             //   shape: RoundedRectangleBorder(
             //     borderRadius: BorderRadius.circular(30),

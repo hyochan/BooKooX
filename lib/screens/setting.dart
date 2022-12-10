@@ -72,7 +72,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        t('ANNOUNCEMENT'),
+        localization(context).announcement,
         onPressed: () =>
             navigation.push(context, AppRoute.settingAnnouncement.path),
       ),
@@ -82,7 +82,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        t('SHARE_OPINION'),
+        localization(context).shareOpinion,
         onPressed: () => navigation.push(context, AppRoute.settingOpinion.path),
       ),
       SettingItem(
@@ -91,7 +91,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        t('FAQ'),
+        localization(context).faq,
         onPressed: () => navigation.push(context, AppRoute.settingFAQ.path),
       ),
       SettingItem(
@@ -100,7 +100,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        t('NOTIFICATION'),
+        localization(context).notification,
         onPressed: () =>
             navigation.push(context, AppRoute.settingNotification.path),
       ),
@@ -110,7 +110,7 @@ class Setting extends HookWidget {
           color: asset.Colors.cloudyBlue,
           size: 24,
         ),
-        t('LOCK'),
+        localization(context).lock,
         optionalWidget: Switch(
           inactiveTrackColor: asset.Colors.main,
           value: lockSwitch.value,
@@ -120,12 +120,12 @@ class Setting extends HookWidget {
         ),
       ),
       LogoutItem(
-        t('LOGOUT'),
+        localization(context).logout,
         onPressed: () {
           General.instance.showConfirmDialog(
             context,
-            title: Text(t('NOTIFICATION')),
-            content: Text(t('SIGN_OUT_ASK')),
+            title: Text(localization(context).notification),
+            content: Text(localization(context).signOutAsk),
             cancelPressed: () => Navigator.of(context).pop(),
             okPressed: () {
               _auth.signOut();

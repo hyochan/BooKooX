@@ -10,12 +10,12 @@
   /// intl_en.arb
   {
     "LOADING": "Loading...",
-    "INTRO": "Create App!"
+    "intro": "Create App!"
   }
   /// intl_ko.arb
   {
     "LOADING": "로딩중...",
-    "INTRO": "앱을 만들어봐요!"
+    "intro": "앱을 만들어봐요!"
   }
   ```
 4. Create `localization.dart` in `utils` and add below codes.

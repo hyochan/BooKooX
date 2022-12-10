@@ -111,8 +111,8 @@ class LedgerListItem extends StatelessWidget {
                         ),
                         Text(
                           people! > 1
-                              ? '$people ${t("PEOPLE")}'
-                              : '$people ${t("PERSON")}',
+                              ? '$people ${t("people")}'
+                              : '$people ${t("person")}',
                           style: TextStyle(
                             color: Theme.of(context).hintColor,
                             fontSize: 14.0,
@@ -131,7 +131,7 @@ class LedgerListItem extends StatelessWidget {
               height: double.infinity,
               child: Center(
                 child: Text(
-                  t('MORE'),
+                  localization(context).more,
                   style: const TextStyle(
                     color: asset.Colors.green,
                   ),

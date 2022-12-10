@@ -119,10 +119,10 @@ class MemberListItem extends StatelessWidget {
               onPressed: onPressAuth as void Function()?,
               child: Text(
                 user.membership == Membership.owner
-                    ? t('MEMBER_OWNER')
+                    ? localization(context).owner
                     : user.membership == Membership.admin
-                        ? t('MEMBER_ADMIN')
-                        : t('MEMBER_GUEST'),
+                        ? localization(context).admin
+                        : localization(context).guest,
                 style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(context).textTheme.displayLarge!.color,

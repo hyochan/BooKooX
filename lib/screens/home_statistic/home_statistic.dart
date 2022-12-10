@@ -162,7 +162,7 @@ class Content extends HookWidget {
                 padding: const EdgeInsets.all(20),
               ),
               Text(
-                t('NO_DATA'),
+                localization(context).noData,
                 style: const TextStyle(),
               ),
             ],
@@ -246,7 +246,7 @@ class ButtonGroup extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onButtonOnePressed as void Function()?,
                 child: Text(
-                  t('INCOME'),
+                  localization(context).income,
                   style: TextStyle(
                     color:
                         selectedIndex == 1 ? selectedColorText : Colors.black,
@@ -261,7 +261,7 @@ class ButtonGroup extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onButtonTwoPressed as void Function()?,
                 child: Text(
-                  t('CONSUME'),
+                  localization(context).consume,
                   style: TextStyle(
                     color:
                         selectedIndex == 2 ? selectedColorText : Colors.black,

@@ -48,7 +48,7 @@ List<LedgerItem> cafe(month, day) {
     LedgerItem(
       price: -12000,
       category:
-          Category(iconId: 8, label: t('CAFE'), type: CategoryType.consume),
+          Category(iconId: 8, label: t('cafe'), type: CategoryType.consume),
       selectedDate: DateTime(2019, month, day),
     ),
   ];

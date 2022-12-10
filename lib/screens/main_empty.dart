@@ -57,7 +57,7 @@ class MainEmpty extends HookWidget {
                 bottom: 32,
               ),
               child: Text(
-                t('NO_LEDGER_DESCRIPTION'),
+                localization(context).noLedgerDescription,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.displayLarge!.color,
                   fontSize: 20,
@@ -81,7 +81,7 @@ class MainEmpty extends HookWidget {
               ),
               onPress: () =>
                   Navigator.of(context).pushNamed(AppRoute.ledgerEdit.fullPath),
-              text: t('ADD_LEDGER'),
+              text: localization(context).addLedger,
               textStyle: TextStyle(
                 fontSize: 20,
                 color: Theme.of(context).textTheme.displayMedium!.color,

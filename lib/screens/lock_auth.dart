@@ -53,7 +53,7 @@ class LockAuth extends HookWidget {
           Navigator.pop(context, false);
         } else {
           Fluttertoast.showToast(
-            msg: t('PIN_MISMATCH'),
+            msg: localization(context).pinMismatch,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -102,7 +102,8 @@ class LockAuth extends HookWidget {
       bool authenticated = false;
       try {
         authenticated = await localAuthentication.authenticate(
-          localizedReason: t('FINGERPRINT_LOGIN'), // message for dialog
+          localizedReason:
+              localization(context).fingerprintLogin, // message for dialog
           options: const AuthenticationOptions(
             useErrorDialogs: true,
             stickyAuth: true,
@@ -197,7 +198,7 @@ class LockAuth extends HookWidget {
           children: <Widget>[
             const SizedBox(height: 40),
             Text(
-              t('LOCK_HINT'),
+              localization(context).lockHint,
               style: TextStyle(
                   fontSize: 24,
                   color: Theme.of(context).textTheme.displayMedium!.color),
@@ -217,7 +218,7 @@ class LockAuth extends HookWidget {
             OutlinedButton(
               onPressed: hasFingerPrintSupport.value ? authenticateMe : null,
               child: Text(
-                t('FINGERPRINT_LOGIN'),
+                localization(context).fingerprintLogin,
                 style: TextStyle(
                     color: Theme.of(context).textTheme.displayMedium!.color),
               ),

@@ -82,7 +82,6 @@ class LineGraph extends HookWidget {
             headerAlign(
               child: Text(
                 title,
-                // _t('CAFE')!,
                 style: TextStyle(
                   fontSize: 30,
                   color: Theme.of(context).textTheme.displayLarge!.color,

@@ -31,14 +31,15 @@ class CategoryList extends HookWidget {
               },
               onDeletePressed: () {
                 General.instance.showConfirmDialog(context,
-                    title: Text(t('DELETE')),
-                    content: Text(t('DELETE_ASK')), okPressed: () async {
+                    title: Text(localization(context).delete),
+                    content: Text(localization(context).deleteAsk),
+                    okPressed: () async {
                   try {
                     await DBHelper.instance
                         .deleteCategory(context, category.iconId);
                   } catch (err) {
                     Fluttertoast.showToast(
-                      msg: t('CATEGORY_DELETE_ERROR'),
+                      msg: localization(context).categoryDeleteError,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,
@@ -47,7 +48,7 @@ class CategoryList extends HookWidget {
                   } finally {
                     categories.value.remove(category);
                     Fluttertoast.showToast(
-                      msg: t('CATEGORY_DELETED'),
+                      msg: localization(context).categoryDeleted,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
                       timeInSecForIosWeb: 1,

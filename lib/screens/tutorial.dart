@@ -53,12 +53,12 @@ class Tutorial extends HookWidget {
               margin: const EdgeInsets.only(top: 56),
               child: Text(
                 page == 0
-                    ? t('RECORD_IT')
+                    ? localization(context).recordIt
                     : page == 1
-                        ? t('SHARE_IT')
+                        ? localization(context).shareIt
                         : page == 2
-                            ? t('TAKE_CARE')
-                            : t('RECORD_IT'),
+                            ? localization(context).takeCare
+                            : localization(context).recordIt,
                 style: const TextStyle(
                   fontSize: 28,
                   color: Colors.white,
@@ -70,12 +70,12 @@ class Tutorial extends HookWidget {
               margin: const EdgeInsets.only(top: 20),
               child: Text(
                 page == 0
-                    ? t('TUTORIAL_1_DETAIL')
+                    ? localization(context).tutorial1Detail
                     : page == 1
-                        ? t('TUTORIAL_2_DETAIL')
+                        ? localization(context).tutorial2Detail
                         : page == 2
-                            ? t('TUTORIAL_3_DETAIL')
-                            : t('TUTORIAL_1_DETAIL'),
+                            ? localization(context).tutorial3Detail
+                            : localization(context).tutorial1Detail,
                 style: const TextStyle(
                   fontSize: 16,
                   height: 1.3,
@@ -167,7 +167,7 @@ class Tutorial extends HookWidget {
                     TextButton(
                       onPressed: onNextPressed,
                       child: Text(
-                        t('NEXT'),
+                        localization(context).next,
                         style: const TextStyle(
                           fontSize: 20,
                           color: asset.Colors.green,

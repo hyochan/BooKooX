@@ -39,12 +39,12 @@ class SignIn extends HookWidget {
       }
 
       if (!isValidEmail.value) {
-        errorEmail.value = t('NO_VALIDemail');
+        errorEmail.value = localization(context).noValidEmail;
         return;
       }
 
       if (!isValidPassword.value) {
-        errorPassword.value = t('PASSWORD_HINT');
+        errorPassword.value = localization(context).passwordHint;
         return;
       }
 
@@ -83,13 +83,13 @@ class SignIn extends HookWidget {
           // case 'ERROR_WRONGpassword':
           //   setState(() => errorPassword = t(err.currency));
           //   break;
-          case 'ERROR_USER_NOT_FOUND':
-          case 'ERROR_USER_DISABLED':
-          case 'ERROR_TOO_MANY_REQUESTS':
-          case 'ERROR_OPERATION_NOT_ALLOWED':
+          case 'errorUserNotFound':
+          case 'errorUserDisabled':
+          case 'errorManyRequests':
+          case 'errorOperationNotAllowed':
             // General.instance.showSingleDialog(
             //   context,
-            //   title: Text(t('ERROR')),
+            //   title: Text(t('error')),
             //   content: Text(t(err.currency)),
             // );
             break;
@@ -100,12 +100,12 @@ class SignIn extends HookWidget {
       if (auth.user != null && !auth.user!.emailVerified && context.mounted) {
         General.instance.showSingleDialog(
           context,
-          title: Text(t('ERROR')),
+          title: Text(localization(context).error),
           onPress: () => _auth.signOut(),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(t('EMAIL_NOT_VERIFIED')),
+              Text(localization(context).emailNotVerified),
               Container(
                 margin: const EdgeInsets.only(top: 32, bottom: 24),
                 child: Text(
@@ -129,7 +129,7 @@ class SignIn extends HookWidget {
                     isResendingEmail.value = false;
                   }
                 },
-                text: t('RESENDemail'),
+                text: localization(context).resendEmail,
                 textStyle: TextStyle(
                   color: Theme.of(context).colorScheme.secondary,
                   fontSize: 16,
@@ -153,7 +153,7 @@ class SignIn extends HookWidget {
 
     Widget renderSignInText() {
       return Text(
-        t('SIGN_IN'),
+        localization(context).signIn,
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.displayLarge!.color,
@@ -167,8 +167,8 @@ class SignIn extends HookWidget {
         key: const Key('email'),
         margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: t('EMAIL'),
-        textHint: t('EMAIL_HINT'),
+        textLabel: localization(context).email,
+        textHint: localization(context).emailHint,
         hasChecked: isValidEmail.value,
         hintStyle: TextStyle(color: Theme.of(context).hintColor),
         onChanged: (String str) {
@@ -193,8 +193,8 @@ class SignIn extends HookWidget {
         key: const Key('password'),
         margin: const EdgeInsets.only(top: 24.0),
         textInputAction: TextInputAction.next,
-        textLabel: t('PASSWORD'),
-        textHint: t('PASSWORD_HINT'),
+        textLabel: localization(context).password,
+        textHint: localization(context).passwordHint,
         isSecret: true,
         hasChecked: hasChecked,
         onChanged: (String str) {
@@ -224,7 +224,7 @@ class SignIn extends HookWidget {
         ),
         borderColor: Colors.white,
         backgroundColor: Theme.of(context).primaryColor,
-        text: t('SIGN_IN'),
+        text: localization(context).signIn,
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );
@@ -235,14 +235,14 @@ class SignIn extends HookWidget {
         onPressed: () => navigation.push(context, AppRoute.findPw.path),
         child: RichText(
           text: TextSpan(
-            text: '${t('DID_YOU_FORGOTpassword')}?',
+            text: '${localization(context).forgotPassword}?',
             style: const TextStyle(
               fontSize: 12.0,
               color: Color(0xff869ab7),
             ),
             children: <TextSpan>[
               TextSpan(
-                text: ' ${t('FIND_PASSWORD')}',
+                text: ' ${localization(context).findPassword}',
                 style: const TextStyle(
                     color: Color(0xff1dd3a8), fontWeight: FontWeight.bold),
               ),

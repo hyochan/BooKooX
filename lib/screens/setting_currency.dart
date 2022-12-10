@@ -53,7 +53,7 @@ class SettingCurrency extends HookWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          t('CURRENCY'),
+          localization(context).addLedger,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,

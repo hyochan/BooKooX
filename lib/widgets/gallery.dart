@@ -38,7 +38,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                     Container(
                       margin: const EdgeInsets.only(left: 8),
                       child: Text(
-                        t('CAMERA'),
+                        localization(context).camera,
                         style: TextStyle(
                           fontSize: 16,
                           color:
@@ -65,7 +65,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                     Container(
                       margin: const EdgeInsets.only(left: 8),
                       child: Text(
-                        t('GALLERY'),
+                        localization(context).gallery,
                         style: TextStyle(
                           fontSize: 16,
                           color:
@@ -128,7 +128,7 @@ class Gallery extends HookWidget {
                       ),
                     ),
                     Text(
-                      t('PICTURE'),
+                      localization(context).picture,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.displayLarge!.color,
                         fontSize: 16,
@@ -141,7 +141,7 @@ class Gallery extends HookWidget {
                   ? TextButton(
                       onPressed: onPressShowAll,
                       child: Text(
-                        t('SHOW_ALL'),
+                        localization(context).showAll,
                         style: TextStyle(
                           color:
                               Theme.of(context).textTheme.displayLarge!.color,

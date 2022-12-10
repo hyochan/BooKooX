@@ -132,8 +132,8 @@ class LedgerEdit extends HookWidget {
       if (hasOwnerPermission && !hasMoreThanOneUser) {
         General.instance.showConfirmDialog(
           context,
-          title: Text(t('NOTIFICATION')),
-          content: Text(t('LEAVE_ASK')),
+          title: Text(localization(context).notification),
+          content: Text(localization(context).leaveAsk),
           cancelPressed: () => Navigator.of(context).pop(),
           okPressed: () async {
             bool hasLeft = await DatabaseService()
@@ -152,8 +152,8 @@ class LedgerEdit extends HookWidget {
 
       General.instance.showSingleDialog(
         context,
-        title: Text(t('ERROR')),
-        content: Text(t('SHOULD_TRANSFER_OWNERSHIP')),
+        title: Text(localization(context).error),
+        content: Text(localization(context).shouldTransferOwnership),
       );
     }
 
@@ -172,8 +172,8 @@ class LedgerEdit extends HookWidget {
                     padding: const EdgeInsets.all(0.0),
                     onPressed: leaveLedger,
                     child: Text(
-                      t('LEAVE'),
-                      semanticsLabel: t('LEAVE'),
+                      localization(context).leave,
+                      semanticsLabel: localization(context).leave,
                       style: const TextStyle(
                         color: Colors.red,
                         fontSize: 18,
@@ -200,7 +200,7 @@ class LedgerEdit extends HookWidget {
                     decoration: InputDecoration(
                       hintMaxLines: 2,
                       border: InputBorder.none,
-                      hintText: t('LEDGER_NAME_HINT'),
+                      hintText: localization(context).ledgerNameHint,
                       hintStyle: const TextStyle(
                         fontSize: 28.0,
                         color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -226,7 +226,7 @@ class LedgerEdit extends HookWidget {
                     textAlignVertical: TextAlignVertical.top,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: t('LEDGER_DESCRIPTION_HINT'),
+                      hintText: localization(context).ledgerDescriptionHint,
                       hintStyle: const TextStyle(
                         fontSize: 16.0,
                         color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -249,7 +249,7 @@ class LedgerEdit extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          t('CURRENCY'),
+                          localization(context).currency,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -285,7 +285,7 @@ class LedgerEdit extends HookWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        t('COLOR'),
+                        localization(context).color,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -347,7 +347,7 @@ class LedgerEdit extends HookWidget {
                           width: 80,
                           child: Center(
                             child: CircularProgressIndicator(
-                              semanticsLabel: t('LOADING'),
+                              semanticsLabel: localization(context).loading,
                               backgroundColor: Theme.of(context).primaryColor,
                               strokeWidth: 2,
                               valueColor: const AlwaysStoppedAnimation<Color>(
@@ -364,7 +364,9 @@ class LedgerEdit extends HookWidget {
                           ),
                           child: Center(
                             child: Text(
-                              ledger == null ? t('DONE') : t('UPDATE'),
+                              ledger == null
+                                  ? localization(context).done
+                                  : localization(context).update,
                               style: TextStyle(
                                 color: asset.Colors.getColor(
                                     editLedger.value!.color),

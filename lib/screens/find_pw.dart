@@ -27,7 +27,7 @@ class FindPw extends HookWidget {
       bool isEmail = Validator.instance.validateEmail(email.value);
 
       if (!isEmail) {
-        errorEmail.value = t('NO_VALID_EMAIL');
+        errorEmail.value = localization(context).noValidEmail;
         return;
       }
 
@@ -38,8 +38,8 @@ class FindPw extends HookWidget {
         if (context.mounted) {
           General.instance.showSingleDialog(
             context,
-            title: Text(t('SUCCESS')),
-            content: Text(t('PASSWORD_RESET_LINK_SENT')),
+            title: Text(localization(context).success),
+            content: Text(localization(context).passwordResetLinkSent),
           );
         }
       } catch (err) {
@@ -51,7 +51,7 @@ class FindPw extends HookWidget {
 
     Widget findPwText() {
       return Text(
-        t('FIND_PASSWORD'),
+        localization(context).findPassword,
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.displayLarge!.color,
@@ -66,8 +66,8 @@ class FindPw extends HookWidget {
         errorText: errorEmail.value,
         margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: t('EMAIL'),
-        textHint: t('EMAIL_HINT'),
+        textLabel: localization(context).email,
+        textHint: localization(context).emailHint,
         hasChecked: isValidEmail.value,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
@@ -95,7 +95,7 @@ class FindPw extends HookWidget {
         borderColor:
             Theme.of(context).primaryIconTheme.color ?? Colors.blueGrey,
         backgroundColor: Theme.of(context).primaryColor,
-        text: t('SEND_EMAIL'),
+        text: localization(context).sendEmail,
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );

@@ -33,7 +33,7 @@ class HomeHeaderSearch extends HookWidget {
       },
       onSubmit: onSubmit,
       background: Colors.transparent,
-      txtHint: t('PLZ_SEARCH'),
+      txtHint: localization(context).plzSearch,
       underline: false,
       txtHintStyle: const TextStyle(
           color: Color.fromRGBO(255, 255, 255, 0.5),

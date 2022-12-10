@@ -26,7 +26,7 @@ class CategoryAdd extends HookWidget {
 
     void onDonePressed() async {
       if (textController.text == '') {
-        errorText.value = t('ERROR_CATEGORY_NAME');
+        errorText.value = localization(context).errorCategoryName;
         return;
       }
 
@@ -41,7 +41,7 @@ class CategoryAdd extends HookWidget {
         await DBHelper.instance.insertCategory(context, category);
       } catch (err) {
         Fluttertoast.showToast(
-          msg: t('CATEGORY_ADD_ERROR'),
+          msg: localization(context).categoryAddError,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -112,7 +112,7 @@ class CategoryAdd extends HookWidget {
                       bottom: 24,
                     ),
                     child: Text(
-                      t('CATEGORY_ADD'),
+                      localization(context).categoryAdd,
                       style: TextStyle(
                         fontSize: 28,
                         color: Theme.of(context).textTheme.displayLarge!.color,
@@ -126,7 +126,7 @@ class CategoryAdd extends HookWidget {
                       left: 24,
                       right: 24,
                     ),
-                    hintText: t('CATEGORY_ADD_HINT'),
+                    hintText: localization(context).categoryAddHint,
                     errorText: errorText.value,
                   ),
                   Row(
@@ -143,7 +143,7 @@ class CategoryAdd extends HookWidget {
                         ),
                       ),
                       Text(
-                        t('ICON_SELECT'),
+                        localization(context).iconSelect,
                         style: const TextStyle(
                           color: asset.Colors.mediumGray,
                           fontSize: 16,
@@ -166,7 +166,7 @@ class CategoryAdd extends HookWidget {
                     child: TextButton(
                       onPressed: onCancelPressed,
                       child: Text(
-                        t('CANCEL'),
+                        localization(context).cancel,
                         style: TextStyle(
                           fontSize: 20,
                           color:
@@ -180,7 +180,7 @@ class CategoryAdd extends HookWidget {
                     child: TextButton(
                       onPressed: onDonePressed,
                       child: Text(
-                        t('DONE'),
+                        localization(context).done,
                         style: TextStyle(
                           fontSize: 20,
                           color:

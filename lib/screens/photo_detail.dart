@@ -79,7 +79,7 @@ class PhotoDetail extends HookWidget {
                       child: Icon(
                         Icons.close,
                         color: Colors.white,
-                        semanticLabel: t('BACK'),
+                        semanticLabel: localization(context).back,
                       ),
                     ),
                   ),

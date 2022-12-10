@@ -32,7 +32,7 @@ class SettingNotification extends HookWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          t('NOTIFICATION'),
+          localization(context).notification,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,
@@ -48,7 +48,7 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 44),
                   child: Text(
-                    t('ADDING_LEDGER_ITEM'),
+                    localization(context).addingLedgerItem,
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.displayLarge!.color,
@@ -76,7 +76,7 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 44),
                   child: Text(
-                    t('UPDATING_LEDGER_ITEM'),
+                    localization(context).updatingLedgerItem,
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.displayLarge!.color,

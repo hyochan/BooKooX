@@ -24,7 +24,7 @@ class Intro extends StatelessWidget {
 
     General.instance.showDialogSpinner(
       context,
-      text: t('SIGNING_IN_WITH_GOOGLE'),
+      text: localization(context).signingInWithGoogle,
     );
 
     GoogleSignInAccount? googleUser = await googleSignIn.signIn();
@@ -73,7 +73,7 @@ class Intro extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
         backgroundColor: Colors.white,
-        text: t('SIGN_IN'),
+        text: localization(context).signIn,
         width: 240.0,
         height: 56.0,
       );
@@ -88,10 +88,10 @@ class Intro extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: t('DO_NOT_HAVE_ACCOUNT'),
+                  text: localization(context).intro,
                 ),
                 TextSpan(
-                  text: '  ${t('SIGN_UP')}',
+                  text: '  ${localization(context).signUp}',
                   style: const TextStyle(
                       color: asset.Colors.green, fontWeight: FontWeight.bold),
                 ),
@@ -175,15 +175,15 @@ class Intro extends StatelessWidget {
         margin: const EdgeInsets.only(top: 16.0, bottom: 40.0),
         child: RichText(
           text: TextSpan(
-            text: t('TERMS_1'),
+            text: localization(context).terms1,
             style: signInWithTextStyle.merge(
               const TextStyle(fontSize: 12, height: 1.3),
             ),
             children: [
               TextSpan(
-                text: t('TERMS_OF_USE'),
+                text: localization(context).termsOfUse,
                 style: clickableTextStyle,
-                semanticsLabel: t('TERMS_OF_USE'),
+                semanticsLabel: localization(context).termsOfUse,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -192,13 +192,13 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: t('TERMS_2'),
-                semanticsLabel: t('TERMS_2'),
+                text: localization(context).terms2,
+                semanticsLabel: localization(context).terms2,
               ),
               TextSpan(
-                text: t('PRIVACY_POLICY'),
+                text: localization(context).privacyPolicy,
                 style: clickableTextStyle,
-                semanticsLabel: t('PRIVACY_POLICY'),
+                semanticsLabel: localization(context).privacyPolicy,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -208,8 +208,8 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: t('TERMS_3'),
-                semanticsLabel: t('TERMS_3'),
+                text: localization(context).terms3,
+                semanticsLabel: localization(context).terms3,
               ),
             ],
           ),

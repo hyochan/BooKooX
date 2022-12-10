@@ -31,7 +31,7 @@ class General {
         builder: (BuildContext context) {
           return DialogSpinner(
             textStyle: textStyle,
-            text: text ?? t('LOADING'),
+            text: text ?? localization(context).loading,
           );
         });
   }
@@ -58,7 +58,7 @@ class General {
           actions: <Widget>[
             TextButton(
               child: Text(
-                t('OK'),
+                localization(context).ok,
                 style: btnTextStyle,
               ),
               onPressed: () {
@@ -95,14 +95,14 @@ class General {
             TextButton(
               onPressed: okPressed as void Function()?,
               child: Text(
-                t('OK'),
+                localization(context).ok,
                 style: btnTextStyle,
               ),
             ),
             TextButton(
               onPressed: cancelPressed as void Function()?,
               child: Text(
-                t('CANCEL'),
+                localization(context).cancel,
                 style: btnTextStyle,
               ),
             )
@@ -118,7 +118,7 @@ class General {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(t('MEMBERSHIP_CHANGE')),
+          title: Text(localization(context).membershipChange),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return SizedBox(
@@ -126,19 +126,19 @@ class General {
                 child: Column(
                   children: <Widget>[
                     RadioListTile(
-                      title: Text(t('MEMBER_OWNER')),
+                      title: Text(localization(context).owner),
                       groupValue: value,
                       value: 0,
                       onChanged: onChange,
                     ),
                     RadioListTile(
-                      title: Text(t('MEMBER_ADMIN')),
+                      title: Text(localization(context).admin),
                       groupValue: value,
                       value: 1,
                       onChanged: onChange,
                     ),
                     RadioListTile(
-                      title: Text(t('MEMBER_GUEST')),
+                      title: Text(localization(context).guest),
                       groupValue: value,
                       value: 2,
                       onChanged: onChange,
@@ -215,7 +215,8 @@ class General {
     required BuildContext context,
     String? type,
   }) async {
-    General.instance.showDialogSpinner(context, text: t('LOADING'));
+    General.instance
+        .showDialogSpinner(context, text: localization(context).loading);
 
     ImagePicker picker = ImagePicker();
 

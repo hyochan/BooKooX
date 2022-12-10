@@ -91,7 +91,7 @@ class Ledgers extends HookWidget {
               child: Icon(
                 Icons.settings,
                 color: Theme.of(context).iconTheme.color,
-                semanticLabel: t('SETTING'),
+                semanticLabel: localization(context).settings,
               ),
             ),
           ),
@@ -155,7 +155,7 @@ class Ledgers extends HookWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        t('ADD_LEDGER'),
+                        localization(context).addLedger,
                         style: const TextStyle(
                           color: asset.Colors.mediumGray,
                           fontSize: 20.0,

@@ -13,11 +13,11 @@ void main() {
 
     var findByText = find.byType(Text);
     expect(findByText.evaluate().isEmpty, false);
-    expect(find.text(t('SIGN_IN')), findsNWidgets(2));
-    expect(find.text(t('EMAIL')), findsOneWidget);
-    expect(find.text(t('EMAIL_HINT')), findsOneWidget);
-    expect(find.text(t('PASSWORD')), findsOneWidget);
-    expect(find.text(t('PASSWORD_HINT')), findsOneWidget);
+    expect(find.text(t('signIn')), findsNWidgets(2));
+    expect(find.text(t('email')), findsOneWidget);
+    expect(find.text(t('emailHint')), findsOneWidget);
+    expect(find.text(t('password')), findsOneWidget);
+    expect(find.text(t('passwordHint')), findsOneWidget);
   });
 
   testWidgets('Show `errorEmail` text when email is not validated',
@@ -37,7 +37,7 @@ void main() {
     // await tester.tap(signInBtn);
     // await tester.pumpAndSettle();
 
-    // expect(find.text(t('NO_VALID_EMAIL')), findsOneWidget);
+    // expect(find.text(t('noValidEmail')), findsOneWidget);
   });
 
   // testWidgets('Do not show [AlertDialog] when email is validated',
@@ -52,7 +52,7 @@ void main() {
   //   Finder passwordField = find.byKey(const Key('password'));
   //   await tester.enterText(passwordField, 'aaaaaa');
 
-  //   await tester.tap(find.text(t('SIGN_IN')).last);
+  //   await tester.tap(find.text(t('signIn')).last);
   //   await tester.pumpAndSettle();
 
   //   expect(find.byType(AlertDialog), findsNothing);

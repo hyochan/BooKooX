@@ -10,17 +10,17 @@ List<LedgerItem> createHomeStatisticMock() {
     LedgerItem(
         price: -12000,
         category: Category(
-            iconId: 8, label: t('EXERCISE'), type: CategoryType.consume),
+            iconId: 8, label: t('exercise'), type: CategoryType.consume),
         selectedDate: DateTime(2019, currentMonth, 10)),
     LedgerItem(
         price: 300000,
         category: Category(
-            iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.income),
+            iconId: 18, label: t('walletMoney'), type: CategoryType.income),
         selectedDate: DateTime(2019, currentMonth, 10)),
     LedgerItem(
         price: -32000,
         category:
-            Category(iconId: 4, label: t('DATING'), type: CategoryType.consume),
+            Category(iconId: 4, label: t('dating'), type: CategoryType.consume),
         memo: 'who1 gave me',
         selectedDate: DateTime(2019, currentMonth, 10))
   ]);
@@ -38,12 +38,12 @@ List<LedgerItem> normalExpenseList(int month) {
     LedgerItem(
         price: -12000,
         category: Category(
-            iconId: 8, label: t('EXERCISE'), type: CategoryType.consume),
+            iconId: 8, label: t('exercise'), type: CategoryType.consume),
         selectedDate: DateTime(2019, month, 1)),
     LedgerItem(
         price: -12000,
         category:
-            Category(iconId: 4, label: t('DATING'), type: CategoryType.consume),
+            Category(iconId: 4, label: t('dating'), type: CategoryType.consume),
         selectedDate: DateTime(2019, month, 10)),
   ];
 }
@@ -53,12 +53,12 @@ List<LedgerItem> normalIncomeList(int month) {
     LedgerItem(
         price: 50000,
         category: Category(
-            iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.income),
+            iconId: 18, label: t('walletMoney'), type: CategoryType.income),
         selectedDate: DateTime(2019, month, 1)),
     LedgerItem(
         price: 300000,
         category:
-            Category(iconId: 19, label: t('SALARY'), type: CategoryType.income),
+            Category(iconId: 19, label: t('salary'), type: CategoryType.income),
         selectedDate: DateTime(2019, month, 10)),
   ];
 }

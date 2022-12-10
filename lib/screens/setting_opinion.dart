@@ -23,7 +23,7 @@ class SettingOpinion extends StatelessWidget {
         brightness: Theme.of(context).brightness,
         iconColor: Theme.of(context).iconTheme.color,
         title: Text(
-          t('SHARE_OPINION'),
+          localization(context).shareOpinion,
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,
@@ -44,7 +44,7 @@ class SettingOpinion extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: t('SHARE_OPINION_HINT'),
+                    hintText: localization(context).shareOpinionHint,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                   ),
                 ),
@@ -52,7 +52,7 @@ class SettingOpinion extends StatelessWidget {
             ),
             Button(
               onPress: onSendOpinion,
-              text: t('SEND'),
+              text: localization(context).send,
               margin: const EdgeInsets.all(0),
               height: 56,
               textStyle: const TextStyle(

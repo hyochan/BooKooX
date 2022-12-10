@@ -24,7 +24,7 @@ AppBar renderHeaderClose({
         child: Icon(
           Icons.close,
           color: Theme.of(context).textTheme.displayLarge!.color,
-          semanticLabel: t('CLOSE'),
+          semanticLabel: localization(context).close,
         ),
       ),
     ),
@@ -56,7 +56,7 @@ AppBar renderHeaderBack({
       child: Icon(
         Icons.arrow_back,
         color: iconColor,
-        semanticLabel: t('BACK'),
+        semanticLabel: localization(context).back,
       ),
     ),
     elevation: 0.0,
