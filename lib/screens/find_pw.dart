@@ -20,7 +20,6 @@ class FindPw extends HookWidget {
   Widget build(BuildContext context) {
     var email = useState('');
     var errorEmail = useState('');
-
     var isValidEmail = useState(false);
     var isSendingEmail = useState(false);
 
@@ -87,16 +86,11 @@ class FindPw extends HookWidget {
     Widget sendButton() {
       return Button(
         key: const Key('sendButton'),
+        disabled: !isValidEmail.value,
         onPress: findPw,
         margin: const EdgeInsets.only(top: 28.0, bottom: 8.0),
-        textStyle: const TextStyle(
-          color: Colors.white,
-          fontSize: 16.0,
-        ),
+        textStyle: const TextStyle(fontSize: 16.0),
         loading: isSendingEmail.value,
-        borderColor:
-            Theme.of(context).primaryIconTheme.color ?? Colors.blueGrey,
-        backgroundColor: Theme.of(context).primaryColor,
         text: localization(context).sendEmail,
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
