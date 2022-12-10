@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:wecount/screens/sign_up.dart' show SignUp;
 import 'package:wecount/utils/localization.dart';
+import 'package:wecount/widgets/button.dart';
 import '../test_utils.dart' show TestUtils;
 
 void main() {
@@ -13,13 +14,11 @@ void main() {
 
     var findByText = find.byType(Text);
     expect(findByText.evaluate().isEmpty, false);
-    expect(find.text(t('signUp')), findsNWidgets(2));
+
     expect(find.text(t('email')), findsOneWidget);
-    expect(find.text(t('emailHint')), findsOneWidget);
     expect(find.text(t('password')), findsOneWidget);
-    expect(find.text(t('passwordHint')), findsOneWidget);
     expect(find.text(t('passwordConfirm')), findsOneWidget);
-    expect(find.text(t('passwordConfirmHint')), findsOneWidget);
+    expect(find.text(t('signUp')), findsWidgets);
   });
 
   testWidgets('Show [emailError] text when email address is not a valid form',
@@ -76,7 +75,9 @@ void main() {
     Finder passwordConfirmField = find.byKey(const Key('password-confirm'));
     await tester.enterText(passwordConfirmField, 'aaaaaa');
 
-    await tester.tap(find.text(t('signUp')).last, warnIfMissed: false);
+    var button = find.textContaining('Sign up');
+
+    await tester.press(button);
     await tester.pumpAndSettle();
 
     expect(find.text(t('passwordConfirmHint')), findsNWidgets(1));

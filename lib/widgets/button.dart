@@ -22,7 +22,7 @@ class Button extends StatelessWidget {
     this.isLoading = false,
   });
 
-  final String? text;
+  final String text;
   final Image? image;
   final double? width;
   final double imageMarginLeft;
@@ -76,7 +76,7 @@ class Button extends StatelessWidget {
                         image == null ? null : const EdgeInsets.only(left: 12),
                     child: Center(
                       child: Text(
-                        text!,
+                        text,
                         style: textStyle,
                       ),
                     ),

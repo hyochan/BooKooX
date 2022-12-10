@@ -19,30 +19,30 @@ class SignUp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? email;
-    String? password;
-    String? passwordConfirm;
-    String? displayName;
-    String? name;
+    var email = useState('');
+    var password = useState('');
+    var passwordConfirm = useState('');
+    var displayName = useState('');
+    var name = useState('');
 
-    var errorEmail = useState<String?>(null);
-    var errorPassword = useState<String?>(null);
-    var errorPasswordConfirm = useState<String?>(null);
-    var errorDisplayName = useState<String?>(null);
-    var errorName = useState<String?>(null);
+    var errorEmail = useState('');
+    var errorPassword = useState('');
+    var errorPasswordConfirm = useState('');
+    var errorDisplayName = useState('');
+    var errorName = useState('');
 
-    var isValidEmail = useState<bool>(false);
-    var isValidPassword = useState<bool>(false);
-    var isValidDisplayName = useState<bool>(false);
-    var isValidName = useState<bool>(false);
-    var isRegistering = useState<bool>(false);
+    var isValidEmail = useState(false);
+    var isValidPassword = useState(false);
+    var isValidDisplayName = useState(false);
+    var isValidName = useState(false);
+    var isRegistering = useState(false);
 
     void signUp() async {
-      if (email == null ||
-          password == null ||
-          passwordConfirm == null ||
-          displayName == null ||
-          name == null) {
+      if (email.value.isEmpty ||
+          password.value.isEmpty ||
+          passwordConfirm.value.isEmpty ||
+          displayName.value.isEmpty ||
+          name.value.isEmpty) {
         return;
       }
 
@@ -75,23 +75,23 @@ class SignUp extends HookWidget {
 
       try {
         final User? user = (await _auth.createUserWithEmailAndPassword(
-          email: email!,
-          password: password!,
+          email: email.value,
+          password: password.value,
         ))
             .user;
 
         if (user != null) {
           await user.sendEmailVerification();
           await firestore.collection('users').doc(user.uid).set({
-            'email': email,
-            'displayName': displayName,
-            'name': name,
+            'email': email.value,
+            'displayName': displayName.value,
+            'name': name.value,
             'createdAt': FieldValue.serverTimestamp(),
             'updatedAt': FieldValue.serverTimestamp(),
             'deletedAt': null,
           });
 
-          user.updateDisplayName(displayName);
+          user.updateDisplayName(displayName.value);
 
           if (context.mounted) {
             return General.instance.showSingleDialog(
@@ -159,11 +159,12 @@ class SignUp extends HookWidget {
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
             isValidEmail.value = true;
-            errorEmail.value = null;
+            errorEmail.value = '';
           } else {
             isValidEmail.value = false;
           }
-          email = str;
+
+          email.value = str;
         },
         errorText: errorEmail.value,
         onSubmitted: (String str) => signUp(),
@@ -184,11 +185,11 @@ class SignUp extends HookWidget {
         onChanged: (String str) {
           if (Validator.instance.validatePassword(str)) {
             isValidPassword.value = true;
-            errorPassword.value = null;
+            errorPassword.value = '';
           } else {
             isValidPassword.value = false;
           }
-          password = str;
+          password.value = '';
         },
         errorText: errorPassword.value,
         onSubmitted: (String str) => signUp(),
@@ -205,13 +206,13 @@ class SignUp extends HookWidget {
         isSecret: true,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: passwordConfirm != null &&
-            passwordConfirm != '' &&
-            passwordConfirm == password,
+        hasChecked: passwordConfirm.value.isNotEmpty &&
+            passwordConfirm.value.isNotEmpty &&
+            passwordConfirm.value == password.value,
         onChanged: (String str) {
-          passwordConfirm = str;
-          if (str == password) {
-            errorPasswordConfirm.value = null;
+          passwordConfirm.value = str;
+          if (str == password.value) {
+            errorPasswordConfirm.value = '';
           }
         },
         errorText: errorPasswordConfirm.value,
@@ -232,11 +233,11 @@ class SignUp extends HookWidget {
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
             isValidDisplayName.value = true;
-            errorDisplayName.value = null;
+            errorDisplayName.value = '';
           } else {
             isValidDisplayName.value = false;
           }
-          displayName = str;
+          displayName.value = str;
         },
         errorText: errorDisplayName.value,
         onSubmitted: (String str) => signUp(),
@@ -256,11 +257,11 @@ class SignUp extends HookWidget {
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
             isValidName.value = true;
-            errorName.value = null;
+            errorName.value = '';
           } else {
             isValidName.value = false;
           }
-          name = str;
+          name.value = str;
         },
         errorText: errorName.value,
         onSubmitted: (String str) => signUp(),
@@ -269,7 +270,7 @@ class SignUp extends HookWidget {
 
     Widget renderSignUpButton() {
       return Button(
-        key: const Key('button-sign-up'),
+        text: localization(context).signUp,
         isLoading: isRegistering.value,
         onPress: () => signUp(),
         margin: const EdgeInsets.only(top: 36.0, bottom: 48.0),
@@ -279,7 +280,6 @@ class SignUp extends HookWidget {
         ),
         borderColor: Colors.white,
         backgroundColor: asset.Colors.main,
-        text: localization(context).signUp,
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );
