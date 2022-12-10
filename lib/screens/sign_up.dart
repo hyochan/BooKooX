@@ -92,6 +92,7 @@ class SignUp extends HookWidget {
           });
 
           user.updateDisplayName(displayName);
+
           if (context.mounted) {
             return General.instance.showSingleDialog(
               context,

@@ -242,7 +242,7 @@ class SignIn extends HookWidget {
             ),
             children: <TextSpan>[
               TextSpan(
-                text: ' ${t('FINDpassword')}',
+                text: ' ${t('FIND_PASSWORD')}',
                 style: const TextStyle(
                     color: Color(0xff1dd3a8), fontWeight: FontWeight.bold),
               ),

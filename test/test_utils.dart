@@ -1,32 +1,33 @@
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/ledger.dart';
-import 'package:wecount/navigations/home_tab.dart';
-import 'package:wecount/providers/current_ledger.dart';
-import 'package:wecount/screens/ledger_edit.dart';
-import 'package:wecount/screens/ledgers.dart';
-import 'package:wecount/screens/main_empty.dart';
-import 'package:wecount/screens/profile_my.dart';
-import 'package:wecount/screens/setting.dart';
-import 'package:wecount/screens/setting_announcement.dart';
-import 'package:wecount/generated/l10n.dart' show S;
-import 'package:wecount/screens/setting_faq.dart';
-import 'package:wecount/screens/setting_notification.dart';
-import 'package:wecount/screens/setting_opinion.dart';
-import 'package:wecount/screens/tutorial.dart';
-import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:wecount/utils/localization.dart';
-
+import 'package:provider/provider.dart';
 import 'package:mockito/mockito.dart';
+
+import 'package:wecount/types/color.dart';
+import 'package:wecount/models/currency.dart';
+import 'package:wecount/models/ledger.dart';
+import 'package:wecount/providers/current_ledger.dart';
+import 'package:wecount/navigations/home_tab.dart';
 import 'package:wecount/screens/splash.dart' show Splash;
 import 'package:wecount/screens/intro.dart' show Intro;
 import 'package:wecount/screens/sign_in.dart' show SignIn;
 import 'package:wecount/screens/sign_up.dart' show SignUp;
 import 'package:wecount/screens/find_pw.dart' show FindPw;
 import 'package:wecount/screens/terms.dart' show Terms;
-import 'package:provider/provider.dart';
+import 'package:wecount/screens/ledger_edit.dart';
+import 'package:wecount/screens/ledgers.dart';
+import 'package:wecount/screens/main_empty.dart';
+import 'package:wecount/screens/profile_my.dart';
+import 'package:wecount/screens/setting.dart';
+import 'package:wecount/screens/setting_announcement.dart';
+import 'package:wecount/screens/setting_faq.dart';
+import 'package:wecount/screens/setting_notification.dart';
+import 'package:wecount/screens/setting_opinion.dart';
+import 'package:wecount/screens/tutorial.dart';
+import 'package:wecount/utils/themes.dart';
+import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/routes.dart';
+import 'package:wecount/generated/l10n.dart' show S;
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -44,6 +45,8 @@ class TestUtils {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
+        theme: Themes.light,
+        darkTheme: Themes.dark,
         home: child,
         navigatorObservers: <NavigatorObserver>[observer],
         routes: {
