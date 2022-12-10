@@ -40,6 +40,73 @@ jobs:
       - name: COPY ENV
         run: cp .env.sample .env && cp .env.sample dotenv
 
+      - name: Create firebase_options
+        run: |
+          touch firebase_options.dart
+          echo "
+          class DefaultFirebaseOptions {
+            static FirebaseOptions get currentPlatform {
+              if (kIsWeb) {
+                return web;
+              }
+              switch (defaultTargetPlatform) {
+                case TargetPlatform.android:
+                  return android;
+                case TargetPlatform.iOS:
+                  return ios;
+                case TargetPlatform.macOS:
+                  throw UnsupportedError(
+                    'DefaultFirebaseOptions have not been configured for macos - '
+                    'you can reconfigure this by running the FlutterFire CLI again.',
+                  );
+                case TargetPlatform.windows:
+                  throw UnsupportedError(
+                    'DefaultFirebaseOptions have not been configured for windows - '
+                    'you can reconfigure this by running the FlutterFire CLI again.',
+                  );
+                case TargetPlatform.linux:
+                  throw UnsupportedError(
+                    'DefaultFirebaseOptions have not been configured for linux - '
+                    'you can reconfigure this by running the FlutterFire CLI again.',
+                  );
+                default:
+                  throw UnsupportedError(
+                    'DefaultFirebaseOptions are not supported for this platform.',
+                  );
+              }
+            }
+
+            static const FirebaseOptions web = FirebaseOptions(
+              apiKey: '',
+              appId: '',
+              messagingSenderId: '',
+              projectId: '',
+              storageBucket: '',
+              iosClientId: '',
+              iosBundleId: '',
+              measurementId: '',
+            );
+
+            static const FirebaseOptions android = FirebaseOptions(
+              apiKey: '',
+              appId: '',
+              messagingSenderId: '',
+              projectId: '',
+              storageBucket: '',
+            );
+
+            static const FirebaseOptions ios = FirebaseOptions(
+              apiKey: '',
+              appId: '',
+              messagingSenderId: '',
+              projectId: '',
+              storageBucket: '',
+              iosClientId: '',
+              iosBundleId: '',
+            );
+          }
+          "
+
       - name: Get packages
         run: flutter pub get
 
