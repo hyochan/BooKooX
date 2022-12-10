@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/screens/intro.dart';
 
+import 'package:wecount/screens/intro.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
 class Tutorial extends HookWidget {
@@ -11,16 +12,19 @@ class Tutorial extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    const int pageCnt = 2; // 3
-    var currentPage = useState<int>(0);
+    const int pageCnt = 2;
+    var currentIndex = useState(0);
+
     var pageController = PageController(
       initialPage: 0,
     );
-    void onNextPressed() {
-      if (currentPage.value == pageCnt) {
-        Navigator.pushNamedAndRemoveUntil(context, '/intro', (_) => false);
+
+    void onPressNext() {
+      if (currentIndex.value == pageCnt) {
+        navigation.navigate(context, AppRoute.intro.path, reset: true);
         return;
       }
+
       pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
@@ -91,14 +95,14 @@ class Tutorial extends HookWidget {
 
     Widget renderIndicator({
       Key? key,
-      required currentPage,
+      required int index,
       int page = 0,
     }) {
       return Container(
         key: key,
         margin: const EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
-          color: page == currentPage ? Colors.white : asset.Colors.main,
+          color: page == index ? Colors.white : asset.Colors.main,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
             width: 1,
@@ -112,21 +116,21 @@ class Tutorial extends HookWidget {
 
     Widget renderIndicatorGroup({
       Key? key,
-      required currentPage,
+      required int index,
     }) {
       return SizedBox(
         child: Row(
           children: <Widget>[
             renderIndicator(
-              currentPage: currentPage,
+              index: index,
               page: 0,
             ),
             renderIndicator(
-              currentPage: currentPage,
+              index: index,
               page: 1,
             ),
             renderIndicator(
-              currentPage: currentPage,
+              index: index,
               page: 2,
             ),
           ],
@@ -146,7 +150,7 @@ class Tutorial extends HookWidget {
               Expanded(
                 child: PageView(
                   onPageChanged: (int page) {
-                    currentPage.value = page;
+                    currentIndex.value = page;
                   },
                   controller: pageController,
                   scrollDirection: Axis.horizontal,
@@ -163,14 +167,14 @@ class Tutorial extends HookWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    renderIndicatorGroup(currentPage: currentPage),
+                    renderIndicatorGroup(index: currentIndex.value),
                     TextButton(
-                      onPressed: onNextPressed,
+                      onPressed: onPressNext,
                       child: Text(
                         localization(context).next,
                         style: const TextStyle(
                           fontSize: 20,
-                          color: asset.Colors.green,
+                          color: asset.Colors.paleGray,
                         ),
                       ),
                     ),

@@ -1,18 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:wecount/utils/firebase_config.dart';
 import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
-
-import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:wecount/widgets/button.dart' show Button;
 
 class Intro extends StatelessWidget {
   const Intro({Key? key}) : super(key: key);
@@ -27,18 +28,21 @@ class Intro extends StatelessWidget {
       text: localization(context).signingInWithGoogle,
     );
 
-    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    var googleUser = await googleSignIn.signIn();
 
     if (googleUser != null) {
-      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      AuthCredential credential = GoogleAuthProvider.credential(
+      var googleAuth = await googleUser.authentication;
+
+      var credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
         accessToken: googleAuth.accessToken,
       );
 
       UserCredential auth =
           await FirebaseAuth.instance.signInWithCredential(credential);
+
       User user = auth.user!;
+
       await FirestoreConfig.userColRef.doc(user.uid).set({
         'email': user.email,
         'displayName': user.displayName,
@@ -48,9 +52,11 @@ class Intro extends StatelessWidget {
         'updatedAt': FieldValue.serverTimestamp(),
         'deletedAt': null,
       });
+
       googleSignIn.signOut();
+
       if (context.mounted) {
-        Navigator.pushReplacementNamed(context, AppRoute.authSwitch.fullPath);
+        navigation.navigate(context, AppRoute.authSwitch.path);
       }
     }
   }
@@ -59,6 +65,7 @@ class Intro extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarBrightness: Theme.of(context).brightness));
+
     const TextStyle signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
       fontSize: 16.0,
