@@ -42,7 +42,7 @@ jobs:
 
       - name: Create firebase_options
         run: |
-          touch firebase_options.dart
+          touch lib/firebase_options.dart
           echo "
           class DefaultFirebaseOptions {
             static FirebaseOptions get currentPlatform {
