@@ -5,18 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "wecount",
+      "name": "WeCount",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "wecount (profile mode)",
+      "name": "WeCount (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "wecount (release mode)",
+      "name": "WeCount (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

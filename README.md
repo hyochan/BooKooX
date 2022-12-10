@@ -1,7 +1,7 @@
-# wecount
+# WeCount
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-wecount is the social ledger platform.
+WeCount is the social ledger platform.
 
 ## Getting Started
 
@@ -16,7 +16,7 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.io/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
 
-## Contributing to `wecount`
+## Contributing to `WeCount`
 * See also
   - dooboolab's [vision-and-mission](https://dooboolab.com/vision_and_mission)
   - dooboolab's [code of conduct](https://dooboolab.com/code_of_conduct)
