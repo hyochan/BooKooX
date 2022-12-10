@@ -53,33 +53,36 @@ class LedgerItemEdit extends HookWidget {
         lastDate: DateTime(lastDate),
       );
       TimeOfDay? pickTime;
-      if (pickDate != null) {
-        pickTime = await showTimePicker(
-          context: context,
-          initialTime: const TimeOfDay(hour: 0, minute: 0),
-        );
-      }
-      if (pickDate != null && pickTime != null) {
-        if (categoryType == CategoryType.consume) {
-          ledgerItemConsume.value = ledgerItemConsume.value.copyWith(
-            selectedDate: DateTime(
-              pickDate.year,
-              pickDate.month,
-              pickDate.day,
-              pickTime.hour,
-              pickTime.minute,
-            ),
+      if (context.mounted) {
+        if (pickDate != null) {
+          pickTime = await showTimePicker(
+            context: context,
+            initialTime: const TimeOfDay(hour: 0, minute: 0),
           );
-        } else if (categoryType == CategoryType.income) {
-          ledgerItemIncome.value = ledgerItemIncome.value.copyWith(
-            selectedDate: DateTime(
-              pickDate.year,
-              pickDate.month,
-              pickDate.day,
-              pickTime.hour,
-              pickTime.minute,
-            ),
-          );
+        }
+
+        if (context.mounted && pickDate != null && pickTime != null) {
+          if (categoryType == CategoryType.consume) {
+            ledgerItemConsume.value = ledgerItemConsume.value.copyWith(
+              selectedDate: DateTime(
+                pickDate.year,
+                pickDate.month,
+                pickDate.day,
+                pickTime.hour,
+                pickTime.minute,
+              ),
+            );
+          } else if (categoryType == CategoryType.income) {
+            ledgerItemIncome.value = ledgerItemIncome.value.copyWith(
+              selectedDate: DateTime(
+                pickDate.year,
+                pickDate.month,
+                pickDate.day,
+                pickTime.hour,
+                pickTime.minute,
+              ),
+            );
+          }
         }
       }
     }
@@ -166,54 +169,58 @@ class LedgerItemEdit extends HookWidget {
             );
           },
         );
-        if (result != null) {
+
+        if (context.mounted && result != null) {
           categories.value = [...categories.value, result];
         }
       }
 
-      var result = await showModalBottomSheet<Category>(
-        context: context,
-        builder: (context) => Container(
-          padding: const EdgeInsets.only(top: 8),
-          child: Column(
-            children: <Widget>[
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      onPressed: onClosePressed,
-                      icon: const Icon(Icons.close),
-                    ),
-                    Text(
-                      localization(context).category,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).textTheme.displayLarge!.color,
+      if (context.mounted) {
+        var result = await showModalBottomSheet<Category>(
+          context: context,
+          builder: (context) => Container(
+            padding: const EdgeInsets.only(top: 8),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 10,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: onClosePressed,
+                        icon: const Icon(Icons.close),
                       ),
-                    ),
-                    IconButton(
-                      onPressed: () => onAddPressed(categoryType),
-                      icon: const Icon(Icons.add),
-                    ),
-                  ],
+                      Text(
+                        localization(context).category,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => onAddPressed(categoryType),
+                        icon: const Icon(Icons.add),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Divider(height: 1, color: Theme.of(context).dividerColor),
-              const SizedBox(height: 8),
-              Expanded(
-                child: CategoryList(categories: categories.value),
-              ),
-            ],
+                Divider(height: 1, color: Theme.of(context).dividerColor),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: CategoryList(categories: categories.value),
+                ),
+              ],
+            ),
           ),
-        ),
-      );
+        );
 
-      if (result != null) {
+        if (result == null) return;
+
         if (categoryType == CategoryType.consume) {
           ledgerItemConsume.value = ledgerItemConsume.value.copyWith.category!(
             iconId: result.iconId,

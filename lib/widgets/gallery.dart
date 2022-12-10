@@ -166,6 +166,7 @@ class Gallery extends HookWidget {
                         final PhotoOption? photoOption =
                             await _asyncPhotoSelect(context);
                         XFile? imgFile;
+                        if (context.mounted) {}
                         switch (photoOption) {
                           case PhotoOption.camera:
                             imgFile = await General.instance
@@ -179,7 +180,7 @@ class Gallery extends HookWidget {
                             break;
                         }
 
-                        if (imgFile != null) {
+                        if (context.mounted && imgFile != null) {
                           Photo photo = Photo(file: imgFile);
                           pictures.value.add(photo);
                           ledgerItemState.value =
