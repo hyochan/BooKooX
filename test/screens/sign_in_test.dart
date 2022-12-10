@@ -13,11 +13,9 @@ void main() {
 
     var findByText = find.byType(Text);
     expect(findByText.evaluate().isEmpty, false);
-    expect(find.text(t('signIn')), findsNWidgets(2));
-    expect(find.text(t('email')), findsOneWidget);
-    expect(find.text(t('emailHint')), findsOneWidget);
-    expect(find.text(t('password')), findsOneWidget);
-    expect(find.text(t('passwordHint')), findsOneWidget);
+    expect(find.text('Sign in'), findsNWidgets(2));
+    expect(find.text('Email'), findsOneWidget);
+    expect(find.text('Password'), findsOneWidget);
   });
 
   testWidgets('Show `errorEmail` text when email is not validated',

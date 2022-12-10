@@ -15,10 +15,9 @@ void main() {
     var findByText = find.byType(Text);
     expect(findByText.evaluate().isEmpty, false);
 
-    expect(find.text(t('email')), findsOneWidget);
-    expect(find.text(t('password')), findsOneWidget);
-    expect(find.text(t('passwordConfirm')), findsOneWidget);
-    expect(find.text(t('signUp')), findsWidgets);
+    expect(find.text('Email'), findsOneWidget);
+    expect(find.text('Password'), findsOneWidget);
+    expect(find.text('Sign up'), findsWidgets);
   });
 
   testWidgets('Show [emailError] text when email address is not a valid form',
@@ -54,7 +53,7 @@ void main() {
     Finder passwordField = find.byKey(const Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
-    await tester.tap(find.text(t('signUp')).last, warnIfMissed: false);
+    await tester.tap(find.text('Sign up').last, warnIfMissed: false);
     await tester.pumpAndSettle();
 
     expect(find.text(t('passwordConfirmHint')), findsOneWidget);
