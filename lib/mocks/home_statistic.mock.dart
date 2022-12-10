@@ -10,23 +10,17 @@ List<LedgerItem> createHomeStatisticMock(Localization localization) {
     LedgerItem(
         price: -12000,
         category: Category(
-            iconId: 8,
-            label: localization.trans('EXERCISE')!,
-            type: CategoryType.consume),
+            iconId: 8, label: t('EXERCISE'), type: CategoryType.consume),
         selectedDate: DateTime(2019, currentMonth, 10)),
     LedgerItem(
         price: 300000,
         category: Category(
-            iconId: 18,
-            label: localization.trans('WALLET_MONEY')!,
-            type: CategoryType.income),
+            iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.income),
         selectedDate: DateTime(2019, currentMonth, 10)),
     LedgerItem(
         price: -32000,
-        category: Category(
-            iconId: 4,
-            label: localization.trans('DATING')!,
-            type: CategoryType.consume),
+        category:
+            Category(iconId: 4, label: t('DATING'), type: CategoryType.consume),
         memo: 'who1 gave me',
         selectedDate: DateTime(2019, currentMonth, 10))
   ]);
@@ -39,40 +33,32 @@ List<LedgerItem> createHomeStatisticMock(Localization localization) {
   return ledgerList;
 }
 
-normalExpenseList(Localization localization, int month) {
+List<LedgerItem> normalExpenseList(Localization localization, int month) {
   return [
     LedgerItem(
         price: -12000,
         category: Category(
-            iconId: 8,
-            label: localization.trans('EXERCISE')!,
-            type: CategoryType.consume),
+            iconId: 8, label: t('EXERCISE'), type: CategoryType.consume),
         selectedDate: DateTime(2019, month, 1)),
     LedgerItem(
         price: -12000,
-        category: Category(
-            iconId: 4,
-            label: localization.trans('DATING')!,
-            type: CategoryType.consume),
+        category:
+            Category(iconId: 4, label: t('DATING'), type: CategoryType.consume),
         selectedDate: DateTime(2019, month, 10)),
   ];
 }
 
-normalIncomeList(Localization localization, int month) {
+List<LedgerItem> normalIncomeList(Localization localization, int month) {
   return [
     LedgerItem(
         price: 50000,
         category: Category(
-            iconId: 18,
-            label: localization.trans('WALLET_MONEY')!,
-            type: CategoryType.income),
+            iconId: 18, label: t('WALLET_MONEY'), type: CategoryType.income),
         selectedDate: DateTime(2019, month, 1)),
     LedgerItem(
         price: 300000,
-        category: Category(
-            iconId: 19,
-            label: localization.trans('SALARY')!,
-            type: CategoryType.income),
+        category:
+            Category(iconId: 19, label: t('SALARY'), type: CategoryType.income),
         selectedDate: DateTime(2019, month, 10)),
   ];
 }

@@ -7,7 +7,7 @@ import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/edit_text.dart' show EditText;
 import 'package:wecount/widgets/button.dart' show Button;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/validator.dart' show Validator;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -17,7 +17,6 @@ class FindPw extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Localization? localization;
     var email = useState('');
     var errorEmail = useState('');
 
@@ -28,7 +27,7 @@ class FindPw extends HookWidget {
       bool isEmail = Validator.instance.validateEmail(email.value);
 
       if (!isEmail) {
-        errorEmail.value = localization!.trans('NO_VALID_EMAIL') as String;
+        errorEmail.value = t('NO_VALID_EMAIL');
         return;
       }
 
@@ -39,8 +38,8 @@ class FindPw extends HookWidget {
         if (context.mounted) {
           General.instance.showSingleDialog(
             context,
-            title: Text(localization!.trans('SUCCESS')!),
-            content: Text(localization.trans('PASSWORD_RESET_LINK_SENT')!),
+            title: Text(t('SUCCESS')),
+            content: Text(t('PASSWORD_RESET_LINK_SENT')),
           );
         }
       } catch (err) {
@@ -50,11 +49,9 @@ class FindPw extends HookWidget {
       }
     }
 
-    localization = Localization.of(context);
-
     Widget findPwText() {
       return Text(
-        localization!.trans('FIND_PASSWORD')!,
+        t('FIND_PASSWORD'),
         style: TextStyle(
           fontSize: 24.0,
           color: Theme.of(context).textTheme.displayLarge!.color,
@@ -69,8 +66,8 @@ class FindPw extends HookWidget {
         errorText: errorEmail.value,
         margin: const EdgeInsets.only(top: 68.0),
         textInputAction: TextInputAction.next,
-        textLabel: localization!.trans('EMAIL'),
-        textHint: localization.trans('EMAIL_HINT'),
+        textLabel: t('EMAIL'),
+        textHint: t('EMAIL_HINT'),
         hasChecked: isValidEmail.value,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
@@ -95,9 +92,10 @@ class FindPw extends HookWidget {
           fontSize: 16.0,
         ),
         isLoading: isSendingEmail.value,
-        borderColor: Theme.of(context).primaryIconTheme.color,
+        borderColor:
+            Theme.of(context).primaryIconTheme.color ?? Colors.blueGrey,
         backgroundColor: Theme.of(context).primaryColor,
-        text: localization!.trans('SEND_EMAIL'),
+        text: t('SEND_EMAIL'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );

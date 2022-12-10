@@ -10,7 +10,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/widgets/edit_text_box.dart' show EditTextBox;
 import 'package:wecount/widgets/profile_image_cam.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -36,9 +36,6 @@ class ProfileMy extends HookWidget {
       }
     }
 
-    var localization = Localization.of(context)!;
-    // var user0 = Provider.of<FireAuth.User>(context);
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderClose(
@@ -48,7 +45,7 @@ class ProfileMy extends HookWidget {
           IconButton(
             icon: Icon(
               Icons.save_alt,
-              semanticLabel: localization.trans('UPDATE'),
+              semanticLabel: t('UPDATE'),
             ),
             color: Theme.of(context).textTheme.displayLarge!.color,
             padding: const EdgeInsets.all(0.0),
@@ -82,7 +79,7 @@ class ProfileMy extends HookWidget {
                   children: <Widget>[
                     ProfileImageCam(
                       imgFile: imgFile.value,
-                      imgStr: profile?.thumbURL != null
+                      imgPath: profile?.thumbURL != null
                           ? profile!.thumbURL
                           : profile?.photoURL,
                       selectCamera: () async {
@@ -110,7 +107,7 @@ class ProfileMy extends HookWidget {
                 enabled: false,
                 iconData: Icons.email,
                 margin: const EdgeInsets.only(top: 24.0),
-                hintText: localization.trans('EMAIL'),
+                hintText: t('EMAIL'),
                 focusedColor: Theme.of(context).textTheme.displayLarge!.color,
                 enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               ),
@@ -120,10 +117,10 @@ class ProfileMy extends HookWidget {
                 ),
                 onChangeText: (String str) =>
                     profile = profile?.copyWith(displayName: str),
-                semanticLabel: localization.trans('NICKNAME'),
+                semanticLabel: t('NICKNAME'),
                 iconData: Icons.person_outline,
                 margin: const EdgeInsets.only(top: 8.0),
-                hintText: localization.trans('NICKNAME'),
+                hintText: t('NICKNAME'),
                 focusedColor: Theme.of(context).textTheme.displayLarge!.color,
                 enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               ),
@@ -135,7 +132,7 @@ class ProfileMy extends HookWidget {
                     profile = profile?.copyWith(phoneNumber: str),
                 iconData: Icons.phone,
                 margin: const EdgeInsets.only(top: 8.0),
-                hintText: localization.trans('PHONE'),
+                hintText: t('PHONE'),
                 focusedColor: Theme.of(context).textTheme.displayLarge!.color,
                 enabledColor: Theme.of(context).textTheme.displayMedium!.color,
               ),
@@ -151,8 +148,8 @@ class ProfileMy extends HookWidget {
                 ),
                 onChangeText: (String str) =>
                     profile = profile?.copyWith(statusMsg: str),
-                labelText: localization.trans('STATUS_MESSAGE'),
-                hintText: localization.trans('STATUS_MESSAGE_HINT'),
+                labelText: t('STATUS_MESSAGE'),
+                hintText: t('STATUS_MESSAGE_HINT'),
                 maxLines: 5,
               ),
             ],

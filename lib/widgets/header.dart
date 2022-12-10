@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 AppBar renderHeaderClose({
   Key? key,
@@ -11,7 +11,6 @@ AppBar renderHeaderClose({
   bool? centerTitle,
   Widget? bottom,
 }) {
-  var localization = Localization.of(context)!;
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
@@ -25,7 +24,7 @@ AppBar renderHeaderClose({
         child: Icon(
           Icons.close,
           color: Theme.of(context).textTheme.displayLarge!.color,
-          semanticLabel: localization.trans('CLOSE'),
+          semanticLabel: t('CLOSE'),
         ),
       ),
     ),
@@ -46,7 +45,6 @@ AppBar renderHeaderBack({
   Color? iconColor,
   bool? centerTitle,
 }) {
-  var localization = Localization.of(context)!;
   return AppBar(
     centerTitle: centerTitle,
     backgroundColor: Colors.transparent,
@@ -58,7 +56,7 @@ AppBar renderHeaderBack({
       child: Icon(
         Icons.arrow_back,
         color: iconColor,
-        semanticLabel: localization.trans('BACK'),
+        semanticLabel: t('BACK'),
       ),
     ),
     elevation: 0.0,

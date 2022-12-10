@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:wecount/widgets/edit_text_search.dart' show EditTextSearch;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 class HomeHeaderSearch extends HookWidget {
   const HomeHeaderSearch(
@@ -23,9 +23,8 @@ class HomeHeaderSearch extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var searchText = useState<String>("");
+    var searchText = useState<String>('');
 
-    var localization = Localization.of(context)!;
     var textInput = EditTextSearch(
       controller: textEditingController,
       // textInputAction: TextInputAction.search,
@@ -34,12 +33,12 @@ class HomeHeaderSearch extends HookWidget {
       },
       onSubmit: onSubmit,
       background: Colors.transparent,
-      txtHint: localization.trans('PLZ_SEARCH'),
+      txtHint: t('PLZ_SEARCH'),
       underline: false,
       txtHintStyle: const TextStyle(
           color: Color.fromRGBO(255, 255, 255, 0.5),
           fontWeight: FontWeight.w400,
-          fontFamily: "AppleSDGothicNeo",
+          fontFamily: 'AppleSDGothicNeo',
           fontStyle: FontStyle.normal,
           fontSize: 16.0),
       padding: const EdgeInsets.only(left: 40.0, right: 44.0),
@@ -50,7 +49,7 @@ class HomeHeaderSearch extends HookWidget {
       ),
       txtStyle: const TextStyle(
           color: Colors.white,
-          fontFamily: "AppleSDGothicNeo",
+          fontFamily: 'AppleSDGothicNeo',
           fontStyle: FontStyle.normal,
           fontSize: 16.0),
       height: 40.0,
@@ -70,7 +69,7 @@ class HomeHeaderSearch extends HookWidget {
           ),
         ),
       ),
-      searchText.value != ""
+      searchText.value != ''
           ? Positioned(
               right: 17.0,
               child: SizedBox(
@@ -78,7 +77,7 @@ class HomeHeaderSearch extends HookWidget {
                 child: RawMaterialButton(
                   onPressed: () {
                     onPressDelete();
-                    searchText.value = "";
+                    searchText.value = '';
                   },
                   shape: const CircleBorder(),
                   padding: const EdgeInsets.all(0.0),

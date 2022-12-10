@@ -1,9 +1,9 @@
 import 'package:wecount/models/user_model.dart';
-import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/localization.dart';
 
 abstract class ListItem {}
 
@@ -35,8 +35,6 @@ class MemberListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context);
-
     return Container(
       height: 80,
       alignment: const Alignment(-1, 0),
@@ -121,10 +119,10 @@ class MemberListItem extends StatelessWidget {
               onPressed: onPressAuth as void Function()?,
               child: Text(
                 user.membership == Membership.owner
-                    ? localization!.trans('MEMBER_OWNER')!
+                    ? t('MEMBER_OWNER')
                     : user.membership == Membership.admin
-                        ? localization!.trans('MEMBER_ADMIN')!
-                        : localization!.trans('MEMBER_GUEST')!,
+                        ? t('MEMBER_ADMIN')
+                        : t('MEMBER_GUEST'),
                 style: TextStyle(
                   fontSize: 12,
                   color: Theme.of(context).textTheme.displayLarge!.color,

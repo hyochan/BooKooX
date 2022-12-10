@@ -30,7 +30,7 @@ class Carousel extends HookWidget {
 
     PageController? controller;
 
-    builder(int index) {
+    AnimatedBuilder builder(int index) {
       double screenWidth = MediaQuery.of(context).size.width;
       return AnimatedBuilder(
         animation: controller!,
@@ -98,7 +98,7 @@ class Carousel extends HookWidget {
                     style: const TextStyle(
                       color: Color(0xffffffff),
                       fontWeight: FontWeight.w100,
-                      fontFamily: "AppleSDGothicNeo",
+                      fontFamily: 'AppleSDGothicNeo',
                       fontStyle: FontStyle.normal,
                       fontSize: 14.0,
                     ),

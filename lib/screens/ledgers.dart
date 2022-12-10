@@ -29,7 +29,6 @@ class Ledgers extends HookWidget {
   Widget build(BuildContext context) {
     User? user = General.instance.checkAuth();
     var ledgersList = useState<List<Ledger?>>([]);
-    var localization = Localization.of(context)!;
     void onSettingPressed() {
       navigation.push(context, AppRoute.setting.path);
     }
@@ -92,7 +91,7 @@ class Ledgers extends HookWidget {
               child: Icon(
                 Icons.settings,
                 color: Theme.of(context).iconTheme.color,
-                semanticLabel: localization.trans('SETTING'),
+                semanticLabel: t('SETTING'),
               ),
             ),
           ),
@@ -156,7 +155,7 @@ class Ledgers extends HookWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        localization.trans('ADD_LEDGER')!,
+                        t('ADD_LEDGER'),
                         style: const TextStyle(
                           color: asset.Colors.mediumGray,
                           fontSize: 20.0,

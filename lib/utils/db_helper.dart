@@ -80,10 +80,10 @@ class DBHelper {
       path,
       onCreate: (db, version) async {
         await db.execute(
-          "CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, type INTEGER, iconId INTEGER, label TEXT)",
+          'CREATE TABLE categories(id INTEGER primary key AUTOINCREMENT, type INTEGER, iconId INTEGER, label TEXT)',
         );
         if (context.mounted) {
-          for (var category in initialCategory) {
+          for (final category in initialCategory) {
             db.insert('categories', category.toMapInitial(context),
                 conflictAlgorithm: ConflictAlgorithm.abort);
           }
@@ -161,7 +161,7 @@ class DBHelper {
   Future<int> deleteCategory(BuildContext context, int? iconId) async {
     final Database db = await initDB(context);
 
-    return db.delete('categories', where: "iconId = ?", whereArgs: [iconId]);
+    return db.delete('categories', where: 'iconId = ?', whereArgs: [iconId]);
   }
 
   bool isExistFiled(doc, String filedName) {

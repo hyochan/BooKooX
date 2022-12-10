@@ -1,4 +1,5 @@
 {
+  "@@locale": "ko",
   "LOADING": "로딩중...",
   "SIGN_IN": "로그인",
   "CHECK_SIGN_OUT": "로그아웃 하시겠습니까?",
@@ -21,7 +22,7 @@
   "TERMS_1": "다음 단계로 진행함과 동시에 ",
   "TERMS_OF_USE": "이용약관",
   "TERMS_2": " 및 ",
-  "PRIVACY_POLICY":"개인정보 취급방침",
+  "PRIVACY_POLICY": "개인정보 취급방침",
   "TERMS_3": "에 동의하는 것으로 간주합니다.",
   "HOME_MONTHY": "월별",
   "HOME_LIST": "리스트",

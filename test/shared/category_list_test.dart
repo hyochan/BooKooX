@@ -5,7 +5,7 @@ import 'package:wecount/widgets/category_list.dart' show CategoryList;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Button", (WidgetTester tester) async {
+  testWidgets('Button', (WidgetTester tester) async {
     List<Category> categories = [];
     await tester.pumpWidget(TestUtils.makeTestableWidget(
         child: CategoryList(

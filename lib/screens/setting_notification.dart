@@ -24,7 +24,6 @@ class SettingNotification extends HookWidget {
       logger.d('value: $value');
     }
 
-    var localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderBack(
@@ -33,7 +32,7 @@ class SettingNotification extends HookWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          localization.trans('NOTIFICATION')!,
+          t('NOTIFICATION'),
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,
@@ -49,7 +48,7 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 44),
                   child: Text(
-                    localization.trans('ADDING_LEDGER_ITEM')!,
+                    t('ADDING_LEDGER_ITEM'),
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.displayLarge!.color,
@@ -77,7 +76,7 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 44),
                   child: Text(
-                    localization.trans('UPDATING_LEDGER_ITEM')!,
+                    t('UPDATING_LEDGER_ITEM'),
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.displayLarge!.color,

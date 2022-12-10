@@ -8,6 +8,7 @@ import 'package:wecount/screens/main_empty.dart';
 import 'package:wecount/screens/profile_my.dart';
 import 'package:wecount/screens/setting.dart';
 import 'package:wecount/screens/setting_announcement.dart';
+import 'package:wecount/generated/l10n.dart' show S;
 import 'package:wecount/screens/setting_faq.dart';
 import 'package:wecount/screens/setting_notification.dart';
 import 'package:wecount/screens/setting_opinion.dart';
@@ -15,7 +16,7 @@ import 'package:wecount/screens/tutorial.dart';
 import 'package:wecount/types/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:wecount/utils/localization.dart' show LocalizationDelegate;
+import 'package:wecount/utils/localization.dart';
 
 import 'package:mockito/mockito.dart';
 import 'package:wecount/screens/splash.dart' show Splash;
@@ -38,9 +39,10 @@ class TestUtils {
       data: const MediaQueryData(),
       child: MaterialApp(
         localizationsDelegates: const [
-          LocalizationDelegate(isTest: true),
+          S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
         ],
         home: child,
         navigatorObservers: <NavigatorObserver>[observer],

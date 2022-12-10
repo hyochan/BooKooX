@@ -9,14 +9,14 @@ class ProfileImageCam extends StatelessWidget {
   final Function? selectGallery;
   final Function? selectCamera;
   final XFile? imgFile;
-  final String? imgStr;
+  final String? imgPath;
 
   const ProfileImageCam({
     super.key,
     this.selectGallery,
     this.selectCamera,
     this.imgFile,
-    this.imgStr,
+    this.imgPath,
   });
 
   @override
@@ -30,7 +30,7 @@ class ProfileImageCam extends StatelessWidget {
               SizedBox(
                 width: 88.0,
                 height: 88.0,
-                child: imgStr == null && imgFile == null
+                child: imgPath == null && imgFile == null
                     ? ClipOval(
                         child: Material(
                             clipBehavior: Clip.hardEdge,
@@ -61,7 +61,7 @@ class ProfileImageCam extends StatelessWidget {
                                 child: FadeInImage.assetNetwork(
                                     fit: BoxFit.cover,
                                     placeholder: 'res/icons/icMask.png',
-                                    image: imgStr!),
+                                    image: imgPath ?? ''),
                               ),
                             ),
                           ),

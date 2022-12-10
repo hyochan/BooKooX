@@ -43,14 +43,12 @@ List<LedgerItem> createMockCafeList(Localization localization) {
   return ledgerList;
 }
 
-cafe(Localization localization, month, day) {
+List<LedgerItem> cafe(Localization localization, month, day) {
   return [
     LedgerItem(
       price: -12000,
-      category: Category(
-          iconId: 8,
-          label: localization.trans('CAFE')!,
-          type: CategoryType.consume),
+      category:
+          Category(iconId: 8, label: t('CAFE'), type: CategoryType.consume),
       selectedDate: DateTime(2019, month, day),
     ),
   ];

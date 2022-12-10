@@ -6,7 +6,7 @@ import 'package:wecount/screens/sign_in.dart' show SignIn;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async {
+  testWidgets('Widget', (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: const Intro()));
     await tester.pumpAndSettle();
 
@@ -15,7 +15,7 @@ void main() {
 
     expect(find.text('SIGN_IN'), findsNWidgets(1));
   });
-  testWidgets("Navigate to [SignIn] when signIn pressed",
+  testWidgets('Navigate to [SignIn] when signIn pressed',
       (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(child: const Intro()));
     await tester.pumpAndSettle();

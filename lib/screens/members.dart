@@ -30,8 +30,6 @@ class Members extends HookWidget {
     var isSearchMode = useState<bool>(false);
     var filteredMembers = useState<List<ListItem>>([]);
 
-    var localization = Localization.of(context)!;
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHeaderClose(
@@ -47,7 +45,7 @@ class Members extends HookWidget {
               child: Icon(
                 Icons.search,
                 color: Theme.of(context).textTheme.displayLarge!.color,
-                semanticLabel: localization.trans('SEARCH'),
+                semanticLabel: t('SEARCH'),
               ),
             ),
           ),
@@ -55,7 +53,7 @@ class Members extends HookWidget {
       ),
       body: SafeArea(
         child: FutureBuilder(
-            future: UserRepository.instance.getMany(ledger?.id ?? ""),
+            future: UserRepository.instance.getMany(ledger?.id ?? ''),
             builder: (context, AsyncSnapshot snapshot) {
               if (!snapshot.hasData) return const LoadingIndicator();
               List<ListItem> members = [
@@ -77,7 +75,7 @@ class Members extends HookWidget {
                           ? EditText(
                               key: const Key('member'),
                               textInputAction: TextInputAction.next,
-                              textHint: localization.trans('SEARCH_USER_HINT'),
+                              textHint: t('SEARCH_USER_HINT'),
                               onChanged: (String str) {
                                 members = snapshot.data.where((list) {
                                   if (list is HeadingItem) {
@@ -95,7 +93,7 @@ class Members extends HookWidget {
                               },
                             )
                           : Text(
-                              '${localization.trans('MEMBER')} ${item.numOfPeople}',
+                              '${t('MEMBER')} ${item.numOfPeople}',
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .textTheme

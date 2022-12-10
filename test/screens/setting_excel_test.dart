@@ -5,7 +5,7 @@ import 'package:wecount/screens/setting_excel.dart' show SettingExcel;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async {
+  testWidgets('Widget', (WidgetTester tester) async {
     await tester
         .pumpWidget(TestUtils.makeTestableWidget(child: const SettingExcel()));
     await tester.pumpAndSettle();

@@ -14,7 +14,7 @@ import 'package:wecount/widgets/header.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/db_helper.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/logger.dart';
 
 class LedgerItemEdit extends HookWidget {
@@ -31,11 +31,11 @@ class LedgerItemEdit extends HookWidget {
     final priceTextEditingController1 = useTextEditingController();
     final priceTextEditingController2 = useTextEditingController();
 
-    var cate = useState<String>("");
+    var cate = useState<String>('');
     var ledgerItemConsume =
-        useState<LedgerItem>(LedgerItem(category: Category(label: "")));
+        useState<LedgerItem>(LedgerItem(category: Category(label: '')));
     var ledgerItemIncome =
-        useState<LedgerItem>(LedgerItem(category: Category(label: "")));
+        useState<LedgerItem>(LedgerItem(category: Category(label: '')));
     var tabController = useTabController(initialLength: 2);
     var categories = useState<List<Category>>([]);
     var localization = Localization.of(context);
@@ -192,7 +192,7 @@ class LedgerItemEdit extends HookWidget {
                       icon: const Icon(Icons.close),
                     ),
                     Text(
-                      '${localization!.trans('CATEGORY')}',
+                      t('CATEGORY'),
                       style: TextStyle(
                         fontSize: 20,
                         color: Theme.of(context).textTheme.displayLarge!.color,
@@ -343,7 +343,7 @@ class LedgerItemEdit extends HookWidget {
                       ),
                     ),
                     Text(
-                      localization!.trans('PRICE')!,
+                      t('PRICE'),
                       style: const TextStyle(
                         color: asset.Colors.cloudyBlue,
                         fontSize: 16,
@@ -367,13 +367,13 @@ class LedgerItemEdit extends HookWidget {
                         priceTextEditingController1.text =
                             ledgerItemConsume.value.price != null
                                 ? ledgerItemConsume.value.price.toString()
-                                : "";
+                                : '';
                       },
                       textInputAction: TextInputAction.done,
                       onChanged: (String value) {
                         String inputPrice = value.trim();
 
-                        if (inputPrice == "") {
+                        if (inputPrice == '') {
                           ledgerItemConsume.value =
                               ledgerItemConsume.value.copyWith(price: 0);
                         } else {
@@ -403,11 +403,11 @@ class LedgerItemEdit extends HookWidget {
               ),
 
               /// CATEGORY
-              ledgerItemConsume.value.category!.label == ""
+              ledgerItemConsume.value.category!.label == ''
                   ? renderBox(
                       margin: const EdgeInsets.only(top: 52),
                       icon: Icons.category,
-                      text: localization.trans('CATEGORY')!,
+                      text: t('CATEGORY'),
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                     )
@@ -425,7 +425,7 @@ class LedgerItemEdit extends HookWidget {
                   ? renderBox(
                       margin: const EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
-                      text: localization.trans('DATE')!,
+                      text: t('DATE'),
                       showDropdown: true,
                       onPressed: onDatePressed,
                     )
@@ -445,7 +445,7 @@ class LedgerItemEdit extends HookWidget {
                   ? renderBox(
                       margin: const EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
-                      text: localization.trans('LOCATION')!,
+                      text: t('LOCATION'),
                       showDropdown: true,
                       onPressed: onLocationPressed,
                     )
@@ -497,7 +497,7 @@ class LedgerItemEdit extends HookWidget {
                       ),
                     ),
                     Text(
-                      localization!.trans('PRICE')!,
+                      t('PRICE'),
                       style: const TextStyle(
                         color: asset.Colors.cloudyBlue,
                         fontSize: 16,
@@ -521,13 +521,13 @@ class LedgerItemEdit extends HookWidget {
                         priceTextEditingController2.text =
                             ledgerItemIncome.value.price != null
                                 ? ledgerItemIncome.value.price.toString()
-                                : "";
+                                : '';
                       },
                       textInputAction: TextInputAction.done,
                       onChanged: (String value) {
                         String inputPrice = value.trim();
 
-                        if (inputPrice == "") {
+                        if (inputPrice == '') {
                           ledgerItemIncome.value =
                               ledgerItemIncome.value.copyWith(price: 0);
                         } else {
@@ -556,11 +556,11 @@ class LedgerItemEdit extends HookWidget {
               ),
 
               /// CATEGORY
-              ledgerItemIncome.value.category!.label == ""
+              ledgerItemIncome.value.category!.label == ''
                   ? renderBox(
                       margin: const EdgeInsets.only(top: 52),
                       icon: Icons.category,
-                      text: localization.trans('CATEGORY')!,
+                      text: t('CATEGORY'),
                       showDropdown: true,
                       onPressed: onCategoryPressed,
                     )
@@ -578,7 +578,7 @@ class LedgerItemEdit extends HookWidget {
                   ? renderBox(
                       margin: const EdgeInsets.only(top: 8),
                       icon: Icons.date_range,
-                      text: localization.trans('DATE')!,
+                      text: t('DATE'),
                       showDropdown: true,
                       onPressed: () =>
                           onDatePressed(categoryType: CategoryType.income),
@@ -600,7 +600,7 @@ class LedgerItemEdit extends HookWidget {
                   ? renderBox(
                       margin: const EdgeInsets.only(top: 8),
                       icon: Icons.location_on,
-                      text: localization.trans('LOCATION')!,
+                      text: t('LOCATION'),
                       showDropdown: true,
                       onPressed: () =>
                           onLocationPressed(categoryType: CategoryType.income),
@@ -674,7 +674,7 @@ class LedgerItemEdit extends HookWidget {
                     labelPadding: const EdgeInsets.symmetric(horizontal: 8),
                     tabs: choices.map((String choice) {
                       return Tab(
-                        text: localization!.trans(choice),
+                        text: t(choice),
                       );
                     }).toList(),
                   ),

@@ -4,7 +4,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 import '../widgets/home_header.dart' show renderHomeAppBar;
 
@@ -17,7 +17,6 @@ class MainEmpty extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: renderHomeAppBar(
@@ -58,7 +57,7 @@ class MainEmpty extends HookWidget {
                 bottom: 32,
               ),
               child: Text(
-                localization.trans('NO_LEDGER_DESCRIPTION')!,
+                t('NO_LEDGER_DESCRIPTION'),
                 style: TextStyle(
                   color: Theme.of(context).textTheme.displayLarge!.color,
                   fontSize: 20,
@@ -82,7 +81,7 @@ class MainEmpty extends HookWidget {
               ),
               onPress: () =>
                   Navigator.of(context).pushNamed(AppRoute.ledgerEdit.fullPath),
-              text: localization.trans('ADD_LEDGER'),
+              text: t('ADD_LEDGER'),
               textStyle: TextStyle(
                 fontSize: 20,
                 color: Theme.of(context).textTheme.displayMedium!.color,

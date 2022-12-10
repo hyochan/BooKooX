@@ -6,7 +6,7 @@ import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/widgets/pin_keyboard.dart' show PinKeyboard;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 class LockRegister extends HookWidget {
   const LockRegister({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class LockRegister extends HookWidget {
 
     String? pin = '';
 
-    readLockPinFromSF() async {
+    Future<void> readLockPinFromSF() async {
       SharedPreferences preference = await SharedPreferences.getInstance();
 
       if (preference.containsKey('LOCK_PIN')) {
@@ -33,7 +33,7 @@ class LockRegister extends HookWidget {
       }
     }
 
-    addLockPinToSF() async {
+    Future<void> addLockPinToSF() async {
       if (pin!.length != 4) {
         return;
       } else {
@@ -45,7 +45,7 @@ class LockRegister extends HookWidget {
       }
     }
 
-    resetLockPinToSF() async {
+    Future<void> resetLockPinToSF() async {
       SharedPreferences preference = await SharedPreferences.getInstance();
       preference.remove('LOCK_PIN');
     }
@@ -69,7 +69,6 @@ class LockRegister extends HookWidget {
       };
     }, []);
 
-    var localization = Localization.of(context)!;
     screenSize = MediaQuery.of(context).size;
 
     void setCurrentDigit(int i) {
@@ -118,7 +117,7 @@ class LockRegister extends HookWidget {
             ),
           ),
           child: Text(
-            digit != null ? digit.toString() : "",
+            digit != null ? digit.toString() : '',
             style: TextStyle(
               fontSize: 30,
               color: Theme.of(context).textTheme.displayLarge!.color,
@@ -136,7 +135,7 @@ class LockRegister extends HookWidget {
           TextButton(
             onPressed: addLockPinToSF,
             child: Text(
-              localization.trans('DONE')!,
+              t('DONE'),
               style: TextStyle(
                 color: Theme.of(context).textTheme.displayLarge!.color,
               ),
@@ -152,7 +151,7 @@ class LockRegister extends HookWidget {
               height: 40,
             ),
             Text(
-              localization.trans('LOCK_HINT')!,
+              t('LOCK_HINT'),
               style: TextStyle(
                   fontSize: 24,
                   color: Theme.of(context).textTheme.displayLarge!.color),
@@ -171,7 +170,7 @@ class LockRegister extends HookWidget {
             ),
             // OutlineButton(
             //   child:
-            //   Text(_localization.trans('FINGERPRINT_SET')),
+            //   Text(_t('FINGERPRINT_SET')),
             //   onPressed: () {} ,
             //   shape: RoundedRectangleBorder(
             //     borderRadius: BorderRadius.circular(30),

@@ -32,7 +32,7 @@ class Button extends StatelessWidget {
   final EdgeInsets margin;
   final double borderWidth;
   final double borderRadius;
-  final Color? borderColor;
+  final Color borderColor;
   final TextStyle textStyle;
   final MaterialStatePropertyAll<OutlinedBorder>? shapeBorder;
   final bool isLoading;
@@ -42,7 +42,7 @@ class Button extends StatelessWidget {
     return Container(
       key: key,
       decoration: BoxDecoration(
-        border: Border.all(width: borderWidth, color: borderColor!),
+        border: Border.all(width: borderWidth, color: borderColor),
         borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         color: backgroundColor,
       ),

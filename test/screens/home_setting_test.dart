@@ -5,7 +5,7 @@ import 'package:wecount/screens/home_setting.dart' show HomeSetting;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async {
+  testWidgets('Widget', (WidgetTester tester) async {
     await tester.pumpWidget(TestUtils.makeTestableWidget(
       child: const HomeSetting(),
     ));

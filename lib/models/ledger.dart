@@ -6,8 +6,8 @@ import 'package:wecount/utils/converter.dart';
 import 'package:wecount/types/color.dart';
 import 'package:wecount/utils/logger.dart';
 
-part "ledger.freezed.dart";
-part "ledger.g.dart";
+part 'ledger.freezed.dart';
+part 'ledger.g.dart';
 
 @freezed
 class Ledger with _$Ledger {

@@ -18,7 +18,7 @@ class DatabaseService {
 
     if (user == null) {
       logger.d('user is not sign-in');
-      return "";
+      return '';
     }
 
     ledger = ledger!.copyWith(
@@ -104,7 +104,7 @@ class DatabaseService {
   Future<bool> requestLeaveLedger(String? ledgerId) async {
     User? user = FirebaseAuth.instance.currentUser;
 
-    getLedger(String? ledgerId) async {
+    Future<Ledger> getLedger(String? ledgerId) async {
       var snap = await FirestoreConfig.ledgerColRef.doc(ledgerId).get();
       return Ledger.fromMap(snap.data());
     }
@@ -113,24 +113,25 @@ class DatabaseService {
 
     bool hasOwnerPermission = user != null && ledger.ownerId == user.uid;
 
-    deleteLedgerItem(String? ledgerId) async {
+    Future<void> deleteLedgerItem(String? ledgerId) async {
       var snapItems = await FirestoreConfig.ledgerColRef
           .doc(ledgerId)
           .collection('ledgerItems')
           .get();
-      for (DocumentSnapshot doc in snapItems.docs) {
+      for (final DocumentSnapshot doc in snapItems.docs) {
         doc.reference.delete();
       }
     }
 
-    deleteLedger(String? ledgerId) =>
+    Future<void> deleteLedger(String? ledgerId) =>
         FirestoreConfig.ledgerColRef.doc(ledgerId).delete();
 
-    deleteLedgerFromUser(String? ledgerId) => FirestoreConfig.userColRef
-        .doc(user!.uid)
-        .collection('ledgers')
-        .doc(ledgerId)
-        .delete();
+    Future<void> deleteLedgerFromUser(String? ledgerId) =>
+        FirestoreConfig.userColRef
+            .doc(user!.uid)
+            .collection('ledgers')
+            .doc(ledgerId)
+            .delete();
 
     if (!hasOwnerPermission) {
       await deleteLedgerFromUser(ledgerId);
@@ -153,7 +154,7 @@ class DatabaseService {
     var writer = await FirestoreConfig.userColRef.doc(user.uid).get();
     DocumentReference ref = await FirestoreConfig.ledgerColRef
         .doc(writer.data()!['selectedLedger'])
-        .collection("ledgerItems")
+        .collection('ledgerItems')
         .add(
       {
         'price': ledgerItem.price,
@@ -206,7 +207,7 @@ class DatabaseService {
         .doc(user.uid)
         .collection('ledgers')
         .doc(writer.data()!['selectedLedger'])
-        .collection("ledgerItems");
+        .collection('ledgerItems');
 
     var query = userLedgerItemRef
         .withConverter<LedgerItem>(
@@ -285,7 +286,7 @@ class DatabaseService {
         .map((snap) => UserModel.fromMap(snap.data(), id));
   }
 
-  /// Used from [auth_switch] to detect the initial widget.
+  /// Used from `auth_switch.dart` to detect the initial widget.
   Stream<List<Ledger>> streamMyLedgers(User user) {
     var ref = FirestoreConfig.userColRef.doc(user.uid).collection('ledgers');
 

@@ -10,7 +10,7 @@ import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/asset.dart' as asset;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -74,7 +74,7 @@ class Intro extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
         backgroundColor: Colors.white,
-        text: localization!.trans('SIGN_IN'),
+        text: t('SIGN_IN'),
         width: 240.0,
         height: 56.0,
       );
@@ -89,10 +89,10 @@ class Intro extends StatelessWidget {
             text: TextSpan(
               children: <TextSpan>[
                 TextSpan(
-                  text: localization!.trans('DO_NOT_HAVE_ACCOUNT'),
+                  text: t('DO_NOT_HAVE_ACCOUNT'),
                 ),
                 TextSpan(
-                  text: '  ${localization.trans('SIGN_UP')!}',
+                  text: '  ${t('SIGN_UP')}',
                   style: const TextStyle(
                       color: asset.Colors.green, fontWeight: FontWeight.bold),
                 ),
@@ -176,15 +176,15 @@ class Intro extends StatelessWidget {
         margin: const EdgeInsets.only(top: 16.0, bottom: 40.0),
         child: RichText(
           text: TextSpan(
-            text: localization!.trans('TERMS_1'),
+            text: t('TERMS_1'),
             style: signInWithTextStyle.merge(
               const TextStyle(fontSize: 12, height: 1.3),
             ),
             children: [
               TextSpan(
-                text: localization.trans('TERMS_OF_USE'),
+                text: t('TERMS_OF_USE'),
                 style: clickableTextStyle,
-                semanticsLabel: localization.trans('TERMS_OF_USE'),
+                semanticsLabel: t('TERMS_OF_USE'),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -193,13 +193,13 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: localization.trans('TERMS_2'),
-                semanticsLabel: localization.trans('TERMS_2'),
+                text: t('TERMS_2'),
+                semanticsLabel: t('TERMS_2'),
               ),
               TextSpan(
-                text: localization.trans('PRIVACY_POLICY'),
+                text: t('PRIVACY_POLICY'),
                 style: clickableTextStyle,
-                semanticsLabel: localization.trans('PRIVACY_POLICY'),
+                semanticsLabel: t('PRIVACY_POLICY'),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
@@ -208,8 +208,8 @@ class Intro extends StatelessWidget {
                   },
               ),
               TextSpan(
-                text: localization.trans('TERMS_3'),
-                semanticsLabel: localization.trans('TERMS_3'),
+                text: t('TERMS_3'),
+                semanticsLabel: t('TERMS_3'),
               ),
             ],
           ),

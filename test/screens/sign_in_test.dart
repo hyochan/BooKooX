@@ -5,7 +5,7 @@ import 'package:wecount/screens/sign_in.dart' show SignIn;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async {
+  testWidgets('Widget', (WidgetTester tester) async {
     await tester
         .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));
     await tester.pumpAndSettle();
@@ -20,7 +20,7 @@ void main() {
     expect(find.text('PASSWORD'), findsOneWidget);
     expect(find.text('PASSWORD_HINT'), findsOneWidget);
   });
-  testWidgets("Show `errorEmail` text when email is not validated",
+  testWidgets('Show `errorEmail` text when email is not validated',
       (WidgetTester tester) async {
     await tester
         .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));
@@ -40,7 +40,7 @@ void main() {
 
     // expect(find.text('NO_VALID_EMAIL'), findsOneWidget);
   });
-  testWidgets("Do not show [AlertDialog] when email is validated",
+  testWidgets('Do not show [AlertDialog] when email is validated',
       (WidgetTester tester) async {
     await tester
         .pumpWidget(TestUtils.makeTestableWidget(child: const SignIn()));

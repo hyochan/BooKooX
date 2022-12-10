@@ -97,7 +97,7 @@ class LedgerEdit extends HookWidget {
       }
 
       if (mode == LedgerEditType.add) {
-        String? refId = "";
+        String? refId = '';
         try {
           refId = await db.requestCreateNewLedger(editLedger.value);
           editLedger.value = editLedger.value?.copyWith(id: refId);
@@ -130,12 +130,10 @@ class LedgerEdit extends HookWidget {
       bool hasMoreThanOneUser = editLedger.value!.memberIds.length > 1;
 
       if (hasOwnerPermission && !hasMoreThanOneUser) {
-        var localization = Localization.of(context)!;
-
         General.instance.showConfirmDialog(
           context,
-          title: Text(localization.trans('NOTIFICATION')!),
-          content: Text(localization.trans('LEAVE_ASK')!),
+          title: Text(t('NOTIFICATION')),
+          content: Text(t('LEAVE_ASK')),
           cancelPressed: () => Navigator.of(context).pop(),
           okPressed: () async {
             bool hasLeft = await DatabaseService()
@@ -152,16 +150,12 @@ class LedgerEdit extends HookWidget {
         return;
       }
 
-      var localization = Localization.of(context)!;
-
       General.instance.showSingleDialog(
         context,
-        title: Text(localization.trans('ERROR')!),
-        content: Text(localization.trans('SHOULD_TRANSFER_OWNERSHIP')!),
+        title: Text(t('ERROR')),
+        content: Text(t('SHOULD_TRANSFER_OWNERSHIP')),
       );
     }
-
-    var localization = Localization.of(context)!;
 
     return Scaffold(
       backgroundColor: asset.Colors.getColor(editLedger.value!.color),
@@ -178,8 +172,8 @@ class LedgerEdit extends HookWidget {
                     padding: const EdgeInsets.all(0.0),
                     onPressed: leaveLedger,
                     child: Text(
-                      localization.trans('LEAVE')!,
-                      semanticsLabel: localization.trans('LEAVE'),
+                      t('LEAVE'),
+                      semanticsLabel: t('LEAVE'),
                       style: const TextStyle(
                         color: Colors.red,
                         fontSize: 18,
@@ -206,7 +200,7 @@ class LedgerEdit extends HookWidget {
                     decoration: InputDecoration(
                       hintMaxLines: 2,
                       border: InputBorder.none,
-                      hintText: localization.trans('LEDGER_NAME_HINT'),
+                      hintText: t('LEDGER_NAME_HINT'),
                       hintStyle: const TextStyle(
                         fontSize: 28.0,
                         color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -232,7 +226,7 @@ class LedgerEdit extends HookWidget {
                     textAlignVertical: TextAlignVertical.top,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: localization.trans('LEDGER_DESCRIPTION_HINT'),
+                      hintText: t('LEDGER_DESCRIPTION_HINT'),
                       hintStyle: const TextStyle(
                         fontSize: 16.0,
                         color: Color.fromRGBO(255, 255, 255, 0.7),
@@ -255,7 +249,7 @@ class LedgerEdit extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          localization.trans('CURRENCY')!,
+                          t('CURRENCY'),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -291,7 +285,7 @@ class LedgerEdit extends HookWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        localization.trans('COLOR')!,
+                        t('COLOR'),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -353,8 +347,7 @@ class LedgerEdit extends HookWidget {
                           width: 80,
                           child: Center(
                             child: CircularProgressIndicator(
-                              semanticsLabel:
-                                  Localization.of(context)!.trans('LOADING'),
+                              semanticsLabel: t('LOADING'),
                               backgroundColor: Theme.of(context).primaryColor,
                               strokeWidth: 2,
                               valueColor: const AlwaysStoppedAnimation<Color>(
@@ -371,9 +364,7 @@ class LedgerEdit extends HookWidget {
                           ),
                           child: Center(
                             child: Text(
-                              ledger == null
-                                  ? localization.trans('DONE')!
-                                  : localization.trans('UPDATE')!,
+                              ledger == null ? t('DONE') : t('UPDATE'),
                               style: TextStyle(
                                 color: asset.Colors.getColor(
                                     editLedger.value!.color),

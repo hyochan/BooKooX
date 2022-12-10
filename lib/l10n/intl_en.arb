@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "LOADING": "Loading...",
   "SIGN_IN": "Sign in",
   "SIGN_OUT_ASK": "Are you sure you want to sign out?",

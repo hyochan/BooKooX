@@ -119,7 +119,7 @@ class General {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(localization!.trans('MEMBERSHIP_CHANGE')!),
+          title: Text(t('MEMBERSHIP_CHANGE')),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return SizedBox(
@@ -127,19 +127,19 @@ class General {
                 child: Column(
                   children: <Widget>[
                     RadioListTile(
-                      title: Text(localization.trans('MEMBER_OWNER')!),
+                      title: Text(t('MEMBER_OWNER')),
                       groupValue: value,
                       value: 0,
                       onChanged: onChange,
                     ),
                     RadioListTile(
-                      title: Text(localization.trans('MEMBER_ADMIN')!),
+                      title: Text(t('MEMBER_ADMIN')),
                       groupValue: value,
                       value: 1,
                       onChanged: onChange,
                     ),
                     RadioListTile(
-                      title: Text(localization.trans('MEMBER_GUEST')!),
+                      title: Text(t('MEMBER_GUEST')),
                       groupValue: value,
                       value: 2,
                       onChanged: onChange,
@@ -195,7 +195,7 @@ class General {
                             style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w400,
-                              fontFamily: "AppleSDGothicNeo",
+                              fontFamily: 'AppleSDGothicNeo',
                               fontStyle: FontStyle.normal,
                               fontSize: 18.0,
                             ),

@@ -4,7 +4,7 @@ import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/widgets/line_graph_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/localization.dart' show Localization;
+import '../utils/localization.dart';
 import '../widgets/header.dart' show renderHeaderBack;
 
 import 'package:intl/intl.dart' show DateFormat, NumberFormat;
@@ -19,7 +19,7 @@ class LineGraphArguments {
 
 double getPriceSum(List<LedgerItem> items) {
   double sum = 0;
-  for (var item in items) {
+  for (final item in items) {
     sum += item.price!.abs();
   }
   return sum;
@@ -43,9 +43,8 @@ class LineGraph extends HookWidget {
 
     useEffect(() {
       Future.delayed(Duration.zero, () {
-        var localization = Localization.of(context);
         // this._items = createCafeList(_localization);
-        items.value = createMockCafeList(localization!);
+        items.value = createMockCafeList(t);
         selectedItems.value = items.value;
         priceSum.value = getPriceSum(items.value);
       });
@@ -56,7 +55,7 @@ class LineGraph extends HookWidget {
     /// set bottom list to show selected month, total expenditure and its list
     void handleClickGraph({required int month, required double sumOfPrice}) {
       List<LedgerItem> itemsOfThisMonth = [];
-      for (var item in items.value) {
+      for (final item in items.value) {
         if (item.selectedDate!.month == month) {
           itemsOfThisMonth.add(item);
         }
@@ -66,8 +65,6 @@ class LineGraph extends HookWidget {
       selectedItems.value = itemsOfThisMonth;
       priceSum.value = sumOfPrice;
     }
-
-    var localization = Localization.of(context)!;
 
     /// Render
     return Scaffold(
@@ -85,7 +82,7 @@ class LineGraph extends HookWidget {
             headerAlign(
               child: Text(
                 title,
-                // _localization.trans('CAFE')!,
+                // _t('CAFE')!,
                 style: TextStyle(
                   fontSize: 30,
                   color: Theme.of(context).textTheme.displayLarge!.color,

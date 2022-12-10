@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 
 // One entry in the multilevel list displayed by this app.
 class Entry {
@@ -37,15 +37,14 @@ class SettingAnnouncement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = Localization.of(context)!;
     final List<Entry> data = <Entry>[
       Entry(
-        localization.trans('ANNOUNCEMENT_1'),
-        <Entry>[Entry(localization.trans('ANNOUNCEMENT_TXT_1'))],
+        t('ANNOUNCEMENT_1'),
+        <Entry>[Entry(t('ANNOUNCEMENT_TXT_1'))],
       ),
       Entry(
-        localization.trans('ANNOUNCEMENT_2'),
-        <Entry>[Entry(localization.trans('ANNOUNCEMENT_TXT_2'))],
+        t('ANNOUNCEMENT_2'),
+        <Entry>[Entry(t('ANNOUNCEMENT_TXT_2'))],
       ),
     ];
     return Scaffold(
@@ -56,7 +55,7 @@ class SettingAnnouncement extends StatelessWidget {
         iconColor: Theme.of(context).iconTheme.color,
         brightness: Theme.of(context).brightness,
         title: Text(
-          localization.trans('ANNOUNCEMENT')!,
+          t('ANNOUNCEMENT'),
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).textTheme.displayLarge!.color,

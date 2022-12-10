@@ -3,12 +3,17 @@ import 'dart:io' show Platform;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_localizations/flutter_localizations.dart'
+    show
+        GlobalMaterialLocalizations,
+        GlobalWidgetsLocalizations,
+        GlobalCupertinoLocalizations;
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
+import 'package:wecount/generated/l10n.dart' show S;
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/utils/constants.dart';
 import 'package:wecount/utils/routes.dart';
@@ -73,10 +78,10 @@ class MyApp extends StatelessWidget {
         localeResolutionCallback:
             (Locale? locale, Iterable<Locale> supportedLocales) {
           if (locale == null) {
-            debugPrint("*language locale is null!!!");
+            debugPrint('*language locale is null!!!');
             return supportedLocales.first;
           }
-          for (Locale supportedLocale in supportedLocales) {
+          for (final Locale supportedLocale in supportedLocales) {
             if (supportedLocale.languageCode == locale.languageCode ||
                 supportedLocale.countryCode == locale.countryCode) {
               return supportedLocale;
@@ -85,10 +90,10 @@ class MyApp extends StatelessWidget {
           return supportedLocales.first;
         },
         localizationsDelegates: const [
-          LocalizationDelegate(supportedLocales: ['en', 'ko']),
+          S.delegate,
           GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [
           Locale('en', 'US'),

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets("Button", (WidgetTester tester) async{
+  testWidgets('Button', (WidgetTester tester) async{
     // await tester.pumpWidget(TestUtils.makeTestableWidget(child: CategoryItem(
     //   category: Category(),
     // )));

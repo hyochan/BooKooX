@@ -5,7 +5,7 @@ import 'package:wecount/screens/setting_currency.dart' show SettingCurrency;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async {
+  testWidgets('Widget', (WidgetTester tester) async {
     await tester.pumpWidget(
         TestUtils.makeTestableWidget(child: const SettingCurrency()));
     await tester.pumpAndSettle();

@@ -6,7 +6,7 @@ import 'package:wecount/screens/category_add.dart' show CategoryAdd;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets("Widget", (WidgetTester tester) async {
+  testWidgets('Widget', (WidgetTester tester) async {
     await tester.pumpWidget(
       TestUtils.makeTestableWidget(
         child:
@@ -22,7 +22,7 @@ void main() {
     expect(find.text('DONE'), findsNWidgets(1));
     expect(find.text('ICON_SELECT'), findsNWidgets(1));
   });
-  testWidgets("Navigate to [LedgerEdit] when addLedger pressed",
+  testWidgets('Navigate to [LedgerEdit] when addLedger pressed',
       (WidgetTester tester) async {
     // await tester.pumpWidget(TestUtils.makeTestableWidget(child: MainEmpty()));
     // await tester.pumpAndSettle();

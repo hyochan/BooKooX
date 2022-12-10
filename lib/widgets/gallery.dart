@@ -8,7 +8,7 @@ import 'package:wecount/models/photo.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/general.dart';
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
@@ -40,7 +40,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                     Container(
                       margin: const EdgeInsets.only(left: 8),
                       child: Text(
-                        localization!.trans('CAMERA')!,
+                        t('CAMERA'),
                         style: TextStyle(
                           fontSize: 16,
                           color:
@@ -67,7 +67,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                     Container(
                       margin: const EdgeInsets.only(left: 8),
                       child: Text(
-                        localization.trans('GALLERY')!,
+                        t('GALLERY'),
                         style: TextStyle(
                           fontSize: 16,
                           color:
@@ -108,8 +108,6 @@ class Gallery extends HookWidget {
       return null;
     }, []);
 
-    var localization = Localization.of(context)!;
-
     void onPressShowAll() {}
 
     return Container(
@@ -132,7 +130,7 @@ class Gallery extends HookWidget {
                       ),
                     ),
                     Text(
-                      localization.trans('PICTURE')!,
+                      t('PICTURE'),
                       style: TextStyle(
                         color: Theme.of(context).textTheme.displayLarge!.color,
                         fontSize: 16,
@@ -145,7 +143,7 @@ class Gallery extends HookWidget {
                   ? TextButton(
                       onPressed: onPressShowAll,
                       child: Text(
-                        localization.trans('SHOW_ALL')!,
+                        t('SHOW_ALL'),
                         style: TextStyle(
                           color:
                               Theme.of(context).textTheme.displayLarge!.color,

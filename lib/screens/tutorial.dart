@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/screens/intro.dart';
 
-import 'package:wecount/utils/localization.dart' show Localization;
+import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/routes.dart';
 
@@ -26,8 +26,6 @@ class Tutorial extends HookWidget {
         curve: Curves.easeIn,
       );
     }
-
-    var localization = Localization.of(context)!;
 
     Widget renderPage({
       Key? key,
@@ -55,12 +53,12 @@ class Tutorial extends HookWidget {
               margin: const EdgeInsets.only(top: 56),
               child: Text(
                 page == 0
-                    ? localization.trans('RECORD_IT')!
+                    ? t('RECORD_IT')
                     : page == 1
-                        ? localization.trans('SHARE_IT')!
+                        ? t('SHARE_IT')
                         : page == 2
-                            ? localization.trans('TAKE_CARE')!
-                            : localization.trans('RECORD_IT')!,
+                            ? t('TAKE_CARE')
+                            : t('RECORD_IT'),
                 style: const TextStyle(
                   fontSize: 28,
                   color: Colors.white,
@@ -72,12 +70,12 @@ class Tutorial extends HookWidget {
               margin: const EdgeInsets.only(top: 20),
               child: Text(
                 page == 0
-                    ? localization.trans('TUTORIAL_1_DETAIL')!
+                    ? t('TUTORIAL_1_DETAIL')
                     : page == 1
-                        ? localization.trans('TUTORIAL_2_DETAIL')!
+                        ? t('TUTORIAL_2_DETAIL')
                         : page == 2
-                            ? localization.trans('TUTORIAL_3_DETAIL')!
-                            : localization.trans('TUTORIAL_1_DETAIL')!,
+                            ? t('TUTORIAL_3_DETAIL')
+                            : t('TUTORIAL_1_DETAIL'),
                 style: const TextStyle(
                   fontSize: 16,
                   height: 1.3,
@@ -169,7 +167,7 @@ class Tutorial extends HookWidget {
                     TextButton(
                       onPressed: onNextPressed,
                       child: Text(
-                        localization.trans('NEXT')!,
+                        t('NEXT'),
                         style: const TextStyle(
                           fontSize: 20,
                           color: asset.Colors.green,

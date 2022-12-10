@@ -2,6 +2,11 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    - always_declare_return_types
+    - comment_references
+    - prefer_final_in_for_each
+    - prefer_single_quotes
+    - await_only_futures: true
 
 analyzer:
   strong-mode:
