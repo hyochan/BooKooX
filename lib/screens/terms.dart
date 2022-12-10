@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class Terms extends StatefulWidget {
+class Terms extends HookWidget {
   const Terms({Key? key}) : super(key: key);
 
-  @override
-  _TermsState createState() => _TermsState();
-}
-
-class _TermsState extends State<Terms> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -13,44 +14,146 @@ typedef void SelectMonthToShow(
 /// chart will have performance issue
 const CHART_SCALE = 10000;
 
-class LineGraphChart extends StatefulWidget {
+class LineGraphChart extends HookWidget {
   final List<LedgerItem> items;
   final SelectMonthToShow? onSelectMonth;
   LineGraphChart({required this.items, this.onSelectMonth});
 
   @override
-  _LineGraphChartState createState() => _LineGraphChartState();
-}
-
-class _LineGraphChartState extends State<LineGraphChart> {
-  late ChartValues chartValues;
-  double? _minY, _maxY;
-  var _spots;
-
-  @override
-  void initState() {
-    super.initState();
-
-    /// make min, max values and spots(tuple values) for chart
-    chartValues = ChartValues(mapValues(widget.items));
-    _minY = 0;
-    _maxY = chartValues.maxPrice / CHART_SCALE;
-
-    _spots = chartValues.tupleValues.map((Tuple tuple) {
-      return FlSpot(tuple.month.toDouble(), tuple.price / CHART_SCALE);
-    }).toList();
-  }
-
-  List<Color> gradientColors = [
-    Colors.blue,
-    const Color(0xff02d39a),
-  ];
-
-  double _minX = 1;
-  double _maxX = 12;
-
-  @override
   Widget build(BuildContext context) {
+    late ChartValues chartValues;
+    double? _minY, _maxY;
+
+    double _minX = 1;
+    double _maxX = 12;
+    var _spots;
+
+    useEffect(() {
+      /// make min, max values and spots(tuple values) for chart
+      chartValues = ChartValues(mapValues(items));
+      _minY = 0;
+      _maxY = chartValues.maxPrice / CHART_SCALE;
+
+      _spots = chartValues.tupleValues.map((Tuple tuple) {
+        return FlSpot(tuple.month.toDouble(), tuple.price / CHART_SCALE);
+      }).toList();
+      return null;
+    }, []);
+
+    List<Color> gradientColors = [
+      Colors.blue,
+      const Color(0xff02d39a),
+    ];
+
+    LineChartData mainData() {
+      return LineChartData(
+        minX: _minX,
+        maxX: _maxX,
+        minY: _minY,
+        maxY: _maxY,
+        gridData: FlGridData(
+          show: true,
+          drawVerticalLine: true,
+          getDrawingHorizontalLine: (value) {
+            return FlLine(
+              // color: Color(0xff37434d),
+              color: Color(0xd5d5d5ff),
+              strokeWidth: 1,
+            );
+          },
+          getDrawingVerticalLine: (value) {
+            return FlLine(
+              // color: Color(0xff37434d),
+              color: Color(0xd5d5d5ff),
+
+              strokeWidth: 1,
+            );
+          },
+        ),
+        titlesData: FlTitlesData(
+          show: true,
+          bottomTitles: AxisTitles(
+            // sideTitles: true,
+            // reservedSize: 22,
+            // textStyle: TextStyle(
+            //     color: const Color(0xff68737d),
+            //     fontWeight: FontWeight.bold,
+            //     fontSize: 13),
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 22,
+              // getTitlesWidget: (value) {
+              //   if (value % 2 == 1)
+              //     return DateFormat('MMM').format(DateTime(0, value.toInt()));
+              //   return null;
+              // },
+            ),
+          ),
+          leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 0,
+          )
+              // textStyle: TextStyle(
+              //   color: const Color(0xff67727d),
+              //   fontWeight: FontWeight.bold,
+              //   fontSize: 15,
+              // ),
+              // getTitles: (value) {
+              //   // return '${value.toInt()}';
+              //   return null;
+              // },
+              // reservedSize: 0,
+              // margin: 12,
+              ),
+        ),
+        borderData: FlBorderData(
+          show: true,
+          border: Border.all(color: const Color(0xff37434d), width: 1),
+        ),
+        lineTouchData: LineTouchData(
+          touchTooltipData: LineTouchTooltipData(
+            tooltipBgColor: Colors.blueAccent,
+            getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+              return touchedBarSpots.map((barSpot) {
+                final flSpot = barSpot;
+
+                return LineTooltipItem(
+                  '${NumberFormat.simpleCurrency().format((flSpot.y * CHART_SCALE))}',
+                  const TextStyle(color: Colors.white),
+                );
+              }).toList();
+            },
+          ),
+          touchCallback: (FlTouchEvent te, LineTouchResponse? res) {
+            res!.lineBarSpots!.forEach((spot) {
+              onSelectMonth!(
+                  month: spot.x.toInt(), sumOfPrice: spot.y * CHART_SCALE);
+            });
+          },
+        ),
+        lineBarsData: [
+          LineChartBarData(
+            spots: _spots,
+            isCurved: false,
+            // colors: gradientColors,
+            color: gradientColors.first,
+            barWidth: 5,
+            isStrokeCapRound: true,
+            dotData: FlDotData(
+              show: false,
+            ),
+            belowBarData: BarAreaData(
+              show: true,
+              // colors:
+              //     gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+              color: gradientColors.first,
+            ),
+          ),
+        ],
+      );
+    }
+
     return SafeArea(
       child: Stack(
         children: <Widget>[
@@ -73,115 +176,6 @@ class _LineGraphChartState extends State<LineGraphChart> {
           ),
         ],
       ),
-    );
-  }
-
-  LineChartData mainData() {
-    return LineChartData(
-      minX: _minX,
-      maxX: _maxX,
-      minY: _minY,
-      maxY: _maxY,
-      gridData: FlGridData(
-        show: true,
-        drawVerticalLine: true,
-        getDrawingHorizontalLine: (value) {
-          return FlLine(
-            // color: Color(0xff37434d),
-            color: Color(0xd5d5d5ff),
-            strokeWidth: 1,
-          );
-        },
-        getDrawingVerticalLine: (value) {
-          return FlLine(
-            // color: Color(0xff37434d),
-            color: Color(0xd5d5d5ff),
-
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          // sideTitles: true,
-          // reservedSize: 22,
-          // textStyle: TextStyle(
-          //     color: const Color(0xff68737d),
-          //     fontWeight: FontWeight.bold,
-          //     fontSize: 13),
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 22,
-            // getTitlesWidget: (value) {
-            //   if (value % 2 == 1)
-            //     return DateFormat('MMM').format(DateTime(0, value.toInt()));
-            //   return null;
-            // },
-          ),
-        ),
-        leftTitles: AxisTitles(
-            sideTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 0,
-        )
-            // textStyle: TextStyle(
-            //   color: const Color(0xff67727d),
-            //   fontWeight: FontWeight.bold,
-            //   fontSize: 15,
-            // ),
-            // getTitles: (value) {
-            //   // return '${value.toInt()}';
-            //   return null;
-            // },
-            // reservedSize: 0,
-            // margin: 12,
-            ),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: const Color(0xff37434d), width: 1),
-      ),
-      lineTouchData: LineTouchData(
-        touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Colors.blueAccent,
-          getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
-            return touchedBarSpots.map((barSpot) {
-              final flSpot = barSpot;
-
-              return LineTooltipItem(
-                '${NumberFormat.simpleCurrency().format((flSpot.y * CHART_SCALE))}',
-                const TextStyle(color: Colors.white),
-              );
-            }).toList();
-          },
-        ),
-        touchCallback: (FlTouchEvent te, LineTouchResponse? res) {
-          res!.lineBarSpots!.forEach((spot) {
-            widget.onSelectMonth!(
-                month: spot.x.toInt(), sumOfPrice: spot.y * CHART_SCALE);
-          });
-        },
-      ),
-      lineBarsData: [
-        LineChartBarData(
-          spots: _spots,
-          isCurved: false,
-          // colors: gradientColors,
-          color: gradientColors.first,
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            // colors:
-            //     gradientColors.map((color) => color.withOpacity(0.3)).toList(),
-            color: gradientColors.first,
-          ),
-        ),
-      ],
     );
   }
 }

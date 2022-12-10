@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/edit_text.dart' show EditText;
@@ -12,133 +13,127 @@ import 'package:wecount/utils/asset.dart' as Asset;
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-class SignUp extends StatefulWidget {
+class SignUp extends HookWidget {
   const SignUp({Key? key}) : super(key: key);
 
   @override
-  _SignUpState createState() => _SignUpState();
-}
+  Widget build(BuildContext context) {
+    Localization? _localization;
 
-class _SignUpState extends State<SignUp> {
-  Localization? _localization;
+    String? _email;
+    String? _password;
+    String? _passwordConfirm;
+    String? _displayName;
+    String? _name;
 
-  String? _email;
-  String? _password;
-  String? _passwordConfirm;
-  String? _displayName;
-  String? _name;
+    var _errorEmail = useState<String?>(null);
+    var _errorPassword = useState<String?>(null);
+    var _errorPasswordConfirm = useState<String?>(null);
+    var _errorDisplayName = useState<String?>(null);
+    var _errorName = useState<String?>(null);
 
-  String? _errorEmail;
-  String? _errorPassword;
-  String? _errorPasswordConfirm;
-  String? _errorDisplayName;
-  String? _errorName;
+    var _isValidEmail = useState<bool>(false);
+    var _isValidPassword = useState<bool>(false);
+    var _isValidDisplayName = useState<bool>(false);
+    var _isValidName = useState<bool>(false);
+    var _isRegistering = useState<bool>(false);
 
-  bool _isValidEmail = false;
-  bool _isValidPassword = false;
-  bool _isValidDisplayName = false;
-  bool _isValidName = false;
-  bool _isRegistering = false;
+    void _signUp() async {
+      if (_email == null ||
+          _password == null ||
+          _passwordConfirm == null ||
+          _displayName == null ||
+          _name == null) {
+        return;
+      }
 
-  void _signUp() async {
-    if (_email == null ||
-        _password == null ||
-        _passwordConfirm == null ||
-        _displayName == null ||
-        _name == null) {
-      return;
-    }
+      if (!_isValidEmail.value) {
+        _errorEmail.value = _localization!.trans('NO_VALID_EMAIL');
+        return;
+      }
 
-    if (!_isValidEmail) {
-      setState(() => _errorEmail = _localization!.trans('NO_VALID_EMAIL'));
-      return;
-    }
+      if (!_isValidPassword.value) {
+        _errorPassword.value = _localization!.trans('PASSWORD_HINT');
+        return;
+      }
 
-    if (!_isValidPassword) {
-      setState(() => _errorPassword = _localization!.trans('PASSWORD_HINT'));
-      return;
-    }
+      if (_passwordConfirm != _password) {
+        _errorPasswordConfirm.value =
+            _localization!.trans('PASSWORD_CONFIRM_HINT');
+        return;
+      }
 
-    if (_passwordConfirm != _password) {
-      setState(() => _errorPasswordConfirm =
-          _localization!.trans('PASSWORD_CONFIRM_HINT'));
-      return;
-    }
+      if (!_isValidDisplayName.value) {
+        _errorDisplayName.value = _localization!.trans('DISPLAY_NAME_HINT');
+        return;
+      }
 
-    if (!_isValidDisplayName) {
-      setState(
-          () => _errorDisplayName = _localization!.trans('DISPLAY_NAME_HINT'));
-      return;
-    }
+      if (!_isValidName.value) {
+        _errorName.value = _localization!.trans('NAME_HINT');
+        return;
+      }
 
-    if (!_isValidName) {
-      setState(() => _errorName = _localization!.trans('NAME_HINT'));
-      return;
-    }
+      _isRegistering.value = true;
 
-    setState(() => _isRegistering = true);
+      try {
+        final User? user = (await _auth.createUserWithEmailAndPassword(
+          email: _email!,
+          password: _password!,
+        ))
+            .user;
 
-    try {
-      final User? user = (await _auth.createUserWithEmailAndPassword(
-        email: _email!,
-        password: _password!,
-      ))
-          .user;
+        if (user != null) {
+          await user.sendEmailVerification();
+          await firestore.collection('users').doc(user.uid).set({
+            'email': _email,
+            'displayName': _displayName,
+            'name': _name,
+            'createdAt': FieldValue.serverTimestamp(),
+            'updatedAt': FieldValue.serverTimestamp(),
+            'deletedAt': null,
+          });
 
-      if (user != null) {
-        await user.sendEmailVerification();
-        await firestore.collection('users').doc(user.uid).set({
-          'email': _email,
-          'displayName': _displayName,
-          'name': _name,
-          'createdAt': FieldValue.serverTimestamp(),
-          'updatedAt': FieldValue.serverTimestamp(),
-          'deletedAt': null,
-        });
+          user.updateDisplayName(_displayName);
 
-        user.updateDisplayName(_displayName);
+          return navigation.showSingleDialog(
+            context,
+            title: Text(
+              _localization!.trans('SIGN_UP_SUCCESS_TITLE')!,
+              style: TextStyle(
+                  color: Theme.of(context).dialogTheme.titleTextStyle!.color),
+            ),
+            content: Text(
+              _localization!.trans('SIGN_UP_SUCCESS_CONTENT')!,
+              style: TextStyle(
+                  color: Theme.of(context).dialogTheme.contentTextStyle!.color),
+            ),
+            onPress: () {
+              _auth.signOut();
+              Navigator.of(context).pop();
+            },
+          );
+        }
 
-        return navigation.showSingleDialog(
+        throw Error();
+      } catch (err) {
+        navigation.showSingleDialog(
           context,
           title: Text(
-            _localization!.trans('SIGN_UP_SUCCESS_TITLE')!,
+            _localization!.trans('SIGN_UP_ERROR_TITLE')!,
             style: TextStyle(
                 color: Theme.of(context).dialogTheme.titleTextStyle!.color),
           ),
           content: Text(
-            _localization!.trans('SIGN_UP_SUCCESS_CONTENT')!,
+            _localization!.trans('SIGN_UP_ERROR_CONTENT')!,
             style: TextStyle(
                 color: Theme.of(context).dialogTheme.contentTextStyle!.color),
           ),
-          onPress: () {
-            _auth.signOut();
-            Navigator.of(context).pop();
-          },
         );
+      } finally {
+        _isRegistering.value = false;
       }
-
-      throw Error();
-    } catch (err) {
-      navigation.showSingleDialog(
-        context,
-        title: Text(
-          _localization!.trans('SIGN_UP_ERROR_TITLE')!,
-          style: TextStyle(
-              color: Theme.of(context).dialogTheme.titleTextStyle!.color),
-        ),
-        content: Text(
-          _localization!.trans('SIGN_UP_ERROR_CONTENT')!,
-          style: TextStyle(
-              color: Theme.of(context).dialogTheme.contentTextStyle!.color),
-        ),
-      );
-    } finally {
-      setState(() => _isRegistering = false);
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     _localization = Localization.of(context);
 
     Widget renderSignUpText() {
@@ -161,19 +156,17 @@ class _SignUpState extends State<SignUp> {
         textHint: _localization!.trans('EMAIL_HINT'),
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidEmail,
+        hasChecked: _isValidEmail.value,
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
-            setState(() {
-              _isValidEmail = true;
-              _errorEmail = null;
-            });
+            _isValidEmail.value = true;
+            _errorEmail.value = null;
           } else {
-            setState(() => _isValidEmail = false);
+            _isValidEmail.value = false;
           }
           _email = str;
         },
-        errorText: _errorEmail,
+        errorText: _errorEmail.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -188,19 +181,17 @@ class _SignUpState extends State<SignUp> {
         isSecret: true,
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidPassword,
+        hasChecked: _isValidPassword.value,
         onChanged: (String str) {
           if (Validator.instance.validatePassword(str)) {
-            setState(() {
-              _isValidPassword = true;
-              _errorPassword = null;
-            });
+            _isValidPassword.value = true;
+            _errorPassword.value = null;
           } else {
-            setState(() => _isValidPassword = false);
+            _isValidPassword.value = false;
           }
           _password = str;
         },
-        errorText: _errorPassword,
+        errorText: _errorPassword.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -218,13 +209,14 @@ class _SignUpState extends State<SignUp> {
         hasChecked: _passwordConfirm != null &&
             _passwordConfirm != '' &&
             _passwordConfirm == _password,
-        onChanged: (String str) => setState(() {
+        onChanged: (String str) {
           _passwordConfirm = str;
           if (str == _password) {
-            _errorPasswordConfirm = null;
+            _errorPasswordConfirm.value = null;
           }
-        }),
-        errorText: _errorPasswordConfirm,
+          ;
+        },
+        errorText: _errorPasswordConfirm.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -238,19 +230,17 @@ class _SignUpState extends State<SignUp> {
         textHint: _localization!.trans('DISPLAY_NAME_HINT'),
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidDisplayName,
+        hasChecked: _isValidDisplayName.value,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
-            setState(() {
-              _isValidDisplayName = true;
-              _errorDisplayName = null;
-            });
+            _isValidDisplayName.value = true;
+            _errorDisplayName.value = null;
           } else {
-            setState(() => _isValidDisplayName = false);
+            _isValidDisplayName.value = false;
           }
           _displayName = str;
         },
-        errorText: _errorDisplayName,
+        errorText: _errorDisplayName.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -264,19 +254,17 @@ class _SignUpState extends State<SignUp> {
         textHint: _localization!.trans('NAME_HINT'),
         textStyle: TextStyle(
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: _isValidName,
+        hasChecked: _isValidName.value,
         onChanged: (String str) {
           if (Validator.instance.validateNicknameOrName(str)) {
-            setState(() {
-              _isValidName = true;
-              _errorName = null;
-            });
+            _isValidName.value = true;
+            _errorName.value = null;
           } else {
-            setState(() => _isValidName = false);
+            _isValidName.value = false;
           }
           _name = str;
         },
-        errorText: _errorName,
+        errorText: _errorName.value,
         onSubmitted: (String str) => _signUp(),
       );
     }
@@ -284,7 +272,7 @@ class _SignUpState extends State<SignUp> {
     Widget renderSignUpButton() {
       return Button(
         key: Key('button-sign-up'),
-        isLoading: _isRegistering,
+        isLoading: _isRegistering.value,
         onPress: () => _signUp(),
         margin: EdgeInsets.only(top: 36.0, bottom: 48.0),
         textStyle: TextStyle(

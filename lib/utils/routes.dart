@@ -115,7 +115,8 @@ final routes = {
   AppRoute.lockRegister.fullPath: (context) => const LockRegister(),
   AppRoute.lockAuth.fullPath: (context) => const LockAuth(),
   AppRoute.locationView.fullPath: (context) => const LocationView(),
-  AppRoute.ledgerEdit.fullPath: (context) => const LedgerEdit()
+  AppRoute.ledgerEdit.fullPath: (context) => const LedgerEdit(),
+  AppRoute.settingCurrency.fullPath: (context) => const SettingCurrency()
 };
 
 MaterialPageRoute onGenerateRoute(RouteSettings settings) {

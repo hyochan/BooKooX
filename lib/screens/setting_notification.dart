@@ -1,32 +1,27 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:wecount/widgets/header.dart';
 import 'package:wecount/utils/localization.dart';
 
-class SettingNotification extends StatefulWidget {
+class SettingNotification extends HookWidget {
   const SettingNotification({Key? key}) : super(key: key);
 
   @override
-  _SettingNotificationState createState() => _SettingNotificationState();
-}
-
-class _SettingNotificationState extends State<SettingNotification> {
-  bool _addLedgerSwitch = false;
-  bool _updateLedgerSwitch = false;
-
-  void _onChangeAddingLedgerSwitch(bool value) {
-    setState(() => _addLedgerSwitch = value);
-    print('value: $value');
-  }
-
-  void _onChangeUpdateLedgerSwitch(bool value) {
-    setState(() => _updateLedgerSwitch = value);
-    print('value: $value');
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var _addLedgerSwitch = useState<bool>(false);
+    var _updateLedgerSwitch = useState<bool>(false);
+
+    void _onChangeAddingLedgerSwitch(bool value) {
+      _addLedgerSwitch.value = value;
+      print('value: $value');
+    }
+
+    void _onChangeUpdateLedgerSwitch(bool value) {
+      _updateLedgerSwitch.value = value;
+      print('value: $value');
+    }
+
     var _localization = Localization.of(context)!;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -66,10 +61,10 @@ class _SettingNotificationState extends State<SettingNotification> {
                 Container(
                   padding: EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
-                    value: _addLedgerSwitch,
+                    value: _addLedgerSwitch.value,
                     onChanged: _onChangeAddingLedgerSwitch,
                     activeTrackColor: Theme.of(context).primaryColor,
-                    activeColor: Theme.of(context).accentColor,
+                    activeColor: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ],
@@ -93,7 +88,7 @@ class _SettingNotificationState extends State<SettingNotification> {
                 Container(
                   padding: EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
-                    value: _updateLedgerSwitch,
+                    value: _updateLedgerSwitch.value,
                     onChanged: _onChangeUpdateLedgerSwitch,
                     activeTrackColor: Theme.of(context).primaryColor,
                     activeColor: Theme.of(context).accentColor,

@@ -92,7 +92,10 @@ class SettingTileItem extends StatelessWidget {
       onTap: item.onTap as void Function()?,
       child: ListTile(
         leading: item.leading,
-        title: Text(item.title!),
+        title: Text(
+          item.title!,
+          style: TextStyle(color: Colors.black),
+        ),
         trailing: item.trailing,
       ),
     );

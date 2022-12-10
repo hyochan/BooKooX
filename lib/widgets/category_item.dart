@@ -1,8 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/category.dart';
 import 'package:flutter/material.dart';
 
-class CategoryItem extends StatefulWidget {
+class CategoryItem extends HookWidget {
   CategoryItem({
     this.key,
     required this.category,
@@ -15,30 +16,23 @@ class CategoryItem extends StatefulWidget {
   final Function? onSelectPressed;
 
   @override
-  _CategoryItemState createState() => _CategoryItemState(category);
-}
-
-class _CategoryItemState extends State<CategoryItem> {
-  _CategoryItemState(this.category);
-  Category category;
-
-  @override
   Widget build(BuildContext context) {
+    var category = useState<Category>(this.category);
+
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 10, left: 8),
       child: InkWell(
         onTap: () {
-          widget.onSelectPressed!();
+          onSelectPressed!();
         },
-        onLongPress: () => setState(() {
-          category.showDelete = !category.showDelete;
-        }),
+        onLongPress: () =>
+            category.value.showDelete = !category.value.showDelete,
         child: Stack(
           children: <Widget>[
             Column(
               children: <Widget>[
                 Image(
-                  image: category.getIconImage()!,
+                  image: category.value.getIconImage()!,
                   width: 72,
                   height: 72,
                 ),
@@ -46,7 +40,7 @@ class _CategoryItemState extends State<CategoryItem> {
                   margin: EdgeInsets.only(top: 8),
                   width: 80,
                   child: AutoSizeText(
-                    category.label ?? '',
+                    category.value.label ?? '',
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.displayLarge!.color,
@@ -60,11 +54,11 @@ class _CategoryItemState extends State<CategoryItem> {
             Positioned(
               right: 0,
               top: 0,
-              child: category.showDelete
+              child: category.value.showDelete
                   ? Container(
                       padding: EdgeInsets.all(2),
                       child: InkWell(
-                        onTap: widget.onDeletePressed as void Function()?,
+                        onTap: onDeletePressed as void Function()?,
                         child: ClipOval(
                           child: Container(
                             width: 24,

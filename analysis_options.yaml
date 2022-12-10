@@ -1,0 +1,19 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+
+analyzer:
+  strong-mode:
+    # implicit-casts: false
+    # implicit-dynamic: false
+  exclude:
+    - lib/**.freezed.dart
+    - lib/**.g.dart
+  errors:
+    invalid_annotation_target: ignore
+    # TODO: Remove below rules after refactoring is done
+    unused_local_variable: ignore
+    unused_field: ignore
+    unused_import: ignore
+    unused_element: ignore

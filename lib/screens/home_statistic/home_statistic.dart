@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/mocks/home_statistic.mock.dart';
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/providers/current_ledger.dart';
@@ -66,67 +67,61 @@ class HomeStatistic extends StatelessWidget {
   }
 }
 
-class Content extends StatefulWidget {
+class Content extends HookWidget {
   Content({Key? key}) : super(key: key);
 
   @override
-  _ContentState createState() => _ContentState();
-}
-
-class _ContentState extends State<Content> {
-  /// From parent
-  late List<LedgerItem> _ledgerList;
-
-  /// State
-  DateTime _date = DateTime.now();
-  List<LedgerItem> _condensedLedgerList = [];
-  Map<String, double>? _dataMapIncome = Map();
-  Map<String, double>? _dataMapExpense = Map();
-  int? _selectedChart;
-
-  List<Color> colorList = [
-    Asset.Colors.blue,
-    Asset.Colors.orange,
-    Asset.Colors.green,
-    Asset.Colors.yellow,
-    Asset.Colors.purple,
-    Asset.Colors.main,
-    Asset.Colors.red,
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () {
-      _ledgerList = createHomeStatisticMock(Localization.of(context)!);
-
-      calculateAndRender(this._date.month.toString(), _ledgerList);
-      this.setState(() => this._selectedChart = 1);
-    });
-  }
-
-  void calculateAndRender(String month, List<LedgerItem> ledgerList) {
-    var ledgerListOfSelectedMonth = ledgerListByMonth(month, ledgerList);
-
-    /// sum up same category into one. but before that I can make ui first
-    var condensedLedgerList = condense(ledgerListOfSelectedMonth);
-    var result = splitLedgers(condensedLedgerList);
-    // ledgerList.addAll(normalIncomeList(localization, 10));
-
-    this.setState(() {
-      this._condensedLedgerList = condensedLedgerList;
-      this._dataMapIncome = result['income'];
-      this._dataMapExpense = result['expense'];
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    /// From parent
+    late List<LedgerItem> _ledgerList;
+
+    /// State
+    DateTime _date = DateTime.now();
+    var _dataMapIncome = useState<Map<String, double>?>(Map());
+    var _dataMapExpense = useState<Map<String, double>?>(Map());
+    var _condensedLedgerList = useState<List<LedgerItem>>([]);
+    var _selectedChart = useState<int?>(null);
+
+    List<Color> colorList = [
+      Asset.Colors.blue,
+      Asset.Colors.orange,
+      Asset.Colors.green,
+      Asset.Colors.yellow,
+      Asset.Colors.purple,
+      Asset.Colors.main,
+      Asset.Colors.red,
+    ];
+
+    void calculateAndRender(String month, List<LedgerItem> ledgerList) {
+      var ledgerListOfSelectedMonth = ledgerListByMonth(month, ledgerList);
+
+      /// sum up same category into one. but before that I can make ui first
+      var condensedLedgerList = condense(ledgerListOfSelectedMonth);
+      var result = splitLedgers(condensedLedgerList);
+      // ledgerList.addAll(normalIncomeList(localization, 10));
+
+      _condensedLedgerList.value = condensedLedgerList;
+      _dataMapIncome.value = result['income'];
+      _dataMapExpense.value = result['expense'];
+    }
+
+    ;
+
     var localization = Localization.of(context);
+
+    useEffect(() {
+      Future.delayed(Duration.zero, () {
+        _ledgerList = createHomeStatisticMock(Localization.of(context)!);
+
+        calculateAndRender(_date.month.toString(), _ledgerList);
+        _selectedChart.value = 1;
+      });
+      return null;
+    }, []);
 
     /// Month select Widget -> select month, set _date and calculate
     void onDatePressed() async {
-      int year = this._date.year;
+      int year = _date.year;
       int prevDate = year - 100;
       int lastDate = year + 10;
       // DateTime? pickDate = await showMonthPicker(
@@ -141,8 +136,9 @@ class _ContentState extends State<Content> {
       // }
     }
 
-    Map<String, double> dataMap =
-        this._selectedChart == 1 ? this._dataMapIncome! : this._dataMapExpense!;
+    Map<String, double> dataMap = _selectedChart.value == 1
+        ? _dataMapIncome.value!
+        : _dataMapExpense.value!;
 
     /// PieChart throws error when `_dataMap` is empty
     var chartWidget = dataMap.length > 0
@@ -185,9 +181,9 @@ class _ContentState extends State<Content> {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      itemCount: _condensedLedgerList.length,
+      itemCount: _condensedLedgerList.value.length,
       itemBuilder: (BuildContext context, int index) {
-        return HomeListItem(ledgerItem: _condensedLedgerList[index]);
+        return HomeListItem(ledgerItem: _condensedLedgerList.value[index]);
       },
     );
 
@@ -209,16 +205,12 @@ class _ContentState extends State<Content> {
             ),
             ButtonGroup(
               onButtonOnePressed: () {
-                this.setState(() {
-                  this._selectedChart = 1;
-                });
+                _selectedChart.value = 1;
               },
               onButtonTwoPressed: () {
-                this.setState(() {
-                  this._selectedChart = 2;
-                });
+                _selectedChart.value = 2;
               },
-              selected: this._selectedChart,
+              selected: _selectedChart.value,
             ),
             chartWidget,
             bottomListWidget,

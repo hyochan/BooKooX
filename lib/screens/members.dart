@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/edit_text.dart';
@@ -16,104 +17,97 @@ class MembersArguments {
   MembersArguments({this.ledger});
 }
 
-class Members extends StatefulWidget {
+class Members extends HookWidget {
   final Ledger? ledger;
   const Members({Key? key, this.ledger}) : super(key: key);
 
   @override
-  _MembersState createState() => _MembersState();
-}
-
-class _MembersState extends State<Members> {
-  bool _isSearchMode = false;
-  List<ListItem> _filteredMembers = [];
-
-  final List<ListItem> _fakeMembers = [
-    HeadingItem(
-      numOfPeople: 4,
-    ),
-    MemberItem(
-      User(
-        displayName: 'displayName',
-        email: 'email@email.com',
-        thumbURL: 'url',
-        membership: Membership.Owner,
-      ),
-    ),
-    MemberItem(
-      User(
-        displayName: 'displayName',
-        email: 'email@email.com',
-        thumbURL: 'url',
-        membership: Membership.Admin,
-      ),
-    ),
-    MemberItem(
-      User(
-        displayName: 'displayName',
-        email: 'email@email.com',
-        thumbURL: 'url',
-        membership: Membership.Admin,
-      ),
-    ),
-    MemberItem(
-      User(
-        displayName: 'displayName',
-        email: 'email@email.com',
-        thumbURL: 'url',
-        membership: Membership.Guest,
-      ),
-    ),
-    MemberItem(
-      User(
-        displayName: 'displayName',
-        email: 'email@email.com',
-        thumbURL: 'url',
-        membership: Membership.Guest,
-      ),
-    ),
-    MemberItem(
-      User(
-        displayName: 'displayName',
-        email: 'email@email.com',
-        thumbURL: 'url',
-        membership: Membership.Guest,
-      ),
-    ),
-    MemberItem(
-      User(
-        displayName: 'displayName',
-        email: 'email@email.com',
-        thumbURL: 'url',
-        membership: Membership.Guest,
-      ),
-    ),
-    MemberItem(
-      User(
-        displayName: 'displayName',
-        email: 'email@email.com',
-        thumbURL: 'url',
-        membership: Membership.Guest,
-      ),
-    ),
-    MemberItem(
-      User(
-        displayName: 'displayName',
-        email: 'email@email.com',
-        thumbURL: 'url',
-        membership: Membership.Guest,
-      ),
-    ),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _filteredMembers = _fakeMembers;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var _isSearchMode = useState<bool>(false);
+    var _filteredMembers = useState<List<ListItem>>([]);
+
+    final List<ListItem> _fakeMembers = [
+      HeadingItem(
+        numOfPeople: 4,
+      ),
+      MemberItem(
+        User(
+          displayName: 'displayName',
+          email: 'email@email.com',
+          thumbURL: 'url',
+          membership: Membership.Owner,
+        ),
+      ),
+      MemberItem(
+        User(
+          displayName: 'displayName',
+          email: 'email@email.com',
+          thumbURL: 'url',
+          membership: Membership.Admin,
+        ),
+      ),
+      MemberItem(
+        User(
+          displayName: 'displayName',
+          email: 'email@email.com',
+          thumbURL: 'url',
+          membership: Membership.Admin,
+        ),
+      ),
+      MemberItem(
+        User(
+          displayName: 'displayName',
+          email: 'email@email.com',
+          thumbURL: 'url',
+          membership: Membership.Guest,
+        ),
+      ),
+      MemberItem(
+        User(
+          displayName: 'displayName',
+          email: 'email@email.com',
+          thumbURL: 'url',
+          membership: Membership.Guest,
+        ),
+      ),
+      MemberItem(
+        User(
+          displayName: 'displayName',
+          email: 'email@email.com',
+          thumbURL: 'url',
+          membership: Membership.Guest,
+        ),
+      ),
+      MemberItem(
+        User(
+          displayName: 'displayName',
+          email: 'email@email.com',
+          thumbURL: 'url',
+          membership: Membership.Guest,
+        ),
+      ),
+      MemberItem(
+        User(
+          displayName: 'displayName',
+          email: 'email@email.com',
+          thumbURL: 'url',
+          membership: Membership.Guest,
+        ),
+      ),
+      MemberItem(
+        User(
+          displayName: 'displayName',
+          email: 'email@email.com',
+          thumbURL: 'url',
+          membership: Membership.Guest,
+        ),
+      ),
+    ];
+
+    useEffect(() {
+      _filteredMembers.value = _fakeMembers;
+      return null;
+    }, []);
     var _localization = Localization.of(context)!;
 
     return Scaffold(
@@ -128,12 +122,10 @@ class _MembersState extends State<Members> {
               padding: EdgeInsets.all(0.0),
               shape: CircleBorder(),
               onPressed: () {
-                setState(() {
-                  _isSearchMode = !_isSearchMode;
-                  if (!_isSearchMode) {
-                    _filteredMembers = _fakeMembers;
-                  }
-                });
+                _isSearchMode.value = !_isSearchMode.value;
+                if (!_isSearchMode.value) {
+                  _filteredMembers.value = _fakeMembers;
+                }
               },
               child: Icon(
                 Icons.search,
@@ -145,35 +137,33 @@ class _MembersState extends State<Members> {
         ],
       ),
       body: ListView.builder(
-        itemCount: _filteredMembers.length,
+        itemCount: _filteredMembers.value.length,
         itemBuilder: (context, index) {
-          final item = _filteredMembers[index];
+          final item = _filteredMembers.value[index];
           if (item is HeadingItem) {
             return Container(
               height: 80,
               padding: EdgeInsets.symmetric(horizontal: 40),
               alignment: Alignment(-1, 0),
-              child: _isSearchMode
+              child: _isSearchMode.value
                   ? EditText(
                       key: Key('member'),
                       textInputAction: TextInputAction.next,
                       textHint: _localization.trans('SEARCH_USER_HINT'),
                       onChanged: (String str) {
-                        setState(() {
-                          _filteredMembers = _fakeMembers.where((list) {
-                            if (list is HeadingItem) {
-                              return true;
-                            } else if (list is MemberItem) {
-                              return list.user.email!
-                                      .toLowerCase()
-                                      .contains(str) ||
-                                  list.user.displayName!
-                                      .toLowerCase()
-                                      .contains(str);
-                            }
-                            return false;
-                          }).toList();
-                        });
+                        _filteredMembers.value = _fakeMembers.where((list) {
+                          if (list is HeadingItem) {
+                            return true;
+                          } else if (list is MemberItem) {
+                            return list.user.email!
+                                    .toLowerCase()
+                                    .contains(str) ||
+                                list.user.displayName!
+                                    .toLowerCase()
+                                    .contains(str);
+                          }
+                          return false;
+                        }).toList();
                       },
                     )
                   : Text(
@@ -189,9 +179,7 @@ class _MembersState extends State<Members> {
               user: item.user,
               onPressAuth: () {
                 navigation.showMembershipDialog(context, (int? val) {
-                  setState(() {
-                    item.user.changeMemberShip(val!);
-                  });
+                  item.user.changeMemberShip(val!);
                   Navigator.of(context).pop();
                 }, item.user.membership!.index);
               },

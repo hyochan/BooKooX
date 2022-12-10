@@ -173,11 +173,11 @@ class DatabaseService {
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(_profile!.uid)
+        .doc(_profile?.uid)
         .set({
-      'displayName': _profile.displayName,
-      'phoneNumber': _profile.phoneNumber,
-      'statusMsg': _profile.statusMsg,
+      'displayName': _profile?.displayName,
+      'phoneNumber': _profile?.phoneNumber,
+      'statusMsg': _profile?.statusMsg,
     }, SetOptions(merge: true));
 
     return true;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -12,70 +13,55 @@ import 'package:wecount/utils/localization.dart' show Localization;
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 
-class Setting extends StatefulWidget {
+class Setting extends HookWidget {
   const Setting({Key? key}) : super(key: key);
 
   @override
-  _SettingState createState() => _SettingState();
-}
+  Widget build(BuildContext context) {
+    var _lockSwitch = useState<bool>(false);
+    var _pin = useState<String?>('');
 
-class _SettingState extends State<Setting> {
-  bool _lockSwitch = false;
-  String? _pin = '';
+    readLockPinFromSF() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  readLockPinFromSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (prefs.containsKey('LOCK_PIN')) {
+        _pin.value = prefs.getString('LOCK_PIN');
+        _lockSwitch.value = true;
 
-    if (prefs.containsKey('LOCK_PIN')) {
-      _pin = prefs.getString('LOCK_PIN');
-      setState(() {
-        _lockSwitch = true;
-      });
-
-      print(_pin);
+        print(_pin);
+      }
     }
-  }
 
-  resetLockPinToSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('LOCK_PIN');
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    readLockPinFromSF();
-  }
-
-  void _onChangeLock(bool value) {
-    if (_lockSwitch == false && value) {
-      _awaitLockRegister(context);
-    } else {
-      _awaitLockAuth(context);
+    resetLockPinToSF() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove('LOCK_PIN');
     }
-  }
 
-  void _awaitLockRegister(BuildContext context) async {
-    await navigation.push(context, AppRoute.lockRegister.path);
+    void _awaitLockRegister(BuildContext context) async {
+      await navigation.push(context, AppRoute.lockRegister.path);
+      useEffect(() {
+        readLockPinFromSF();
+        return null;
+      }, []);
+    }
 
-    setState(() {
-      readLockPinFromSF();
-    });
-  }
+    void _awaitLockAuth(BuildContext context) async {
+      final result = await navigation.push(context, AppRoute.lockAuth.path);
 
-  void _awaitLockAuth(BuildContext context) async {
-    final result = await navigation.push(context, AppRoute.lockAuth.path);
-
-    setState(() {
-      if (_lockSwitch == true && result == false) {
-        _lockSwitch = false;
+      if (_lockSwitch.value == true && result == false) {
+        _lockSwitch.value = false;
         resetLockPinToSF();
       }
-    });
-  }
+    }
 
-  @override
-  Widget build(BuildContext context) {
+    void _onChangeLock(bool value) {
+      if (_lockSwitch.value == false && value) {
+        _awaitLockRegister(context);
+      } else {
+        _awaitLockAuth(context);
+      }
+    }
+
     var _localization = Localization.of(context)!;
     final List<ListItem> _items = [
       SettingItem(
@@ -124,10 +110,10 @@ class _SettingState extends State<Setting> {
         ),
         _localization.trans('LOCK'),
         optionalWidget: Switch(
-          value: _lockSwitch,
+          value: _lockSwitch.value,
           onChanged: _onChangeLock,
           activeTrackColor: Theme.of(context).primaryColor,
-          activeColor: Theme.of(context).accentColor,
+          activeColor: Theme.of(context).colorScheme.secondary,
         ),
       ),
       LogoutItem(

@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,14 +16,9 @@ import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as Asset;
 import 'package:provider/provider.dart' show Provider;
 
-class Ledgers extends StatefulWidget {
+class Ledgers extends HookWidget {
   const Ledgers({Key? key}) : super(key: key);
 
-  @override
-  _LedgersState createState() => _LedgersState();
-}
-
-class _LedgersState extends State<Ledgers> {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser!;
@@ -87,7 +83,6 @@ class _LedgersState extends State<Ledgers> {
                   if (!snapshot.hasData) return Container();
 
                   var profile = snapshot.data;
-
                   return ProfileListItem(
                     email: profile.email ?? '',
                     displayName: profile.displayName ?? '',
