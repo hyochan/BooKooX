@@ -7,7 +7,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
 import '../utils/asset.dart' as asset;
-import '../utils/localization.dart' show localization, t;
+import '../utils/localization.dart' show localization;
 
 import '../widgets/setting_list_item.dart'
     show ListItem, TileItem, SettingTileItem;
