@@ -187,7 +187,7 @@ class Intro extends StatelessWidget {
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
-                      Uri.parse('https://dooboolab.com/termsofservice'),
+                      Uri.parse('https://legacy.dooboolab.com/termsofservice'),
                     );
                   },
               ),
@@ -202,7 +202,8 @@ class Intro extends StatelessWidget {
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launchUrl(
-                      Uri.parse('https://dooboolab.com/privacyandpolicy'),
+                      Uri.parse(
+                          'https://legacy.dooboolab.com/privacyandpolicy'),
                     );
                   },
               ),
