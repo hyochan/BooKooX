@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user_model.dart';
 
@@ -96,9 +96,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? showEmailAddress = freezed,
     Object? showPhoneNumber = freezed,
     Object? membership = freezed,
-    Object? createdAt = null,
-    Object? deletedAt = null,
-    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? deletedAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       displayName: null == displayName
@@ -153,15 +153,15 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.membership
           : membership // ignore: cast_nullable_to_non_nullable
               as Membership?,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      deletedAt: null == deletedAt
+      deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      updatedAt: null == updatedAt
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
@@ -219,9 +219,9 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? showEmailAddress = freezed,
     Object? showPhoneNumber = freezed,
     Object? membership = freezed,
-    Object? createdAt = null,
-    Object? deletedAt = null,
-    Object? updatedAt = null,
+    Object? createdAt = freezed,
+    Object? deletedAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$_UserModel(
       displayName: null == displayName
@@ -276,9 +276,9 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.membership
           : membership // ignore: cast_nullable_to_non_nullable
               as Membership?,
-      createdAt: null == createdAt ? _value.createdAt : createdAt,
-      deletedAt: null == deletedAt ? _value.deletedAt : deletedAt,
-      updatedAt: null == updatedAt ? _value.updatedAt : updatedAt,
+      createdAt: freezed == createdAt ? _value.createdAt! : createdAt,
+      deletedAt: freezed == deletedAt ? _value.deletedAt! : deletedAt,
+      updatedAt: freezed == updatedAt ? _value.updatedAt! : updatedAt,
     ));
   }
 }

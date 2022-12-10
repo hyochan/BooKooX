@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'ledger.dart';
 
@@ -91,9 +91,9 @@ class _$LedgerCopyWithImpl<$Res, $Val extends Ledger>
     Object? currency = null,
     Object? memberIds = null,
     Object? members = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? deletedAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? deletedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -140,15 +140,15 @@ class _$LedgerCopyWithImpl<$Res, $Val extends Ledger>
           ? _value.members
           : members // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      updatedAt: null == updatedAt
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      deletedAt: null == deletedAt
+      deletedAt: freezed == deletedAt
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as dynamic,
@@ -211,9 +211,9 @@ class __$$_LedgerCopyWithImpl<$Res>
     Object? currency = null,
     Object? memberIds = null,
     Object? members = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? deletedAt = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? deletedAt = freezed,
   }) {
     return _then(_$_Ledger(
       id: freezed == id
@@ -260,9 +260,9 @@ class __$$_LedgerCopyWithImpl<$Res>
           ? _value._members
           : members // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      createdAt: null == createdAt ? _value.createdAt : createdAt,
-      updatedAt: null == updatedAt ? _value.updatedAt : updatedAt,
-      deletedAt: null == deletedAt ? _value.deletedAt : deletedAt,
+      createdAt: freezed == createdAt ? _value.createdAt! : createdAt,
+      updatedAt: freezed == updatedAt ? _value.updatedAt! : updatedAt,
+      deletedAt: freezed == deletedAt ? _value.deletedAt! : deletedAt,
     ));
   }
 }
@@ -310,6 +310,7 @@ class _$_Ledger extends _Ledger {
   @override
   @JsonKey()
   List<String> get adminIds {
+    if (_adminIds is EqualUnmodifiableListView) return _adminIds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_adminIds);
   }
@@ -319,6 +320,7 @@ class _$_Ledger extends _Ledger {
   List<LedgerItem>? get items {
     final value = _items;
     if (value == null) return null;
+    if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -329,6 +331,7 @@ class _$_Ledger extends _Ledger {
   @override
   @JsonKey()
   List<String> get memberIds {
+    if (_memberIds is EqualUnmodifiableListView) return _memberIds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_memberIds);
   }
@@ -338,6 +341,7 @@ class _$_Ledger extends _Ledger {
   List<String>? get members {
     final value = _members;
     if (value == null) return null;
+    if (_members is EqualUnmodifiableListView) return _members;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }

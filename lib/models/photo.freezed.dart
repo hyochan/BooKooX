@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'photo.dart';
 
@@ -50,12 +50,12 @@ class _$PhotoCopyWithImpl<$Res, $Val extends Photo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? file = null,
+    Object? file = freezed,
     Object? url = freezed,
     Object? isAddBtn = freezed,
   }) {
     return _then(_value.copyWith(
-      file: null == file
+      file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as dynamic,
@@ -89,12 +89,12 @@ class __$$_PhotoCopyWithImpl<$Res> extends _$PhotoCopyWithImpl<$Res, _$_Photo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? file = null,
+    Object? file = freezed,
     Object? url = freezed,
     Object? isAddBtn = freezed,
   }) {
     return _then(_$_Photo(
-      file: null == file
+      file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as dynamic,
