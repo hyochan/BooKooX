@@ -59,7 +59,7 @@ class Button extends StatelessWidget {
         onPressed: !isLoading ? onPress : null,
         child: isLoading
             ? CircularProgressIndicator(
-                semanticsLabel: Localization.of(context)!.trans('LOADING'),
+                semanticsLabel: t('LOADING'),
                 backgroundColor: Theme.of(context).primaryColor,
                 strokeWidth: 3,
                 valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),

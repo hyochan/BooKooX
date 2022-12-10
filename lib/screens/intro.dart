@@ -24,7 +24,7 @@ class Intro extends StatelessWidget {
 
     General.instance.showDialogSpinner(
       context,
-      text: Localization.of(context)!.trans('SIGNING_IN_WITH_GOOGLE'),
+      text: t('SIGNING_IN_WITH_GOOGLE'),
     );
 
     GoogleSignInAccount? googleUser = await googleSignIn.signIn();
@@ -59,7 +59,6 @@ class Intro extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarBrightness: Theme.of(context).brightness));
-    var localization = Localization.of(context);
     const TextStyle signInWithTextStyle = TextStyle(
       color: Color.fromRGBO(255, 255, 255, 0.7),
       fontSize: 16.0,

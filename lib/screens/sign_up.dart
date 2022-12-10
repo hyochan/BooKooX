@@ -19,8 +19,6 @@ class SignUp extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Localization? localization;
-
     String? email;
     String? password;
     String? passwordConfirm;
@@ -135,8 +133,6 @@ class SignUp extends HookWidget {
         isRegistering.value = false;
       }
     }
-
-    localization = Localization.of(context);
 
     Widget renderSignUpText() {
       return Text(

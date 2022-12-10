@@ -19,7 +19,6 @@ class CategoryList extends HookWidget {
   Widget build(BuildContext context) {
     var categories = useState<List<Category>>(this.categories);
 
-    var localization = Localization.of(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: Wrap(

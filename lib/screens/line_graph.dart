@@ -44,7 +44,7 @@ class LineGraph extends HookWidget {
     useEffect(() {
       Future.delayed(Duration.zero, () {
         // this._items = createCafeList(_localization);
-        items.value = createMockCafeList(t);
+        items.value = createMockCafeList();
         selectedItems.value = items.value;
         priceSum.value = getPriceSum(items.value);
       });

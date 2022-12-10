@@ -16,8 +16,6 @@ import 'package:wecount/utils/routes.dart';
 enum PhotoOption { camera, gallery }
 
 Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
-  var localization = Localization.of(context);
-
   return await showDialog<PhotoOption>(
       context: context,
       barrierDismissible: true,

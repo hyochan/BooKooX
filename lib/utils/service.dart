@@ -1,4 +1,5 @@
 import 'package:flutter_config/flutter_config.dart';
+import 'package:intl/intl.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -40,7 +41,7 @@ class GooglePlaceService {
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
       apiKey: FlutterConfig.get('PLACE_API_KEY'),
-      language: Localization.of(context)!.locale.languageCode,
+      language: Intl.systemLocale,
       mode: Mode.fullscreen,
       onError: (e) {
         logger.e(e.errorMessage);

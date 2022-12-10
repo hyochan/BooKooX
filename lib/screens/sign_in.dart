@@ -19,7 +19,6 @@ class SignIn extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Localization? localization;
     var scrollController = useScrollController();
 
     var email = useState('');
@@ -148,7 +147,6 @@ class SignIn extends HookWidget {
       };
     }, []);
 
-    localization = Localization.of(context);
     scrollController = ScrollController(
       initialScrollOffset: 0.0,
     );

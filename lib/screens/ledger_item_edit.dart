@@ -38,7 +38,6 @@ class LedgerItemEdit extends HookWidget {
         useState<LedgerItem>(LedgerItem(category: Category(label: '')));
     var tabController = useTabController(initialLength: 2);
     var categories = useState<List<Category>>([]);
-    var localization = Localization.of(context);
     var isLoading = useState<bool>(false);
 
     void onDatePressed({
@@ -145,7 +144,6 @@ class LedgerItemEdit extends HookWidget {
       BuildContext context, {
       CategoryType categoryType = CategoryType.consume,
     }) async {
-      var localization = Localization.of(context);
       categories.value = (categoryType == CategoryType.consume
               ? await DBHelper.instance.getConsumeCategories(context)
               : await DBHelper.instance.getIncomeCategories(context))
@@ -705,7 +703,7 @@ class LedgerItemEdit extends HookWidget {
         if (isLoading.value)
           Positioned(
             child: CircularProgressIndicator(
-              semanticsLabel: Localization.of(context)!.trans('LOADING'),
+              semanticsLabel: t('LOADING'),
               backgroundColor: Theme.of(context).primaryColor,
               strokeWidth: 2,
               valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),

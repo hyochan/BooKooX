@@ -2,7 +2,7 @@ import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/utils/localization.dart';
 
-List<LedgerItem> createHomeStatisticMock(Localization localization) {
+List<LedgerItem> createHomeStatisticMock() {
   List<LedgerItem> ledgerList = [];
   var currentMonth = DateTime.now().month;
 
@@ -26,14 +26,14 @@ List<LedgerItem> createHomeStatisticMock(Localization localization) {
   ]);
 
   /// test for stacking same ledgers
-  ledgerList.addAll(normalExpenseList(localization, currentMonth));
-  ledgerList.addAll(normalExpenseList(localization, currentMonth));
-  ledgerList.addAll(normalIncomeList(localization, currentMonth));
+  ledgerList.addAll(normalExpenseList(currentMonth));
+  ledgerList.addAll(normalExpenseList(currentMonth));
+  ledgerList.addAll(normalIncomeList(currentMonth));
 
   return ledgerList;
 }
 
-List<LedgerItem> normalExpenseList(Localization localization, int month) {
+List<LedgerItem> normalExpenseList(int month) {
   return [
     LedgerItem(
         price: -12000,
@@ -48,7 +48,7 @@ List<LedgerItem> normalExpenseList(Localization localization, int month) {
   ];
 }
 
-List<LedgerItem> normalIncomeList(Localization localization, int month) {
+List<LedgerItem> normalIncomeList(int month) {
   return [
     LedgerItem(
         price: 50000,

@@ -31,7 +31,7 @@ class General {
         builder: (BuildContext context) {
           return DialogSpinner(
             textStyle: textStyle,
-            text: text ?? Localization.of(context)!.trans('LOADING') as String,
+            text: text ?? t('LOADING'),
           );
         });
   }
@@ -58,7 +58,7 @@ class General {
           actions: <Widget>[
             TextButton(
               child: Text(
-                Localization.of(context)!.trans('OK')!,
+                t('OK'),
                 style: btnTextStyle,
               ),
               onPressed: () {
@@ -95,14 +95,14 @@ class General {
             TextButton(
               onPressed: okPressed as void Function()?,
               child: Text(
-                Localization.of(context)!.trans('OK')!,
+                t('OK'),
                 style: btnTextStyle,
               ),
             ),
             TextButton(
               onPressed: cancelPressed as void Function()?,
               child: Text(
-                Localization.of(context)!.trans('CANCEL')!,
+                t('CANCEL'),
                 style: btnTextStyle,
               ),
             )
@@ -114,7 +114,6 @@ class General {
 
   void showMembershipDialog(
       BuildContext context, void Function(int?)? onChange, int value) {
-    var localization = Localization.of(context);
     showDialog(
       context: context,
       builder: (context) {
@@ -216,8 +215,7 @@ class General {
     required BuildContext context,
     String? type,
   }) async {
-    General.instance.showDialogSpinner(context,
-        text: Localization.of(context)!.trans('LOADING'));
+    General.instance.showDialogSpinner(context, text: t('LOADING'));
 
     ImagePicker picker = ImagePicker();
 

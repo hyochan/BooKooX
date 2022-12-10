@@ -43,8 +43,7 @@ class AuthSwitch extends StatelessWidget {
                 return Scaffold(
                   body: Center(
                     child: CircularProgressIndicator(
-                      semanticsLabel:
-                          Localization.of(context)!.trans('LOADING'),
+                      semanticsLabel: t('LOADING'),
                       backgroundColor: Theme.of(context).primaryColor,
                       strokeWidth: 2,
                       valueColor:

@@ -1,7 +1,7 @@
 import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/utils/localization.dart';
 
-List<LedgerItem> createCalendarLedgerItemMock(Localization localization) {
+List<LedgerItem> createCalendarLedgerItemMock() {
   List<LedgerItem> ledgerList = [];
   var currentMonth = DateTime.now().month;
 

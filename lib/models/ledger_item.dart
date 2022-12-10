@@ -60,7 +60,7 @@ class Category with _$Category {
   Map<String, dynamic> toMapInitial(BuildContext context) {
     return {
       'iconId': iconId,
-      'label': Localization.of(context)!.trans(label),
+      'label': t(label),
       'type': type!.index,
     };
   }

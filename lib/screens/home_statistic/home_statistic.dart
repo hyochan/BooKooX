@@ -105,7 +105,7 @@ class Content extends HookWidget {
 
     useEffect(() {
       Future.delayed(Duration.zero, () {
-        ledgerItems = createHomeStatisticMock(t);
+        ledgerItems = createHomeStatisticMock();
 
         calculateAndRender(date.month.toString(), ledgerItems);
         selectedChart.value = 1;

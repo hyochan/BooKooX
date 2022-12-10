@@ -26,7 +26,6 @@ class LockAuth extends HookWidget {
     var thirdDigit = useState<int?>(null);
     var fourthDigit = useState<int?>(null);
 
-    Localization? localization;
     String? pin = '';
     String inputPin = '';
 
@@ -148,7 +147,6 @@ class LockAuth extends HookWidget {
       };
     }, []);
 
-    localization = Localization.of(context);
     screenSize = MediaQuery.of(context).size;
 
     void deleteCurrentDigit() {
