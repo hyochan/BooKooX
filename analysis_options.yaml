@@ -14,6 +14,7 @@ analyzer:
   exclude:
     - lib/**.freezed.dart
     - lib/**.g.dart
+    - lib/generated
   errors:
     invalid_annotation_target: ignore
     # TODO: Remove below rules after refactoring is done
