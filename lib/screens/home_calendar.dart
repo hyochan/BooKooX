@@ -13,7 +13,7 @@ import 'package:wecount/widgets/home_list_item.dart';
 import 'package:wecount/types/color.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:flutter/material.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
 import 'package:wecount/widgets/home_header.dart' show HomeHeaderExpanded;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
@@ -46,7 +46,7 @@ class HomeCalendar extends HookWidget {
         slivers: <Widget>[
           HomeHeaderExpanded(
             title: title,
-            color: Asset.Colors.getColor(color),
+            color: asset.Colors.getColor(color),
             actions: [
               SizedBox(
                 width: 56.0,
@@ -168,7 +168,7 @@ class MyHomePage extends HookWidget {
 
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.DUSK;
+        : ColorType.dusk;
 
     void onDatePressed() async {
       int year = currentDate.value!.year;
@@ -207,7 +207,7 @@ class MyHomePage extends HookWidget {
               markedDateMap: markedDateMap0.value,
               currentDate: currentDate.value,
               targetDate: targetDate.value,
-              color: Asset.Colors.getColor(color),
+              color: asset.Colors.getColor(color),
             ),
             const Divider(
               color: Colors.grey,

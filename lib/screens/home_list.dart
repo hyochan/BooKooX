@@ -20,7 +20,7 @@ import 'package:wecount/widgets/home_list_item.dart';
 
 import 'package:wecount/utils/localization.dart';
 import 'package:intl/intl.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:provider/provider.dart';
@@ -88,7 +88,7 @@ class HomeList extends HookWidget {
 
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.DUSK;
+        : ColorType.dusk;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -96,7 +96,7 @@ class HomeList extends HookWidget {
         toolbarHeight: 100,
         automaticallyImplyLeading: false,
         titleSpacing: 0.0,
-        backgroundColor: Asset.Colors.getColor(color),
+        backgroundColor: asset.Colors.getColor(color),
         title: HomeHeaderSearch(
           onPressAdd: () =>
               navigation.push(context, AppRoute.ledgerItemEdit.path),

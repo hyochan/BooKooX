@@ -22,17 +22,17 @@ class SignIn extends HookWidget {
     Localization? localization;
     var scrollController = useScrollController();
 
-    var email = useState<String>("");
-    var password = useState<String?>(null);
+    var email = useState('');
+    var password = useState('');
 
-    var isValidEmail = useState<bool>(false);
-    var isValidPassword = useState<bool>(false);
+    var isValidEmail = useState(false);
+    var isValidPassword = useState(false);
 
-    var errorEmail = useState<String?>('');
-    var errorPassword = useState<String?>('');
+    var errorEmail = useState('');
+    var errorPassword = useState('');
 
-    var isSigningIn = useState<bool>(false);
-    var isResendingEmail = useState<bool>(false);
+    var isSigningIn = useState(false);
+    var isResendingEmail = useState(false);
 
     void signIn() async {
       if (_auth.currentUser != null) {
@@ -40,12 +40,12 @@ class SignIn extends HookWidget {
       }
 
       if (!isValidEmail.value) {
-        errorEmail.value = localization!.trans('NO_VALIDemail');
+        errorEmail.value = localization!.trans('NO_VALIDemail') as String;
         return;
       }
 
       if (!isValidPassword.value) {
-        errorPassword.value = localization!.trans('PASSWORD_HINT');
+        errorPassword.value = localization!.trans('PASSWORD_HINT') as String;
         return;
       }
 
@@ -54,7 +54,7 @@ class SignIn extends HookWidget {
       UserCredential auth;
       try {
         auth = await _auth.signInWithEmailAndPassword(
-            email: email.value, password: password.value!);
+            email: email.value, password: password.value);
 
         /// Below can be removed if `StreamBuilder` in  [AuthSwitch] works correctly.
         if (auth.user != null && auth.user!.emailVerified) {
@@ -176,7 +176,7 @@ class SignIn extends HookWidget {
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
             isValidEmail.value = true;
-            errorEmail.value = null;
+            errorEmail.value = '';
             email.value = str;
           } else {
             isValidEmail.value = false;
@@ -189,7 +189,7 @@ class SignIn extends HookWidget {
     }
 
     Widget renderPasswordField() {
-      bool hasChecked = password.value != null && password.value!.isNotEmpty;
+      bool hasChecked = password.value.isNotEmpty && password.value.isNotEmpty;
 
       return EditText(
         key: const Key('password'),
@@ -202,7 +202,7 @@ class SignIn extends HookWidget {
         onChanged: (String str) {
           if (hasChecked) {
             isValidPassword.value = true;
-            errorPassword.value = null;
+            errorPassword.value = '';
             password.value = str;
           } else {
             isValidPassword.value = false;

@@ -46,7 +46,7 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
     };
 
 const _$MembershipEnumMap = {
-  Membership.Owner: 'Owner',
-  Membership.Admin: 'Admin',
-  Membership.Guest: 'Guest',
+  Membership.owner: 'owner',
+  Membership.admin: 'admin',
+  Membership.guest: 'guest',
 };

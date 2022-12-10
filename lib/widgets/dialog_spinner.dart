@@ -7,8 +7,8 @@ class DialogSpinner extends StatelessWidget {
     required this.text,
   });
 
-  final textStyle;
-  final text;
+  final TextStyle? textStyle;
+  final String text;
 
   @override
   Widget build(BuildContext context) {

@@ -22,7 +22,6 @@ class Button extends StatelessWidget {
     this.isLoading = false,
   });
 
-  @override
   final String? text;
   final Image? image;
   final double? width;

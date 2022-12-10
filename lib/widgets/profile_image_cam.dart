@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:image_picker/image_picker.dart';
 
 class ProfileImageCam extends StatelessWidget {
@@ -36,7 +36,7 @@ class ProfileImageCam extends StatelessWidget {
                             clipBehavior: Clip.hardEdge,
                             color: Colors.transparent,
                             child: Ink.image(
-                              image: Asset.Icons.icMask,
+                              image: asset.Icons.icMask,
                               fit: BoxFit.cover,
                               width: 80.0,
                               height: 80.0,

@@ -39,7 +39,7 @@ class CategoryItem extends HookWidget {
                   margin: const EdgeInsets.only(top: 8),
                   width: 80,
                   child: AutoSizeText(
-                    category.value.label ?? '',
+                    category.value.label,
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.displayLarge!.color,

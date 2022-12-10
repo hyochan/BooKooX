@@ -19,7 +19,7 @@ import 'package:wecount/widgets/profile_list_item.dart' show ProfileListItem;
 import 'package:wecount/widgets/ledger_list_item.dart' show LedgerListItem;
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:provider/provider.dart' show Provider;
 
 class Ledgers extends HookWidget {
@@ -52,7 +52,7 @@ class Ledgers extends HookWidget {
             : AppRoute.ledgerEdit.path,
         arguments: item.ownerId != user.uid
             ? LedgerViewArguments(ledger: item)
-            : LedgerEditArguments(ledger: item, mode: LedgerEditMode.UPDATE),
+            : LedgerEditArguments(ledger: item, mode: LedgerEditType.update),
       );
 
       if (ref != null && ref.isNotEmpty) {
@@ -109,7 +109,7 @@ class Ledgers extends HookWidget {
                 return ProfileListItem(
                   email: profile.email ?? '',
                   displayName: profile.displayName,
-                  imgStr: profile.thumbURL ?? profile.photoURL,
+                  imgPath: profile.thumbURL ?? profile.photoURL,
                   onTap: onProfilePressed,
                 );
               },
@@ -150,7 +150,7 @@ class Ledgers extends HookWidget {
                   children: <Widget>[
                     const Icon(
                       Icons.add,
-                      color: Asset.Colors.mediumGray,
+                      color: asset.Colors.mediumGray,
                       size: 24.0,
                     ),
                     Padding(
@@ -158,7 +158,7 @@ class Ledgers extends HookWidget {
                       child: Text(
                         localization.trans('ADD_LEDGER')!,
                         style: const TextStyle(
-                          color: Asset.Colors.mediumGray,
+                          color: asset.Colors.mediumGray,
                           fontSize: 20.0,
                         ),
                       ),

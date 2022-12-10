@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
-import '../utils/asset.dart' as Asset;
+import '../utils/asset.dart' as asset;
 import '../utils/localization.dart' show Localization;
 
 import '../widgets/setting_list_item.dart'
@@ -25,7 +25,7 @@ class HomeSetting extends HookWidget {
     var localization = Localization.of(context)!;
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.DUSK;
+        : ColorType.dusk;
 
     final List<ListItem> items = [
       TileItem(
@@ -33,7 +33,7 @@ class HomeSetting extends HookWidget {
         trailing: const Text('ARS | \$ '),
         leading: const Icon(
           Icons.account_balance,
-          color: Asset.Colors.cloudyBlue,
+          color: asset.Colors.cloudyBlue,
           size: 24.0,
         ),
         onTap: () => navigation.push(context, AppRoute.settingCurrency.path),
@@ -43,7 +43,7 @@ class HomeSetting extends HookWidget {
         trailing: const Icon(Icons.arrow_forward),
         leading: const Icon(
           Icons.import_export,
-          color: Asset.Colors.cloudyBlue,
+          color: asset.Colors.cloudyBlue,
           size: 24.0,
         ),
         onTap: () => navigation.push(context, AppRoute.settingExcel.path),
@@ -54,7 +54,7 @@ class HomeSetting extends HookWidget {
       appBar: renderHomeAppBar(
         context: context,
         title: title,
-        color: Asset.Colors.getColor(color),
+        color: asset.Colors.getColor(color),
         fontColor: Colors.white,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,

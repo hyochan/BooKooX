@@ -34,7 +34,6 @@ class EditText extends StatelessWidget {
     this.textInputAction,
   });
 
-  @override
   final FocusNode? focusNode;
   final int maxLines;
   final EdgeInsets? margin;

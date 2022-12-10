@@ -1,6 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:geocoding/geocoding.dart'
-    show Placemark, placemarkFromCoordinates;
+import 'package:geocoding/geocoding.dart' show placemarkFromCoordinates;
 import 'package:wecount/widgets/common/loading_indicator.dart';
 import 'package:wecount/widgets/header.dart';
 import 'package:wecount/utils/service.dart';
@@ -43,7 +42,6 @@ class LocationView extends HookWidget {
     ///
     void getCurrentLocation() async {
       LocationData? currentLocation;
-      var error;
 
       var location = Location();
 
@@ -56,16 +54,12 @@ class LocationView extends HookWidget {
         currentLocation = null;
       }
 
-      if (error == null) {
-        final LatLng latLng =
-            LatLng(currentLocation!.latitude!, currentLocation.longitude!);
-        setMarker(latLng);
+      final LatLng latLng =
+          LatLng(currentLocation!.latitude!, currentLocation.longitude!);
+      setMarker(latLng);
 
-        center.value = latLng;
-        return;
-      }
-
-      center.value = const LatLng(0, 0);
+      center.value = latLng;
+      return;
     }
 
     useEffect(() {
@@ -96,11 +90,11 @@ class LocationView extends HookWidget {
       }
     }
 
-    void _onMapCreated(GoogleMapController controller) {
+    void onCreateMap(GoogleMapController controller) {
       mapController = controller;
     }
 
-    void _onCameraMoved(CameraPosition pos) => setMarker(pos.target);
+    void onCameraMove(CameraPosition pos) => setMarker(pos.target);
 
     return center.value == null
         ? const LoadingIndicator()
@@ -133,16 +127,17 @@ class LocationView extends HookWidget {
                     padding: const EdgeInsets.all(20.0),
                     shape: const CircleBorder(),
                     onPressed: () async {
-                      print("print");
-                      List<Placemark> addresses =
-                          await placemarkFromCoordinates(
+                      var addresses = await placemarkFromCoordinates(
                         center.value!.latitude,
                         center.value!.longitude,
                       );
                       Map<String, dynamic> result = {};
                       result['address'] = addresses.first.street;
                       result['latlng'] = center;
-                      Navigator.pop(context, result);
+
+                      if (context.mounted) {
+                        Navigator.pop(context, result);
+                      }
                     },
                     child: Icon(
                       Icons.check,
@@ -153,13 +148,13 @@ class LocationView extends HookWidget {
               ],
             ),
             body: GoogleMap(
-              onMapCreated: _onMapCreated,
+              onMapCreated: onCreateMap,
               initialCameraPosition: CameraPosition(
                 target: center.value!,
                 zoom: 11.0,
               ),
               markers: markerSet.value,
-              onCameraMove: _onCameraMoved,
+              onCameraMove: onCameraMove,
             ),
           );
   }

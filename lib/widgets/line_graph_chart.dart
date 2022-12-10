@@ -12,7 +12,7 @@ typedef SelectMonthToShow = void Function(
 /// to reduce performance issue,
 /// if I don't scale down the price values from parent,
 /// chart will have performance issue
-const CHART_SCALE = 10000;
+const chartScale = 10000;
 
 class LineGraphChart extends HookWidget {
   final List<LedgerItem> items;
@@ -32,10 +32,10 @@ class LineGraphChart extends HookWidget {
       /// make min, max values and spots(tuple values) for chart
       chartValues = ChartValues(mapValues(items));
       minY = 0;
-      maxY = chartValues.maxPrice / CHART_SCALE;
+      maxY = chartValues.maxPrice / chartScale;
 
       spots = chartValues.tupleValues.map((Tuple tuple) {
-        return FlSpot(tuple.month.toDouble(), tuple.price / CHART_SCALE);
+        return FlSpot(tuple.month.toDouble(), tuple.price / chartScale);
       }).toList();
       return null;
     }, []);
@@ -119,8 +119,7 @@ class LineGraphChart extends HookWidget {
                 final flSpot = barSpot;
 
                 return LineTooltipItem(
-                  NumberFormat.simpleCurrency()
-                      .format((flSpot.y * CHART_SCALE)),
+                  NumberFormat.simpleCurrency().format((flSpot.y * chartScale)),
                   const TextStyle(color: Colors.white),
                 );
               }).toList();
@@ -129,7 +128,7 @@ class LineGraphChart extends HookWidget {
           touchCallback: (FlTouchEvent te, LineTouchResponse? res) {
             for (var spot in res!.lineBarSpots!) {
               onSelectMonth!(
-                  month: spot.x.toInt(), sumOfPrice: spot.y * CHART_SCALE);
+                  month: spot.x.toInt(), sumOfPrice: spot.y * chartScale);
             }
           },
         ),
@@ -188,8 +187,8 @@ class Tuple {
 }
 
 class ChartValues {
-  var minPrice;
-  late var maxPrice;
+  double minPrice = 0.0;
+  late double maxPrice;
   List<Tuple> tupleValues = [];
 
   ChartValues(Map<String, double> items) {

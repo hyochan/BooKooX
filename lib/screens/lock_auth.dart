@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/widgets/pin_keyboard.dart' show PinKeyboard;
@@ -17,104 +18,104 @@ class LockAuth extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final mounted = useIsMounted();
-    late Size _screenSize;
-    var _currentDigit = useState<int?>(0);
+    late Size screenSize;
+    var currentDigit = useState<int?>(0);
 
-    var _firstDigit = useState<int?>(null);
-    var _secondDigit = useState<int?>(null);
-    var _thirdDigit = useState<int?>(null);
-    var _fourthDigit = useState<int?>(null);
+    var firstDigit = useState<int?>(null);
+    var secondDigit = useState<int?>(null);
+    var thirdDigit = useState<int?>(null);
+    var fourthDigit = useState<int?>(null);
 
-    Localization? _localization;
-    String? _pin = '';
-    String _inputPin = '';
+    Localization? localization;
+    String? pin = '';
+    String inputPin = '';
 
-    void _setCurrentDigit(int i) {
-      _currentDigit.value = i;
-      if (_firstDigit.value == null) {
-        _firstDigit.value = _currentDigit.value;
-      } else if (_secondDigit.value == null) {
-        _secondDigit.value = _currentDigit.value;
-      } else if (_thirdDigit.value == null) {
-        _thirdDigit.value = _currentDigit.value;
-      } else if (_fourthDigit.value == null) {
-        _fourthDigit.value = _currentDigit.value;
+    void setCurrentDigit(int i) {
+      currentDigit.value = i;
+      if (firstDigit.value == null) {
+        firstDigit.value = currentDigit.value;
+      } else if (secondDigit.value == null) {
+        secondDigit.value = currentDigit.value;
+      } else if (thirdDigit.value == null) {
+        thirdDigit.value = currentDigit.value;
+      } else if (fourthDigit.value == null) {
+        fourthDigit.value = currentDigit.value;
 
-        _inputPin = _firstDigit.toString() +
-            _secondDigit.toString() +
-            _thirdDigit.toString() +
-            _fourthDigit.toString();
+        inputPin = firstDigit.toString() +
+            secondDigit.toString() +
+            thirdDigit.toString() +
+            fourthDigit.toString();
 
-        print('INPUT PIN is $_inputPin');
+        logger.d('INPUT PIN is $inputPin');
       }
 
-      if (_inputPin.length == 4) {
-        if (_inputPin == _pin) {
+      if (inputPin.length == 4) {
+        if (inputPin == pin) {
           Navigator.pop(context, false);
         } else {
           Fluttertoast.showToast(
-            msg: _localization!.trans('PIN_MISMATCH')!,
+            msg: localization!.trans('PIN_MISMATCH')!,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
             fontSize: 16.0,
           );
 
-          _inputPin = '';
+          inputPin = '';
         }
       }
     }
 
     /// LocalAuthentication - Fingerprint
-    final LocalAuthentication _localAuthentication = LocalAuthentication();
-    var _hasFingerPrintSupport = useState<bool>(false);
+    final LocalAuthentication localAuthentication = LocalAuthentication();
+    var hasFingerPrintSupport = useState<bool>(false);
 
     Future<void> checkFingerprintSupport() async {
       bool isBiometricSupport = false;
       List<BiometricType> availableBiometricType = [];
 
       try {
-        isBiometricSupport = await _localAuthentication.canCheckBiometrics;
+        isBiometricSupport = await localAuthentication.canCheckBiometrics;
         if (!isBiometricSupport) return;
       } catch (e) {
-        print(e);
+        logger.e(e);
       }
       if (!mounted()) return;
 
       try {
         availableBiometricType =
-            await _localAuthentication.getAvailableBiometrics();
+            await localAuthentication.getAvailableBiometrics();
       } catch (e) {
-        print(e);
+        logger.e(e);
       }
       if (!mounted()) return;
 
       if (availableBiometricType.contains(BiometricType.fingerprint)) {
-        _hasFingerPrintSupport.value = true;
+        hasFingerPrintSupport.value = true;
       } else {
-        _hasFingerPrintSupport.value = false;
+        hasFingerPrintSupport.value = false;
       }
     }
 
-    Future<void> _authenticateMe() async {
+    Future<void> authenticateMe() async {
       // 8. this method opens a dialog for fingerprint authentication.
       //    we do not need to create a dialog nut it pop sup from device natively.
       bool authenticated = false;
       try {
-        authenticated = await _localAuthentication.authenticate(
+        authenticated = await localAuthentication.authenticate(
           localizedReason:
-              _localization!.trans('FINGERPRINT_LOGIN')!, // message for dialog
-          options: AuthenticationOptions(
+              localization!.trans('FINGERPRINT_LOGIN')!, // message for dialog
+          options: const AuthenticationOptions(
             useErrorDialogs: true,
             stickyAuth: true,
           ),
         );
       } catch (e) {
-        print(e);
+        logger.e(e);
       }
       if (!mounted()) return;
 
-      if (authenticated) {
+      if (context.mounted && authenticated) {
         Navigator.pop(context, false);
       } else {
         return;
@@ -122,11 +123,11 @@ class LockAuth extends HookWidget {
     }
 
     readLockPinFromSF() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+      SharedPreferences preference = await SharedPreferences.getInstance();
 
-      if (prefs.containsKey('LOCK_PIN')) {
-        _pin = prefs.getString('LOCK_PIN');
-        print(_pin);
+      if (preference.containsKey('LOCK_PIN')) {
+        pin = preference.getString('LOCK_PIN');
+        logger.d(pin);
       }
     }
 
@@ -148,39 +149,39 @@ class LockAuth extends HookWidget {
       };
     }, []);
 
-    _localization = Localization.of(context);
-    _screenSize = MediaQuery.of(context).size;
+    localization = Localization.of(context);
+    screenSize = MediaQuery.of(context).size;
 
-    void _deleteCurrentDigit() {
-      if (_fourthDigit.value != null) {
-        _fourthDigit.value = null;
-      } else if (_thirdDigit.value != null) {
-        _thirdDigit.value = null;
-      } else if (_secondDigit.value != null) {
-        _secondDigit.value = null;
-      } else if (_firstDigit.value != null) {
-        _firstDigit.value = null;
+    void deleteCurrentDigit() {
+      if (fourthDigit.value != null) {
+        fourthDigit.value = null;
+      } else if (thirdDigit.value != null) {
+        thirdDigit.value = null;
+      } else if (secondDigit.value != null) {
+        secondDigit.value = null;
+      } else if (firstDigit.value != null) {
+        firstDigit.value = null;
       }
     }
 
-    Widget _pinTextField(int? digit) {
+    Widget pinTextField(int? digit) {
       return Container(
           width: 50,
           height: 45,
           alignment: Alignment.center,
-          child: Text(
-            digit != null ? digit.toString() : "",
-            style: TextStyle(
-              fontSize: 30,
-              color: Theme.of(context).textTheme.displayLarge!.color,
-            ),
-          ),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
                 color: Theme.of(context).textTheme.displayLarge!.color!,
                 width: 2,
               ),
+            ),
+          ),
+          child: Text(
+            digit != null ? digit.toString() : "",
+            style: TextStyle(
+              fontSize: 30,
+              color: Theme.of(context).textTheme.displayLarge!.color,
             ),
           ));
     }
@@ -197,45 +198,41 @@ class LockAuth extends HookWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(
-              height: 40,
-            ),
+            const SizedBox(height: 40),
             Text(
-              _localization!.trans('LOCK_HINT')!,
+              localization!.trans('LOCK_HINT')!,
               style: TextStyle(
                   fontSize: 24,
                   color: Theme.of(context).textTheme.displayMedium!.color),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _pinTextField(_firstDigit.value),
-                  _pinTextField(_secondDigit.value),
-                  _pinTextField(_thirdDigit.value),
-                  _pinTextField(_fourthDigit.value),
+                  pinTextField(firstDigit.value),
+                  pinTextField(secondDigit.value),
+                  pinTextField(thirdDigit.value),
+                  pinTextField(fourthDigit.value),
                 ],
               ),
             ),
             OutlinedButton(
+              onPressed: hasFingerPrintSupport.value ? authenticateMe : null,
               child: Text(
-                _localization!.trans('FINGERPRINT_LOGIN')!,
+                localization.trans('FINGERPRINT_LOGIN')!,
                 style: TextStyle(
                     color: Theme.of(context).textTheme.displayMedium!.color),
               ),
-              onPressed: _hasFingerPrintSupport.value ? _authenticateMe : null,
               // shape: RoundedRectangleBorder(
               //   borderRadius: BorderRadius.circular(30),
               // ),
             ),
-            SizedBox(
-              height: 50,
-            ),
+            const SizedBox(height: 50),
             PinKeyboard(
-              keyboardHeight: _screenSize.height / 3.0,
-              onButtonPressed: _setCurrentDigit,
-              onDeletePressed: _deleteCurrentDigit,
+              keyboardHeight: screenSize.height / 3.0,
+              onButtonPressed: setCurrentDigit,
+              onDeletePressed: deleteCurrentDigit,
             ),
           ],
         ),

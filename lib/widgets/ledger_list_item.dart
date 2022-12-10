@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:wecount/models/ledger.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/types/color.dart' show ColorType;
 
@@ -62,19 +62,19 @@ class LedgerListItem extends StatelessWidget {
                       children: <Widget>[
                         ClipOval(
                           child: Image(
-                            image: color == ColorType.RED
-                                ? Asset.Icons.icRed
-                                : color == ColorType.ORANGE
-                                    ? Asset.Icons.icOrange
-                                    : color == ColorType.YELLOW
-                                        ? Asset.Icons.icYellow
-                                        : color == ColorType.GREEN
-                                            ? Asset.Icons.icGreen
-                                            : color == ColorType.BLUE
-                                                ? Asset.Icons.icBlue
-                                                : color == ColorType.PURPLE
-                                                    ? Asset.Icons.icPurple
-                                                    : Asset.Icons.icDusk,
+                            image: color == ColorType.red
+                                ? asset.Icons.icRed
+                                : color == ColorType.orange
+                                    ? asset.Icons.icOrange
+                                    : color == ColorType.yellow
+                                        ? asset.Icons.icYellow
+                                        : color == ColorType.green
+                                            ? asset.Icons.icGreen
+                                            : color == ColorType.blue
+                                                ? asset.Icons.icBlue
+                                                : color == ColorType.purple
+                                                    ? asset.Icons.icPurple
+                                                    : asset.Icons.icDusk,
                             fit: BoxFit.cover,
                             width: 40.0,
                             height: 40.0,
@@ -85,7 +85,7 @@ class LedgerListItem extends StatelessWidget {
                                 right: 4,
                                 bottom: 4,
                                 child: Image(
-                                  image: Asset.Icons.icOwner,
+                                  image: asset.Icons.icOwner,
                                   width: 20,
                                   height: 20,
                                 ),
@@ -134,7 +134,7 @@ class LedgerListItem extends StatelessWidget {
                 child: Text(
                   localization.trans('MORE')!,
                   style: const TextStyle(
-                    color: Asset.Colors.green,
+                    color: asset.Colors.green,
                   ),
                 ),
               ),

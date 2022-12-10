@@ -1,9 +1,9 @@
 import 'package:wecount/models/ledger.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
-final EdgeInsets _titlePadding =
-    EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
+var _titlePadding =
+    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
 
 class HomeHeaderExpanded extends StatelessWidget {
   const HomeHeaderExpanded({
@@ -44,7 +44,7 @@ class HomeHeaderExpanded extends StatelessWidget {
           ),
         ),
         background: Container(
-          color: color ?? Asset.Colors.getColor(colorItems[4]),
+          color: color ?? asset.Colors.getColor(colorItems[4]),
         ),
       ),
     );

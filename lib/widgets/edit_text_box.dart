@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
 class EditTextBox extends HookWidget {
   const EditTextBox({
@@ -24,13 +24,12 @@ class EditTextBox extends HookWidget {
     this.hintStyle,
     this.errorText,
     this.errorStyle = const TextStyle(
-      color: Asset.Colors.carnation,
+      color: asset.Colors.carnation,
     ),
     this.controller,
     this.borderWidth = 0.7,
     this.borderStyle = BorderStyle.solid,
   });
-  @override
   final bool enabled;
   final TextEditingController? controller;
   final Color? focusedColor;
@@ -66,7 +65,7 @@ class EditTextBox extends HookWidget {
                 left: 12,
                 bottom: 0,
                 top: margin.top,
-                child: Container(
+                child: SizedBox(
                   child: Icon(
                     iconData,
                     color: enabledColor,

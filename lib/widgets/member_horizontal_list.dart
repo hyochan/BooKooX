@@ -4,7 +4,8 @@ import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/logger.dart';
 
 class MemberHorizontalList extends StatelessWidget {
   final bool? showAddBtn;
@@ -35,7 +36,7 @@ class MemberHorizontalList extends StatelessWidget {
                 image: (!snapshot.hasData ||
                         (snapshot.data!.photoURL == null &&
                             snapshot.data!.thumbURL == null)
-                    ? Asset.Icons.icMask
+                    ? asset.Icons.icMask
                     : NetworkImage(snapshot.data!.thumbURL != null
                         ? snapshot.data!.thumbURL!
                         : snapshot.data!.photoURL!)) as ImageProvider<Object>,
@@ -44,7 +45,7 @@ class MemberHorizontalList extends StatelessWidget {
                 height: 48.0,
                 child: InkWell(
                   onTap: () {
-                    print("profile click");
+                    logger.d("profile click");
                   },
                 ),
               ),
@@ -111,7 +112,7 @@ class MemberHorizontalList extends StatelessWidget {
                               shape: BoxShape.circle,
                               border: Border.all(
                                 width: 1.0,
-                                color: Asset.Colors.cloudyBlue,
+                                color: asset.Colors.cloudyBlue,
                               ),
                             ),
                             child: InkWell(
@@ -120,7 +121,7 @@ class MemberHorizontalList extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               onTap: () {
-                                print("add member");
+                                logger.d("add member");
                               },
                             ),
                           ),

@@ -66,11 +66,11 @@ class Ledger with _$Ledger {
 }
 
 final List<ColorType> colorItems = [
-  ColorType.RED,
-  ColorType.ORANGE,
-  ColorType.YELLOW,
-  ColorType.GREEN,
-  ColorType.BLUE,
-  ColorType.DUSK,
-  ColorType.PURPLE,
+  ColorType.red,
+  ColorType.orange,
+  ColorType.yellow,
+  ColorType.green,
+  ColorType.blue,
+  ColorType.dusk,
+  ColorType.purple,
 ];

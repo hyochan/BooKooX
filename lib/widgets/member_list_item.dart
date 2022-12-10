@@ -3,7 +3,7 @@ import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
 abstract class ListItem {}
 
@@ -22,7 +22,6 @@ class MemberItem implements ListItem {
 }
 
 class MemberListItem extends StatelessWidget {
-  @override
   final UserModel user;
   final Function? onPressMember;
   final Function? onPressAuth;
@@ -55,19 +54,19 @@ class MemberListItem extends StatelessWidget {
                         width: 52,
                         height: 52,
                         child: Image(
-                          image: Asset.Icons.icMask,
+                          image: asset.Icons.icMask,
                           width: 40,
                           height: 40,
                         ),
                       ),
-                      user.membership == Membership.Owner
+                      user.membership == Membership.owner
                           ? Positioned(
                               bottom: 0,
                               right: 0,
                               child: Image(
-                                image: user.membership == Membership.Owner
-                                    ? Asset.Icons.icOwner
-                                    : Asset.Icons.icOwner,
+                                image: user.membership == Membership.owner
+                                    ? asset.Icons.icOwner
+                                    : asset.Icons.icOwner,
                                 width: 20,
                                 height: 20,
                               ),
@@ -121,9 +120,9 @@ class MemberListItem extends StatelessWidget {
             child: TextButton(
               onPressed: onPressAuth as void Function()?,
               child: Text(
-                user.membership == Membership.Owner
+                user.membership == Membership.owner
                     ? localization!.trans('MEMBER_OWNER')!
-                    : user.membership == Membership.Admin
+                    : user.membership == Membership.admin
                         ? localization!.trans('MEMBER_ADMIN')!
                         : localization!.trans('MEMBER_GUEST')!,
                 style: TextStyle(

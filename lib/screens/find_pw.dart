@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/edit_text.dart' show EditText;
@@ -17,17 +18,17 @@ class FindPw extends HookWidget {
   @override
   Widget build(BuildContext context) {
     Localization? localization;
-    var email = useState<String>("");
-    var errorEmail = useState<String?>("");
+    var email = useState('');
+    var errorEmail = useState('');
 
-    var isValidEmail = useState<bool>(false);
-    var isSendingEmail = useState<bool>(false);
+    var isValidEmail = useState(false);
+    var isSendingEmail = useState(false);
 
-    void _findPw() async {
+    void findPw() async {
       bool isEmail = Validator.instance.validateEmail(email.value);
 
       if (!isEmail) {
-        errorEmail.value = localization!.trans('NO_VALID_EMAIL');
+        errorEmail.value = localization!.trans('NO_VALID_EMAIL') as String;
         return;
       }
 
@@ -43,7 +44,7 @@ class FindPw extends HookWidget {
           );
         }
       } catch (err) {
-        print('error occured: ${err.toString()}');
+        logger.d('error occured: ${err.toString()}');
       } finally {
         isSendingEmail.value = false;
       }
@@ -74,20 +75,20 @@ class FindPw extends HookWidget {
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
             isValidEmail.value = true;
-            errorEmail.value = null;
+            errorEmail.value = '';
           } else {
             isValidEmail.value = false;
           }
           email.value = str;
         },
-        onSubmitted: (String str) => _findPw(),
+        onSubmitted: (String str) => findPw(),
       );
     }
 
     Widget sendButton() {
       return Button(
         key: const Key('sendButton'),
-        onPress: _findPw,
+        onPress: findPw,
         margin: const EdgeInsets.only(top: 28.0, bottom: 8.0),
         textStyle: const TextStyle(
           color: Colors.white,

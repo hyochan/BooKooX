@@ -71,6 +71,6 @@ Map<String, dynamic> _$$_CategoryToJson(_$_Category instance) =>
     };
 
 const _$CategoryTypeEnumMap = {
-  CategoryType.CONSUME: 'CONSUME',
-  CategoryType.INCOME: 'INCOME',
+  CategoryType.consume: 'consume',
+  CategoryType.income: 'income',
 };

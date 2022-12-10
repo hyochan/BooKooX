@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/photo.dart';
 
 import 'package:wecount/screens/photo_detail.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
-enum PhotoOption { Camera, Gallery }
+enum PhotoOption { camera, gallery }
 
 Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
   var localization = Localization.of(context);
@@ -27,7 +27,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
           children: <Widget>[
             SimpleDialogOption(
               onPressed: () {
-                Navigator.pop(context, PhotoOption.Camera);
+                Navigator.pop(context, PhotoOption.camera);
               },
               child: SizedBox(
                 height: 44,
@@ -54,7 +54,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
             ),
             SimpleDialogOption(
               onPressed: () {
-                Navigator.pop(context, PhotoOption.Gallery);
+                Navigator.pop(context, PhotoOption.gallery);
               },
               child: SizedBox(
                 height: 44,
@@ -85,7 +85,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
 }
 
 class Gallery extends HookWidget {
-  Gallery({
+  const Gallery({
     super.key,
     this.margin,
     this.showAll = false,
@@ -96,10 +96,11 @@ class Gallery extends HookWidget {
   final EdgeInsets? margin;
   final bool showAll;
   final List<Photo> pictureProps;
-  LedgerItem ledgerItem;
+  final LedgerItem ledgerItem;
 
   @override
   Widget build(BuildContext context) {
+    var ledgerItemState = useState(ledgerItem);
     var pictures = useState<List<Photo>>([]);
 
     useEffect(() {
@@ -127,7 +128,7 @@ class Gallery extends HookWidget {
                       width: 20.0,
                       child: const Icon(
                         Icons.photo,
-                        color: Asset.Colors.cloudyBlue,
+                        color: asset.Colors.cloudyBlue,
                       ),
                     ),
                     Text(
@@ -170,11 +171,11 @@ class Gallery extends HookWidget {
                             await _asyncPhotoSelect(context);
                         XFile? imgFile;
                         switch (photoOption) {
-                          case PhotoOption.Camera:
+                          case PhotoOption.camera:
                             imgFile = await General.instance
                                 .chooseImage(context: context, type: 'camera');
                             break;
-                          case PhotoOption.Gallery:
+                          case PhotoOption.gallery:
                             imgFile = await General.instance
                                 .chooseImage(context: context, type: 'gallery');
                             break;
@@ -185,7 +186,7 @@ class Gallery extends HookWidget {
                         if (imgFile != null) {
                           Photo photo = Photo(file: imgFile);
                           pictures.value.add(photo);
-                          ledgerItem =
+                          ledgerItemState.value =
                               ledgerItem.copyWith(picture: pictures.value);
                         }
                       },
@@ -195,7 +196,7 @@ class Gallery extends HookWidget {
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 1.0,
-                            color: Asset.Colors.cloudyBlue,
+                            color: asset.Colors.cloudyBlue,
                           ),
                         ),
                         child: Icon(
@@ -227,7 +228,7 @@ class Gallery extends HookWidget {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              splashColor: Asset.Colors.paleGray,
+                              splashColor: asset.Colors.paleGray,
                               onTap: () => navigation.navigate(
                                 context,
                                 AppRoute.photoDetail.path,
@@ -238,7 +239,7 @@ class Gallery extends HookWidget {
                                         (Photo compare) =>
                                             compare.file == photo.file);
                                     pictures.value.removeAt(index);
-                                    ledgerItem = ledgerItem.copyWith(
+                                    ledgerItemState.value = ledgerItem.copyWith(
                                         picture: pictures.value);
                                     Navigator.of(context).pop();
                                   },

@@ -2,7 +2,7 @@ import 'package:wecount/models/ledger_item.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/line_graph.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:intl/intl.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -95,7 +95,7 @@ class HomeListItem extends StatelessWidget {
                   style: TextStyle(
                       color: isPlus
                           ? Theme.of(context).textTheme.displayLarge!.color
-                          : Asset.Colors.carnation),
+                          : asset.Colors.carnation),
                 ),
               ),
             )

@@ -6,7 +6,8 @@ import '../test_utils.dart' show TestUtils;
 
 void main() {
   testWidgets("Widget", (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const SignUp()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
@@ -23,15 +24,17 @@ void main() {
   });
   testWidgets("Show [emailError] text when email address is not valid form",
       (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const SignUp()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(Key('email'));
+    Finder emailField = find.byKey(const Key('email'));
     await tester.enterText(emailField, 'aa@aa');
 
-    Finder passwordField = find.byKey(Key('password'));
+    Finder passwordField = find.byKey(const Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
+    // ignore: todo
     // TODO: Should mock firebase in order to survive below codes
 
     // await tester.tap(find.text('SIGN_UP').last);
@@ -41,13 +44,14 @@ void main() {
   });
   testWidgets("Show [passwordError] text when password is not valid form",
       (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const SignUp()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(Key('email'));
+    Finder emailField = find.byKey(const Key('email'));
     await tester.enterText(emailField, 'aa@aa.aa');
 
-    Finder passwordField = find.byKey(Key('password'));
+    Finder passwordField = find.byKey(const Key('password'));
     await tester.enterText(passwordField, 'aaaaaa');
 
     await tester.tap(find.text('SIGN_UP').last);
@@ -55,18 +59,19 @@ void main() {
 
     expect(find.text('PASSWORD_CONFIRM_HINT'), findsOneWidget);
   });
-  testWidgets("Show [passwordConfirmError] text when password is not cofirmed",
+  testWidgets("Show [passwordConfirmError] text when password is not confirmed",
       (WidgetTester tester) async {
-    await tester.pumpWidget(TestUtils.makeTestableWidget(child: SignUp()));
+    await tester
+        .pumpWidget(TestUtils.makeTestableWidget(child: const SignUp()));
     await tester.pumpAndSettle();
 
-    Finder emailField = find.byKey(Key('email'));
+    Finder emailField = find.byKey(const Key('email'));
     await tester.enterText(emailField, 'aa@aa.aa');
 
-    Finder passwordField = find.byKey(Key('password'));
+    Finder passwordField = find.byKey(const Key('password'));
     await tester.enterText(passwordField, 'aaaaaa12');
 
-    Finder passwordConfirmField = find.byKey(Key('password-confirm'));
+    Finder passwordConfirmField = find.byKey(const Key('password-confirm'));
     await tester.enterText(passwordConfirmField, 'aaaaaa');
 
     await tester.tap(find.text('SIGN_UP').last);

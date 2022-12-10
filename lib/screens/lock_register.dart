@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/widgets/pin_keyboard.dart' show PinKeyboard;
@@ -24,11 +25,11 @@ class LockRegister extends HookWidget {
     String? pin = '';
 
     readLockPinFromSF() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+      SharedPreferences preference = await SharedPreferences.getInstance();
 
-      if (prefs.containsKey('LOCK_PIN')) {
-        pin = prefs.getString('LOCK_PIN');
-        print(pin);
+      if (preference.containsKey('LOCK_PIN')) {
+        pin = preference.getString('LOCK_PIN');
+        logger.d(pin);
       }
     }
 
@@ -36,16 +37,17 @@ class LockRegister extends HookWidget {
       if (pin!.length != 4) {
         return;
       } else {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString('LOCK_PIN', pin!);
-        Navigator.of(context).pop();
-        print(pin);
+        SharedPreferences preference = await SharedPreferences.getInstance();
+        preference.setString('LOCK_PIN', pin!);
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
       }
     }
 
     resetLockPinToSF() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.remove('LOCK_PIN');
+      SharedPreferences preference = await SharedPreferences.getInstance();
+      preference.remove('LOCK_PIN');
     }
 
     useEffect(() {
@@ -70,7 +72,7 @@ class LockRegister extends HookWidget {
     var localization = Localization.of(context)!;
     screenSize = MediaQuery.of(context).size;
 
-    void _setCurrentDigit(int i) {
+    void setCurrentDigit(int i) {
       currentDigit.value = i;
       if (firstDigit.value == null) {
         firstDigit.value = currentDigit.value;
@@ -86,11 +88,11 @@ class LockRegister extends HookWidget {
             thirdDigit.toString() +
             fourthDigit.toString();
 
-        print(pin);
+        logger.d(pin);
       }
     }
 
-    void _deleteCurrentDigit() {
+    void deleteCurrentDigit() {
       if (fourthDigit.value != null) {
         fourthDigit.value = null;
       } else if (thirdDigit.value != null) {
@@ -102,7 +104,7 @@ class LockRegister extends HookWidget {
       }
     }
 
-    Widget _pinTextField(int? digit) {
+    Widget pinTextField(int? digit) {
       return Container(
           width: 50,
           height: 45,
@@ -160,10 +162,10 @@ class LockRegister extends HookWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _pinTextField(firstDigit.value),
-                  _pinTextField(secondDigit.value),
-                  _pinTextField(thirdDigit.value),
-                  _pinTextField(fourthDigit.value),
+                  pinTextField(firstDigit.value),
+                  pinTextField(secondDigit.value),
+                  pinTextField(thirdDigit.value),
+                  pinTextField(fourthDigit.value),
                 ],
               ),
             ),
@@ -180,8 +182,8 @@ class LockRegister extends HookWidget {
             ),
             PinKeyboard(
               keyboardHeight: screenSize.height / 3.0,
-              onButtonPressed: _setCurrentDigit,
-              onDeletePressed: _deleteCurrentDigit,
+              onButtonPressed: setCurrentDigit,
+              onDeletePressed: deleteCurrentDigit,
             ),
           ],
         ),

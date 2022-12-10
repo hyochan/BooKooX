@@ -12,7 +12,7 @@ import 'package:wecount/widgets/category_list.dart';
 import 'package:wecount/widgets/gallery.dart' show Gallery;
 import 'package:wecount/widgets/header.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/logger.dart';
@@ -42,7 +42,7 @@ class LedgerItemEdit extends HookWidget {
     var isLoading = useState<bool>(false);
 
     void onDatePressed({
-      CategoryType categoryType = CategoryType.CONSUME,
+      CategoryType categoryType = CategoryType.consume,
     }) async {
       int year = DateTime.now().year;
       int prevDate = year - 100;
@@ -61,7 +61,7 @@ class LedgerItemEdit extends HookWidget {
         );
       }
       if (pickDate != null && pickTime != null) {
-        if (categoryType == CategoryType.CONSUME) {
+        if (categoryType == CategoryType.consume) {
           ledgerItemConsume.value = ledgerItemConsume.value.copyWith(
             selectedDate: DateTime(
               pickDate.year,
@@ -71,7 +71,7 @@ class LedgerItemEdit extends HookWidget {
               pickTime.minute,
             ),
           );
-        } else if (categoryType == CategoryType.INCOME) {
+        } else if (categoryType == CategoryType.income) {
           ledgerItemIncome.value = ledgerItemIncome.value.copyWith(
             selectedDate: DateTime(
               pickDate.year,
@@ -86,19 +86,19 @@ class LedgerItemEdit extends HookWidget {
     }
 
     void onLocationPressed({
-      CategoryType categoryType = CategoryType.CONSUME,
+      CategoryType categoryType = CategoryType.consume,
     }) async {
       Map<String, dynamic>? result =
           await (navigation.navigate(context, AppRoute.locationView.path));
 
       if (result == null) return;
 
-      if (categoryType == CategoryType.CONSUME) {
+      if (categoryType == CategoryType.consume) {
         ledgerItemConsume.value =
             ledgerItemConsume.value.copyWith(address: result['address']);
         ledgerItemConsume.value =
             ledgerItemConsume.value.copyWith(latlng: result['latlng']);
-      } else if (categoryType == CategoryType.INCOME) {
+      } else if (categoryType == CategoryType.income) {
         ledgerItemIncome.value =
             ledgerItemConsume.value.copyWith(address: result['address']);
         ledgerItemIncome.value =
@@ -143,10 +143,10 @@ class LedgerItemEdit extends HookWidget {
 
     void showCategory(
       BuildContext context, {
-      CategoryType categoryType = CategoryType.CONSUME,
+      CategoryType categoryType = CategoryType.consume,
     }) async {
       var localization = Localization.of(context);
-      categories.value = (categoryType == CategoryType.CONSUME
+      categories.value = (categoryType == CategoryType.consume
               ? await DBHelper.instance.getConsumeCategories(context)
               : await DBHelper.instance.getIncomeCategories(context))
           .cast<Category>();
@@ -216,14 +216,14 @@ class LedgerItemEdit extends HookWidget {
       );
 
       if (result != null) {
-        if (categoryType == CategoryType.CONSUME) {
+        if (categoryType == CategoryType.consume) {
           ledgerItemConsume.value = ledgerItemConsume.value.copyWith.category!(
             iconId: result.iconId,
             id: result.id,
             label: result.label,
             type: result.type,
           );
-        } else if (categoryType == CategoryType.INCOME) {
+        } else if (categoryType == CategoryType.income) {
           ledgerItemIncome.value = ledgerItemIncome.value.copyWith.category!(
             iconId: result.iconId,
             id: result.id,
@@ -252,7 +252,7 @@ class LedgerItemEdit extends HookWidget {
             height: 56,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Asset.Colors.cloudyBlue,
+                color: asset.Colors.cloudyBlue,
                 width: 1.0,
               ),
             ),
@@ -301,7 +301,7 @@ class LedgerItemEdit extends HookWidget {
                       showDropdown
                           ? const Icon(
                               Icons.arrow_drop_down,
-                              color: Asset.Colors.cloudyBlue,
+                              color: asset.Colors.cloudyBlue,
                             )
                           : const SizedBox(),
                     ],
@@ -316,7 +316,7 @@ class LedgerItemEdit extends HookWidget {
 
     Widget renderConsumeView() {
       void onCategoryPressed() {
-        showCategory(context, categoryType: CategoryType.CONSUME);
+        showCategory(context, categoryType: CategoryType.consume);
       }
 
       return Padding(
@@ -337,7 +337,7 @@ class LedgerItemEdit extends HookWidget {
                     Container(
                       margin: const EdgeInsets.only(right: 8),
                       child: Image(
-                        image: Asset.Icons.icCoins,
+                        image: asset.Icons.icCoins,
                         width: 20,
                         height: 20,
                       ),
@@ -345,7 +345,7 @@ class LedgerItemEdit extends HookWidget {
                     Text(
                       localization!.trans('PRICE')!,
                       style: const TextStyle(
-                        color: Asset.Colors.cloudyBlue,
+                        color: asset.Colors.cloudyBlue,
                         fontSize: 16,
                       ),
                     ),
@@ -359,7 +359,7 @@ class LedgerItemEdit extends HookWidget {
                   const Text('- ',
                       style: TextStyle(
                         fontSize: 28,
-                        color: Asset.Colors.carnation,
+                        color: asset.Colors.carnation,
                       )),
                   Expanded(
                     child: TextField(
@@ -391,11 +391,11 @@ class LedgerItemEdit extends HookWidget {
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: '0',
-                        hintStyle: TextStyle(color: Asset.Colors.carnation),
+                        hintStyle: TextStyle(color: asset.Colors.carnation),
                       ),
                       style: const TextStyle(
                         fontSize: 28,
-                        color: Asset.Colors.carnation,
+                        color: asset.Colors.carnation,
                       ),
                     ),
                   ),
@@ -470,7 +470,7 @@ class LedgerItemEdit extends HookWidget {
 
     Widget renderIncomeView() {
       void onCategoryPressed() {
-        showCategory(context, categoryType: CategoryType.INCOME);
+        showCategory(context, categoryType: CategoryType.income);
       }
 
       return Padding(
@@ -491,7 +491,7 @@ class LedgerItemEdit extends HookWidget {
                     Container(
                       margin: const EdgeInsets.only(right: 8),
                       child: Image(
-                        image: Asset.Icons.icCoins,
+                        image: asset.Icons.icCoins,
                         width: 20,
                         height: 20,
                       ),
@@ -499,7 +499,7 @@ class LedgerItemEdit extends HookWidget {
                     Text(
                       localization!.trans('PRICE')!,
                       style: const TextStyle(
-                        color: Asset.Colors.cloudyBlue,
+                        color: asset.Colors.cloudyBlue,
                         fontSize: 16,
                       ),
                     ),
@@ -548,7 +548,7 @@ class LedgerItemEdit extends HookWidget {
                       ),
                       style: const TextStyle(
                         fontSize: 28,
-                        color: Asset.Colors.mediumGray,
+                        color: asset.Colors.mediumGray,
                       ),
                     ),
                   ),
@@ -581,7 +581,7 @@ class LedgerItemEdit extends HookWidget {
                       text: localization.trans('DATE')!,
                       showDropdown: true,
                       onPressed: () =>
-                          onDatePressed(categoryType: CategoryType.INCOME),
+                          onDatePressed(categoryType: CategoryType.income),
                     )
                   : renderBox(
                       margin: const EdgeInsets.only(top: 8),
@@ -591,7 +591,7 @@ class LedgerItemEdit extends HookWidget {
                           .toLowerCase(),
                       showDropdown: true,
                       onPressed: () =>
-                          onDatePressed(categoryType: CategoryType.INCOME),
+                          onDatePressed(categoryType: CategoryType.income),
                       active: true,
                     ),
 
@@ -603,7 +603,7 @@ class LedgerItemEdit extends HookWidget {
                       text: localization.trans('LOCATION')!,
                       showDropdown: true,
                       onPressed: () =>
-                          onLocationPressed(categoryType: CategoryType.INCOME),
+                          onLocationPressed(categoryType: CategoryType.income),
                     )
                   : renderBox(
                       margin: const EdgeInsets.only(top: 8),
@@ -611,7 +611,7 @@ class LedgerItemEdit extends HookWidget {
                       text: ledgerItemIncome.value.address!,
                       showDropdown: false,
                       onPressed: () =>
-                          onLocationPressed(categoryType: CategoryType.INCOME),
+                          onLocationPressed(categoryType: CategoryType.income),
                       active: true,
                     ),
               Gallery(
@@ -656,7 +656,7 @@ class LedgerItemEdit extends HookWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: TabBar(
-                    unselectedLabelColor: Asset.Colors.paleGray,
+                    unselectedLabelColor: asset.Colors.paleGray,
                     isScrollable: true,
                     controller: tabController,
                     indicator: UnderlineTabIndicator(

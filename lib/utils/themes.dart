@@ -1,93 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'asset.dart' as Asset;
+import 'asset.dart' as asset;
 
 class Themes {
   Themes._();
 
   static final light = ThemeData.light().copyWith(
-      scaffoldBackgroundColor: Asset.Colors.light,
+      scaffoldBackgroundColor: asset.Colors.light,
       brightness: Brightness.dark,
-      hintColor: Asset.Colors.mediumGray,
-      primaryColor: Asset.Colors.main,
+      hintColor: asset.Colors.mediumGray,
+      primaryColor: asset.Colors.main,
       primaryColorLight: const Color(0xff6d7999),
       primaryColorDark: const Color(0xff172540),
-      secondaryHeaderColor: Asset.Colors.mediumGray,
-      appBarTheme: AppBarTheme(
-          backgroundColor: Asset.Colors.light,
+      secondaryHeaderColor: asset.Colors.mediumGray,
+      appBarTheme: const AppBarTheme(
+          backgroundColor: asset.Colors.light,
           systemOverlayStyle: lightModeStatusBarColor),
-      bottomAppBarTheme: BottomAppBarTheme(color: Asset.Colors.lightDim),
-      disabledColor: Asset.Colors.warmGray,
-      dialogBackgroundColor: Asset.Colors.light,
-      dialogTheme: DialogTheme(
+      bottomAppBarTheme: const BottomAppBarTheme(color: asset.Colors.lightDim),
+      disabledColor: asset.Colors.warmGray,
+      dialogBackgroundColor: asset.Colors.light,
+      dialogTheme: const DialogTheme(
         titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
-            color: Asset.Colors.dark),
-        contentTextStyle: TextStyle(fontSize: 14, color: Asset.Colors.dark),
+            color: asset.Colors.dark),
+        contentTextStyle: TextStyle(fontSize: 14, color: asset.Colors.dark),
       ),
-      textTheme: TextTheme(
-        displayLarge: TextStyle(color: Asset.Colors.dark),
-        displayMedium: TextStyle(color: Asset.Colors.mediumGray),
-        displaySmall: TextStyle(color: Asset.Colors.paleGray),
-        bodySmall: TextStyle(color: Asset.Colors.light),
-        bodyLarge: TextStyle(color: Asset.Colors.dark),
-        bodyMedium: TextStyle(color: Asset.Colors.dark),
-        labelLarge: TextStyle(color: Asset.Colors.dark),
-        labelSmall: TextStyle(color: Asset.Colors.dark),
-        titleLarge: TextStyle(color: Asset.Colors.dark),
-        titleMedium: TextStyle(color: Asset.Colors.dark),
-        titleSmall: TextStyle(color: Asset.Colors.dark),
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(color: asset.Colors.dark),
+        displayMedium: TextStyle(color: asset.Colors.mediumGray),
+        displaySmall: TextStyle(color: asset.Colors.paleGray),
+        bodySmall: TextStyle(color: asset.Colors.light),
+        bodyLarge: TextStyle(color: asset.Colors.dark),
+        bodyMedium: TextStyle(color: asset.Colors.dark),
+        labelLarge: TextStyle(color: asset.Colors.dark),
+        labelSmall: TextStyle(color: asset.Colors.dark),
+        titleLarge: TextStyle(color: asset.Colors.dark),
+        titleMedium: TextStyle(color: asset.Colors.dark),
+        titleSmall: TextStyle(color: asset.Colors.dark),
       ),
       colorScheme: ColorScheme.fromSwatch().copyWith(
-        secondary: Asset.Colors.greenBlue,
-        background: Asset.Colors.light,
+        secondary: asset.Colors.greenBlue,
+        background: asset.Colors.light,
       ),
-      inputDecorationTheme: InputDecorationTheme(
-        labelStyle: TextStyle(color: Asset.Colors.dark),
+      inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(color: asset.Colors.dark),
       ));
 
   static final dark = ThemeData.dark().copyWith(
-      scaffoldBackgroundColor: Asset.Colors.dark,
+      scaffoldBackgroundColor: asset.Colors.dark,
       brightness: Brightness.light,
-      hintColor: Asset.Colors.warmGray,
-      primaryColor: Asset.Colors.main,
+      hintColor: asset.Colors.warmGray,
+      primaryColor: asset.Colors.main,
       primaryColorLight: const Color(0xff6d7999),
       primaryColorDark: const Color(0xff172540),
-      secondaryHeaderColor: Asset.Colors.mediumGray,
-      appBarTheme: AppBarTheme(
-          backgroundColor: Asset.Colors.darkDim,
+      secondaryHeaderColor: asset.Colors.mediumGray,
+      appBarTheme: const AppBarTheme(
+          backgroundColor: asset.Colors.darkDim,
           systemOverlayStyle: darkModeStatusBarColor),
-      bottomAppBarTheme: BottomAppBarTheme(color: Asset.Colors.darkDim),
-      disabledColor: Asset.Colors.warmGray,
-      dialogBackgroundColor: Asset.Colors.dark,
-      dialogTheme: DialogTheme(
+      bottomAppBarTheme: const BottomAppBarTheme(color: asset.Colors.darkDim),
+      disabledColor: asset.Colors.warmGray,
+      dialogBackgroundColor: asset.Colors.dark,
+      dialogTheme: const DialogTheme(
         titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
-            color: Asset.Colors.light),
-        contentTextStyle: TextStyle(fontSize: 14, color: Asset.Colors.light),
+            color: asset.Colors.light),
+        contentTextStyle: TextStyle(fontSize: 14, color: asset.Colors.light),
       ),
-      textTheme: TextTheme(
-        displayLarge: TextStyle(color: Asset.Colors.light),
-        displayMedium: TextStyle(color: Asset.Colors.paleGray),
-        displaySmall: TextStyle(color: Asset.Colors.mediumGray),
-        bodySmall: TextStyle(color: Asset.Colors.dark),
-        bodyLarge: TextStyle(color: Asset.Colors.light),
-        bodyMedium: TextStyle(color: Asset.Colors.light),
-        labelLarge: TextStyle(color: Asset.Colors.light),
-        labelSmall: TextStyle(color: Asset.Colors.light),
-        titleLarge: TextStyle(color: Asset.Colors.light),
-        titleMedium: TextStyle(color: Asset.Colors.light),
-        titleSmall: TextStyle(color: Asset.Colors.light),
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(color: asset.Colors.light),
+        displayMedium: TextStyle(color: asset.Colors.paleGray),
+        displaySmall: TextStyle(color: asset.Colors.mediumGray),
+        bodySmall: TextStyle(color: asset.Colors.dark),
+        bodyLarge: TextStyle(color: asset.Colors.light),
+        bodyMedium: TextStyle(color: asset.Colors.light),
+        labelLarge: TextStyle(color: asset.Colors.light),
+        labelSmall: TextStyle(color: asset.Colors.light),
+        titleLarge: TextStyle(color: asset.Colors.light),
+        titleMedium: TextStyle(color: asset.Colors.light),
+        titleSmall: TextStyle(color: asset.Colors.light),
       ),
       colorScheme: ColorScheme.fromSwatch().copyWith(
-        secondary: Asset.Colors.greenBlue,
+        secondary: asset.Colors.greenBlue,
         brightness: Brightness.dark,
-        background: Asset.Colors.darkDim,
+        background: asset.Colors.darkDim,
       ),
-      inputDecorationTheme: InputDecorationTheme(
-        labelStyle: TextStyle(color: Asset.Colors.light),
+      inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(color: asset.Colors.light),
       ));
 }
 

@@ -3,13 +3,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wecount/utils/general.dart';
+import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/setting_list_item.dart'
     show ListItem, LogoutItem, SettingItem, SettingListItem;
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart' show Localization;
 
 FirebaseAuth _auth = FirebaseAuth.instance;
@@ -23,22 +24,22 @@ class Setting extends HookWidget {
     var pin = useState<String?>('');
 
     readLockPinFromSF() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+      SharedPreferences preference = await SharedPreferences.getInstance();
 
-      if (prefs.containsKey('LOCK_PIN')) {
-        pin.value = prefs.getString('LOCK_PIN');
+      if (preference.containsKey('LOCK_PIN')) {
+        pin.value = preference.getString('LOCK_PIN');
         lockSwitch.value = true;
 
-        print(pin);
+        logger.d(pin);
       }
     }
 
     resetLockPinToSF() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.remove('LOCK_PIN');
+      SharedPreferences preference = await SharedPreferences.getInstance();
+      preference.remove('LOCK_PIN');
     }
 
-    void _awaitLockRegister(BuildContext context) async {
+    void registerLockAsync(BuildContext context) async {
       await navigation.push(context, AppRoute.lockRegister.path);
     }
 
@@ -47,7 +48,7 @@ class Setting extends HookWidget {
       return null;
     }, []);
 
-    void _awaitLockAuth(BuildContext context) async {
+    void lockAuthAsync(BuildContext context) async {
       final result = await navigation.push(context, AppRoute.lockAuth.path);
 
       if (lockSwitch.value == true && result == false) {
@@ -56,11 +57,11 @@ class Setting extends HookWidget {
       }
     }
 
-    void _onChangeLock(bool value) {
+    void onChangeLock(bool value) {
       if (lockSwitch.value == false && value) {
-        _awaitLockRegister(context);
+        registerLockAsync(context);
       } else {
-        _awaitLockAuth(context);
+        lockAuthAsync(context);
       }
     }
 
@@ -69,7 +70,7 @@ class Setting extends HookWidget {
       SettingItem(
         const Icon(
           Icons.announcement,
-          color: Asset.Colors.cloudyBlue,
+          color: asset.Colors.cloudyBlue,
           size: 24,
         ),
         localization.trans('ANNOUNCEMENT'),
@@ -79,7 +80,7 @@ class Setting extends HookWidget {
       SettingItem(
         const Icon(
           Icons.message,
-          color: Asset.Colors.cloudyBlue,
+          color: asset.Colors.cloudyBlue,
           size: 24,
         ),
         localization.trans('SHARE_OPINION'),
@@ -88,7 +89,7 @@ class Setting extends HookWidget {
       SettingItem(
         const Icon(
           Icons.question_answer,
-          color: Asset.Colors.cloudyBlue,
+          color: asset.Colors.cloudyBlue,
           size: 24,
         ),
         localization.trans('FAQ'),
@@ -97,7 +98,7 @@ class Setting extends HookWidget {
       SettingItem(
         const Icon(
           Icons.notifications,
-          color: Asset.Colors.cloudyBlue,
+          color: asset.Colors.cloudyBlue,
           size: 24,
         ),
         localization.trans('NOTIFICATION'),
@@ -107,14 +108,14 @@ class Setting extends HookWidget {
       SettingItem(
         const Icon(
           Icons.lock,
-          color: Asset.Colors.cloudyBlue,
+          color: asset.Colors.cloudyBlue,
           size: 24,
         ),
         localization.trans('LOCK'),
         optionalWidget: Switch(
-          inactiveTrackColor: Asset.Colors.main,
+          inactiveTrackColor: asset.Colors.main,
           value: lockSwitch.value,
-          onChanged: _onChangeLock,
+          onChanged: onChangeLock,
           activeTrackColor: Theme.of(context).primaryColor,
           activeColor: Theme.of(context).colorScheme.secondary,
         ),
@@ -171,7 +172,7 @@ class Setting extends HookWidget {
                               Text(
                                 item.title!,
                                 style: const TextStyle(
-                                  color: Asset.Colors.carnation,
+                                  color: asset.Colors.carnation,
                                   fontSize: 20,
                                 ),
                               ),
@@ -192,13 +193,13 @@ class Setting extends HookWidget {
                   Text(
                     'Version ',
                     style: TextStyle(
-                      color: Asset.Colors.cloudyBlue,
+                      color: asset.Colors.cloudyBlue,
                     ),
                   ),
                   Text(
                     '17.13(1246)',
                     style: TextStyle(
-                      color: Asset.Colors.cloudyBlue,
+                      color: asset.Colors.cloudyBlue,
                     ),
                   ),
                 ],

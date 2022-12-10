@@ -50,7 +50,7 @@ cafe(Localization localization, month, day) {
       category: Category(
           iconId: 8,
           label: localization.trans('CAFE')!,
-          type: CategoryType.CONSUME),
+          type: CategoryType.consume),
       selectedDate: DateTime(2019, month, day),
     ),
   ];

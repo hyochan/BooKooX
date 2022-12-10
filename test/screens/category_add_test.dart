@@ -10,7 +10,7 @@ void main() {
     await tester.pumpWidget(
       TestUtils.makeTestableWidget(
         child:
-            const CategoryAdd(lastId: 100, categoryType: CategoryType.CONSUME),
+            const CategoryAdd(lastId: 100, categoryType: CategoryType.consume),
       ),
     );
     await tester.pumpAndSettle();

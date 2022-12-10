@@ -9,7 +9,7 @@ import 'package:wecount/widgets/edit_text.dart' show EditText;
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:wecount/utils/validator.dart' show Validator;
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -39,7 +39,7 @@ class SignUp extends HookWidget {
     var isValidName = useState<bool>(false);
     var isRegistering = useState<bool>(false);
 
-    void _signUp() async {
+    void signUp() async {
       if (email == null ||
           password == null ||
           passwordConfirm == null ||
@@ -170,7 +170,7 @@ class SignUp extends HookWidget {
           email = str;
         },
         errorText: errorEmail.value,
-        onSubmitted: (String str) => _signUp(),
+        onSubmitted: (String str) => signUp(),
       );
     }
 
@@ -195,7 +195,7 @@ class SignUp extends HookWidget {
           password = str;
         },
         errorText: errorPassword.value,
-        onSubmitted: (String str) => _signUp(),
+        onSubmitted: (String str) => signUp(),
       );
     }
 
@@ -219,7 +219,7 @@ class SignUp extends HookWidget {
           }
         },
         errorText: errorPasswordConfirm.value,
-        onSubmitted: (String str) => _signUp(),
+        onSubmitted: (String str) => signUp(),
       );
     }
 
@@ -243,7 +243,7 @@ class SignUp extends HookWidget {
           displayName = str;
         },
         errorText: errorDisplayName.value,
-        onSubmitted: (String str) => _signUp(),
+        onSubmitted: (String str) => signUp(),
       );
     }
 
@@ -267,7 +267,7 @@ class SignUp extends HookWidget {
           name = str;
         },
         errorText: errorName.value,
-        onSubmitted: (String str) => _signUp(),
+        onSubmitted: (String str) => signUp(),
       );
     }
 
@@ -275,14 +275,14 @@ class SignUp extends HookWidget {
       return Button(
         key: const Key('button-sign-up'),
         isLoading: isRegistering.value,
-        onPress: () => _signUp(),
+        onPress: () => signUp(),
         margin: const EdgeInsets.only(top: 36.0, bottom: 48.0),
         textStyle: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
         ),
         borderColor: Colors.white,
-        backgroundColor: Asset.Colors.main,
+        backgroundColor: asset.Colors.main,
         text: localization!.trans('SIGN_UP'),
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,

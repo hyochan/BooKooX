@@ -11,7 +11,7 @@ import 'package:wecount/main.dart';
 
 void main() {
   testWidgets('Widget', (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
   });
 }

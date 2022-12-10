@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/logger.dart';
 
 import '../utils/localization.dart' show Localization;
 import '../widgets/header.dart' show renderHeaderBack;
 import '../widgets/button.dart' show Button;
-import '../utils/asset.dart' as Asset;
+import '../utils/asset.dart' as asset;
 
 class SettingExcel extends StatelessWidget {
   const SettingExcel({Key? key}) : super(key: key);
 
   void onExportExcel() {
-    print('on send excel');
+    logger.d('on send excel');
   }
 
   @override
@@ -59,7 +60,7 @@ class SettingExcel extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 16,
               ),
-              backgroundColor: Asset.Colors.main,
+              backgroundColor: asset.Colors.main,
             )
           ],
         ),

@@ -6,22 +6,22 @@ import 'package:pie_chart/pie_chart.dart' show PieChart;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
-  testWidgets('Show [Piechart] properly', (WidgetTester tester) async {
+  testWidgets('Show [PieChart] properly', (WidgetTester tester) async {
     await tester
-        .pumpWidget(TestUtils.makeTestableWidget(child: HomeStatistic()));
+        .pumpWidget(TestUtils.makeTestableWidget(child: const HomeStatistic()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);
     expect(findByText.evaluate().isEmpty, false);
 
-    /// piechart exists
+    /// pie chart exists
     expect(find.byType(PieChart), findsOneWidget);
   });
 
   testWidgets('Show proper texts on clicking [Income] and [Consume] tap on top',
       (WidgetTester tester) async {
     await tester
-        .pumpWidget(TestUtils.makeTestableWidget(child: HomeStatistic()));
+        .pumpWidget(TestUtils.makeTestableWidget(child: const HomeStatistic()));
     await tester.pumpAndSettle();
 
     /// click INCOME and count texts

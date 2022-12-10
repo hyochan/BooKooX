@@ -56,11 +56,11 @@ class LineGraph extends HookWidget {
     /// set bottom list to show selected month, total expenditure and its list
     void handleClickGraph({required int month, required double sumOfPrice}) {
       List<LedgerItem> itemsOfThisMonth = [];
-      items.value.forEach((item) {
+      for (var item in items.value) {
         if (item.selectedDate!.month == month) {
           itemsOfThisMonth.add(item);
         }
-      });
+      }
 
       selectedMonth.value = month;
       selectedItems.value = itemsOfThisMonth;
@@ -92,7 +92,7 @@ class LineGraph extends HookWidget {
                 ),
               ),
             ),
-            items.value.length != 0
+            items.value.isNotEmpty
                 ? LineGraphChart(
                     items: items.value, onSelectMonth: handleClickGraph)
                 : Container(),

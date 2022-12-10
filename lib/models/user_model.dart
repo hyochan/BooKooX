@@ -7,9 +7,9 @@ part "user_model.freezed.dart";
 part "user_model.g.dart";
 
 enum Membership {
-  Owner,
-  Admin,
-  Guest,
+  owner,
+  admin,
+  guest,
 }
 
 @freezed

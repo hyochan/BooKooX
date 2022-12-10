@@ -5,7 +5,7 @@ import 'package:wecount/models/ledger_item.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/edit_text_box.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/localization.dart';
 
@@ -14,7 +14,7 @@ class CategoryAdd extends HookWidget {
   final int? lastId;
   const CategoryAdd({
     Key? key,
-    this.categoryType = CategoryType.CONSUME,
+    this.categoryType = CategoryType.consume,
     required this.lastId,
   }) : super(key: key);
 
@@ -30,14 +30,7 @@ class CategoryAdd extends HookWidget {
         errorText.value = localization.trans('ERROR_CATEGORY_NAME');
         return;
       }
-      if (selectedIconIndex == null) {
-        General.instance.showSingleDialog(
-          context,
-          title: Text(localization.trans('ERROR')!),
-          content: Text(localization.trans('ERROR_CATEGORY_ICON')!),
-        );
-        return;
-      }
+
       Category category = Category(
         id: lastId! + 1,
         iconId: selectedIconIndex.value,
@@ -83,7 +76,7 @@ class CategoryAdd extends HookWidget {
                               selectedIconIndex.value = i;
                             },
                             child: Opacity(
-                              opacity: i == selectedIconIndex ? 1.0 : 0.4,
+                              opacity: i == selectedIconIndex.value ? 1.0 : 0.4,
                               child: Image(
                                 image: icon,
                                 width: 72,
@@ -147,13 +140,13 @@ class CategoryAdd extends HookWidget {
                         child: const Icon(
                           Icons.star,
                           size: 20,
-                          color: Asset.Colors.mediumGray,
+                          color: asset.Colors.mediumGray,
                         ),
                       ),
                       Text(
                         localization.trans('ICON_SELECT')!,
                         style: const TextStyle(
-                          color: Asset.Colors.mediumGray,
+                          color: asset.Colors.mediumGray,
                           fontSize: 16,
                         ),
                       )

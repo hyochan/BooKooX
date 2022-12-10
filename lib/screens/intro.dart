@@ -9,7 +9,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/button.dart' show Button;
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -94,7 +94,7 @@ class Intro extends StatelessWidget {
                 TextSpan(
                   text: '  ${localization.trans('SIGN_UP')!}',
                   style: const TextStyle(
-                      color: Asset.Colors.green, fontWeight: FontWeight.bold),
+                      color: asset.Colors.green, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -155,7 +155,7 @@ class Intro extends StatelessWidget {
                 : MediaQuery.of(context).size.width - 128,
             height: 52.0,
             image: Image(
-              image: Asset.Icons.icGoogle,
+              image: asset.Icons.icGoogle,
               width: 24.0,
               height: 24.0,
             ),
@@ -246,7 +246,7 @@ class Intro extends StatelessWidget {
                   delegate: SliverChildListDelegate(
                     <Widget>[
                       Image(
-                          image: Asset.Icons.icWeCount,
+                          image: asset.Icons.icWeCount,
                           width: 200.0,
                           height: 60.0),
                       renderSignInBtn(),

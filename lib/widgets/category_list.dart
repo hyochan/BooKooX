@@ -56,7 +56,10 @@ class CategoryList extends HookWidget {
                       fontSize: 16.0,
                     );
                   }
-                  Navigator.of(context).pop();
+
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
                 }, cancelPressed: () {
                   Navigator.of(context).pop();
                 });

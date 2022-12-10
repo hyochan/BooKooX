@@ -2,7 +2,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/repositories/user_repository.dart';
 import 'package:wecount/services/database.dart';
-import 'package:firebase_auth/firebase_auth.dart' as FireAuth show User;
+import 'package:firebase_auth/firebase_auth.dart' as fire_auth show User;
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';

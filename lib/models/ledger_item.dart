@@ -80,8 +80,8 @@ class Category with _$Category {
 }
 
 enum CategoryType {
-  CONSUME,
-  INCOME,
+  consume,
+  income,
 }
 
 final List<AssetImage> categoryIcons = [

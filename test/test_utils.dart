@@ -77,7 +77,7 @@ class TestUtils {
     var ledger = Ledger(
         id: '1234',
         title: 'dooboolab',
-        color: ColorType.DUSK,
+        color: ColorType.dusk,
         currency: Currency());
 
     return MultiProvider(

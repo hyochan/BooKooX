@@ -58,6 +58,8 @@ dependencies:
   flutter_hooks: ^0.18.5+1
   freezed_annotation: ^2.2.0
   intl: ^0.17.0
+  google_maps_webservice: ^0.0.20-nullsafety.5
+  path: ^1.8.2
 
 dev_dependencies:
   flutter_test:

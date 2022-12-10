@@ -12,7 +12,7 @@ import 'package:wecount/widgets/member_horizontal_list.dart';
 import 'package:wecount/services/database.dart' show DatabaseService;
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
 import 'package:wecount/types/color.dart';
@@ -20,24 +20,24 @@ import 'package:provider/provider.dart';
 
 class LedgerEditArguments {
   final Ledger? ledger;
-  final LedgerEditMode mode;
+  final LedgerEditType mode;
 
-  LedgerEditArguments({this.ledger, this.mode = LedgerEditMode.ADD});
+  LedgerEditArguments({this.ledger, this.mode = LedgerEditType.add});
 }
 
-enum LedgerEditMode {
-  ADD,
-  UPDATE,
+enum LedgerEditType {
+  add,
+  update,
 }
 
 class LedgerEdit extends HookWidget {
   final Ledger? ledger;
-  final LedgerEditMode mode;
+  final LedgerEditType mode;
 
   const LedgerEdit({
     super.key,
     this.ledger,
-    this.mode = LedgerEditMode.ADD,
+    this.mode = LedgerEditType.add,
   });
 
   @override
@@ -52,7 +52,7 @@ class LedgerEdit extends HookWidget {
         editLedger.value = Ledger(
           title: '',
           currency: currencies[29],
-          color: ColorType.DUSK,
+          color: ColorType.dusk,
           adminIds: [],
           memberIds: [],
         );
@@ -86,36 +86,34 @@ class LedgerEdit extends HookWidget {
       loading.value = true;
 
       if (editLedger.value!.title.isEmpty) {
-        print('title is null');
         loading.value = false;
         return;
       }
 
       if (editLedger.value!.description == null ||
           editLedger.value!.description!.isEmpty) {
-        print('description is null');
         loading.value = false;
         return;
       }
 
-      if (mode == LedgerEditMode.ADD) {
+      if (mode == LedgerEditType.add) {
         String? refId = "";
         try {
           refId = await db.requestCreateNewLedger(editLedger.value);
           editLedger.value = editLedger.value?.copyWith(id: refId);
         } catch (err) {
-          print('err: $err');
+          logger.e('err: $err');
         } finally {
           loading.value = false;
         }
         if (context.mounted) {
           Navigator.of(context).pop(editLedger.value);
         }
-      } else if (mode == LedgerEditMode.UPDATE) {
+      } else if (mode == LedgerEditType.update) {
         try {
           await db.requestUpdateLedger(editLedger.value);
         } catch (err) {
-          print('err: $err');
+          logger.e('err: $err');
         } finally {
           loading.value = false;
         }
@@ -166,7 +164,7 @@ class LedgerEdit extends HookWidget {
     var localization = Localization.of(context)!;
 
     return Scaffold(
-      backgroundColor: Asset.Colors.getColor(editLedger.value!.color),
+      backgroundColor: asset.Colors.getColor(editLedger.value!.color),
       appBar: renderHeaderBack(
         context: context,
         brightness: Brightness.dark,
@@ -377,7 +375,7 @@ class LedgerEdit extends HookWidget {
                                   ? localization.trans('DONE')!
                                   : localization.trans('UPDATE')!,
                               style: TextStyle(
-                                color: Asset.Colors.getColor(
+                                color: asset.Colors.getColor(
                                     editLedger.value!.color),
                                 fontSize: 16.0,
                               ),
@@ -413,7 +411,7 @@ class ColorItem extends StatelessWidget {
         ClipOval(
           child: Material(
             clipBehavior: Clip.hardEdge,
-            color: Asset.Colors.getColor(color),
+            color: asset.Colors.getColor(color),
             child: InkWell(
               onTap: onTap as void Function()?,
               child: Container(

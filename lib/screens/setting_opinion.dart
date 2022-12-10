@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart' show Localization;
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
 class SettingOpinion extends StatelessWidget {
   const SettingOpinion({Key? key}) : super(key: key);
 
   void onSendOpinion() {
-    print('on send opinion');
+    logger.d('on send opinion');
   }
 
   @override
@@ -59,7 +60,7 @@ class SettingOpinion extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 16,
               ),
-              backgroundColor: Asset.Colors.main,
+              backgroundColor: asset.Colors.main,
             )
           ],
         ),

@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wecount/utils/exceptions.dart';
 import 'package:wecount/utils/localization.dart';
+import 'package:wecount/utils/logger.dart';
 import 'package:wecount/widgets/dialog_spinner.dart';
-import 'package:image/image.dart' as Im;
+import 'package:image/image.dart' as im;
 
 class General {
   static final General instance = General();
@@ -30,7 +31,7 @@ class General {
         builder: (BuildContext context) {
           return DialogSpinner(
             textStyle: textStyle,
-            text: text ?? Localization.of(context)!.trans('LOADING'),
+            text: text ?? Localization.of(context)!.trans('LOADING') as String,
           );
         });
   }
@@ -226,7 +227,7 @@ class General {
           : await picker.pickImage(source: ImageSource.gallery);
       return imgFile;
     } catch (err) {
-      print('chooseImage err $err');
+      logger.d('chooseImage err $err');
       return null;
     } finally {
       Navigator.pop(context);
@@ -234,8 +235,8 @@ class General {
   }
 
   File compressImage(File img, {int size = 500}) {
-    Im.Image image = Im.decodeImage(img.readAsBytesSync())!;
-    Im.Image smallerImage = Im.copyResize(image, width: size, height: size);
+    im.Image image = im.decodeImage(img.readAsBytesSync())!;
+    im.Image smallerImage = im.copyResize(image, width: size, height: size);
     return smallerImage as File;
   }
 }

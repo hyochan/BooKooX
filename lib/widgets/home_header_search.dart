@@ -17,7 +17,7 @@ class HomeHeaderSearch extends HookWidget {
   final bool showSearchInput;
   final TextEditingController? textEditingController;
   final Function? onClose;
-  final Function? onSubmit;
+  final dynamic Function(String)? onSubmit;
   final Function onPressAdd;
   final Function onPressDelete;
 
@@ -28,7 +28,7 @@ class HomeHeaderSearch extends HookWidget {
     var localization = Localization.of(context)!;
     var textInput = EditTextSearch(
       controller: textEditingController,
-      textInputAction: TextInputAction.search,
+      // textInputAction: TextInputAction.search,
       onChanged: (text) {
         searchText.value = text;
       },

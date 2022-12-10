@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
 class ProfileListItem extends StatelessWidget {
   const ProfileListItem({
     super.key,
-    this.imgStr,
+    this.imgPath,
     this.displayName,
     this.email,
     this.onTap,
   });
 
-  @override
-  final String? imgStr;
+  final String? imgPath;
   final String? displayName;
   final String? email;
   final Function? onTap;
@@ -25,7 +24,7 @@ class ProfileListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          imgStr != null
+          imgPath != null
               ? Material(
                   clipBehavior: Clip.hardEdge,
                   color: Colors.transparent,
@@ -37,7 +36,7 @@ class ProfileListItem extends StatelessWidget {
                           height: 80.0,
                           fit: BoxFit.cover,
                           placeholder: 'res/icons/icMask.png',
-                          image: imgStr!),
+                          image: imgPath!),
                     ),
                   ),
                 )
@@ -46,7 +45,7 @@ class ProfileListItem extends StatelessWidget {
                     clipBehavior: Clip.hardEdge,
                     color: Colors.transparent,
                     child: Ink.image(
-                      image: Asset.Icons.icMask,
+                      image: asset.Icons.icMask,
                       fit: BoxFit.cover,
                       width: 80.0,
                       height: 80.0,

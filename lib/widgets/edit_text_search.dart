@@ -23,30 +23,30 @@ class EditTextSearch extends StatelessWidget {
     this.enabled = true,
     this.height,
     this.width = double.infinity,
-    this.textInputAction,
+    // this.textInputAction,
     this.keyboardType = TextInputType.text,
     this.maxLength,
   });
 
   final TextEditingController? controller;
-  final txtLabel;
-  final txtHint;
-  final txtHintStyle;
-  final decoration;
+  final String? txtLabel;
+  final String? txtHint;
+  final TextStyle? txtHintStyle;
+  final Decoration? decoration;
   final ValueChanged<String>? onChanged;
-  final onSubmit;
-  final secure;
-  final txtStyle;
-  final borderRadius;
-  final margin;
-  final padding;
-  final underline;
-  final background;
-  final enabled;
-  final height;
-  final width;
-  final textInputAction;
-  final keyboardType;
+  final Function(String)? onSubmit;
+  final bool secure;
+  final TextStyle? txtStyle;
+  final double borderRadius;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final bool underline;
+  final Color background;
+  final bool? enabled;
+  final double? height;
+  final double width;
+  // final textInputAction;
+  final TextInputType? keyboardType;
   final int? maxLength;
 
   @override
@@ -70,22 +70,22 @@ class EditTextSearch extends StatelessWidget {
       alignment: Alignment.center,
       children: <Widget>[
         Container(
-          margin: this.margin,
-          height: this.height,
-          width: this.width,
-          decoration: this.decoration,
+          margin: margin,
+          height: height,
+          width: width,
+          decoration: decoration,
         ),
         Container(
-          margin: this.padding,
+          margin: padding,
           child: TextField(
-            maxLength: this.maxLength,
-            onSubmitted: this.onSubmit,
-            keyboardType: this.keyboardType,
+            maxLength: maxLength,
+            onSubmitted: onSubmit,
+            keyboardType: keyboardType,
 //            textInputAction: this.textInputAction != null ? this.textInputAction : TextInputAction.done,
-            enabled: this.enabled,
-            controller: this.controller,
-            style: this.txtStyle,
-            onChanged: this.onChanged,
+            enabled: enabled,
+            controller: controller,
+            style: txtStyle,
+            onChanged: onChanged,
             decoration: inputDecoration,
             autocorrect: false,
           ),

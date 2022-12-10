@@ -50,11 +50,11 @@ Map<String, dynamic> _$$_LedgerToJson(_$_Ledger instance) => <String, dynamic>{
     };
 
 const _$ColorTypeEnumMap = {
-  ColorType.RED: 'RED',
-  ColorType.ORANGE: 'ORANGE',
-  ColorType.YELLOW: 'YELLOW',
-  ColorType.GREEN: 'GREEN',
-  ColorType.BLUE: 'BLUE',
-  ColorType.DUSK: 'DUSK',
-  ColorType.PURPLE: 'PURPLE',
+  ColorType.red: 'red',
+  ColorType.orange: 'orange',
+  ColorType.yellow: 'yellow',
+  ColorType.green: 'green',
+  ColorType.blue: 'blue',
+  ColorType.dusk: 'dusk',
+  ColorType.purple: 'purple',
 };

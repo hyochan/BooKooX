@@ -12,21 +12,21 @@ List<LedgerItem> createHomeStatisticMock(Localization localization) {
         category: Category(
             iconId: 8,
             label: localization.trans('EXERCISE')!,
-            type: CategoryType.CONSUME),
+            type: CategoryType.consume),
         selectedDate: DateTime(2019, currentMonth, 10)),
     LedgerItem(
         price: 300000,
         category: Category(
             iconId: 18,
             label: localization.trans('WALLET_MONEY')!,
-            type: CategoryType.INCOME),
+            type: CategoryType.income),
         selectedDate: DateTime(2019, currentMonth, 10)),
     LedgerItem(
         price: -32000,
         category: Category(
             iconId: 4,
             label: localization.trans('DATING')!,
-            type: CategoryType.CONSUME),
+            type: CategoryType.consume),
         memo: 'who1 gave me',
         selectedDate: DateTime(2019, currentMonth, 10))
   ]);
@@ -46,14 +46,14 @@ normalExpenseList(Localization localization, int month) {
         category: Category(
             iconId: 8,
             label: localization.trans('EXERCISE')!,
-            type: CategoryType.CONSUME),
+            type: CategoryType.consume),
         selectedDate: DateTime(2019, month, 1)),
     LedgerItem(
         price: -12000,
         category: Category(
             iconId: 4,
             label: localization.trans('DATING')!,
-            type: CategoryType.CONSUME),
+            type: CategoryType.consume),
         selectedDate: DateTime(2019, month, 10)),
   ];
 }
@@ -65,14 +65,14 @@ normalIncomeList(Localization localization, int month) {
         category: Category(
             iconId: 18,
             label: localization.trans('WALLET_MONEY')!,
-            type: CategoryType.INCOME),
+            type: CategoryType.income),
         selectedDate: DateTime(2019, month, 1)),
     LedgerItem(
         price: 300000,
         category: Category(
             iconId: 19,
             label: localization.trans('SALARY')!,
-            type: CategoryType.INCOME),
+            type: CategoryType.income),
         selectedDate: DateTime(2019, month, 10)),
   ];
 }

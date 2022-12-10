@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart';
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 
 class SettingNotification extends HookWidget {
   const SettingNotification({super.key});
@@ -13,14 +14,14 @@ class SettingNotification extends HookWidget {
     var addLedgerSwitch = useState<bool>(false);
     var updateLedgerSwitch = useState<bool>(false);
 
-    void _onChangeAddingLedgerSwitch(bool value) {
+    void changeAddingLedgerSwitch(bool value) {
       addLedgerSwitch.value = value;
-      print('value: $value');
+      logger.d('value: $value');
     }
 
-    void _onChangeUpdateLedgerSwitch(bool value) {
+    void onChangeUpdateLedgerSwitch(bool value) {
       updateLedgerSwitch.value = value;
-      print('value: $value');
+      logger.d('value: $value');
     }
 
     var localization = Localization.of(context)!;
@@ -62,9 +63,9 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
-                    inactiveTrackColor: Asset.Colors.main,
+                    inactiveTrackColor: asset.Colors.main,
                     value: addLedgerSwitch.value,
-                    onChanged: _onChangeAddingLedgerSwitch,
+                    onChanged: changeAddingLedgerSwitch,
                     activeTrackColor: Theme.of(context).primaryColor,
                     activeColor: Theme.of(context).colorScheme.secondary,
                   ),
@@ -90,9 +91,9 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
-                    inactiveTrackColor: Asset.Colors.main,
+                    inactiveTrackColor: asset.Colors.main,
                     value: updateLedgerSwitch.value,
-                    onChanged: _onChangeUpdateLedgerSwitch,
+                    onChanged: onChangeUpdateLedgerSwitch,
                     activeTrackColor: Theme.of(context).primaryColor,
                     activeColor: Theme.of(context).colorScheme.secondary,
                   ),

@@ -9,7 +9,7 @@ import 'package:wecount/screens/home_statistic/functions.dart';
 
 import 'package:wecount/widgets/home_list_item.dart';
 import 'package:wecount/types/color.dart';
-import 'package:wecount/utils/asset.dart' as Asset;
+import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ import 'package:wecount/utils/localization.dart' show Localization;
 import 'package:provider/provider.dart';
 
 class HomeStatistic extends StatelessWidget {
-  HomeStatistic({
+  const HomeStatistic({
     Key? key,
     this.title = '대학 하계 MT',
   }) : super(key: key);
@@ -31,23 +31,23 @@ class HomeStatistic extends StatelessWidget {
   Widget build(BuildContext context) {
     var color = Provider.of<CurrentLedger>(context).getLedger() != null
         ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.DUSK;
+        : ColorType.dusk;
 
     return Scaffold(
       appBar: renderHomeAppBar(
         context: context,
-        title: this.title,
-        color: Asset.Colors.getColor(color),
+        title: title,
+        color: asset.Colors.getColor(color),
         fontColor: Colors.white,
         actions: [
-          Container(
+          SizedBox(
             width: 56.0,
             child: RawMaterialButton(
-              padding: EdgeInsets.all(0.0),
-              shape: CircleBorder(),
+              padding: const EdgeInsets.all(0.0),
+              shape: const CircleBorder(),
               onPressed: () =>
                   navigation.push(context, AppRoute.ledgerItemEdit.path),
-              child: Icon(
+              child: const Icon(
                 Icons.add,
                 color: Colors.white,
               ),
@@ -56,8 +56,8 @@ class HomeStatistic extends StatelessWidget {
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: SafeArea(
-        child: Container(
+      body: const SafeArea(
+        child: SizedBox(
           child: Center(
             child: Content(),
           ),
@@ -68,28 +68,28 @@ class HomeStatistic extends StatelessWidget {
 }
 
 class Content extends HookWidget {
-  Content({Key? key}) : super(key: key);
+  const Content({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     /// From parent
-    late List<LedgerItem> _ledgerList;
+    late List<LedgerItem> ledgerItems;
 
     /// State
-    DateTime _date = DateTime.now();
-    var _dataMapIncome = useState<Map<String, double>?>(Map());
-    var _dataMapExpense = useState<Map<String, double>?>(Map());
-    var _condensedLedgerList = useState<List<LedgerItem>>([]);
-    var _selectedChart = useState<int?>(null);
+    DateTime date = DateTime.now();
+    var dataMapIncome = useState<Map<String, double>?>({});
+    var dataMapExpense = useState<Map<String, double>?>({});
+    var condensedLedgerList = useState<List<LedgerItem>>([]);
+    var selectedChart = useState<int>(0);
 
     List<Color> colorList = [
-      Asset.Colors.blue,
-      Asset.Colors.orange,
-      Asset.Colors.green,
-      Asset.Colors.yellow,
-      Asset.Colors.purple,
-      Asset.Colors.main,
-      Asset.Colors.red,
+      asset.Colors.blue,
+      asset.Colors.orange,
+      asset.Colors.green,
+      asset.Colors.yellow,
+      asset.Colors.purple,
+      asset.Colors.main,
+      asset.Colors.red,
     ];
 
     void calculateAndRender(String month, List<LedgerItem> ledgerList) {
@@ -100,28 +100,25 @@ class Content extends HookWidget {
       var result = splitLedgers(condensedLedgerList);
       // ledgerList.addAll(normalIncomeList(localization, 10));
 
-      _condensedLedgerList.value = condensedLedgerList;
-      _dataMapIncome.value = result['income'];
-      _dataMapExpense.value = result['expense'];
+      dataMapIncome.value = result['income'];
+      dataMapExpense.value = result['expense'];
     }
-
-    ;
 
     var localization = Localization.of(context);
 
     useEffect(() {
       Future.delayed(Duration.zero, () {
-        _ledgerList = createHomeStatisticMock(Localization.of(context)!);
+        ledgerItems = createHomeStatisticMock(Localization.of(context)!);
 
-        calculateAndRender(_date.month.toString(), _ledgerList);
-        _selectedChart.value = 1;
+        calculateAndRender(date.month.toString(), ledgerItems);
+        selectedChart.value = 1;
       });
       return null;
     }, []);
 
     /// Month select Widget -> select month, set _date and calculate
     void onDatePressed() async {
-      int year = _date.year;
+      int year = date.year;
       int prevDate = year - 100;
       int lastDate = year + 10;
       // DateTime? pickDate = await showMonthPicker(
@@ -136,12 +133,11 @@ class Content extends HookWidget {
       // }
     }
 
-    Map<String, double> dataMap = _selectedChart.value == 1
-        ? _dataMapIncome.value!
-        : _dataMapExpense.value!;
+    Map<String, double> dataMap =
+        selectedChart.value == 1 ? dataMapIncome.value! : dataMapExpense.value!;
 
     /// PieChart throws error when `_dataMap` is empty
-    var chartWidget = dataMap.length > 0
+    var chartWidget = dataMap.isNotEmpty
         ? PieChart(
             dataMap: dataMap,
             centerTextStyle: TextStyle(
@@ -149,7 +145,7 @@ class Content extends HookWidget {
               fontSize: 14,
               color: Theme.of(context).textTheme.displayLarge!.color,
             ),
-            animationDuration: Duration(milliseconds: 800),
+            animationDuration: const Duration(milliseconds: 800),
             chartLegendSpacing: 32.0,
             chartRadius: MediaQuery.of(context).size.width / 2.7,
             // showChartValuesInPercentage: true,
@@ -160,37 +156,35 @@ class Content extends HookWidget {
             // showLegends: true,
             // decimalPlaces: 1,
           )
-        : Container(
-            child: Flex(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(20),
-                ),
-                Text(
-                  localization!.trans('NO_DATA')!,
-                  style: TextStyle(),
-                ),
-              ],
-              direction: Axis.vertical,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-            ),
+        : Flex(
+            direction: Axis.vertical,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(20),
+              ),
+              Text(
+                localization!.trans('NO_DATA')!,
+                style: const TextStyle(),
+              ),
+            ],
           );
 
     var bottomListWidget = ListView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      itemCount: _condensedLedgerList.value.length,
+      itemCount: condensedLedgerList.value.length,
       itemBuilder: (BuildContext context, int index) {
-        return HomeListItem(ledgerItem: _condensedLedgerList.value[index]);
+        return HomeListItem(ledgerItem: condensedLedgerList.value[index]);
       },
     );
 
     return SafeArea(
       top: false,
       child: Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 5.0,
           bottom: 16.0,
           left: 16.0,
@@ -200,17 +194,17 @@ class Content extends HookWidget {
           padding: const EdgeInsets.only(top: 0),
           children: <Widget>[
             DateSelector(
-              date: DateFormat.yMMM().format(_date),
+              date: DateFormat.yMMM().format(date),
               onDatePressed: onDatePressed,
             ),
             ButtonGroup(
               onButtonOnePressed: () {
-                _selectedChart.value = 1;
+                selectedChart.value = 1;
               },
               onButtonTwoPressed: () {
-                _selectedChart.value = 2;
+                selectedChart.value = 2;
               },
-              selected: _selectedChart.value,
+              selectedIndex: selectedChart.value,
             ),
             chartWidget,
             bottomListWidget,
@@ -222,13 +216,13 @@ class Content extends HookWidget {
 }
 
 class ButtonGroup extends StatelessWidget {
-  final selected;
+  final int selectedIndex;
   final Function onButtonOnePressed;
   final Function onButtonTwoPressed;
 
-  ButtonGroup(
+  const ButtonGroup(
       {Key? key,
-      required this.selected,
+      required this.selectedIndex,
       required this.onButtonOnePressed,
       required this.onButtonTwoPressed})
       : super(key: key);
@@ -236,14 +230,14 @@ class ButtonGroup extends StatelessWidget {
   final width = 300;
   final double buttonHeight = 30;
   final selectedColorText = Colors.white;
-  final Radius borderRadius = Radius.circular(5.0);
+  final Radius borderRadius = const Radius.circular(5.0);
 
   @override
   Widget build(BuildContext context) {
     Color selectedColor = Theme.of(context).primaryColor;
     var localization = Localization.of(context)!;
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       height: 40,
       width: double.infinity,
       child: Row(
@@ -253,12 +247,12 @@ class ButtonGroup extends StatelessWidget {
             child: ButtonTheme(
               height: buttonHeight,
               child: ElevatedButton(
-                onPressed: this.onButtonOnePressed as void Function()?,
+                onPressed: onButtonOnePressed as void Function()?,
                 child: Text(
                   localization.trans("INCOME")!,
                   style: TextStyle(
                     color:
-                        this.selected == 1 ? selectedColorText : Colors.black,
+                        selectedIndex == 1 ? selectedColorText : Colors.black,
                   ),
                 ),
               ),
@@ -268,12 +262,12 @@ class ButtonGroup extends StatelessWidget {
             child: ButtonTheme(
               height: buttonHeight,
               child: ElevatedButton(
-                onPressed: this.onButtonTwoPressed as void Function()?,
+                onPressed: onButtonTwoPressed as void Function()?,
                 child: Text(
                   localization.trans("CONSUME")!,
                   style: TextStyle(
                     color:
-                        this.selected == 2 ? selectedColorText : Colors.black,
+                        selectedIndex == 2 ? selectedColorText : Colors.black,
                   ),
                 ),
               ),

@@ -4,10 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../test_utils.dart' show TestUtils;
 
-const double PORTRAIT_WIDTH = 400.0;
-const double PORTRAIT_HEIGHT = 800.0;
-const double LANDSCAPE_WIDTH = PORTRAIT_HEIGHT;
-const double LANDSCAPE_HEIGHT = PORTRAIT_WIDTH;
+const double portraitWidth = 400.0;
+const double portraitHeight = 800.0;
+const double landscapeWidth = portraitHeight;
+const double landscapeHeight = portraitWidth;
 
 void main() {
   final TestWidgetsFlutterBinding binding =
@@ -16,10 +16,10 @@ void main() {
   testWidgets(
       'Show [Ledgers] on the date when the corresponding date has been clicked',
       (WidgetTester tester) async {
-    await binding.setSurfaceSize(Size(PORTRAIT_WIDTH, PORTRAIT_HEIGHT));
+    await binding.setSurfaceSize(const Size(portraitWidth, portraitHeight));
 
     await tester
-        .pumpWidget(TestUtils.makeTestableWidget(child: HomeCalendar()));
+        .pumpWidget(TestUtils.makeTestableWidget(child: const HomeCalendar()));
     await tester.pumpAndSettle();
 
     var findByText = find.byType(Text);

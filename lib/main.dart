@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:wecount/providers/current_ledger.dart';
-import 'package:wecount/utils/constatns.dart';
+import 'package:wecount/utils/constants.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/utils/themes.dart';
 

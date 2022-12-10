@@ -17,7 +17,7 @@ class DatabaseService {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
-      print('user is not sign-in');
+      logger.d('user is not sign-in');
       return "";
     }
 
@@ -66,7 +66,7 @@ class DatabaseService {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
-      print('user is not sign-in');
+      logger.d('user is not sign-in');
       return false;
     }
 
@@ -146,7 +146,7 @@ class DatabaseService {
   Future<bool> requestCreateLedgerItem(LedgerItem ledgerItem) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
-      print('user is not sign-in');
+      logger.d('user is not sign-in');
       return false;
     }
 
@@ -174,11 +174,11 @@ class DatabaseService {
   }
 
   Stream<List<LedgerItem>> streamGetMyLedgerItems(
-      String userId, String selectedledger) {
+      String userId, String selectedLedger) {
     var ref = FirestoreConfig.userColRef
         .doc(userId)
         .collection('ledgers')
-        .doc(selectedledger)
+        .doc(selectedLedger)
         .collection('ledgerItems');
 
     var query = ref.withConverter<LedgerItem>(
@@ -191,12 +191,12 @@ class DatabaseService {
         .map((list) => list.docs.map((doc) => doc.data()).toList());
   }
 
-  Future<List<LedgerItem>> getMyLedgerItmes({
+  Future<List<LedgerItem>> getMyLedgerItems({
     int size = 20,
   }) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
-      print('user is not sign-in');
+      logger.d('user is not sign-in');
       return [];
     }
 
@@ -231,7 +231,7 @@ class DatabaseService {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
-      print('user is not sign-in');
+      logger.d('user is not sign-in');
       return false;
     }
 
