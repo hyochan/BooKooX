@@ -8,6 +8,24 @@ class SKo extends S {
   String get loading => '로딩중...';
 
   @override
+  String get terms1 => '다음 단계로 진행함과 동시에 ';
+
+  @override
+  String get termsOfUse => '이용약관';
+
+  @override
+  String get terms2 => ' 및 ';
+
+  @override
+  String get privacyPolicy => '개인정보 취급방침';
+
+  @override
+  String get terms3 => '에 동의하는 것으로 간주합니다.';
+
+  @override
+  String get doNoHaveAccount => '계정이 없으신가요';
+
+  @override
   String get signIn => '로그인';
 
   @override
@@ -30,6 +48,9 @@ class SKo extends S {
 
   @override
   String get resendEmail => '이메일 재전송';
+
+  @override
+  String get success => '성공';
 
   @override
   String get passwordResetLinkSent => '비밀번호 변경 링크를 메일로 보냈습니다. 메일함을 확인해주세요.';
@@ -138,6 +159,9 @@ class SKo extends S {
 
   @override
   String get back => '뒤로가기';
+
+  @override
+  String get close => '닫기';
 
   @override
   String get ledgerNameHint => '가계부명을 입력하세요.';
@@ -504,6 +528,9 @@ class SKo extends S {
 
   @override
   String get guest => '손님';
+
+  @override
+  String get search => '검색';
 
   @override
   String get searchUserHint => '사용자 검색...';

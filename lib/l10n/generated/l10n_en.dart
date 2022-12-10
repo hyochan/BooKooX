@@ -8,36 +8,52 @@ class SEn extends S {
   String get loading => 'Loading...';
 
   @override
+  String get terms1 => 'By proceeding to the next step, you agree to the ';
+
+  @override
+  String get termsOfUse => 'Terms of Use';
+
+  @override
+  String get terms2 => ' and ';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get terms3 => '.';
+
+  @override
+  String get doNoHaveAccount => 'Don\'t have an account?';
+
+  @override
   String get signIn => 'Sign in';
 
   @override
   String get signOutAsk => 'Are you sure you want to sign out?';
 
   @override
-  String get errorUserNotFound =>
-      'User is not found. Please sign up beforehand.';
+  String get errorUserNotFound => 'User is not found. Please sign up beforehand.';
 
   @override
-  String get errorUserDisabled =>
-      'Current user is disabled. Please contact customer service.';
+  String get errorUserDisabled => 'Current user is disabled. Please contact customer service.';
 
   @override
   String get errorManyRequests => 'Too many attempts. Please try again later.';
 
   @override
-  String get errorOperationNotAllowed =>
-      'Current operation is not allowed. Please try again later.';
+  String get errorOperationNotAllowed => 'Current operation is not allowed. Please try again later.';
 
   @override
-  String get emailNotVerified =>
-      'Your email is not verified. Please check your inbox and verify your email address.';
+  String get emailNotVerified => 'Your email is not verified. Please check your inbox and verify your email address.';
 
   @override
   String get resendEmail => 'Re-send email';
 
   @override
-  String get passwordResetLinkSent =>
-      'Password reset link has been sent to your email. Please check your inbox.';
+  String get success => 'success';
+
+  @override
+  String get passwordResetLinkSent => 'Password reset link has been sent to your email. Please check your inbox.';
 
   @override
   String get signingInWithGoogle => 'Signing in with Google...';
@@ -49,15 +65,13 @@ class SEn extends S {
   String get signUpSuccessTitle => 'Registered';
 
   @override
-  String get signUpSuccessContent =>
-      'Thanks for registering to WeCount. Please check your email to verify your email address. Or your email may be already registered.';
+  String get signUpSuccessContent => 'Thanks for registering to WeCount. Please check your email to verify your email address. Or your email may be already registered.';
 
   @override
   String get signUpErrorTitle => 'Registered Failed';
 
   @override
-  String get signUpErrorContent =>
-      'Unexpected error occurred. Please check your internet connection and try again later.';
+  String get signUpErrorContent => 'Unexpected error occurred. Please check your internet connection and try again later.';
 
   @override
   String get homeMonthly => 'Monthly';
@@ -93,8 +107,7 @@ class SEn extends S {
   String get displayName => 'Display name';
 
   @override
-  String get displayNameHint =>
-      'Please write your display name (min 3 letters)';
+  String get displayNameHint => 'Please write your display name (min 3 letters)';
 
   @override
   String get name => 'Name';
@@ -118,8 +131,7 @@ class SEn extends S {
   String get noValidEmail => 'Not a valid email address';
 
   @override
-  String get noValidPassword =>
-      'Password should be alphanumeric with more than 5 letters';
+  String get noValidPassword => 'Password should be alphanumeric with more than 5 letters';
 
   @override
   String get ok => 'Ok';
@@ -147,6 +159,9 @@ class SEn extends S {
 
   @override
   String get back => 'Back';
+
+  @override
+  String get close => 'Close';
 
   @override
   String get ledgerNameHint => 'Please write name of your ledger';
@@ -206,92 +221,79 @@ class SEn extends S {
   String get announcement1 => 'BooKoo Promises';
 
   @override
-  String get announcementTxt1 =>
-      'We will always update our app to support better experience to users. We will listen to you as much as we can.\n';
+  String get announcementTxt1 => 'We will always update our app to support better experience to users. We will listen to you as much as we can.\n';
 
   @override
   String get announcement2 => 'Release note';
 
   @override
-  String get announcementTxt2 =>
-      'BooKoo is released on apple app store and android playstore. Thank you for all your supports.\n';
+  String get announcementTxt2 => 'BooKoo is released on apple app store and android playstore. Thank you for all your supports.\n';
 
   @override
   String get faq1 => 'How do I withdraw from BooKoo?';
 
   @override
-  String get faqTxt1 =>
-      'Since we can have some information that may be sensitive to users, we decided to confirm the withdrawal before it is actually done. Send us an email which is dooboolab@gmail.com. We will throughly review your withdrawals and send you email back when it is done.\n';
+  String get faqTxt1 => 'Since we can have some information that may be sensitive to users, we decided to confirm the withdrawal before it is actually done. Send us an email which is dooboolab@gmail.com. We will throughly review your withdrawals and send you email back when it is done.\n';
 
   @override
   String get faq2 => 'How do I create ledger?';
 
   @override
-  String get faqTxt2 =>
-      'First, click on the hamburger button which is placed at the top left corner of Main page and open the dashboard. Then click on Add Ledger at the bottom of the dashboard. Then write the title and description and choose the color. Finally click on [Done] button to actually create one.\n';
+  String get faqTxt2 => 'First, click on the hamburger button which is placed at the top left corner of Main page and open the dashboard. Then click on Add Ledger at the bottom of the dashboard. Then write the title and description and choose the color. Finally click on [Done] button to actually create one.\n';
 
   @override
   String get faq3 => 'What do BooKoo earn?';
 
   @override
-  String get faqTxt3 =>
-      'We earn your love. We will be fast growing as much as we get more attraction from you.\n';
+  String get faqTxt3 => 'We earn your love. We will be fast growing as much as we get more attraction from you.\n';
 
   @override
   String get faq4 => 'What is different from ledger and ledger item?';
 
   @override
-  String get faqTxt4 =>
-      'Ledger is just an account book which contains all the ledger items. We named it this way not to confuse ourselves during developing our app.\n';
+  String get faqTxt4 => 'Ledger is just an account book which contains all the ledger items. We named it this way not to confuse ourselves during developing our app.\n';
 
   @override
   String get faq5 => 'How do I create ledger item?';
 
   @override
-  String get faqTxt5 =>
-      'First you need to have your ledger created or you should be invited to another ledger. Then in main page, click on [+] button at the top right corner. You will see left and right screen. Left one is adding consume item and right one is adding income item. Which one you prefer, just select category and fill out amount input box which is minimum information you need to add the item. Finally click on [Done] button to finish adding.\n';
+  String get faqTxt5 => 'First you need to have your ledger created or you should be invited to another ledger. Then in main page, click on [+] button at the top right corner. You will see left and right screen. Left one is adding consume item and right one is adding income item. Which one you prefer, just select category and fill out amount input box which is minimum information you need to add the item. Finally click on [Done] button to finish adding.\n';
 
   @override
   String get faq6 => 'How can I invite member to my ledger?';
 
   @override
-  String get faqTxt6 =>
-      'Ask email address to member whom you want to invite. Then in dashboard, click on [more] button and move to ledger detail page. Click on [+] button placed right of your profile which is placed at the bottom. Write an email address. You can also write multiple addresses by adding spaces.\n';
+  String get faqTxt6 => 'Ask email address to member whom you want to invite. Then in dashboard, click on [more] button and move to ledger detail page. Click on [+] button placed right of your profile which is placed at the bottom. Write an email address. You can also write multiple addresses by adding spaces.\n';
 
   @override
   String get faq7 => 'Can owner of ledger only invite member?';
 
   @override
-  String get faqTxt7 =>
-      'Yes. Since ledger can have some sensitive information (personally). Only owner can invite members.\n';
+  String get faqTxt7 => 'Yes. Since ledger can have some sensitive information (personally). Only owner can invite members.\n';
 
   @override
   String get faq8 => 'Where can I send my upgrade request for BooKoo?';
 
   @override
-  String get faqTxt8 =>
-      'If you want to send us any opinion, go to [Share Opinion] in setting page. Then write us any opinion you want to send us.\n';
+  String get faqTxt8 => 'If you want to send us any opinion, go to [Share Opinion] in setting page. Then write us any opinion you want to send us.\n';
 
   @override
   String get faq9 => 'Can I use this app in other devices?';
 
   @override
-  String get faqTxt9 =>
-      'Yes. Since our service is based on sns, you can use our app in different phone.\n';
+  String get faqTxt9 => 'Yes. Since our service is based on sns, you can use our app in different phone.\n';
 
   @override
   String get faq10 => 'How is BooKoo different from other ledger app?';
 
   @override
-  String get faqTxt10 =>
-      'Basically, BooKoo is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with BooKoo but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n';
+  String get faqTxt10 => 'Basically, BooKoo is a social ledger service which you can share it with other members. Right now, there is many personal ledger app but there is no social ledger service yet. You can manage your own ledger with BooKoo but also with other people. You can only manage your own ledger yourself but also multiple ledgers by creating new ones or get invited.\n';
 
   @override
   String get faq11 => 'Why did you think you need to make Bookoo?';
 
   @override
-  String get faqTxt11 =>
-      'Firstly, we found out that there are many troubles when someone manage other people\'s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, BooKoo is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n';
+  String get faqTxt11 => 'Firstly, we found out that there are many troubles when someone manage other people\"s money like membership fee. When we were university students, there were also trouble since manager did not manage ledger transparently. Actually, BooKoo is more needed for people to whom wants to be shared more than those who wants to share. We really needed this service personally so we created one. We will keep working on it for your better experience. Be with us!\n';
 
   @override
   String get send => 'Send';
@@ -318,8 +320,7 @@ class SEn extends S {
   String get takeCare => 'Take care';
 
   @override
-  String get tutorial3Detail =>
-      'Analyze graph at a glance.\nYou can manage your income and expenses.';
+  String get tutorial3Detail => 'Analyze graph at a glance.\nYou can manage your income and expenses.';
 
   @override
   String get next => 'Next';
@@ -406,8 +407,7 @@ class SEn extends S {
   String get tax => 'Tax';
 
   @override
-  String get noLedgerDescription =>
-      'You do not have an account book.\nPlease add your household account book.';
+  String get noLedgerDescription => 'You do not have an account book.\nPlease add your household account book.';
 
   @override
   String get price => 'Price';
@@ -473,15 +473,13 @@ class SEn extends S {
   String get categoryAdded => 'Successfully added category.';
 
   @override
-  String get categoryAddError =>
-      'There was an error while adding category. Please try again.';
+  String get categoryAddError => 'There was an error while adding category. Please try again.';
 
   @override
   String get categoryDeleted => 'Successfully deleted category.';
 
   @override
-  String get categoryDeleteError =>
-      'There was an error while deleting category. Please try again.';
+  String get categoryDeleteError => 'There was an error while deleting category. Please try again.';
 
   @override
   String get delete => 'Delete';
@@ -532,6 +530,9 @@ class SEn extends S {
   String get guest => 'Guest';
 
   @override
+  String get search => 'Search';
+
+  @override
   String get searchUserHint => 'Search user...';
 
   @override
@@ -544,6 +545,5 @@ class SEn extends S {
   String get leave => 'Leave';
 
   @override
-  String get shouldTransferOwnership =>
-      'You should transfer ownership before leaving your ledger.';
+  String get shouldTransferOwnership => 'You should transfer ownership before leaving your ledger.';
 }

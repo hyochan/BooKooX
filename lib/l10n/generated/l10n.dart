@@ -60,8 +60,7 @@ import 'l10n_ko.dart';
 /// be consistent with the languages listed in the S.supportedLocales
 /// property.
 abstract class S {
-  S(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  S(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -81,8 +80,7 @@ abstract class S {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -100,6 +98,42 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Loading...'**
   String get loading;
+
+  /// No description provided for @terms1.
+  ///
+  /// In en, this message translates to:
+  /// **'By proceeding to the next step, you agree to the '**
+  String get terms1;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUse;
+
+  /// No description provided for @terms2.
+  ///
+  /// In en, this message translates to:
+  /// **' and '**
+  String get terms2;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @terms3.
+  ///
+  /// In en, this message translates to:
+  /// **'.'**
+  String get terms3;
+
+  /// Text when account is not registered
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get doNoHaveAccount;
 
   /// No description provided for @signIn.
   ///
@@ -148,6 +182,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Re-send email'**
   String get resendEmail;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'success'**
+  String get success;
 
   /// No description provided for @passwordResetLinkSent.
   ///
@@ -364,6 +404,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Back'**
   String get back;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
 
   /// No description provided for @ledgerNameHint.
   ///
@@ -1097,6 +1143,12 @@ abstract class S {
   /// **'Guest'**
   String get guest;
 
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
   /// No description provided for @searchUserHint.
   ///
   /// In en, this message translates to:
@@ -1137,25 +1189,25 @@ class _SDelegate extends LocalizationsDelegate<S> {
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'ko'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'ko'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_SDelegate old) => false;
 }
 
 S lookupS(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return SEn();
-    case 'ko':
-      return SKo();
+    case 'en': return SEn();
+    case 'ko': return SKo();
   }
 
   throw FlutterError(
-      'S.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'S.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }
