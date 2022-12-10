@@ -23,6 +23,9 @@ jobs:
       - name: Pub get
         run: flutter pub get
 
+      - name: Generate l10n
+        run: flutter gen-l10n
+
       - name: Build freezed models
         run: flutter pub run build_runner build --delete-conflicting-outputs
 

@@ -40,9 +40,6 @@ jobs:
       - name: COPY ENV
         run: cp .env.sample .env && cp .env.sample dotenv
 
-      - name: Generate l10n
-        run: flutter gen-l10n
-
       - name: Create firebase_options
         run: |
           touch lib/firebase_options.dart
@@ -112,6 +109,9 @@ jobs:
 
       - name: Get packages
         run: flutter pub get
+
+      - name: Generate l10n
+        run: flutter gen-l10n
 
       - name: Flutter analyze
         run: flutter analyze
