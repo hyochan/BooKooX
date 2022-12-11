@@ -15,7 +15,7 @@ import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/models/currency.dart';
 import 'package:wecount/models/ledger.dart';
-import 'package:wecount/widgets/colors.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 class LedgerEditArguments {

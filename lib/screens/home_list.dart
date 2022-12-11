@@ -8,7 +8,7 @@ import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/repositories/ledger_repository.dart';
 import 'package:wecount/repositories/user_repository.dart';
 import 'package:wecount/services/database.dart';
-import 'package:wecount/widgets/colors.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';

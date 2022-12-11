@@ -8,7 +8,7 @@ import 'package:wecount/widgets/date_selector.dart' show DateSelector;
 import 'package:wecount/screens/home_statistic/functions.dart';
 
 import 'package:wecount/widgets/home_list_item.dart';
-import 'package:wecount/widgets/colors.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
