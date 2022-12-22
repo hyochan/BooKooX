@@ -1,10 +1,10 @@
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 
-List<LedgerItem> ledgerListByMonth(
+List<LedgerItemModel> ledgerListByMonth(
   String month,
-  List<LedgerItem> ledgersIn,
+  List<LedgerItemModel> ledgersIn,
 ) {
-  List<LedgerItem> ledgersOut = [];
+  List<LedgerItemModel> ledgersOut = [];
   // print('get ledgers by month of ' + month);
   for (final ledger in ledgersIn) {
     // print('item ' +
@@ -22,9 +22,9 @@ List<LedgerItem> ledgerListByMonth(
   return ledgersOut;
 }
 
-List<LedgerItem> condense(List<LedgerItem> ledgerList) {
+List<LedgerItemModel> condense(List<LedgerItemModel> ledgerList) {
   // print('ledgerList');
-  Map<String?, LedgerItem> mappedLedgerList = {};
+  Map<String?, LedgerItemModel> mappedLedgerList = {};
   for (final item in ledgerList) {
     // print('item ' +
     //     item.category.toString() +
@@ -32,16 +32,16 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
     //     item.price.toString());
     mappedLedgerList.update(
       item.category!.label,
-      (LedgerItem existingItem) {
+      (LedgerItemModel existingItem) {
         // existingItem.price += item.price!;
         return existingItem;
       },
-      ifAbsent: () => LedgerItem.createRoughCopy(item),
+      ifAbsent: () => LedgerItemModel.createRoughCopy(item),
     );
     // print('Map ' + mappedLedgerList.length.toString());
   }
 
-  List<LedgerItem> result = [];
+  List<LedgerItemModel> result = [];
   // print('mapped result length : ${mappedLedgerList.length}');
   mappedLedgerList.forEach((key, value) {
     result.add(value);
@@ -50,7 +50,8 @@ List<LedgerItem> condense(List<LedgerItem> ledgerList) {
   return result;
 }
 
-Map<String, Map<String, double>> splitLedgers(List<LedgerItem> ledgerList) {
+Map<String, Map<String, double>> splitLedgers(
+    List<LedgerItemModel> ledgerList) {
   Map<String, double> income = {};
   Map<String, double> expense = {};
 

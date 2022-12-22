@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wecount/models/ledger.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_model.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/services/storage.dart';
 import 'package:wecount/utils/db_helper.dart';
@@ -13,7 +13,7 @@ import 'package:wecount/utils/firebase_config.dart';
 import 'package:wecount/utils/logger.dart';
 
 class DatabaseService {
-  Future<String> requestCreateNewLedger(Ledger? ledger) async {
+  Future<String> requestCreateNewLedger(LedgerModel? ledger) async {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
@@ -62,7 +62,7 @@ class DatabaseService {
     return ref.id;
   }
 
-  Future<bool> requestUpdateLedger(Ledger? ledger) async {
+  Future<bool> requestUpdateLedger(LedgerModel? ledger) async {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
@@ -104,12 +104,12 @@ class DatabaseService {
   Future<bool> requestLeaveLedger(String? ledgerId) async {
     User? user = FirebaseAuth.instance.currentUser;
 
-    Future<Ledger> getLedger(String? ledgerId) async {
+    Future<LedgerModel> getLedger(String? ledgerId) async {
       var snap = await FirestoreConfig.ledgerColRef.doc(ledgerId).get();
-      return Ledger.fromMap(snap.data());
+      return LedgerModel.fromMap(snap.data());
     }
 
-    Ledger ledger = await getLedger(ledgerId);
+    LedgerModel ledger = await getLedger(ledgerId);
 
     bool hasOwnerPermission = user != null && ledger.ownerId == user.uid;
 
@@ -144,7 +144,7 @@ class DatabaseService {
     return true;
   }
 
-  Future<bool> requestCreateLedgerItem(LedgerItem ledgerItem) async {
+  Future<bool> requestCreateLedgerItem(LedgerItemModel ledgerItem) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
       logger.d('user is not sign-in');
@@ -174,7 +174,7 @@ class DatabaseService {
     return true;
   }
 
-  Stream<List<LedgerItem>> streamGetMyLedgerItems(
+  Stream<List<LedgerItemModel>> streamGetMyLedgerItems(
       String userId, String selectedLedger) {
     var ref = FirestoreConfig.userColRef
         .doc(userId)
@@ -182,9 +182,9 @@ class DatabaseService {
         .doc(selectedLedger)
         .collection('ledgerItems');
 
-    var query = ref.withConverter<LedgerItem>(
+    var query = ref.withConverter<LedgerItemModel>(
         fromFirestore: (snapshot, _) =>
-            LedgerItem.fromJson(snapshot.data() ?? {}),
+            LedgerItemModel.fromJson(snapshot.data() ?? {}),
         toFirestore: (ledgerItem, _) => ledgerItem.toJson());
 
     return query
@@ -192,7 +192,7 @@ class DatabaseService {
         .map((list) => list.docs.map((doc) => doc.data()).toList());
   }
 
-  Future<List<LedgerItem>> getMyLedgerItems({
+  Future<List<LedgerItemModel>> getMyLedgerItems({
     int size = 20,
   }) async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -210,9 +210,9 @@ class DatabaseService {
         .collection('ledgerItems');
 
     var query = userLedgerItemRef
-        .withConverter<LedgerItem>(
+        .withConverter<LedgerItemModel>(
             fromFirestore: (snapshot, _) =>
-                LedgerItem.fromJson(snapshot.data() ?? {}),
+                LedgerItemModel.fromJson(snapshot.data() ?? {}),
             toFirestore: (ledger, _) => ledger.toJson())
         .limit(size);
 
@@ -272,11 +272,11 @@ class DatabaseService {
     return true;
   }
 
-  Stream<Ledger> streamLedger(String? id) {
+  Stream<LedgerModel> streamLedger(String? id) {
     return FirestoreConfig.ledgerColRef
         .doc(id)
         .snapshots()
-        .map((snap) => Ledger.fromMap(snap.data()));
+        .map((snap) => LedgerModel.fromMap(snap.data()));
   }
 
   Stream<UserModel> streamUser(String id) {
@@ -287,11 +287,12 @@ class DatabaseService {
   }
 
   /// Used from `auth_switch.dart` to detect the initial widget.
-  Stream<List<Ledger>> streamMyLedgers(User user) {
+  Stream<List<LedgerModel>> streamMyLedgers(User user) {
     var ref = FirestoreConfig.userColRef.doc(user.uid).collection('ledgers');
 
-    var query = ref.withConverter<Ledger>(
-        fromFirestore: (snapshot, _) => Ledger.fromJson(snapshot.data() ?? {}),
+    var query = ref.withConverter<LedgerModel>(
+        fromFirestore: (snapshot, _) =>
+            LedgerModel.fromJson(snapshot.data() ?? {}),
         toFirestore: (ledger, _) => ledger.toJson());
 
     return query
@@ -299,7 +300,7 @@ class DatabaseService {
         .map((list) => list.docs.map((doc) => doc.data()).toList());
   }
 
-  Future<void> createLedger(Ledger ledger) {
+  Future<void> createLedger(LedgerModel ledger) {
     return FirestoreConfig.ledgerColRef.add(
       {
         'title': ledger.title,
@@ -314,7 +315,7 @@ class DatabaseService {
     return FirestoreConfig.userColRef.doc(user.uid).get();
   }
 
-  Future<Ledger?> fetchSelectedLedger() async {
+  Future<LedgerModel?> fetchSelectedLedger() async {
     User? user = FirebaseAuth.instance.currentUser!;
     DocumentSnapshot me = await DatabaseService().fetchMe(user);
 

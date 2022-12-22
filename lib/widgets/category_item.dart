@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 
 class CategoryItem extends HookWidget {
   const CategoryItem({
@@ -10,13 +10,13 @@ class CategoryItem extends HookWidget {
     this.onSelectPressed,
     this.onDeletePressed,
   });
-  final Category category;
+  final CategoryModel category;
   final Function? onDeletePressed;
   final Function? onSelectPressed;
 
   @override
   Widget build(BuildContext context) {
-    var category = useState<Category>(this.category);
+    var category = useState<CategoryModel>(this.category);
 
     return Container(
       margin: const EdgeInsets.only(top: 10, bottom: 10, left: 8),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/edit_text_box.dart';
@@ -30,7 +30,7 @@ class CategoryAdd extends HookWidget {
         return;
       }
 
-      Category category = Category(
+      CategoryModel category = CategoryModel(
         id: lastId! + 1,
         iconId: selectedIconIndex.value,
         label: textController.text,

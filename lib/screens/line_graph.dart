@@ -1,6 +1,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/mocks/line_graph.mock.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/widgets/line_graph_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ class LineGraphArguments {
   LineGraphArguments(this.title, this.year, this.price);
 }
 
-double getPriceSum(List<LedgerItem> items) {
+double getPriceSum(List<LedgerItemModel> items) {
   double sum = 0;
   for (final item in items) {
     sum += item.price!.abs();
@@ -38,8 +38,8 @@ class LineGraph extends HookWidget {
   Widget build(BuildContext context) {
     var selectedMonth = useState<int>(0);
     var priceSum = useState<double>(0);
-    var items = useState<List<LedgerItem>>([]);
-    var selectedItems = useState<List<LedgerItem>>([]);
+    var items = useState<List<LedgerItemModel>>([]);
+    var selectedItems = useState<List<LedgerItemModel>>([]);
 
     useEffect(() {
       Future.delayed(Duration.zero, () {
@@ -54,7 +54,7 @@ class LineGraph extends HookWidget {
     /// on click the month on graph
     /// set bottom list to show selected month, total expenditure and its list
     void handleClickGraph({required int month, required double sumOfPrice}) {
-      List<LedgerItem> itemsOfThisMonth = [];
+      List<LedgerItemModel> itemsOfThisMonth = [];
       for (final item in items.value) {
         if (item.selectedDate!.month == month) {
           itemsOfThisMonth.add(item);

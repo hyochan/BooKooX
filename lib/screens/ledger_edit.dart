@@ -13,13 +13,13 @@ import 'package:wecount/services/database.dart' show DatabaseService;
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/currency_model.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 class LedgerEditArguments {
-  final Ledger? ledger;
+  final LedgerModel? ledger;
   final LedgerEditType mode;
 
   LedgerEditArguments({this.ledger, this.mode = LedgerEditType.add});
@@ -31,7 +31,7 @@ enum LedgerEditType {
 }
 
 class LedgerEdit extends HookWidget {
-  final Ledger? ledger;
+  final LedgerModel? ledger;
   final LedgerEditType mode;
 
   const LedgerEdit({
@@ -42,14 +42,14 @@ class LedgerEdit extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var editLedger = useState<Ledger?>(null);
+    var editLedger = useState<LedgerModel?>(null);
     var loading = useState<bool>(false);
     var titleController = useTextEditingController(text: ledger?.title);
     var descController = useTextEditingController(text: ledger?.description);
 
     useEffect(() {
       if (ledger == null) {
-        editLedger.value = Ledger(
+        editLedger.value = LedgerModel(
           title: '',
           currency: currencies[29],
           color: ColorType.dusk,

@@ -1,5 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/models/currency.dart';
+import 'package:wecount/models/currency_model.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/logger.dart';
@@ -26,7 +26,7 @@ class SettingCurrency extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onSettingCurrency(Currency selectedCurrency) {
+    void onSettingCurrency(CurrencyModel selectedCurrency) {
       logger.d('on setting currency ${selectedCurrency.toString()}');
       Navigator.pop(context, selectedCurrency);
     }
@@ -37,7 +37,7 @@ class SettingCurrency extends HookWidget {
               trailing: el.currency == selectedCurrency
                   ? const Icon(Icons.check)
                   : const Text(''),
-              onTap: () => onSettingCurrency(Currency(
+              onTap: () => onSettingCurrency(CurrencyModel(
                 locale: el.locale,
                 currency: el.currency,
                 symbol: el.symbol,

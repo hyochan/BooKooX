@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/models/ledger_item.dart';
-import 'package:wecount/models/photo.dart';
+import 'package:wecount/models/ledger_item_model.dart';
+import 'package:wecount/models/photo_model.dart';
 
 class Carousel extends HookWidget {
   final double currentPage;
-  final List<Photo> picture;
+  final List<PhotoModel> picture;
   final double height;
   final double viewportFraction;
   final Function(int)? onPressed;
@@ -23,7 +23,7 @@ class Carousel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Photo> picture;
+    final List<PhotoModel> picture;
     final double? height;
     final double? viewportFraction;
     var currentPage = useState<int?>(null);

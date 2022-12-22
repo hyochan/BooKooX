@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/models/photo.dart';
+import 'package:wecount/models/photo_model.dart';
 
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:wecount/utils/asset.dart' as asset;
@@ -93,13 +93,13 @@ class Gallery extends HookWidget {
 
   final EdgeInsets? margin;
   final bool showAll;
-  final List<Photo> pictureProps;
-  final LedgerItem ledgerItem;
+  final List<PhotoModel> pictureProps;
+  final LedgerItemModel ledgerItem;
 
   @override
   Widget build(BuildContext context) {
     var ledgerItemState = useState(ledgerItem);
-    var pictures = useState<List<Photo>>([]);
+    var pictures = useState<List<PhotoModel>>([]);
 
     useEffect(() {
       pictures.value = pictureProps;
@@ -157,7 +157,7 @@ class Gallery extends HookWidget {
             width: double.infinity,
             margin: const EdgeInsets.only(bottom: 32),
             child: Wrap(
-              children: pictures.value.map((Photo photo) {
+              children: pictures.value.map((PhotoModel photo) {
                 if (photo.isAddBtn == true) {
                   return Container(
                     padding: const EdgeInsets.only(right: 4, bottom: 6),
@@ -181,7 +181,7 @@ class Gallery extends HookWidget {
                         }
 
                         if (context.mounted && imgFile != null) {
-                          Photo photo = Photo(file: imgFile);
+                          PhotoModel photo = PhotoModel(file: imgFile);
                           pictures.value.add(photo);
                           ledgerItemState.value =
                               ledgerItem.copyWith(picture: pictures.value);
@@ -233,7 +233,7 @@ class Gallery extends HookWidget {
                                   photo: photo,
                                   onPressDelete: () {
                                     int index = pictures.value.indexWhere(
-                                        (Photo compare) =>
+                                        (PhotoModel compare) =>
                                             compare.file == photo.file);
                                     pictures.value.removeAt(index);
                                     ledgerItemState.value = ledgerItem.copyWith(

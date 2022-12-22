@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/navigations/home_tab.dart' show HomeTab;
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/main_empty.dart' show MainEmpty;
@@ -18,10 +18,10 @@ class AuthSwitch extends StatelessWidget {
     var user = Provider.of<User?>(context);
 
     Widget renderMainLedger() {
-      return StreamProvider<List<Ledger>>.value(
+      return StreamProvider<List<LedgerModel>>.value(
         value: db.streamMyLedgers(user!),
         initialData: const [],
-        child: Consumer<List<Ledger>>(
+        child: Consumer<List<LedgerModel>>(
           builder: (context, ledgers, child) {
             return FutureBuilder(
               future: DatabaseService().fetchSelectedLedger(),
@@ -33,7 +33,7 @@ class AuthSwitch extends StatelessWidget {
                   if (snapshot.hasData) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       Provider.of<CurrentLedger>(context, listen: false)
-                          .setLedger(snapshot.data as Ledger);
+                          .setLedger(snapshot.data as LedgerModel);
                     });
                   }
 

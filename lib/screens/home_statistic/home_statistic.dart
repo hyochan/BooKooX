@@ -1,6 +1,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/mocks/home_statistic.mock.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
@@ -72,13 +72,13 @@ class Content extends HookWidget {
   @override
   Widget build(BuildContext context) {
     /// From parent
-    late List<LedgerItem> ledgerItems;
+    late List<LedgerItemModel> ledgerItems;
 
     /// State
     DateTime date = DateTime.now();
     var dataMapIncome = useState<Map<String, double>?>({});
     var dataMapExpense = useState<Map<String, double>?>({});
-    var condensedLedgerList = useState<List<LedgerItem>>([]);
+    var condensedLedgerList = useState<List<LedgerItemModel>>([]);
     var selectedChart = useState<int>(0);
 
     List<Color> colorList = [
@@ -91,7 +91,7 @@ class Content extends HookWidget {
       asset.Colors.red,
     ];
 
-    void calculateAndRender(String month, List<LedgerItem> ledgerList) {
+    void calculateAndRender(String month, List<LedgerItemModel> ledgerList) {
       var ledgerListOfSelectedMonth = ledgerListByMonth(month, ledgerList);
 
       /// sum up same category into one. but before that I can make ui first

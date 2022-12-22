@@ -1,4 +1,4 @@
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 

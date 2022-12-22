@@ -1,7 +1,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/mocks/home_calendar.mock.dart';
-import 'package:wecount/models/ledger.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_model.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/repositories/ledger_repository.dart';
 import 'package:wecount/utils/logger.dart';
@@ -101,10 +101,10 @@ class MyHomePage extends HookWidget {
     var markedDateMap0 = useState<EventList<Event>?>(null);
 
     /// ledgerList from parents
-    var ledgerList0 = useState<List<LedgerItem>>([]);
+    var ledgerList0 = useState<List<LedgerItemModel>>([]);
 
     /// for bottom list UI
-    var ledgerListOfSelectedDate = useState<List<LedgerItem>>([]);
+    var ledgerListOfSelectedDate = useState<List<LedgerItemModel>>([]);
 
     void selectDate(
       DateTime date,
@@ -132,7 +132,7 @@ class MyHomePage extends HookWidget {
       Future.delayed(
         Duration.zero,
         () async {
-          List<LedgerItem>? ledgerList =
+          List<LedgerItemModel>? ledgerList =
               await LedgerRepository.instance.getLedgerItems();
 
           if (ledgerList == null) {

@@ -3,14 +3,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:wecount/widgets/member_horizontal_list.dart';
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/currency_model.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/colors.dart';
 
 class LedgerViewArguments {
-  final Ledger? ledger;
+  final LedgerModel? ledger;
 
   LedgerViewArguments({this.ledger});
 }
@@ -20,20 +20,20 @@ class LedgerView extends HookWidget {
     super.key,
     this.ledger,
   });
-  final Ledger? ledger;
+  final LedgerModel? ledger;
 
   @override
   Widget build(BuildContext context) {
-    var viewLedger = useState<Ledger?>(null);
+    var viewLedger = useState<LedgerModel?>(null);
 
     useEffect(() {
       if (ledger != null) {
         viewLedger.value = ledger;
         return;
       }
-      viewLedger.value = Ledger(
+      viewLedger.value = LedgerModel(
         title: 'ledger test',
-        currency: Currency(currency: '￦', locale: 'KRW'),
+        currency: CurrencyModel(currency: '￦', locale: 'KRW'),
         color: ColorType.dusk,
       );
       return null;

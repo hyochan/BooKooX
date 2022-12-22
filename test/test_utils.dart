@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:wecount/utils/colors.dart';
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/currency_model.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/navigations/home_tab.dart';
 import 'package:wecount/screens/splash.dart' show Splash;
@@ -79,11 +79,11 @@ class TestUtils {
       ),
     );
 
-    var ledger = Ledger(
+    var ledger = LedgerModel(
         id: '1234',
         title: 'dooboolab',
         color: ColorType.dusk,
-        currency: Currency());
+        currency: CurrencyModel());
 
     return MultiProvider(
       providers: [

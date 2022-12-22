@@ -4,13 +4,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:photo_view/photo_view.dart'
     show PhotoView, PhotoViewComputedScale;
 import 'package:flutter/material.dart';
-import 'package:wecount/models/ledger_item.dart';
-import 'package:wecount/models/photo.dart';
+import 'package:wecount/models/ledger_item_model.dart';
+import 'package:wecount/models/photo_model.dart';
 
 import 'package:wecount/utils/localization.dart';
 
 class PhotoDetailArguments {
-  final Photo? photo;
+  final PhotoModel? photo;
   final String? photoUrl;
   final bool canShare;
   final Function? onPressDelete;
@@ -37,7 +37,7 @@ class PhotoDetail extends HookWidget {
     this.onPressShare,
     this.onPressDownload,
   }) : super(key: key);
-  final Photo? photo;
+  final PhotoModel? photo;
   final String? photoUrl;
   final bool canShare;
   final Function? onPressDelete;

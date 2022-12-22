@@ -1,4 +1,4 @@
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/line_graph.dart';
@@ -9,7 +9,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
 class HomeListItem extends StatelessWidget {
-  final LedgerItem? ledgerItem;
+  final LedgerItemModel? ledgerItem;
 
   const HomeListItem({
     Key? key,

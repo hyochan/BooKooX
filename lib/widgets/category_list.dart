@@ -1,5 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/category_item.dart';
@@ -13,16 +13,16 @@ class CategoryList extends HookWidget {
     super.key,
     required this.categories,
   });
-  final List<Category> categories;
+  final List<CategoryModel> categories;
 
   @override
   Widget build(BuildContext context) {
-    var categories = useState<List<Category>>(this.categories);
+    var categories = useState<List<CategoryModel>>(this.categories);
 
     return SafeArea(
       child: SingleChildScrollView(
         child: Wrap(
-          children: categories.value.map((Category category) {
+          children: categories.value.map((CategoryModel category) {
             return CategoryItem(
               key: Key(category.id.toString()),
               category: category,

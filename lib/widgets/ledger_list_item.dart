@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/colors.dart' show ColorType;
@@ -16,7 +16,7 @@ class HeadingItem implements ListItem {
 }
 
 class LedgerItem implements ListItem {
-  final Ledger ledger;
+  final LedgerModel ledger;
   final bool isOwner;
 
   LedgerItem(this.ledger, this.isOwner);

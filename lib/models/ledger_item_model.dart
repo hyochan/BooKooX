@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wecount/models/photo.dart';
+import 'package:wecount/models/photo_model.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/utils/converter.dart';
 import 'package:wecount/utils/localization.dart';
 
-part 'ledger_item.freezed.dart';
-part 'ledger_item.g.dart';
+part 'ledger_item_model.freezed.dart';
+part 'ledger_item_model.g.dart';
 
 @freezed
-class LedgerItem with _$LedgerItem {
-  const LedgerItem._();
-  factory LedgerItem({
+class LedgerItemModel with _$LedgerItemModel {
+  const LedgerItemModel._();
+  factory LedgerItemModel({
     double? price,
-    Category? category,
+    CategoryModel? category,
     String? memo,
     UserModel? writer,
     @ServerTimestampConverter() DateTime? selectedDate,
-    List<Photo>? picture,
+    List<PhotoModel>? picture,
     String? latlng,
     String? address,
     @ServerTimestampConverter() DateTime? createdAt,
     @ServerTimestampConverter() DateTime? updatedAt,
     @ServerTimestampConverter() DateTime? deletedAt,
-  }) = _LedgerItem;
+  }) = _LedgerItemModel;
 
-  factory LedgerItem.fromJson(Map<String, dynamic> json) =>
-      _$LedgerItemFromJson(json);
+  factory LedgerItemModel.fromJson(Map<String, dynamic> json) =>
+      _$LedgerItemModelFromJson(json);
 
-  factory LedgerItem.createRoughCopy(LedgerItem data) {
-    return LedgerItem(
+  factory LedgerItemModel.createRoughCopy(LedgerItemModel data) {
+    return LedgerItemModel(
       price: data.price,
-      category: Category(
+      category: CategoryModel(
         iconId: data.category!.iconId,
         label: data.category!.label,
         type: data.category!.type,
@@ -43,18 +43,18 @@ class LedgerItem with _$LedgerItem {
 }
 
 @freezed
-class Category with _$Category {
-  const Category._();
-  factory Category({
+class CategoryModel with _$CategoryModel {
+  const CategoryModel._();
+  factory CategoryModel({
     int? id,
     int? iconId,
     required String label,
     CategoryType? type,
     @Default(false) bool showDelete,
-  }) = _Category;
+  }) = _CategoryModel;
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  factory CategoryModel.fromJson(Map<String, dynamic> json) =>
+      _$CategoryModelFromJson(json);
 
   // Initial creation
   Map<String, dynamic> toMapInitial(BuildContext context) {

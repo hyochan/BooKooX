@@ -12,17 +12,17 @@ import 'package:flutter/material.dart';
 import 'package:wecount/screens/profile_peer.dart';
 import 'package:wecount/widgets/member_list_item.dart';
 import 'package:wecount/widgets/header.dart';
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/localization.dart';
 
 class MembersArguments {
-  final Ledger? ledger;
+  final LedgerModel? ledger;
 
   MembersArguments({this.ledger});
 }
 
 class Members extends HookWidget {
-  final Ledger? ledger;
+  final LedgerModel? ledger;
   const Members({Key? key, this.ledger}) : super(key: key);
 
   @override

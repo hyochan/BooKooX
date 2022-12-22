@@ -17,7 +17,7 @@ import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/ledger_view.dart';
 import 'package:wecount/widgets/profile_list_item.dart' show ProfileListItem;
 import 'package:wecount/widgets/ledger_list_item.dart' show LedgerListItem;
-import 'package:wecount/models/ledger.dart';
+import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:provider/provider.dart' show Provider;
@@ -28,7 +28,7 @@ class Ledgers extends HookWidget {
   @override
   Widget build(BuildContext context) {
     User? user = General.instance.checkAuth();
-    var ledgersList = useState<List<Ledger?>>([]);
+    var ledgersList = useState<List<LedgerModel?>>([]);
     void onSettingPressed() {
       navigation.push(context, AppRoute.setting.path);
     }
@@ -37,13 +37,13 @@ class Ledgers extends HookWidget {
       navigation.push(context, AppRoute.profileMy.path);
     }
 
-    void onLedgerPressed(Ledger item) {
+    void onLedgerPressed(LedgerModel item) {
       Navigator.of(context).pop();
       DatabaseService().requestSelectLedger(item.id);
       Provider.of<CurrentLedger>(context, listen: false).setLedger(item);
     }
 
-    void onLedgerMorePressed(Ledger item) async {
+    void onLedgerMorePressed(LedgerModel item) async {
       String? ref = await navigation.navigate(
         context,
         item.ownerId != user.uid
@@ -61,7 +61,8 @@ class Ledgers extends HookWidget {
     }
 
     void onAddLedgerPressed() async {
-      Ledger? ref = await navigation.push(context, AppRoute.ledgerEdit.path);
+      LedgerModel? ref =
+          await navigation.push(context, AppRoute.ledgerEdit.path);
       if (ref != null) {
         ledgersList.value =
             await LedgerRepository.instance.getLedgersWithMembership(user);
@@ -115,8 +116,8 @@ class Ledgers extends HookWidget {
             ),
             FutureBuilder(
               future: LedgerRepository.instance.getLedgersWithMembership(user),
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<Ledger>> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<LedgerModel>> snapshot) {
                 if (!snapshot.hasData) return const LoadingIndicator();
                 return Expanded(
                   child: ListView.builder(

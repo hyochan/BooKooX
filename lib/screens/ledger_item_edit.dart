@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
-import 'package:wecount/models/ledger_item.dart';
-import 'package:wecount/models/photo.dart';
+import 'package:wecount/models/ledger_item_model.dart';
+import 'package:wecount/models/photo_model.dart';
 import 'package:wecount/screens/category_add.dart';
 import 'package:wecount/services/database.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -32,12 +32,12 @@ class LedgerItemEdit extends HookWidget {
     final priceTextEditingController2 = useTextEditingController();
 
     var cate = useState<String>('');
-    var ledgerItemConsume =
-        useState<LedgerItem>(LedgerItem(category: Category(label: '')));
-    var ledgerItemIncome =
-        useState<LedgerItem>(LedgerItem(category: Category(label: '')));
+    var ledgerItemConsume = useState<LedgerItemModel>(
+        LedgerItemModel(category: CategoryModel(label: '')));
+    var ledgerItemIncome = useState<LedgerItemModel>(
+        LedgerItemModel(category: CategoryModel(label: '')));
     var tabController = useTabController(initialLength: 2);
-    var categories = useState<List<Category>>([]);
+    var categories = useState<List<CategoryModel>>([]);
     var isLoading = useState<bool>(false);
 
     void onDatePressed({
@@ -150,7 +150,7 @@ class LedgerItemEdit extends HookWidget {
       categories.value = (categoryType == CategoryType.consume
               ? await DBHelper.instance.getConsumeCategories(context)
               : await DBHelper.instance.getIncomeCategories(context))
-          .cast<Category>();
+          .cast<CategoryModel>();
 
       void onClosePressed() {
         Navigator.of(context).pop();
@@ -176,7 +176,7 @@ class LedgerItemEdit extends HookWidget {
       }
 
       if (context.mounted) {
-        var result = await showModalBottomSheet<Category>(
+        var result = await showModalBottomSheet<CategoryModel>(
           context: context,
           builder: (context) => Container(
             padding: const EdgeInsets.only(top: 8),
@@ -464,7 +464,7 @@ class LedgerItemEdit extends HookWidget {
                     ),
               Gallery(
                 margin: const EdgeInsets.only(top: 26),
-                pictureProps: [Photo().copyWith(isAddBtn: true)],
+                pictureProps: [PhotoModel().copyWith(isAddBtn: true)],
                 ledgerItem: ledgerItemConsume.value,
               ),
             ],
@@ -621,7 +621,7 @@ class LedgerItemEdit extends HookWidget {
                     ),
               Gallery(
                 margin: const EdgeInsets.only(top: 26),
-                pictureProps: [Photo(isAddBtn: true)],
+                pictureProps: [PhotoModel(isAddBtn: true)],
                 ledgerItem: ledgerItemIncome.value,
               ),
             ],

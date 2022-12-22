@@ -15,7 +15,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
 import 'package:wecount/widgets/home_header_search.dart' show HomeHeaderSearch;
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/widgets/home_list_item.dart';
 
 import 'package:wecount/utils/localization.dart';
@@ -27,7 +27,7 @@ import 'package:provider/provider.dart';
 
 class ListType {
   DateTime date;
-  List<LedgerItem> ledgerItems;
+  List<LedgerItemModel> ledgerItems;
 
   ListType({required this.date, required this.ledgerItems});
 }
@@ -116,12 +116,12 @@ class HomeList extends HookWidget {
                     future: LedgerRepository.instance.getLedgerItems(),
                     builder: (context, AsyncSnapshot ledgerSnapShot) {
                       if (!ledgerSnapShot.hasData) return const SizedBox();
-                      List<LedgerItem> getLedgers = ledgerSnapShot.data;
+                      List<LedgerItemModel> getLedgers = ledgerSnapShot.data;
                       List<ListType> itemList = [];
 
                       // insert Date row as Header
                       DateTime? prevDate;
-                      List<LedgerItem> temp = [];
+                      List<LedgerItemModel> temp = [];
                       for (var i = 0; i < getLedgers.length; i++) {
                         if (prevDate != getLedgers[i].selectedDate) {
                           // 다르면 모은 데이터를 저장하고, 모음 리셋

@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wecount/models/currency.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/currency_model.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/utils/converter.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/logger.dart';
 
-part 'ledger.freezed.dart';
-part 'ledger.g.dart';
+part 'ledger_model.freezed.dart';
+part 'ledger_model.g.dart';
 
 @freezed
-class Ledger with _$Ledger {
-  const Ledger._();
-  factory Ledger(
+class LedgerModel with _$LedgerModel {
+  const LedgerModel._();
+  factory LedgerModel(
       {String? id,
       required String title,
       required ColorType color,
@@ -20,24 +20,25 @@ class Ledger with _$Ledger {
       int? people,
       String? ownerId,
       @Default([]) List<String> adminIds,
-      List<LedgerItem>? items,
-      required Currency currency,
+      List<LedgerItemModel>? items,
+      required CurrencyModel currency,
       @Default([]) List<String> memberIds,
       List<String>? members,
       @ServerTimestampConverter() createdAt,
       @ServerTimestampConverter() updatedAt,
-      @ServerTimestampConverter() deletedAt}) = _Ledger;
+      @ServerTimestampConverter() deletedAt}) = _LedgerModel;
 
-  factory Ledger.fromJson(Map<String, dynamic> json) => _$LedgerFromJson(json);
+  factory LedgerModel.fromJson(Map<String, dynamic> json) =>
+      _$LedgerModelFromJson(json);
 
-  factory Ledger.fromFirestore(DocumentSnapshot doc) {
+  factory LedgerModel.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<dynamic, dynamic>;
 
-    return Ledger(
+    return LedgerModel(
       id: doc.id,
       title: data['title'] ?? '',
       color: colorItems[data['color'] ?? 5],
-      currency: Currency(
+      currency: CurrencyModel(
         currency: data['currency'],
         locale: data['currencyLocale'],
         symbol: data['currencySymbol'],
@@ -50,12 +51,12 @@ class Ledger with _$Ledger {
     );
   }
 
-  factory Ledger.fromMap(Map? data) {
+  factory LedgerModel.fromMap(Map? data) {
     data = data ?? {};
-    return Ledger(
+    return LedgerModel(
       title: data['title'] ?? '',
       color: colorItems[data['color'] ?? 5],
-      currency: Currency(
+      currency: CurrencyModel(
         currency: data['currencyCode'],
         locale: data['currency'],
       ),

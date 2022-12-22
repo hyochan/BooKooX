@@ -1,5 +1,5 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:wecount/models/ledger_item.dart';
+import 'package:wecount/models/ledger_item_model.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -15,7 +15,7 @@ typedef SelectMonthToShow = void Function(
 const chartScale = 10000;
 
 class LineGraphChart extends HookWidget {
-  final List<LedgerItem> items;
+  final List<LedgerItemModel> items;
   final SelectMonthToShow? onSelectMonth;
   const LineGraphChart({super.key, required this.items, this.onSelectMonth});
 
@@ -202,7 +202,7 @@ class ChartValues {
   }
 }
 
-Map<String, double> mapValues(List<LedgerItem> items) {
+Map<String, double> mapValues(List<LedgerItemModel> items) {
   /// shape of { 'month': price, 'month': price, ... }
   Map<String, double> returnVal = {
     '1': 0,
