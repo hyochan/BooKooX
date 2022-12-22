@@ -636,7 +636,7 @@ PODS:
     - Firebase/Analytics (= 10.3.0)
     - firebase_core
     - Flutter
-  - firebase_auth (4.2.0):
+  - firebase_auth (4.2.1):
     - Firebase/Auth (= 10.3.0)
     - firebase_core
     - Flutter
@@ -647,7 +647,7 @@ PODS:
     - Firebase/Messaging (= 10.3.0)
     - firebase_core
     - Flutter
-  - firebase_storage (11.0.7):
+  - firebase_storage (11.0.8):
     - Firebase/Storage (= 10.3.0)
     - firebase_core
     - Flutter
@@ -982,10 +982,10 @@ SPEC CHECKSUMS:
   cloud_firestore: cf019e947a49ebb56ddf4ae7f6f2ca13469da1b1
   Firebase: f92fc551ead69c94168d36c2b26188263860acd9
   firebase_analytics: fd9cc19a31206f636cb3f7775b4b2ad41f4503d2
-  firebase_auth: 579a0dc15451491cc83fccaa5102296635f24938
+  firebase_auth: 30cbdb28d5c38f572c331a8590a93e2a1201d75c
   firebase_core: 6f2f753e316765799d88568232ed59e300ff53db
   firebase_messaging: 4b60bd563e1d21e3fe91afd398b59d0eda79cc60
-  firebase_storage: 341d522a3cd29069e1ce37e563103bc9baf6c045
+  firebase_storage: 5d5ae6888014dbd66190a47b54817e9c27b14e5f
   FirebaseAnalytics: 036232b6a1e2918e5f67572417be1173576245f3
   FirebaseAppCheckInterop: 9fc57dfa08f0abb737b185ea065422b55355c909
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
@@ -1001,7 +1001,7 @@ SPEC CHECKSUMS:
   flutter_config: 2226c1df19c78fe34a05eb7f1363445f18e76fc1
   flutter_native_image: 9c0b7451838484458e5b0fae007b86a4c2d4bdfe
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
-  fluttertoast: 74526702fea2c060ea55dde75895b7e1bde1c86b
+  fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   google_maps_flutter_ios: 66201f392bf62d500f07670a30488a247b9bb5b9
