@@ -117,6 +117,9 @@ jobs:
       - name: Generate l10n
         run: flutter gen-l10n
 
+      - name: Gen freezed model
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
       - name: Flutter analyze
         run: flutter analyze
 
