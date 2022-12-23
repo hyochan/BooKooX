@@ -40,7 +40,6 @@ dependencies:
   location: ^4.4.0
   geocoding: ^2.0.5
   pie_chart: ^5.3.2
-  # month_picker_dialog: ^0.4.0
   fl_chart: ^0.55.2
   flutter_sticky_header: ^0.6.5
   flutter_calendar_carousel: ^2.4.1

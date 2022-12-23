@@ -80,7 +80,7 @@ class HomeCalendar extends HookWidget {
             delegate: SliverChildListDelegate([
               MyHomePage(ledgerId: ledgerId),
             ]),
-          )
+          ),
         ],
       ),
     );

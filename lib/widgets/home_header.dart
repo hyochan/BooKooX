@@ -24,6 +24,7 @@ class HomeHeaderExpanded extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       pinned: true,
+      backgroundColor: color,
       expandedHeight: 136.0,
       floating: false,
       elevation: 1.0,
