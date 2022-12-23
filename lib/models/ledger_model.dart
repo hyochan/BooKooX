@@ -12,21 +12,22 @@ part 'ledger_model.g.dart';
 @freezed
 class LedgerModel with _$LedgerModel {
   const LedgerModel._();
-  factory LedgerModel(
-      {String? id,
-      required String title,
-      required ColorType color,
-      String? description,
-      int? people,
-      String? ownerId,
-      @Default([]) List<String> adminIds,
-      List<LedgerItemModel>? items,
-      required CurrencyModel currency,
-      @Default([]) List<String> memberIds,
-      List<String>? members,
-      @ServerTimestampConverter() createdAt,
-      @ServerTimestampConverter() updatedAt,
-      @ServerTimestampConverter() deletedAt}) = _LedgerModel;
+  factory LedgerModel({
+    String? id,
+    required String title,
+    required ColorType color,
+    String? description,
+    int? people,
+    String? ownerId,
+    @Default([]) List<String> adminIds,
+    List<LedgerItemModel>? items,
+    required CurrencyModel currency,
+    @Default([]) List<String> memberIds,
+    List<String>? members,
+    @ServerTimestampConverter() required DateTime createdAt,
+    @ServerTimestampConverter() required DateTime updatedAt,
+    @TimestampNullableConverter() DateTime? deletedAt,
+  }) = _LedgerModel;
 
   factory LedgerModel.fromJson(Map<String, dynamic> json) =>
       _$LedgerModelFromJson(json);
@@ -48,6 +49,8 @@ class LedgerModel with _$LedgerModel {
       ownerId: data['ownerId'] ?? '',
       adminIds: List.from(data['admins'] ?? []),
       memberIds: List.from(data['members'] ?? []),
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
     );
   }
 
@@ -62,6 +65,8 @@ class LedgerModel with _$LedgerModel {
       ),
       ownerId: data['ownerId'] ?? '',
       description: data['description'] ?? '',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:wecount/models/ledger_model.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/asset.dart';
+import 'package:wecount/utils/colors.dart';
 
 var _titlePadding =
     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
@@ -23,6 +24,7 @@ class HomeHeaderExpanded extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       pinned: true,
+      backgroundColor: color,
       expandedHeight: 136.0,
       floating: false,
       elevation: 1.0,
@@ -44,7 +46,7 @@ class HomeHeaderExpanded extends StatelessWidget {
           ),
         ),
         background: Container(
-          color: color ?? asset.Colors.getColor(colorItems[4]),
+          color: color ?? getLedgerColor(color: colorItems[4]),
         ),
       ),
     );
@@ -69,7 +71,7 @@ AppBar renderHomeAppBar({
       title: Text(
         title,
         style: TextStyle(
-          color: fontColor ?? Theme.of(context).textTheme.displayLarge!.color,
+          color: fontColor ?? AppColors.text.basic,
           fontSize: 16.0,
         ),
       ),

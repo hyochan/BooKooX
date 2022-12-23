@@ -7,6 +7,7 @@ import 'package:wecount/repositories/ledger_repository.dart';
 import 'package:wecount/repositories/user_repository.dart';
 
 import 'package:wecount/services/database.dart' show DatabaseService;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -30,7 +31,7 @@ class Ledgers extends HookWidget {
     User? user = General.instance.checkAuth();
     var ledgersList = useState<List<LedgerModel?>>([]);
     void onSettingPressed() {
-      navigation.push(context, AppRoute.setting.path);
+      navigation.push(context, AppRoute.settings.path);
     }
 
     void onProfilePressed() {
@@ -78,7 +79,7 @@ class Ledgers extends HookWidget {
     }, []);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,
@@ -91,7 +92,7 @@ class Ledgers extends HookWidget {
               onPressed: onSettingPressed,
               child: Icon(
                 Icons.settings,
-                color: Theme.of(context).iconTheme.color,
+                color: AppColors.role.secondary,
                 semanticLabel: localization(context).settings,
               ),
             ),
@@ -148,17 +149,17 @@ class Ledgers extends HookWidget {
                 onPressed: onAddLedgerPressed,
                 child: Row(
                   children: <Widget>[
-                    const Icon(
+                    Icon(
                       Icons.add,
-                      color: asset.Colors.mediumGray,
+                      color: AppColors.text.secondary,
                       size: 24.0,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
                         localization(context).addLedger,
-                        style: const TextStyle(
-                          color: asset.Colors.mediumGray,
+                        style: TextStyle(
+                          color: AppColors.text.secondary,
                           fontSize: 20.0,
                         ),
                       ),

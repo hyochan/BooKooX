@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/colors.dart';
 
 class ProfileListItem extends StatelessWidget {
   const ProfileListItem({
@@ -45,7 +46,7 @@ class ProfileListItem extends StatelessWidget {
                     clipBehavior: Clip.hardEdge,
                     color: Colors.transparent,
                     child: Ink.image(
-                      image: asset.Icons.icMask,
+                      image: asset.AppIcons.icMask,
                       fit: BoxFit.cover,
                       width: 80.0,
                       height: 80.0,
@@ -66,7 +67,7 @@ class ProfileListItem extends StatelessWidget {
                   child: Text(
                     displayName!,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      color: AppColors.text.basic,
                       fontSize: 20.0,
                     ),
                   ),
@@ -74,7 +75,7 @@ class ProfileListItem extends StatelessWidget {
                 Text(
                   email!,
                   style: TextStyle(
-                    color: Theme.of(context).hintColor,
+                    color: AppColors.text.placeholder,
                     fontSize: 14.0,
                   ),
                 ),

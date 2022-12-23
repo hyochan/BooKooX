@@ -1,12 +1,13 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/repositories/user_repository.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/common/loading_indicator.dart';
-import 'package:wecount/widgets/edit_text.dart';
+import 'package:wecount/widgets/common/edit_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/screens/profile_peer.dart';
@@ -31,7 +32,7 @@ class Members extends HookWidget {
     var filteredMembers = useState<List<ListItem>>([]);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,
@@ -44,7 +45,7 @@ class Members extends HookWidget {
               onPressed: () => isSearchMode.value = !isSearchMode.value,
               child: Icon(
                 Icons.search,
-                color: Theme.of(context).textTheme.displayLarge!.color,
+                color: AppColors.text.basic,
                 semanticLabel: localization(context).search,
               ),
             ),
@@ -95,10 +96,7 @@ class Members extends HookWidget {
                           : Text(
                               '${localization(context).member} ${item.numOfPeople}',
                               style: TextStyle(
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .color,
+                                color: AppColors.role.secondary,
                                 fontSize: 28,
                               ),
                             ),

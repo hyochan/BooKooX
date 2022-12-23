@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
@@ -111,7 +112,7 @@ class LockRegister extends HookWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: Theme.of(context).textTheme.displayLarge!.color!,
+                color: AppColors.text.basic,
                 width: 2,
               ),
             ),
@@ -120,16 +121,16 @@ class LockRegister extends HookWidget {
             digit != null ? digit.toString() : '',
             style: TextStyle(
               fontSize: 30,
-              color: Theme.of(context).textTheme.displayLarge!.color,
+              color: AppColors.text.basic,
             ),
           ));
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Theme.of(context).textTheme.displayLarge!.color,
+        iconColor: AppColors.text.basic,
         brightness: Theme.of(context).brightness,
         actions: <Widget>[
           TextButton(
@@ -137,7 +138,7 @@ class LockRegister extends HookWidget {
             child: Text(
               localization(context).done,
               style: TextStyle(
-                color: Theme.of(context).textTheme.displayLarge!.color,
+                color: AppColors.text.basic,
               ),
             ),
           ),
@@ -152,9 +153,7 @@ class LockRegister extends HookWidget {
             ),
             Text(
               localization(context).lockHint,
-              style: TextStyle(
-                  fontSize: 24,
-                  color: Theme.of(context).textTheme.displayLarge!.color),
+              style: TextStyle(fontSize: 24, color: AppColors.text.basic),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),

@@ -9,13 +9,12 @@ import 'package:wecount/screens/home_statistic/functions.dart';
 
 import 'package:wecount/widgets/home_list_item.dart';
 import 'package:wecount/utils/colors.dart';
-import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/asset.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/widgets/home_header.dart' show renderHomeAppBar;
 import 'package:pie_chart/pie_chart.dart' show PieChart;
-// import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:provider/provider.dart';
 
@@ -36,7 +35,7 @@ class HomeStatistic extends StatelessWidget {
       appBar: renderHomeAppBar(
         context: context,
         title: title,
-        color: asset.Colors.getColor(color),
+        color: getLedgerColor(color: color),
         fontColor: Colors.white,
         actions: [
           SizedBox(
@@ -54,7 +53,7 @@ class HomeStatistic extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       body: const SafeArea(
         child: SizedBox(
           child: Center(
@@ -82,13 +81,13 @@ class Content extends HookWidget {
     var selectedChart = useState<int>(0);
 
     List<Color> colorList = [
-      asset.Colors.blue,
-      asset.Colors.orange,
-      asset.Colors.green,
-      asset.Colors.yellow,
-      asset.Colors.purple,
-      asset.Colors.main,
-      asset.Colors.red,
+      blueColor,
+      orangeColor,
+      greenColor,
+      yellowColor,
+      purpleColor,
+      mainColor,
+      redColor,
     ];
 
     void calculateAndRender(String month, List<LedgerItemModel> ledgerList) {
@@ -140,7 +139,7 @@ class Content extends HookWidget {
             centerTextStyle: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
-              color: Theme.of(context).textTheme.displayLarge!.color,
+              color: AppColors.text.basic,
             ),
             animationDuration: const Duration(milliseconds: 800),
             chartLegendSpacing: 32.0,
@@ -231,7 +230,7 @@ class ButtonGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var selectedColor = Theme.of(context).primaryColor;
+    var selectedColor = AppColors.role.primary;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),

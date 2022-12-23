@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({
@@ -18,7 +19,7 @@ class LoadingIndicator extends StatelessWidget {
         height: size,
         child: CircularProgressIndicator(
           semanticsLabel: '로딩중...',
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: AppColors.role.primary,
           strokeWidth: strokeWidth,
           valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
         ),

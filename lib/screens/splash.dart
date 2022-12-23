@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/screens/tutorial.dart';
 
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
@@ -52,7 +53,7 @@ class Splash extends HookWidget {
             Container(
               height: double.infinity,
               width: double.infinity,
-              color: Theme.of(context).primaryColor,
+              color: AppColors.role.primary,
             ),
             AnimatedOpacity(
               opacity: !visible ? 0.0 : 1.0,
@@ -61,7 +62,9 @@ class Splash extends HookWidget {
                 margin: const EdgeInsets.only(bottom: 60.0),
                 child: Center(
                   child: Image(
-                      image: asset.Icons.icWeCount, width: 200.0, height: 60.0),
+                      image: asset.AppIcons.icWeCount,
+                      width: 200.0,
+                      height: 60.0),
                 ),
               ),
             ),

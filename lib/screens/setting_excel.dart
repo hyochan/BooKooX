@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/logger.dart';
 
 import '../utils/localization.dart';
 import '../widgets/header.dart' show renderHeaderBack;
-import '../widgets/button.dart' show Button;
+import '../widgets/common/button.dart' show Button;
 import '../utils/asset.dart' as asset;
 
 class SettingExcel extends StatelessWidget {
@@ -16,17 +17,17 @@ class SettingExcel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).iconTheme.color,
+        iconColor: AppColors.role.secondary,
         brightness: Theme.of(context).brightness,
         title: Text(
           localization(context).exportExcel,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.displayLarge!.color,
+            color: AppColors.text.basic,
           ),
         ),
       ),
@@ -59,7 +60,7 @@ class SettingExcel extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 16,
               ),
-              backgroundColor: asset.Colors.main,
+              backgroundColor: mainColor,
             )
           ],
         ),

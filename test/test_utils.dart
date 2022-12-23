@@ -18,13 +18,12 @@ import 'package:wecount/screens/ledger_edit.dart';
 import 'package:wecount/screens/ledgers.dart';
 import 'package:wecount/screens/main_empty.dart';
 import 'package:wecount/screens/profile_my.dart';
-import 'package:wecount/screens/setting.dart';
+import 'package:wecount/screens/settings.dart';
 import 'package:wecount/screens/setting_announcement.dart';
 import 'package:wecount/screens/setting_faq.dart';
 import 'package:wecount/screens/setting_notification.dart';
 import 'package:wecount/screens/setting_opinion.dart';
 import 'package:wecount/screens/tutorial.dart';
-import 'package:wecount/utils/themes.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/generated/l10n.dart' show S;
@@ -45,8 +44,6 @@ class TestUtils {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        theme: Themes.light,
-        darkTheme: Themes.dark,
         home: child,
         navigatorObservers: <NavigatorObserver>[observer],
         routes: {
@@ -66,7 +63,8 @@ class TestUtils {
           AppRoute.terms.fullPath: (BuildContext context) => const Terms(),
           AppRoute.profileMy.fullPath: (BuildContext context) =>
               const ProfileMy(),
-          AppRoute.setting.fullPath: (BuildContext context) => const Setting(),
+          AppRoute.settings.fullPath: (BuildContext context) =>
+              const Settings(),
           AppRoute.settingAnnouncement.fullPath: (BuildContext context) =>
               const SettingAnnouncement(),
           AppRoute.settingOpinion.fullPath: (BuildContext context) =>
@@ -80,10 +78,13 @@ class TestUtils {
     );
 
     var ledger = LedgerModel(
-        id: '1234',
-        title: 'dooboolab',
-        color: ColorType.dusk,
-        currency: CurrencyModel());
+      id: '1234',
+      title: 'dooboolab',
+      color: ColorType.dusk,
+      currency: CurrencyModel(),
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
 
     return MultiProvider(
       providers: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 
 class PinKeyboard extends StatelessWidget {
   final double? keyboardHeight;
@@ -32,7 +33,7 @@ class PinKeyboard extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: 30.0,
-                color: Theme.of(context).textTheme.displayMedium!.color,
+                color: AppColors.text.placeholder,
               ),
             ),
           ),
@@ -155,7 +156,7 @@ class PinKeyboard extends StatelessWidget {
                   pinKeyboardActionButton(
                       label: Icon(
                         Icons.backspace,
-                        color: Theme.of(context).textTheme.displayMedium!.color,
+                        color: AppColors.text.placeholder,
                       ),
                       onPressed: () {
                         onDeletePressed!();

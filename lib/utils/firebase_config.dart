@@ -18,4 +18,6 @@ class FirestoreConfig {
       .collection('wecount')
       .doc('app')
       .collection('ledgerItems');
+
+  FirestoreConfig._();
 }

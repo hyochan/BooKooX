@@ -18,7 +18,7 @@ import 'package:wecount/screens/members.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:wecount/screens/profile_my.dart';
 import 'package:wecount/screens/profile_peer.dart';
-import 'package:wecount/screens/setting.dart';
+import 'package:wecount/screens/settings.dart';
 import 'package:wecount/screens/setting_announcement.dart';
 import 'package:wecount/screens/setting_currency.dart';
 import 'package:wecount/screens/setting_excel.dart';
@@ -44,7 +44,7 @@ enum AppRoute {
   ledgers,
   terms,
   profileMy,
-  setting,
+  settings,
   settingAnnouncement,
   settingOpinion,
   settingFAQ,
@@ -104,7 +104,7 @@ final routes = {
   AppRoute.ledgers.fullPath: (context) => const Ledgers(),
   AppRoute.terms.fullPath: (context) => const Terms(),
   AppRoute.profileMy.fullPath: (context) => const ProfileMy(),
-  AppRoute.setting.fullPath: (context) => const Setting(),
+  AppRoute.settings.fullPath: (context) => const Settings(),
   AppRoute.settingAnnouncement.fullPath: (context) =>
       const SettingAnnouncement(),
   AppRoute.settingOpinion.fullPath: (context) => const SettingOpinion(),

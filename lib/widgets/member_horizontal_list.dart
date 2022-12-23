@@ -4,6 +4,7 @@ import 'package:wecount/services/database.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/logger.dart';
 
@@ -34,7 +35,7 @@ class MemberHorizontalList extends StatelessWidget {
                 image: (!snapshot.hasData ||
                         (snapshot.data!.photoURL == null &&
                             snapshot.data!.thumbURL == null)
-                    ? asset.Icons.icMask
+                    ? asset.AppIcons.icMask
                     : NetworkImage(snapshot.data!.thumbURL != null
                         ? snapshot.data!.thumbURL!
                         : snapshot.data!.photoURL!)) as ImageProvider<Object>,
@@ -110,7 +111,7 @@ class MemberHorizontalList extends StatelessWidget {
                               shape: BoxShape.circle,
                               border: Border.all(
                                 width: 1.0,
-                                color: asset.Colors.cloudyBlue,
+                                color: AppColors.role.info,
                               ),
                             ),
                             child: InkWell(

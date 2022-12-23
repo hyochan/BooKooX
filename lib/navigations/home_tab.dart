@@ -8,6 +8,7 @@ import 'package:wecount/screens/home_list.dart' show HomeList;
 import 'package:wecount/screens/home_statistic/home_statistic.dart'
     show HomeStatistic;
 import 'package:wecount/screens/home_setting.dart' show HomeSetting;
+import 'package:wecount/utils/colors.dart';
 
 class HomeTab extends HookWidget {
   const HomeTab({super.key});
@@ -58,11 +59,11 @@ class HomeTab extends HookWidget {
         type: BottomNavigationBarType.shifting,
         currentIndex: index.value,
         onTap: (int tapIndex) => index.value = tapIndex,
-        selectedItemColor: Theme.of(context).textTheme.displayLarge!.color,
-        unselectedItemColor: Theme.of(context).textTheme.displayLarge!.color,
+        selectedItemColor: AppColors.text.basic,
+        unselectedItemColor: AppColors.text.basic,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).bottomAppBarTheme.color,
+            backgroundColor: AppColors.bg.paper,
             icon: const Icon(
               Icons.calendar_today,
               size: 20.0,
@@ -70,7 +71,7 @@ class HomeTab extends HookWidget {
             label: 'Monthly',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).bottomAppBarTheme.color,
+            backgroundColor: AppColors.bg.paper,
             icon: const Icon(
               Icons.list,
               size: 20.0,
@@ -78,7 +79,7 @@ class HomeTab extends HookWidget {
             label: 'List',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).bottomAppBarTheme.color,
+            backgroundColor: AppColors.bg.paper,
             icon: const Icon(
               Icons.graphic_eq,
               size: 20.0,
@@ -86,7 +87,7 @@ class HomeTab extends HookWidget {
             label: 'Statistic',
           ),
           BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).bottomAppBarTheme.color,
+            backgroundColor: AppColors.bg.paper,
             icon: const Icon(
               Icons.settings,
               size: 20.0,

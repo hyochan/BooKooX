@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
-import '../utils/asset.dart' as asset;
+import '../utils/asset.dart';
 import '../utils/localization.dart' show localization;
 
 import '../widgets/setting_list_item.dart'
@@ -30,9 +30,9 @@ class HomeSetting extends HookWidget {
       TileItem(
         title: localization(context).currency,
         trailing: const Text('ARS | \$ '),
-        leading: const Icon(
+        leading: Icon(
           Icons.account_balance,
-          color: asset.Colors.cloudyBlue,
+          color: AppColors.role.info,
           size: 24.0,
         ),
         onTap: () => navigation.push(context, AppRoute.settingCurrency.path),
@@ -40,9 +40,9 @@ class HomeSetting extends HookWidget {
       TileItem(
         title: localization(context).exportExcel,
         trailing: const Icon(Icons.arrow_forward),
-        leading: const Icon(
+        leading: Icon(
           Icons.import_export,
-          color: asset.Colors.cloudyBlue,
+          color: AppColors.role.info,
           size: 24.0,
         ),
         onTap: () => navigation.push(context, AppRoute.settingExcel.path),
@@ -53,10 +53,10 @@ class HomeSetting extends HookWidget {
       appBar: renderHomeAppBar(
         context: context,
         title: title,
-        color: asset.Colors.getColor(color),
+        color: getLedgerColor(color: color),
         fontColor: Colors.white,
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       body: SafeArea(
         child: Column(
           children: <Widget>[

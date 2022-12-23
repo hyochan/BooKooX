@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 
 import 'package:wecount/utils/localization.dart';
 
@@ -23,7 +24,7 @@ AppBar renderHeaderClose({
         onPressed: () => Navigator.of(context).pop(),
         child: Icon(
           Icons.close,
-          color: Theme.of(context).textTheme.displayLarge!.color,
+          color: AppColors.text.basic,
           semanticLabel: localization(context).close,
         ),
       ),

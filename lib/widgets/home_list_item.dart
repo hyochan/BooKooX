@@ -4,6 +4,7 @@ import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/line_graph.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:intl/intl.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
@@ -26,7 +27,7 @@ class HomeListItem extends StatelessWidget {
       Text(
         label,
         style: TextStyle(
-          color: Theme.of(context).textTheme.displayLarge!.color,
+          color: AppColors.text.basic,
           fontSize: 16.0,
         ),
       ),
@@ -37,7 +38,7 @@ class HomeListItem extends StatelessWidget {
         Text(
           writer.displayName,
           style: TextStyle(
-            color: Theme.of(context).textTheme.displayMedium!.color,
+            color: AppColors.text.placeholder,
             fontSize: 12.0,
           ),
         ),
@@ -93,9 +94,9 @@ class HomeListItem extends StatelessWidget {
                   priceToShow,
                   textAlign: TextAlign.end,
                   style: TextStyle(
-                      color: isPlus
-                          ? Theme.of(context).textTheme.displayLarge!.color
-                          : asset.Colors.carnation),
+                    color:
+                        isPlus ? AppColors.text.basic : AppColors.role.danger,
+                  ),
                 ),
               ),
             )

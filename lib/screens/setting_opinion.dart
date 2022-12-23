@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
-import 'package:wecount/widgets/button.dart' show Button;
+import 'package:wecount/widgets/common/button.dart' show Button;
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 
@@ -16,17 +17,17 @@ class SettingOpinion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
         brightness: Theme.of(context).brightness,
-        iconColor: Theme.of(context).iconTheme.color,
+        iconColor: AppColors.role.secondary,
         title: Text(
           localization(context).shareOpinion,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.displayLarge!.color,
+            color: AppColors.text.basic,
           ),
         ),
       ),
@@ -59,7 +60,7 @@ class SettingOpinion extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 16,
               ),
-              backgroundColor: asset.Colors.main,
+              backgroundColor: mainColor,
             )
           ],
         ),

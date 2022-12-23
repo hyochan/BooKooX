@@ -36,7 +36,7 @@ class ProfileImageCam extends StatelessWidget {
                             clipBehavior: Clip.hardEdge,
                             color: Colors.transparent,
                             child: Ink.image(
-                              image: asset.Icons.icMask,
+                              image: asset.AppIcons.icMask,
                               fit: BoxFit.cover,
                               width: 80.0,
                               height: 80.0,

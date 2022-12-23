@@ -14,7 +14,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/widgets/button.dart' show Button, ButtonType;
+import 'package:wecount/widgets/common/button.dart' show Button, ButtonType;
 
 class Intro extends StatelessWidget {
   const Intro({Key? key}) : super(key: key);
@@ -78,7 +78,7 @@ class Intro extends StatelessWidget {
         margin: const EdgeInsets.only(top: 198.0),
         textStyle: TextStyle(
           fontSize: 16.0,
-          color: Theme.of(context).primaryColor,
+          color: AppColors.role.primary,
         ),
         backgroundColor: Colors.white,
         text: localization(context).signIn,
@@ -100,8 +100,8 @@ class Intro extends StatelessWidget {
                 ),
                 TextSpan(
                   text: '  ${localization(context).signUp}',
-                  style: const TextStyle(
-                      color: asset.Colors.green, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: AppColors.bg.paper, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -117,8 +117,8 @@ class Intro extends StatelessWidget {
         child: Flex(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           direction: Axis.horizontal,
-          children: const <Widget>[
-            Expanded(
+          children: <Widget>[
+            const Expanded(
               child: Text(
                 '----------------------',
                 style: signInWithTextStyle,
@@ -127,12 +127,12 @@ class Intro extends StatelessWidget {
               ),
             ),
             Text(
-              ' or sign in with ',
+              ' ${localization(context).or} ',
               style: signInWithTextStyle,
               textAlign: TextAlign.center,
               maxLines: 1,
             ),
-            Expanded(
+            const Expanded(
               child: Text(
                 '----------------------',
                 style: signInWithTextStyle,
@@ -152,8 +152,7 @@ class Intro extends StatelessWidget {
           Button(
             margin: const EdgeInsets.only(top: 20.0),
             textStyle: signInWithTextStyle,
-            borderColor: AppColors.bg.border,
-            backgroundColor: Colors.transparent,
+            borderColor: AppColors.text.contrast,
             buttonType: ButtonType.outline,
             text: 'Google',
             width: MediaQuery.of(context).size.width >
@@ -164,7 +163,7 @@ class Intro extends StatelessWidget {
             leftWidget: Padding(
               padding: const EdgeInsets.only(right: 8),
               child: Image(
-                image: asset.Icons.icGoogle,
+                image: asset.AppIcons.icGoogle,
                 width: 24.0,
                 height: 24.0,
               ),
@@ -178,7 +177,7 @@ class Intro extends StatelessWidget {
     Widget renderTermsAndAgreement() {
       var clickableTextStyle = TextStyle(
         fontWeight: FontWeight.bold,
-        color: Theme.of(context).colorScheme.secondary,
+        color: AppColors.role.secondary,
         fontSize: 13,
       );
 
@@ -238,8 +237,8 @@ class Intro extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Theme.of(context).primaryColor,
-              Theme.of(context).primaryColorDark
+              AppColors.role.primaryLight,
+              AppColors.role.primary,
             ],
             begin: const FractionalOffset(0.0, 0.0),
             end: const FractionalOffset(1.0, 1.0),
@@ -257,7 +256,7 @@ class Intro extends StatelessWidget {
                   delegate: SliverChildListDelegate(
                     <Widget>[
                       Image(
-                          image: asset.Icons.icWeCount,
+                          image: asset.AppIcons.icWeCount,
                           width: 200.0,
                           height: 60.0),
                       renderSignInBtn(),

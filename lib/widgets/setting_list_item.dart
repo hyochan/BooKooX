@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 
 abstract class ListItem {}
 
@@ -18,10 +19,10 @@ class SettingItem implements ListItem {
 
 class LogoutItem implements ListItem {
   final String? title;
-  final Function? onPressed;
+  final VoidCallback? onPress;
   LogoutItem(
     this.title, {
-    this.onPressed,
+    this.onPress,
   });
 }
 
@@ -56,7 +57,7 @@ class SettingListItem extends StatelessWidget {
                     item.title!,
                     style: TextStyle(
                       fontSize: 20,
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      color: AppColors.text.basic,
                     ),
                   ),
                   item.optionalWidget ?? Container(),

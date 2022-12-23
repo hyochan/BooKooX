@@ -7,6 +7,7 @@ import 'package:wecount/models/photo_model.dart';
 
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,7 +22,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return SimpleDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: AppColors.bg.basic,
           children: <Widget>[
             SimpleDialogOption(
               onPressed: () {
@@ -33,7 +34,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                   children: <Widget>[
                     Icon(
                       Icons.camera,
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      color: AppColors.text.basic,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 8),
@@ -41,8 +42,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                         localization(context).camera,
                         style: TextStyle(
                           fontSize: 16,
-                          color:
-                              Theme.of(context).textTheme.displayLarge!.color,
+                          color: AppColors.text.basic,
                         ),
                       ),
                     ),
@@ -60,7 +60,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                   children: <Widget>[
                     Icon(
                       Icons.photo,
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      color: AppColors.text.basic,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 8),
@@ -68,8 +68,7 @@ Future<PhotoOption?> _asyncPhotoSelect(BuildContext context) async {
                         localization(context).gallery,
                         style: TextStyle(
                           fontSize: 16,
-                          color:
-                              Theme.of(context).textTheme.displayLarge!.color,
+                          color: AppColors.text.basic,
                         ),
                       ),
                     ),
@@ -122,15 +121,15 @@ class Gallery extends HookWidget {
                     Container(
                       margin: const EdgeInsets.only(right: 18),
                       width: 20.0,
-                      child: const Icon(
+                      child: Icon(
                         Icons.photo,
-                        color: asset.Colors.cloudyBlue,
+                        color: AppColors.role.info,
                       ),
                     ),
                     Text(
                       localization(context).picture,
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.displayLarge!.color,
+                        color: AppColors.text.basic,
                         fontSize: 16,
                       ),
                     ),
@@ -143,8 +142,7 @@ class Gallery extends HookWidget {
                       child: Text(
                         localization(context).showAll,
                         style: TextStyle(
-                          color:
-                              Theme.of(context).textTheme.displayLarge!.color,
+                          color: AppColors.text.basic,
                           fontSize: 16,
                           decoration: TextDecoration.underline,
                         ),
@@ -193,13 +191,12 @@ class Gallery extends HookWidget {
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 1.0,
-                            color: asset.Colors.cloudyBlue,
+                            color: AppColors.role.info,
                           ),
                         ),
                         child: Icon(
                           Icons.add,
-                          color:
-                              Theme.of(context).textTheme.displayLarge!.color,
+                          color: AppColors.text.basic,
                         ),
                       ),
                     ),
@@ -225,7 +222,7 @@ class Gallery extends HookWidget {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              splashColor: asset.Colors.paleGray,
+                              splashColor: AppColors.bg.paper,
                               onTap: () => navigation.navigate(
                                 context,
                                 AppRoute.photoDetail.path,

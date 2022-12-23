@@ -4,11 +4,12 @@ import 'package:wecount/repositories/user_repository.dart';
 import 'package:wecount/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fire_auth show User;
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
+import 'package:wecount/widgets/common/edit_text.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
-import 'package:wecount/widgets/edit_text_box.dart' show EditTextBox;
 import 'package:wecount/widgets/profile_image_cam.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,7 +38,7 @@ class ProfileMy extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,
@@ -47,7 +48,7 @@ class ProfileMy extends HookWidget {
               Icons.save_alt,
               semanticLabel: localization(context).update,
             ),
-            color: Theme.of(context).textTheme.displayLarge!.color,
+            color: AppColors.text.basic,
             padding: const EdgeInsets.all(0.0),
             onPressed: onUpdateProfile,
           ),
@@ -100,41 +101,35 @@ class ProfileMy extends HookWidget {
                   ],
                 ),
               ),
-              EditTextBox(
-                controller: TextEditingController(
+              EditText(
+                textEditingController: TextEditingController(
                   text: user.email,
                 ),
                 enabled: false,
-                iconData: Icons.email,
+                prefixIcon: const Icon(Icons.email),
                 margin: const EdgeInsets.only(top: 24.0),
-                hintText: localization(context).email,
-                focusedColor: Theme.of(context).textTheme.displayLarge!.color,
-                enabledColor: Theme.of(context).textTheme.displayMedium!.color,
+                textHint: localization(context).email,
               ),
-              EditTextBox(
-                controller: TextEditingController(
+              EditText(
+                textEditingController: TextEditingController(
                   text: user.displayName,
                 ),
-                onChangeText: (String str) =>
+                onChanged: (String str) =>
                     profile = profile?.copyWith(displayName: str),
-                semanticLabel: localization(context).nickname,
-                iconData: Icons.person_outline,
+                prefixIcon: const Icon(Icons.person_outline),
                 margin: const EdgeInsets.only(top: 8.0),
-                hintText: localization(context).nickname,
-                focusedColor: Theme.of(context).textTheme.displayLarge!.color,
-                enabledColor: Theme.of(context).textTheme.displayMedium!.color,
+                textHint: localization(context).nickname,
               ),
-              EditTextBox(
-                controller: TextEditingController(
+              EditText(
+                textEditingController: TextEditingController(
                   text: user.phoneNumber,
                 ),
-                onChangeText: (String str) =>
+                onChanged: (String str) =>
                     profile = profile?.copyWith(phoneNumber: str),
-                iconData: Icons.phone,
+                prefixIcon: const Icon(Icons.phone),
                 margin: const EdgeInsets.only(top: 8.0),
-                hintText: localization(context).phone,
-                focusedColor: Theme.of(context).textTheme.displayLarge!.color,
-                enabledColor: Theme.of(context).textTheme.displayMedium!.color,
+                textHint: localization(context).phone,
+                cursorColor: AppColors.text.basic,
               ),
               Container(
                 margin: const EdgeInsets.only(top: 32.0, bottom: 12.0),
@@ -142,14 +137,14 @@ class ProfileMy extends HookWidget {
                   height: 1.0,
                 ),
               ),
-              EditTextBox(
-                controller: TextEditingController(
+              EditText(
+                textEditingController: TextEditingController(
                   text: user.statusMsg,
                 ),
-                onChangeText: (String str) =>
+                onChanged: (String str) =>
                     profile = profile?.copyWith(statusMsg: str),
-                labelText: localization(context).statusMessage,
-                hintText: localization(context).statusMessageHint,
+                label: localization(context).statusMessage,
+                textHint: localization(context).statusMessageHint,
                 maxLines: 5,
               ),
             ],

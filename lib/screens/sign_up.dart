@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/colors.dart';
 
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
-import 'package:wecount/widgets/edit_text.dart' show EditText;
-import 'package:wecount/widgets/button.dart' show Button;
+import 'package:wecount/widgets/common/edit_text.dart' show EditText;
+import 'package:wecount/widgets/common/button.dart' show Button;
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/validator.dart' show Validator;
 import 'package:wecount/utils/asset.dart' as asset;
@@ -31,10 +32,6 @@ class SignUp extends HookWidget {
     var errorDisplayName = useState('');
     var errorName = useState('');
 
-    var isValidEmail = useState(false);
-    var isValidPassword = useState(false);
-    var isValidDisplayName = useState(false);
-    var isValidName = useState(false);
     var isRegistering = useState(false);
 
     void signUp() async {
@@ -43,31 +40,6 @@ class SignUp extends HookWidget {
           passwordConfirm.value.isEmpty ||
           displayName.value.isEmpty ||
           name.value.isEmpty) {
-        return;
-      }
-
-      if (!isValidEmail.value) {
-        errorEmail.value = localization(context).noValidEmail;
-        return;
-      }
-
-      if (!isValidPassword.value) {
-        errorPassword.value = localization(context).passwordHint;
-        return;
-      }
-
-      if (passwordConfirm != password) {
-        errorPasswordConfirm.value = localization(context).passwordConfirmHint;
-        return;
-      }
-
-      if (!isValidDisplayName.value) {
-        errorDisplayName.value = localization(context).displayNameHint;
-        return;
-      }
-
-      if (!isValidName.value) {
-        errorName.value = localization(context).nameHint;
         return;
       }
 
@@ -98,14 +70,11 @@ class SignUp extends HookWidget {
               context,
               title: Text(
                 localization(context).signUpSuccessTitle,
-                style: TextStyle(
-                    color: Theme.of(context).dialogTheme.titleTextStyle!.color),
+                style: TextStyle(color: AppColors.text.disabled),
               ),
               content: Text(
                 localization(context).signUpSuccessContent,
-                style: TextStyle(
-                    color:
-                        Theme.of(context).dialogTheme.contentTextStyle!.color),
+                style: TextStyle(color: AppColors.text.disabled),
               ),
               onPress: () {
                 _auth.signOut();
@@ -121,13 +90,11 @@ class SignUp extends HookWidget {
           context,
           title: Text(
             localization(context).signUpErrorTitle,
-            style: TextStyle(
-                color: Theme.of(context).dialogTheme.titleTextStyle!.color),
+            style: TextStyle(color: AppColors.text.primary),
           ),
           content: Text(
             localization(context).signUpErrorContent,
-            style: TextStyle(
-                color: Theme.of(context).dialogTheme.contentTextStyle!.color),
+            style: TextStyle(color: AppColors.text.basic),
           ),
         );
       } finally {
@@ -140,7 +107,7 @@ class SignUp extends HookWidget {
         localization(context).signUp,
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.displayLarge!.color,
+          color: AppColors.text.basic,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -153,18 +120,15 @@ class SignUp extends HookWidget {
         textInputAction: TextInputAction.next,
         label: localization(context).email,
         textHint: localization(context).emailHint,
-        textStyle: TextStyle(
-            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: isValidEmail.value,
-        onChanged: (String str) {
-          if (Validator.instance.validateEmail(str)) {
-            isValidEmail.value = true;
-            errorEmail.value = '';
-          } else {
-            isValidEmail.value = false;
+        textStyle: TextStyle(color: AppColors.text.basic),
+        hasChecked: Validator.instance.validateEmail(email.value),
+        onChanged: (str) => email.value = str,
+        validator: (_) {
+          if (Validator.instance.validateEmail(email.value)) {
+            return localization(context).noValidEmail;
           }
 
-          email.value = str;
+          return null;
         },
         errorText: errorEmail.value,
         onSubmitted: (String str) => signUp(),
@@ -180,16 +144,16 @@ class SignUp extends HookWidget {
         textHint: localization(context).passwordHint,
         isSecret: true,
         textStyle: TextStyle(
-            color: Theme.of(context).inputDecorationTheme.labelStyle!.color),
-        hasChecked: isValidPassword.value,
-        onChanged: (String str) {
-          if (Validator.instance.validatePassword(str)) {
-            isValidPassword.value = true;
-            errorPassword.value = '';
-          } else {
-            isValidPassword.value = false;
+          color: AppColors.text.basic,
+        ),
+        hasChecked: Validator.instance.validatePassword(password.value),
+        onChanged: (str) => password.value = str,
+        validator: (_) {
+          if (Validator.instance.validatePassword(password.value)) {
+            return localization(context).noValidEmail;
           }
-          password.value = '';
+
+          return null;
         },
         errorText: errorPassword.value,
         onSubmitted: (String str) => signUp(),
@@ -204,14 +168,13 @@ class SignUp extends HookWidget {
         label: localization(context).passwordConfirm,
         textHint: localization(context).passwordConfirmHint,
         isSecret: true,
-        hasChecked: passwordConfirm.value.isNotEmpty &&
-            passwordConfirm.value.isNotEmpty &&
-            passwordConfirm.value == password.value,
-        onChanged: (String str) {
-          passwordConfirm.value = str;
-          if (str == password.value) {
-            errorPasswordConfirm.value = '';
+        onChanged: (str) => passwordConfirm.value = str,
+        validator: (_) {
+          if (_ == password.value) {
+            errorPasswordConfirm.value = localization(context).passwordNotMatch;
           }
+
+          return null;
         },
         errorText: errorPasswordConfirm.value,
         onSubmitted: (String str) => signUp(),
@@ -225,15 +188,14 @@ class SignUp extends HookWidget {
         textInputAction: TextInputAction.next,
         label: localization(context).displayName,
         textHint: localization(context).displayNameHint,
-        hasChecked: isValidDisplayName.value,
-        onChanged: (String str) {
-          if (Validator.instance.validateNicknameOrName(str)) {
-            isValidDisplayName.value = true;
-            errorDisplayName.value = '';
-          } else {
-            isValidDisplayName.value = false;
+        hasChecked:
+            Validator.instance.validateNicknameOrName(displayName.value),
+        validator: (str) {
+          if (!Validator.instance.validateNicknameOrName(displayName.value)) {
+            return localization(context).displayNameNotValid;
           }
-          displayName.value = str;
+
+          return null;
         },
         errorText: errorDisplayName.value,
         onSubmitted: (String str) => signUp(),
@@ -247,16 +209,15 @@ class SignUp extends HookWidget {
         textInputAction: TextInputAction.next,
         label: localization(context).name,
         textHint: localization(context).nameHint,
-        hasChecked: isValidName.value,
-        onChanged: (String str) {
-          if (Validator.instance.validateNicknameOrName(str)) {
-            isValidName.value = true;
-            errorName.value = '';
-          } else {
-            isValidName.value = false;
+        hasChecked: Validator.instance.validateNicknameOrName(name.value),
+        validator: (_) {
+          if (_ is String && Validator.instance.validateNicknameOrName(_)) {
+            return localization(context).passwordNotMatch;
           }
-          name.value = str;
+
+          return null;
         },
+        onChanged: (String str) => name.value = str,
         errorText: errorName.value,
         onSubmitted: (String str) => signUp(),
       );
@@ -266,19 +227,19 @@ class SignUp extends HookWidget {
       return Button(
         text: localization(context).signUp,
         loading: isRegistering.value,
-        disabled: !isValidEmail.value ||
-            !isValidPassword.value ||
+        disabled: !Validator.instance.validateEmail(email.value) ||
+            !Validator.instance.validatePassword(password.value) ||
             password.value != passwordConfirm.value ||
-            !isValidDisplayName.value ||
-            !isValidName.value,
+            !Validator.instance.validateNicknameOrName(displayName.value) ||
+            !Validator.instance.validateNicknameOrName(name.value),
         onPress: () => signUp(),
         margin: const EdgeInsets.only(top: 36.0, bottom: 48.0),
-        textStyle: const TextStyle(
-          color: Colors.white,
+        textStyle: TextStyle(
+          color: AppColors.text.contrast,
           fontSize: 16.0,
         ),
-        borderColor: Colors.white,
-        backgroundColor: asset.Colors.main,
+        borderColor: AppColors.text.contrast,
+        backgroundColor: AppColors.role.primary,
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
       );
@@ -286,35 +247,36 @@ class SignUp extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         elevation: 0.0,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).textTheme.displayLarge!.color,
-        ),
+        backgroundColor: AppColors.bg.basic,
+        iconTheme: IconThemeData(color: AppColors.text.basic),
       ),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverPadding(
-              padding:
-                  const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate(
-                  <Widget>[
-                    renderSignUpText(),
-                    renderEmailField(),
-                    renderPasswordField(),
-                    renderPasswordConfirmField(),
-                    renderDisplayNameField(),
-                    renderNameField(),
-                    renderSignUpButton(),
-                  ],
+      body: Container(
+        color: AppColors.bg.basic,
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverPadding(
+                padding:
+                    const EdgeInsets.only(top: 44.0, left: 60.0, right: 60.0),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate(
+                    <Widget>[
+                      renderSignUpText(),
+                      renderEmailField(),
+                      renderPasswordField(),
+                      renderPasswordConfirmField(),
+                      renderDisplayNameField(),
+                      renderNameField(),
+                      renderSignUpButton(),
+                      const SizedBox(height: 48),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

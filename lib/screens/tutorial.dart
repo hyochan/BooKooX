@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:wecount/screens/intro.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/navigation.dart';
@@ -43,12 +44,12 @@ class Tutorial extends HookWidget {
               margin: const EdgeInsets.only(top: 148),
               child: Image(
                 image: page == 0
-                    ? asset.Icons.tutorial1
+                    ? asset.AppIcons.tutorial1
                     : page == 1
-                        ? asset.Icons.tutorial2
+                        ? asset.AppIcons.tutorial2
                         : page == 2
-                            ? asset.Icons.tutorial3
-                            : asset.Icons.tutorial1,
+                            ? asset.AppIcons.tutorial3
+                            : asset.AppIcons.tutorial1,
                 width: 200,
                 height: 160,
               ),
@@ -102,7 +103,7 @@ class Tutorial extends HookWidget {
         key: key,
         margin: const EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
-          color: page == index ? Colors.white : asset.Colors.main,
+          color: page == index ? Colors.white : mainColor,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
             width: 1,
@@ -139,11 +140,11 @@ class Tutorial extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: asset.Colors.main,
+      backgroundColor: mainColor,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          color: asset.Colors.main,
+          color: mainColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -172,9 +173,9 @@ class Tutorial extends HookWidget {
                       onPressed: onPressNext,
                       child: Text(
                         localization(context).next,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 20,
-                          color: asset.Colors.paleGray,
+                          color: AppColors.bg.paper,
                         ),
                       ),
                     ),

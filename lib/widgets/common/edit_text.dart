@@ -16,7 +16,7 @@ class EditText extends StatelessWidget {
   final String? textHint;
   final Color? cursorColor;
   final TextStyle hintStyle;
-  final String errorText;
+  final String? errorText;
   final TextStyle errorStyle;
   final bool isSecret;
   final bool hasChecked;
@@ -41,7 +41,7 @@ class EditText extends StatelessWidget {
     this.label = '',
     this.textHint,
     this.cursorColor,
-    this.errorText = '',
+    this.errorText,
     this.textEditingController,
     this.onChanged,
     this.onSubmitted,
@@ -75,7 +75,7 @@ class EditText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OutlineInputBorder focusedOutlineBorder = OutlineInputBorder(
-      borderSide: BorderSide(width: 1.5, color: AppColors.text.defaultColor),
+      borderSide: BorderSide(width: 1.5, color: AppColors.text.basic),
       borderRadius: const BorderRadius.all(Radius.circular(8)),
     );
 
@@ -137,7 +137,7 @@ class EditText extends StatelessWidget {
                 decoration: inputDecoration ??
                     InputDecoration(
                       prefixIcon: prefixIcon,
-                      focusColor: AppColors.text.defaultColor,
+                      focusColor: AppColors.text.basic,
                       fillColor: !enabled
                           ? AppColors.text.disabled
                           : AppColors.text.primary,
@@ -154,8 +154,9 @@ class EditText extends StatelessWidget {
                           showBorder ? focusedErrorBorder : InputBorder.none,
                       hintText: textHint,
                       hintStyle: hintStyle,
-                      errorText: errorText.isEmpty ? null : errorText,
+                      errorText: errorText,
                       errorStyle: errorStyle,
+                      errorMaxLines: 10,
                     ),
                 autofocus: true,
                 style: textStyle,
@@ -254,7 +255,7 @@ class EditFormText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OutlineInputBorder focusedOutlineBorder = OutlineInputBorder(
-      borderSide: BorderSide(width: 1.5, color: AppColors.text.defaultColor),
+      borderSide: BorderSide(width: 1.5, color: AppColors.text.basic),
       borderRadius: const BorderRadius.all(Radius.circular(8)),
     );
 
@@ -316,10 +317,9 @@ class EditFormText extends StatelessWidget {
                 decoration: inputDecoration ??
                     InputDecoration(
                       prefixIcon: prefixIcon,
-                      focusColor: AppColors.text.defaultColor,
-                      fillColor: !enabled
-                          ? AppColors.bg.paper
-                          : AppColors.bg.defaultColor,
+                      focusColor: AppColors.text.basic,
+                      fillColor:
+                          !enabled ? AppColors.bg.paper : AppColors.bg.basic,
                       filled: !enabled,
                       // disabledBorder:
                       //     showBorder ? AppColors.bg.disabled : InputBorder.none,
@@ -335,6 +335,7 @@ class EditFormText extends StatelessWidget {
                       hintStyle: hintStyle,
                       errorText: errorText.isEmpty ? null : errorText,
                       errorStyle: errorStyle,
+                      errorMaxLines: 10,
                     ),
                 autofocus: true,
                 style: textStyle,
@@ -363,25 +364,28 @@ class EditFormText extends StatelessWidget {
 }
 
 class EditTextSearch extends HookWidget {
-  final String? textHint;
-  final TextStyle? hintStyle;
+  final String textHint;
+  final TextStyle? textHintStyle;
   final TextEditingController? textEditingController;
   final Function(String)? onPressSearch;
   final dynamic Function(String)? onChanged;
   final FocusNode focus = FocusNode();
+  final Color? color;
+  final Color? backgroundColor;
   final EdgeInsets? margin;
   final bool enabled;
   final bool readOnly;
 
   EditTextSearch({
     Key? key,
-    this.textHint,
-    this.hintStyle,
+    this.textHint = '',
+    this.textHintStyle,
     this.textEditingController,
     this.onPressSearch,
     this.onChanged,
     this.margin,
-    required BuildContext context,
+    this.color,
+    this.backgroundColor,
     this.enabled = true,
     this.readOnly = false,
   }) : super(key: key);
@@ -389,13 +393,12 @@ class EditTextSearch extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final text = useState('');
-    final hasFocus = useState<bool>(false);
-    Color focusColor =
-        hasFocus.value ? AppColors.text.defaultColor : AppColors.text.secondary;
+    final hasFocus = useState(false);
+    Color focusColor = hasFocus.value ? Colors.white : Colors.white60;
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.bg.paper,
+        color: backgroundColor ?? AppColors.bg.paper,
         borderRadius: const BorderRadius.all(
           Radius.circular(8),
         ),
@@ -409,25 +412,37 @@ class EditTextSearch extends HookWidget {
             size: 20,
             color: focusColor,
           ),
+          const SizedBox(width: 8),
           Flexible(
             child: Focus(
               onFocusChange: (focus) => hasFocus.value = focus,
               child: EditFormText(
                 focusNode: focus,
+                cursorColor: focusColor,
+                inputDecoration: InputDecoration(
+                  contentPadding: EdgeInsets.zero,
+                  border: InputBorder.none,
+                  hintText: textHint,
+                  hintStyle: textHintStyle,
+                  hintMaxLines: 1,
+                ),
+                textStyle: TextStyle(color: focusColor),
                 onSubmitted: onPressSearch,
                 textEditingController: textEditingController,
                 enabled: enabled,
                 readOnly: readOnly,
+                padding: EdgeInsets.zero,
                 onChanged: (val) {
                   text.value = val;
+
                   if (onChanged != null) {
                     onChanged!(val);
                   }
                 },
                 textHint: textHint,
-                hintStyle: TextStyle(
-                  color: AppColors.text.defaultColor,
-                ).merge(hintStyle),
+                hintStyle: const TextStyle(
+                  color: Colors.white60,
+                ).merge(textHintStyle),
                 showBorder: false,
               ),
             ),

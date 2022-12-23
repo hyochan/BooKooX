@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:wecount/widgets/button.dart' show Button;
+import 'package:wecount/widgets/common/button.dart' show Button;
 import '../test_utils.dart' show TestUtils;
 
 void main() {
