@@ -22,14 +22,15 @@ class DateSelector extends StatelessWidget {
               children: <Widget>[
                 Text(
                   date,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 24.0,
+                    color: color,
                   ),
                 ),
                 IconButton(
                   icon: const Icon(Icons.arrow_drop_down),
-                  color: Colors.grey,
+                  color: color,
                   onPressed: onDatePressed as void Function()?,
                 ),
               ],
