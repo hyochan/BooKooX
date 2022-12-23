@@ -37,7 +37,7 @@ class _BgColor {
 
   static _BgColor get lightTheme => _BgColor(
         basic: const Color(0xFFFFFFFF),
-        paper: const Color(0xFFDDE2EC),
+        paper: const Color(0xFFF3F3F3),
         disabled: const Color(0xFFC4C4C4),
         border: const Color.fromRGBO(0, 0, 0, 0.2),
       );
