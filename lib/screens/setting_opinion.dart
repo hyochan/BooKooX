@@ -3,7 +3,7 @@ import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
-import 'package:wecount/widgets/button.dart' show Button;
+import 'package:wecount/widgets/common/button.dart' show Button;
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 

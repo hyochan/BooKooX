@@ -4,7 +4,7 @@ import 'package:wecount/utils/logger.dart';
 
 import '../utils/localization.dart';
 import '../widgets/header.dart' show renderHeaderBack;
-import '../widgets/button.dart' show Button;
+import '../widgets/common/button.dart' show Button;
 import '../utils/asset.dart' as asset;
 
 class SettingExcel extends StatelessWidget {

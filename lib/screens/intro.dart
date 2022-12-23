@@ -14,7 +14,7 @@ import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/widgets/button.dart' show Button, ButtonType;
+import 'package:wecount/widgets/common/button.dart' show Button, ButtonType;
 
 class Intro extends StatelessWidget {
   const Intro({Key? key}) : super(key: key);

@@ -9,7 +9,7 @@ import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderClose;
-import 'package:wecount/widgets/edit_text_box.dart' show EditTextBox;
+import 'package:wecount/widgets/common/edit_text_box.dart' show EditTextBox;
 import 'package:wecount/widgets/profile_image_cam.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:image_picker/image_picker.dart';

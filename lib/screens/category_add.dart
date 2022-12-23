@@ -5,7 +5,7 @@ import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
-import 'package:wecount/widgets/edit_text_box.dart';
+import 'package:wecount/widgets/common/edit_text_box.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/localization.dart';

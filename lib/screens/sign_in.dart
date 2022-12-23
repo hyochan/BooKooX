@@ -7,8 +7,8 @@ import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
-import 'package:wecount/widgets/button.dart' show Button;
-import 'package:wecount/widgets/edit_text.dart' show EditText;
+import 'package:wecount/widgets/common/button.dart' show Button;
+import 'package:wecount/widgets/common/edit_text.dart' show EditText;
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/validator.dart' show Validator;
 
@@ -67,17 +67,20 @@ class SignIn extends HookWidget {
 
           var ledgers = snapshots.docs;
 
-          if (ledgers.isEmpty && context.mounted) {
-            navigation.push(context, AppRoute.mainEmpty.path, reset: true);
-            return;
-          }
           if (context.mounted) {
+            if (ledgers.isEmpty) {
+              navigation.push(context, AppRoute.mainEmpty.path, reset: true);
+              return;
+            }
+
             navigation.push(context, AppRoute.homeTab.path, reset: true);
           }
+
           return;
         }
       } catch (err) {
         isSigningIn.value = false;
+        print('err $err');
         switch (err) {
           // case 'ERROR_INVALIDemail':
           //   setState(() => errorEmail = t(err.currency));

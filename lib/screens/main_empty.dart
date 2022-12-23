@@ -4,7 +4,7 @@ import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/widgets/button.dart' show Button;
+import 'package:wecount/widgets/common/button.dart' show Button;
 import 'package:wecount/widgets/home_header.dart' show renderHomeAppBar;
 
 class MainEmpty extends HookWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:wecount/screens/sign_up.dart' show SignUp;
-import 'package:wecount/widgets/button.dart';
+import 'package:wecount/widgets/common/button.dart';
 import '../test_utils.dart' show TestUtils;
 
 void main() {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:wecount/widgets/edit_text.dart' show EditText;
-import 'package:wecount/widgets/button.dart' show Button;
+import 'package:wecount/widgets/common/edit_text.dart' show EditText;
+import 'package:wecount/widgets/common/button.dart' show Button;
 import 'package:wecount/utils/validator.dart' show Validator;
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';

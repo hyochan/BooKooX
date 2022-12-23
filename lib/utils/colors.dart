@@ -237,4 +237,6 @@ class AppColors {
   static var text = isLightMode ? _TextColor.lightTheme : _TextColor.darkTheme;
   static var button =
       isLightMode ? _ButtonColor.lightTheme : _ButtonColor.darkTheme;
+
+  AppColors._();
 }

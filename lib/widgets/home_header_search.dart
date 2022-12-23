@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:wecount/widgets/edit_text_search.dart' show EditTextSearch;
+import 'package:wecount/widgets/common/edit_text_search.dart'
+    show EditTextSearch;
 import 'package:wecount/utils/localization.dart';
 
 class HomeHeaderSearch extends HookWidget {
