@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/utils/colors.dart' show AppColors, ColorType;
+import 'package:wecount/utils/colors.dart'
+    show AppColors, ColorType, greenColor;
 
 abstract class ListItem {}
 
@@ -62,18 +63,18 @@ class LedgerListItem extends StatelessWidget {
                         ClipOval(
                           child: Image(
                             image: color == ColorType.red
-                                ? asset.Icons.icRed
+                                ? asset.AppIcons.icRed
                                 : color == ColorType.orange
-                                    ? asset.Icons.icOrange
+                                    ? asset.AppIcons.icOrange
                                     : color == ColorType.yellow
-                                        ? asset.Icons.icYellow
+                                        ? asset.AppIcons.icYellow
                                         : color == ColorType.green
-                                            ? asset.Icons.icGreen
+                                            ? asset.AppIcons.icGreen
                                             : color == ColorType.blue
-                                                ? asset.Icons.icBlue
+                                                ? asset.AppIcons.icBlue
                                                 : color == ColorType.purple
-                                                    ? asset.Icons.icPurple
-                                                    : asset.Icons.icDusk,
+                                                    ? asset.AppIcons.icPurple
+                                                    : asset.AppIcons.icDusk,
                             fit: BoxFit.cover,
                             width: 40.0,
                             height: 40.0,
@@ -84,7 +85,7 @@ class LedgerListItem extends StatelessWidget {
                                 right: 4,
                                 bottom: 4,
                                 child: Image(
-                                  image: asset.Icons.icOwner,
+                                  image: asset.AppIcons.icOwner,
                                   width: 20,
                                   height: 20,
                                 ),
@@ -133,7 +134,7 @@ class LedgerListItem extends StatelessWidget {
                 child: Text(
                   localization(context).more,
                   style: const TextStyle(
-                    color: asset.Colors.green,
+                    color: greenColor,
                   ),
                 ),
               ),

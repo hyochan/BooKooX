@@ -8,19 +8,19 @@ import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/repositories/ledger_repository.dart';
 import 'package:wecount/repositories/user_repository.dart';
 import 'package:wecount/services/database.dart';
+import 'package:wecount/utils/asset.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
-import 'package:wecount/widgets/home_header_search.dart' show HomeHeaderSearch;
 import 'package:wecount/models/ledger_item_model.dart';
+import 'package:wecount/widgets/common/app_bar.dart';
 import 'package:wecount/widgets/home_list_item.dart';
 
 import 'package:wecount/utils/localization.dart';
 import 'package:intl/intl.dart';
-import 'package:wecount/utils/asset.dart' as asset;
 
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:provider/provider.dart';
@@ -39,8 +39,9 @@ class HomeList extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = FirebaseAuth.instance.currentUser!;
     final textEditingController = useTextEditingController();
+    var currentLedgerProvider = Provider.of<CurrentLedger>(context);
+    var user = FirebaseAuth.instance.currentUser!;
     var listData = useState<List<ListType>>([]);
     var data = [];
 
@@ -86,23 +87,30 @@ class HomeList extends HookWidget {
       );
     }
 
-    var color = Provider.of<CurrentLedger>(context).getLedger() != null
-        ? Provider.of<CurrentLedger>(context).getLedger()!.color
-        : ColorType.dusk;
+    var ledger = currentLedgerProvider.getLedger();
+    var color = ledger != null ? ledger.color : ColorType.dusk;
 
     return Scaffold(
       backgroundColor: AppColors.bg.basic,
-      appBar: AppBar(
-        toolbarHeight: 100,
-        automaticallyImplyLeading: false,
-        titleSpacing: 0.0,
-        backgroundColor: asset.Colors.getColor(color),
-        title: HomeHeaderSearch(
-          onPressAdd: () =>
-              navigation.push(context, AppRoute.ledgerItemEdit.path),
-          onPressDelete: () => textEditingController.clear(),
-          textEditingController: textEditingController,
-        ),
+      appBar: AppBarSearch(
+        systemOverlayStyle: darkModeStatusBarColor,
+        backgroundColor: getLedgerColor(color: color),
+        searchBackgroundColor: const Color.fromRGBO(0, 0, 0, 0.05),
+        textHint: localization(context).searchHint,
+        textHintStyle:
+            const TextStyle(color: Color.fromRGBO(255, 255, 255, 0.25)),
+        // onPressSearch: () => textEditingController.clear(),
+        // onPressAdd: () =>
+        //     navigation.push(context, AppRoute.ledgerItemEdit.path),
+        // onPressDelete: () => textEditingController.clear(),
+        textEditingController: textEditingController,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () =>
+                navigation.push(context, AppRoute.ledgerItemEdit.path),
+          ),
+        ],
       ),
       body: SafeArea(
         child: FutureBuilder(

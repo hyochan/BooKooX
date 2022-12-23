@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 class DateSelector extends StatelessWidget {
   final Function onDatePressed;
   final String date;
-  const DateSelector(
-      {super.key, required this.onDatePressed, required this.date});
+  final Color? color;
+  const DateSelector({
+    super.key,
+    required this.onDatePressed,
+    required this.date,
+    this.color,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(

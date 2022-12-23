@@ -7,7 +7,7 @@ import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/common/loading_indicator.dart';
-import 'package:wecount/widgets/edit_text.dart';
+import 'package:wecount/widgets/common/edit_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wecount/screens/profile_peer.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 
 enum ColorType {
   red,
@@ -10,6 +11,14 @@ enum ColorType {
   dusk,
   purple,
 }
+
+const redColor = Color.fromARGB(255, 255, 114, 141);
+const orangeColor = Color.fromARGB(255, 245, 166, 35);
+const yellowColor = Color.fromARGB(255, 240, 192, 0);
+const greenColor = Color.fromARGB(255, 29, 211, 168);
+const blueColor = Color.fromARGB(255, 103, 157, 255);
+const mainColor = Color.fromARGB(255, 13, 178, 147);
+const purpleColor = Color.fromARGB(255, 182, 105, 249);
 
 enum ColorSchemeType { bg, role, text, button }
 
@@ -240,3 +249,17 @@ class AppColors {
 
   AppColors._();
 }
+
+const darkModeStatusBarColor = SystemUiOverlayStyle(
+  statusBarColor: Colors.black,
+  statusBarIconBrightness: Brightness.light,
+  systemNavigationBarIconBrightness: Brightness.light,
+  statusBarBrightness: Brightness.dark,
+);
+
+const lightModeStatusBarColor = SystemUiOverlayStyle(
+  statusBarColor: Colors.white,
+  statusBarIconBrightness: Brightness.dark,
+  systemNavigationBarIconBrightness: Brightness.dark,
+  statusBarBrightness: Brightness.light,
+);

@@ -62,7 +62,9 @@ class Splash extends HookWidget {
                 margin: const EdgeInsets.only(bottom: 60.0),
                 child: Center(
                   child: Image(
-                      image: asset.Icons.icWeCount, width: 200.0, height: 60.0),
+                      image: asset.AppIcons.icWeCount,
+                      width: 200.0,
+                      height: 60.0),
                 ),
               ),
             ),

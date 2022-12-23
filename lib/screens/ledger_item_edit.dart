@@ -333,7 +333,7 @@ class LedgerItemEdit extends HookWidget {
                     Container(
                       margin: const EdgeInsets.only(right: 8),
                       child: Image(
-                        image: asset.Icons.icCoins,
+                        image: asset.AppIcons.icCoins,
                         width: 20,
                         height: 20,
                       ),
@@ -489,7 +489,7 @@ class LedgerItemEdit extends HookWidget {
                     Container(
                       margin: const EdgeInsets.only(right: 8),
                       child: Image(
-                        image: asset.Icons.icCoins,
+                        image: asset.AppIcons.icCoins,
                         width: 20,
                         height: 20,
                       ),

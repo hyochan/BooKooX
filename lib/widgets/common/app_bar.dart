@@ -21,7 +21,7 @@ class AppBarBack extends StatelessWidget with PreferredSizeWidget {
   final Widget? title;
   final List<Widget>? actions;
   final SystemUiOverlayStyle? systemOverlayStyle;
-  final Color? iconColor = null;
+  final Color? color = null;
   final bool? centerTitle;
   final Widget? bottomWidget;
   final Color? backgroundColor;
@@ -39,7 +39,7 @@ class AppBarBack extends StatelessWidget with PreferredSizeWidget {
         onPressed: onPressBack ?? () => Navigator.of(context).pop(),
         child: Icon(
           Icons.arrow_back,
-          color: iconColor,
+          color: color,
           semanticLabel: '뒤로가기',
         ),
       ),
@@ -61,8 +61,8 @@ class AppBarBack extends StatelessWidget with PreferredSizeWidget {
               ),
       ),
       elevation: 0.0,
-      actions: actions,
       titleSpacing: 0.0,
+      actions: actions,
       title: title,
     );
   }
@@ -129,47 +129,54 @@ class AppBarSearch extends HookWidget with PreferredSizeWidget {
   AppBarSearch({
     Key? key,
     this.title,
-    this.textHint,
-    this.hintStyle,
+    this.backgroundColor,
+    this.searchBackgroundColor,
+    this.color,
+    this.textHint = '',
+    this.textHintStyle,
     this.systemOverlayStyle,
     this.textEditingController,
     this.onPressSearch,
     this.onChanged,
-    required BuildContext context,
+    this.actions,
   }) : super(key: key);
 
   final Widget? title;
+  final Color? backgroundColor;
+  final Color? searchBackgroundColor;
+  final Color? color;
   final SystemUiOverlayStyle? systemOverlayStyle;
-  final Color? iconColor = null;
 
   /// Props for [EditTextSearch]
-  final String? textHint;
-  final TextStyle? hintStyle;
+  final String textHint;
+  final TextStyle? textHintStyle;
   final TextEditingController? textEditingController;
   final Function(String)? onPressSearch;
   final dynamic Function(String)? onChanged;
+  final List<Widget>? actions;
+
   final FocusNode focus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     final text = useState('');
-    final hasFocus = useState<bool>(false);
+    final hasFocus = useState(false);
     Color focusColor =
         hasFocus.value ? AppColors.text.accent : AppColors.text.placeholder;
 
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: backgroundColor ?? Colors.transparent,
       systemOverlayStyle: systemOverlayStyle,
-      leading: RawMaterialButton(
-        padding: const EdgeInsets.all(0.0),
-        shape: const CircleBorder(),
-        onPressed: () => Navigator.of(context).pop(),
-        child: Icon(
-          Icons.arrow_back,
-          color: iconColor,
-          semanticLabel: '뒤로가기',
-        ),
-      ),
+      // leading: RawMaterialButton(
+      //   padding: const EdgeInsets.all(0.0),
+      //   shape: const CircleBorder(),
+      //   onPressed: () => Navigator.of(context).pop(),
+      //   child: Icon(
+      //     Icons.arrow_back,
+      //     color: iconColor,
+      //     semanticLabel: '뒤로가기',
+      //   ),
+      // ),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(0.3),
         child: Container(
@@ -180,14 +187,16 @@ class AppBarSearch extends HookWidget with PreferredSizeWidget {
       elevation: 0.0,
       titleSpacing: 0.0,
       title: EditTextSearch(
-        context: context,
-        hintStyle: hintStyle,
+        margin: const EdgeInsets.only(left: 20),
+        backgroundColor: searchBackgroundColor,
+        color: color,
         onChanged: onChanged,
         onPressSearch: onPressSearch,
         textEditingController: textEditingController,
         textHint: textHint,
-        margin: const EdgeInsets.only(right: 20),
+        textHintStyle: textHintStyle,
       ),
+      actions: actions,
     );
   }
 

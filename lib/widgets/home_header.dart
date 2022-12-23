@@ -1,6 +1,6 @@
 import 'package:wecount/models/ledger_model.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/asset.dart';
 import 'package:wecount/utils/colors.dart';
 
 var _titlePadding =
@@ -45,7 +45,7 @@ class HomeHeaderExpanded extends StatelessWidget {
           ),
         ),
         background: Container(
-          color: color ?? asset.Colors.getColor(colorItems[4]),
+          color: color ?? getLedgerColor(color: colorItems[4]),
         ),
       ),
     );

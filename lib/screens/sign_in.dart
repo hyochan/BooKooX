@@ -21,30 +21,26 @@ class SignIn extends HookWidget {
   @override
   Widget build(BuildContext context) {
     var scrollController = useScrollController();
-
     var email = useState('');
     var password = useState('');
-
-    var isValidEmail = useState(false);
-    var isValidPassword = useState(false);
-
     var errorEmail = useState('');
     var errorPassword = useState('');
-
     var isSigningIn = useState(false);
     var isResendingEmail = useState(false);
+    var isEmailValid = Validator.instance.validateEmail(email.value);
+    var isPasswordValid = password.value.isNotEmpty;
 
     void signIn() async {
       if (_auth.currentUser != null) {
         _auth.signOut();
       }
 
-      if (!isValidEmail.value) {
+      if (!isEmailValid) {
         errorEmail.value = localization(context).noValidEmail;
         return;
       }
 
-      if (!isValidPassword.value) {
+      if (!isPasswordValid) {
         errorPassword.value = localization(context).passwordHint;
         return;
       }
@@ -78,28 +74,46 @@ class SignIn extends HookWidget {
 
           return;
         }
-      } catch (err) {
-        isSigningIn.value = false;
-        print('err $err');
-        switch (err) {
-          // case 'ERROR_INVALIDemail':
-          //   setState(() => errorEmail = t(err.currency));
-          //   break;
-          // case 'ERROR_WRONGpassword':
-          //   setState(() => errorPassword = t(err.currency));
-          //   break;
-          case 'errorUserNotFound':
-          case 'errorUserDisabled':
-          case 'errorManyRequests':
-          case 'errorOperationNotAllowed':
-            // General.instance.showSingleDialog(
-            //   context,
-            //   title: Text(t('error')),
-            //   content: Text(t(err.currency)),
-            // );
+      } on FirebaseAuthException catch (err) {
+        switch (err.code) {
+          case 'ERROR_EMAIL_ALREADY_IN_USE':
+          case 'account-exists-with-different-credential':
+          case 'email-already-in-use':
+            errorEmail.value =
+                localization(context).accountExistsWithDifferentCredential;
+            break;
+          case 'ERROR_WRONG_PASSWORD':
+          case 'wrong-password':
+            errorEmail.value = localization(context).passwordNotMatch;
+            break;
+          case 'ERROR_USER_NOT_FOUND':
+          case 'user-not-found':
+            errorEmail.value = localization(context).userNotFound;
+            break;
+          case 'ERROR_USER_DISABLED':
+          case 'user-disabled':
+            errorEmail.value = localization(context).errorUserDisabled;
+            break;
+          case 'ERROR_TOO_MANY_REQUESTS':
+          case 'too-many-requests':
+            errorEmail.value = localization(context).tooManyRequests;
+            break;
+          case 'ERROR_OPERATION_NOT_ALLOWED':
+          case 'operation-not-allowed':
+            errorEmail.value = localization(context).errorOperationNotAllowed;
+            break;
+          case 'ERROR_INVALID_EMAIL':
+          case 'invalid-email':
+            errorEmail.value = localization(context).invalidEmailAddress;
+            break;
+          default:
+            errorEmail.value = localization(context).loginFailed;
             break;
         }
+
         return;
+      } finally {
+        isSigningIn.value = false;
       }
 
       if (auth.user != null && !auth.user!.emailVerified && context.mounted) {
@@ -174,26 +188,22 @@ class SignIn extends HookWidget {
         textInputAction: TextInputAction.next,
         label: localization(context).email,
         textHint: localization(context).emailHint,
-        hasChecked: isValidEmail.value,
+        hasChecked: isEmailValid,
         hintStyle: TextStyle(color: AppColors.text.placeholder),
-        onChanged: (String str) {
-          if (Validator.instance.validateEmail(str)) {
-            isValidEmail.value = true;
-            errorEmail.value = '';
-            email.value = str;
-          } else {
-            isValidEmail.value = false;
-            email.value = str;
+        onChanged: (String str) => email.value = str,
+        validator: (e) {
+          if (!isEmailValid) {
+            return localization(context).invalidEmailAddress;
           }
+
+          return null;
         },
-        errorText: errorEmail.value,
+        errorText: errorEmail.value.trim(),
         onSubmitted: (String str) => signIn(),
       );
     }
 
     Widget renderPasswordField() {
-      bool hasChecked = password.value.isNotEmpty && password.value.isNotEmpty;
-
       return EditText(
         key: const Key('password'),
         margin: const EdgeInsets.only(top: 24.0),
@@ -201,16 +211,14 @@ class SignIn extends HookWidget {
         label: localization(context).password,
         textHint: localization(context).passwordHint,
         isSecret: true,
-        hasChecked: hasChecked,
-        onChanged: (String str) {
-          if (hasChecked) {
-            isValidPassword.value = true;
-            errorPassword.value = '';
-            password.value = str;
-          } else {
-            isValidPassword.value = false;
-            password.value = str;
+        hasChecked: isPasswordValid,
+        onChanged: (String str) => password.value = str,
+        validator: (e) {
+          if (!isPasswordValid) {
+            return localization(context).passwordNotValid;
           }
+
+          return null;
         },
         errorText: errorPassword.value,
         onSubmitted: (String str) => signIn(),
@@ -221,7 +229,7 @@ class SignIn extends HookWidget {
       return Button(
         key: const Key('sign-in-button'),
         onPress: signIn,
-        disabled: !isValidEmail.value || !isValidPassword.value,
+        disabled: !isPasswordValid || !isEmailValid,
         loading: isSigningIn.value,
         margin: const EdgeInsets.only(top: 28.0, bottom: 8.0),
         textStyle: const TextStyle(

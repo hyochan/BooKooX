@@ -163,7 +163,7 @@ class Intro extends StatelessWidget {
             leftWidget: Padding(
               padding: const EdgeInsets.only(right: 8),
               child: Image(
-                image: asset.Icons.icGoogle,
+                image: asset.AppIcons.icGoogle,
                 width: 24.0,
                 height: 24.0,
               ),
@@ -256,7 +256,7 @@ class Intro extends StatelessWidget {
                   delegate: SliverChildListDelegate(
                     <Widget>[
                       Image(
-                          image: asset.Icons.icWeCount,
+                          image: asset.AppIcons.icWeCount,
                           width: 200.0,
                           height: 60.0),
                       renderSignInBtn(),

@@ -116,7 +116,7 @@ class Settings extends HookWidget {
         ),
         localization(context).lock,
         optionalWidget: Switch(
-          inactiveTrackColor: asset.Colors.main,
+          inactiveTrackColor: mainColor,
           value: lockSwitch.value,
           onChanged: onChangeLock,
           activeTrackColor: AppColors.role.primary,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/setting_currency.dart';
 import 'package:wecount/screens/members.dart';
+import 'package:wecount/utils/asset.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -12,7 +13,6 @@ import 'package:wecount/widgets/member_horizontal_list.dart';
 import 'package:wecount/services/database.dart' show DatabaseService;
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/models/currency_model.dart';
 import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/colors.dart';
@@ -160,7 +160,7 @@ class LedgerEdit extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: asset.Colors.getColor(editLedger.value!.color),
+      backgroundColor: getLedgerColor(color: editLedger.value!.color),
       appBar: renderHeaderBack(
         context: context,
         brightness: Brightness.dark,
@@ -370,8 +370,8 @@ class LedgerEdit extends HookWidget {
                                   ? localization(context).done
                                   : localization(context).update,
                               style: TextStyle(
-                                color: asset.Colors.getColor(
-                                    editLedger.value!.color),
+                                color: getLedgerColor(
+                                    color: editLedger.value?.color),
                                 fontSize: 16.0,
                               ),
                             ),
@@ -406,7 +406,7 @@ class ColorItem extends StatelessWidget {
         ClipOval(
           child: Material(
             clipBehavior: Clip.hardEdge,
-            color: asset.Colors.getColor(color),
+            color: getLedgerColor(color: color),
             child: InkWell(
               onTap: onTap as void Function()?,
               child: Container(

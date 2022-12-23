@@ -53,7 +53,7 @@ class MemberListItem extends StatelessWidget {
                         width: 52,
                         height: 52,
                         child: Image(
-                          image: asset.Icons.icMask,
+                          image: asset.AppIcons.icMask,
                           width: 40,
                           height: 40,
                         ),
@@ -64,8 +64,8 @@ class MemberListItem extends StatelessWidget {
                               right: 0,
                               child: Image(
                                 image: user.membership == Membership.owner
-                                    ? asset.Icons.icOwner
-                                    : asset.Icons.icOwner,
+                                    ? asset.AppIcons.icOwner
+                                    : asset.AppIcons.icOwner,
                                 width: 20,
                                 height: 20,
                               ),

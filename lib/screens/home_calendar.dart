@@ -13,7 +13,7 @@ import 'package:wecount/widgets/home_list_item.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:flutter/material.dart';
-import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/asset.dart';
 
 import 'package:wecount/widgets/home_header.dart' show HomeHeaderExpanded;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
@@ -46,7 +46,7 @@ class HomeCalendar extends HookWidget {
         slivers: <Widget>[
           HomeHeaderExpanded(
             title: title,
-            color: asset.Colors.getColor(color),
+            color: getLedgerColor(color: color),
             actions: [
               SizedBox(
                 width: 56.0,
@@ -172,12 +172,28 @@ class MyHomePage extends HookWidget {
       int year = currentDate.value!.year;
       int prevDate = year - 100;
       int lastDate = year + 10;
+
       DateTime? pickDate = await showDatePicker(
-        context: context,
-        initialDate: currentDate.value!,
-        firstDate: DateTime(prevDate),
-        lastDate: DateTime(lastDate),
-      );
+          context: context,
+          initialDate: currentDate.value!,
+          firstDate: DateTime(prevDate),
+          lastDate: DateTime(lastDate),
+          builder: (context, child) {
+            return Theme(
+              data: ThemeData(
+                primaryColor: getLedgerColor(color: color),
+                colorScheme: isLightMode
+                    ? ColorScheme.light(
+                        primary: getLedgerColor(color: color),
+                      )
+                    : ColorScheme.dark(
+                        primary: getLedgerColor(color: color),
+                      ),
+              ),
+              child: child!,
+            );
+          });
+
       if (pickDate != null) {
         selectDate(pickDate);
       }
@@ -190,6 +206,7 @@ class MyHomePage extends HookWidget {
         child: Column(
           children: <Widget>[
             DateSelector(
+              color: getLedgerColor(color: color),
               date: currentMonth.value,
               onDatePressed: onDatePressed,
             ),
@@ -205,7 +222,7 @@ class MyHomePage extends HookWidget {
               markedDateMap: markedDateMap0.value,
               currentDate: currentDate.value,
               targetDate: targetDate.value,
-              color: asset.Colors.getColor(color),
+              color: getLedgerColor(color: color),
             ),
             const Divider(
               color: Colors.grey,
@@ -218,8 +235,23 @@ class MyHomePage extends HookWidget {
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               itemCount: ledgerListOfSelectedDate.value.length,
               itemBuilder: (BuildContext context, int index) {
-                return HomeListItem(
-                    ledgerItem: ledgerListOfSelectedDate.value[index]);
+                return Theme(
+                  data: Theme.of(context).copyWith(
+                    colorScheme: ColorScheme.light(
+                      primary: getLedgerColor(color: color), // <-- SEE HERE
+                      // onPrimary: Colors.redAccent, // <-- SEE HERE
+                      // onSurface: Colors.blueAccent, // <-- SEE HERE
+                    ),
+                    textButtonTheme: TextButtonThemeData(
+                      style: TextButton.styleFrom(
+                        foregroundColor:
+                            getLedgerColor(color: color), // button text color
+                      ),
+                    ),
+                  ),
+                  child: HomeListItem(
+                      ledgerItem: ledgerListOfSelectedDate.value[index]),
+                );
               },
             ),
           ],

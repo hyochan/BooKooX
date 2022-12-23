@@ -35,7 +35,7 @@ class MemberHorizontalList extends StatelessWidget {
                 image: (!snapshot.hasData ||
                         (snapshot.data!.photoURL == null &&
                             snapshot.data!.thumbURL == null)
-                    ? asset.Icons.icMask
+                    ? asset.AppIcons.icMask
                     : NetworkImage(snapshot.data!.thumbURL != null
                         ? snapshot.data!.thumbURL!
                         : snapshot.data!.photoURL!)) as ImageProvider<Object>,

@@ -60,7 +60,7 @@ class SettingOpinion extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 16,
               ),
-              backgroundColor: asset.Colors.main,
+              backgroundColor: mainColor,
             )
           ],
         ),

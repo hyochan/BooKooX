@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
-import '../utils/asset.dart' as asset;
+import '../utils/asset.dart';
 import '../utils/localization.dart' show localization;
 
 import '../widgets/setting_list_item.dart'
@@ -53,7 +53,7 @@ class HomeSetting extends HookWidget {
       appBar: renderHomeAppBar(
         context: context,
         title: title,
-        color: asset.Colors.getColor(color),
+        color: getLedgerColor(color: color),
         fontColor: Colors.white,
       ),
       backgroundColor: AppColors.bg.basic,

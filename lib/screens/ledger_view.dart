@@ -6,7 +6,7 @@ import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/models/currency_model.dart';
 import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/asset.dart';
 import 'package:wecount/utils/colors.dart';
 
 class LedgerViewArguments {
@@ -42,7 +42,7 @@ class LedgerView extends HookWidget {
     }, []);
 
     return Scaffold(
-      backgroundColor: asset.Colors.getColor(viewLedger.value!.color),
+      backgroundColor: getLedgerColor(color: viewLedger.value?.color),
       appBar: renderHeaderBack(
         context: context,
         iconColor: Colors.white,
@@ -207,7 +207,7 @@ class ColorItem extends StatelessWidget {
         ClipOval(
           child: Material(
             clipBehavior: Clip.hardEdge,
-            color: asset.Colors.getColor(color),
+            color: getLedgerColor(color: color),
             child: InkWell(
               onTap: onTap as void Function()?,
               child: Container(

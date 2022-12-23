@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/colors.dart';
 
-class Icons {
-  Icons._();
+class AppIcons {
+  AppIcons._();
   static AssetImage icMask = const AssetImage('res/icons/icMask.png');
   static AssetImage icWeCount = const AssetImage('res/icons/wecount.png');
   static AssetImage icFacebook = const AssetImage('res/icons/icFacebook.png');
@@ -30,28 +30,21 @@ class Images {
   Images._();
 }
 
-class Colors {
-  Colors._();
-  static const red = Color.fromARGB(255, 255, 114, 141);
-  static const orange = Color.fromARGB(255, 245, 166, 35);
-  static const yellow = Color.fromARGB(255, 240, 192, 0);
-  static const green = Color.fromARGB(255, 29, 211, 168);
-  static const blue = Color.fromARGB(255, 103, 157, 255);
-  static const main = Color.fromARGB(255, 13, 178, 147);
-  static const purple = Color.fromARGB(255, 182, 105, 249);
-  static Color getColor(ColorType? color) {
-    return color == ColorType.red
-        ? Colors.red
-        : color == ColorType.orange
-            ? Colors.orange
-            : color == ColorType.yellow
-                ? Colors.yellow
-                : color == ColorType.green
-                    ? Colors.green
-                    : color == ColorType.blue
-                        ? Colors.blue
-                        : color == ColorType.purple
-                            ? Colors.purple
-                            : Colors.main;
-  }
+Color getLedgerColor({
+  ColorType? color = ColorType.green,
+  double opacity = 1.0,
+}) {
+  return color == ColorType.red
+      ? Color.fromRGBO(255, 114, 141, opacity)
+      : color == ColorType.orange
+          ? Color.fromRGBO(245, 166, 35, opacity)
+          : color == ColorType.yellow
+              ? Color.fromRGBO(240, 192, 0, opacity)
+              : color == ColorType.green
+                  ? Color.fromRGBO(29, 211, 168, opacity)
+                  : color == ColorType.blue
+                      ? Color.fromRGBO(103, 157, 255, opacity)
+                      : color == ColorType.purple
+                          ? Color.fromRGBO(182, 105, 249, opacity)
+                          : Color.fromRGBO(13, 178, 147, opacity);
 }

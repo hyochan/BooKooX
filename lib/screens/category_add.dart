@@ -5,10 +5,10 @@ import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
-import 'package:wecount/widgets/common/edit_text_box.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/db_helper.dart';
 import 'package:wecount/utils/localization.dart';
+import 'package:wecount/widgets/common/edit_text.dart';
 
 class CategoryAdd extends HookWidget {
   final CategoryType categoryType;
@@ -120,14 +120,14 @@ class CategoryAdd extends HookWidget {
                       ),
                     ),
                   ),
-                  EditTextBox(
-                    controller: textController,
+                  EditText(
+                    textEditingController: textController,
                     margin: const EdgeInsets.only(
                       bottom: 16,
                       left: 24,
                       right: 24,
                     ),
-                    hintText: localization(context).categoryAddHint,
+                    textHint: localization(context).categoryAddHint,
                     errorText: errorText.value,
                   ),
                   Row(

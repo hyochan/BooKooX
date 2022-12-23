@@ -63,7 +63,7 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
-                    inactiveTrackColor: asset.Colors.main,
+                    inactiveTrackColor: mainColor,
                     value: addLedgerSwitch.value,
                     onChanged: changeAddingLedgerSwitch,
                     activeTrackColor: AppColors.role.primary,
@@ -91,7 +91,7 @@ class SettingNotification extends HookWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 40, top: 16),
                   child: Switch(
-                    inactiveTrackColor: asset.Colors.main,
+                    inactiveTrackColor: mainColor,
                     value: updateLedgerSwitch.value,
                     onChanged: onChangeUpdateLedgerSwitch,
                     activeTrackColor: AppColors.role.primary,
