@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
 import 'package:wecount/utils/localization.dart';
@@ -48,17 +49,17 @@ class SettingAnnouncement extends StatelessWidget {
       ),
     ];
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).iconTheme.color,
+        iconColor: AppColors.role.secondary,
         brightness: Theme.of(context).brightness,
         title: Text(
           localization(context).announcement,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.displayLarge!.color,
+            color: AppColors.text.basic,
           ),
         ),
       ),

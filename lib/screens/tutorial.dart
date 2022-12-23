@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:wecount/screens/intro.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/navigation.dart';
@@ -172,9 +173,9 @@ class Tutorial extends HookWidget {
                       onPressed: onPressNext,
                       child: Text(
                         localization(context).next,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 20,
-                          color: asset.Colors.paleGray,
+                          color: AppColors.bg.paper,
                         ),
                       ),
                     ),

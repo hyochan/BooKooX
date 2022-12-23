@@ -6,7 +6,7 @@ class TitleTextStyle extends TextStyle {
       : super(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: AppColors.text.defaultColor,
+          color: AppColors.text.basic,
         );
 }
 
@@ -15,7 +15,7 @@ class NavigationTitleTextStyle extends TextStyle {
       : super(
           fontSize: 18,
           fontWeight: FontWeight.bold,
-          color: AppColors.text.defaultColor,
+          color: AppColors.text.basic,
         );
 }
 
@@ -23,7 +23,7 @@ class SubTitleTextStyle extends TextStyle {
   SubTitleTextStyle()
       : super(
           fontSize: 14,
-          color: AppColors.text.defaultColor,
+          color: AppColors.text.basic,
         );
 }
 
@@ -32,7 +32,7 @@ class InputLabelTextStyle extends TextStyle {
       : super(
           fontSize: 14,
           fontWeight: FontWeight.normal,
-          color: AppColors.text.defaultColor,
+          color: AppColors.text.basic,
         );
 }
 
@@ -41,6 +41,6 @@ class InputHintTextStyle extends TextStyle {
       : super(
           fontSize: 14,
           fontWeight: FontWeight.bold,
-          color: AppColors.text.defaultColor,
+          color: AppColors.text.basic,
         );
 }

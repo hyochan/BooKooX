@@ -75,7 +75,7 @@ class EditText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OutlineInputBorder focusedOutlineBorder = OutlineInputBorder(
-      borderSide: BorderSide(width: 1.5, color: AppColors.text.defaultColor),
+      borderSide: BorderSide(width: 1.5, color: AppColors.text.basic),
       borderRadius: const BorderRadius.all(Radius.circular(8)),
     );
 
@@ -137,7 +137,7 @@ class EditText extends StatelessWidget {
                 decoration: inputDecoration ??
                     InputDecoration(
                       prefixIcon: prefixIcon,
-                      focusColor: AppColors.text.defaultColor,
+                      focusColor: AppColors.text.basic,
                       fillColor: !enabled
                           ? AppColors.text.disabled
                           : AppColors.text.primary,
@@ -254,7 +254,7 @@ class EditFormText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OutlineInputBorder focusedOutlineBorder = OutlineInputBorder(
-      borderSide: BorderSide(width: 1.5, color: AppColors.text.defaultColor),
+      borderSide: BorderSide(width: 1.5, color: AppColors.text.basic),
       borderRadius: const BorderRadius.all(Radius.circular(8)),
     );
 
@@ -316,10 +316,9 @@ class EditFormText extends StatelessWidget {
                 decoration: inputDecoration ??
                     InputDecoration(
                       prefixIcon: prefixIcon,
-                      focusColor: AppColors.text.defaultColor,
-                      fillColor: !enabled
-                          ? AppColors.bg.paper
-                          : AppColors.bg.defaultColor,
+                      focusColor: AppColors.text.basic,
+                      fillColor:
+                          !enabled ? AppColors.bg.paper : AppColors.bg.basic,
                       filled: !enabled,
                       // disabledBorder:
                       //     showBorder ? AppColors.bg.disabled : InputBorder.none,
@@ -391,7 +390,7 @@ class EditTextSearch extends HookWidget {
     final text = useState('');
     final hasFocus = useState<bool>(false);
     Color focusColor =
-        hasFocus.value ? AppColors.text.defaultColor : AppColors.text.secondary;
+        hasFocus.value ? AppColors.text.basic : AppColors.text.secondary;
 
     return Container(
       decoration: BoxDecoration(
@@ -426,7 +425,7 @@ class EditTextSearch extends HookWidget {
                 },
                 textHint: textHint,
                 hintStyle: TextStyle(
-                  color: AppColors.text.defaultColor,
+                  color: AppColors.text.basic,
                 ).merge(hintStyle),
                 showBorder: false,
               ),

@@ -16,7 +16,7 @@ class Button extends StatelessWidget {
     /// Adhoc used for button with default width but with specific height
     this.height = 52,
     this.onPress,
-    this.color = Colors.white,
+    this.color,
     this.fontWeight = FontWeight.w600,
     this.backgroundColor,
     this.showContainerBackground = false,
@@ -38,7 +38,7 @@ class Button extends StatelessWidget {
   final double? width;
   final double height;
   final VoidCallback? onPress;
-  final Color color;
+  final Color? color;
   final FontWeight fontWeight;
   final Color? backgroundColor;
   final bool showContainerBackground;
@@ -59,7 +59,7 @@ class Button extends StatelessWidget {
       semanticsLabel: '로딩',
       backgroundColor: backgroundColor,
       strokeWidth: 3,
-      valueColor: AlwaysStoppedAnimation<Color>(color),
+      valueColor: AlwaysStoppedAnimation<Color>(color ?? AppColors.text.basic),
     );
   }
 
@@ -93,7 +93,7 @@ class Button extends StatelessWidget {
               : null,
       autofocus: autofocus,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor ?? AppColors.role.primary,
+        backgroundColor: backgroundColor ?? AppColors.role.info,
         padding: padding,
         fixedSize: Size(width ?? double.infinity, height),
         textStyle: TextStyle(color: color, fontWeight: FontWeight.w600)
@@ -133,7 +133,7 @@ class Button extends StatelessWidget {
               ? onPress
               : null,
       style: OutlinedButton.styleFrom(
-        side: BorderSide(color: color, width: 1),
+        side: BorderSide(color: borderColor, width: 1),
         padding: padding,
         fixedSize: Size(width ?? double.infinity, height),
         textStyle: TextStyle(color: color, fontWeight: FontWeight.w500)

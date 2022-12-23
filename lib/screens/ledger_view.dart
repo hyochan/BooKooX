@@ -35,6 +35,8 @@ class LedgerView extends HookWidget {
         title: 'ledger test',
         currency: CurrencyModel(currency: '￦', locale: 'KRW'),
         color: ColorType.dusk,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
       return null;
     }, []);

@@ -1,5 +1,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:geocoding/geocoding.dart' show placemarkFromCoordinates;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/widgets/common/loading_indicator.dart';
 import 'package:wecount/widgets/header.dart';
 import 'package:wecount/utils/service.dart';
@@ -99,7 +100,7 @@ class LocationView extends HookWidget {
     return center.value == null
         ? const LoadingIndicator()
         : Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: AppColors.bg.basic,
             appBar: renderHeaderClose(
               context: context,
               brightness: Theme.of(context).brightness,
@@ -113,7 +114,7 @@ class LocationView extends HookWidget {
                     onPressed: () => getPlace(),
                     child: Icon(
                       Icons.search,
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      color: AppColors.text.basic,
                     ),
                   ),
                 ),
@@ -141,7 +142,7 @@ class LocationView extends HookWidget {
                     },
                     child: Icon(
                       Icons.check,
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      color: AppColors.text.basic,
                     ),
                   ),
                 ),

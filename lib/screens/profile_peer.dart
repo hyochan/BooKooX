@@ -2,6 +2,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/user_model.dart';
 import 'package:wecount/screens/photo_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 
@@ -35,7 +36,7 @@ class ProfilePeer extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,
@@ -74,8 +75,8 @@ class ProfilePeer extends HookWidget {
               controller: TextEditingController(text: 'hello'),
               iconData: Icons.person_outline,
               margin: const EdgeInsets.only(top: 24.0),
-              focusedColor: Theme.of(context).textTheme.displayLarge!.color,
-              enabledColor: Theme.of(context).textTheme.displayMedium!.color,
+              focusedColor: AppColors.text.basic,
+              enabledColor: AppColors.text.placeholder,
               enabled: false,
               borderStyle: BorderStyle.none,
               borderWidth: 0,
@@ -83,8 +84,8 @@ class ProfilePeer extends HookWidget {
             EditTextBox(
               iconData: Icons.email,
               margin: const EdgeInsets.only(top: 8.0),
-              focusedColor: Theme.of(context).textTheme.displayLarge!.color,
-              enabledColor: Theme.of(context).textTheme.displayMedium!.color,
+              focusedColor: AppColors.text.basic,
+              enabledColor: AppColors.text.placeholder,
               enabled: false,
               borderStyle: BorderStyle.none,
               borderWidth: 0,
@@ -92,8 +93,8 @@ class ProfilePeer extends HookWidget {
             EditTextBox(
               iconData: Icons.phone,
               margin: const EdgeInsets.only(top: 8.0),
-              focusedColor: Theme.of(context).textTheme.displayLarge!.color,
-              enabledColor: Theme.of(context).textTheme.displayMedium!.color,
+              focusedColor: AppColors.text.basic,
+              enabledColor: AppColors.text.placeholder,
               enabled: false,
               borderStyle: BorderStyle.none,
               borderWidth: 0,

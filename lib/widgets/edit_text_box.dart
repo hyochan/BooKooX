@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/colors.dart';
 
 class EditTextBox extends HookWidget {
   const EditTextBox({
@@ -23,9 +24,7 @@ class EditTextBox extends HookWidget {
     this.hintText,
     this.hintStyle,
     this.errorText,
-    this.errorStyle = const TextStyle(
-      color: asset.Colors.carnation,
-    ),
+    this.errorStyle,
     this.controller,
     this.borderWidth = 0.7,
     this.borderStyle = BorderStyle.solid,
@@ -49,7 +48,7 @@ class EditTextBox extends HookWidget {
   final String? hintText;
   final TextStyle? hintStyle;
   final String? errorText;
-  final TextStyle errorStyle;
+  final TextStyle? errorStyle;
   final double borderWidth;
   final BorderStyle borderStyle;
 
@@ -80,9 +79,7 @@ class EditTextBox extends HookWidget {
           child: TextField(
             enabled: enabled,
             controller: controller,
-            style: textStyle ??
-                TextStyle(
-                    color: Theme.of(context).textTheme.displayLarge!.color),
+            style: textStyle ?? TextStyle(color: AppColors.text.basic),
             cursorColor: focusedColor,
             onChanged: onChangeText as void Function(String)?,
             maxLength: maxLength,
@@ -96,7 +93,8 @@ class EditTextBox extends HookWidget {
               hintText: hintText,
               hintStyle: hintStyle ??
                   TextStyle(
-                      color: Theme.of(context).textTheme.displaySmall!.color),
+                    color: AppColors.text.placeholder,
+                  ),
               errorText: errorText,
               errorStyle: errorStyle,
               contentPadding: EdgeInsets.only(
@@ -132,7 +130,7 @@ class EditTextBox extends HookWidget {
               errorBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: errorStyle.color!,
+                  color: AppColors.role.danger,
                   width: borderWidth,
                   style: borderStyle,
                 ),
@@ -140,7 +138,7 @@ class EditTextBox extends HookWidget {
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.zero),
                 borderSide: BorderSide(
-                  color: errorStyle.color!,
+                  color: AppColors.role.danger,
                   width: borderWidth,
                   style: borderStyle,
                 ),

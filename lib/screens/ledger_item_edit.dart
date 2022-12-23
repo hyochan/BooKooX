@@ -6,6 +6,7 @@ import 'package:wecount/models/ledger_item_model.dart';
 import 'package:wecount/models/photo_model.dart';
 import 'package:wecount/screens/category_add.dart';
 import 'package:wecount/services/database.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
 import 'package:wecount/widgets/category_list.dart';
@@ -198,8 +199,7 @@ class LedgerItemEdit extends HookWidget {
                         localization(context).category,
                         style: TextStyle(
                           fontSize: 20,
-                          color:
-                              Theme.of(context).textTheme.displayLarge!.color,
+                          color: AppColors.text.basic,
                         ),
                       ),
                       IconButton(
@@ -209,7 +209,7 @@ class LedgerItemEdit extends HookWidget {
                     ],
                   ),
                 ),
-                Divider(height: 1, color: Theme.of(context).dividerColor),
+                Divider(height: 1, color: AppColors.text.disabled),
                 const SizedBox(height: 8),
                 Expanded(
                   child: CategoryList(categories: categories.value),
@@ -257,7 +257,7 @@ class LedgerItemEdit extends HookWidget {
             height: 56,
             decoration: BoxDecoration(
               border: Border.all(
-                color: asset.Colors.cloudyBlue,
+                color: AppColors.role.info,
                 width: 1.0,
               ),
             ),
@@ -269,11 +269,8 @@ class LedgerItemEdit extends HookWidget {
                       ? Icon(
                           icon,
                           color: active
-                              ? Theme.of(context).textTheme.displayLarge!.color
-                              : Theme.of(context)
-                                  .textTheme
-                                  .displayMedium!
-                                  .color,
+                              ? AppColors.text.basic
+                              : AppColors.text.disabled,
                         )
                       : Image(
                           image: image,
@@ -291,22 +288,16 @@ class LedgerItemEdit extends HookWidget {
                           text,
                           style: TextStyle(
                             color: active == true
-                                ? Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .color
-                                : Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!
-                                    .color,
+                                ? AppColors.text.basic
+                                : AppColors.text.basic,
                             fontSize: 16,
                           ),
                         ),
                       ),
                       showDropdown
-                          ? const Icon(
+                          ? Icon(
                               Icons.arrow_drop_down,
-                              color: asset.Colors.cloudyBlue,
+                              color: AppColors.role.info,
                             )
                           : const SizedBox(),
                     ],
@@ -349,8 +340,8 @@ class LedgerItemEdit extends HookWidget {
                     ),
                     Text(
                       localization(context).price,
-                      style: const TextStyle(
-                        color: asset.Colors.cloudyBlue,
+                      style: TextStyle(
+                        color: AppColors.role.info,
                         fontSize: 16,
                       ),
                     ),
@@ -361,11 +352,13 @@ class LedgerItemEdit extends HookWidget {
               /// PRICE INPUT
               Row(
                 children: <Widget>[
-                  const Text('- ',
-                      style: TextStyle(
-                        fontSize: 28,
-                        color: asset.Colors.carnation,
-                      )),
+                  Text(
+                    '- ',
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: AppColors.role.danger,
+                    ),
+                  ),
                   Expanded(
                     child: TextField(
                       onTap: () {
@@ -393,14 +386,14 @@ class LedgerItemEdit extends HookWidget {
                       controller: priceTextEditingController1,
                       keyboardType:
                           const TextInputType.numberWithOptions(decimal: true),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: '0',
-                        hintStyle: TextStyle(color: asset.Colors.carnation),
+                        hintStyle: TextStyle(color: AppColors.role.danger),
                       ),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 28,
-                        color: asset.Colors.carnation,
+                        color: AppColors.role.danger,
                       ),
                     ),
                   ),
@@ -503,8 +496,8 @@ class LedgerItemEdit extends HookWidget {
                     ),
                     Text(
                       localization(context).price,
-                      style: const TextStyle(
-                        color: asset.Colors.cloudyBlue,
+                      style: TextStyle(
+                        color: AppColors.role.info,
                         fontSize: 16,
                       ),
                     ),
@@ -518,7 +511,7 @@ class LedgerItemEdit extends HookWidget {
                   Text('+ ',
                       style: TextStyle(
                         fontSize: 28,
-                        color: Theme.of(context).textTheme.displayLarge!.color,
+                        color: AppColors.text.basic,
                       )),
                   Expanded(
                     child: TextField(
@@ -551,9 +544,9 @@ class LedgerItemEdit extends HookWidget {
                         border: InputBorder.none,
                         hintText: '0',
                       ),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 28,
-                        color: asset.Colors.mediumGray,
+                        color: AppColors.text.secondary,
                       ),
                     ),
                   ),
@@ -646,13 +639,13 @@ class LedgerItemEdit extends HookWidget {
                   shape: const CircleBorder(),
                   child: Icon(
                     Icons.add_box,
-                    color: Theme.of(context).textTheme.displayLarge!.color,
+                    color: AppColors.text.basic,
                   ),
                 ),
               ),
             ],
           ),
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: AppColors.bg.basic,
           body: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -661,18 +654,16 @@ class LedgerItemEdit extends HookWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: TabBar(
-                    unselectedLabelColor: asset.Colors.paleGray,
+                    unselectedLabelColor: AppColors.bg.paper,
                     isScrollable: true,
                     controller: tabController,
                     indicator: UnderlineTabIndicator(
-                      borderSide: BorderSide(
-                          color:
-                              Theme.of(context).textTheme.displayLarge!.color!,
-                          width: 4.0),
+                      borderSide:
+                          BorderSide(color: AppColors.text.basic, width: 4.0),
                       insets: const EdgeInsets.symmetric(horizontal: 8),
                     ),
-                    indicatorColor: Theme.of(context).colorScheme.background,
-                    labelColor: Theme.of(context).textTheme.displayLarge!.color,
+                    indicatorColor: AppColors.bg.basic,
+                    labelColor: AppColors.text.basic,
                     labelStyle: const TextStyle(
                       fontSize: 20,
                     ),
@@ -711,7 +702,7 @@ class LedgerItemEdit extends HookWidget {
           Positioned(
             child: CircularProgressIndicator(
               semanticsLabel: localization(context).loading,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: AppColors.role.primary,
               strokeWidth: 2,
               valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
             ),

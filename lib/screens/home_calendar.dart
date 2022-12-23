@@ -41,7 +41,7 @@ class HomeCalendar extends HookWidget {
         : null;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       body: CustomScrollView(
         slivers: <Widget>[
           HomeHeaderExpanded(
@@ -250,16 +250,13 @@ Widget renderCalendar({
     markedDateShowIcon: true,
     markedDateIconMaxShown: 1,
     markedDateIconBuilder: (event) {
-      return renderMarkedIcon(
-          color: Theme.of(context).colorScheme.secondary, context: context);
+      return renderMarkedIcon(color: AppColors.role.brand, context: context);
     },
 
     /// selected date
     selectedDayButtonColor: color,
     selectedDateTime: currentDate,
-    selectedDayTextStyle: const TextStyle(
-      color: Colors.white,
-    ),
+    selectedDayTextStyle: TextStyle(color: AppColors.button.primary.text),
 
     pageSnapping: true,
     weekFormat: false,
@@ -272,17 +269,14 @@ Widget renderCalendar({
     targetDateTime: targetDate,
 
     /// weekday
-    weekdayTextStyle: TextStyle(color: Theme.of(context).primaryColorLight),
-    weekendTextStyle: TextStyle(
-      color: Theme.of(context).primaryColorLight,
-    ),
-    daysTextStyle:
-        TextStyle(color: Theme.of(context).textTheme.displayLarge!.color),
-    todayBorderColor: Colors.green,
+    weekdayTextStyle: TextStyle(color: AppColors.role.primaryLight),
+    weekendTextStyle: TextStyle(color: AppColors.text.secondary),
+    daysTextStyle: TextStyle(color: AppColors.text.basic),
+    todayBorderColor: AppColors.role.brand,
     todayTextStyle: TextStyle(
       color: color,
     ),
-    todayButtonColor: Theme.of(context).highlightColor,
+    todayButtonColor: AppColors.role.light,
     minSelectedDate: DateTime(1970, 1, 1),
     maxSelectedDate: DateTime.now().add(const Duration(days: 3650)),
   );
@@ -292,9 +286,9 @@ Widget renderMarkedIcon({required Color color, required BuildContext context}) {
   return Stack(
     children: <Widget>[
       Positioned(
-        top: 7,
         right:
             MediaQuery.of(context).orientation == Orientation.portrait ? 0 : 15,
+        top: 7,
         height: 5,
         width: 5,
         child: CustomPaint(painter: DrawCircle(color: color)),

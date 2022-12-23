@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wecount/models/ledger_model.dart';
 import 'package:wecount/utils/asset.dart' as asset;
 import 'package:wecount/utils/localization.dart';
-import 'package:wecount/utils/colors.dart' show ColorType;
+import 'package:wecount/utils/colors.dart' show AppColors, ColorType;
 
 abstract class ListItem {}
 
@@ -104,7 +104,7 @@ class LedgerListItem extends StatelessWidget {
                           child: Text(
                             title!,
                             style: TextStyle(
-                              color: Theme.of(context).primaryColor,
+                              color: AppColors.role.primary,
                               fontSize: 20.0,
                             ),
                           ),
@@ -114,7 +114,7 @@ class LedgerListItem extends StatelessWidget {
                               ? '$people ${t("people")}'
                               : '$people ${t("person")}',
                           style: TextStyle(
-                            color: Theme.of(context).hintColor,
+                            color: AppColors.text.placeholder,
                             fontSize: 14.0,
                           ),
                         ),

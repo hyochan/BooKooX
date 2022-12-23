@@ -1,6 +1,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wecount/models/currency_model.dart';
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/logger.dart';
 
@@ -46,17 +47,17 @@ class SettingCurrency extends HookWidget {
         .toList();
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).iconTheme.color,
+        iconColor: AppColors.role.secondary,
         brightness: Theme.of(context).brightness,
         title: Text(
           localization(context).addLedger,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.displayLarge!.color,
+            color: AppColors.text.basic,
           ),
         ),
       ),

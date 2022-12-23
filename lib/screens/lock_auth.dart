@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart' show renderHeaderBack;
@@ -170,7 +171,7 @@ class LockAuth extends HookWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: Theme.of(context).textTheme.displayLarge!.color!,
+                color: AppColors.text.basic,
                 width: 2,
               ),
             ),
@@ -179,16 +180,16 @@ class LockAuth extends HookWidget {
             digit != null ? digit.toString() : '',
             style: TextStyle(
               fontSize: 30,
-              color: Theme.of(context).textTheme.displayLarge!.color,
+              color: AppColors.text.basic,
             ),
           ));
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Theme.of(context).iconTheme.color,
+        iconColor: AppColors.role.secondary,
         brightness: Theme.of(context).brightness,
         actions: null,
       ),
@@ -199,9 +200,7 @@ class LockAuth extends HookWidget {
             const SizedBox(height: 40),
             Text(
               localization(context).lockHint,
-              style: TextStyle(
-                  fontSize: 24,
-                  color: Theme.of(context).textTheme.displayMedium!.color),
+              style: TextStyle(fontSize: 24, color: AppColors.text.placeholder),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -219,8 +218,7 @@ class LockAuth extends HookWidget {
               onPressed: hasFingerPrintSupport.value ? authenticateMe : null,
               child: Text(
                 localization(context).fingerprintLogin,
-                style: TextStyle(
-                    color: Theme.of(context).textTheme.displayMedium!.color),
+                style: TextStyle(color: AppColors.text.placeholder),
               ),
               // shape: RoundedRectangleBorder(
               //   borderRadius: BorderRadius.circular(30),

@@ -59,7 +59,7 @@ class HomeList extends HookWidget {
           headerString,
           style: TextStyle(
             fontSize: 16,
-            color: Theme.of(context).textTheme.displayMedium!.color,
+            color: AppColors.bg.paper,
           ),
         ),
       );
@@ -91,7 +91,7 @@ class HomeList extends HookWidget {
         : ColorType.dusk;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: AppBar(
         toolbarHeight: 100,
         automaticallyImplyLeading: false,

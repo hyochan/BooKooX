@@ -7,6 +7,7 @@ import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/screens/main_empty.dart' show MainEmpty;
 import 'package:wecount/screens/tutorial.dart' show Tutorial;
 import 'package:wecount/services/database.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 
 class AuthSwitch extends StatelessWidget {
@@ -44,10 +45,10 @@ class AuthSwitch extends StatelessWidget {
                   body: Center(
                     child: CircularProgressIndicator(
                       semanticsLabel: localization(context).loading,
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: AppColors.role.primary,
                       strokeWidth: 2,
                       valueColor:
-                          const AlwaysStoppedAnimation<Color>(Colors.white),
+                          AlwaysStoppedAnimation<Color>(AppColors.bg.basic),
                     ),
                   ),
                 );

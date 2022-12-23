@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/logger.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -15,8 +16,8 @@ import 'package:wecount/utils/localization.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 
-class Setting extends HookWidget {
-  const Setting({Key? key}) : super(key: key);
+class Settings extends HookWidget {
+  const Settings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class Setting extends HookWidget {
     Future<void> readLockPinFromSF() async {
       SharedPreferences preference = await SharedPreferences.getInstance();
 
-      if (preference.containsKey('LOCK_PIN')) {
+      if (context.mounted && preference.containsKey('LOCK_PIN')) {
         pin.value = preference.getString('LOCK_PIN');
         lockSwitch.value = true;
 
@@ -45,15 +46,18 @@ class Setting extends HookWidget {
 
     useEffect(() {
       readLockPinFromSF();
+
       return null;
     }, []);
 
     void lockAuthAsync(BuildContext context) async {
       final result = await navigation.push(context, AppRoute.lockAuth.path);
 
-      if (lockSwitch.value == true && result == false) {
-        lockSwitch.value = false;
-        resetLockPinToSF();
+      if (context.mounted && result != null) {
+        if (lockSwitch.value == true && result == false) {
+          lockSwitch.value = false;
+          resetLockPinToSF();
+        }
       }
     }
 
@@ -67,9 +71,9 @@ class Setting extends HookWidget {
 
     final List<ListItem> items = [
       SettingItem(
-        const Icon(
+        Icon(
           Icons.announcement,
-          color: asset.Colors.cloudyBlue,
+          color: AppColors.role.info,
           size: 24,
         ),
         localization(context).announcement,
@@ -77,27 +81,27 @@ class Setting extends HookWidget {
             navigation.push(context, AppRoute.settingAnnouncement.path),
       ),
       SettingItem(
-        const Icon(
+        Icon(
           Icons.message,
-          color: asset.Colors.cloudyBlue,
+          color: AppColors.role.info,
           size: 24,
         ),
         localization(context).shareOpinion,
         onPressed: () => navigation.push(context, AppRoute.settingOpinion.path),
       ),
       SettingItem(
-        const Icon(
+        Icon(
           Icons.question_answer,
-          color: asset.Colors.cloudyBlue,
+          color: AppColors.role.info,
           size: 24,
         ),
         localization(context).faq,
         onPressed: () => navigation.push(context, AppRoute.settingFAQ.path),
       ),
       SettingItem(
-        const Icon(
+        Icon(
           Icons.notifications,
-          color: asset.Colors.cloudyBlue,
+          color: AppColors.role.info,
           size: 24,
         ),
         localization(context).notification,
@@ -105,9 +109,9 @@ class Setting extends HookWidget {
             navigation.push(context, AppRoute.settingNotification.path),
       ),
       SettingItem(
-        const Icon(
+        Icon(
           Icons.lock,
-          color: asset.Colors.cloudyBlue,
+          color: AppColors.role.info,
           size: 24,
         ),
         localization(context).lock,
@@ -115,13 +119,13 @@ class Setting extends HookWidget {
           inactiveTrackColor: asset.Colors.main,
           value: lockSwitch.value,
           onChanged: onChangeLock,
-          activeTrackColor: Theme.of(context).primaryColor,
-          activeColor: Theme.of(context).colorScheme.secondary,
+          activeTrackColor: AppColors.role.primary,
+          activeColor: AppColors.role.secondary,
         ),
       ),
       LogoutItem(
         localization(context).logout,
-        onPressed: () {
+        onPress: () {
           General.instance.showConfirmDialog(
             context,
             title: Text(localization(context).notification),
@@ -139,10 +143,10 @@ class Setting extends HookWidget {
     ];
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderBack(
         context: context,
-        iconColor: Theme.of(context).iconTheme.color,
+        iconColor: AppColors.role.secondary,
         brightness: Theme.of(context).brightness,
       ),
       body: SafeArea(
@@ -165,13 +169,13 @@ class Setting extends HookWidget {
                               EdgeInsets.all(0),
                             ),
                           ),
-                          onPressed: item.onPressed as void Function()?,
+                          onPressed: item.onPress,
                           child: Row(
                             children: <Widget>[
                               Text(
                                 item.title!,
-                                style: const TextStyle(
-                                  color: asset.Colors.carnation,
+                                style: TextStyle(
+                                  color: AppColors.role.danger,
                                   fontSize: 20,
                                 ),
                               ),
@@ -188,17 +192,17 @@ class Setting extends HookWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
               child: Row(
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     'Version ',
                     style: TextStyle(
-                      color: asset.Colors.cloudyBlue,
+                      color: AppColors.role.info,
                     ),
                   ),
                   Text(
                     '17.13(1246)',
                     style: TextStyle(
-                      color: asset.Colors.cloudyBlue,
+                      color: AppColors.role.info,
                     ),
                   ),
                 ],

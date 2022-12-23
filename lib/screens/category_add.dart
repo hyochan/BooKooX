@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wecount/models/ledger_item_model.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/widgets/edit_text_box.dart';
@@ -115,7 +116,7 @@ class CategoryAdd extends HookWidget {
                       localization(context).categoryAdd,
                       style: TextStyle(
                         fontSize: 28,
-                        color: Theme.of(context).textTheme.displayLarge!.color,
+                        color: AppColors.text.basic,
                       ),
                     ),
                   ),
@@ -136,18 +137,16 @@ class CategoryAdd extends HookWidget {
                           left: 24,
                           right: 8,
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.star,
                           size: 20,
-                          color: asset.Colors.mediumGray,
+                          color: AppColors.text.secondary,
                         ),
                       ),
                       Text(
                         localization(context).iconSelect,
-                        style: const TextStyle(
-                          color: asset.Colors.mediumGray,
-                          fontSize: 16,
-                        ),
+                        style: TextStyle(
+                            color: AppColors.text.secondary, fontSize: 16),
                       )
                     ],
                   ),
@@ -169,8 +168,7 @@ class CategoryAdd extends HookWidget {
                         localization(context).cancel,
                         style: TextStyle(
                           fontSize: 20,
-                          color:
-                              Theme.of(context).textTheme.displayLarge!.color,
+                          color: AppColors.text.basic,
                         ),
                       ),
                     ),
@@ -183,8 +181,7 @@ class CategoryAdd extends HookWidget {
                         localization(context).done,
                         style: TextStyle(
                           fontSize: 20,
-                          color:
-                              Theme.of(context).textTheme.displayLarge!.color,
+                          color: AppColors.text.basic,
                         ),
                       ),
                     ),

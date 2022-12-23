@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/navigation.dart';
 import 'package:wecount/utils/routes.dart';
-
-import 'package:wecount/widgets/button.dart' show Button;
 import 'package:wecount/utils/localization.dart';
-
-import '../widgets/home_header.dart' show renderHomeAppBar;
+import 'package:wecount/widgets/button.dart' show Button;
+import 'package:wecount/widgets/home_header.dart' show renderHomeAppBar;
 
 class MainEmpty extends HookWidget {
   const MainEmpty({
@@ -18,27 +17,28 @@ class MainEmpty extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHomeAppBar(
         context: context,
         title: '',
+        color: AppColors.role.primary,
         actions: [
           SizedBox(
             width: 56.0,
             child: RawMaterialButton(
               padding: const EdgeInsets.all(0.0),
               shape: const CircleBorder(),
-              onPressed: () => navigation.push(context, AppRoute.setting.path),
-              child: const Icon(
+              onPressed: () => navigation.push(context, AppRoute.settings.path),
+              child: Icon(
                 Icons.settings,
-                color: Colors.white,
+                color: AppColors.text.contrast,
               ),
             ),
           ),
         ],
       ),
       body: Container(
-        color: Theme.of(context).colorScheme.background,
+        color: AppColors.bg.basic,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +46,7 @@ class MainEmpty extends HookWidget {
           children: <Widget>[
             Icon(
               Icons.sentiment_dissatisfied,
-              color: Theme.of(context).primaryColorLight,
+              color: AppColors.role.primaryLight,
               size: 80,
             ),
             Container(
@@ -59,22 +59,22 @@ class MainEmpty extends HookWidget {
               child: Text(
                 localization(context).noLedgerDescription,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.displayLarge!.color,
+                  color: AppColors.text.basic,
                   fontSize: 20,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
             Button(
-              backgroundColor: Colors.transparent,
+              backgroundColor: AppColors.button.primary.bg,
               width: 160,
               height: 56,
               onPress: () =>
                   Navigator.of(context).pushNamed(AppRoute.ledgerEdit.fullPath),
               text: localization(context).addLedger,
               textStyle: TextStyle(
-                fontSize: 20,
-                color: Theme.of(context).textTheme.displayMedium!.color,
+                fontSize: 18,
+                color: AppColors.button.primary.text,
               ),
             ),
           ],

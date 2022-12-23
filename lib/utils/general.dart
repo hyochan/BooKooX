@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/exceptions.dart';
 import 'package:wecount/utils/localization.dart';
 import 'package:wecount/utils/logger.dart';
@@ -44,7 +45,7 @@ class General {
     Function? onPress,
   }) {
     TextStyle btnTextStyle = TextStyle(
-      color: Theme.of(context).textTheme.displayLarge!.color,
+      color: AppColors.text.basic,
       fontSize: 16,
     );
 
@@ -81,7 +82,7 @@ class General {
     Function? cancelPressed,
   }) {
     TextStyle btnTextStyle = TextStyle(
-      color: Theme.of(context).textTheme.displayLarge!.color,
+      color: AppColors.text.basic,
       fontSize: 16,
     );
     showDialog<void>(

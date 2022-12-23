@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/localization.dart';
 
 abstract class ListItem {}
@@ -96,10 +97,7 @@ class MemberListItem extends StatelessWidget {
                               user.email!,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .color,
+                                color: AppColors.text.secondary,
                               ),
                             ),
                           ),
@@ -125,7 +123,7 @@ class MemberListItem extends StatelessWidget {
                         : localization(context).guest,
                 style: TextStyle(
                   fontSize: 12,
-                  color: Theme.of(context).textTheme.displayLarge!.color,
+                  color: AppColors.text.basic,
                 ),
               ),
             ),

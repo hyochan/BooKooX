@@ -55,6 +55,8 @@ class LedgerEdit extends HookWidget {
           color: ColorType.dusk,
           adminIds: [],
           memberIds: [],
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
         );
         return;
       }
@@ -348,7 +350,7 @@ class LedgerEdit extends HookWidget {
                           child: Center(
                             child: CircularProgressIndicator(
                               semanticsLabel: localization(context).loading,
-                              backgroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: AppColors.role.primary,
                               strokeWidth: 2,
                               valueColor: const AlwaysStoppedAnimation<Color>(
                                   Colors.white),

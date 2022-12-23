@@ -19,7 +19,6 @@ import 'package:wecount/generated/l10n.dart' show S;
 import 'package:wecount/providers/current_ledger.dart';
 import 'package:wecount/utils/constants.dart';
 import 'package:wecount/utils/routes.dart';
-import 'package:wecount/utils/themes.dart';
 
 import './utils/localization.dart';
 
@@ -77,8 +76,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: Themes.light,
-        darkTheme: Themes.dark,
         localeResolutionCallback:
             (Locale? locale, Iterable<Locale> supportedLocales) {
           if (locale == null) {

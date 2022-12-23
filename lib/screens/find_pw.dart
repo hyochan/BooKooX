@@ -55,7 +55,7 @@ class FindPw extends HookWidget {
         localization(context).findPassword,
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.displayLarge!.color,
+          color: AppColors.text.basic,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -98,7 +98,7 @@ class FindPw extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.bg.defaultColor,
+      backgroundColor: AppColors.bg.basic,
       appBar: AppBar(elevation: 0.0),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),

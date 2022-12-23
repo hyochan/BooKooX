@@ -54,7 +54,7 @@ class HomeStatistic extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       body: const SafeArea(
         child: SizedBox(
           child: Center(
@@ -140,7 +140,7 @@ class Content extends HookWidget {
             centerTextStyle: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
-              color: Theme.of(context).textTheme.displayLarge!.color,
+              color: AppColors.text.basic,
             ),
             animationDuration: const Duration(milliseconds: 800),
             chartLegendSpacing: 32.0,
@@ -231,7 +231,7 @@ class ButtonGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var selectedColor = Theme.of(context).primaryColor;
+    var selectedColor = AppColors.role.primary;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),

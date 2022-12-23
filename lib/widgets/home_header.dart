@@ -1,6 +1,7 @@
 import 'package:wecount/models/ledger_model.dart';
 import 'package:flutter/material.dart';
 import 'package:wecount/utils/asset.dart' as asset;
+import 'package:wecount/utils/colors.dart';
 
 var _titlePadding =
     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
@@ -69,7 +70,7 @@ AppBar renderHomeAppBar({
       title: Text(
         title,
         style: TextStyle(
-          color: fontColor ?? Theme.of(context).textTheme.displayLarge!.color,
+          color: fontColor ?? AppColors.text.basic,
           fontSize: 16.0,
         ),
       ),

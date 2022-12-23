@@ -4,6 +4,7 @@ import 'package:wecount/repositories/user_repository.dart';
 import 'package:wecount/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fire_auth show User;
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
 
@@ -37,7 +38,7 @@ class ProfileMy extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderClose(
         context: context,
         brightness: Theme.of(context).brightness,
@@ -47,7 +48,7 @@ class ProfileMy extends HookWidget {
               Icons.save_alt,
               semanticLabel: localization(context).update,
             ),
-            color: Theme.of(context).textTheme.displayLarge!.color,
+            color: AppColors.text.basic,
             padding: const EdgeInsets.all(0.0),
             onPressed: onUpdateProfile,
           ),
@@ -108,8 +109,8 @@ class ProfileMy extends HookWidget {
                 iconData: Icons.email,
                 margin: const EdgeInsets.only(top: 24.0),
                 hintText: localization(context).email,
-                focusedColor: Theme.of(context).textTheme.displayLarge!.color,
-                enabledColor: Theme.of(context).textTheme.displayMedium!.color,
+                focusedColor: AppColors.text.basic,
+                enabledColor: AppColors.text.placeholder,
               ),
               EditTextBox(
                 controller: TextEditingController(
@@ -121,8 +122,8 @@ class ProfileMy extends HookWidget {
                 iconData: Icons.person_outline,
                 margin: const EdgeInsets.only(top: 8.0),
                 hintText: localization(context).nickname,
-                focusedColor: Theme.of(context).textTheme.displayLarge!.color,
-                enabledColor: Theme.of(context).textTheme.displayMedium!.color,
+                focusedColor: AppColors.text.basic,
+                enabledColor: AppColors.text.placeholder,
               ),
               EditTextBox(
                 controller: TextEditingController(
@@ -133,8 +134,8 @@ class ProfileMy extends HookWidget {
                 iconData: Icons.phone,
                 margin: const EdgeInsets.only(top: 8.0),
                 hintText: localization(context).phone,
-                focusedColor: Theme.of(context).textTheme.displayLarge!.color,
-                enabledColor: Theme.of(context).textTheme.displayMedium!.color,
+                focusedColor: AppColors.text.basic,
+                enabledColor: AppColors.text.placeholder,
               ),
               Container(
                 margin: const EdgeInsets.only(top: 32.0, bottom: 12.0),

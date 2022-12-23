@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/logger.dart';
 
 import '../utils/localization.dart';
@@ -16,17 +17,17 @@ class SettingExcel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).iconTheme.color,
+        iconColor: AppColors.role.secondary,
         brightness: Theme.of(context).brightness,
         title: Text(
           localization(context).exportExcel,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.displayLarge!.color,
+            color: AppColors.text.basic,
           ),
         ),
       ),

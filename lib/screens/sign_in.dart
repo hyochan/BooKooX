@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/colors.dart';
 
 import 'package:wecount/utils/general.dart';
 import 'package:wecount/utils/navigation.dart';
@@ -113,7 +114,7 @@ class SignIn extends HookWidget {
                   email.value,
                   style: TextStyle(
                     fontSize: 24,
-                    color: Theme.of(context).secondaryHeaderColor,
+                    color: AppColors.role.secondary,
                   ),
                 ),
               ),
@@ -132,7 +133,7 @@ class SignIn extends HookWidget {
                 },
                 text: localization(context).resendEmail,
                 textStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: AppColors.role.secondary,
                   fontSize: 16,
                 ),
               ),
@@ -157,7 +158,7 @@ class SignIn extends HookWidget {
         localization(context).signIn,
         style: TextStyle(
           fontSize: 24.0,
-          color: Theme.of(context).textTheme.displayLarge!.color,
+          color: AppColors.text.basic,
           fontWeight: FontWeight.w600,
         ),
       );
@@ -171,7 +172,7 @@ class SignIn extends HookWidget {
         label: localization(context).email,
         textHint: localization(context).emailHint,
         hasChecked: isValidEmail.value,
-        hintStyle: TextStyle(color: Theme.of(context).hintColor),
+        hintStyle: TextStyle(color: AppColors.text.placeholder),
         onChanged: (String str) {
           if (Validator.instance.validateEmail(str)) {
             isValidEmail.value = true;
@@ -225,7 +226,7 @@ class SignIn extends HookWidget {
           fontSize: 16.0,
         ),
         borderColor: Colors.white,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: AppColors.role.primary,
         text: localization(context).signIn,
         width: MediaQuery.of(context).size.width / 2 - 64,
         height: 56.0,
@@ -256,12 +257,12 @@ class SignIn extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: AppColors.bg.basic,
         iconTheme: IconThemeData(
-          color: Theme.of(context).textTheme.displayLarge!.color,
+          color: AppColors.text.basic,
         ),
       ),
       body: GestureDetector(

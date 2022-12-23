@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/colors.dart';
 
 class Terms extends HookWidget {
   const Terms({Key? key}) : super(key: key);
@@ -13,12 +14,12 @@ class Terms extends HookWidget {
         backgroundColor: Colors.white,
         systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
         iconTheme: IconThemeData(
-          color: Theme.of(context).primaryColor,
+          color: AppColors.role.primary,
         ),
         title: Text(
           'Terms',
           style: TextStyle(
-            color: Theme.of(context).primaryColor,
+            color: AppColors.role.primary,
           ),
         ),
       ),

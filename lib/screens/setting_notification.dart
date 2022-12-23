@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:wecount/utils/colors.dart';
 import 'package:wecount/utils/logger.dart';
 
 import 'package:wecount/widgets/header.dart';
@@ -25,17 +26,17 @@ class SettingNotification extends HookWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: AppColors.bg.basic,
       appBar: renderHeaderBack(
         centerTitle: false,
         context: context,
-        iconColor: Theme.of(context).iconTheme.color,
+        iconColor: AppColors.role.secondary,
         brightness: Theme.of(context).brightness,
         title: Text(
           localization(context).notification,
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).textTheme.displayLarge!.color,
+            color: AppColors.text.basic,
           ),
         ),
       ),
@@ -51,7 +52,7 @@ class SettingNotification extends HookWidget {
                     localization(context).addingLedgerItem,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      color: AppColors.text.basic,
                     ),
                   ),
                 ),
@@ -65,8 +66,8 @@ class SettingNotification extends HookWidget {
                     inactiveTrackColor: asset.Colors.main,
                     value: addLedgerSwitch.value,
                     onChanged: changeAddingLedgerSwitch,
-                    activeTrackColor: Theme.of(context).primaryColor,
-                    activeColor: Theme.of(context).colorScheme.secondary,
+                    activeTrackColor: AppColors.role.primary,
+                    activeColor: AppColors.role.secondary,
                   ),
                 ),
               ],
@@ -79,7 +80,7 @@ class SettingNotification extends HookWidget {
                     localization(context).updatingLedgerItem,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      color: AppColors.text.basic,
                     ),
                   ),
                 ),
@@ -93,8 +94,8 @@ class SettingNotification extends HookWidget {
                     inactiveTrackColor: asset.Colors.main,
                     value: updateLedgerSwitch.value,
                     onChanged: onChangeUpdateLedgerSwitch,
-                    activeTrackColor: Theme.of(context).primaryColor,
-                    activeColor: Theme.of(context).colorScheme.secondary,
+                    activeTrackColor: AppColors.role.primary,
+                    activeColor: AppColors.role.secondary,
                   ),
                 ),
               ],
