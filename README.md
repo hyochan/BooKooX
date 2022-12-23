@@ -35,7 +35,7 @@ cp .env.sample .env
   | Name             | Description                | required?    |
   |------------------|----------------------------|--------------|
   | GEO_API_KEY      | Google map api key         | yes          |
-  | API_KEY          | firebae api key            | yes          |
+  | API_KEY          | firebase api key            | yes          |
 
    - Google API KEY
      * [Installation](https://developers.google.com/maps/documentation/geocoding/get-api-key)
